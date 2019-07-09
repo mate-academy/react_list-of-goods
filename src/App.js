@@ -1,13 +1,16 @@
+/* eslint-disable react/no-unused-state */
+
 import React, { Component } from 'react'
 import goods from './api/goods'
 import './App.css'
+import GoodsList from './components/GoodsList'
 
 export default class App extends Component {
   state = {
     isLoaded: false,
     goods: [],
     currentGoods: [],
-    direction: 1,
+    direction: true,
     selectValue: 1,
   }
 
@@ -32,21 +35,22 @@ export default class App extends Component {
     }))
   }
 
-  handleSortAlphabet = () => {
-    this.setState(state => ({
-      direction: state.direction === 1 ? -1 : 1,
-      currentGoods: [...state.currentGoods].sort((a, b) => (
-        a.localeCompare(b) * state.direction
-      )),
-    }))
-  }
+  handleSort = (key) => {
+    const callback = {
+      alphabet: (a, b) => a.localeCompare(b),
+      length: (a, b) => a.length - b.length,
+    }
 
-  handleSortLength = () => {
+    const sortFunction = (items, direction) => {
+      const currentGoods = direction
+        ? [...items].sort(callback[key])
+        : [...items].sort(callback[key]).reverse()
+      return currentGoods
+    }
+
     this.setState(state => ({
-      direction: state.direction === 1 ? -1 : 1,
-      currentGoods: [...state.currentGoods].sort((a, b) => (
-        (a.length - b.length) * state.direction
-      )),
+      direction: !state.direction,
+      currentGoods: sortFunction(state.currentGoods, state.direction),
     }))
   }
 
@@ -72,59 +76,13 @@ export default class App extends Component {
                   Load
               </button>
             ) : (
-              <section>
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={this.handleReset}
-                >
-                  Reset
-                </button>
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={this.handleReverse}
-                >
-                  Reverse the array
-                </button>
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={this.handleSortAlphabet}
-                >
-                  Sort alphabetically
-                </button>
-                <button
-                  type="button"
-                  className="btn"
-                  onClick={this.handleSortLength}
-                >
-                  Sort by length
-                </button>
-                <select
-                  className="select-item"
-                  onChange={this.handleChange}
-                  value={this.state.selectValue}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-                <ul className="list">
-                  {
-                    this.state.currentGoods.map(good => (
-                      <li className="list-item">{good}</li>
-                    ))
-                  }
-                </ul>
-              </section>
+              <GoodsList
+                state={this.state}
+                handleReset={this.handleReset}
+                handleReverse={this.handleReverse}
+                handleChange={this.handleChange}
+                handleSort={this.handleSort}
+              />
             )
         }
       </section>
