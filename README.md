@@ -1,7 +1,7 @@
 # React list of goods
 
 ## Demo link
-[DEMO LINK](https://danheim.github.io/react_list-of-goods)
+[DEMO LINK](https://danheim.github.io/react_list-of-goods/)
 
 
 ## Task 
