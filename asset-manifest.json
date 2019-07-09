@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/react_list-of-goods/static/js/main.7d9f1db6.chunk.js",
+    "main.js.map": "/react_list-of-goods/static/js/main.7d9f1db6.chunk.js.map",
+    "runtime~main.js": "/react_list-of-goods/static/js/runtime~main.14fd7ef8.js",
+    "runtime~main.js.map": "/react_list-of-goods/static/js/runtime~main.14fd7ef8.js.map",
+    "static/js/2.3310f33a.chunk.js": "/react_list-of-goods/static/js/2.3310f33a.chunk.js",
+    "static/js/2.3310f33a.chunk.js.map": "/react_list-of-goods/static/js/2.3310f33a.chunk.js.map",
+    "index.html": "/react_list-of-goods/index.html",
+    "precache-manifest.d1a60a28eda3e5f773fa801cba116629.js": "/react_list-of-goods/precache-manifest.d1a60a28eda3e5f773fa801cba116629.js",
+    "service-worker.js": "/react_list-of-goods/service-worker.js"
+  }
+}
