@@ -1,0 +1,12 @@
+.goods {
+  width: 1180px;
+  margin: 0 auto;
+}
+.goods__list {
+  list-style-type: none;
+}
+.goods .form-control {
+  width: 200px;
+}
+
+/*# sourceMappingURL=App.css.map */
