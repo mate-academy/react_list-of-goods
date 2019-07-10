@@ -21,6 +21,8 @@ class App extends React.Component {
       isStarted: false,
       goodsConst: [],
       goodsCurrent: [],
+      choosenValue: 0,
+      constValue: 0,
     };
   }
 
@@ -34,7 +36,10 @@ class App extends React.Component {
 
   handleResert = () => {
     this.setState(
-      prevState => ({ goodsCurrent: prevState.goodsConst })
+      prevState => ({
+        goodsCurrent: prevState.goodsConst,
+        choosenValue: prevState.constValue,
+      })
     );
   }
 
@@ -55,6 +60,18 @@ class App extends React.Component {
       prevState => ({
         goodsCurrent: [...prevState.goodsCurrent].sort(
           (a, b) => a.length - b.length
+        ),
+      })
+    );
+  }
+
+  filterByNumber = (event) => {
+    const { value } = event.target;
+    this.setState(
+      prevState => ({
+        choosenValue: value,
+        goodsCurrent: [...prevState.goodsCurrent].filter(
+          good => good.length >= value
         ),
       })
     );
@@ -83,6 +100,19 @@ class App extends React.Component {
         <ul>
           {this.state.goodsCurrent.map(good => (<li>{good}</li>))}
         </ul>
+        <select value={this.state.choosenValue} onChange={this.filterByNumber}>
+          <option value="0">Choose a number</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
       </div>
     );
   }
