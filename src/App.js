@@ -14,6 +14,10 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+// const sortByAlphabet = arr => {
+//   arr.sort();
+// }
+
 class App extends React.Component {
   state = {
     goods: [],
@@ -41,6 +45,12 @@ class App extends React.Component {
     });
   };
 
+  handleSortAlphabetically = () => {
+    this.setState({
+      goods: goodsFromServer.sort(),
+    });
+  };
+
   render() {
     return (
       <main>
@@ -48,6 +58,7 @@ class App extends React.Component {
           <GoodsList
             allGoods={this.state.goods}
             handleRevers={this.handleRevers}
+            handleSortAlphabetically={this.handleSortAlphabetically}
           />
         ) : (
           <button
