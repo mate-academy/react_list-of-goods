@@ -61,6 +61,7 @@ sortByLength = () => {
 sortReset = () => {
   this.setState ({
     goods: this.state.goodsCurrent,
+    selectedNumber: 1,
   });
 };
 
