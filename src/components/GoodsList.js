@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GoodsList = ({ allGoods }) => (
-  <ul>
-    {allGoods.map(goodsItem => (
-      <li>
-        {goodsItem}
-      </li>
-    ))}
-  </ul>
+const GoodsList = ({ allGoods, handleRevers }) => (
+  <div>
+    <button onClick={handleRevers} type="button">Reverse</button>
+    <ul>
+      {allGoods.map(goodsItem => (
+        <li>
+          {goodsItem}
+        </li>
+      ))}
+    </ul>
+  </div>
+
 );
 
 GoodsList.propTypes = {
@@ -16,6 +20,7 @@ GoodsList.propTypes = {
     goodsItem: PropTypes.string,
     map: PropTypes.func,
   }).isRequired,
+  handleRevers: PropTypes.func.isRequired,
 };
 
 export default GoodsList;

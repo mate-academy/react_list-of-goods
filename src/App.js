@@ -14,6 +14,11 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const reverseGoods = (arr) => {
+  const reversedGoosd = [...arr].reverse();
+  return reversedGoosd;
+};
+
 class App extends React.Component {
   state = {
     goods: [],
@@ -32,7 +37,13 @@ class App extends React.Component {
         isLoaded: true,
         isLoading: false,
       });
-    }, 0);
+    }, 1000);
+  };
+
+  handleRevers = () => {
+    this.setState({
+      goods: reverseGoods(goodsFromServer),
+    });
   };
 
   render() {
@@ -41,6 +52,7 @@ class App extends React.Component {
         { this.state.isLoaded ? (
           <GoodsList
             allGoods={this.state.goods}
+            handleRevers={this.handleRevers}
           />
         ) : (
           <button
