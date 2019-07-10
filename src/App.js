@@ -56,7 +56,7 @@ class App extends React.Component {
     const { value } = event.target;
     this.setState(prevGood => ({
       valueChange: value,
-      visiblegoods: selectElem(prevGood.visiblegoods, value),
+      visiblegoods: selectElem(goodsFromServer, value),
     }));
   };
 
