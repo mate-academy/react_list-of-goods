@@ -1,5 +1,5 @@
 {
-  "homepage": "https://mate-academy.github.io/react_list-of-goods",
+  "homepage": "https://tarasulo.github.io/react_list-of-goods",
   "name": "react_list-of-goods",
   "version": "0.1.0",
   "private": true,
@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .jsx,.js ./src/",
+    "lint": "eslint --ext .jsx,.js ./src/ --fix",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
