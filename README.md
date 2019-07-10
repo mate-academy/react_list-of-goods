@@ -3,7 +3,7 @@
 COMPLETED ALL 1-7
 
 ## Demo link
-Add link here: `[DEMO LINK](https://djkamry22.github.io/react_list-of_goods/)`
+Add link here: `[DEMO LINK] - (https://djkamry22.github.io/react_list-of_goods/)`
 
 
 ## Task

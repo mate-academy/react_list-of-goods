@@ -43,7 +43,7 @@ class App extends React.Component {
 
   sortByLength = () => {
     this.setState(prevState => ({
-      goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
