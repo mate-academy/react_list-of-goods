@@ -19,16 +19,45 @@ class App extends React.Component {
     super();
     this.state = {
       isStarted: false,
+      goodsConst: [],
       goodsCurrent: [],
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({
       isStarted: true,
+      goodsConst: goodsFromServer,
       goodsCurrent: goodsFromServer,
     });
+  }
+
+  handleResert = () => {
+    this.setState(
+      prevState => ({ goodsCurrent: prevState.goodsConst })
+    );
+  }
+
+  handleReverse = () => {
+    this.setState(
+      prevState => ({ goodsCurrent: [...prevState.goodsCurrent].reverse() })
+    );
+  }
+
+  handleSortAlphabet = () => {
+    this.setState(
+      prevState => ({ goodsCurrent: [...prevState.goodsCurrent].sort() })
+    );
+  }
+
+  handleSortByLength = () => {
+    this.setState(
+      prevState => ({
+        goodsCurrent: [...prevState.goodsCurrent].sort(
+          (a, b) => a.length - b.length
+        ),
+      })
+    );
   }
 
   render() {
@@ -38,10 +67,21 @@ class App extends React.Component {
       );
     }
     return (
-
       <div className="App">
+        <button onClick={this.handleReverse} type="button">
+          Reverse
+        </button>
+        <button onClick={this.handleSortAlphabet} type="button">
+          Sort alphabetically
+        </button>
+        <button onClick={this.handleResert} type="button">
+          Resert
+        </button>
+        <button onClick={this.handleSortByLength} type="button">
+          Sort by length
+        </button>
         <ul>
-          {this.state.goodsCurrent.map(item => (<li>{item}</li>))}
+          {this.state.goodsCurrent.map(good => (<li>{good}</li>))}
         </ul>
       </div>
     );
