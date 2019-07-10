@@ -21,6 +21,7 @@ class App extends React.Component {
     goods: [],
     isLoaded: false,
     isLoading: false,
+    selectVal: '1',
   };
 
   handleClick = () => {
@@ -58,11 +59,13 @@ class App extends React.Component {
   handleClear = () => {
     this.setState({
       goods: goodsFromServer,
+      selectVal: '1',
     });
   };
 
   filterByLength = (event) => {
     this.setState({
+      selectVal: event.target.value,
       goods: copyOfGoods.filter(a => a.length >= event.target.value),
     });
   };
@@ -78,6 +81,7 @@ class App extends React.Component {
             handleSortByLength={this.handleSortByLength}
             handleClear={this.handleClear}
             filterByLength={this.filterByLength}
+            selectValue={this.state.selectVal}
           />
         ) : (
           <button

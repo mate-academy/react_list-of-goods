@@ -8,6 +8,7 @@ const GoodsList = ({
   handleSortByLength,
   handleClear,
   filterByLength,
+  selectValue,
 }) => (
   <div>
     <button onClick={handleReverse} type="button">Reverse</button>
@@ -20,7 +21,7 @@ const GoodsList = ({
     <button onClick={handleSortByLength} type="button">Sort by length</button>
     <button onClick={handleClear} type="button">Reset</button>
 
-    <select onChange={filterByLength}>
+    <select onChange={filterByLength} value={selectValue}>
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -44,15 +45,13 @@ const GoodsList = ({
 );
 
 GoodsList.propTypes = {
-  allGoods: PropTypes.shape({
-    goodsItem: PropTypes.string,
-    map: PropTypes.func,
-  }).isRequired,
+  allGoods: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleReverse: PropTypes.func.isRequired,
   handleSortAlphabetically: PropTypes.func.isRequired,
   handleSortByLength: PropTypes.func.isRequired,
   handleClear: PropTypes.func.isRequired,
   filterByLength: PropTypes.func.isRequired,
+  selectValue: PropTypes.string.isRequired,
 };
 
 export default GoodsList;
