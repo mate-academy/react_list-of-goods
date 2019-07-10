@@ -14,10 +14,6 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-// const sortByAlphabet = arr => {
-//   arr.sort();
-// }
-
 class App extends React.Component {
   state = {
     goods: [],
