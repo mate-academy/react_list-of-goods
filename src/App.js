@@ -51,15 +51,19 @@ class App extends React.Component {
 
   handleSortByLength = () => {
     this.setState({
-      goods: copyOfGoods.sort((a, b) => {
-        return a.length - b.length;
-      }),
+      goods: copyOfGoods.sort((a, b) => a.length - b.length),
     });
   };
 
   handleClear = () => {
     this.setState({
       goods: goodsFromServer,
+    });
+  };
+
+  filterByLength = (event) => {
+    this.setState({
+      goods: copyOfGoods.filter(a => a.length >= event.target.value),
     });
   };
 
@@ -73,6 +77,7 @@ class App extends React.Component {
             handleSortAlphabetically={this.handleSortAlphabetically}
             handleSortByLength={this.handleSortByLength}
             handleClear={this.handleClear}
+            filterByLength={this.filterByLength}
           />
         ) : (
           <button
