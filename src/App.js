@@ -16,12 +16,12 @@ const goodsFromServer = [
 const getReverse = ({ goods }) => {
   return [...goods].reverse();
 };
-const getSortAlphabetically = ({ goods }) => {
-  return [...goods].sort();
+const getSortAlphabetically = ({ goods, direction }) => {
+  return [...goods].sort((a, b) => direction * (a.length - b.length));
 };
-const getSortByLength = ({ goods }) => {
+const getSortByLength = ({ goods, direction }) => {
   return [...goods]
-    .sort((a, b) => (a.length - b.length));
+    .sort((a, b) => direction * (a.length - b.length));
 };
 
 class App extends Component {
@@ -51,10 +51,11 @@ class App extends Component {
     });
   };
 
-  handleClickAlphabetically = (direction) => {
+  handleClickAlphabetically = () => {
     this.setState(prevState => {
       return {
         goods: getSortAlphabetically(prevState),
+        direction: prevState.direction === 1 ? -1 : 1,
       };
     });
   };
@@ -67,6 +68,7 @@ class App extends Component {
     this.setState(prevState => {
       return {
         goods: getSortByLength(prevState),
+        direction: prevState.direction === 1 ? -1 : 1,
       };
     });
   };
@@ -101,13 +103,15 @@ class App extends Component {
         <button
           type="submit"
           className="btn btn-primary mt-5 mb-5 mr-3"
-          onClick={this.handleClickReverse}>
+          onClick={this.handleClickReverse}
+        >
           Reverse
         </button>
         <button
           type="submit"
           className="btn btn-primary mt-5 mb-5 mr-3"
-          onClick={this.handleClickAlphabetically}>
+          onClick={this.handleClickAlphabetically}
+        >
           Alphabetically
         </button>
         <button
