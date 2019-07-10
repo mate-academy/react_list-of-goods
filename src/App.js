@@ -11,7 +11,7 @@ export default class App extends Component {
     goods: [],
     currentGoods: [],
     direction: true,
-    selectValue: 1,
+    selectedValue: 1,
   }
 
   handleLoad = () => {
