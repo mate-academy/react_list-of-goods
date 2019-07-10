@@ -46,7 +46,7 @@ class App extends React.Component {
     const { value } = event.target;
     this.setState(prevState => ({
       filterLength: value,
-      goods: [...prevState.goods].filter(
+      goods: [...prevState.initialGoods].filter(
         good => good.length >= +value
       ),
     }));
