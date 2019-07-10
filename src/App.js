@@ -14,17 +14,26 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const sortForGoods = arr => [...arr].reverse();
+
 class App extends React.Component {
   state = {
-    goods: [],
+    // goods: [],
     isLoaded: false,
-    // visiblegoods: [],
+    visiblegoods: [...goodsFromServer],
+  };
+
+  sortByReverse = () => {
+    this.setState(prevGood => ({
+      visiblegoods: sortForGoods(prevGood.visiblegoods),
+    }));
   };
 
   loadClick = () => {
     this.setState({
       isLoaded: true,
-      goods: goodsFromServer,
+      // goods: [...goodsFromServer],
+      visiblegoods: [...goodsFromServer],
     });
   };
 
@@ -32,10 +41,11 @@ class App extends React.Component {
     return (
       <div className="App">
         { this.state.isLoaded ? (
-          <div>
+          <div className="App__wrapp">
             <h1>Goods</h1>
-            <button type="button" onClick={this.sortBy}>sortBy</button>
-            <GoodsList goods={this.state.goods} />
+            <button type="button" onClick={this.sortByReverse}>Reverse</button>
+
+            <GoodsList goods={this.state.visiblegoods} />
           </div>
         ) : (
           <div>
