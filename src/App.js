@@ -1,6 +1,4 @@
 import React from 'react';
-import GoodList from './GoodList';
-import LoadButton from "./LoadButton";
 import './App.css'
 
 const goodsFromServer = [
@@ -21,21 +19,75 @@ class App extends React.Component {
   state = {
     isLoaded: false,
     goods: [],
-    goodsCopy: goodsFromServer,
+    goodsCopy: [],
   }
 
   handleOnClick = () => {
     this.setState({
-      goods: goodsFromServer,
-      goodsCopy: goodsFromServer,
+      goods: [...goodsFromServer],
+      goodsCopy: [...goodsFromServer],
       isLoaded: true,
-    })
+    });
   }
+  reverseGoods = () => {
+    this.setState(prevState => ({
+      goodsCopy: prevState.goodsCopy.reverse(),
+    }
+    ));
+  }
+
+  sortAlphabetical = () => {
+    this.setState(prevState => ({
+      goodsCopy: prevState.goodsCopy.sort(
+        (a, b) => a.localeCompare(b)
+      ),
+    }
+    ));
+  }
+
+  sortByLength = () => {
+    this.setState(prevState => ({
+      goodsCopy: prevState.goodsCopy.sort(
+        (a, b) => b.length - a.length
+      ),
+    }
+    ));
+  }
+
+  resetGoods = () => {
+    this.setState(prevState => ({
+      goodsCopy: prevState.goods,
+    }
+    ));
+  }
+
   render() {
     return (
       <div className="App">
-        <LoadButton onClick={this.handleOnClick} />
-          <GoodList goods={this.state.goodsCopy} key ={this.state.goodsCopy} />
+        {!this.state.isLoaded && (
+          <button className='btn' type='button'
+            onClick={this.handleOnClick}>Load</button>
+        )}
+        {this.state.isLoaded && (
+          <div>
+              <button className='btn' type='button'
+              onClick={this.reverseGoods}>reverse</button>
+
+              <button className='btn' type='button'
+              onClick={this.sortAlphabetical}>alphabetical</button>
+
+              <button className='btn btr' type='button'
+              onClick={this.resetGoods}>reset</button>
+
+              <button className='btn' type='button'
+              onClick={this.sortByLength}>by length</button>
+
+            {this.state.goodsCopy.map(good => (
+              <li key={good}>{good}</li>
+            ))}
+
+          </div>
+        )}
       </div>
     )
   }

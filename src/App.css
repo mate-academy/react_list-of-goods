@@ -2,12 +2,36 @@ body {
   background-color: whitesmoke;
 }
 
+.App {
+  width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+
 ul {
   display: none;
   max-width: 50px;
   margin: 0 auto;
 }
 
-.load-Button:hover {
+li {
+  list-style-type:none;
+}
+
+.btn {
+  width: 90px;
+  height: 40px;
+  border: 2px solid black;
+  background-color: white;
+  margin: 5px;
+}
+
+.btr {
+  background-color: rgb(77, 10, 10);
+  color: white;
+}
+
+.btn:hover {
   cursor: pointer;
 }
+
