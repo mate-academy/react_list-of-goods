@@ -1,13 +1,13 @@
 import React from 'react';
 
 import goods from './api/goods';
-import Product from './Product';
-
 import './style.css';
 
-const isReverse = arr => [...arr].reverse();
-const isAlphabeticallySort = arr =>[...arr].sort();
-const isSortedByLength = arr =>
+const getReverse = arr => [...arr].reverse();
+
+const getSortAlphabet = arr => [...arr].sort();
+
+const getSortByLength = arr =>
   [...arr].sort((a, b) => b.length - a.length);
 
 class App extends React.Component {
@@ -16,45 +16,45 @@ class App extends React.Component {
     visibleGoods: [],
     productLength: 1,
     isLoaded: false,
-    isLoading: false
+    isLoading: false,
   };
 
   handleClick = () => {
     this.setState({
-      isLoading: true
+      isLoading: true,
     });
 
     setTimeout(() => {
       this.setState({
         goods: [...goods],
         visibleGoods: [...goods],
-        isLoaded: true
+        isLoaded: true,
       });
     }, 2000);
   };
 
   reverseClick = () => {
     this.setState(prevState => ({
-      visibleGoods: isReverse(prevState.visibleGoods)
+      visibleGoods: getReverse(prevState.visibleGoods),
     }));
   };
 
   alphabeticallClick = () => {
     this.setState(prevState => ({
-      visibleGoods: isAlphabeticallySort(prevState.visibleGoods)
+      visibleGoods: getSortAlphabet(prevState.visibleGoods),
     }));
   };
 
   lengthClick = () => {
     this.setState(prevState => ({
-      visibleGoods: isSortedByLength(prevState.visibleGoods)
+      visibleGoods: getSortByLength(prevState.visibleGoods),
     }));
   };
 
   resetClick = () => {
     this.setState(prevState => ({
       visibleGoods: prevState.goods,
-      productLength: 1
+      productLength: 1,
     }));
   };
 
@@ -63,7 +63,7 @@ class App extends React.Component {
       productLength: event.target.value,
       visibleGoods: goods.filter(
         prod => prod.length >= Number(event.target.value)
-      )
+      ),
     });
   };
 
@@ -104,7 +104,9 @@ class App extends React.Component {
             </div>
             <ul className="list">
               {this.state.visibleGoods.map(item => (
-                <Product product={item} />
+                <li>
+                  {item}
+                </li>
               ))}
             </ul>
           </>
@@ -114,7 +116,7 @@ class App extends React.Component {
             type="button"
             onClick={this.handleClick}
           >
-            {this.state.isLoading ? "Loading..." : "Load"}
+            {this.state.isLoading ? 'Loading...' : 'Load'}
           </button>
         )}
       </div>
