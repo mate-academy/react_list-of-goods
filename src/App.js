@@ -14,11 +14,6 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const reverseGoods = (arr) => {
-  const reversedGoosd = [...arr].reverse();
-  return reversedGoosd;
-};
-
 class App extends React.Component {
   state = {
     goods: [],
@@ -42,7 +37,7 @@ class App extends React.Component {
 
   handleRevers = () => {
     this.setState({
-      goods: reverseGoods(goodsFromServer),
+      goods: goodsFromServer.reverse(),
     });
   };
 
