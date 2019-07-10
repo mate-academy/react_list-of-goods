@@ -2,11 +2,12 @@ import React from 'react';
 
 function GoodsList({ goods }) {
   return (
-    <ul>
+    <div>
+      <ul>
         {goods.map(good => (
           <li>{good}</li>))}
-
-    </ul>
+      </ul>
+    </div>
   );
 }
 

@@ -49,10 +49,10 @@ class App extends React.Component {
 
   handleChange = (event) => {
     const { value } = event.target;
-    this.setState(prevState => ({
+    this.setState({
       selectValue: value,
       goods: goodsFromServer.filter(good => good.length >= value),
-    }));
+    });
   }
 
   resetAll = () => {
