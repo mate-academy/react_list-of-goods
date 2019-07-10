@@ -41,12 +41,11 @@ export default class App extends Component {
       length: (a, b) => a.length - b.length,
     }
 
-    const sortFunction = (items, direction) => {
-      const currentGoods = direction
+    const sortFunction = (items, direction) => (
+      direction
         ? [...items].sort(callback[key])
         : [...items].sort(callback[key]).reverse()
-      return currentGoods
-    }
+    )
 
     this.setState(state => ({
       direction: !state.direction,
