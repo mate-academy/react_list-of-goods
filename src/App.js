@@ -17,7 +17,9 @@ const goodsFromServer = [
 const sortForGoodsReverse = arr => [...arr].reverse();
 const alphabeticallySort = arr => [...arr].sort((a, b) => a.localeCompare(b));
 const sortByLenght = arr => [...arr].sort((a, b) => a.length - b.length);
-const selectElem = (arr, n) => [...arr.slice(n, 10)];
+const selectElem = (arr, n) => (
+  [...arr].filter(a => a.length >= n)
+);
 
 class App extends React.Component {
   state = {
