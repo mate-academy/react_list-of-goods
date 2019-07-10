@@ -35,7 +35,7 @@ class App extends React.Component {
     }, 1000);
   };
 
-  handleRevers = () => {
+  handleReverse = () => {
     this.setState({
       goods: goodsFromServer.reverse(),
     });
@@ -47,14 +47,23 @@ class App extends React.Component {
     });
   };
 
+  handleSortByLength = () => {
+    this.setState({
+      goods: goodsFromServer.sort((a, b) => {
+        return a.length - b.length;
+      }),
+    })
+  }
+
   render() {
     return (
       <main>
         { this.state.isLoaded ? (
           <GoodsList
             allGoods={this.state.goods}
-            handleRevers={this.handleRevers}
+            handleReverse={this.handleReverse}
             handleSortAlphabetically={this.handleSortAlphabetically}
+            handleSortByLength={this.handleSortByLength}
           />
         ) : (
           <button

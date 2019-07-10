@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GoodsList = ({ allGoods, handleRevers, handleSortAlphabetically }) => (
+const GoodsList = ({ allGoods, handleReverse, handleSortAlphabetically, handleSortByLength }) => (
   <div>
-    <button onClick={handleRevers} type="button">Reverse</button>
+    <button onClick={handleReverse} type="button">Reverse</button>
     <button onClick={handleSortAlphabetically} type="button">Sort alphabetically</button>
+    <button onClick={handleSortByLength} type="button">Sort by length</button>
     <ul>
       {allGoods.map(goodsItem => (
         <li>
@@ -21,7 +22,7 @@ GoodsList.propTypes = {
     goodsItem: PropTypes.string,
     map: PropTypes.func,
   }).isRequired,
-  handleRevers: PropTypes.func.isRequired,
+  handleReverse: PropTypes.func.isRequired,
 };
 
 export default GoodsList;
