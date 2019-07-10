@@ -14,25 +14,43 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const sortForGoods = arr => [...arr].reverse();
+const sortForGoodsReverse = arr => [...arr].reverse();
+const alphabeticallySort = arr => [...arr].sort((a, b) => a.localeCompare(b));
+const sortByLenght = arr => [...arr].sort((a, b) => a.length - b.length);
 
 class App extends React.Component {
   state = {
-    // goods: [],
     isLoaded: false,
     visiblegoods: [...goodsFromServer],
   };
 
   sortByReverse = () => {
     this.setState(prevGood => ({
-      visiblegoods: sortForGoods(prevGood.visiblegoods),
+      visiblegoods: sortForGoodsReverse(prevGood.visiblegoods),
+    }));
+  };
+
+  sortByAlphabetically = () => {
+    this.setState(prevGood => ({
+      visiblegoods: alphabeticallySort(prevGood.visiblegoods),
+    }));
+  };
+
+  sortByReset = () => {
+    this.setState(prevGood => ({
+      visiblegoods: [...goodsFromServer],
+    }));
+  };
+
+  sortByLength = () => {
+    this.setState(prevGood => ({
+      visiblegoods: sortByLenght(prevGood.visiblegoods),
     }));
   };
 
   loadClick = () => {
     this.setState({
       isLoaded: true,
-      // goods: [...goodsFromServer],
       visiblegoods: [...goodsFromServer],
     });
   };
@@ -44,7 +62,14 @@ class App extends React.Component {
           <div className="App__wrapp">
             <h1>Goods</h1>
             <button type="button" onClick={this.sortByReverse}>Reverse</button>
-
+            <button
+              type="button"
+              onClick={this.sortByAlphabetically}
+            >
+                Alphabetically
+            </button>
+            <button type="button" onClick={this.sortByReset}>Reset</button>
+            <button type="button" onClick={this.sortByLength}>byLength</button>
             <GoodsList goods={this.state.visiblegoods} />
           </div>
         ) : (
