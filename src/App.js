@@ -13,6 +13,7 @@ class App extends React.Component {
     lengthKey: 'length',
     alphabetKey: 'alphabet',
     currentKey: '',
+    filterLength: 1,
   };
 
   handleClick = () => {
@@ -41,6 +42,16 @@ class App extends React.Component {
     }));
   };
 
+  filterByLength = (event) => {
+    const { value } = event.target;
+    this.setState(prevState => ({
+      filterLength: value,
+      goods: [...prevState.goods].filter(
+        good => good.length >= +value
+      ),
+    }));
+  }
+
   returnInitial = () => {
     this.setState(prevState => ({
       goods: [...prevState.initialGoods],
@@ -49,7 +60,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { goods, isLoaded } = this.state;
+    const { goods, isLoaded, filterLength } = this.state;
 
     return (
       <div className="App">
@@ -58,24 +69,50 @@ class App extends React.Component {
             <>
               <h1>Goods 1</h1>
 
-              <button type="button" onClick={this.reverseGoods}>
-                Reverse
-              </button>
+              <div className="changing=buttons">
+                <button type="button" onClick={this.reverseGoods}>
+                  Reverse
+                </button>
 
-              <button
-                type="button"
-                onClick={() => this.sortAlphabetically('alphabet')}
-              >
-                Sort alphabetically
-              </button>
+                <button
+                  type="button"
+                  onClick={() => this.sortAlphabetically('alphabet')}
+                >
+                  Sort alphabetically
+                </button>
 
-              <button type="button" onClick={() => this.sortByLength('length')}>
-                Sort by length
-              </button>
+                <button
+                  type="button"
+                  onClick={() => this.sortByLength('length')}
+                >
+                  Sort by length
+                </button>
 
-              <button type="button" onClick={this.returnInitial}>
-                Reset
-              </button>
+                <label htmlFor="length-filter">
+                  Max length of the word:
+                  <select
+                    id="length-filter"
+                    name="length-filter"
+                    onChange={this.filterByLength}
+                    value={filterLength}
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="20">10</option>
+                  </select>
+                </label>
+
+                <button type="button" onClick={this.returnInitial}>
+                  Reset
+                </button>
+              </div>
 
               <ListOfGoods goods={goods} />
             </>
