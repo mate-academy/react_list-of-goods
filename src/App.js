@@ -56,6 +56,7 @@ class App extends React.Component {
     this.setState(prevState => ({
       goods: [...prevState.initialGoods],
       currentKey: '',
+      filterLength: 1,
     }));
   };
 
