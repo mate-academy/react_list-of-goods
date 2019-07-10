@@ -21,31 +21,27 @@ const getSortAlphabetically = ({ goods }) => {
 };
 const getSortByLength = ({ goods }) => {
   return [...goods]
-    .sort((a, b) => a.length - b.length)
-    .reverse();
+    .sort((a, b) => (a.length - b.length));
 };
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      goods: [...goodsFromServer],
-      loadGoods: false,
-      isLoading: false,
-      wordLength: 1,
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+  state = {
+    goods: [...goodsFromServer],
+    loadGoods: false,
+    isLoading: false,
+    wordLength: 1,
+    direction: 1,
+  };
 
-    loadGoods = async() => {
-      this.setState({
-        isLoading: true,
-      });
-      this.setState(prevState => ({
-        loadGoods: true,
-        isLoading: false,
-      }));
-    };
+  loadGoods = async() => {
+    this.setState({
+      isLoading: true,
+    });
+    this.setState(prevState => ({
+      loadGoods: true,
+      isLoading: false,
+    }));
+  };
 
   handleClickReverse = () => {
     this.setState(prevState => {
@@ -55,7 +51,7 @@ class App extends Component {
     });
   };
 
-  handleClickAlphabetically = () => {
+  handleClickAlphabetically = (direction) => {
     this.setState(prevState => {
       return {
         goods: getSortAlphabetically(prevState),
@@ -100,7 +96,6 @@ class App extends Component {
         </button>
       );
     }
-    console.log(this.state.goods);
     return (
       <div className="goods">
         <button
@@ -118,13 +113,15 @@ class App extends Component {
         <button
           type="submit"
           className="btn btn-primary mt-5 mb-5 mr-3"
-          onClick={this.handleReset}>
+          onClick={this.handleReset}
+        >
           Resset
         </button>
         <button
           type="submit"
           className="btn btn-primary mt-5 mb-5 mr-3"
-          onClick={this.handleSortByLength}>
+          onClick={this.handleSortByLength}
+        >
           SortByLength
         </button>
         <label className="btn btn-warning">length
