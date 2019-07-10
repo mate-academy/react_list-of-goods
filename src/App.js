@@ -70,7 +70,7 @@ class App extends React.Component {
     this.setState(
       prevState => ({
         choosenValue: value,
-        goodsCurrent: [...prevState.goodsCurrent].filter(
+        goodsCurrent: [...prevState.goodsConst].filter(
           good => good.length >= value
         ),
       })
