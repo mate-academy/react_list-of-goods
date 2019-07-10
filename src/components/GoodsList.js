@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GoodsList = ({ allGoods, handleReverse, handleSortAlphabetically, handleSortByLength }) => (
+const GoodsList = ({ allGoods,
+                    handleReverse,
+                    handleSortAlphabetically,
+                    handleSortByLength,
+                    handleClear }) => (
   <div>
     <button onClick={handleReverse} type="button">Reverse</button>
     <button onClick={handleSortAlphabetically} type="button">Sort alphabetically</button>
     <button onClick={handleSortByLength} type="button">Sort by length</button>
+    <button onClick={handleClear} type="button">Clear</button>
     <ul>
       {allGoods.map(goodsItem => (
         <li>

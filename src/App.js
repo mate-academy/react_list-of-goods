@@ -14,6 +14,8 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const copyOfGoods = [...goodsFromServer];
+
 class App extends React.Component {
   state = {
     goods: [],
@@ -28,7 +30,7 @@ class App extends React.Component {
 
     setTimeout(() => {
       this.setState({
-        goods: goodsFromServer,
+        goods: copyOfGoods,
         isLoaded: true,
         isLoading: false,
       });
@@ -37,23 +39,29 @@ class App extends React.Component {
 
   handleReverse = () => {
     this.setState({
-      goods: goodsFromServer.reverse(),
+      goods: copyOfGoods.reverse(),
     });
   };
 
   handleSortAlphabetically = () => {
     this.setState({
-      goods: goodsFromServer.sort(),
+      goods: copyOfGoods.sort(),
     });
   };
 
   handleSortByLength = () => {
     this.setState({
-      goods: goodsFromServer.sort((a, b) => {
+      goods: copyOfGoods.sort((a, b) => {
         return a.length - b.length;
       }),
-    })
-  }
+    });
+  };
+
+  handleClear = () => {
+    this.setState({
+      goods: goodsFromServer,
+    });
+  };
 
   render() {
     return (
@@ -64,6 +72,7 @@ class App extends React.Component {
             handleReverse={this.handleReverse}
             handleSortAlphabetically={this.handleSortAlphabetically}
             handleSortByLength={this.handleSortByLength}
+            handleClear={this.handleClear}
           />
         ) : (
           <button
