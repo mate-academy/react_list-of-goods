@@ -1,0 +1,27 @@
+h1 {
+  font-size: 40px;
+}
+.start-btn {
+  font-size: 20px;
+  width: 100px;
+  color: #fff;
+  background-color: #45cbda;
+  border: 2px solid #35a5b0;
+  border-radius: 20px;
+  padding: 20px 0;
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  background-color: #8be0e9;
+}
+
+.list{
+  border: 1px solid black;
+  width: 200px;
+  padding: 15px;
+}
+li {
+  margin: 5px;
+  list-style-type: none;
+}
