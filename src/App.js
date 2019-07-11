@@ -19,9 +19,10 @@ class App extends React.Component {
     isLoaded: false,
     list: [],
     visibleList: [],
+    listSize: '1',
   };
 
-  handlerClick = async() => {
+  handlerClick = () => {
     this.setState({
       list: [...goodsFromServer],
       visibleList: [...goodsFromServer],
@@ -49,9 +50,19 @@ class App extends React.Component {
     }));
   };
 
+  selectClick = (event) => {
+    this.setState({
+      listSize: event.target.value,
+      visibleList: this.state.list.filter(
+        prod => prod.length >= Number(event.target.value)
+      ),
+    });
+  };
+
   resetClick = () => {
     this.setState(prevState => ({
       visibleList: [...prevState.list],
+      listSize: '1',
     }));
   };
 
@@ -95,7 +106,23 @@ class App extends React.Component {
                   >
                     Reset
                   </button>
+                  <select
+                    onChange={this.selectClick}
+                    value={this.state.listSize}
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
                 </div>
+
                 <GoodList
                   list={this.state.visibleList}
                 />
