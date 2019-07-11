@@ -22,7 +22,6 @@ class App extends React.Component {
       goodsConst: [],
       goodsCurrent: [],
       choosenValue: 0,
-      constValue: 0,
     };
   }
 
@@ -38,7 +37,7 @@ class App extends React.Component {
     this.setState(
       prevState => ({
         goodsCurrent: prevState.goodsConst,
-        choosenValue: prevState.constValue,
+        choosenValue: 0,
       })
     );
   }
@@ -70,7 +69,7 @@ class App extends React.Component {
     this.setState(
       prevState => ({
         choosenValue: value,
-        goodsCurrent: [...prevState.goodsConst].filter(
+        goodsCurrent: prevState.goodsConst.filter(
           good => good.length >= value
         ),
       })
@@ -78,7 +77,8 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.isStarted === false) {
+    const { isStarted } = this.state;
+    if (!isStarted) {
       return (
         <button onClick={this.handleClick} type="button">Start</button>
       );
