@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: lightslategrey;
+}
+
+li {
+  list-style: none;
+}
+
+.button__front {
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  padding: 12px 40px;
+  margin: 10px 20px;
+  border-radius: 30px;
+  background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+  background-position: 100% 0;
+  background-size: 200% 200%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: white;
+  box-shadow: 0 16px 32px 0 rgba(0,40,120,0.35);
+  transition: 0.5s;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 43%;
+}
+
+.button__front:hover {
+  box-shadow: 0 0 0 0 rgba(0,40,120,0);
+  background-position: 0 0;
+}
+
+.button__set {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 5%;
+}
+
+.select__field,
+.button {
+  display: inline-block;
+  padding: 15px 30px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: lightslategray;
+  transition: 0.15s ease-in-out;
+  text-align: center;
+  text-align-last: center;
+}
+
+.button:hover {
+  box-shadow: 0 2px 10px 0 #2d8ede;
+  color: #6ab1d7;
+  cursor: pointer;
+}
+
+.separate__good {
+  position: absolute;
+  top: 20%;
+  left: 43%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: white;
+}
