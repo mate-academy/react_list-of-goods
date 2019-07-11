@@ -14,14 +14,14 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const sortedReverse = goods => [...goods].reverse();
-const sortedAlphabetically = goods => [...goods].sort(
+const sortedReverse = goodsCurrent => [...goodsCurrent].reverse();
+const sortedAlphabetically = goodsCurrent => [...goodsCurrent].sort(
   (a, b) => a.localeCompare(b)
   );
-const sortedByLength = goods => [...goods].sort(
+const sortedByLength = goodsCurrent => [...goodsCurrent].sort(
   (a, b) => b.length - a.length
   );
-const sortedByLengthValue = (goods, value) => [...goods].filter(
+const sortedByLengthValue = (goodsCurrent, value) => [...goodsCurrent].filter(
   (item) => item.length >= value
   );
 class App extends React.Component {
@@ -42,25 +42,25 @@ handleClick = () => {
 
 sortReverse = () => {
   this.setState({
-    goods: sortedReverse(this.state.goods),
+    goodsCurrent: sortedReverse(this.state.goodsCurrent),
   });
 };
 
 sortAlphabetically = () => {
   this.setState({
-    goods: sortedAlphabetically(this.state.goods),
+    goodsCurrent: sortedAlphabetically(this.state.goodsCurrent),
   });
 };
 
 sortByLength = () => {
   this.setState({
-    goods: sortedByLength(this.state.goods),
+    goodsCurrent: sortedByLength(this.state.goodsCurrent),
   });
 };
 
 sortReset = () => {
   this.setState ({
-    goods: this.state.goodsCurrent,
+    goodsCurrent: this.state.goods,
     selectedNumber: 1,
   });
 };
@@ -68,7 +68,7 @@ sortReset = () => {
 sortByLengthValue = (event) => {
   const { value } = event.target;
   this.setState ({
-  goods: sortedByLengthValue(this.state.goods, value),
+    goodsCurrent: sortedByLengthValue(this.state.goods, value),
   selectedNumber: value,
 });
 }
@@ -98,7 +98,7 @@ render() {
           <option value="9">9</option>
           <option value="10">10</option>
         </select>
-        {this.state.goods.map(item => (
+        {this.state.goodsCurrent.map(item => (
           <li>{item}</li>
          ))}
       </ul>
