@@ -75,6 +75,12 @@ class App extends React.Component {
     });
   };
 
+  reverse = () => {
+    this.setState(prevState => ({
+      visibleGoods: prevState.visibleGoods.reverse(),
+    }));
+  };
+
   resetAll = () => {
     this.setState((prevState) => {
       return {
@@ -97,6 +103,9 @@ class App extends React.Component {
             </button>
             <button type="button" onClick={() => this.sortGoods('alphabet')}>
               By Alphabetical
+            </button>
+            <button type="button" onClick={this.reverse}>
+              Reverse
             </button>
             <button type="button" onClick={this.resetAll}>
               Reset
