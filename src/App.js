@@ -79,6 +79,7 @@ class App extends React.Component {
     this.setState((prevState) => {
       return {
         visibleGoods: prevState.goods,
+        filterValue: 1,
       };
     });
   };
