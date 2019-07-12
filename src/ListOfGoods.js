@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ListOfGood = props => (
   <ul>
@@ -9,5 +10,9 @@ const ListOfGood = props => (
     }
   </ul>
 );
+
+ListOfGood.propTypes = {
+  visibleGoods: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default ListOfGood;
