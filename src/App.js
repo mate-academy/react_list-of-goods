@@ -17,24 +17,26 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: [],
-    renderStart: true,
+    isGoodsLoaded: true,
   };
 
   startClick = () => {
     this.setState({
       goods: [...goodsFromServer],
-      renderStart: false,
+      isGoodsLoaded: false,
     });
   }
 
   render() {
+    const { isGoodsLoaded, goods } = this.state;
+
     return (
       <div className="App">
         <h1>Goods List</h1>
         {
-          (this.state.renderStart)
+          (isGoodsLoaded)
             ? <button type="button" onClick={this.startClick}>Start</button>
-            : <GoodsList goods={this.state.goods} />
+            : <GoodsList goods={goods} />
         }
       </div>
     );

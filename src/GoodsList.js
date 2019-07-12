@@ -33,10 +33,12 @@ class GoodsList extends React.Component {
     this.setState({
       sortGoods: [...this.goods],
     });
+
+    document.querySelector('.lengthSelector').selectedIndex = 0;
   }
 
-  selectLength = () => {
-    const valueLength = document.querySelector('.lengthSelector').value;
+  selectLength = (event) => {
+    const valueLength = event.target.value;
 
     this.setState({
       sortGoods: this.goods.filter(item => item.length >= Number(valueLength)),
