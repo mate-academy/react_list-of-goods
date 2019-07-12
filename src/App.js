@@ -18,7 +18,7 @@ class App extends React.Component{
     data: [],
     loaded: false,
     moddedData: [],
-    value: '',
+    value: '1',
   };
 
   componentWillMount() {
@@ -49,6 +49,7 @@ class App extends React.Component{
   backToStart = () => {
     this.setState({
       moddedData: [...goodsFromServer],
+      value: '1',
     });
   };
 
