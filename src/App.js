@@ -21,6 +21,7 @@ class App extends React.Component {
     visibleGoods: [],
     isLoaded: false,
     sortField: 'length',
+    filterValue: 1,
   };
 
   componentDidMount() {
@@ -70,7 +71,7 @@ class App extends React.Component {
         .sort(this.sortRules(sortField))
         .filter(item => item.length > filterValue);
 
-      return { visibleGoods: filteredGoods };
+      return { visibleGoods: filteredGoods, filterValue };
     });
   };
 
@@ -83,7 +84,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { visibleGoods, isLoaded } = this.state;
+    const { visibleGoods, isLoaded, filterValue } = this.state;
     return (
       !isLoaded ? (
         <button type="button" onClick={this.showGoodsList}>Show list</button>
@@ -100,7 +101,7 @@ class App extends React.Component {
               Reset
             </button>
 
-            <select onChange={this.filterGoods}>
+            <select defaultValue={filterValue} onChange={this.filterGoods}>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
