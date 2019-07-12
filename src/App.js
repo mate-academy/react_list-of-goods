@@ -17,52 +17,52 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     isLoaded: false,
-    list: [],
-    visibleList: [],
-    listSize: '1',
+    listOfGoods: [],
+    visibleListOfGoods: [],
+    selectedItemFromGoods: '1',
   };
 
   handlerClick = () => {
     this.setState({
-      list: [...goodsFromServer],
-      visibleList: [...goodsFromServer],
+      listOfGoods: [...goodsFromServer],
+      visibleListOfGoods: [...goodsFromServer],
       isLoaded: true,
     });
   };
 
   reverseClick = () => {
     this.setState(prevState => ({
-      visibleList: [...prevState.visibleList].reverse(),
+      visibleListOfGoods: [...prevState.visibleListOfGoods].reverse(),
     }));
   };
 
   sortAlphaClick = () => {
     this.setState(prevState => ({
-      visibleList: [...prevState.visibleList].sort(),
+      visibleListOfGoods: [...prevState.visibleListOfGoods].sort(),
     }));
   };
 
   sortLengthClick = () => {
     this.setState(prevState => ({
-      visibleList: [...prevState.visibleList].sort(
+      visibleListOfGoods: [...prevState.visibleListOfGoods].sort(
         (a, b) => a.length - b.length
       ),
     }));
   };
 
-  selectClick = (event) => {
-    this.setState({
-      listSize: event.target.value,
-      visibleList: this.state.list.filter(
-        prod => prod.length >= Number(event.target.value)
+  selectClick = (changeValue) => {
+    this.setState(prevState => ({
+      selectedItemFromGoods: changeValue,
+      visibleListOfGoods: prevState.listOfGoods.filter(
+        product => product.length >= Number(changeValue)
       ),
-    });
+    }));
   };
 
   resetClick = () => {
     this.setState(prevState => ({
-      visibleList: [...prevState.list],
-      listSize: '1',
+      visibleListOfGoods: [...prevState.listOfGoods],
+      selectedItemFromGoods: '1',
     }));
   };
 
@@ -107,8 +107,10 @@ class App extends React.Component {
                     Reset
                   </button>
                   <select
-                    onChange={this.selectClick}
-                    value={this.state.listSize}
+                    onChange={(event) => {
+                      this.selectClick(event.target.value);
+                    }}
+                    value={this.state.selectedItemFromGoods}
                   >
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -124,7 +126,7 @@ class App extends React.Component {
                 </div>
 
                 <GoodList
-                  list={this.state.visibleList}
+                  list={this.state.visibleListOfGoods}
                 />
               </>
             )

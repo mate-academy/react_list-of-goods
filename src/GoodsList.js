@@ -4,8 +4,8 @@ import propTypes from 'prop-types';
 const GoodList = ({ list }) => (
   <ul className="list">
     {
-      list.map(item => (
-        <li key={list.indexOf(item)}>{item}</li>
+      list.map((item, index) => (
+        <li key={list[index]}>{item}</li>
       ))
     }
   </ul>
