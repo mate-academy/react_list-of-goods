@@ -102,7 +102,7 @@ class App extends React.Component {
               Reset
             </button>
 
-            <select defaultValue={filterValue} onChange={this.filterGoods}>
+            <select value={filterValue} onChange={this.filterGoods}>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
