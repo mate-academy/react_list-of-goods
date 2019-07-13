@@ -22,6 +22,7 @@ class App extends React.Component {
     isLoaded: false,
     sortField: 'length',
     filterValue: 1,
+    direction: 1,
   };
 
   componentDidMount() {
@@ -36,17 +37,19 @@ class App extends React.Component {
   };
 
   sortRules = (sortField) => {
-    let direction = 1;
-
-    if (sortField === this.state.sortField) {
-      direction *= -1;
-    }
-
+    this.setState(prevState => ({ direction: prevState.direction * -1 }));
+    const { direction } = this.state;
     switch (sortField) {
       case 'length':
-        return (x, y) => x.length - y.length * direction;
+
+        return (x, y) => {
+          return (x.length - y.length > 0)
+            ? direction
+            : -1 * direction;
+        };
+
       case 'alphabet':
-        return (x, y) => x.localeCompare(y) * direction;
+        return (x, y) => x.localeCompare(y) * this.state.direction;
       default: return 0;
     }
   };
