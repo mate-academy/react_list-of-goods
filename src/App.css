@@ -1,0 +1,31 @@
+button {
+  margin: 20px 0;
+  width: 130px;
+  height: 50px;
+  font-size: 16px;
+  text-transform: uppercase;
+  background-color: #bfbfbf;
+  color: black;
+}
+
+button:focus,
+button:active,
+button:hover {
+  outline: none;
+  border-style: none;
+  cursor: pointer;
+}
+
+.main {
+  width: 750px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #242424;
+  text-align: center;
+}
+
+.main__buttons {
+  display: flex;
+  justify-content: space-between;
+}
