@@ -44,6 +44,7 @@ Add link here: `[DEMO LINK](https://AndriiSotnikov.github.io/react_list-of-goods
 - Add a link at `PR` to Google Spreadsheets.
 
 
+
 ## Project structure
 - `src/` - directory for css, js, image, fonts files
 - `build/` - directory for built pages
