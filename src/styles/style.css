@@ -1,0 +1,63 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: black;
+  user-select: none;
+}
+
+.button_list {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.button {
+  color: white;
+  width: 200px;
+  height: 120px;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 30px;
+  outline: none;
+  border: 0;
+  box-shadow: 0 0 10px white;
+  border-radius: 10px;
+}
+
+.select {
+  background-color: white;
+  width: 200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  font-size: 24px;
+  height: 50px;
+  border-radius: 30px;
+  border: 0;
+  box-shadow: 0 0 10px white;
+  outline: none;
+}
+
+option {
+  background-color: white;
+}
+
+.goods {
+  background-color: white;
+  width: 200px;
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  box-shadow: 0 0 10px white;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.goods_list {
+  background-color: white;
+  font-size: 28px;
+  list-style-type: none;
+
+}
