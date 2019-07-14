@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.tittle {
+  color: blue;
+  font-size: 32px;
+  align-items: center;
+}
+
+button {
+  color: black;
+  background-color: lightgoldenrodyellow;
+  border: 1px solid;
+  border-color: darkgreen;
+  margin: 2px;
+}
