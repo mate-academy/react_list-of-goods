@@ -1,7 +1,7 @@
 # React list of goods
 
 ## Demo link
-Add link here: `[DEMO LINK](https://<your_account>.github.io/<repo_name>/)`
+Add link here: `[DEMO LINK](https://AndriiSotnikov.github.io/react_list-of-goods/)`
 
 
 ## Task 
@@ -42,6 +42,7 @@ Add link here: `[DEMO LINK](https://<your_account>.github.io/<repo_name>/)`
 - Create `Pull Request` from forked repo `(<branch_name>)` to original repo 
 (`master`).
 - Add a link at `PR` to Google Spreadsheets.
+
 
 
 ## Project structure
