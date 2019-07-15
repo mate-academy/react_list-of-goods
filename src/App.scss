@@ -1,0 +1,14 @@
+#root {
+  text-align: center;
+}
+
+.goods {
+  width: 1180px;
+  margin: 0 auto;
+  &__list {
+    list-style-type: none;
+  }
+  & .form-control {
+    width: 200px;
+  }
+}
