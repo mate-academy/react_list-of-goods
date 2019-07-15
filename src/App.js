@@ -56,12 +56,11 @@ handleReset = () => {
 }
 
 filterByLength = (e) => {
-  const { value } = e.target
   this.setState({
-    currentValue: value,
-    goodsCurrent: this.state.goodsCurrent.filter((item) => item.length >= value),
+    goodsCurrent: [...goodsFromServer]
+      .filter(item => item.length >= e.target.value),
   });
-}
+};
 
 render() {
   if (!this.state.isLoaded) {
@@ -76,7 +75,7 @@ render() {
        <button onClick={this.handleSortByLength}>Sort by 'Length'</button>
        <button onClick={this.handleReset}>Reset</button>
 
-      <select onChange={this.filterByLength} defaultVlue="this.state.currentValue">
+      <select onChange={this.filterByLength} value={this.state.value}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
