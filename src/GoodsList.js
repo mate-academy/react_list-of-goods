@@ -8,6 +8,7 @@ class GoodsList extends React.Component {
 
     this.state = {
       sortGoods: [...this.goods],
+      lengthSelector: 1,
     };
   }
 
@@ -32,9 +33,8 @@ class GoodsList extends React.Component {
   resetSort = () => {
     this.setState({
       sortGoods: [...this.goods],
+      lengthSelector: 1,
     });
-
-    document.querySelector('.lengthSelector').selectedIndex = 0;
   }
 
   selectLength = (event) => {
@@ -42,6 +42,7 @@ class GoodsList extends React.Component {
 
     this.setState({
       sortGoods: this.goods.filter(item => item.length >= Number(valueLength)),
+      lengthSelector: valueLength,
     });
   }
 
@@ -52,17 +53,17 @@ class GoodsList extends React.Component {
         <button type="button" onClick={this.alphabetSort}>Sort alphabetically</button>
         <button type="button" onClick={this.lengthSort}>Sort by length</button>
         <button type="button" onClick={this.resetSort}>Reset</button>
-        <select className="lengthSelector" onChange={this.selectLength}>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
+        <select className="lengthSelector" onChange={this.selectLength} value={this.state.lengthSelector}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select>
         <ul>
           {
