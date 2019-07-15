@@ -1,0 +1,25 @@
+body {
+
+  background: rgb(231, 227, 227)
+}
+
+.wrapper {
+  width: 350px;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(197, 188, 188);
+  font-size: 20px;
+  margin: 80px auto;
+  background: rgb(173, 189, 194);
+  border-radius:10px;
+}
+ h1 {
+   text-align: center;
+ }
+
+ .start-bth {
+   width: 80px;
+   height: 50px;
+ }
