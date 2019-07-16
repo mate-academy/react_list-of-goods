@@ -27,30 +27,29 @@ class App extends React.Component {
   };
 
   goodsReverse = () => {
-    console.log('goodsFromServer', goodsFromServer);
-    this.setState({
-      arrayOfGoods: [...goodsFromServer].reverse(),
-    });
+    this.setState(previousState => ({
+      arrayOfGoods: previousState.arrayOfGoods.reverse(),
+    }));
   };
 
   sortAlphabet = () => {
-    this.setState({
-      arrayOfGoods: [...goodsFromServer].sort((a, b) => {
+    this.setState(previousState => ({
+      arrayOfGoods: previousState.arrayOfGoods.sort((a, b) => {
         if (a < b) { return -1; }
         if (a > b) { return 1; }
         return 0;
       }),
-    });
+    }));
   };
 
   sortLength = () => {
-    this.setState({
-      arrayOfGoods: [...goodsFromServer].sort((a, b) => {
+    this.setState(previousState => ({
+      arrayOfGoods: previousState.arrayOfGoods.sort((a, b) => {
         if (a.length < b.length) { return -1; }
         if (a.length > b.length) { return 1; }
         return 0;
       }),
-    });
+    }));
   };
 
   resetListOfGoods = () => {
