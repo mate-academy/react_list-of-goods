@@ -32,6 +32,14 @@ class App extends React.Component {
     });
   }
 
+  lengthSort = () => {
+    this.setState(state => ({
+      currentList: [...state.currentList].sort((a, b) => (
+        (a.length) - (b.length)
+      )),
+    }));
+  }
+
   alphabetSort = () => {
     this.setState(state => ({
       direction: state.direction === 1 ? -1 : 1,
@@ -75,6 +83,7 @@ class App extends React.Component {
                 <button onClick={this.alphabetSort}>alpha</button>
                 <button onClick={this.reverseSort}>reverse</button>
                 <button onClick={this.resetSort}>reset</button>
+                <button onClick={this.lengthSort}>length</button>
                 <select
                   value={this.state.length}
                   onChange={this.filterByLength}
