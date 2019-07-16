@@ -49,9 +49,18 @@ class App extends React.Component {
   }
 
   resetSort = () => {
-    this.setState( state => ({
+    this.setState(state => ({
       currentList: [...state.goodsList],
+      length: 1,
     }));
+  }
+
+  filterByLength = (event) => {
+    const { value } = event.target;
+    this.setState({
+      length: value,
+      currentList: [...goodsFromServer].filter(item => item.length >= value),
+    });
   }
 
   render() {
@@ -66,6 +75,21 @@ class App extends React.Component {
                 <button onClick={this.alphabetSort}>alpha</button>
                 <button onClick={this.reverseSort}>reverse</button>
                 <button onClick={this.resetSort}>reset</button>
+                <select
+                  value={this.state.length}
+                  onChange={this.filterByLength}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
                 <ul>
                   <GoodsList allGoods={this.state.currentList} />
                 </ul>
@@ -73,7 +97,7 @@ class App extends React.Component {
             )
         }
       </div>
-    )
+    );
   }
 }
 
