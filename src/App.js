@@ -17,51 +17,45 @@ class App extends React.Component{
   state = {
     data: [],
     loaded: false,
-    moddedData: [],
     value: '1',
   };
-
-  componentWillMount() {
-    this.state = {
-      data: goodsFromServer,
-    };
-  }
 
   loadData = () => {
     this.setState({
       loaded: true,
-      moddedData: [...goodsFromServer],
+      data: [...goodsFromServer],
     });
   };
 
   upSideDown = () => {
-    this.setState(prevState => ({
-      moddedData: prevState.moddedData.reverse(),
-    }));
+    this.setState({
+      data: this.state.data.reverse(),
+    });
   };
 
   sortAlphabet = () => {
     this.setState({
-      moddedData: [...goodsFromServer].sort((a, b) => a.localeCompare(b)),
+      data: this.state.data.sort((a, b) => a.localeCompare(b)),
     });
   };
 
   backToStart = () => {
     this.setState({
-      moddedData: [...goodsFromServer],
+      data: [...goodsFromServer],
       value: '1',
     });
   };
 
   sortLength =() => {
     this.setState({
-      moddedData: [...goodsFromServer].sort((a, b) => a.length - b.length),
+      data: this.state.data.sort((a, b) => a.length - b.length),
     });
   };
 
   sortSelect = (event) => {
     this.setState({
-      moddedData: [...goodsFromServer]
+      value: event.target.value,
+      data: this.state.data
         .filter(item => item.length >= event.target.value),
     });
   };
@@ -93,7 +87,7 @@ class App extends React.Component{
           </select>
         </div>
         <ul>
-          {this.state.moddedData.map(item => (
+          {this.state.data.map(item => (
             <li>{item}</li>
           ))}
         </ul>
