@@ -35,9 +35,9 @@ class App extends React.Component{
   };
 
   upSideDown = () => {
-    this.setState({
-      moddedData: [...goodsFromServer].reverse(),
-    });
+    this.setState(prevState => ({
+      moddedData: prevState.moddedData.reverse(),
+    }));
   };
 
   sortAlphabet = () => {
