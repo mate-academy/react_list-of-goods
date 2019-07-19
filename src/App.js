@@ -55,7 +55,7 @@ class App extends React.Component{
   sortSelect = (event) => {
     this.setState({
       value: event.target.value,
-      data: this.state.data
+      data: [...goodsFromServer]
         .filter(item => item.length >= event.target.value),
     });
   };
