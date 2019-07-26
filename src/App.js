@@ -19,7 +19,6 @@ class App extends React.Component {
     goods: [],
     goodsCurrent: [],
     isLoaded: false,
-    currentValue: 1,
   }
 
  handleLoad = () => {
@@ -75,7 +74,7 @@ render() {
        <button onClick={this.handleSortByLength}>Sort by 'Length'</button>
        <button onClick={this.handleReset}>Reset</button>
 
-      <select onChange={this.filterByLength} value={this.state.value}>
+      <select onChange={this.filterByLength} value={this.state.currentValue}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
