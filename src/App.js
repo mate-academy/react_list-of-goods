@@ -19,6 +19,8 @@ class App extends React.Component {
     goods: [],
     goodsCurrent: [],
     isLoaded: false,
+    sortByAlphabet: 1,
+    sortLength: 1,
   }
 
  handleLoad = () => {
@@ -36,15 +38,19 @@ handleReverse = () => {
 }
 
 handleSortByAlphabet = () => {
-  this.setState({
-    goodsCurrent: this.state.goodsCurrent.sort((a, b) => a.localeCompare(b)),
-  });
+  this.setState(prevState => ({
+    goodsCurrent: prevState.goodsCurrent.sort((a, b) => (
+    prevState.sortByAlphabet * a.localeCompare(b))),
+    sortByAlphabet: -prevState.sortByAlphabet,
+  }));
 }
 
 handleSortByLength = () => {
-  this.setState({
-    goodsCurrent: this.state.goodsCurrent.sort((a, b) => a.length - b.length),
-  });
+  this.setState(prevState => ({
+    goodsCurrent: prevState.goodsCurrent.sort((a, b) =>
+    prevState.sortLength * (a.length - b.length)),
+    sortLength: -prevState.sortLength,
+  }));
 }
 
 handleReset = () => {
@@ -58,6 +64,7 @@ filterByLength = (e) => {
   this.setState({
     goodsCurrent: [...goodsFromServer]
       .filter(item => item.length >= e.target.value),
+    currentValue: e.target.value,
   });
 };
 
