@@ -80,9 +80,6 @@ export default class Goods extends Component {
 
     return (
       <>
-        <ul>
-          {goodsList.map(good => <Good good={good} />)}
-        </ul>
         <div>
           <Button text="Reverse" onClick={this.onClickReverse} />
           <Button text="Alphabetical" onClick={this.onClickAlphabetical} />
@@ -96,6 +93,9 @@ export default class Goods extends Component {
           />
           <Button text="Reset" onClick={this.onClickReset} />
         </div>
+        <ul>
+          {goodsList.map(good => <Good good={good} />)}
+        </ul>
       </>
     );
   }

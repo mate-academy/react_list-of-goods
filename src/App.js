@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './App.scss';
+
 import Button from './components/Button/Button';
 import Goods from './components/Goods/Goods';
 
@@ -34,12 +36,7 @@ export default class App extends Component {
     return (
       <div className="App">
         {this.state.isStart
-          ? (
-            <Button
-              text="Start"
-              onClick={this.onClickStart}
-            />
-          )
+          ? <Button text="Start" onClick={this.onClickStart} />
           : <Goods goods={goodsFromServer} />}
       </div>
     );

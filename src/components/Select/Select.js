@@ -17,7 +17,7 @@ export default class Select extends Component {
     const { rows, selected } = this.props;
 
     return (
-      <select onChange={this.handleClick}>
+      <select className="select" onChange={this.handleClick}>
         {[...Array(rows).keys()]
           .map(item => (
             <option

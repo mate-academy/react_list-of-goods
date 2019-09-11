@@ -16,7 +16,13 @@ export default class Button extends Component {
     const { text } = this.props;
 
     return (
-      <button onClick={this.handleClick} type="button">{text}</button>
+      <button
+        className="button"
+        onClick={this.handleClick}
+        type="button"
+      >
+        {text}
+      </button>
     );
   }
 }
