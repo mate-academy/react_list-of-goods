@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Button from './components/Button/Button';
+import Goods from './components/Goods/Goods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -13,10 +15,33 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods 1</h1>
-  </div>
-);
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isStart: true,
+    };
+    this.onClickStart = this.onClickStart.bind(this);
+  }
 
-export default App;
+  onClickStart() {
+    this.setState({
+      isStart: false,
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.isStart
+          ? (
+            <Button
+              text="Start"
+              onClick={this.onClickStart}
+            />
+          )
+          : <Goods goods={goodsFromServer} />}
+      </div>
+    );
+  }
+}
