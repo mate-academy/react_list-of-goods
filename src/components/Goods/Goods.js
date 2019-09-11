@@ -25,13 +25,11 @@ export default class Goods extends Component {
   }
 
   onClickReverse() {
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    this.setState({ isReverse: !this.state.isReverse });
+    this.setState(prevState => ({ isReverse: !prevState.isReverse }));
   }
 
   onClickAlphabetical() {
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    this.setState({ isAlphabetical: !this.state.isAlphabetical });
+    this.setState(prevState => ({ isAlphabetical: !prevState.isAlphabetical }));
   }
 
   onClickReset() {
@@ -47,8 +45,7 @@ export default class Goods extends Component {
   }
 
   onClickSortByLength() {
-    // eslint-disable-next-line react/no-access-state-in-setstate
-    this.setState({ isSortByLength: !this.state.isSortByLength });
+    this.setState(prevState => ({ isSortByLength: !prevState.isSortByLength }));
   }
 
   onChangeSelect(e) {
