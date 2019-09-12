@@ -18,24 +18,20 @@ const goodsFromServer = [
 ];
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isStart: true,
-    };
-    this.onClickStart = this.onClickStart.bind(this);
-  }
+  state = {
+    firstLoad: true,
+  };
 
-  onClickStart() {
+  onClickStart = () => {
     this.setState({
-      isStart: false,
+      firstLoad: false,
     });
   }
 
   render() {
     return (
-      <div className="App">
-        {this.state.isStart
+      <div className="app">
+        {this.state.firstLoad
           ? <Button text="Start" onClick={this.onClickStart} />
           : <Goods goods={goodsFromServer} />}
       </div>

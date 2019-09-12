@@ -5,102 +5,69 @@ import Good from '../Good/Good';
 import Button from '../Button/Button';
 import Select from '../Select/Select';
 
+const SELECT_LENGTH = 10;
+
 export default class Goods extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isReverse: false,
-      isAlphabetical: false,
-      isSortByLength: false,
-      select: {
-        isChange: false,
-        value: 1,
-      },
-    };
-    this.onClickReverse = this.onClickReverse.bind(this);
-    this.onClickAlphabetical = this.onClickAlphabetical.bind(this);
-    this.onClickReset = this.onClickReset.bind(this);
-    this.onClickSortByLength = this.onClickSortByLength.bind(this);
-    this.onChangeSelect = this.onChangeSelect.bind(this);
-  }
+  state = {
+    goods: [...this.props.goods],
+    selectValue: 1,
+    selectList: [...Array(SELECT_LENGTH + 1).keys()]
+      .slice(1)
+      .map(item => ({ name: item, value: item })),
+  };
 
-  onClickReverse() {
-    this.setState(prevState => ({ isReverse: !prevState.isReverse }));
-  }
+  reverseClick = () => {
+    this.setState(prevState => ({ goods: prevState.goods.reverse() }));
+  };
 
-  onClickAlphabetical() {
-    this.setState(prevState => ({ isAlphabetical: !prevState.isAlphabetical }));
-  }
+  alphabeticalClick = () => {
+    this.setState(prevState => ({ goods: prevState.goods.sort() }));
+  };
 
-  onClickReset() {
+  resetClick = () => {
     this.setState({
-      isReverse: false,
-      isAlphabetical: false,
-      isSortByLength: false,
-      select: {
-        isChange: false,
-        value: 1,
-      },
+      goods: [...this.props.goods],
+      selectValue: 1,
     });
-  }
+  };
 
-  onClickSortByLength() {
-    this.setState(prevState => ({ isSortByLength: !prevState.isSortByLength }));
-  }
+  sortByLengthClick = () => {
+    this.setState(prevState => (
+      { goods: prevState.goods.sort((a, b) => a.length - b.length) }));
+  };
 
-  onChangeSelect(e) {
-    this.setState({
-      select: {
-        isChange: true,
-        value: e.target.value,
-      },
-    });
-  }
+  selectChange = (e) => {
+    this.setState(
+      {
+        selectValue: e.target.value,
+        goods: [...this.props.goods]
+          .filter(item => item.length >= e.target.value),
+      }
+    );
+  };
 
   render() {
-    const { goods } = this.props;
-
-    const SELECT_LENGTH = 10;
-    const selectList = [...Array(SELECT_LENGTH + 1).keys()]
-      .slice(1)
-      .map(item => ({ name: item, val: item }));
-
-    let goodsList = [...goods];
-
-    if (this.state.select.isChange) {
-      goodsList = goodsList
-        .filter(item => item.length >= this.state.select.value);
-    }
-
-    if (this.state.isAlphabetical) {
-      goodsList = goodsList.sort();
-    }
-
-    if (this.state.isSortByLength) {
-      goodsList = goodsList.sort((a, b) => a.length - b.length);
-    }
-
-    if (this.state.isReverse) {
-      goodsList = goodsList.reverse();
-    }
+    const {
+      goods, selectValue, selectList,
+    } = this.state;
 
     return (
       <>
         <div>
-          <Button text="Reverse" onClick={this.onClickReverse} />
-          <Button text="Alphabetical" onClick={this.onClickAlphabetical} />
-          <Button text="Sort by length" onClick={this.onClickSortByLength} />
+          <Button text="Reverse" onClick={this.reverseClick} />
+          <Button text="Alphabetical" onClick={this.alphabeticalClick} />
+          <Button text="Sort by length" onClick={this.sortByLengthClick} />
         </div>
         <div>
           <Select
             list={selectList}
-            selected={this.state.select.value}
-            onChange={this.onChangeSelect}
+            selected={selectValue}
+            onChange={this.selectChange}
           />
-          <Button text="Reset" onClick={this.onClickReset} />
+          <Button text="Reset" onClick={this.resetClick} />
         </div>
         <ul>
-          {goodsList.map(good => <Good good={good} />)}
+          {goods.map(good => <Good good={good} />)}
         </ul>
       </>
     );
