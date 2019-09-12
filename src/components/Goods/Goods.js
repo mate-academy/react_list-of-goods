@@ -59,6 +59,12 @@ export default class Goods extends Component {
 
   render() {
     const { goods } = this.props;
+
+    const SELECT_LENGTH = 10;
+    const selectList = [...Array(SELECT_LENGTH + 1).keys()]
+      .slice(1)
+      .map(item => ({ name: item, val: item }));
+
     let goodsList = [...goods];
 
     if (this.state.select.isChange) {
@@ -87,7 +93,7 @@ export default class Goods extends Component {
         </div>
         <div>
           <Select
-            rows={10}
+            list={selectList}
             selected={this.state.select.value}
             onChange={this.onChangeSelect}
           />

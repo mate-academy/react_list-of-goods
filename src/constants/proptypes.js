@@ -5,8 +5,13 @@ export const ButtonTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
+const SelectShape = {
+  name: PropTypes.string.isRequired,
+  val: PropTypes.string.isRequired,
+};
+
 export const SelectTypes = {
-  rows: PropTypes.number.isRequired,
+  list: PropTypes.arrayOf(PropTypes.objectOf(SelectShape)),
   selected: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };

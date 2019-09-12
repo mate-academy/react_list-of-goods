@@ -14,19 +14,18 @@ export default class Select extends Component {
   }
 
   render() {
-    const { rows, selected } = this.props;
+    const { list, selected } = this.props;
 
     return (
       <select className="select" onChange={this.handleClick}>
-        {[...Array(rows).keys()]
-          .map(item => (
-            <option
-              value={item + 1}
-              selected={item === (selected - 1)}
-            >
-              {item + 1}
-            </option>
-          ))}
+        {list.map(item => (
+          <option
+            value={item.val}
+            selected={item.val === selected}
+          >
+            {item.name}
+          </option>
+        ))}
       </select>
     );
   }
