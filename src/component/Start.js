@@ -1,16 +1,6 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 
-function Start(props) {
-  const { children } = props;
-
-  return (
-    <>
-      {children}
-    </>
-  );
-}
+const Start = props => props.children;
 
 Start.propTypes = {
   children: PropTypes.shape({

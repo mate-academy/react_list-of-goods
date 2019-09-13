@@ -1,16 +1,6 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 
-function Reset(props) {
-  const { children } = props;
-
-  return (
-    <>
-      {children}
-    </>
-  );
-}
+const Reset = props => props.children;
 
 Reset.propTypes = {
   children: PropTypes.shape({

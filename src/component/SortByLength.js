@@ -1,16 +1,6 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 
-function SortByLength(props) {
-  const { children } = props;
-
-  return (
-    <>
-      {children}
-    </>
-  );
-}
+const SortByLength = props => props.children;
 
 SortByLength.propTypes = {
   children: PropTypes.shape({

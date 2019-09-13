@@ -1,16 +1,6 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 
-function SortAlphabetic(props) {
-  const { children } = props;
-
-  return (
-    <>
-      {children}
-    </>
-  );
-}
+const SortAlphabetic = props => props.children;
 
 SortAlphabetic.propTypes = {
   children: PropTypes.shape({

@@ -25,53 +25,53 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    showList: false,
-    copyList: [...goodsFromServer],
-    selectValue: 0,
+    isListShown: false,
+    copiedList: [...goodsFromServer],
+    selectedValue: 0,
   }
 
-  getSelectValue = event => (
+  setSelectValue = event => (
     this.setState({
-      selectValue: event.target.value,
-      copyList: [...goodsFromServer]
+      selectedValue: event.target.value,
+      copiedList: [...goodsFromServer]
         .filter(elem => elem.length === Number(event.target.value)),
     })
   );
 
   toShowList = () => (
     this.setState(prevState => ({
-      showList: !prevState.showList,
+      isListShown: !prevState.isListShown,
     }))
   )
 
   toReverseList = () => (
     this.setState(prevState => ({
-      copyList: prevState.copyList.reverse(),
+      copiedList: prevState.copiedList.reverse(),
     }))
   )
 
   toSortByAlphabeticList = () => (
     this.setState(prevState => ({
-      copyList: prevState.copyList.sort(),
+      copiedList: prevState.copiedList.sort(),
     }))
   )
 
   toResetList = () => (
     this.setState({
-      copyList: [...goodsFromServer],
+      copiedList: [...goodsFromServer],
     })
   )
 
   toSortByLengthList = () => (
     this.setState(prevState => ({
-      copyList: prevState.copyList.sort((a, b) => a.length - b.length),
+      copiedList: prevState.copiedList.sort((a, b) => a.length - b.length),
     }))
   )
 
   render() {
-    const { copyList, selectValue } = this.state;
+    const { copiedList, selectedValue, isListShown } = this.state;
     const {
-      getSelectValue,
+      setSelectValue,
       toShowList,
       toReverseList,
       toSortByAlphabeticList,
@@ -84,7 +84,7 @@ class App extends React.Component {
 
         <Start>
           <>
-            { this.state.showList === false
+            { isListShown === false
               && (
                 <button
                   className="button-start"
@@ -98,7 +98,7 @@ class App extends React.Component {
           </>
         </Start>
 
-        { this.state.showList !== false
+        { isListShown !== false
           && (
             <>
               <div className="buttons-goods">
@@ -146,9 +146,9 @@ class App extends React.Component {
               <div>
                 <select
                   className="select-goods"
-                  value={selectValue}
+                  value={selectedValue}
                   name="goodsList"
-                  onChange={getSelectValue}
+                  onChange={setSelectValue}
                 >
                   <option value={0}>0</option>
                   {goodsFromServer.map((elem, index) => (
@@ -158,7 +158,7 @@ class App extends React.Component {
               </div>
 
               <GoodsList
-                goods={copyList}
+                goods={copiedList}
               />
             </>
           )

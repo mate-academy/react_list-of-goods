@@ -1,16 +1,6 @@
-import React from 'react';
-
 import PropTypes from 'prop-types';
 
-function Reverse(props) {
-  const { children } = props;
-
-  return (
-    <>
-      {children}
-    </>
-  );
-}
+const Reverse = props => props.children;
 
 Reverse.propTypes = {
   children: PropTypes.shape({
