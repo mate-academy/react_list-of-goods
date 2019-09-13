@@ -23,6 +23,11 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const listBySelect = goodsFromServer
+  .map(elem => elem.length)
+  .sort((a, b) => a - b)
+  .filter((elem, i, arr) => i === arr.indexOf(elem));
+
 class App extends React.Component {
   state = {
     isListShown: false,
@@ -44,28 +49,28 @@ class App extends React.Component {
     }))
   )
 
-  toReverseList = () => (
-    this.setState(prevState => ({
-      copiedList: prevState.copiedList.reverse(),
-    }))
+  reverseList = () => (
+    this.setState({
+      copiedList: [...goodsFromServer].reverse(),
+    })
   )
 
-  toSortByAlphabeticList = () => (
-    this.setState(prevState => ({
-      copiedList: prevState.copiedList.sort(),
-    }))
+  sortByAlphabet = () => (
+    this.setState({
+      copiedList: [...goodsFromServer].sort(),
+    })
   )
 
-  toResetList = () => (
+  resetList = () => (
     this.setState({
       copiedList: [...goodsFromServer],
     })
   )
 
-  toSortByLengthList = () => (
-    this.setState(prevState => ({
-      copiedList: prevState.copiedList.sort((a, b) => a.length - b.length),
-    }))
+  sortByLength = () => (
+    this.setState({
+      copiedList: [...goodsFromServer].sort((a, b) => a.length - b.length),
+    })
   )
 
   render() {
@@ -73,32 +78,29 @@ class App extends React.Component {
     const {
       setSelectValue,
       toShowList,
-      toReverseList,
-      toSortByAlphabeticList,
-      toResetList,
-      toSortByLengthList,
+      reverseList,
+      sortByAlphabet,
+      resetList,
+      sortByLength,
     } = this;
 
     return (
       <div className="App">
-
         <Start>
-          <>
-            { isListShown === false
-              && (
-                <button
-                  className="button-start"
-                  type="button"
-                  onClick={toShowList}
-                >
-                  Start
-                </button>
-              )
-            }
-          </>
+          { !isListShown
+            && (
+              <button
+                className="button-start"
+                type="button"
+                onClick={toShowList}
+              >
+                Start
+              </button>
+            )
+          }
         </Start>
 
-        { isListShown !== false
+        { isListShown
           && (
             <>
               <div className="buttons-goods">
@@ -106,7 +108,7 @@ class App extends React.Component {
                   <button
                     className="button-goods"
                     type="button"
-                    onClick={toSortByLengthList}
+                    onClick={sortByLength}
                   >
                     Sort by length
                   </button>
@@ -116,7 +118,7 @@ class App extends React.Component {
                   <button
                     className="button-goods"
                     type="button"
-                    onClick={toResetList}
+                    onClick={resetList}
                   >
                     Reset
                   </button>
@@ -126,7 +128,7 @@ class App extends React.Component {
                   <button
                     className="button-goods"
                     type="button"
-                    onClick={toSortByAlphabeticList}
+                    onClick={sortByAlphabet}
                   >
                     Sort by alphabetic
                   </button>
@@ -136,7 +138,7 @@ class App extends React.Component {
                   <button
                     className="button-goods"
                     type="button"
-                    onClick={toReverseList}
+                    onClick={reverseList}
                   >
                     Reverse
                   </button>
@@ -151,8 +153,8 @@ class App extends React.Component {
                   onChange={setSelectValue}
                 >
                   <option value={0}>0</option>
-                  {goodsFromServer.map((elem, index) => (
-                    <option key={elem} value={index + 1}>{index + 1}</option>
+                  {listBySelect.map(elem => (
+                    <option key={elem} value={elem}>{elem}</option>
                   ))}
                 </select>
               </div>

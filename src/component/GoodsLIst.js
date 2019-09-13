@@ -5,11 +5,9 @@ import PropTypes from 'prop-types';
 function GoodsList({ goods }) {
   return (
     <ul className="goods-list">
-      {
-        goods.map(good => (
-          <li key={good}>{good}</li>
-        ))
-      }
+      {goods.map(good => (
+        <p>{good}</p>
+      ))}
     </ul>
   );
 }
