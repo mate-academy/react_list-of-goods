@@ -14,55 +14,57 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const listForSelect = goodsFromServer
+  .map(elem => elem.length)
+  .sort((a, b) => a - b)
+  .filter((elem, i, arr) => i === arr.indexOf(elem));
+
 class Interface extends Component {
   constructor() {
     super();
 
     this.state = {
-      isStart: false,
-      previousGoods: [(
-        <button type="button" onClick={this.start}>Start</button>
-      )],
-      selectValue: 0,
+      isStarted: false,
+      previousGoods: [...goodsFromServer],
+      selectedValue: 0,
     };
   }
 
-  start = () => {
+  onButtonStartClick = () => {
     this.setState({
-      isStart: true,
-      previousGoods: [...goodsFromServer],
+      isStarted: true,
     });
   }
 
-  reverse = () => {
+  onButtonReverseClick = () => {
     this.setState(prevState => ({
-      previousGoods: prevState.previousGoods.reverse(),
+      previousGoods: [...prevState.previousGoods].reverse(),
     }));
   }
 
-  sort = () => {
+  onButtonSortClick = () => {
     this.setState(prevState => ({
-      previousGoods: prevState.previousGoods.sort(),
+      previousGoods: [...prevState.previousGoods].sort(),
     }));
   }
 
-  sortByLength = () => {
+  onButtonSortByLengthClick = () => {
     this.setState(prevState => ({
-      previousGoods: prevState.previousGoods
+      previousGoods: [...prevState.previousGoods]
         .sort((a, b) => a.length - b.length),
     }));
   }
 
-  reset = () => {
+  onButtonResetClick = () => {
     this.setState({
-      selectValue: 0,
+      selectedValue: 0,
       previousGoods: [...goodsFromServer],
     });
   }
 
   handleChangeSelect = (event) => {
     this.setState({
-      selectValue: event.target.value,
+      selectedValue: event.target.value,
       previousGoods: [...goodsFromServer]
         .filter(elem => elem.length === Number(event.target.value)),
     });
@@ -71,23 +73,33 @@ class Interface extends Component {
   render() {
     return (
       <div>
-        {this.state.isStart && (
+        {this.state.isStarted && (
           <>
             <div className="buttons">
-              <button type="button" onClick={this.reverse}>Reverse</button>
               <button
                 type="button"
-                onClick={this.sort}
+                onClick={this.onButtonReverseClick}
+              >
+                Reverse
+              </button>
+              <button
+                type="button"
+                onClick={this.onButtonSortClick}
               >
                 Sort alphabetically
               </button>
               <button
                 type="button"
-                onClick={this.sortByLength}
+                onClick={this.onButtonSortByLengthClick}
               >
                 Sort by length
               </button>
-              <button type="button" onClick={this.reset}>Reset</button>
+              <button
+                type="button"
+                onClick={this.onButtonResetClick}
+              >
+                Reset
+              </button>
             </div>
 
             <div className="filter">
@@ -97,14 +109,11 @@ class Interface extends Component {
               </strong>
 
               <select
-                value={this.state.selectValue}
+                value={this.state.selectedValue}
                 onChange={this.handleChangeSelect}
               >
                 <option value={0} />
-                {goodsFromServer
-                  .map(elem => elem.length)
-                  .sort((a, b) => a - b)
-                  .filter((elem, i, arr) => i === arr.indexOf(elem))
+                {listForSelect
                   .map(elem => (
                     <option value={elem}>{elem}</option>
                   ))}
@@ -113,9 +122,16 @@ class Interface extends Component {
           </>
         )}
 
-        {this.state.previousGoods.map(elem => (
+        {(this.state.isStarted && this.state.previousGoods.map(elem => (
           <p>{elem}</p>
-        ))}
+        ))) || (
+          <button
+            type="button"
+            onClick={this.onButtonStartClick}
+          >
+            Start
+          </button>
+        )}
       </div>
     );
   }
