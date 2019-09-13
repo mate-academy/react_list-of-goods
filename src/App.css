@@ -1,0 +1,14 @@
+.App {
+  width: 400px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter {
+  margin-top: 20px;
+}
