@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { Component } from 'react';
 import reverseGoods from './actions/reverseGoods';
 import sortAlphabetically from './actions/sortAlphabetically';
@@ -55,6 +54,16 @@ class App extends Component {
     })
   );
 
+  selectNumber = (event) => {
+    const { value } = event.target;
+
+    this.setState(
+      () => ({
+        goodsList: goodsWithLength(goodsFromServer, Number(value)),
+      })
+    );
+  }
+
   render() {
     const { goodsList, isStartClicked } = this.state;
 
@@ -63,6 +72,18 @@ class App extends Component {
         <div className="App">
           <h1>List of Goods</h1>
           <div>
+            <select onChange={this.selectNumber}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
             <button
               type="submit"
               className="button"
