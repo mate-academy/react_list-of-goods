@@ -22,7 +22,14 @@ const goodsFromServer = [
 class App extends Component {
   state = {
     goodsList: goodsWithLength(goodsFromServer),
+    isStartClicked: false,
   };
+
+  changeStartState = () => this.setState(
+    () => ({
+      isStartClicked: true,
+    })
+  );
 
   sortListAZ = () => this.setState(
     prevState => ({
@@ -49,44 +56,54 @@ class App extends Component {
   );
 
   render() {
-    const { goodsList } = this.state;
+    const { goodsList, isStartClicked } = this.state;
 
-    return (
-      <div className="App">
-        <h1>List of Goods</h1>
-        <div>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.sortListAZ}
-          >
-            Sort A - Z
-          </button>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.sortListByLength}
-          >
-            Sort by length
-          </button>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.reverseList}
-          >
-            Reverse
-          </button>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.resetList}
-          >
-            Reset
-          </button>
+    return isStartClicked
+      ? (
+        <div className="App">
+          <h1>List of Goods</h1>
+          <div>
+            <button
+              type="submit"
+              className="button"
+              onClick={this.sortListAZ}
+            >
+              Sort A - Z
+            </button>
+            <button
+              type="submit"
+              className="button"
+              onClick={this.sortListByLength}
+            >
+              Sort by length
+            </button>
+            <button
+              type="submit"
+              className="button"
+              onClick={this.reverseList}
+            >
+              Reverse
+            </button>
+            <button
+              type="submit"
+              className="button"
+              onClick={this.resetList}
+            >
+              Reset
+            </button>
+          </div>
+          <ProductList productList={goodsList} />
         </div>
-        <ProductList productList={goodsList} />
-      </div>
-    );
+      )
+      : (
+        <button
+          type="submit"
+          className="button button--start"
+          onClick={this.changeStartState}
+        >
+          Start
+        </button>
+      );
   }
 }
 
