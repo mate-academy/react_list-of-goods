@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import reverseGoods from './actions/reverseGoods';
 import sortAlphabetically from './actions/sortAlphabetically';
 import sortByLength from './actions/sortByLength';
 import goodsWithLength from './actions/goodsWithLength';
-import ProductItem from './components/ProductItem/ProductItem';
 import ProductList from './components/ProductList/ProductList';
 
 const goodsFromServer = [
@@ -23,14 +20,71 @@ const goodsFromServer = [
 ];
 
 class App extends Component {
+  state = {
+    goodsList: goodsWithLength(goodsFromServer),
+  };
+
+  sortListAZ = () => this.setState(
+    prevState => ({
+      goodsList: sortAlphabetically(prevState.goodsList),
+    })
+  );
+
+  sortListByLength = () => this.setState(
+    prevState => ({
+      goodsList: sortByLength(prevState.goodsList),
+    })
+  );
+
+  reverseList = () => this.setState(
+    prevState => ({
+      goodsList: reverseGoods(prevState.goodsList),
+    })
+  );
+
+  resetList = () => this.setState(
+    () => ({
+      goodsList: goodsWithLength(goodsFromServer),
+    })
+  );
+
   render() {
-    const currentGoodsOrder = goodsWithLength(goodsFromServer, 8);
+    const { goodsList } = this.state;
 
     return (
       <div className="App">
-        <h1>
-          <ProductList productList={currentGoodsOrder} />
-        </h1>
+        <h1>List of Goods</h1>
+        <div>
+          <button
+            type="submit"
+            className="button"
+            onClick={this.sortListAZ}
+          >
+            Sort A - Z
+          </button>
+          <button
+            type="submit"
+            className="button"
+            onClick={this.sortListByLength}
+          >
+            Sort by length
+          </button>
+          <button
+            type="submit"
+            className="button"
+            onClick={this.reverseList}
+          >
+            Reverse
+          </button>
+          <button
+            type="submit"
+            className="button"
+            onClick={this.resetList}
+          >
+            Reset
+          </button>
+        </div>
+        <ProductList productList={goodsList} />
       </div>
     );
   }
