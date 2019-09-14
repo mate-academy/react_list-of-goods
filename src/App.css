@@ -1,0 +1,42 @@
+.wrapper {
+  height: 500px;
+  width: 500px;
+  margin: 0 auto;
+  padding-top: 200px;
+  padding-left: 50px;
+}
+
+.button-main {
+  background-color: deeppink;
+  color: #fff;
+  font-size: 18px;
+  height: 80px;
+  width: 80px;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-top: 100px;
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.button-main:hover {
+  transform: translate(-50%,7px);
+}
+
+.button--active {
+  display: none;
+}
+
+.app--inactive {
+  display: none;
+}
+
+.app--active {
+  display: block;
+}
+
+.main-title {
+  color: teal;
+}

@@ -1,4 +1,6 @@
 import React from 'react';
+import List from './Components/List';
+import './App.css';
 
 const goodsFromServer = [
   'Dumplings',
@@ -13,10 +15,46 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods 1</h1>
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isActiveStart: false,
+  }
+
+  btnIsActive = () => {
+    this.setState(prevState => ({
+      isActiveStart: !prevState.isActiveStart,
+    }));
+  }
+
+  render() {
+    const { isActiveStart } = this.state;
+
+    return (
+      <div className="wrapper">
+        <button
+          type="button"
+          onClick={this.btnIsActive}
+          className={
+            isActiveStart
+              ? 'button--active'
+              : 'button-main'
+          }
+        >
+          Start!
+        </button>
+        <div
+          className={
+            isActiveStart
+              ? 'app--active'
+              : 'app--inactive'
+          }
+        >
+          <h1 className="main-title">Goods</h1>
+          <List goods={goodsFromServer} />
+        </div>
+      </div>
+    );
+  }
+}
 
 export default App;
