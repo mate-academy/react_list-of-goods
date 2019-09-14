@@ -6,6 +6,8 @@ import reverseGoods from './actions/reverseGoods';
 import sortAlphabetically from './actions/sortAlphabetically';
 import sortByLength from './actions/sortByLength';
 import goodsWithLength from './actions/goodsWithLength';
+import ProductItem from './components/ProductItem/ProductItem';
+import ProductList from './components/ProductList/ProductList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -22,11 +24,11 @@ const goodsFromServer = [
 
 class App extends Component {
   render() {
-    const currentGoodsOrder = goodsWithLength(goodsFromServer, 4);
+    const currentGoodsOrder = goodsWithLength(goodsFromServer, 10);
 
     return (
       <div className="App">
-        <h1>{currentGoodsOrder[0]}</h1>
+        <h1><ProductList productList={currentGoodsOrder} /></h1>
       </div>
     );
   }
