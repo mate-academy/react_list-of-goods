@@ -8,14 +8,19 @@ function ProductList({ productList }) {
     : (
       <ul className="product-list">
         {
-          productList.map(item => <ProductItem productItem={item} />)
+          productList.map(item => (
+            <ProductItem
+              productItem={item}
+              key={item}
+            />
+          ))
         }
       </ul>
     );
 }
 
 ProductList.propTypes = {
-  productList: PropTypes.arrayOf,
+  productList: PropTypes.arrayOf(ProductItem),
 };
 
 ProductList.defaultProps = {

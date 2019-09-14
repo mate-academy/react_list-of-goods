@@ -24,11 +24,13 @@ const goodsFromServer = [
 
 class App extends Component {
   render() {
-    const currentGoodsOrder = goodsWithLength(goodsFromServer, 10);
+    const currentGoodsOrder = goodsWithLength(goodsFromServer, 8);
 
     return (
       <div className="App">
-        <h1><ProductList productList={currentGoodsOrder} /></h1>
+        <h1>
+          <ProductList productList={currentGoodsOrder} />
+        </h1>
       </div>
     );
   }
