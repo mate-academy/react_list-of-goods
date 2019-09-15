@@ -1,0 +1,27 @@
+.goods {
+  margin: 15px;
+}
+
+.goods__title {
+  margin-bottom: 20px;
+}
+
+.goods__list {
+  margin-bottom: 20px;
+}
+
+.goods__item {
+  font-size: 14px;
+}
+
+.goods__start-button {
+  font-size: 18px;
+}
+
+.goods__conrol-buttons {
+  margin-bottom: 20px;
+}
+
+.goods__conrol-button {
+  margin: 0 5px 5px 0;
+}
