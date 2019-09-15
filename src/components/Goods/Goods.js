@@ -6,6 +6,16 @@ import reverseGoods from '../../actions/reverseGoods';
 import sortByLength from '../../actions/sortByLength';
 import goodsWithLength from '../../actions/goodsWithLength';
 
+const optionTagsList = [...Array(10)].map((_item, index) => {
+  const keyValue = index + 1;
+
+  return (
+    <option key={keyValue} value={keyValue}>
+      {keyValue}
+    </option>
+  );
+});
+
 class Goods extends Component {
   constructor(props) {
     super(props);
@@ -19,11 +29,17 @@ class Goods extends Component {
     goodsList: sortFunc(prevState.goodsList),
   }));
 
-  sortListAZ = () => { this.sortGoods(sortAlphabetically); };
+  sortListAZ = () => {
+    this.sortGoods(sortAlphabetically);
+  };
 
-  sortListByLength = () => { this.sortGoods(sortByLength); };
+  sortListByLength = () => {
+    this.sortGoods(sortByLength);
+  };
 
-  reverseList = () => { this.sortGoods(reverseGoods); };
+  reverseList = () => {
+    this.sortGoods(reverseGoods);
+  };
 
   resetList = () => this.setState({
     goodsList: [...this.props.goods],
@@ -39,16 +55,6 @@ class Goods extends Component {
     });
   };
 
-  optionTagsList = () => [...Array(10)].map(
-    (_item, index) => {
-      const keyValue = index + 1;
-
-      return (
-        <option key={keyValue} value={keyValue}>{keyValue}</option>
-      );
-    }
-  );
-
   render() {
     const { goodsList, selectValue } = this.state;
 
@@ -57,13 +63,9 @@ class Goods extends Component {
         <h1>List of Goods</h1>
         <div>
           <select value={selectValue} onChange={this.selectByLength}>
-            {this.optionTagsList()}
+            {optionTagsList}
           </select>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.sortListAZ}
-          >
+          <button type="submit" className="button" onClick={this.sortListAZ}>
             Sort A - Z
           </button>
           <button
@@ -73,18 +75,10 @@ class Goods extends Component {
           >
             Sort by length
           </button>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.reverseList}
-          >
+          <button type="submit" className="button" onClick={this.reverseList}>
             Reverse
           </button>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.resetList}
-          >
+          <button type="submit" className="button" onClick={this.resetList}>
             Reset
           </button>
         </div>
