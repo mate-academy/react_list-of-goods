@@ -53,7 +53,6 @@ class Goods extends Component {
 
     return (
       <div className="App">
-        <hr />
         <h1>List of Goods</h1>
         <div>
           <select onChange={this.selectNumber}>
