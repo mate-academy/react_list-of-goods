@@ -4,6 +4,7 @@ import sortAlphabetically from './actions/sortAlphabetically';
 import sortByLength from './actions/sortByLength';
 import goodsWithLength from './actions/goodsWithLength';
 import ProductList from './components/ProductList/ProductList';
+import Goods from './components/Goods/Goods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -70,6 +71,8 @@ class App extends Component {
     return isStartClicked
       ? (
         <div className="App">
+          <Goods goods={goodsFromServer} />
+          <hr />
           <h1>List of Goods</h1>
           <div>
             <select onChange={this.selectNumber}>
