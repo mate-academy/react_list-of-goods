@@ -39,6 +39,16 @@ class Goods extends Component {
     });
   };
 
+  optionTagsList = () => [...Array(10)].map(
+    (_item, index) => {
+      const keyValue = index + 1;
+
+      return (
+        <option key={keyValue} value={keyValue}>{keyValue}</option>
+      );
+    }
+  );
+
   render() {
     const { goodsList, selectValue } = this.state;
 
@@ -47,18 +57,13 @@ class Goods extends Component {
         <h1>List of Goods</h1>
         <div>
           <select value={selectValue} onChange={this.selectByLength}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            {this.optionTagsList()}
           </select>
-          <button type="submit" className="button" onClick={this.sortListAZ}>
+          <button
+            type="submit"
+            className="button"
+            onClick={this.sortListAZ}
+          >
             Sort A - Z
           </button>
           <button
@@ -68,10 +73,18 @@ class Goods extends Component {
           >
             Sort by length
           </button>
-          <button type="submit" className="button" onClick={this.reverseList}>
+          <button
+            type="submit"
+            className="button"
+            onClick={this.reverseList}
+          >
             Reverse
           </button>
-          <button type="submit" className="button" onClick={this.resetList}>
+          <button
+            type="submit"
+            className="button"
+            onClick={this.resetList}
+          >
             Reset
           </button>
         </div>
