@@ -20,6 +20,6 @@ export const GoodTypes = {
   good: PropTypes.string.isRequired,
 };
 
-export const GoodsTypes = {
+export const GoodsListTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

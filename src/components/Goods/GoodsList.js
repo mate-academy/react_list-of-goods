@@ -1,45 +1,45 @@
 import React, { Component } from 'react';
-import './Goods.scss';
-import { GoodsTypes } from '../../constants/proptypes';
+import './GoodsList.scss';
+import { GoodsListTypes } from '../../constants/proptypes';
 import Good from '../Good/Good';
 import Button from '../Button/Button';
 import Select from '../Select/Select';
 
 const SELECT_LENGTH = 10;
 
-export default class Goods extends Component {
+export default class GoodsList extends Component {
   state = {
     goods: [...this.props.goods],
-    selectValue: 1,
-    selectList: [...Array(SELECT_LENGTH + 1).keys()]
+    selectedValue: 1,
+    listForSelect: [...Array(SELECT_LENGTH + 1).keys()]
       .slice(1)
       .map(item => ({ name: item, value: item })),
   };
 
-  reverseClick = () => {
+  onReverseClick = () => {
     this.setState(prevState => ({ goods: prevState.goods.reverse() }));
   };
 
-  alphabeticalClick = () => {
+  onAlphabeticalClick = () => {
     this.setState(prevState => ({ goods: prevState.goods.sort() }));
   };
 
-  resetClick = () => {
+  onResetClick = () => {
     this.setState({
       goods: [...this.props.goods],
-      selectValue: 1,
+      selectedValue: 1,
     });
   };
 
-  sortByLengthClick = () => {
+  onSortByLengthClick = () => {
     this.setState(prevState => (
       { goods: prevState.goods.sort((a, b) => a.length - b.length) }));
   };
 
-  selectChange = (e) => {
+  onSelectChange = (e) => {
     this.setState(
       {
-        selectValue: e.target.value,
+        selectedValue: e.target.value,
         goods: [...this.props.goods]
           .filter(item => item.length >= e.target.value),
       }
@@ -48,23 +48,23 @@ export default class Goods extends Component {
 
   render() {
     const {
-      goods, selectValue, selectList,
+      goods, selectedValue, listForSelect,
     } = this.state;
 
     return (
       <>
         <div>
-          <Button text="Reverse" onClick={this.reverseClick} />
-          <Button text="Alphabetical" onClick={this.alphabeticalClick} />
-          <Button text="Sort by length" onClick={this.sortByLengthClick} />
+          <Button text="Reverse" onClick={this.onReverseClick} />
+          <Button text="Alphabetical" onClick={this.onAlphabeticalClick} />
+          <Button text="Sort by length" onClick={this.onSortByLengthClick} />
         </div>
         <div>
           <Select
-            list={selectList}
-            selected={selectValue}
-            onChange={this.selectChange}
+            list={listForSelect}
+            selected={selectedValue}
+            onChange={this.onSelectChange}
           />
-          <Button text="Reset" onClick={this.resetClick} />
+          <Button text="Reset" onClick={this.onResetClick} />
         </div>
         <ul>
           {goods.map(good => <Good good={good} />)}
@@ -74,4 +74,4 @@ export default class Goods extends Component {
   }
 }
 
-Goods.propTypes = GoodsTypes;
+GoodsList.propTypes = GoodsListTypes;

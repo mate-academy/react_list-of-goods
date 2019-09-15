@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 
 import Button from './components/Button/Button';
-import Goods from './components/Goods/Goods';
+import GoodsList from './components/Goods/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -33,7 +33,7 @@ export default class App extends Component {
       <div className="app">
         {this.state.firstLoad
           ? <Button text="Start" onClick={this.onClickStart} />
-          : <Goods goods={goodsFromServer} />}
+          : <GoodsList goods={goodsFromServer} />}
       </div>
     );
   }
