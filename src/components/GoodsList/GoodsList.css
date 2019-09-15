@@ -1,0 +1,18 @@
+.content-container {
+  width: 100%;
+}
+
+h1 {
+  height: 40px;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 0;
+}
