@@ -1,0 +1,13 @@
+.btn-group {
+  padding: 30px;
+}
+
+.btn-secondary {
+  background-color: dodgerblue;
+  border: 1px solid #14f;
+}
+
+.btn-secondary:hover {
+  background-color: #14f;
+  border: 1px solid #14f;
+}
