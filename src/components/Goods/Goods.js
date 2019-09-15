@@ -11,51 +11,42 @@ class Goods extends Component {
     super(props);
     this.state = {
       goodsList: [...props.goods],
+      selectValue: '1',
     };
   }
 
-  sortListAZ = () => this.setState(
-    prevState => ({
-      goodsList: sortAlphabetically(prevState.goodsList),
-    })
-  );
+  sortGoods = sortFunc => this.setState(prevState => ({
+    goodsList: sortFunc(prevState.goodsList),
+  }));
 
-  sortListByLength = () => this.setState(
-    prevState => ({
-      goodsList: sortByLength(prevState.goodsList),
-    })
-  );
+  sortListAZ = () => { this.sortGoods(sortAlphabetically); };
 
-  reverseList = () => this.setState(
-    prevState => ({
-      goodsList: reverseGoods(prevState.goodsList),
-    })
-  );
+  sortListByLength = () => { this.sortGoods(sortByLength); };
 
-  resetList = () => this.setState(
-    () => ({
-      goodsList: [...this.props.goods],
-    })
-  );
+  reverseList = () => { this.sortGoods(reverseGoods); };
+
+  resetList = () => this.setState({
+    goodsList: [...this.props.goods],
+    selectValue: '1',
+  });
 
   selectNumber = (event) => {
     const { value } = event.target;
 
-    this.setState(
-      () => ({
-        goodsList: goodsWithLength([...this.props.goods], Number(value)),
-      })
-    );
-  }
+    this.setState({
+      goodsList: goodsWithLength([...this.props.goods], Number(value)),
+      selectValue: value,
+    });
+  };
 
   render() {
-    const { goodsList } = this.state;
+    const { goodsList, selectValue } = this.state;
 
     return (
       <div className="App">
         <h1>List of Goods</h1>
         <div>
-          <select onChange={this.selectNumber}>
+          <select value={selectValue} onChange={this.selectNumber}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -67,11 +58,7 @@ class Goods extends Component {
             <option value="9">9</option>
             <option value="10">10</option>
           </select>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.sortListAZ}
-          >
+          <button type="submit" className="button" onClick={this.sortListAZ}>
             Sort A - Z
           </button>
           <button
@@ -81,18 +68,10 @@ class Goods extends Component {
           >
             Sort by length
           </button>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.reverseList}
-          >
+          <button type="submit" className="button" onClick={this.reverseList}>
             Reverse
           </button>
-          <button
-            type="submit"
-            className="button"
-            onClick={this.resetList}
-          >
+          <button type="submit" className="button" onClick={this.resetList}>
             Reset
           </button>
         </div>
@@ -103,9 +82,7 @@ class Goods extends Component {
 }
 
 Goods.propTypes = {
-  goods: PropTypes.arrayOf(
-    PropTypes.string
-  ).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Goods;
