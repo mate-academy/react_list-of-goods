@@ -30,7 +30,7 @@ class Goods extends Component {
     selectValue: '1',
   });
 
-  selectNumber = (event) => {
+  selectByLength = (event) => {
     const { value } = event.target;
 
     this.setState({
@@ -46,7 +46,7 @@ class Goods extends Component {
       <div className="App">
         <h1>List of Goods</h1>
         <div>
-          <select value={selectValue} onChange={this.selectNumber}>
+          <select value={selectValue} onChange={this.selectByLength}>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
