@@ -1,0 +1,16 @@
+body {
+  background: #1b1c1d;
+}
+
+.hiddenButton {
+  display: none;
+}
+
+.ui.positive.button {
+  margin: 200px auto 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
