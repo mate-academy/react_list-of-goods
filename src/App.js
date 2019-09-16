@@ -17,54 +17,62 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const resetGoods = [...goodsFromServer];
-
 class App extends React.Component {
   state = {
+    originalGoods: [...goodsFromServer],
     goods: goodsFromServer,
     isHidden: true,
   };
 
   handleReverse = () => {
-    this.setState({
-      goods: this.state.goods.reverse(),
-    });
+    this.setState(prevState => ({
+      goods: prevState.goods.reverse(),
+    }));
   };
 
   handleSort = () => {
-    this.setState({
-      goods: this.state.goods.sort(),
-    });
+    this.setState(prevState => ({
+      goods: prevState.goods.sort(),
+    }));
   };
 
   handleSortLength = () => {
-    this.setState({
-      goods: this.state.goods.sort(
+    this.setState(prevState => ({
+      goods: prevState.goods.sort(
         (a, b) => b.replace(/ /gi, '').length - a.replace(/ /gi, '').length
       ),
-    });
+    }));
   };
 
   handleReset = () => {
-    this.setState({
-      goods: [...resetGoods],
-    });
+    this.setState(prevState => ({
+      goods: [...prevState.originalGoods],
+    }));
   };
 
   handleChange = (event) => {
-    const {value} = event.target;
-    this.setState({
-      goods: [...resetGoods].filter(elem => elem.length >= value),
-    });
+    const { value } = event.target;
+
+    this.setState(prevState => ({
+      goods: [...prevState.originalGoods].filter(elem => elem.length >= value),
+    }));
   };
 
-  handleClick() {
-    this.setState({
-      isHidden: !this.state.isHidden,
-    });
-  }
+  handleClick = () => {
+    this.setState(prevState => ({
+      isHidden: !prevState.isHidden,
+    }));
+  };
 
   render() {
+    const {
+      handleReverse,
+      handleSort,
+      handleSortLength,
+      handleReset,
+      handleChange,
+    } = this;
+
     return (
       <div className="main">
         <h3 className="display-3">Goods</h3>
@@ -81,11 +89,11 @@ class App extends React.Component {
         {!this.state.isHidden && (
           <Goods
             goods={this.state.goods}
-            handleReverse={this.handleReverse}
-            handleSort={this.handleSort}
-            handleSortLength={this.handleSortLength}
-            handleReset={this.handleReset}
-            handleChange={this.handleChange}
+            handleReverse={handleReverse}
+            handleSort={handleSort}
+            handleSortLength={handleSortLength}
+            handleReset={handleReset}
+            handleChange={handleChange}
           />
         )}
       </div>
