@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import Buttons from './components/Buttons/Buttons';
+import Goods from './components/Goods/Goods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -20,15 +22,12 @@ goodsFromServer.forEach(good => (
 ));
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       isStarted: false,
-      selectedValue: 0,
+      selectedValue: '0',
       currentData: [...goodsFromServer],
       initialData: [...goodsFromServer],
     };
-  }
 
   dataOfgoodsLength = (Array.from(goodsLength)).sort()
 
@@ -53,7 +52,7 @@ class App extends React.Component {
   letsReset = () => {
     this.setState(prevState => ({
       currentData: [...prevState.initialData],
-      selectedValue: 0,
+      selectedValue: '0',
     }));
   }
 
@@ -97,46 +96,16 @@ class App extends React.Component {
         )}
         {isStarted && (
           <>
-            <ul className="buttons-list">
-              <li className="buttons-list__item">
-                <button onClick={letsReverse} type="button">Reverse</button>
-              </li>
-              <li className="buttons-list__item">
-                <button
-                  onClick={letsSortAlphabetically}
-                  type="button"
-                >
-                  Sort alphabetically
-                </button>
-              </li>
-              <li className="buttons-list__item">
-                <button onClick={letsReset} type="button">Reset</button>
-              </li>
-              <li className="buttons-list__item">
-                <button
-                  onClick={letsSortByLength}
-                  type="button"
-                >
-                  Sort by length
-                </button>
-              </li>
-              <li className="buttons-list__item">
-                <label>
-                  Filter goods by length:
-                  <select onChange={letsSelectByLength} value={selectedValue}>
-                    <option value="0">No filtering</option>
-                    {dataOfgoodsLength.map(goodLength => (
-                      <option key={goodLength} value={goodLength}>{goodLength}</option>
-                    ))}
-                  </select>
-                </label>
-              </li>
-            </ul>
-            <ul className="goods-list">
-              {currentData.map(good => (
-                <li key={good} className="goods-list__item">{good}</li>
-              ))}
-            </ul>
+            <Buttons
+              letsReverse={letsReverse}
+              letsSortAlphabetically={letsSortAlphabetically}
+              letsReset={letsReset}
+              letsSortByLength={letsSortByLength}
+              dataOfgoodsLength={dataOfgoodsLength}
+              letsSelectByLength={letsSelectByLength}
+              selectedValue={selectedValue}
+            />
+            <Goods currentData={currentData} />
           </>
         )}
       </div>
