@@ -1,0 +1,23 @@
+.button {
+  height: 50px;
+  width: 120px;
+  background-color: lightblue;
+  border: none;
+  cursor: pointer;
+  color: whitesmoke;
+  margin: 0 10px;
+  border-radius: 5px;
+  transition: background-color 0.4s ease-in-out;
+
+  &:hover {
+    background-color: darken(lightblue, 20%);
+  }
+
+  &--invisible {
+    display: none;
+  }
+}
+
+.wrapper {
+  padding-top: 15px;
+}
