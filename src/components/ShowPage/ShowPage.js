@@ -14,31 +14,34 @@ class ShowPage extends React.Component {
   }
 
   handleStateOfList(id, value) {
-    if (id === 'reverse') {
-      this.setState(prevState => ({ workList: prevState.workList.reverse() }));
-    }
-
-    if (id === 'sort-alphabetically') {
-      this.setState(prevState => ({ workList: prevState.workList.sort() }));
-    }
-
-    if (id === 'reset') {
-      this.setState(
-        {
-          initialSelect: 0,
-          workList: [...this.props.listOfGoods],
-        }
-      );
-    }
-
-    if (id === 'sort-by-length') {
-      this.setState(prevState => (
-        { workList: prevState.workList.sort((a, b) => a.length - b.length) }
-      ));
-    }
-
-    if (id === 'select') {
-      this.setState({ initialSelect: value - 1 });
+    switch (id) {
+      case 'reverse':
+        this.setState(prevState => (
+          {
+            workList: prevState.workList.reverse(),
+          }
+        ));
+        break;
+      case 'sort-alphabetically':
+        this.setState(prevState => ({ workList: prevState.workList.sort() }));
+        break;
+      case 'reset':
+        this.setState(
+          {
+            initialSelect: 0,
+            workList: [...this.props.listOfGoods],
+          }
+        );
+        break;
+      case 'sort-by-length':
+        this.setState(prevState => (
+          { workList: prevState.workList.sort((a, b) => a.length - b.length) }
+        ));
+        break;
+      case 'select':
+        this.setState({ initialSelect: value - 1 });
+        break;
+      default:
     }
   }
 

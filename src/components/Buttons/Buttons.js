@@ -3,16 +3,15 @@ import PropTypes from 'prop-types';
 import './Buttons.css';
 
 class Buttons extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
+  constructor({ handleStateOfList }) {
+    super();
+    this.handleStateOfList = handleStateOfList;
   }
 
-  handleClick(event) {
-    const buttonId = event.target.id;
-    const buttonValue = event.target.value;
+  handleClick = ({ target }) => {
+    const { id, value } = target;
 
-    this.props.handleStateOfList(buttonId, buttonValue);
+    this.handleStateOfList(id, value);
   }
 
   render() {
@@ -46,11 +45,10 @@ class Buttons extends React.Component {
           id="select"
           className="btn btn-primary btn-lg place"
           onClick={this.handleClick}
+          defaultValue={this.props.defaultSelect}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-            .map(item => (this.props.defaultSelect === item
-              ? <option selected value={item}>{item}</option>
-              : <option value={item}>{item}</option>))}
+            .map(item => <option value={item} key={item}>{item}</option>)}
         </select>
         <button
           id="reset"

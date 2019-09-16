@@ -15,25 +15,19 @@ const goodsFromServer = [
 ];
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      click: false,
-    };
-    this.handleClick = this.handleClick.bind(this);
+  state = {
+    isClicked: false,
   }
 
-  handleClick() {
-    this.setState({ click: true });
-  }
+  handleClick = () => this.setState({ isClicked: true });
 
   render() {
-    const { click } = this.state;
+    const { isClicked } = this.state;
 
     return (
       <div className="App">
         <h1>Goods 1</h1>
-        {click
+        {isClicked
           ? (<ShowPage listOfGoods={goodsFromServer} />)
           : (
             <button
