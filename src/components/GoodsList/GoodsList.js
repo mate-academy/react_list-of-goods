@@ -6,6 +6,7 @@ class GoodsList extends React.PureComponent {
   render() {
     const {
       goods,
+      selectedOption,
       handleClickReverse,
       handleClickSort,
       handleClickReset,
@@ -49,6 +50,7 @@ class GoodsList extends React.PureComponent {
             name="good-length"
             id="selectedLength"
             onChange={handleChangeSelect}
+            value={selectedOption}
           >
             <option value="1">1</option>
             <option value="2">2</option>
