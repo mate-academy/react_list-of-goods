@@ -1,5 +1,5 @@
 {
-  "homepage": "https://mate-academy.github.io/react_list-of-goods",
+  "homepage": "https://github.com/marchukmiroslava88/react_list-of-goods",
   "name": "react_list-of-goods",
   "version": "0.1.0",
   "private": true,
@@ -7,8 +7,10 @@
   "author": "Mate Academy",
   "license": "GPL-3.0",
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
