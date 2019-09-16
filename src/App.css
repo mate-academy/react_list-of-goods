@@ -1,0 +1,25 @@
+.app {
+  text-align: center;
+}
+
+.buttons-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttons-list__item:not(:first-child) {
+  margin-left: 20px;
+}
+
+.goods-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.goods-list__item {
+  margin-bottom: 10px;
+}
