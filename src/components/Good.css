@@ -1,0 +1,8 @@
+.list-of-goods__item {
+  border-bottom: 1px solid brown;
+  margin-top: 10px;
+}
+
+.list-of-goods__item:first-child {
+  margin-top: 0;
+}
