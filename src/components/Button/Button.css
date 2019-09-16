@@ -6,6 +6,6 @@
   height: 100vh;
 }
 
-.container > button {
+.btn--start {
   align-self: center;
 }

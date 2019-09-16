@@ -12,26 +12,27 @@ class GoodsList extends Component {
 
     this.state = {
       listOfGoods: [...this.props.listOfGoods],
-      selectedByDefault: 1,
+      selectedByDefault: 0,
     };
   }
 
-  onClickReverse = (listOfGoods) => {
-    this.setState({
-      listOfGoods: listOfGoods.reverse(),
-    });
+  onClickReverse = () => {
+    this.setState(prevState => ({
+      listOfGoods: [...prevState.listOfGoods].reverse(),
+    }));
   }
 
-  onClickSortAlphabetically = (listOfGoods) => {
-    this.setState({
-      listOfGoods: listOfGoods.sort(),
-    });
+  onClickSortAlphabetically = () => {
+    this.setState(prevState => ({
+      listOfGoods: [...prevState.listOfGoods].sort(),
+    }));
   }
 
-  onClickSortByLength = (listOfGoods) => {
-    this.setState({
-      listOfGoods: listOfGoods.sort((a, b) => a.length - b.length),
-    });
+  onClickSortByLength = () => {
+    this.setState(prevState => ({
+      listOfGoods: [...prevState.listOfGoods]
+        .sort((a, b) => a.length - b.length),
+    }));
   }
 
   onClickSelect = (event) => {

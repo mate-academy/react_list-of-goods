@@ -20,7 +20,7 @@ class App extends Component {
     notStarted: true,
   };
 
-  startedOnClick = () => {
+  handleStart = () => {
     this.setState({
       notStarted: false,
     });
@@ -28,23 +28,24 @@ class App extends Component {
 
   render() {
     const listOfGoods = [...goodsFromServer];
-    const { startedOnClick } = this;
+    const { handleStart } = this;
     const { notStarted } = this.state;
-
-    if (!notStarted) {
-      return (
-        <div className="App">
-          <div className="container">
-            <GoodsList listOfGoods={listOfGoods} />
-          </div>
-        </div>
-      );
-    }
 
     return (
       <div className="App">
         <div className="container">
-          <Button text="Start" onClick={startedOnClick} />
+          {notStarted && (
+            <Button
+              className="btn--start"
+              text="Start"
+              onClick={handleStart}
+            />
+          )}
+          {!notStarted && (
+            <GoodsList
+              listOfGoods={listOfGoods}
+            />
+          )}
         </div>
       </div>
     );
