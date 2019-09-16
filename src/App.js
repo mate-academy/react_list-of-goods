@@ -19,11 +19,13 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
+    currentSelect: 1,
     isVisible: true,
   }
 
   handleReset = () => this.setState({
-      goods: [...goodsFromServer],
+    goods: [...goodsFromServer],
+    currentSelect: 1,
   });
 
   handleReverse = () => this.setState({
@@ -35,19 +37,21 @@ class App extends React.Component {
   });
 
   handleSortByLength = () => this.setState({
-    goods: [...goodsFromServer].sort((a, b) => a.length > b.length ? 1 : a.length < b.length ? -1 : 0),
+    goods: [...goodsFromServer].sort((a, b) => a.length - b.length)
   });
 
-  handleClick = () => this.setState({
-    isVisible: !this.state.isVisible,
-  });
+  handleClick = () => this.setState(prevState => ({
+    isVisible: !prevState.isVisible,
+  }));
 
-  handleWordLength = (e) => {
-    const { value } = e.target;
+  handleWordLength = ({ target }) => {
+    const { value } = target;
 
-    return (this.setState({
-      goods: [...goodsFromServer].filter(item => item.length >= value),
-    }))
+    this.setState({
+      currentSelect: value,
+      goods: [...goodsFromServer]
+        .filter(elem => elem.length >= value),
+    });
   };
 
   render() {
@@ -65,7 +69,7 @@ class App extends React.Component {
             : 'button button--invisible'}
           name="Show more"
         />
-        {!this.state.isVisible &&
+        {!this.state.isVisible && (
           <Content
             handleReset={this.handleReset}
             handleReverse={this.handleReverse}
@@ -73,9 +77,11 @@ class App extends React.Component {
             handleSort={this.handleSort}
             handleWordLength={this.handleWordLength}
             goods={this.state.goods}
-          />}
+            currentSelect={this.state.currentSelect}
+          />
+        )}
       </div>
-    )
+    );
   }
 }
 
