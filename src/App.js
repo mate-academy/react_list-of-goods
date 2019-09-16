@@ -126,7 +126,7 @@ class App extends React.Component {
                   <select onChange={letsSelectByLength} value={selectedValue}>
                     <option value="0">No filtering</option>
                     {dataOfgoodsLength.map(goodLength => (
-                      <option value={goodLength}>{goodLength}</option>
+                      <option key={goodLength} value={goodLength}>{goodLength}</option>
                     ))}
                   </select>
                 </label>
@@ -134,7 +134,7 @@ class App extends React.Component {
             </ul>
             <ul className="goods-list">
               {currentData.map(good => (
-                <li className="goods-list__item">{good}</li>
+                <li key={good} className="goods-list__item">{good}</li>
               ))}
             </ul>
           </>
