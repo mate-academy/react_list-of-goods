@@ -36,12 +36,12 @@ export default class GoodsList extends Component {
       { goods: prevState.goods.sort((a, b) => a.length - b.length) }));
   };
 
-  onSelectChange = (e) => {
+  onSelectChange = (wordLength) => {
     this.setState(
       {
-        selectedValue: e.target.value,
+        selectedValue: wordLength,
         goods: [...this.props.goods]
-          .filter(item => item.length >= e.target.value),
+          .filter(item => item.length >= wordLength),
       }
     );
   };
