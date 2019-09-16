@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import './Buttons.css';
 
 class Buttons extends React.Component {
-  constructor({ handleStateOfList }) {
-    super();
-    this.handleStateOfList = handleStateOfList;
+  constructor(props) {
+    super(props);
+    this.handleStateOfList = props.handleStateOfList;
   }
 
   handleClick = ({ target }) => {
@@ -15,13 +15,16 @@ class Buttons extends React.Component {
   }
 
   render() {
+    const { handleClick } = this;
+    const { defaultSelect } = this.props;
+
     return (
       <>
         <button
           id="reverse"
           type="button"
           className="btn btn-primary btn-lg place"
-          onClick={this.handleClick}
+          onClick={handleClick}
         >
           Reverse
         </button>
@@ -29,7 +32,7 @@ class Buttons extends React.Component {
           id="sort-alphabetically"
           type="button"
           className="btn btn-primary btn-lg place"
-          onClick={this.handleClick}
+          onClick={handleClick}
         >
           Sort alphabetically
         </button>
@@ -37,15 +40,15 @@ class Buttons extends React.Component {
           id="sort-by-length"
           type="button"
           className="btn btn-primary btn-lg place"
-          onClick={this.handleClick}
+          onClick={handleClick}
         >
           Sort by length
         </button>
         <select
           id="select"
           className="btn btn-primary btn-lg place"
-          onClick={this.handleClick}
-          defaultValue={this.props.defaultSelect}
+          onClick={handleClick}
+          defaultValue={defaultSelect}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             .map(item => <option value={item} key={item}>{item}</option>)}
@@ -54,7 +57,7 @@ class Buttons extends React.Component {
           id="reset"
           type="button"
           className="btn btn-primary btn-lg place"
-          onClick={this.handleClick}
+          onClick={handleClick}
         >
           Reset
         </button>

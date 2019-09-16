@@ -16,18 +16,18 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    isClicked: false,
+    isLoaded: false,
   }
 
-  handleClick = () => this.setState({ isClicked: true });
+  handleClick = () => this.setState({ isLoaded: true });
 
   render() {
-    const { isClicked } = this.state;
+    const { isLoaded } = this.state;
 
     return (
       <div className="App">
         <h1>Goods 1</h1>
-        {isClicked
+        {isLoaded
           ? (<ShowPage listOfGoods={goodsFromServer} />)
           : (
             <button
