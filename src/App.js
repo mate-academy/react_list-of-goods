@@ -1,11 +1,5 @@
 import React from 'react';
 
-import Start from './component/Start';
-import Reverse from './component/Reverse';
-import SortAlphabetic from './component/SortAlphabetic';
-import Reset from './component/Reset';
-import SortByLength from './component/SortByLength';
-
 import GoodsList from './component/GoodsLIst';
 
 import './App.css';
@@ -43,7 +37,7 @@ class App extends React.Component {
     })
   );
 
-  toShowList = () => (
+  handleStart = () => (
     this.setState(prevState => ({
       isListShown: !prevState.isListShown,
     }))
@@ -77,7 +71,7 @@ class App extends React.Component {
     const { copiedList, selectedValue, isListShown } = this.state;
     const {
       setSelectValue,
-      toShowList,
+      handleStart,
       reverseList,
       sortByAlphabet,
       resetList,
@@ -86,63 +80,54 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <Start>
-          { !isListShown
-            && (
-              <button
-                className="button-start"
-                type="button"
-                onClick={toShowList}
-              >
-                Start
-              </button>
-            )
-          }
-        </Start>
+
+        { !isListShown
+          && (
+            <button
+              className="button-start"
+              type="button"
+              onClick={handleStart}
+            >
+              Start
+            </button>
+          )
+        }
 
         { isListShown
           && (
             <>
               <div className="buttons-goods">
-                <SortByLength>
-                  <button
-                    className="button-goods"
-                    type="button"
-                    onClick={sortByLength}
-                  >
-                    Sort by length
-                  </button>
-                </SortByLength>
+                <button
+                  className="button-goods"
+                  type="button"
+                  onClick={sortByLength}
+                >
+                  Sort by length
+                </button>
 
-                <Reset>
-                  <button
-                    className="button-goods"
-                    type="button"
-                    onClick={resetList}
-                  >
-                    Reset
-                  </button>
-                </Reset>
+                <button
+                  className="button-goods"
+                  type="button"
+                  onClick={resetList}
+                >
+                  Reset
+                </button>
 
-                <SortAlphabetic>
-                  <button
-                    className="button-goods"
-                    type="button"
-                    onClick={sortByAlphabet}
-                  >
-                    Sort by alphabetic
-                  </button>
-                </SortAlphabetic>
+                <button
+                  className="button-goods"
+                  type="button"
+                  onClick={sortByAlphabet}
+                >
+                  Sort by alphabetic
+                </button>
 
-                <Reverse>
-                  <button
-                    className="button-goods"
-                    type="button"
-                    onClick={reverseList}
-                  >
-                    Reverse
-                  </button>
-                </Reverse>
+                <button
+                  className="button-goods"
+                  type="button"
+                  onClick={reverseList}
+                >
+                  Reverse
+                </button>
               </div>
 
               <div>
