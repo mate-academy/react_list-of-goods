@@ -34,18 +34,16 @@ class App extends Component {
     return (
       <div className="App">
         <div className="container">
-          {notStarted && (
-            <Button
-              className="btn--start"
-              text="Start"
-              onClick={handleStart}
-            />
-          )}
-          {!notStarted && (
-            <GoodsList
-              listOfGoods={listOfGoods}
-            />
-          )}
+          {notStarted
+            ? (
+              <Button
+                className="btn--start"
+                text="Start"
+                onClick={handleStart}
+              />
+            )
+            : <GoodsList listOfGoods={listOfGoods} />
+          }
         </div>
       </div>
     );
