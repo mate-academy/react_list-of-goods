@@ -10,7 +10,7 @@ body {
   margin: 200px auto 0;
 }
 
-.App {
+.app {
   display: flex;
   flex-direction: column;
 }
