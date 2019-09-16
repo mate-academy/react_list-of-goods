@@ -11,12 +11,13 @@ class Buttons extends React.Component {
       handleSortLength,
       handleReset,
       handleChange,
+      currentSelect
     } = this.props;
 
     return (
       <>
         <div className="btn-group" role="group" aria-label="Basic example">
-          <Button className="btn btn-secondary" onClick={handleReverse}>
+          <Button className="btn btn-secondary" onClick={handleReverse} value={currentSelect}>
             Reverse
           </Button>
           <Button className="btn btn-secondary" onClick={handleSort}>
@@ -30,8 +31,8 @@ class Buttons extends React.Component {
           </Button>
         </div>
         <div className="selects">
-          <select name="length" id="selectedLength" onChange={handleChange}>
-            <option selected value="1">1</option>
+          <select name="length" id="selectedLength" onChange={handleChange} value={currentSelect}>
+            <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>

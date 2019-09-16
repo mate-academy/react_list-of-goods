@@ -22,6 +22,7 @@ class App extends React.Component {
     originalGoods: [...goodsFromServer],
     goods: goodsFromServer,
     isHidden: true,
+    currentSelect: 1,
   };
 
   handleReverse = () => {
@@ -46,15 +47,17 @@ class App extends React.Component {
 
   handleReset = () => {
     this.setState(prevState => ({
+      currentSelect: 1,
       goods: [...prevState.originalGoods],
     }));
   };
 
-  handleChange = (event) => {
-    const { value } = event.target;
-
+  handleChange = ({ target }) => {
+    const { value } = target;
     this.setState(prevState => ({
+      currentSelect: value,
       goods: [...prevState.originalGoods].filter(elem => elem.length >= value),
+
     }));
   };
 
@@ -65,6 +68,7 @@ class App extends React.Component {
   };
 
   render() {
+    const { goods, currentSelect } = this.state;
     const {
       handleReverse,
       handleSort,
@@ -88,7 +92,8 @@ class App extends React.Component {
         </Button>
         {!this.state.isHidden && (
           <Goods
-            goods={this.state.goods}
+            goods={goods}
+            currentSelect={currentSelect}
             handleReverse={handleReverse}
             handleSort={handleSort}
             handleSortLength={handleSortLength}

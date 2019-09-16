@@ -8,6 +8,7 @@ class Goods extends React.Component {
   render() {
     const {
       goods,
+      currentSelect,
       handleReverse,
       handleSort,
       handleSortLength,
@@ -25,6 +26,7 @@ class Goods extends React.Component {
           ))}
         </ul>
         <Buttons
+          currentSelect={currentSelect}
           handleReverse={handleReverse}
           handleSort={handleSort}
           handleSortLength={handleSortLength}
