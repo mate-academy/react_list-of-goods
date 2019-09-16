@@ -19,6 +19,7 @@ const options = [
 class List extends React.Component {
   state = {
     goods: [...this.props.goods],
+    originGoods: [...this.props.goods],
     selectedOption: null,
   }
 
@@ -36,7 +37,8 @@ class List extends React.Component {
 
   onClickReset = () => {
     this.setState(prevState => ({
-      goods: [...this.props.goods],
+      goods: [...prevState.originGoods],
+      selectedOption: null,
     }));
   }
 
@@ -47,12 +49,12 @@ class List extends React.Component {
   }
 
   handleSelectChange = (selectedOption) => {
-    this.setState({
+    this.setState(prevState => ({
       selectedOption,
-      goods: [...this.props.goods]
+      goods: [...prevState.originGoods]
         .filter(item => item.length >= selectedOption.value),
 
-    });
+    }));
   }
 
   render() {

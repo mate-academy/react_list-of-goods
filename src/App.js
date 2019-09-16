@@ -20,7 +20,7 @@ class App extends React.Component {
     isActiveStart: false,
   }
 
-  btnIsActive = () => {
+  handleStart = () => {
     this.setState(prevState => ({
       isActiveStart: !prevState.isActiveStart,
     }));
@@ -33,7 +33,7 @@ class App extends React.Component {
       <div className="wrapper">
         <button
           type="button"
-          onClick={this.btnIsActive}
+          onClick={this.handleStart}
           className={
             isActiveStart
               ? 'button--active'

@@ -16,8 +16,7 @@
   outline: none;
   transition: 0.5s;
   cursor: pointer;
-  margin-top: 100px;
-  margin-left: 50%;
+  margin: 100px 0 0 50%;
   transform: translate(-50%, 0);
 }
 
@@ -25,10 +24,7 @@
   transform: translate(-50%,7px);
 }
 
-.button--active {
-  display: none;
-}
-
+.button--active,
 .app--inactive {
   display: none;
 }
