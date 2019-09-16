@@ -1,0 +1,16 @@
+.functionality-block {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin-left: 2%;
+  margin-top: 50px;
+}
+
+.ui.vertical.buttons {
+  margin-bottom: 40px;
+}
+
+.ui.negative.button {
+  margin-bottom: 40px;
+}
+

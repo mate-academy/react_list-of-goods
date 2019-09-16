@@ -1,0 +1,16 @@
+.goods {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.ui.inverted.segment {
+  width: 70%;
+  text-align: center;
+  margin-left: 10%;
+}
+
+.ui.header {
+  color: white;
+  text-align: center;
+}
