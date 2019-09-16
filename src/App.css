@@ -9,7 +9,7 @@
   display: flex;
 }
 
-.controls button {
+.app__button {
   margin-right: 20px;
 }
 
@@ -25,6 +25,6 @@
   margin-top: 20px;
 }
 
-.selectedSort select {
+.app__select {
   margin-left: 10px;
 }

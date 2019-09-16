@@ -16,14 +16,11 @@ const goodsFromServer = [
 ];
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      goodsList: [...goodsFromServer],
-      isButtonClicked: false,
-      currentValue: 1,
-    };
-  }
+  state = {
+    goodsList: [...goodsFromServer],
+    isButtonClicked: false,
+    currentValue: 1,
+  };
 
   showListOfGoods = () => {
     this.setState({
@@ -57,11 +54,13 @@ class App extends React.Component {
     });
   };
 
-  lengthSelect = (event) => {
+  lengthSelect = ({ target }) => {
+    const { value } = target;
+
     this.setState({
-      currentValue: event.target.value,
+      currentValue: value,
       goodsList: [...goodsFromServer]
-        .filter(good => good.length === Number(event.target.value)),
+        .filter(good => good.length === Number(value)),
     });
   };
 
@@ -73,29 +72,31 @@ class App extends React.Component {
   };
 
   render() {
+    const { goodsList, isButtonClicked, currentValue } = this.state;
+
     return (
       <div className="app-wrapper">
         <h1>
           List of goods:&nbsp;
-          {this.state.goodsList.length}
+          {goodsList.length}
         </h1>
 
-        {!this.state.isButtonClicked && (
+        {!isButtonClicked && (
           <button
             type="button"
-            className="startButton button-hide"
+            className="app__button"
             onClick={this.showListOfGoods}
           >
             Start
           </button>
         )}
 
-        {this.state.isButtonClicked && (
+        {isButtonClicked && (
           <>
             <div className="controls">
               <button
                 type="button"
-                className="reverse"
+                className="app__button"
                 onClick={this.reverseList}
               >
                 Reverse
@@ -103,7 +104,7 @@ class App extends React.Component {
 
               <button
                 type="button"
-                className="startButton button-hide"
+                className="app__button"
                 onClick={this.alphabeticSortList}
               >
                 Alphabet Sort
@@ -111,7 +112,7 @@ class App extends React.Component {
 
               <button
                 type="button"
-                className="startButton button-hide"
+                className="app__button"
                 onClick={this.lengthSortList}
               >
                 Length sort
@@ -119,7 +120,7 @@ class App extends React.Component {
 
               <button
                 type="button"
-                className="startButton button-hide"
+                className="app__button"
                 onClick={this.resetLengthGoods}
               >
                 Reset length of goods
@@ -127,7 +128,7 @@ class App extends React.Component {
 
               <button
                 type="button"
-                className="startButton button-hide"
+                className="app__button"
                 onClick={this.reset}
               >
                 Reset
@@ -140,7 +141,8 @@ class App extends React.Component {
                 onChange={this.lengthSelect}
                 name="lengthSelect"
                 id="lengthSelect"
-                value={this.state.currentValue}
+                className="app__select"
+                value={currentValue}
               >
                 <option selected>Choose length of goods</option>
                 <option value="3">3</option>
@@ -152,7 +154,7 @@ class App extends React.Component {
             </span>
 
             <ul className="list-of-goods">
-              {this.state.goodsList
+              {goodsList
                 .map(good => <Good key={good} good={good} />)}
             </ul>
           </>
