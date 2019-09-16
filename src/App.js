@@ -14,13 +14,13 @@ const goodsFromServer = [
   'Jam',
   'Garlic',
 ];
-const goodsArr = [...goodsFromServer];
 
 class App extends React.Component {
   state = {
     hidden: false,
     goods: goodsFromServer,
     optionState: 1,
+    originGoods: [...goodsFromServer],
   };
 
   startClick = () => {
@@ -30,57 +30,63 @@ class App extends React.Component {
   };
 
   reverseClick = () => {
-    this.setState({
-      goods: this.state.goods.reverse(),
-    });
+    this.setState(prevState => ({
+      goods: prevState.goods.reverse(),
+    }));
   };
 
   alphabetSort = () => {
-    this.setState({
-      goods: this.state.goods.sort(),
-    });
+    this.setState(prevState => ({
+      goods: prevState.goods.sort(),
+    }));
   };
 
   lengthSort = () => {
-    this.setState({
-      goods: this.state.goods.sort(
+    this.setState(prevState => ({
+      goods: prevState.goods.sort(
         (a, b) => b.replace(/ /gi, '').length - a.replace(/ /gi, '').length
       ),
-    });
+    }));
   };
 
   resetClick = () => {
-    this.setState({
-      goods: [...goodsArr],
-    });
+    this.setState(prevState => ({
+      optionState: 1,
+      goods: [...prevState.originGoods],
+    }));
   };
 
-  handleChange = (event) => {
-    const { value } = event.target;
-
-    this.setState({
-      goods: [...goodsArr].filter(el => el.length >= value),
-    });
+  handleChange = ({ target }) => {
+    const { value } = target;
+    this.setState(prevState => ({
+      optionState: value,
+      goods: [...prevState.originGoods].filter(good => good.length >= value),
+    }));
   };
 
   render() {
+    const { goods, optionState, hidden } = this.state;
+    const {
+      reverseClick, alphabetSort, lengthSort, resetClick, handleChange, startClick,
+    } = this;
     return (
-      <div className="App">
+      <div className="app">
         <button
           type="button"
-          onClick={this.startClick}
-          className={this.state.hidden ? 'hiddenButton' : 'positive ui button'}
+          onClick={startClick}
+          className={hidden ? 'hidden-button' : 'positive ui button'}
         >
           Press to START!
         </button>
-        {this.state.hidden && (
+        {hidden && (
           <Goods
-            goods={this.state.goods}
-            reverseClick={this.reverseClick}
-            alphabetSort={this.alphabetSort}
-            lengthSort={this.lengthSort}
-            resetClick={this.resetClick}
-            handleChange={this.handleChange}
+            goods={goods}
+            optionState={optionState}
+            reverseClick={reverseClick}
+            alphabetSort={alphabetSort}
+            lengthSort={lengthSort}
+            resetClick={resetClick}
+            handleChange={handleChange}
           />
         )}
       </div>
