@@ -19,11 +19,7 @@ class App extends Component {
     isStartClicked: false,
   };
 
-  changeStartState = () => this.setState(
-    () => ({
-      isStartClicked: true,
-    })
-  );
+  changeStartState = () => this.setState({ isStartClicked: true });
 
   render() {
     const { isStartClicked } = this.state;
