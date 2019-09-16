@@ -2,44 +2,16 @@ import React from 'react';
 import './GoodsList.css';
 import goodsPropTypes from '../../proptypes/proptypes';
 
-class GoodsList extends React.Component {
-  state = {
-    goods: this.props.goods,
-  }
-
-  handleClickReverse = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].reverse(),
-    }));
-  }
-
-  handleClickSort = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].sort(),
-    }));
-  }
-
-  handleClickReset = () => {
-    this.setState(prevState => ({
-      goods: this.props.goods,
-    }));
-  }
-
-  handleClickSortByLength = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
-    }));
-  }
-
-  handleChangeSelect = (event) => {
-    this.setState({
-      goods: [...this.props.goods]
-        .filter(elem => elem.length >= event.target.value),
-    });
-  }
-
+class GoodsList extends React.PureComponent {
   render() {
-    const { goods } = this.state;
+    const {
+      goods,
+      handleClickReverse,
+      handleClickSort,
+      handleClickReset,
+      handleClickSortByLength,
+      handleChangeSelect,
+    } = this.props;
 
     return (
       <>
@@ -47,28 +19,28 @@ class GoodsList extends React.Component {
           <button
             type="button"
             className="button"
-            onClick={this.handleClickReverse}
+            onClick={handleClickReverse}
           >
             Reverse
           </button>
           <button
             type="button"
             className="button"
-            onClick={this.handleClickSort}
+            onClick={handleClickSort}
           >
             Sort alphabetically
           </button>
           <button
             type="button"
             className="button"
-            onClick={this.handleClickReset}
+            onClick={handleClickReset}
           >
             Reset
           </button>
           <button
             type="button"
             className="button"
-            onClick={this.handleClickSortByLength}
+            onClick={handleClickSortByLength}
           >
             Sort by length
           </button>
@@ -76,7 +48,7 @@ class GoodsList extends React.Component {
             className="select"
             name="good-length"
             id="selectedLength"
-            onChange={this.handleChangeSelect}
+            onChange={handleChangeSelect}
           >
             <option value="1">1</option>
             <option value="2">2</option>

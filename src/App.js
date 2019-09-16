@@ -18,17 +18,55 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
-    isStartActive: true,
+    isStarted: true,
   }
 
   handleStartClick = () => {
     this.setState({
-      isStartActive: false,
+      isStarted: false,
+    });
+  }
+
+  handleClickReverse = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
+  }
+
+  handleClickSort = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort(),
+    }));
+  }
+
+  handleClickReset = () => {
+    this.setState({
+      goods: [...goodsFromServer],
+    });
+  }
+
+  handleClickSortByLength = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
+    }));
+  }
+
+  handleChangeSelect = (event) => {
+    this.setState({
+      goods: [...goodsFromServer]
+        .filter(elem => elem.length >= event.target.value),
     });
   }
 
   render() {
-    const { goods, isStartActive } = this.state;
+    const { goods, isStarted } = this.state;
+    const {
+      handleClickReverse,
+      handleClickSort,
+      handleClickReset,
+      handleClickSortByLength,
+      handleChangeSelect,
+    } = this;
 
     return (
       <div className="container">
@@ -36,15 +74,22 @@ class App extends React.Component {
           type="button"
           onClick={this.handleStartClick}
           className={
-            isStartActive
+            isStarted
               ? 'button-start'
               : 'button--inactive'
           }
         >
           Start
         </button>
-        {!isStartActive && (
-          <GoodsList goods={goods} />
+        {!isStarted && (
+          <GoodsList
+            goods={goods}
+            handleClickReverse={handleClickReverse}
+            handleClickSort={handleClickSort}
+            handleClickReset={handleClickReset}
+            handleClickSortByLength={handleClickSortByLength}
+            handleChangeSelect={handleChangeSelect}
+          />
         )}
       </div>
     );
