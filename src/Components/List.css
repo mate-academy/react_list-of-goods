@@ -1,0 +1,30 @@
+.buttons-container {
+  display: flex;
+}
+
+.button {
+  height: 50px;
+  width: 90px;
+  background-color: lavender;
+  color: purple;
+  font-weight: bold;
+  border: 2px solid teal;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.button:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.css-yk16xz-control {
+  height: 50px;
+  width: 90px;
+}
+
+.list-item {
+  color: purple;
+  font-size: 22px;
+}
