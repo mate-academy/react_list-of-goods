@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+import './App.scss';
+
+import Button from './components/Button/Button';
+import GoodsList from './components/Goods/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -13,10 +17,24 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods 1</h1>
-  </div>
-);
+export default class App extends Component {
+  state = {
+    firstLoad: true,
+  };
 
-export default App;
+  onClickStart = () => {
+    this.setState({
+      firstLoad: false,
+    });
+  }
+
+  render() {
+    return (
+      <div className="app">
+        {this.state.firstLoad
+          ? <Button text="Start" onClick={this.onClickStart} />
+          : <GoodsList goods={goodsFromServer} />}
+      </div>
+    );
+  }
+}
