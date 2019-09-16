@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProductList from '../ProductList/ProductList';
-import sortAlphabetically from '../../actions/sortAlphabetically';
-import reverseGoods from '../../actions/reverseGoods';
-import sortByLength from '../../actions/sortByLength';
-import goodsWithLength from '../../actions/goodsWithLength';
+import {
+  sortAlphabetically,
+  reverseGoods,
+  sortByLength,
+  goodsWithLength,
+} from '../../actions/typesOfSort';
 
 const optionTagsList = [...Array(10)].map((_item, index) => {
   const keyValue = index + 1;
