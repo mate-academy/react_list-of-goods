@@ -17,6 +17,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
+    originalGoodsList: [...goodsFromServer],
     goodsList: [...goodsFromServer],
     isButtonClicked: false,
     currentValue: 1,
@@ -42,33 +43,34 @@ class App extends React.Component {
 
   lengthSortList = () => {
     this.setState(prevState => ({
-      goodsList: [...prevState.goodsList]
+      goodsList: [...prevState.originalGoodsList]
         .sort((prev, next) => prev.length - next.length),
     }));
-  };
-
-  reset = () => {
-    this.setState({
-      goodsList: [...goodsFromServer],
-      isButtonClicked: false,
-    });
   };
 
   lengthSelect = ({ target }) => {
     const { value } = target;
 
-    this.setState({
+    this.setState(prevState => ({
       currentValue: value,
-      goodsList: [...goodsFromServer]
+      goodsList: [...prevState.originalGoodsList]
         .filter(good => good.length === Number(value)),
-    });
+    }));
   };
 
-  resetLengthGoods = () => {
-    this.setState({
-      goodsList: [...goodsFromServer],
+  reset = () => {
+    this.setState(prevState => ({
+      isButtonClicked: false,
+      goodsList: [...prevState.originalGoodsList],
       currentValue: 1,
-    });
+    }));
+  }
+
+  resetLengthGoods = () => {
+    this.setState(prevState => ({
+      currentValue: 1,
+      goodsList: [...prevState.originalGoodsList],
+    }));
   };
 
   render() {
@@ -135,7 +137,7 @@ class App extends React.Component {
               </button>
             </div>
 
-            <span className="selectedSort">
+            <span className="selected-sort">
               Choose length for sort:
               <select
                 onChange={this.lengthSelect}
