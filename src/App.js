@@ -7,14 +7,15 @@ import { goodsFromServer } from './api/goodsFromServer';
 
 class App extends React.Component {
   state = {
-    goods: [],
+    goods: [...goodsFromServer],
     isStartButtonShown: true,
+    isGoodsShow: false,
   };
 
   handleButtonShowClick = () => {
     this.setState(prevState => ({
-      goods: [...goodsFromServer],
       isStartButtonShown: !prevState.isStartButtonShown,
+      isGoodsShow: true,
     }));
   };
 
@@ -55,7 +56,10 @@ class App extends React.Component {
       <div className="App">
         <div className="goods">
           <h1 className="goods__title">{`Goods ${goods.length}`}</h1>
-          <Goods goods={goods} />
+          {this.state.isGoodsShow
+            ? <Goods goods={goods} />
+            : null
+          }
 
           {isStartButtonShown
             ? <StartButton handleClick={this.handleButtonShowClick} />
