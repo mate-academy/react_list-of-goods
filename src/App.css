@@ -1,0 +1,16 @@
+body {
+  background: #1b1c1d;
+}
+
+.isStarted-button {
+  display: none;
+}
+
+.ui.positive.button {
+  margin: 200px auto 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+}
