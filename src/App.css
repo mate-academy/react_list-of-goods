@@ -1,0 +1,19 @@
+.button-active {
+  display: block;
+}
+
+.button-hidden {
+  display: none;
+}
+
+.content-hidden {
+  display: none;
+}
+
+.content-show {
+  display: block;
+}
+
+.filters {
+  display: flex;
+}
