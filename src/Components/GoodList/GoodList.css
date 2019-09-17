@@ -1,0 +1,11 @@
+.content-container {
+  width: 100%;
+  margin-left: 500px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 380px;
+}
