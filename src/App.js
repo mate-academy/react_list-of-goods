@@ -18,6 +18,7 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
+    originalGoods: [...goodsFromServer],
     isStarted: true,
     selectedOption: 1,
   }
@@ -41,10 +42,10 @@ class App extends React.Component {
   }
 
   handleClickReset = () => {
-    this.setState({
-      goods: [...goodsFromServer],
+    this.setState(prevState => ({
+      goods: [...prevState.originalGoods],
       selectedOption: 1,
-    });
+    }));
   }
 
   handleClickSortByLength = () => {
@@ -56,11 +57,11 @@ class App extends React.Component {
   handleChangeSelect = ({ target }) => {
     const { value } = target;
 
-    this.setState({
-      goods: [...goodsFromServer]
-        .filter(elem => elem.length >= value),
+    this.setState(prevState => ({
       selectedOption: value,
-    });
+      goods: [...prevState.originalGoods]
+        .filter(elem => elem.length >= value),
+    }));
   }
 
   render() {
