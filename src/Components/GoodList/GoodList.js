@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { GoodsListProps } from 'prop-types';
-import Button from '../Buttons/Buttons';
+import Buttons from '../Buttons/Buttons';
 import Good from '../Good/Good';
 import Select from '../Select/Select';
 
@@ -46,7 +46,6 @@ class GoodsList extends Component {
   onClickReset = () => {
     this.setState({
       listOfGoods: [...this.props.listOfGoods],
-      selectedByDefault: 0,
     });
   };
 
@@ -64,22 +63,22 @@ class GoodsList extends Component {
     return (
       <div className="content-container">
         <div className="buttons-container">
-          <Button
+          <Buttons
             text="reverse"
             onClick={onClickReverse}
             listOfGoods={listOfGoods}
           />
-          <Button
+          <Buttons
             text="Sort alphabetically"
             onClick={onClickSortAlphabetically}
             listOfGoods={listOfGoods}
           />
-          <Button
+          <Buttons
             text="Sort by length"
             onClick={onClickSortByLength}
             listOfGoods={listOfGoods}
           />
-          <Button
+          <Buttons
             text="reset"
             onClick={onClickReset}
             listOfGoods={listOfGoods}

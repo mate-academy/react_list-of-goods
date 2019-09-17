@@ -29,4 +29,5 @@ const Select = (props) => {
 };
 
 Select.propTypes = SelectProps;
+
 export default Select;
