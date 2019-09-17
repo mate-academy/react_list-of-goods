@@ -26,16 +26,17 @@ const listBySelect = goodsFromServer
 class App extends React.Component {
   state = {
     isListShown: false,
+    listOfGoods: [...goodsFromServer],
     copiedList: [...goodsFromServer],
     selectedValue: 0,
   }
 
   setSelectValue = ({ value }) => (
-    this.setState({
+    this.setState(prevState => ({
       selectedValue: value,
-      copiedList: [...goodsFromServer]
+      copiedList: [...prevState.listOfGoods]
         .filter(elem => elem.length === Number(value)),
-    })
+    }))
   );
 
   handleStart = () => (
@@ -45,27 +46,28 @@ class App extends React.Component {
   )
 
   reverseList = () => (
-    this.setState({
-      copiedList: [...goodsFromServer].reverse(),
-    })
+    this.setState(prevState => ({
+      copiedList: [...prevState.listOfGoods].reverse(),
+    }))
   )
 
   sortByAlphabet = () => (
-    this.setState({
-      copiedList: [...goodsFromServer].sort(),
-    })
+    this.setState(prevState => ({
+      copiedList: [...prevState.listOfGoods].sort(),
+    }))
   )
 
   resetList = () => (
-    this.setState({
-      copiedList: [...goodsFromServer],
-    })
+    this.setState(prevState => ({
+      copiedList: [...prevState.listOfGoods],
+    }))
   )
 
   sortByLength = () => (
-    this.setState({
-      copiedList: [...goodsFromServer].sort((a, b) => a.length - b.length),
-    })
+    this.setState(prevState => ({
+      copiedList: [...prevState.listOfGoods]
+        .sort((a, b) => a.length - b.length),
+    }))
   )
 
   render() {
@@ -80,7 +82,7 @@ class App extends React.Component {
     } = this;
 
     return (
-      <div className="App">
+      <div className="app">
 
         <Buttons
           isListShown={isListShown}
