@@ -60,16 +60,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        {!this.state.isStarted && (
-          <button
-            type="button"
-            onClick={this.handleStart}
-            className="ui massive primary button button-start"
-          >
-            START
-          </button>
-        )}
-        {this.state.isStarted && (
+        {this.state.isStarted ? (
           <GoodsList
             Goods={this.state.goods}
             handleReverse={this.handleReverse}
@@ -79,6 +70,14 @@ class App extends React.Component {
             selected={this.state.selected}
             handleChange={this.handleChange}
           />
+        ) : (
+          <button
+            type="button"
+            onClick={this.handleStart}
+            className="ui massive primary button button-start"
+          >
+            START
+          </button>
         )}
       </div>
     );
