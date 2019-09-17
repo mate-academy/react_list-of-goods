@@ -1,6 +1,6 @@
 import React from 'react';
-import GoodsList from './components/GoodsList/GoodsList';
 import './App.css';
+import Goods from './components/Goods/Goods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -17,38 +17,87 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [...goodsFromServer],
-    isStartActive: true,
-  }
+    isStarted: false,
+    goods: goodsFromServer,
+    minLength: 1,
+    originGoods: [...goodsFromServer],
+  };
 
-  handleStartClick = () => {
+  startClick = () => {
     this.setState({
-      isStartActive: false,
+      isStarted: true,
     });
-  }
+  };
+
+  handleClickReverse = () => {
+    this.setState(prevState => ({
+      goods: prevState.goods.reverse(),
+    }));
+  };
+
+  handleClickSort = () => {
+    this.setState(prevState => ({
+      goods: prevState.goods.sort(),
+    }));
+  };
+
+  handleClickSortByLength = () => {
+    this.setState(prevState => ({
+      goods: prevState.goods.sort(
+        (a, b) => b.replace(/ /gi, '').length - a.replace(/ /gi, '').length
+      ),
+    }));
+  };
+
+  handleClickReset = () => {
+    this.setState(prevState => ({
+      minLength: 1,
+      goods: [...prevState.originGoods],
+    }));
+  };
+
+  handleChangeSelect = ({ target }) => {
+    const { value } = target;
+
+    this.setState(prevState => ({
+      minLength: value,
+      goods: [...prevState.originGoods].filter(good => good.length >= value),
+    }));
+  };
 
   render() {
-    const { goods, isStartActive } = this.state;
+    const { goods, minLength, isStarted } = this.state;
+    const {
+      handleClickReverse,
+      handleClickSort,
+      handleClickSortByLength,
+      handleClickReset,
+      handleChange,
+      startClick,
+    } = this;
 
     return (
-      <div className="container">
+      <div className="app">
         <button
           type="button"
-          onClick={this.handleStartClick}
-          className={
-            isStartActive
-              ? 'button-start'
-              : 'button--inactive'
-          }
+          onClick={startClick}
+          className={isStarted ? 'isStarted-button' : 'positive ui button'}
         >
-          Start
+          Press to START!
         </button>
-        {!isStartActive && (
-          <GoodsList goods={goods} />
+        {isStarted && (
+          <Goods
+            goods={goods}
+            minLength={minLength}
+            handleClickReverse={handleClickReverse}
+            handleClickSort={handleClickSort}
+            handleClickSortByLength={handleClickSortByLength}
+            handleClickReset={handleClickReset}
+            handleChangeSelect={handleChange}
+          />
         )}
       </div>
     );
   }
 }
-
 export default App;
