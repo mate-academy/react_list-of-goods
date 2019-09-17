@@ -8,6 +8,7 @@ import { goodsFromServer } from './api/goodsFromServer';
 class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
+    copyOfTheGoods: [...goodsFromServer],
     isStartButtonShown: true,
     isGoodsShow: false,
   };
@@ -32,9 +33,9 @@ class App extends React.Component {
   }
 
   handleButtonResetClick = () => {
-    this.setState({
-      goods: [...goodsFromServer],
-    });
+    this.setState(prevState => ({
+      goods: [...prevState.copyOfTheGoods],
+    }));
   }
 
   handleButtonSortByLengthClick = () => {
@@ -44,9 +45,9 @@ class App extends React.Component {
   }
 
   handleSelect = ({ target: { value } }) => {
-    this.setState({
-      goods: [...goodsFromServer].filter(item => item.length >= value),
-    });
+    this.setState(prevState => ({
+      goods: [...prevState.copyOfTheGoods].filter(item => item.length >= value),
+    }));
   }
 
   render() {
