@@ -17,14 +17,15 @@ const goodsFromServer = [
 
 class App extends Component {
   state = {
-    goods: [],
+    goods: [...goodsFromServer],
+    originGoods: [...goodsFromServer],
     isLoaded: false,
     selectedValue: 1,
   };
 
   loadData = () => {
     this.setState({
-      goods: goodsFromServer,
+      goods: [...goodsFromServer],
       isLoaded: true,
     });
   }
@@ -49,20 +50,22 @@ class App extends Component {
     }));
   }
 
-  selectValue = (event) => {
-    this.setState({
-      selectedValue: event.target.value,
-      goods: goodsFromServer.filter(
-        item => item.length >= event.target.value
+  selectValue = ({ target }) => {
+    const { value } = target;
+
+    this.setState(prevState => ({
+      selectedValue: value,
+      goods: [...prevState.originGoods].filter(
+        item => item.length >= value
       ),
-    });
+    }));
   };
 
   reset = () => {
-    this.setState({
-      goods: goodsFromServer,
+    this.setState(prevState => ({
+      goods: [...prevState.originGoods],
       selectedValue: 1,
-    });
+    }));
   }
 
   render() {
