@@ -21,24 +21,25 @@ class App extends React.Component {
     goods: goodsFromServer,
     currentSelect: 1,
     isVisible: true,
+    newGoods: [...goodsFromServer],
   }
 
-  handleReset = () => this.setState({
-    goods: [...goodsFromServer],
+  handleReset = () => this.setState(prevState => ({
+    goods: [...prevState.newGoods],
     currentSelect: 1,
-  });
+  }));
 
-  handleReverse = () => this.setState({
-    goods: [...goodsFromServer].reverse(),
-  });
+  handleReverse = () => this.setState(prevState => ({
+    goods: [...prevState.newGoods].reverse(),
+  }));
 
-  handleSort = () => this.setState({
-    goods: [...goodsFromServer].sort(),
-  });
+  handleSort = () => this.setState(prevState => ({
+    goods: [...prevState.newGoods].sort(),
+  }));
 
-  handleSortByLength = () => this.setState({
-    goods: [...goodsFromServer].sort((a, b) => a.length - b.length)
-  });
+  handleSortByLength = () => this.setState(prevState => ({
+    goods: [...prevState.newGoods].sort((a, b) => a.length - b.length),
+  }));
 
   handleClick = () => this.setState(prevState => ({
     isVisible: !prevState.isVisible,
@@ -47,14 +48,28 @@ class App extends React.Component {
   handleWordLength = ({ target }) => {
     const { value } = target;
 
-    this.setState({
+    this.setState(prevState => ({
       currentSelect: value,
-      goods: [...goodsFromServer]
+      goods: [...prevState.newGoods]
         .filter(elem => elem.length >= value),
-    });
+    }));
   };
 
   render() {
+    const {
+      isVisible,
+      goods,
+      currentSelect,
+    } = this.state;
+    const {
+      handleClick,
+      handleReset,
+      handleReverse,
+      handleSortByLength,
+      handleSort,
+      handleWordLength,
+    } = this;
+
     return (
       <div className="App">
         <h1 className="title">
@@ -63,21 +78,21 @@ class App extends React.Component {
           {goodsFromServer.length}
         </h1>
         <Button
-          onClick={this.handleClick}
-          className={this.state.isVisible
+          onClick={handleClick}
+          className={isVisible
             ? 'button'
             : 'button button--invisible'}
           name="Show more"
         />
-        {!this.state.isVisible && (
+        {!isVisible && (
           <Content
-            handleReset={this.handleReset}
-            handleReverse={this.handleReverse}
-            handleSortByLength={this.handleSortByLength}
-            handleSort={this.handleSort}
-            handleWordLength={this.handleWordLength}
-            goods={this.state.goods}
-            currentSelect={this.state.currentSelect}
+            handleReset={handleReset}
+            handleReverse={handleReverse}
+            handleSortByLength={handleSortByLength}
+            handleSort={handleSort}
+            handleWordLength={handleWordLength}
+            goods={goods}
+            currentSelect={currentSelect}
           />
         )}
       </div>
