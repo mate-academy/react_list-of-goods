@@ -2,10 +2,8 @@
   margin: 15px;
 }
 
-.goods__title {
-  margin-bottom: 20px;
-}
-
+.goods__title,
+.goods__conrol-buttons,
 .goods__list {
   margin-bottom: 20px;
 }
@@ -16,10 +14,6 @@
 
 .goods__start-button {
   font-size: 18px;
-}
-
-.goods__conrol-buttons {
-  margin-bottom: 20px;
 }
 
 .goods__conrol-button {

@@ -6,14 +6,10 @@ import SelectGoods from './components/Goods/components/SelectGoods';
 import { goodsFromServer } from './api/goodsFromServer';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      goods: [],
-      isStartButtonShown: true,
-    };
-  }
+  state = {
+    goods: [],
+    isStartButtonShown: true,
+  };
 
   handleButtonShowClick = () => {
     this.setState(prevState => ({
@@ -46,26 +42,24 @@ class App extends React.Component {
     }));
   }
 
-  handleSelect = (id) => {
+  handleSelect = ({ target: { value } }) => {
     this.setState({
-      goods: [...goodsFromServer].filter(item => item.length >= id),
+      goods: [...goodsFromServer].filter(item => item.length >= value),
     });
   }
 
   render() {
-    const { goods } = this.state;
+    const { goods, isStartButtonShown } = this.state;
 
     return (
       <div className="App">
         <div className="goods">
-          <h1 className="goods__title">Goods 1</h1>
+          <h1 className="goods__title">{`Goods ${goods.length}`}</h1>
           <Goods goods={goods} />
 
-          {this.state.isStartButtonShown
-            && (
-              <StartButton handleClick={this.handleButtonShowClick} />
-            )
-            || (
+          {isStartButtonShown
+            ? <StartButton handleClick={this.handleButtonShowClick} />
+            : (
               <>
                 <ControlButtons
                   handleReverse={this.handleButtonReverseClick}
@@ -74,7 +68,7 @@ class App extends React.Component {
                   handleSortByLength={this.handleButtonSortByLengthClick}
                 />
                 <SelectGoods
-                  onChange={e => this.handleSelect(e.target.value)}
+                  onChange={this.handleSelect}
                 />
               </>
             )}
