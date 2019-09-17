@@ -1,6 +1,7 @@
 import React from 'react';
 
 import GoodsList from './component/GoodsLIst';
+import Buttons from './component/Buttons';
 
 import './App.css';
 
@@ -29,11 +30,11 @@ class App extends React.Component {
     selectedValue: 0,
   }
 
-  setSelectValue = event => (
+  setSelectValue = ({ value }) => (
     this.setState({
-      selectedValue: event.target.value,
+      selectedValue: value,
       copiedList: [...goodsFromServer]
-        .filter(elem => elem.length === Number(event.target.value)),
+        .filter(elem => elem.length === Number(value)),
     })
   );
 
@@ -81,73 +82,23 @@ class App extends React.Component {
     return (
       <div className="App">
 
-        { !isListShown
-          && (
-            <button
-              className="button-start"
-              type="button"
-              onClick={handleStart}
-            >
-              Start
-            </button>
-          )
-        }
+        <Buttons
+          isListShown={isListShown}
+          selectedValue={selectedValue}
+          setSelectValue={setSelectValue}
+          handleStart={handleStart}
+          reverseList={reverseList}
+          sortByAlphabet={sortByAlphabet}
+          resetList={resetList}
+          sortByLength={sortByLength}
+          listBySelect={listBySelect}
+        />
 
         { isListShown
           && (
-            <>
-              <div className="buttons-goods">
-                <button
-                  className="button-goods"
-                  type="button"
-                  onClick={sortByLength}
-                >
-                  Sort by length
-                </button>
-
-                <button
-                  className="button-goods"
-                  type="button"
-                  onClick={resetList}
-                >
-                  Reset
-                </button>
-
-                <button
-                  className="button-goods"
-                  type="button"
-                  onClick={sortByAlphabet}
-                >
-                  Sort by alphabetic
-                </button>
-
-                <button
-                  className="button-goods"
-                  type="button"
-                  onClick={reverseList}
-                >
-                  Reverse
-                </button>
-              </div>
-
-              <div>
-                <select
-                  className="select-goods"
-                  value={selectedValue}
-                  name="goodsList"
-                  onChange={setSelectValue}
-                >
-                  <option value={0}>0</option>
-                  {listBySelect.map(elem => (
-                    <option key={elem} value={elem}>{elem}</option>
-                  ))}
-                </select>
-              </div>
-
-              <GoodsList
-                goods={copiedList}
-              />
-            </>
+            <GoodsList
+              goods={copiedList}
+            />
           )
         }
       </div>
