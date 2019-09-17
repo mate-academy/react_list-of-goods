@@ -1,0 +1,30 @@
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+}
+
+.app__button {
+  margin-right: 20px;
+}
+
+.list-of-goods {
+  margin: 20px;
+  padding: 10px;
+  list-style: none;
+  text-align: center;
+  border: 1px solid brown;
+}
+
+.selected-sort {
+  margin-top: 20px;
+}
+
+.app__select {
+  margin-left: 10px;
+}
