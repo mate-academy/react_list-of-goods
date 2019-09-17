@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Buttons from './Components/Button/Buttons';
+import Buttons from './Components/Buttons/Buttons';
 import GoodsList from './Components/GoodList/GoodList';
 
 const goodsFromServer = [
@@ -37,7 +37,7 @@ class App extends Component {
           {isStarted
             ? (
               <Buttons
-                className="btn--start"
+                className="btn"
                 text="Start"
                 onClick={handleStart}
               />

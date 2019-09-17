@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { GoodsListProps } from 'prop-types';
-import Button from '../Button/Buttons';
+import Button from '../Buttons/Buttons';
 import Good from '../Good/Good';
 import Select from '../Select/Select';
 
@@ -83,6 +83,7 @@ class GoodsList extends Component {
             text="reset"
             onClick={onClickReset}
             listOfGoods={listOfGoods}
+            selectedByDefault={selectedByDefault}
           />
         </div>
 
@@ -108,4 +109,5 @@ class GoodsList extends Component {
 }
 
 GoodsList.propTypes = GoodsListProps;
+
 export default GoodsList;

@@ -2,10 +2,9 @@ import React from 'react';
 import { ButtonProps } from '../../PropValues/propTypes';
 import './Buttons.css';
 
-const Button = ({ text, listOfGoods, onClick }) => {
+const Buttons = ({ text, listOfGoods, onClick }) => {
   const btn = () => ({
-    'btn btn-primary': true,
-    'btn--start': text === 'Start',
+    text: 'Start',
   });
 
   return (
@@ -19,5 +18,6 @@ const Button = ({ text, listOfGoods, onClick }) => {
   );
 };
 
-Button.propTypes = ButtonProps;
-export default Button;
+Buttons.propTypes = ButtonProps;
+
+export default Buttons;

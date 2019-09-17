@@ -17,7 +17,3 @@ export const GoodsListProps = {
     }).isRequired,
   ).isRequired,
 };
-
-export const SelectProps = {
-  text: PropTypes.string.isRequired,
-};

@@ -7,4 +7,5 @@ const Good = ({ content }) => (
 );
 
 Good.propTypes = GoodProps;
+
 export default Good;

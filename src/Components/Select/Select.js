@@ -3,30 +3,26 @@ import './Select.css';
 import { SelectProps } from 'prop-types';
 
 const Select = (props) => {
-  const { listOfGoods, selectedByDefault, onChange } = props;
-
-  const listToSelect = [...listOfGoods]
-    .map(item => item.length)
-    .sort((a, b) => a - b)
-    .filter((item, index, arr) => index === arr.indexOf(item));
+  const { selectedByDefault, onChange } = props;
 
   return (
     <div className="select-container">
       <h2>Select:</h2>
       <select
-        className="goods-select form-control"
+        className="goods-select"
         value={selectedByDefault}
         onChange={event => onChange(event)}
       >
-        <option value={0} />
-        {listToSelect.map(item => (
-          <option
-            value={item}
-            key={item}
-          >
-            {item}
-          </option>
-        ))}
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
       </select>
     </div>
   );
