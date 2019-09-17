@@ -22,7 +22,7 @@ class GoodsList extends Component {
     }));
   };
 
-  onClickSortAlphabetically = () => {
+  onClickSortAlpha = () => {
     this.setState(prevState => ({
       listOfGoods: [...prevState.listOfGoods].sort(),
     }));
@@ -46,6 +46,7 @@ class GoodsList extends Component {
   onClickReset = () => {
     this.setState({
       listOfGoods: [...this.props.listOfGoods],
+      selectedByDefault: 1,
     });
   };
 
@@ -54,7 +55,7 @@ class GoodsList extends Component {
 
     const {
       onClickReverse,
-      onClickSortAlphabetically,
+      onClickSortAlpha,
       onClickSortByLength,
       onClickReset,
       onClickSelect,
@@ -69,8 +70,8 @@ class GoodsList extends Component {
             listOfGoods={listOfGoods}
           />
           <Buttons
-            text="Sort alphabetically"
-            onClick={onClickSortAlphabetically}
+            text="Sort alpha"
+            onClick={onClickSortAlpha}
             listOfGoods={listOfGoods}
           />
           <Buttons
