@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-hidden {
+  display: none;
+}
+
+.button,
+select {
+  margin: 30px;
+  cursor: pointer;
+}
+
+.wrapper-hidden {
+  display: none;
+}
