@@ -32,9 +32,9 @@ class App extends React.Component {
   }
 
   setSelectValue = ({ value }) => (
-    this.setState(prevState => ({
+    this.setState(({ listOfGoods }) => ({
       selectedValue: value,
-      copiedList: [...prevState.listOfGoods]
+      copiedList: listOfGoods
         .filter(elem => elem.length === Number(value)),
     }))
   );
@@ -46,26 +46,26 @@ class App extends React.Component {
   )
 
   reverseList = () => (
-    this.setState(prevState => ({
-      copiedList: [...prevState.listOfGoods].reverse(),
+    this.setState(({ listOfGoods }) => ({
+      copiedList: [...listOfGoods].reverse(),
     }))
   )
 
   sortByAlphabet = () => (
-    this.setState(prevState => ({
-      copiedList: [...prevState.listOfGoods].sort(),
+    this.setState(({ listOfGoods }) => ({
+      copiedList: [...listOfGoods].sort(),
     }))
   )
 
   resetList = () => (
-    this.setState(prevState => ({
-      copiedList: [...prevState.listOfGoods],
+    this.setState(({ listOfGoods }) => ({
+      copiedList: [...listOfGoods],
     }))
   )
 
   sortByLength = () => (
-    this.setState(prevState => ({
-      copiedList: [...prevState.listOfGoods]
+    this.setState(({ listOfGoods }) => ({
+      copiedList: [...listOfGoods]
         .sort((a, b) => a.length - b.length),
     }))
   )
