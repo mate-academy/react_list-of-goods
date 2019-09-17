@@ -1,4 +1,5 @@
 import React from 'react';
+import Goods from './Components/Goods/Goods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -15,6 +16,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
     state = {
+      goodsOriginal: goodsFromServer,
       goods: [],
       isStarted: false,
       selectedValue: 0,
@@ -41,9 +43,9 @@ class App extends React.Component {
   }
 
   sortAlphabet = () => {
-    this.setState({
-      goods: [...goodsFromServer].sort(),
-    });
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort(),
+    }));
   }
 
   sortLength = () => {
@@ -61,48 +63,19 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      showGoods,
-      reversGoods,
-      resetScreen,
-      sortAlphabet,
-      sortLength,
-      handleChangeSelect,
-    } = this;
-    const {
-      isStarted,
-      selectedValue,
-      goods,
-    } = this.state;
-
     return (
-      <div className="App">
-        <h1>Goods </h1>
-        {isStarted && (
-          <>
-            <button type="button" onClick={reversGoods}>Reverse</button>
-            <button type="button" onClick={sortAlphabet}>
-              Sort alphabetically
-            </button>
-            <button type="button" onClick={sortLength}>Sort by length</button>
-            <select
-              value={selectedValue}
-              onChange={handleChangeSelect}
-            >
-              {goodsFromServer.map((item, index) => (
-                <option value={index}>{index + 1}</option>))}
-            </select>
-            <button type="button" onClick={resetScreen}>Reset</button>
-            <ol>
-              {goods.map(item => <li>{item}</li>)}
-            </ol>
-          </>
-        )}
-        {!isStarted && (
-          <button type="button" onClick={showGoods}>START</button>
-        )}
-      </div>
-
+      <Goods
+        sortAlphabet={this.sortAlphabet}
+        sortLength={this.sortLength}
+        resetScreen={this.resetScreen}
+        reversGoods={this.reversGoods}
+        showGoods={this.showGoods}
+        handleChangeSelect={this.handleChangeSelect}
+        isStarted={this.state.isStarted}
+        selectedValue={this.state.selectedValue}
+        goods={this.state.goods}
+        goodsOriginal={this.state.goodsOriginal}
+      />
     );
   }
 }
