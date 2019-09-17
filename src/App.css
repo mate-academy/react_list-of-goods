@@ -32,9 +32,9 @@ h1 {
 }
 
 .good:hover {
-background: #3688e6;
-border: 1px solid #dbdbdb;
-color: #dbdbdb;
+  background: #3688e6;
+  border: 1px solid #dbdbdb;
+  color: #dbdbdb;
 }
 
 .buttons {
