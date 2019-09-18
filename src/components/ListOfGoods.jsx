@@ -1,6 +1,7 @@
 import React from 'react';
 import GoodsList from './GoodsList/GoodsList';
 import FiltersList from './FiltersList/FiltersList';
+import './ListOfGoods.scss';
 
 const goodsFromServer = [
   'Dumplings',

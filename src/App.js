@@ -18,26 +18,25 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <button
-          type="button"
-          onClick={this.handleStart}
-          className={
-            isHidden
-              ? 'button-active'
-              : 'button-hidden'
-          }
-        >
-          Start
-        </button>
 
-        <div
-          className={
-            isHidden
-              ? 'content-hidden'
-              : 'content-show'
+        <div>
+          {isHidden
+            ? (
+              <button
+                type="button"
+                onClick={this.handleStart}
+                className={
+                  isHidden
+                    ? 'button-active'
+                    : 'button-hidden'
+                }
+              >
+                Start
+              </button>
+            )
+            : <ListOfGoods />
           }
-        >
-          <ListOfGoods />
+
         </div>
       </div>
     );
