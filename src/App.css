@@ -13,6 +13,7 @@
   cursor: pointer;
 }
 
+.button-hidden,
 .wrapper-hidden {
   display: none;
 }
