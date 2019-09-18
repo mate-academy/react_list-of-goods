@@ -1,11 +1,13 @@
 import React from 'react';
 
-const FiltersList = ({ sortAZ, sortByLength, reverseSort, reset, selectLengthSort }) => (
+const FiltersList = ({
+  sortAZ, sortByLength, reverseSort, reset, selectLengthSort
+}) => (
   <>
-    <button className="buttons" onClick={sortAZ} type="button">A-Z</button>
-    <button className="buttons" onClick={sortByLength} type="button">By length</button>
-    <button className="buttons" onClick={reverseSort} type="button">Reverse</button>
-    <button className="buttons" onClick={reset} type="button">Reset</button>
+    <button className="button" onClick={sortAZ} type="button">A-Z</button>
+    <button className="button" onClick={sortByLength} type="button">By length</button>
+    <button className="button" onClick={reverseSort} type="button">Reverse</button>
+    <button className="button" onClick={reset} type="button">Reset</button>
     <select className="select" onChange={selectLengthSort}>
       <option>3</option>
       <option>4</option>

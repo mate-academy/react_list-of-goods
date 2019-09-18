@@ -1,8 +1,8 @@
-.App {
+.app {
   text-align: center;
 }
 
-h1 {
+.h1 {
   background: #3688e6;
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -37,9 +37,7 @@ h1 {
   color: #dbdbdb;
 }
 
-.buttons {
-  height: 50px;
-  width: 170px;
+.button {
   height: 50px;
   width: 170px;
   margin-right: 25px;
@@ -52,9 +50,10 @@ h1 {
   -moz-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
   border-radius: 15px;
+  outline: none;
 }
 
-.buttons:hover {
+.button:hover {
   background: #695c86;
   border: 2px solid #5a5a5a;
   color: #dbdbdb;

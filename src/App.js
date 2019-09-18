@@ -23,32 +23,35 @@ class App extends Component {
     tempGoods: goodsFromServer,
     startClicked: false,
     clickAZ: false,
-    clickByLength: false,
-
+    lengthFilterDirection: false,
   }
 
   handleClickAZ = () => {
-    this.state.clickAZ === false
-      ? this.setState(prevState => ({
-        goods: [...prevState.goods].sort(),
-        clickAZ: true,
-      }))
-      : this.setState(prevState => ({
-        goods: [...prevState.goods].sort().reverse(),
-        clickAZ: false,
-      }));
-  }
+    this.setState(prevState => (
+      prevState.clickAZ === false
+        ? {
+          goods: [...prevState.goods].sort(),
+          clickAZ: true,
+        }
+        : {
+          goods: [...prevState.goods].sort().reverse(),
+          clickAZ: false,
+        }
+    ));
+  };
 
   handleClickByLength = () => {
-    this.state.clickByLength === false
-      ? this.setState(prevState => ({
-        goods: [...prevState.goods].sort((a, b) => b.length - a.length),
-        clickByLength: true,
-      }))
-      : this.setState(prevState => ({
-        goods: [...prevState.goods].sort((a, b) => a.length - b.length),
-        clickByLength: false,
-      }));
+    this.setState(prevState => (
+      prevState.lengthFilterDirection === false
+        ? {
+          goods: [...prevState.goods].sort((a, b) => b.length - a.length),
+          lengthFilterDirection: true,
+        }
+        : {
+          goods: [...prevState.goods].sort((a, b) => a.length - b.length),
+          lengthFilterDirection: false,
+        }
+    ));
   }
 
   handleClickReverse = () => {
@@ -64,10 +67,10 @@ class App extends Component {
   }
 
   handleSelectChange = (event) => {
-    const numb = event.target.value;
+    const { value } = event.target;
 
     this.setState(prevState => ({
-      goods: [...prevState.tempGoods].filter(el => el.length >= numb),
+      goods: [...prevState.tempGoods].filter(el => el.length >= value),
     }));
   }
 
@@ -78,9 +81,11 @@ class App extends Component {
   }
 
   render() {
-    return this.state.startClicked === true ? (
-      <div className="App">
-        <h1>Goods 1</h1>
+    const { startClicked, goods } = this.state;
+
+    return startClicked === true ? (
+      <div className="app">
+        <h1 className="h1">Goods 1</h1>
         <FiltersList
           sortAZ={this.handleClickAZ}
           sortByLength={this.handleClickByLength}
@@ -89,7 +94,7 @@ class App extends Component {
           selectLengthSort={this.handleSelectChange}
         />
         <ul className="list">
-          {this.state.goods.map(good => (
+          {goods.map(good => (
             <GoodsList key={good} good={good} />
           ))}
         </ul>
