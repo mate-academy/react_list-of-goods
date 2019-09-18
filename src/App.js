@@ -8,34 +8,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isActiveStart: false,
-      goodsFromServer: goodsFromServer,
-      testListOfGood: [...goodsFromServer],
+      isStarted: false,
+      originalGoods: goodsFromServer,
+      goodsToRender: [...goodsFromServer],
       initialSelect: 1,
     };
   }
 
   onClickStart = () => {
     this.setState(prevState => ({
-      isActiveStart: !prevState.isActiveStart,
+      isStarted: !prevState.isStarted,
     }));
   };
 
   onClickReverse = () => {
     this.setState(prevState => ({
-      testListOfGood: [...prevState.testListOfGood].reverse(),
+      goodsToRender: [...prevState.goodsToRender].reverse(),
     }));
   };
 
   onClickSortAlphabet = () => {
     this.setState(prevState => ({
-      testListOfGood: [...prevState.testListOfGood].sort(),
+      goodsToRender: [...prevState.goodsToRender].sort(),
     }));
   };
 
   onClickSortLength = () => {
     this.setState(prevState => ({
-      testListOfGood: prevState.testListOfGood
+      goodsToRender: prevState.goodsToRender
         .sort((a,b) => a.length - b.length),
     }));
   };
@@ -43,27 +43,29 @@ class App extends React.Component {
   onClickReset = () => {
     this.setState(prevState => ({
       initialSelect: 1,
-      testListOfGood: [...prevState.goodsFromServer],
+      goodsToRender: [...prevState.originalGoods],
     }));
   };
 
   onClickSelectChanges = ({ target }) => {
     this.setState(prevState => ({
       initialSelect: target.value,
-      testListOfGood: [...prevState.goodsFromServer]
+      goodsToRender: [...prevState.originalGoods]
         .filter((good, index) => index >= target.value - 1),
     }));
   }
 
   render() {
-    const { isActiveStart, initialSelect } = this.state;
+    const { isStarted, initialSelect, goodsToRender } = this.state;
+    const { onClickReverse, onClickSortAlphabet, onClickSortLength,
+      onClickReset, onClickSelectChanges } = this;
 
     return (
       <div className="container">
         <Button
           onClick={this.onClickStart}
           className={
-            isActiveStart
+            isStarted
               ? 'button button-hidden'
               : 'button'
           }
@@ -73,19 +75,18 @@ class App extends React.Component {
 
         <WrapperGoods
           className={
-            isActiveStart
+            isStarted
               ? 'wrapper'
               : 'wrapper wrapper-hidden'
           }
           initialSelect={initialSelect}
-          testListOfGood={this.state.testListOfGood}
-          onClickReverse={this.onClickReverse}
-          onClickSortAlphabet={this.onClickSortAlphabet}
-          onClickSortLength={this.onClickSortLength}
-          onClickReset={this.onClickReset}
-          onClickSelectChanges={this.onClickSelectChanges}
+          goodsToRender={goodsToRender}
+          onClickReverse={onClickReverse}
+          onClickSortAlphabet={onClickSortAlphabet}
+          onClickSortLength={onClickSortLength}
+          onClickReset={onClickReset}
+          onClickSelectChanges={onClickSelectChanges}
         />
-
       </div>
     );
   }

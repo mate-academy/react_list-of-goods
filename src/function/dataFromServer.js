@@ -1,5 +1,3 @@
-'use use strict';
-
 const goodsFromServer = [
   'Dumplings',
   'Carrot',

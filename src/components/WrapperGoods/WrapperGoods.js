@@ -3,7 +3,7 @@ import Buttons from '../Buttons/Buttons';
 import Select from '../Select/Select';
 import GoodList from '../GoodList/GoodList';
 
-const WrapperGoods = ({ testListOfGood, initialSelect, onClickReverse,
+const WrapperGoods = ({ goodsToRender, initialSelect, onClickReverse,
   onClickSortAlphabet, onClickReset, onClickSortLength,
   onClickSelectChanges, className }) => (
 
@@ -21,7 +21,7 @@ const WrapperGoods = ({ testListOfGood, initialSelect, onClickReverse,
     />
 
     <GoodList
-      testListOfGood={testListOfGood}
+      goodsToRender={goodsToRender}
     />
 
   </div>
