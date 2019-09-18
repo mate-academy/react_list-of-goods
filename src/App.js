@@ -1,5 +1,6 @@
 import React from 'react';
 import Goods from './Components/Goods/Goods';
+import Start from './Components/Start/Start';
 
 const goodsFromServer = [
   'Dumplings',
@@ -23,17 +24,17 @@ class App extends React.Component {
     };
 
   showGoods = () => {
-    this.setState({
-      goods: [...goodsFromServer],
+    this.setState(prevState => ({
+      goods: [...prevState.goodsOriginal],
       isStarted: true,
-    });
+    }));
   }
 
   resetScreen = () => {
-    this.setState({
-      goods: [...goodsFromServer],
+    this.setState(prevState => ({
+      goods: [...prevState.goodsOriginal],
       selectedValue: 0,
-    });
+    }));
   }
 
   reversGoods = () => {
@@ -55,28 +56,36 @@ class App extends React.Component {
   }
 
   handleChangeSelect = (event) => {
-    this.setState({
-      selectedValue: event.target.value,
-      goods: [...goodsFromServer]
-        .filter(elem => elem.length >= Number(event.target.value) + 1),
-    });
+    const { value } = event.target;
+
+    this.setState(prevState => ({
+      selectedValue: value,
+      goods: [...prevState.goodsOriginal]
+        .filter(elem => elem.length >= Number(value) + 1),
+    }));
   }
 
   render() {
     return (
-      <Goods
-        sortAlphabet={this.sortAlphabet}
-        sortLength={this.sortLength}
-        resetScreen={this.resetScreen}
-        reversGoods={this.reversGoods}
-        showGoods={this.showGoods}
-        handleChangeSelect={this.handleChangeSelect}
-        isStarted={this.state.isStarted}
-        selectedValue={this.state.selectedValue}
-        goods={this.state.goods}
-        goodsOriginal={this.state.goodsOriginal}
-      />
+      <>
+        {this.state.isStarted ? (
+          <Goods
+            sortAlphabet={this.sortAlphabet}
+            sortLength={this.sortLength}
+            resetScreen={this.resetScreen}
+            reversGoods={this.reversGoods}
+            handleChangeSelect={this.handleChangeSelect}
+            selectedValue={this.state.selectedValue}
+            goods={this.state.goods}
+            goodsOriginal={this.state.goodsOriginal}
+          />
+        ) : (
+          <Start showGoods={this.showGoods} />
+        )
+        }
+      </>
     );
   }
 }
+
 export default App;
