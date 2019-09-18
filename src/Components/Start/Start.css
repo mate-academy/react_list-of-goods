@@ -1,0 +1,15 @@
+.start {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start__button {
+  background-color: aqua;
+  width: 200px;
+  height: 50px;
+  border-radius: 500px;
+  cursor: pointer;
+  outline: none;
+}
