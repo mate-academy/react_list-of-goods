@@ -1,0 +1,33 @@
+body {
+  background-color: rgb(129, 192, 243);
+}
+
+#root {
+  text-align: center;
+}
+
+h1 {
+  color: blue;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  font-size: 20px;
+  color: blue;
+}
+
+button {
+  margin-right: 20px;
+  height: 40px;
+  border-radius: 20px;
+  outline: none;
+}
+
+select {
+  height: 34px;
+  border-radius: 20px;
+}
