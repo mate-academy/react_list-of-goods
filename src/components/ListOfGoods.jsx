@@ -73,13 +73,15 @@ class ListOfGoods extends React.Component {
         </div>
 
         <div className="goods">
-          {goods
-            .map(good => (
-              <GoodsList
-                key={good}
-                good={good}
-              />
-            ))}
+          <ul>
+            {goods
+              .map(good => (
+                <GoodsList
+                  key={good}
+                  good={good}
+                />
+              ))}
+          </ul>
         </div>
       < />
     );
