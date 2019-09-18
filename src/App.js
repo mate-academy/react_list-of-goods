@@ -1,22 +1,46 @@
 import React from 'react';
+import ListOfGoods from './components/ListOfGoods';
+import './App.css';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+class App extends React.Component {
+  state = {
+    isHidden: true,
+  }
 
-const App = () => (
-  <div className="App">
-    <h1>Goods 1</h1>
-  </div>
-);
+  handleStart = () => {
+    this.setState(prevState => ({
+      isHidden: !prevState.isHidden,
+    }));
+  }
+
+  render() {
+    const { isHidden } = this.state;
+
+    return (
+      <div className="App">
+
+        <div>
+          {isHidden
+            ? (
+              <button
+                type="button"
+                onClick={this.handleStart}
+                className={
+                  isHidden
+                    ? 'button-active'
+                    : 'button-hidden'
+                }
+              >
+                Start
+              </button>
+            )
+            : <ListOfGoods />
+          }
+
+        </div>
+      </div>
+    );
+  }
+}
 
 export default App;
