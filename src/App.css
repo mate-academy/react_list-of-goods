@@ -1,17 +1,11 @@
-.button-active {
-  display: block;
-}
-
-.button-hidden {
-  display: none;
-}
-
-.content-hidden {
-  display: none;
-}
-
+.button-active,
 .content-show {
   display: block;
+}
+
+.button-hidden,
+.content-hidden {
+  display: none;
 }
 
 .filters {
