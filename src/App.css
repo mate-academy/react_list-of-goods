@@ -1,0 +1,108 @@
+.app {
+  text-align: center;
+}
+
+.h1 {
+  background: #3688e6;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  padding: 10px 0;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  margin-bottom: 100px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.good {
+  padding: 5px 0;
+  margin: auto;
+  margin-top: 10px;
+  color: #3688e6;
+  border: 1px solid transparent;
+  background: #dbdbdb;
+  font-size: 1.3em;
+  width: 250px;
+  transition: background 0.3s, color 0.3s, border 0.3s;
+}
+
+.good:hover {
+  background: #3688e6;
+  border: 1px solid #dbdbdb;
+  color: #dbdbdb;
+}
+
+.button {
+  height: 50px;
+  width: 170px;
+  margin-right: 25px;
+  background: #c0c0c0;
+  border: 1px solid transparent;
+  color: rgb(92, 92, 92);
+  font-size: 1.3em;
+  transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  border-radius: 15px;
+  outline: none;
+}
+
+.button:hover {
+  background: #695c86;
+  border: 2px solid #5a5a5a;
+  color: #dbdbdb;
+  -webkit-box-shadow: 0px 0px 59px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 59px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 59px 0px rgba(0,0,0,0.75);
+}
+
+.start {
+  text-align: center;
+  background: rgb(17, 49, 153);
+  font-size: 3em;
+  border: 2px solid transparent;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: white;
+  transition: background 0.3s, border 0.3s, transform 0.3s, box-shadow 0.3s;
+  display: block;
+  width: 300px;
+  height: 117px;
+  border-radius: 6px;
+  margin: auto;
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 17px 0px rgba(0,0,0,0.75);
+}
+
+.start:hover {
+  transform: scale(1.03);
+  color:rgb(17, 49, 153);
+  background: white;
+  border: 2px solid rgb(17, 49, 153);
+  -webkit-box-shadow: 0px 0px 59px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 59px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 59px 0px rgba(0,0,0,0.75);
+  cursor: pointer;
+}
+
+.select {
+  height: 50px;
+  width: 100px;
+  padding-left: 40px;
+  font-size: 1.4em;
+  top: 3px;
+  position: relative;
+  font-weight: bold;
+  color: #5c92d1;
+  box-sizing: border-box;
+}
+
+#root {
+  padding-top: 70px;
+}
