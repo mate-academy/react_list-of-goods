@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.button,
+.select-visible-list {
+  margin: 30px;
+  cursor: pointer;
+}
