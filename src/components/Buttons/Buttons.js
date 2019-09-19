@@ -1,7 +1,8 @@
 import React from 'react';
 import Button from '../Button/Button';
 
-const Buttons = ({ onClickReverse, onClickSortAlphabet,
+const Buttons = ({
+  onClickReverse, onClickSortAlphabet,
   onClickReset, onClickSortLength }) => (
   <div className="container group-button">
     <Button className="button" onClick={onClickReset}>

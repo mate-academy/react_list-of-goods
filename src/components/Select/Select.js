@@ -9,7 +9,6 @@ const Select = ({ initialSelect, onClickSelectChanges, originalGoods }) => (
       {originalGoods.map((e, i) => (
         <option key={i + 1} value={i + 1}>{i + 1}</option>
       ))}
-
     </select>
   </div>
 );

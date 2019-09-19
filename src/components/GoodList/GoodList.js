@@ -4,7 +4,7 @@ import uniqueId from '../../function/uniqueId';
 const GoodList = ({ goodsToRender }) => (
   <div className="list">
     <ul className="list-group list">
-      { goodsToRender.map(good => (
+      {goodsToRender.map(good => (
         <li className="list-item" key={uniqueId(good)}>
           {good}
         </li>

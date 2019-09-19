@@ -3,17 +3,8 @@
   justify-content: center;
 }
 
-.button-hidden {
-  display: none;
-}
-
 .button,
 .select-visible-list {
   margin: 30px;
   cursor: pointer;
-}
-
-.button-hidden,
-.wrapper-hidden {
-  display: none;
 }

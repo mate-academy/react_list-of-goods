@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 
 import goodsFromServer from './function/dataFromServer';
-import cx from 'classnames';
 
 import Button from './components/Button/Button';
 import WrapperGoods from './components/WrapperGoods/WrapperGoods';
@@ -58,32 +57,31 @@ class App extends React.Component {
   }
 
   render() {
-    const { isStarted, selectUserFromStart, goodsToRender,
-      originalGoods } = this.state;
-
-    const btnStartClass = cx('button', { 'button-hidden': isStarted });
-    const wrapperGoodsClass = cx('wrapper', { 'wrapper-hidden': !isStarted });
+    const {
+      isStarted, selectUserFromStart, goodsToRender, originalGoods
+    } = this.state;
 
     return (
       <div className="container">
-        <Button
-          onClick={this.onClickStart}
-          className={btnStartClass}
-        >
-          Start
-        </Button>
-
-        <WrapperGoods
-          className={wrapperGoodsClass}
-          selectUserFromStart={selectUserFromStart}
-          originalGoods={originalGoods}
-          goodsToRender={goodsToRender}
-          onClickReverse={this.onClickReverse}
-          onClickSortAlphabet={this.onClickSortAlphabet}
-          onClickSortLength={this.onClickSortLength}
-          onClickReset={this.onClickReset}
-          onClickSelectChanges={this.onClickSelectChanges}
-        />
+        {!isStarted
+          ?
+          <Button
+            onClick={this.onClickStart}
+          >
+            Start
+          </Button>
+          :
+          <WrapperGoods
+            selectUserFromStart={selectUserFromStart}
+            originalGoods={originalGoods}
+            goodsToRender={goodsToRender}
+            onClickReverse={this.onClickReverse}
+            onClickSortAlphabet={this.onClickSortAlphabet}
+            onClickSortLength={this.onClickSortLength}
+            onClickReset={this.onClickReset}
+            onClickSelectChanges={this.onClickSelectChanges}
+          />
+        }
       </div>
     );
   }

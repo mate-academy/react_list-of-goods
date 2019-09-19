@@ -6,9 +6,9 @@ import GoodList from '../GoodList/GoodList';
 
 const WrapperGoods = ({ goodsToRender, initialSelect, onClickReverse,
   onClickSortAlphabet, onClickReset, onClickSortLength,
-  onClickSelectChanges, className, originalGoods }) => (
+  onClickSelectChanges, originalGoods }) => (
 
-  <div className={className}>
+  <div className="wrapper">
     <Buttons
       onClickReverse={onClickReverse}
       onClickSortAlphabet={onClickSortAlphabet}
