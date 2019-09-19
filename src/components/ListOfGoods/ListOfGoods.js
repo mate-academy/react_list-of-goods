@@ -6,6 +6,7 @@ class ListOfGoods extends React.PureComponent {
   state = {
     list: [...this.props.goods],
     nativeList: [...this.props.goods],
+    // eslint-disable-next-line react/no-unused-state
     selectedOption: 1,
   }
 
@@ -45,6 +46,7 @@ class ListOfGoods extends React.PureComponent {
     const { value } = target;
 
     this.setState(prevState => ({
+      // eslint-disable-next-line react/no-unused-state
       selectedOption: value,
       list: [...prevState.list]
         .filter(elem => elem.length >= value),
@@ -52,8 +54,6 @@ class ListOfGoods extends React.PureComponent {
   }
 
   render() {
-    const { selectedOption, handleSelect } = this.state;
-
     return (
       <>
         <h1 align="center" className="title">List of Goods</h1>
@@ -91,8 +91,8 @@ class ListOfGoods extends React.PureComponent {
               className="select"
               name="good-length"
               id="selectedLength"
-              onChange={handleSelect}
-              value={selectedOption}
+              onChange={this.handleSelect}
+              value={this.selectedOption}
             >
               <option value="1">1</option>
               <option value="2">2</option>
