@@ -4,15 +4,16 @@ import './ListOfGoods.css';
 
 class ListOfGoods extends React.PureComponent {
   state = {
-    list: this.props.goods,
-    nativeList: this.props.goods,
+    list: [...this.props.goods],
+    nativeList: [...this.props.goods],
+    // eslint-disable-next-line react/no-unused-state
     selectedOption: 1,
   }
 
   reset = () => (
     this.setState(prevState => (
       {
-        list: prevState.nativeList,
+        list: [...prevState.nativeList],
       }
     ))
   )
@@ -45,6 +46,7 @@ class ListOfGoods extends React.PureComponent {
     const { value } = target;
 
     this.setState(prevState => ({
+      // eslint-disable-next-line react/no-unused-state
       selectedOption: value,
       list: [...prevState.list]
         .filter(elem => elem.length >= value),
@@ -90,7 +92,7 @@ class ListOfGoods extends React.PureComponent {
               name="good-length"
               id="selectedLength"
               onChange={this.handleSelect}
-              value={this.state.selectedOption}
+              value={this.selectedOption}
             >
               <option value="1">1</option>
               <option value="2">2</option>
