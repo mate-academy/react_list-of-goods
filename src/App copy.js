@@ -16,37 +16,43 @@ const goodsFromServer = [
 ];
 
 class App extends React.Component {
-  state = {
-    isLoaded: true,
+  constructor() {
+    super();
+    this.state = {
+      showMe: null,
+      hideMe: true,
+    };
   }
 
-  handleStart() {
+  operation() {
     this.setState({
-      isLoaded: false,
+      showMe: true,
+      hideMe: null,
     });
   }
 
   render() {
-    const {
-      isLoaded,
-    } = this.state;
-
     return (
       <div className="app">
         {
-          isLoaded
+          this.state.showMe
+            ? <ListOfGoods goods={goodsFromServer} />
+            : null
+        }
+        {
+          this.state.hideMe
             ? (
               <button
                 className="start-button"
                 type="button"
                 onClick={() => {
-                  this.handleStart();
+                  this.operation();
                 }}
               >
                   Start
               </button>
             )
-            : <ListOfGoods goods={goodsFromServer} />
+            : null
         }
       </div>
     );

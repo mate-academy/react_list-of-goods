@@ -1,0 +1,24 @@
+.app {
+  position: relative;
+}
+
+.start-button {
+  display: block;
+  margin: 200px auto;
+  height: 50px;
+  width: 100px;
+  font-size: 20px;
+  background-color: rgb(80, 133, 248);
+  color: white;
+  border-radius: 25px;
+  transition: 300ms;
+  outline: none;
+}
+
+.start-button:hover {
+  background-color: rgb(134, 164, 230);
+}
+
+.start-button:active {
+  transform: translateY(5px);
+}
