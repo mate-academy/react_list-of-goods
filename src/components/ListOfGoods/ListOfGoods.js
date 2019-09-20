@@ -4,40 +4,32 @@ import './ListOfGoods.css';
 
 class ListOfGoods extends React.PureComponent {
   state = {
-    list: this.props.goods,
-    nativeList: this.props.goods,
+    list: [...this.props.goods],
+    nativeList: [...this.props.goods],
     selectedOption: 1,
   }
 
-  reset = () => (
+  handleReset = () => (
     this.setState(prevState => (
-      {
-        list: prevState.nativeList,
-      }
+      { list: [...prevState.nativeList] }
     ))
   )
 
-  reverseList = () => (
+  handleReverseList = () => (
     this.setState(prevState => (
-      {
-        list: [...prevState.list].reverse(),
-      }
+      { list: [...prevState.list].reverse() }
     ))
   );
 
-  abcList = () => (
+  handleAlphabeticallyOrder = () => (
     this.setState(prevState => (
-      {
-        list: [...prevState.list].sort(),
-      }
+      { list: [...prevState.list].sort() }
     ))
   );
 
-  listLength = () => (
+  handleByLength = () => (
     this.setState(prevState => (
-      {
-        list: [...prevState.list].sort((a, b) => a.length - b.length),
-      }
+      { list: [...prevState.list].sort((a, b) => a.length - b.length) }
     ))
   )
 
@@ -60,28 +52,28 @@ class ListOfGoods extends React.PureComponent {
             <button
               type="button"
               className="button-actions"
-              onClick={this.reverseList}
+              onClick={this.handleReverseList}
             >
               Reverse
             </button>
             <button
               type="button"
               className="button-actions"
-              onClick={this.abcList}
+              onClick={this.handleAlphabeticallyOrder}
             >
               Sort alphabetically
             </button>
             <button
               type="button"
               className="button-actions"
-              onClick={this.listLength}
+              onClick={this.handleByLength}
             >
               Sort by length
             </button>
             <button
               type="button"
               className="button-actions"
-              onClick={this.reset}
+              onClick={this.handleReset}
             >
               Reset
             </button>

@@ -27,10 +27,14 @@ class App extends React.Component {
   }
 
   render() {
+    const {
+      isLoaded,
+    } = this.state;
+
     return (
       <div className="app">
         {
-          this.state.isLoaded
+          isLoaded
             ? (
               <button
                 className="start-button"
