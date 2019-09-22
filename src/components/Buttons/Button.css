@@ -1,0 +1,22 @@
+body {
+  text-align: center;
+  background-color: aquamarine;
+}
+
+.button {
+  border-radius: 5px;
+  background-color: yellow;
+  border: 1px solid blue;
+  margin-right: 20px;
+}
+
+
+.list-item {
+  list-style: none;
+}
+
+.select {
+  border-radius: 20px;
+  background-color: yellow;
+  border: 1px solid blue;
+}
