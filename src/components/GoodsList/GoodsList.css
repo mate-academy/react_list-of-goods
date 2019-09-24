@@ -1,0 +1,37 @@
+.container {
+  width: 800px;
+  padding: 15px;
+  border: 1px solid #bebebe;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 5px #bebebe;
+}
+
+.button-block--item {
+  margin-right: 5px;
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 12px;
+}
+
+.button-block--select {
+  width: 200px;
+  height: 30px;
+  outline: none;
+}
+
+.list-of-goods {
+  border-top: 1px solid #bebebe;
+  padding-top: 10px;
+  list-style: none;
+  line-height: 20px;
+}
+
+.button-block--item:hover,
+.button-block--select:hover {
+  cursor: pointer;
+  background-color: #bfbfbf;
+  transition-duration: 0.5s;
+}
