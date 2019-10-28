@@ -19,13 +19,13 @@ class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
     originalGoods: [...goodsFromServer],
-    isStarted: true,
+    showStartButton: true,
     selectedOption: 1,
   };
 
-  handleStartClick = () => {
+  handleClick = () => {
     this.setState({
-      isStarted: false,
+      showStartButton: false,
     });
   };
 
@@ -65,7 +65,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { goods, isStarted, selectedOption } = this.state;
+    const { goods, selectedOption } = this.state;
     const {
       handleClickReverse,
       handleClickSort,
@@ -75,29 +75,25 @@ class App extends React.Component {
     } = this;
 
     return (
-      <div className="container">
-        <Button
-          type="button"
-          onClick={this.handleStartClick}
-          className={
-            isStarted
-              ? 'button-start'
-              : 'button--inactive'
-          }
-        >
-          Start
-        </Button>
-        {!isStarted && (
-          <GoodsList
-            goods={goods}
-            selectedOption={selectedOption}
-            handleClickReverse={handleClickReverse}
-            handleClickSort={handleClickSort}
-            handleClickReset={handleClickReset}
-            handleClickSortByLength={handleClickSortByLength}
-            handleChangeSelect={handleChangeSelect}
-          />
-        )}
+      <div className="App">
+        {this.state.showStartButton
+          ? (
+            <Button type="button" onClick={this.handleClick}>
+              Start
+            </Button>
+          )
+          : (
+            <GoodsList
+              goods={goods}
+              selectedOption={selectedOption}
+              handleClickReverse={handleClickReverse}
+              handleClickSort={handleClickSort}
+              handleClickReset={handleClickReset}
+              handleClickSortByLength={handleClickSortByLength}
+              handleChangeSelect={handleChangeSelect}
+            />
+          )
+        }
       </div>
     );
   }
