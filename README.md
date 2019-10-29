@@ -1,7 +1,7 @@
 # React list of goods
 
 ## Demo link
- - [DEMO LINK](https://vitya63.github.io/react_tabs/)
+ - [DEMO LINK](https://vitya63.github.io/react_list-of-goods/)
 
 
 ## Task
