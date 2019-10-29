@@ -1,0 +1,5 @@
+.goods_block {
+  padding: 50px calc(50% - 300px);
+  background-color: black;
+  height: 600px;
+}
