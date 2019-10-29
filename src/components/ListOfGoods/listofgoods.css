@@ -1,0 +1,6 @@
+.list > li {
+  color: antiquewhite;
+  list-style-type: none;
+  font-size: 25px;
+  line-height: 30px;
+}
