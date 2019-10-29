@@ -45,7 +45,6 @@ export default class App extends Component {
     this.setState(({prevState}) => {
       return {
         ...prevState,
-        initialList: [...goodsFromServer],
         goods: this.state.goods.sort((a, b) => a.charCodeAt() - b.charCodeAt())
       }
     })
@@ -55,7 +54,7 @@ export default class App extends Component {
     this.setState(({prevState}) => {
       return {
         ...prevState,
-        goods: this.state.initialList,
+        goods: [...this.state.initialList],
         selectedOption: 1
       }
     })
