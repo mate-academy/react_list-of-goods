@@ -1,4 +1,7 @@
 import React from 'react';
+import Goods from './components/goods/Goods';
+import Start from './components/start/Start';
+import './App.css';
 
 const goodsFromServer = [
   'Dumplings',
@@ -13,10 +16,77 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods 1</h1>
-  </div>
-);
+class App extends React.Component {
+  state = {
+    goodsOriginal: goodsFromServer,
+    goods: [],
+    isStarted: false,
+    selectedValue: 0,
+  };
+
+  showGoods = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goodsOriginal],
+      isStarted: true,
+    }));
+  };
+
+  resetScreen = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goodsOriginal],
+      selectedValue: 0,
+    }));
+  };
+
+  reversGoods = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
+  };
+
+  sortAlphabet = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort(),
+    }));
+  };
+
+  sortLength = () => {
+    this.setState(prevState => ({
+      goods: prevState.goods.sort((a, b) => a.length - b.length),
+    }));
+  };
+
+  handleChangeSelect = (event) => {
+    const { value } = event.target;
+
+    this.setState(prevState => ({
+      selectedValue: value,
+      goods: [...prevState.goodsOriginal]
+        .filter(elem => elem.length >= +value + 1),
+    }));
+  };
+
+  render() {
+    return (
+      <>
+        {this.state.isStarted ? (
+          <Goods
+            sortAlphabet={this.sortAlphabet}
+            sortLength={this.sortLength}
+            resetScreen={this.resetScreen}
+            reversGoods={this.reversGoods}
+            handleChangeSelect={this.handleChangeSelect}
+            selectedValue={this.state.selectedValue}
+            goods={this.state.goods}
+            goodsOriginal={this.state.goodsOriginal}
+          />
+        ) : (
+          <Start showGoods={this.showGoods} />
+        )
+        }
+      </>
+    );
+  }
+}
 
 export default App;
