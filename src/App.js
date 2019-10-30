@@ -23,7 +23,7 @@ class App extends React.Component {
     selectedOption: 1,
   };
 
-  handleClick = () => {
+  handleStart = () => {
     this.setState({
       showStartButton: false,
     });
@@ -78,7 +78,7 @@ class App extends React.Component {
       <div className="App">
         {this.state.showStartButton
           ? (
-            <Button type="button" onClick={this.handleClick}>
+            <Button type="button" onClick={this.handleStart}>
               Start
             </Button>
           )

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
+import Goods from '../good/Goods';
 
 class GoodsList extends React.PureComponent {
   render() {
@@ -64,13 +65,7 @@ class GoodsList extends React.PureComponent {
             <option value="10">10</option>
           </select>
         </div>
-        <ul className="goods-list">
-          {goods.map(item => (
-            <li key={item} className="goods-item">
-              {item}
-            </li>
-          ))}
-        </ul>
+        <Goods goods={goods} />
       </>
     );
   }
