@@ -22,6 +22,7 @@ class App extends React.Component {
 
     this.state = {
       showGoodList: false,
+      goods: goodsFromServer,
     }
   }
 
@@ -35,7 +36,7 @@ class App extends React.Component {
       <div>
         {
           this.state.showGoodList
-          ? <GoodsList goods={goodsFromServer} />
+          ? <GoodsList goods={this.state.goods} />
           : <Button inverted color='pink' type='button' onClick={this.showGoodList}>Start</Button>
         }
       </div>

@@ -17,7 +17,6 @@ class GoodList extends React.Component {
     super(props);
 
     this.state = {
-      goods: [...props.goods],
       workGoods: [...props.goods],
       selectValue: 1,
     }
@@ -26,7 +25,8 @@ class GoodList extends React.Component {
   reverseList = () => {
     this.setState(prev => {
       return {
-        ...prev, workGoods: prev.workGoods.reverse()
+        ...prev,
+        workGoods: [...prev.workGoods].reverse()
       }
     })
   }
@@ -34,7 +34,8 @@ class GoodList extends React.Component {
   sortList = () => {
     this.setState(prev => {
       return {
-        ...prev, workGoods: prev.workGoods.sort()
+        ...prev,
+        workGoods: [...prev.workGoods].sort()
       }
     })
   }
@@ -42,7 +43,9 @@ class GoodList extends React.Component {
   resetList = () => {
     this.setState(prev => {
       return {
-        ...prev, workGoods: [...prev.goods], selectValue: 1
+        ...prev,
+        workGoods: [...this.props.goods],
+        selectValue: 1
       }
     })
   }
@@ -50,7 +53,9 @@ class GoodList extends React.Component {
   sortByLength = () => {
     this.setState(prev => {
       return {
-        ...prev, workGoods: prev.workGoods.sort((a,b) => a.length - b.length)
+        ...prev,
+        workGoods: [...prev.workGoods]
+          .sort((a,b) => a.length - b.length)
       }
     })
   }
@@ -59,7 +64,10 @@ class GoodList extends React.Component {
     let selectValueNum = parseInt(e.target.value, 10);
     this.setState(prev => {
       return {
-        ...prev, selectValue: selectValueNum, workGoods: [...prev.goods].filter(item => item.length === selectValueNum)
+        ...prev,
+        selectValue: selectValueNum,
+        workGoods: [...this.props.goods]
+          .filter(item => item.length === selectValueNum)
       }
     })
   }
