@@ -6,15 +6,14 @@ class Start extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      goods: this.props.goods,
       buttonHidden: false,
     };
   }
 
   clickedFirstButton = (event) => {
-    this.setState(prevView => ({
-      ...prevView,
-      buttonHidden: !prevView.buttonHidden,
+    this.setState(prevState => ({
+      ...prevState,
+      buttonHidden: !prevState.buttonHidden,
     }));
   }
 
