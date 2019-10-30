@@ -1,4 +1,5 @@
 import React from 'react';
+import GoodsList from './components/goodsList/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -15,7 +16,7 @@ const goodsFromServer = [
 
 const App = () => (
   <div className="App">
-    <h1>Goods 1</h1>
+    <GoodsList goodsFromServer={goodsFromServer} />
   </div>
 );
 
