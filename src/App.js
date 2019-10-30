@@ -1,4 +1,6 @@
 import React from 'react';
+import 'semantic-ui-css/semantic.min.css';
+import Init from './components/init/Init';
 
 const goodsFromServer = [
   'Dumplings',
@@ -15,7 +17,7 @@ const goodsFromServer = [
 
 const App = () => (
   <div className="App">
-    <h1>Goods 1</h1>
+    <Init goods={goodsFromServer} />
   </div>
 );
 
