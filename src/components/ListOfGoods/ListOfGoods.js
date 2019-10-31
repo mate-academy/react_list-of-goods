@@ -11,28 +11,18 @@ class ListOfGoods extends Component {
       initialListOfGoods: [...this.props.listFromServer],
       listOfGoods: [...this.props.listFromServer],
       showStartButton: true,
-      showList: false,
-      showButtons: false,
+      isLoaded: false,
       selectedOption: 1,
     };
   }
 
   showList = () => {
-    this.setState(prevState => ({
-      ...prevState,
-      showStartButton: false,
-      showList: true,
-      showButtons: true,
-    }));
-
-    return (
-      <List goods={this.state.listOfGoods} />
-    );
+    this.setState({ isLoaded: true });
   };
 
   reverseList = () => {
     this.setState(prevState => ({
-      listOfGoods: [...prevState.initialListOfGoods].reverse(),
+      listOfGoods: [...prevState.listOfGoods].reverse(),
     }));
   };
 
@@ -69,41 +59,40 @@ class ListOfGoods extends Component {
   };
 
   render() {
-    return (
-      <>
+    if (!this.state.isLoaded) {
+      return (
         <Button
           callback={this.showList}
           shown={this.state.showStartButton}
           text="Start"
         />
-        <List goods={this.state.listOfGoods} shown={this.state.showList} />
+      );
+    }
+
+    return (
+      <>
+        <List goods={this.state.listOfGoods} />
         <Button
           callback={this.reverseList}
-          shown={this.state.showButtons}
           text="Reverse"
         />
         <Button
           callback={this.sortList}
-          shown={this.state.showButtons}
           text="Sort alphabetically"
         />
         <Button
           callback={this.resetList}
-          shown={this.state.showButtons}
           text="Reset"
         />
         <Button
           callback={this.sortListByLength}
-          shown={this.state.showButtons}
           text="Sort by length"
         />
         <Select
           callback={this.filterListByLength}
-          shown={this.state.showButtons}
           selectedOption={this.state.selectedOption}
         />
       </>
-
     );
   }
 }

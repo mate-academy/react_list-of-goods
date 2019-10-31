@@ -1,17 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const List = ({ shown, goods }) => {
-  if (shown) {
-    return (
-      <ul>
-        {goods.map(item => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    );
-  }
+const List = ({ goods }) => (
+  <ul>
+    {goods.map(item => (
+      <li key={item}>{item}</li>
+    ))}
+  </ul>
+);
 
-  return false;
+List.defaultProps = {
+  goods: [],
+};
+
+List.propTypes = {
+  goods: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default List;
