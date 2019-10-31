@@ -3,7 +3,9 @@ import Proptypes from 'prop-types';
 
 function GoodsItem({ goods }) {
   return (
-    goods.map(item => <li key={item}>{item}</li>)
+    <ul>
+      {goods.map(item => <li key={item}>{item}</li>)}
+    </ul>
   );
 }
 

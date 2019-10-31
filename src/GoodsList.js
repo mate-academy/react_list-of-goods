@@ -39,9 +39,7 @@ function GoodsList(
         <option value="9">9</option>
         <option value="10">10</option>
       </select>
-      <ul>
-        <GoodsItem goods={goods} />
-      </ul>
+      <GoodsItem goods={goods} />
     </>
   );
 }
