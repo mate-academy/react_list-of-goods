@@ -1,6 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Button from '../button/Button';
+import GoodsFromServer from '../goodsFromServer/GoodsFromServer';
 
 class GoodList extends Component {
   selectRef = React.createRef();
@@ -46,43 +48,19 @@ class GoodList extends Component {
   render() {
     return (
       <>
-        <ul>
-          {this.state.data.map((item, index) => <li key={index}>{item}</li>)}
-        </ul>
-        <button
-          className="medium ui button"
-          type="button"
-          onClick={this.reverse}
-        >
-          <i className="arrows alternate vertical icon" />
-        </button>
-        <button
-          className="medium ui button"
-          type="button"
-          onClick={this.sort}
-        >
-          <i className="sort alphabet down icon" />
-        </button>
-        <button
-          className="medium ui button"
-          type="button"
-          onClick={this.reset}
-        >
-          <i className="undo icon" />
-        </button>
-        <button
-          className="medium ui button"
-          type="button"
-          onClick={this.sortByLength}
-        >
-          <i className="sort amount down icon" />
-        </button>
+        <GoodsFromServer data={this.state.data} />
+        <Button
+          reverse={this.reverse}
+          sort={this.sort}
+          reset={this.reset}
+          sortByLength={this.sortByLength}
+        />
         <select
           className="ui floating dropdown labeled search icon button"
           onChange={this.changeCount}
           ref={this.selectRef}
         >
-          {this.props.data.map((item, index) => (
+          {this.props.data.map((_item, index) => (
             <option
               key={index}
               value={index}
@@ -97,7 +75,7 @@ class GoodList extends Component {
 }
 
 GoodList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
+  data: PropTypes.objectOf(PropTypes.shape({
 
   })).isRequired,
 };
