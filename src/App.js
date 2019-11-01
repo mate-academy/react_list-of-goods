@@ -1,5 +1,5 @@
 import React from 'react';
-import GoodsList from './components/goodlist/GoodList';
+import GoodListApp from './components/goodlistapp/GoodListApp';
 import { Button } from 'semantic-ui-react';
 
 const goodsFromServer = [
@@ -36,7 +36,7 @@ class App extends React.Component {
       <div>
         {
           this.state.showGoodList
-          ? <GoodsList goods={this.state.goods} />
+          ? <GoodListApp goods={this.state.goods} />
           : <Button inverted color='pink' type='button' onClick={this.showGoodList}>Start</Button>
         }
       </div>
