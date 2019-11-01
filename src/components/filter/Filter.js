@@ -12,7 +12,7 @@ let sectionStyle = {
   outline: 'none',
 }
 
-class GoodList extends React.Component {
+class Filter extends React.Component {
   constructor(props) {
     super(props);
 
@@ -52,8 +52,12 @@ class GoodList extends React.Component {
  }
 }
 
-GoodList.propTypes = {
-  goods: PropTypes.array.isRequired,
+Filter.propTypes = {
+  reverseList: PropTypes.func.isRequired,
+  sortList: PropTypes.func.isRequired,
+  resetList: PropTypes.func.isRequired,
+  sortByLength: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired
 }
 
-export default GoodList;
+export default Filter;
