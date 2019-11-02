@@ -28,9 +28,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.enter && <GoodList data={goodsFromServer} />}
-        {!this.state.enter
-          && (
+        {this.state.enter
+          ? (<GoodList data={goodsFromServer} />)
+          : (
             <button
               type="button"
               className="positive ui button"
@@ -38,7 +38,8 @@ class App extends Component {
             >
               Start
             </button>
-          )}
+          )
+        }
       </div>
     );
   }

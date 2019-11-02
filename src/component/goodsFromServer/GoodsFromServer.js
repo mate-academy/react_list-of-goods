@@ -9,7 +9,7 @@ const GoodsFromServer = ({ data }) => (
 );
 
 GoodsFromServer.propTypes = {
-  data: PropTypes.objectOf(PropTypes.shape({
+  data: PropTypes.arrayOf(PropTypes.shape({
     data: PropTypes.string.isRequired,
   })).isRequired,
 };

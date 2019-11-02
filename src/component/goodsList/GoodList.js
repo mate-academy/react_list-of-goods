@@ -54,21 +54,10 @@ class GoodList extends Component {
           sort={this.sort}
           reset={this.reset}
           sortByLength={this.sortByLength}
+          changeCount={this.changeCount}
+          selectRef={this.selectRef}
+          data={this.state.data}
         />
-        <select
-          className="ui floating dropdown labeled search icon button"
-          onChange={this.changeCount}
-          ref={this.selectRef}
-        >
-          {this.props.data.map((_item, index) => (
-            <option
-              key={index}
-              value={index}
-            >
-              {index + 1}
-            </option>
-          ))}
-        </select>
       </>
     );
   }
