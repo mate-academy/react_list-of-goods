@@ -81,7 +81,6 @@ class App extends Component {
             sortAlph={this.sortAlph}
             reset={this.reset}
             sortLength={this.sortLength}
-            chooseLength={this.chooseLength}
             showByLength={this.showByLength}
             goods={this.state.goods}
             initialValue={this.state.initialValue}
