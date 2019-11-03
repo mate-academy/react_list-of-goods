@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateList from './CreateList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -15,7 +16,7 @@ const goodsFromServer = [
 
 const App = () => (
   <div className="App">
-    <h1>Goods 1</h1>
+    <CreateList list={goodsFromServer} />
   </div>
 );
 
