@@ -26,7 +26,6 @@ function Goods(props) {
         Sort by length
       </button>
       <select onClick={showByLength} value={selectedOption} className="ui basic button green dropdown">
-        <option value="0">Select length</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>

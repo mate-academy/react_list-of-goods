@@ -58,7 +58,7 @@ class App extends Component {
   sortLength = () => {
     this.setState(prevState => ({
       ...prevState,
-      goods: [...prevState.initialValue].sort((a, b) => a.length - b.length),
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   };
 
@@ -68,7 +68,7 @@ class App extends Component {
     this.setState(prevState => ({
       ...prevState,
       selectedOption: value,
-      goods: [...prevState.initialValue].filter(item => item.length === +value),
+      goods: [...prevState.initialValue].filter(item => item.length >= +value),
     }));
   };
 
