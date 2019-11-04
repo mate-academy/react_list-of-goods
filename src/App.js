@@ -1,5 +1,7 @@
 import React from 'react';
 
+import List from './components/List';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -16,6 +18,8 @@ const goodsFromServer = [
 const App = () => (
   <div className="App">
     <h1>Goods 1</h1>
+    <List arrOfGoods={goodsFromServer} />
+
   </div>
 );
 
