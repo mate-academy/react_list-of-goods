@@ -51,8 +51,8 @@ class ListOfGoods extends Component {
     }));
   }
 
-  filterListByLength(event) {
-    const { value } = Number(event.target.value);
+  filterListByLength({ target }) {
+    const { value } = target;
 
     this.setState(prevState => ({
       listOfGoods: [...this.props.listFromServer]
