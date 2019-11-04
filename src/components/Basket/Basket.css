@@ -1,0 +1,70 @@
+.basket {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 640px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 200px auto 0;
+}
+
+.basket__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.basket__start, .basket__button {
+  width: 100px;
+  height: 40px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: 13px;
+  background: #A1B9D5;
+  border-radius: 5px;
+}
+
+.basket__start:hover, .basket__button:hover {
+  border: 1px solid black;
+}
+
+.basket__start:active, .basket__button:active {
+  outline: none;
+}
+
+.basket__start:focus, .basket__button:focus {
+  outline: none;
+}
+
+.basket__label {
+  width: 160px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  text-align: center;
+  background: #A1B9D5;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 13px;
+  border-radius: 5px;
+}
+
+.hide {
+  display: none;
+}
+/*# sourceMappingURL=Basket.css.map */
