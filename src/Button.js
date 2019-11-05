@@ -1,10 +1,9 @@
 import React from 'react';
 
 function Button(props) {
-  console.log(props.bottons);
-  return props.bottons.map( (button, index)=> <button onClick={button.func}
-                                                      key={index}
-                                                      ype="button">{button.text}
+  return props.bottons.map((button, index) => <button onClick={button.func}
+                                                      key={index + button.text}
+                                                      type="button">{button.text}
                                               </button>)
 }
 

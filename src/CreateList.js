@@ -66,7 +66,7 @@ class CreateList extends React.Component {
         <Button bottons={buttonContent} />
         <select onChange={this.selectLength}>
           {this.state.text.map((item, index) => (
-            <option key={index} value={index}>{index + 1}</option>))
+            <option key={index + item} value={index}>{index + 1}</option>))
           }
         </select>
         <ul>{textShow.map((word, index) => <li key={index}>{word}</li>)}</ul>
