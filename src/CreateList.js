@@ -69,7 +69,7 @@ class CreateList extends React.Component {
             <option key={index + item} value={index}>{index + 1}</option>))
           }
         </select>
-        <ul>{textShow.map((word, index) => <li key={index}>{word}</li>)}</ul>
+        <ul>{textShow.map((word, index) => <li key={index + word}>{word}</li>)}</ul>
       </>
     );
   }
