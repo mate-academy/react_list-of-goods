@@ -10,8 +10,45 @@ class List extends Component {
     };
   }
 
+  reverse = () => this.setState(state => ({
+    ...state,
+    displayType: 'reverse',
+  }));
+
+  initial = () => this.setState(state => ({
+    ...state,
+    displayType: 'initial',
+    selectedValue: 0,
+  }));
+
+  sortAlphabetic = () => this.setState(state => ({
+    ...state,
+    displayType: 'sortAlphabetic',
+  }));
+
+  sortLength = () => this.setState(state => ({
+    ...state,
+    displayType: 'sortAlphabetic',
+  }));
+
+  selectItem = (event) => {
+    const { value } = event.target;
+
+    return (this.setState(state => ({
+      ...state,
+      selectedValue: value,
+      displayType: 'select',
+    })));
+  };
+
+  start = () => this.setState(state => ({
+    ...state,
+    isStarted: true,
+  }));
+
   render() {
     let goodsToDisplay;
+
     switch (this.state.displayType) {
       case 'initial':
         goodsToDisplay = [...this.props.goodsList];
@@ -30,82 +67,52 @@ class List extends Component {
         break;
     }
 
-     return this.state.isStarted ? (
+    return this.state.isStarted ? (
       <>
         <ul>
           {goodsToDisplay.map(item => <li>{item}</li>)}
         </ul>
         <button
           type="button"
-          onClick={
-            () => this.setState(state => ({
-              ...state,
-              displayType: 'reverse',
-            }))
-          }
+          onClick={this.reverse}
         >
           REVERSE
         </button>
         <button
           type="button"
-          onClick={
-            () => this.setState(state => ({
-              ...state,
-              displayType: 'initial',
-              selectedValue: 0,
-            }))
-          }
+          onClick={this.initial}
         >
           RESET
         </button>
         <button
           type="button"
-          onClick={
-            () => this.setState(state => ({
-              ...state,
-              displayType: 'sortAlphabetic',
-            }))
-          }
+          onClick={this.sortAlphabetic}
         >
           ALPHABETICAL SORT
         </button>
         <button
           type="button"
-          onClick={
-            () => this.setState(state => ({
-              ...state,
-              displayType: 'sortLength',
-            }))
-          }
+          onClick={this.sortLength}
         >
           LENGTH SORT
         </button>
         <select
           value={this.selectedValue}
-          onChange={(event) => {
-            const { value } = event.target;
-            return (this.setState(state => ({
-              ...state,
-              selectedValue: value,
-              displayType: 'select',
-            })))}}
+          onChange={this.selectItem}
         >
           {[...this.props.goodsList].map((item, index) => (
             <option value={index}>{index + 1}</option>))
           }
         </select>
       </>
-    ) : (<button
-      type="button"
-      onClick={
-        () => this.setState(state => ({
-          ...state,
-          isStarted: true,
-        }))
-      }
-    >
+    ) : (
+      <button
+        type="button"
+        onClick={this.start}
+      >
        START
-    </button>);
+      </button>
+    );
   }
 }
 
