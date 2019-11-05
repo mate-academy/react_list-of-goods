@@ -1,15 +1,24 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import Button from './Button';
+
+const goodsFromServer = [
+  'Dumplings',
+  'Carrot',
+  'Eggs',
+  'Ice cream',
+  'Apple',
+  'Bread',
+  'Fish',
+  'Honey',
+  'Jam',
+  'Garlic',
+];
 
 class CreateList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      text: [...this.props.list],
-      textShow: [],
-    };
-  }
+  state = {
+    text: goodsFromServer,
+    textShow: [],
+  };
 
   start = () => {
     this.setState(prevState => ({
@@ -43,22 +52,24 @@ class CreateList extends React.Component {
         .filter(item => item.length >= +value + 1),
     }));
   };
-
   render() {
+    const buttonContent = [
+      {func: this.start.bind(this), text: 'Start'},
+      {func: this.reverse.bind(this), text: 'Reverse'},
+      {func: this.sort.bind(this), text: 'Sort'},
+      {func: this.reset.bind(this), text: 'Reset'},
+    ];
     const { textShow } = this.state;
 
     return (
       <>
-        <button onClick={this.start} type="button">Start</button>
-        <button onClick={this.reverse} type="button">Reverse</button>
-        <button onClick={this.sort} type="button">Sort</button>
-        <button onClick={this.reset} type="button">Reset</button>
+        <Button bottons={buttonContent} />
         <select onChange={this.selectLength}>
           {this.state.text.map((item, index) => (
-            <option value={index}>{index + 1}</option>))
+            <option key={index} value={index}>{index + 1}</option>))
           }
         </select>
-        <ul>{textShow.map(word => <li>{word}</li>)}</ul>
+        <ul>{textShow.map((word, index) => <li key={index}>{word}</li>)}</ul>
       </>
     );
   }
