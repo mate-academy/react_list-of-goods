@@ -1,8 +1,7 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({
+const ButtonsSort = ({
   data, reverse, sort, reset, sortByLength, changeCount, selectRef,
 }) => (
   <>
@@ -25,7 +24,7 @@ const Button = ({
     >
       {data.map((_item, index) => (
         <option
-          key={index}
+          key={_item.id}
           value={index}
         >
           {index + 1}
@@ -35,7 +34,7 @@ const Button = ({
   </>
 );
 
-Button.propTypes = {
+ButtonsSort.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
   })).isRequired,
   reverse: PropTypes.func.isRequired,
@@ -46,4 +45,4 @@ Button.propTypes = {
   selectRef: PropTypes.string.isRequired,
 };
 
-export default Button;
+export default ButtonsSort;

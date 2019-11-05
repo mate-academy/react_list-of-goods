@@ -1,7 +1,6 @@
-/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../button/Button';
+import ButtonSort from '../button/ButtonSort';
 import GoodsFromServer from '../goodsFromServer/GoodsFromServer';
 
 class GoodList extends Component {
@@ -49,7 +48,7 @@ class GoodList extends Component {
     return (
       <>
         <GoodsFromServer data={this.state.data} />
-        <Button
+        <ButtonSort
           reverse={this.reverse}
           sort={this.sort}
           reset={this.reset}
