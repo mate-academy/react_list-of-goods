@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import GoodsList from './components/goodsList/GoodsList';
+import Buttons from './components/buttons/Buttons';
 
 const goodsFromServer = [
   'Dumplings',
@@ -23,7 +24,7 @@ class App extends React.Component {
       goodsItems: goodsFromServer,
       goods: [],
       isLoaded: false,
-      selectValue: 0,
+      selectValue: 1,
     };
   }
 
@@ -49,7 +50,7 @@ class App extends React.Component {
   resetList = () => {
     this.setState(prevState => ({
       goods: [...prevState.goodsItems],
-      selectValue: 0,
+      selectValue: 1,
     }));
   };
 
@@ -74,17 +75,26 @@ class App extends React.Component {
   render() {
     return (
       <>
-      {this.state.isLoaded ?
-        <GoodsList
-          goods = {this.state.goods}
-          goodsItems = {this.state.goodsItems}
-          reverse = {this.reverseGoodsList}
-          sortAlphabetically = {this.sortAlphabetically}
-          reset = {this.resetList}
-          sortByLength = {this.sortByLength}
-          selectLength = {this.selectLength}
-        /> :
-        <button className="btn" onClick={this.showGoodsList}>Start</button>
+      {this.state.isLoaded
+        ? <>
+            <GoodsList
+              goods = {this.state.goods}
+            />
+            <Buttons
+              goodsItems = {this.state.goodsItems}
+              reverse = {this.reverseGoodsList}
+              sortAlphabetically = {this.sortAlphabetically}
+              reset = {this.resetList}
+              sortByLength = {this.sortByLength}
+              selectLength = {this.selectLength}
+            />
+          </>
+        : <button
+            className="btn"
+            onClick={this.showGoodsList}
+          >
+            Start
+          </button>
       }
       </>
     );
