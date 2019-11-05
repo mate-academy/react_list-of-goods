@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Select } from 'semantic-ui-react';
+import Buttons from './Buttons';
 
 class Start extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Start extends React.Component {
     this.switcher();
   }
 
-  switcher(whatsInDisplay) {
+  switcher = (whatsInDisplay) => {
     let goodsForSwitcher;
 
     switch (whatsInDisplay) {
@@ -42,9 +43,7 @@ class Start extends React.Component {
     this.setState(prevState => ({
       ...prevState,
       goodsToDisplay: goodsForSwitcher.filter(
-        (item) => {
-          return item.length >= this.state.lengthToShow;
-        }
+        item => (item.length >= prevState.lengthToShow)
       ),
     }));
   }
@@ -55,34 +54,7 @@ class Start extends React.Component {
         <ol>
           {this.state.goodsToDisplay.map(item => <li key={item}>{item}</li>)}
         </ol>
-        <button
-          type="submit"
-          className="ui red button"
-          onClick={() => this.switcher('reverse')}
-        >
-          reverse
-        </button>
-        <button
-          type="submit"
-          className="ui green button"
-          onClick={() => this.switcher('initial')}
-        >
-          reset
-        </button>
-        <button
-          type="submit"
-          className="ui grey button"
-          onClick={() => this.switcher('alphabetical')}
-        >
-          by alphabet
-        </button>
-        <button
-          type="submit"
-          className="ui blue button"
-          onClick={() => this.switcher('byLength')}
-        >
-          by length
-        </button>
+        <Buttons switcher={this.switcher} />
         <Select
           placeholder="Select your country"
           options={Array.from({ length: 10 }).map((el, i) => (
