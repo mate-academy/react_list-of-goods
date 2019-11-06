@@ -44,20 +44,19 @@ class CreateList extends React.Component {
     }));
   };
 
-  selectLength = (event) => {
+  selectLength = event => {
     const { value } = event.target;
 
     this.setState(prevState => ({
-      textShow: [...prevState.text]
-        .filter(item => item.length >= +value + 1),
+      textShow: [...prevState.text].filter(item => item.length >= +value + 1),
     }));
   };
   render() {
     const buttonContent = [
-      {func: this.start.bind(this), text: 'Start'},
-      {func: this.reverse.bind(this), text: 'Reverse'},
-      {func: this.sort.bind(this), text: 'Sort'},
-      {func: this.reset.bind(this), text: 'Reset'},
+      { func: this.start.bind(this), text: "Start" },
+      { func: this.reverse.bind(this), text: "Reverse" },
+      { func: this.sort.bind(this), text: "Sort" },
+      { func: this.reset.bind(this), text: "Reset" }
     ];
     const { textShow } = this.state;
 
@@ -66,10 +65,16 @@ class CreateList extends React.Component {
         <Button bottons={buttonContent} />
         <select onChange={this.selectLength}>
           {this.state.text.map((item, index) => (
-            <option key={index + item} value={index}>{index + 1}</option>))
-          }
+            <option key={index + item} value={index}>
+              {index + 1}
+            </option>
+          ))}
         </select>
-        <ul>{textShow.map((word, index) => <li key={index + word}>{word}</li>)}</ul>
+        <ul>
+          {textShow.map((word, index) => (
+            <li key={index + word}>{word}</li>
+          ))}
+        </ul>
       </>
     );
   }
