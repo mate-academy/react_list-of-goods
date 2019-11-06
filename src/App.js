@@ -1,21 +1,9 @@
 import React from 'react';
-
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import CreateList from './CreateList';
 
 const App = () => (
   <div className="App">
-    <h1>Goods 1</h1>
+    <CreateList />
   </div>
 );
 
