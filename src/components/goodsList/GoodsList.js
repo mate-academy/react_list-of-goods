@@ -1,31 +1,32 @@
 import React from 'react';
 import Goods from '../goods/Goods';
+import ButtonPanel from '../buttonPanel/ButtonPanel';
 import PropTypes from 'prop-types';
 
 class GoodsList extends React.Component {
   render() {
+    let options = [];
+    for(let i = 1; i <= 10; i++) {
+      options.push(<option value={i.toString()}>{i}</option>);
+    }
     return (
       <>
         <div>
-          <button onClick={this.props.doReverse}>Reverse</button>
-          <button onClick={this.props.sortaAlphabetically}>Sort alphabetically</button>
-          <button onClick={this.props.doReset}>Reset</button>
-          <button onClick={this.props.sortByLength}>Sort by length</button>
+          <ButtonPanel
+            doReverse={this.props.doReverse}
+            sortaAlphabetically={this.props.sortaAlphabetically}
+            doReset={this.props.doReset}
+            sortByLength={this.props.sortByLength}
+          />
+
           <select
             name="select"
             onChange={this.props.doSelect}
             value={this.props.selectedValue}
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+
+          {options}
+
           </select>
         </div>
         <Goods goods={this.props.goods} />

@@ -64,9 +64,10 @@ class App extends React.Component {
   };
 
   render() {
+    const { startPoint } = this.state;
     return (
       <div>
-        {this.state.startPoint
+        {startPoint // {this.state.startPoint
           ? (<button onClick={this.start}>Start</button>)
           : (
             <GoodsList
