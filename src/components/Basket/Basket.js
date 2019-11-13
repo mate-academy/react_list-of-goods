@@ -6,66 +6,58 @@ class Basket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentList: [...goods],
-      requiredList: null,
+      currentList: goods,
+      requiredList: [],
       show: false,
     };
   }
 
-  showOptions = () => {
-    this.setState(prevState => ({
-      show: prevState.show = true,
-      currentList: prevState.currentList = [...goods],
-      requiredList: prevState.currentList.map(product => (
-        <li>{product}</li>
-      ))
-    }));
-  }
-
   makeDefaultList = () => {
-    this.setState(prevState => ({
-      currentList: prevState.currentList = [...goods],
-      requiredList: prevState.currentList.map(product => (
-        <li>{product}</li>
+    this.setState(prev => ({
+      show: true,
+      requiredList: prev.currentList.map(product => (
+        <li key={product}>{product}</li>
       )),
     }));
   }
 
   makeReversedList = () => {
-    this.setState(() => ({
-      currentList: this.state.currentList.reverse(),
-      requiredList: this.state.currentList.map(product => (
-        <li>{product}</li>
+    this.setState(prev => ({
+      requiredList: [...prev.currentList].reverse().map(product => (
+        <li key={product}>{product}</li>
       )),
     }));
   }
 
   makeAlphabeticallySortedList = () => {
-    this.setState(() => ({
-      currentList: this.state.currentList.sort((first, second) => first.localeCompare(second)),
-      requiredList: this.state.currentList.map(product => (
-        <li>{product}</li>
-      )),
+    this.setState(prev => ({
+      requiredList: [...prev.currentList]
+        .sort((first, second) => first.localeCompare(second))
+        .map(product => (
+          <li key={product}>{product}</li>
+        )),
     }));
   }
 
   makeLengthSortedList = () => {
-    this.setState(() => ({
-      currentList: this.state.currentList.sort((first, second) => first.length > second.length),
-      requiredList: this.state.currentList.map(product => (
-        <li>{product}</li>
-      )),
+    this.setState(prev => ({
+      requiredList: [...prev.currentList]
+        .sort((first, second) => first.length > second.length)
+        .map(product => (
+          <li key={product}>{product}</li>
+        )),
     }));
   }
 
   makeLengthFiltredList = (event) => {
     const { value } = event.target;
 
-    this.setState(prevState => ({
-      currentList: prevState.currentList = [...goods].filter(product => product.length >= value),
-      requiredList: prevState.currentList.map(product => (
-        <li>{product}</li>
-      )),
+    this.setState(prev => ({
+      requiredList: [...prev.currentList]
+        .filter(product => product.length >= value)
+        .map(product => (
+          <li key={product}>{product}</li>
+        )),
     }));
   }
 
@@ -105,16 +97,11 @@ class Basket extends Component {
           className="basket__select"
           onChange={this.makeLengthFiltredList}
         >
-          <option value={1} selected>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-          <option value={7}>7</option>
-          <option value={8}>8</option>
-          <option value={9}>9</option>
-          <option value={10}>10</option>
+          {goods.map((product, index) => (
+            index === 0
+              ? <option key={product} value={index + 1} selected>{index + 1}</option>
+              : <option key={product} value={index + 1}>{index + 1}</option>
+          ))}
         </select>
       </label>
     </div>
@@ -129,7 +116,7 @@ class Basket extends Component {
               ? 'basket__start'
               : 'basket__start hide'}
           type="button"
-          onClick={this.showOptions}
+          onClick={this.makeDefaultList}
         >
           Start
         </button>
