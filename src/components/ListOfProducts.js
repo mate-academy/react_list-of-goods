@@ -4,7 +4,7 @@ import ListOfGoods from './ListOfGoods';
 import Form from './Form';
 import Buttons from './Buttons';
 
-class ButtonStart extends Component {
+class ListOfProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -116,9 +116,9 @@ class ButtonStart extends Component {
   }
 }
 
-ButtonStart.propTypes = {
+ListOfProducts.propTypes = {
   labelStart: PropTypes.string.isRequired,
   goodsFromServer: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default ButtonStart;
+export default ListOfProducts;
