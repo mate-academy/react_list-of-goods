@@ -5,9 +5,7 @@ import Goods from './Goods';
 function ListOfGoods({ goodsArray }) {
   return (
     <>
-      {goodsArray.map(
-        (item, index) => <Goods product={item} key={item} />
-      )}
+      {goodsArray.map(item => <Goods product={item} key={item} />)}
     </>
   );
 }

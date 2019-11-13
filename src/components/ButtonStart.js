@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ListOfGoods from './ListOfGoods';
+import Form from './Form';
+import Buttons from './Buttons';
 
 class ButtonStart extends Component {
   constructor(props) {
@@ -12,15 +14,15 @@ class ButtonStart extends Component {
     };
 
     this.updateShow = this.updateShow.bind(this);
-    this.Reverse = this.Reverse.bind(this);
-    this.SortAlph = this.SortAlph.bind(this);
-    this.Reset = this.Reset.bind(this);
-    this.SortByLength = this.SortByLength.bind(this);
+    this.reverse = this.reverse.bind(this);
+    this.sortAlph = this.sortAlph.bind(this);
+    this.reset = this.reset.bind(this);
+    this.sortByLength = this.sortByLength.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.ChangeSelect = this.ChangeSelect.bind(this);
+    this.changeSelect = this.changeSelect.bind(this);
   }
 
-  ChangeSelect(event) {
+  changeSelect(event) {
     this.setState({ selectValue: event.target.value });
   }
 
@@ -31,7 +33,7 @@ class ButtonStart extends Component {
     });
   }
 
-  Reverse() {
+  reverse() {
     const reversArray = [...this.props.goodsFromServer].reverse();
 
     this.setState({
@@ -39,7 +41,7 @@ class ButtonStart extends Component {
     });
   }
 
-  SortAlph() {
+  sortAlph() {
     const SortByAlphabetically = [...this.props.goodsFromServer].sort();
 
     this.setState({
@@ -47,14 +49,14 @@ class ButtonStart extends Component {
     });
   }
 
-  Reset() {
+  reset() {
     this.setState({
       goodsArray: this.props.goodsFromServer,
       selectValue: 1,
     });
   }
 
-  SortByLength() {
+  sortByLength() {
     const SortByAlphabetically = [...this.props.goodsFromServer].sort(
       (a, b) => b.length - a.length
     );
@@ -93,51 +95,17 @@ class ButtonStart extends Component {
         }
         {show && (
           <>
-            <button
-              type="button"
-              onClick={this.Reverse}
-            >
-              Reverse
-            </button>
-            <button
-              type="button"
-              onClick={this.SortAlph}
-            >
-              SortAlphabetically
-            </button>
-            <button
-              type="button"
-              onClick={this.Reset}
-            >
-              Reset
-            </button>
-            <button
-              type="button"
-              onClick={this.SortByLength}
-            >
-              SortByLength
-            </button>
-            <form onSubmit={this.handleSubmit}>
-              <select
-                name="number"
-                onChange={this.ChangeSelect}
-                size="5"
-                value={this.state.selectValue}
-              >
-                <option disabled>choose length</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <input type="submit" value="Отправить" />
-            </form>
+            <Buttons
+              reverse={this.reverse}
+              sortAlph={this.sortAlph}
+              reset={this.reset}
+              sortByLength={this.sortByLength}
+            />
+            <Form
+              onSubmit={this.handleSubmit}
+              changeSelect={this.changeSelect}
+              selectValue={this.state.selectValue}
+            />
             <ListOfGoods
               goodsArray={goodsArray}
             />
