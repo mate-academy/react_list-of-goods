@@ -9,12 +9,14 @@ class GoodsList extends Component {
       goodsActual: [...this.props.goods],
       selectValue: '1',
       goodsForShow: [...this.props.goods],
+      start: false,
     };
     this.reverseSort = this.reverseSort.bind(this);
     this.alphaSort = this.alphaSort.bind(this);
     this.reset = this.reset.bind(this);
     this.lengthSort = this.lengthSort.bind(this);
     this.selectSort = this.selectSort.bind(this);
+    this.start = this.start.bind(this);
   }
 
   reverseSort() {
@@ -59,8 +61,18 @@ class GoodsList extends Component {
     this.setState({ goodsForShow: [...newGoods], selectValue });
   }
 
+  start() {
+    this.setState({ start: true });
+  }
+
   render() {
-    const { goodsForShow: goods, selectValue } = this.state;
+    const { goodsForShow: goods, selectValue, start } = this.state;
+
+    if (!start) {
+      return (
+        <button type="button" onClick={this.start}>Поехали!!!!!</button>
+      );
+    }
 
     return (
       <>
