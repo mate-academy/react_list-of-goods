@@ -10,9 +10,11 @@ function Form({ onSubmit, changeSelect, selectValue }) {
           onChange={changeSelect}
           size="5"
           value={selectValue}
+          method="GET"
+          action="#"
         >
           <option disabled>choose length</option>
-          {[...Array(10).keys()].map(
+          {[...Array(10)].map(
             (item, index) => (
               <option
                 value={index + 1}
