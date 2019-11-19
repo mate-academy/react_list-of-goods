@@ -1,0 +1,15 @@
+.App {
+  margin: 20px;
+}
+
+button {
+  display: block;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  background-color: white;
+}
+
+ul {
+  margin: 0;
+}

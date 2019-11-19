@@ -1,4 +1,6 @@
 import React from 'react';
+import './App.css';
+import ListOfProducts from './components/ListOfProducts';
 
 const goodsFromServer = [
   'Dumplings',
@@ -16,6 +18,12 @@ const goodsFromServer = [
 const App = () => (
   <div className="App">
     <h1>Goods 1</h1>
+    <section>
+      <ListOfProducts
+        goodsFromServer={goodsFromServer}
+        labelStart="Start"
+      />
+    </section>
   </div>
 );
 
