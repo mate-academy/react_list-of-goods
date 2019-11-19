@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 function Form({ onSubmit, changeSelect, selectValue }) {
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}
+        method="get"
+        action="#"
+      >
         <select
           name="number"
           onChange={changeSelect}
           size="5"
           value={selectValue}
-          method="GET"
-          action="#"
         >
           <option disabled>choose length</option>
           {[...Array(10)].map(
