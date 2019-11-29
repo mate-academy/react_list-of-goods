@@ -1,7 +1,7 @@
 # React list of goods
 
 ## Demo link
-Add link here: `[LINK](https://mmashivskij.github.io/react_list-of-goods/)`
+Add link here: [LINK](https://mmashivskij.github.io/react_list-of-goods/)
 
 
 ## Task
