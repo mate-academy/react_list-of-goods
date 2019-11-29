@@ -1,0 +1,14 @@
+.reverse {
+  @include button(rgb(17, 1, 233), rgb(40, 34, 116));
+  animation: button-moving-right 2s;
+}
+
+@keyframes button-moving-right {
+  from {
+    transform: translateX(-500px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

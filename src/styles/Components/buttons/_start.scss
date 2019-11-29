@@ -1,0 +1,19 @@
+
+.start {
+  @include button(rgb(255, 242, 55),rgb(244, 255, 85));
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+
+  animation: button-rising 3s;
+}
+
+@keyframes button-rising {
+  from {
+    transform: translateY(500px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}

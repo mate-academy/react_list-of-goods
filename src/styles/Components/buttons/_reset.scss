@@ -1,0 +1,14 @@
+.reset {
+  @include button(rgb(255, 47, 47), rgb(158, 2, 2));
+  animation: button-moving-left 2s;
+}
+
+@keyframes button-moving-left {
+  from {
+    transform: translateX(500px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
