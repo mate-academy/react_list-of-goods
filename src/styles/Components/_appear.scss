@@ -1,0 +1,63 @@
+.appear {
+  width: 400px;
+  margin-left: calc(50% - 200px);
+  font-family: 'Dancing Script', cursive;
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+
+  }
+
+  &__other {
+    display: flex;
+    justify-content: space-between;
+    animation: appeared 5s;
+
+
+    &_list {
+      font-weight: 500;
+      font-size: 25px;
+      color: wheat;
+    }
+
+    &_text {
+      font-size: 20px;
+      color: wheat;
+    }
+
+    &_select {
+      background-color: wheat;
+      height: 50px;
+      width: 50px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      box-shadow: 10px 10px 10px;
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
+.title {
+  color: white;
+  animation: appeared 5s;
+  text-align: center;
+  font-size: 30px;
+}
+
+
+@keyframes appeared {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+

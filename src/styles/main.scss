@@ -1,22 +1,10 @@
-.button {
-  width: 50px;
-  height: 50px;
-  border: 2px solid black;
-  border-radius: 50%;
-}
+@import 'reset';
 
-.start {
-  box-shadow: 0 0 5px 5px rgb(66, 224, 35);
-}
+@import 'mixins/button';
 
-.reverse {
-  box-shadow: 0 0 5px 5px rgb(190, 190, 47);
-}
+@import 'components/buttons/start.scss';
+@import 'components/buttons/sort.scss';
+@import 'components/buttons/reverse.scss';
+@import 'components/buttons/reset.scss';
 
-.alphabetical {
-  box-shadow: 0 0 5px 5px rgb(0, 34, 128);
-}
-
-.reset {
-  box-shadow: 0 0 5px 5px rgb(209, 41, 11) ;
-}
+@import 'components/appear';

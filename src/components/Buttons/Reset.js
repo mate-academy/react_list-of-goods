@@ -6,7 +6,7 @@ function Reset({ reset }) {
     <button
       type="button"
       onClick={reset}
-      className="button reset"
+      className="reset"
     >
       Reset
     </button>

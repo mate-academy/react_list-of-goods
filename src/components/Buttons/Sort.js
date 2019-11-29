@@ -6,7 +6,7 @@ function Sort({ sort }) {
     <button
       type="button"
       onClick={sort}
-      className="button sort"
+      className="sort"
     >
       Sort
     </button>

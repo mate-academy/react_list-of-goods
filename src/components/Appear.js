@@ -63,33 +63,38 @@ class Appear extends React.Component {
   render() {
     // eslint-disable-next-line react/prop-types
     const { arrOfGoods } = this.props;
-    let list = arrOfGoods.arrOfGoods
-      .map(item => <li key="item">{item}</li>);
+
+    let list = [...arrOfGoods.arrOfGoods]
+      .map(item => <li key={item}>{item}</li>);
 
     if (this.state.isReversed) {
       list = [...arrOfGoods.arrOfGoods]
-        .reverse().map(item => <li key="item">{item}</li>);
+        .reverse().map(item => <li key={item}>{item}</li>);
     }
 
     if (this.state.isSorted) {
       list = [...arrOfGoods.arrOfGoods]
-        .sort().map(item => <li key="item">{item}</li>);
+        .sort().map(item => <li key={item}>{item}</li>);
     }
 
     if (this.state.isReseted) {
       list = [...arrOfGoods.arrOfGoods]
-        .map(item => <li key="item">{item}</li>);
+        .map(item => <li key={item}>{item}</li>);
     }
 
     if (this.state.isSortedByLength) {
-      list = arrOfGoods.arrOfGoods
+      list = [...arrOfGoods.arrOfGoods]
         .filter(item => (item.length >= this.state.isSortedByLength
           ? item : null))
-        .map(item => <li key="item">{item}</li>);
+        .map(item => <li key={item}>{item}</li>);
     }
 
     const select = (
-      <select value={this.state.isSortedByLength} onChange={this.sortByLength}>
+      <select
+        value={this.state.isSortedByLength}
+        onChange={this.sortByLength}
+        className="appear__other_select"
+      >
         {this.options()}
       </select>
     );
@@ -99,14 +104,26 @@ class Appear extends React.Component {
 
     if (shown) {
       return (
-        <div>
-          <Reverse reverse={this.reverse} />
-          <Sort sort={this.sort} />
-          <Reset reset={this.reset} />
-          {select}
-          <ul>
-            {list}
-          </ul>
+        <div className="appear">
+          <div className="appear__buttons">
+            <Reverse reverse={this.reverse} />
+            <Sort sort={this.sort} />
+            <Reset reset={this.reset} />
+          </div>
+          <h2 className="title">
+            Ten of the most amazing beaches.
+          </h2>
+          <div className="appear__other">
+            <ul className="appear__other_list">
+              {list}
+            </ul>
+            <div>
+              <p className="appear__other_text">
+                Choose a number!
+              </p>
+              {select}
+            </div>
+          </div>
         </div>
       );
     }
