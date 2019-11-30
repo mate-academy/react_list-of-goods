@@ -67,23 +67,25 @@ class Appear extends React.Component {
     let list = [...arrOfGoods.arrOfGoods]
       .map(item => <li key={item}>{item}</li>);
 
+    const originalArray = list.map(item => item.key);
+
     if (this.state.isReversed) {
-      list = [...arrOfGoods.arrOfGoods]
+      list = originalArray
         .reverse().map(item => <li key={item}>{item}</li>);
     }
 
     if (this.state.isSorted) {
-      list = [...arrOfGoods.arrOfGoods]
+      list = originalArray
         .sort().map(item => <li key={item}>{item}</li>);
     }
 
     if (this.state.isReseted) {
-      list = [...arrOfGoods.arrOfGoods]
+      list = originalArray
         .map(item => <li key={item}>{item}</li>);
     }
 
     if (this.state.isSortedByLength) {
-      list = [...arrOfGoods.arrOfGoods]
+      list = originalArray
         .filter(item => (item.length >= this.state.isSortedByLength
           ? item : null))
         .map(item => <li key={item}>{item}</li>);
@@ -119,7 +121,7 @@ class Appear extends React.Component {
             </ul>
             <div>
               <p className="appear__other_text">
-                Choose a number!
+                How long it be?
               </p>
               {select}
             </div>
