@@ -1,0 +1,293 @@
+ul,
+select {
+  margin-top: 0;
+}
+
+button {
+  padding: 0;
+  border: 0;
+}
+
+button:active {
+  border: 0;
+}
+
+body {
+  background-image: url("../images/Nature_Beach_Golden_Beach.jpg");
+  background-size: cover;
+  margin: 0;
+}
+
+.App {
+  margin-top: 30px;
+}
+
+.start {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #fff237;
+  box-shadow: 0 0 50px #f4ff55;
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+  font-size: 30px;
+  cursor: pointer;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  animation: button-rising 3s;
+}
+
+@keyframes button-rising {
+  from {
+    transform: translateY(500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.sort {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #6edd2d;
+  box-shadow: 0 0 50px #70f01b;
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+  font-size: 30px;
+  cursor: pointer;
+  animation: button-rising 3s;
+}
+
+@keyframes button-rising {
+  from {
+    transform: translateY(500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.reverse {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #1101e9;
+  box-shadow: 0 0 50px #282274;
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+  font-size: 30px;
+  cursor: pointer;
+  animation: button-moving-right 2s;
+}
+
+@keyframes button-moving-right {
+  from {
+    transform: translateX(-500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.reset {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #ff2f2f;
+  box-shadow: 0 0 50px #9e0202;
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+  font-size: 30px;
+  cursor: pointer;
+  animation: button-moving-left 2s;
+}
+
+@keyframes button-moving-left {
+  from {
+    transform: translateX(500px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.appear {
+  width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Dancing Script", cursive;
+}
+
+.appear__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 80px;
+}
+
+.appear__other {
+  display: flex;
+  justify-content: space-between;
+  animation: appeared 5s;
+}
+
+.appear__other_list {
+  font-weight: 500;
+  font-size: 25px;
+  color: wheat;
+}
+
+.appear__other_text {
+  font-size: 20px;
+  color: wheat;
+}
+
+.appear__other_select {
+  background-color: wheat;
+  height: 50px;
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  box-shadow: 10px 10px 10px;
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.title {
+  color: white;
+  animation: appeared 5s;
+  text-align: center;
+  font-size: 30px;
+}
+
+@keyframes appeared {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/*------------------------------
+              MEDIA
+------------------------------*/
+@media (min-width: 1601px) {
+  body {
+    height: 100vh;
+  }
+
+  .App {
+    margin-top: 80px;
+  }
+
+  .appear {
+    width: 800px;
+    padding-top: 50px;
+  }
+
+  .appear__buttons {
+    margin-bottom: 160px;
+  }
+
+  .appear__other_list {
+    font-size: 50px;
+  }
+
+  .appear__other_text {
+    font-size: 50px;
+  }
+
+  .appear__other_select {
+    height: 100px;
+    width: 100px;
+    box-shadow: 20px 20px 20px;
+    font-size: 50px;
+    padding-left: 10%;
+  }
+
+  .title {
+    font-size: 60px;
+  }
+}
+@media (min-width: 1280px) and (max-width: 1600px) {
+  body {
+    height: 100vh;
+  }
+
+  .App {
+    margin-top: 40px;
+  }
+
+  .appear {
+    width: 600px;
+  }
+
+  .appear__buttons {
+    margin-bottom: 80px;
+  }
+
+  .appear__other_list {
+    font-size: 35px;
+  }
+
+  .appear__other_text {
+    font-size: 35px;
+  }
+
+  .appear__other_select {
+    height: 80px;
+    width: 80px;
+    box-shadow: 15px 15px 15px;
+    font-size: 35px;
+    padding-left: 10%;
+  }
+
+  .title {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 479px) {
+  .App {
+    margin-top: 15px;
+  }
+
+  body {
+    height: 100vh;
+  }
+
+  .appear {
+    width: 300px;
+  }
+
+  .appear__buttons {
+    margin-bottom: 15px;
+  }
+
+  .appear__other_list {
+    font-size: 20px;
+  }
+
+  .appear__other_text {
+    font-size: 20px;
+  }
+  
+  .appear__other_select {
+    height: 40px;
+    width: 40px;
+    box-shadow: 20px 20px 20px;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

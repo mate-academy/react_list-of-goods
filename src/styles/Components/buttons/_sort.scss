@@ -1,0 +1,14 @@
+.sort {
+  @include button(rgb(110, 221, 45), rgb(112, 240, 27));
+  animation: button-rising 3s;
+}
+
+@keyframes button-rising {
+  from {
+    transform: translateY(500px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}

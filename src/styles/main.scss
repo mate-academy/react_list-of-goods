@@ -1,0 +1,136 @@
+@import 'reset';
+
+@import 'mixins/button';
+
+@import 'components/app';
+@import 'components/buttons/start';
+@import 'components/buttons/sort';
+@import 'components/buttons/reverse';
+@import 'components/buttons/reset';
+
+@import 'components/appear';
+
+/*------------------------------
+              MEDIA
+------------------------------*/
+
+@media (min-width: 1601px) {
+  body {
+    height: 100vh;
+  }
+
+  .App {
+    margin-top: 80px;
+  }
+  .appear {
+    width: 800px;
+    padding-top: 50px;
+
+    &__buttons {
+      margin-bottom: 160px;
+    }
+
+    &__other {
+
+      &_list {
+        font-size: 50px;
+      }
+
+      &_text {
+        font-size: 50px;
+      }
+
+      &_select {
+        height: 100px;
+        width: 100px;
+        box-shadow: 20px 20px 20px;
+        font-size: 50px;
+        padding-left: 10%;
+      }
+    }
+  }
+
+  .title {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1600px) {
+  body {
+    height: 100vh;
+  }
+
+  .App {
+    margin-top: 40px;
+  }
+  .appear {
+    width: 600px;
+
+    &__buttons {
+      margin-bottom: 80px;
+    }
+
+    &__other {
+
+      &_list {
+        font-size: 35px;
+      }
+
+      &_text {
+        font-size: 35px;
+      }
+
+      &_select {
+        height: 80px;
+        width: 80px;
+        box-shadow: 15px 15px 15px;
+        font-size: 35px;
+        padding-left: 10%;
+      }
+    }
+  }
+
+  .title {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 479px) {
+  .App {
+    margin-top: 15px;
+  }
+  body {
+    height: 100vh;
+  }
+
+  .appear {
+    width: 300px;
+
+    &__buttons {
+      margin-bottom: 15px;
+    }
+
+    &__other {
+
+      &_list {
+        font-size: 20px;
+      }
+
+      &_text {
+        font-size: 20px;
+      }
+
+      &_select {
+        height: 40px;
+        width: 40px;
+        box-shadow: 20px 20px 20px;
+        font-size: 20px;
+        margin: 0;
+      }
+    }
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}

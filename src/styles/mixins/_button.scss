@@ -1,0 +1,11 @@
+@mixin button($bgColor, $shadowColor) {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: $bgColor;
+  box-shadow: 0 0 50px $shadowColor;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-size: 30px;
+  cursor: pointer;
+}

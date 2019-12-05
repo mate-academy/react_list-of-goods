@@ -1,0 +1,19 @@
+ul,
+select {
+  margin-top: 0;
+}
+
+button {
+  padding: 0;
+  border: 0;
+
+  &:active {
+    border: 0;
+  }
+}
+
+body {
+  background-image: url("../images/Nature_Beach_Golden_Beach.jpg");
+  background-size: cover;
+  margin: 0;
+}
