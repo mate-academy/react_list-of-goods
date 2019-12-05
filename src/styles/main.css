@@ -15,6 +15,11 @@ button:active {
 body {
   background-image: url("../images/Nature_Beach_Golden_Beach.jpg");
   background-size: cover;
+  margin: 0;
+}
+
+.App {
+  margin-top: 30px;
 }
 
 .start {
@@ -110,7 +115,9 @@ body {
 
 .appear {
   width: 400px;
-  margin-left: calc(50% - 200px);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   font-family: "Dancing Script", cursive;
 }
 
@@ -164,6 +171,122 @@ body {
   }
   to {
     opacity: 1;
+  }
+}
+/*------------------------------
+              MEDIA
+------------------------------*/
+@media (min-width: 1601px) {
+  body {
+    height: 100vh;
+  }
+
+  .App {
+    margin-top: 80px;
+  }
+
+  .appear {
+    width: 800px;
+    padding-top: 50px;
+  }
+
+  .appear__buttons {
+    margin-bottom: 160px;
+  }
+
+  .appear__other_list {
+    font-size: 50px;
+  }
+
+  .appear__other_text {
+    font-size: 50px;
+  }
+
+  .appear__other_select {
+    height: 100px;
+    width: 100px;
+    box-shadow: 20px 20px 20px;
+    font-size: 50px;
+    padding-left: 10%;
+  }
+
+  .title {
+    font-size: 60px;
+  }
+}
+@media (min-width: 1280px) and (max-width: 1600px) {
+  body {
+    height: 100vh;
+  }
+
+  .App {
+    margin-top: 40px;
+  }
+
+  .appear {
+    width: 600px;
+  }
+
+  .appear__buttons {
+    margin-bottom: 80px;
+  }
+
+  .appear__other_list {
+    font-size: 35px;
+  }
+
+  .appear__other_text {
+    font-size: 35px;
+  }
+
+  .appear__other_select {
+    height: 80px;
+    width: 80px;
+    box-shadow: 15px 15px 15px;
+    font-size: 35px;
+    padding-left: 10%;
+  }
+
+  .title {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 479px) {
+  .App {
+    margin-top: 15px;
+  }
+
+  body {
+    height: 100vh;
+  }
+
+  .appear {
+    width: 300px;
+  }
+
+  .appear__buttons {
+    margin-bottom: 15px;
+  }
+
+  .appear__other_list {
+    font-size: 20px;
+  }
+
+  .appear__other_text {
+    font-size: 20px;
+  }
+  
+  .appear__other_select {
+    height: 40px;
+    width: 40px;
+    box-shadow: 20px 20px 20px;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .title {
+    font-size: 20px;
   }
 }
 

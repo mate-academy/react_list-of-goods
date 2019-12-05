@@ -2,8 +2,7 @@ import React from 'react';
 
 import List from './components/List';
 
-// eslint-disable-next-line no-unused-vars
-import main from './styles/main.css';
+import './styles/main.css';
 
 const goodsFromServer = [
   'Punchal',

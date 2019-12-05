@@ -1,10 +1,9 @@
 import React from 'react';
+// import PropTypes from 'prop-types';
 
+import Reset from './Buttons/Reset';
 import Reverse from './Buttons/Reverse';
 import Sort from './Buttons/Sort';
-import Reset from './Buttons/Reset';
-
-// eslint-disable-next-line react/prop-types
 
 class Appear extends React.Component {
   constructor(props) {
@@ -19,12 +18,10 @@ class Appear extends React.Component {
   }
 
   reverse = () => {
-    this.setState({
-      isReversed: true,
-      isSorted: false,
-      isSortedByLength: false,
+    this.setState(state => ({
+      isReversed: !state.isReversed,
       isReseted: false,
-    });
+    }));
   }
 
   sort = () => {
@@ -52,8 +49,7 @@ class Appear extends React.Component {
   options = () => {
     const listOfOption = [];
 
-    // eslint-disable-next-line no-plusplus
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i < 11; i += 1) {
       listOfOption.push(<option value={i} key={i}>{i}</option>);
     }
 
@@ -64,31 +60,24 @@ class Appear extends React.Component {
     // eslint-disable-next-line react/prop-types
     const { arrOfGoods } = this.props;
 
-    let list = [...arrOfGoods.arrOfGoods]
-      .map(item => <li key={item}>{item}</li>);
-
-    const originalArray = list.map(item => item.key);
-
-    if (this.state.isReversed) {
-      list = originalArray
-        .reverse().map(item => <li key={item}>{item}</li>);
-    }
+    let list = [...arrOfGoods.arrOfGoods];
 
     if (this.state.isSorted) {
-      list = originalArray
-        .sort().map(item => <li key={item}>{item}</li>);
+      list.sort();
+    }
+
+    if (this.state.isReversed) {
+      list.reverse();
     }
 
     if (this.state.isReseted) {
-      list = originalArray
-        .map(item => <li key={item}>{item}</li>);
+      list = [...arrOfGoods.arrOfGoods];
     }
 
     if (this.state.isSortedByLength) {
-      list = originalArray
+      list = [...arrOfGoods.arrOfGoods]
         .filter(item => (item.length >= this.state.isSortedByLength
-          ? item : null))
-        .map(item => <li key={item}>{item}</li>);
+          ? item : null));
     }
 
     const select = (
@@ -116,12 +105,12 @@ class Appear extends React.Component {
             Ten of the most amazing beaches.
           </h2>
           <div className="appear__other">
-            <ul className="appear__other_list">
-              {list}
-            </ul>
+            <ol className="appear__other_list">
+              {list.map(item => <li key={item}>{item}</li>)}
+            </ol>
             <div>
               <p className="appear__other_text">
-                How long it be?
+                What you choose?
               </p>
               {select}
             </div>
@@ -133,5 +122,10 @@ class Appear extends React.Component {
     return null;
   }
 }
+
+// Appear.propTypes = {
+//   arrOfGoods: PropTypes.object,
+//   shown: PropTypes.bool.isRequired,
+// };
 
 export default Appear;
