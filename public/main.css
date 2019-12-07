@@ -11,10 +11,14 @@
 }
 
 .list {
-  display: none;
+  display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+.none {
+  display: none;
 }
 
 /*# sourceMappingURL=main.css.map */
