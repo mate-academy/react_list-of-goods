@@ -1,22 +1,29 @@
 import React from 'react';
+import GoodsList from './GoodsList';
+import './App.css';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+class App extends React.Component {
+  state = { isClicked: false }
 
-const App = () => (
-  <div className="App">
-    <h1>Goods 1</h1>
-  </div>
-);
+  buttonStart = () => {
+    this.setState({ isClicked: true });
+  }
+
+  render() {
+    if (this.state.isClicked) {
+      return <GoodsList />;
+    }
+
+    return (
+      <button
+        type="button"
+        className={this.state.isClicked ? 'button--hide' : 'button'}
+        onClick={this.buttonStart}
+      >
+        Start
+      </button>
+    );
+  }
+}
 
 export default App;
