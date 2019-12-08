@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css?family=Righteous&display=swap");
+
+html {
+  font-family: Righteous, cursive;
+}
+
+body {
+  background: linear-gradient(to right, #b2fefa, #0ed2f7);
+  padding: 40px;
+}
+
+.main-title {
+  text-shadow: 2px 2px 0 #e49708,
+    2px -2px 0 #e49708,
+    -2px 2px 0 #e49708,
+    -2px -2px 0 #e49708,
+    2px 0 0 #e49708,
+    0 2px 0 #e49708,
+    -2px 0 0 #e49708,
+    0 -2px 0 #e49708;
+  color: white;
+  letter-spacing: 4px;
+}
+
+.goods {
+  &__button,
+  &__select,
+  &__option {
+    background-color: #e49708;
+    color: white;
+    font-family: Righteous, cursive;
+    font-size: 18px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 6px;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: blue;
+    }
+  }
+}
