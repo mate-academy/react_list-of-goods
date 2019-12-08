@@ -7,11 +7,16 @@ const SelectLength = props => (
     onChange={props.sortSelect}
   >
     {[...Array(10)].map((i, index) => (
-      <option>{index + 1}</option>
+      index + 1 === props.select
+        ? <option selected>{index + 1}</option>
+        : <option>{index + 1}</option>
     ))}
   </select>
 );
 
-SelectLength.propTypes = { sortSelect: PropTypes.func.isRequired };
+SelectLength.propTypes = {
+  sortSelect: PropTypes.func.isRequired,
+  select: PropTypes.number.isRequired,
+};
 
 export default SelectLength;
