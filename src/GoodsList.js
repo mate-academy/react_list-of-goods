@@ -1,25 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Buttons from './Buttons';
+import Filter from './Filter';
 import Select from './Select';
 
 class GoodList extends React.Component {
-  goodsFromServer = [...this.props.goods]
-
   state = {
-    goodsArray: this.goodsFromServer,
+    goodsArray: [...this.props.goods],
     selectValue: 1,
   }
 
   reverse = () => {
-    this.setState({ goodsArray: this.goodsFromServer.reverse() });
+    this.setState(state => ({ goodsArray: state.goodsArray.reverse() }));
   }
 
   sortByName = () => {
-    this.setState({
-      goodsArray: this.goodsFromServer
+    this.setState(state => ({
+      goodsArray: state.goodsArray
         .sort((a, b) => a.localeCompare(b)),
-    });
+    }));
   }
 
   reset = () => {
@@ -30,10 +28,10 @@ class GoodList extends React.Component {
   }
 
   sortByLength = () => {
-    this.setState({
-      goodsArray: this.goodsFromServer
+    this.setState(state => ({
+      goodsArray: state.goodsArray
         .sort((a, b) => a.length - b.length),
-    });
+    }));
   }
 
   changeSelect = (event) => {
@@ -51,12 +49,10 @@ class GoodList extends React.Component {
     if (show) {
       return (
         <>
-          <Buttons
-            reverse={this.reverse}
-            sortByName={this.sortByName}
-            reset={this.reset}
-            sortByLength={this.sortByLength}
-          />
+          <Filter title="reverse" callback={this.reverse} />
+          <Filter title="sort by name" callback={this.sortByName} />
+          <Filter title="sort by length" callback={this.sortByLength} />
+          <Filter title="reset" callback={this.reset} />
           <Select
             changeSelect={this.changeSelect}
             selectValue={selectValue}
