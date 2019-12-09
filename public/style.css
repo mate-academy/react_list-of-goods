@@ -1,0 +1,23 @@
+.goods {
+  font-size: 18px;
+  position: relative;
+  top: -200px;
+  right: -200px;
+}
+
+.buttons {
+  display: flex;
+}
+
+button {
+  width: 200px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.select > option {
+  background-color: wheat;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+}
