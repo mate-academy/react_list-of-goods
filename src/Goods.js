@@ -1,22 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Goods = ({ goodsList, visibility, changedList }) => {
-  const currentClass = visibility ? 'visible__list' : 'list';
-  const currentList = changedList.length > 0 ? changedList : goodsList;
+const Goods = ({ changedList }) => (
+  <ul className="visible__list">
+    {changedList.map(item => <li>{item}</li>)}
+  </ul>
+);
 
-  return (
-    <ul className={currentClass}>
-      {currentList
-        .map(item => <li>{item}</li>)}
-    </ul>
-  );
-};
-
-Goods.propTypes = {
-  goodsList: PropTypes.string.isRequired,
-  visibility: PropTypes.bool.isRequired,
-  changedList: PropTypes.string.isRequired,
-};
+Goods.propTypes = { changedList: PropTypes.string.isRequired };
 
 export default Goods;

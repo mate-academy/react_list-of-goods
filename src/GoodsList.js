@@ -9,6 +9,7 @@ class GoodsList extends React.Component {
   state = {
     visible: false,
     changedList: [...this.props.goods],
+    selectedValue: 1,
   };
 
   start = () => {
@@ -24,8 +25,10 @@ class GoodsList extends React.Component {
   }
 
   reset = () => {
-    this.setState(state => ({ changedList: [...this.props.goods] }));
-    document.querySelector('.select').value = 1;
+    this.setState(state => ({
+      changedList: [...this.props.goods],
+      selectedValue: 1,
+    }));
   }
 
   sortLen = () => {
@@ -36,41 +39,45 @@ class GoodsList extends React.Component {
   }
 
   filterLen = (event) => {
+    const { value } = event.target;
+
     this.setState({
+      selectedValue: value,
       changedList: this.props.goods
-        .filter(word => word.length >= event.target.value),
+        .filter(word => word.length >= value),
     });
   }
 
   render() {
-    return (
-      <div>
+    const filters = [
+      { title: 'Reverse', callback: this.reverse },
+      { title: 'Sort alphabetically', callback: this.sortAlph },
+      { title: 'Reset', callback: this.reset },
+      { title: 'Sort by length', callback: this.sortLen },
+    ];
+
+    if (!this.state.visible) {
+      return (
         <StartButton
           handlerStart={this.start}
           visibility={this.state.visible}
         />
-        <Button
-          handler={this.reverse}
-          title="Reverse"
-        />
-        <Button
-          handler={this.sortAlph}
-          title="Sort alphabetically"
-        />
-        <Button
-          handler={this.reset}
-          title="Reset"
-        />
-        <Button
-          handler={this.sortLen}
-          title="Sort by length"
-        />
+      );
+    }
+
+    return (
+      <div>
+        {filters.map(filter => (
+          <Button
+            handler={filter.callback}
+            title={filter.title}
+          />
+        ))}
         <Select
           handlerFilterLen={this.filterLen}
+          selectedValue={this.state.selectedValue}
         />
         <Goods
-          goodsList={this.props.goods}
-          visibility={this.state.visible}
           changedList={this.state.changedList}
         />
       </div>
