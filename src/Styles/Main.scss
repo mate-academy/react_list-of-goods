@@ -1,0 +1,13 @@
+@import "./buttons.scss";
+@import "./goods-list.scss";
+@import "./variables.scss";
+@import"./mixins.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  visibility: hidden;
+}

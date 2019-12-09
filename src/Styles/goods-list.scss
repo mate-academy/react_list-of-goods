@@ -1,0 +1,33 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.goods-list {
+  position: relative;
+  box-sizing: border-box;
+  width: 90vw;
+  margin: auto;
+  list-style: none;
+  text-align: center;
+  padding-left: 0 ;
+  background-color: #ffd3b6;
+  border-bottom-right-radius: $goodsListRadius;
+  border-bottom-left-radius: $goodsListRadius;
+  border: 1px solid $c-blue;
+  overflow: hidden;
+}
+
+.goods-list__good {
+  font-size: 18px;
+  cursor: pointer;
+  @include hover(background-color, $c-yellow);
+
+}
+
+.goods-list__good:hover,
+.goods-list__good:nth-child(even):hover {
+  background-color: $c-yellow;
+}
+
+.goods-list__good:nth-child(even) {
+  background-color: $c-green;
+}
