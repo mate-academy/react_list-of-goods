@@ -21,17 +21,15 @@ class ShowList extends React.Component {
     selectValue: 1,
   };
 
-  previousState = () => this.state.order;
-
   reverce = () => {
-    this.setState({ order: this.previousState().reverse() });
+    this.setState(state => ({ order: state.order.reverse() }));
   };
 
   alphabetSort = () => {
-    this.setState({
+    this.setState(state => ({
       order:
-      this.previousState().sort((a, b) => a.localeCompare(b)),
-    });
+      state.order.sort((a, b) => a.localeCompare(b)),
+    }));
   }
 
   reset = () => {
@@ -40,10 +38,10 @@ class ShowList extends React.Component {
   }
 
   sortByLength = () => {
-    this.setState({
+    this.setState(state => ({
       order:
-      this.previousState().sort((a, b) => ((a.length > b.length) ? 1 : -1)),
-    });
+      state.order.sort((a, b) => ((a.length > b.length) ? 1 : -1)),
+    }));
   }
 
   lengthSelect = (e) => {
@@ -56,26 +54,28 @@ class ShowList extends React.Component {
   }
 
   render() {
+    const { activeteList, selectValue, lengths, order } = this.state;
+
     return (
       <>
         <button
           type="button"
-          className={!this.state.activeteList ? 'button' : 'none'}
+          className={!activeteList ? 'button' : 'none'}
           onClick={() => this.setState({ activeteList: true })}
         >
           start
         </button>
-        <div className={!this.state.activeteList ? 'none' : 'list'}>
+        <div className={!activeteList ? 'none' : 'list'}>
           <div>
             <select
               className="select"
               onChange={this.lengthSelect}
-              value={this.state.selectValue}
+              value={selectValue}
             >
               {
-                this.state.lengths.map(order => (
-                  <option key={order}>
-                    {order}
+                lengths.map(orderByLength => (
+                  <option key={orderByLength}>
+                    {orderByLength}
                   </option>
                 ))
               }
@@ -111,7 +111,7 @@ class ShowList extends React.Component {
           </div>
           <ul>
             {
-              this.state.order.map(word => <li key={word}>{word}</li>)
+              order.map(word => <li key={word}>{word}</li>)
             }
           </ul>
         </div>
