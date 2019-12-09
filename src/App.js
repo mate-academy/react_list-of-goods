@@ -18,6 +18,7 @@ class App extends React.Component {
     isStart: false,
     copyGoods: [...goodsFromServer],
     option: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    index: '',
   };
 
   start = () => {
@@ -44,18 +45,23 @@ class App extends React.Component {
   };
 
   reset = () => {
-    this.setState(state => ({ copyGoods: [...goodsFromServer] }));
+    this.setState({
+      copyGoods: [...goodsFromServer],
+      index: '1',
+    });
   };
 
-  opTion = () => this.state.option.map(i => <option value={i}>{i}</option>)
+  getLengthOption = () => this.state.option
+    .map(i => <option value={i}>{i}</option>)
 
   filter = (event) => {
-    const value = +event.target.value;
-
-    this.setState({
-      copyGoods: [...goodsFromServer]
-        .filter(item => item.length >= value),
-    });
+    this.setState({ index: event.target.value });
+    this.setState(prev => (
+      {
+        copyGoods: goodsFromServer
+          .filter(item => item.length >= prev.index),
+      }
+    ));
   };
 
   render() {
@@ -92,10 +98,11 @@ class App extends React.Component {
                 Reset
               </button>
               <select
+                value={this.state.index}
                 onChange={this.filter}
                 className="select"
               >
-                {this.opTion()}
+                {this.getLengthOption()}
               </select>
               <ul className="ul">
                 {copyGoods.map(item => <li className="li">{item}</li>)}
