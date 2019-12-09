@@ -1,0 +1,54 @@
+.App {
+  margin: 70px auto;
+  width: 940px;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.buttons-wrapper {
+  display: flex;
+}
+
+.button {
+  font-size: 1.5em;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: pink;
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  height: 100px;
+  margin-right: 20px;
+
+  &:hover {
+    background-color: red;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.good-list {
+  background-color: lightskyblue;
+  padding: 20px;
+  font-size: 1.3em;
+  text-align: center;
+  text-transform: uppercase;
+  list-style: none;
+  border-radius: 5px;
+
+  &__item {
+
+    &:hover {
+      background-color: deepskyblue;
+    }
+  }
+}
