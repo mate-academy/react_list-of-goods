@@ -71,14 +71,32 @@ export default class App extends Component {
   render() {
     const { isLoaded, goods, selectedOption } = this.state;
 
+    const filterList = [
+      {
+        func: this.reverseList, name: 'Reverse',
+      },
+      {
+        func: this.sortAlphabetical, name: 'Sort alphabetically',
+      },
+      {
+        func: this.sortLength, name: 'Sort by length',
+      },
+      {
+        func: this.resetList, name: 'Reset',
+      },
+    ];
+
     return (
       <div className="App">
         {isLoaded ? (
           <>
-            <Filter func={this.reverseList} name="Reverse" />
-            <Filter func={this.sortAlphabetical} name="Sort alphabetically" />
-            <Filter func={this.sortLength} name="Sort by length" />
-            <Filter func={this.resetList} name="Reset" />
+            {filterList.map(filter => (
+              <Filter
+                func={filter.func}
+                name={filter.name}
+                key={filter.name}
+              />
+            ))}
             <select
               value={selectedOption}
               onChange={this.selectValue}
