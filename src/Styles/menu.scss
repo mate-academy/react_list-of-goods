@@ -12,7 +12,6 @@
     border: 1px solid $c-blue;
     background-color: $c-green;
     outline: none;
-    display: inline-block;
     padding: 10px;
     color: $c-blue;
     font-size: 16px;
@@ -29,17 +28,6 @@
   }
   &__button:last-child {
     border-top-right-radius: $buttonsRadius;
-  }
-
-  &__button--submit {
-    display: flex;
-    justify-content: center;
-    width: 80px;
-    height: 30px;
-    font-size: 10px;
-    border-radius: $buttonsRadius;
-    margin: auto;
-    @include hover(background-color, $c-orange);
   }
 
   &__button--select {
