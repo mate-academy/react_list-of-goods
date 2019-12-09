@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ handleClick, children }) => (
+const Filter = ({ handleClick, children }) => (
   <button
     className="button"
     type="button"
@@ -11,9 +11,9 @@ const Button = ({ handleClick, children }) => (
   </button>
 );
 
-Button.propTypes = {
+Filter.propTypes = {
   children: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 
-export default Button;
+export default Filter;

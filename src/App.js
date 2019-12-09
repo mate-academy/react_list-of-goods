@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Button from './Button';
+import Filter from './Filter';
 import Select from './Select';
 import GoodList from './GoodList';
 
@@ -21,6 +21,7 @@ class App extends React.Component {
   state = {
     goods: [],
     shouldStart: false,
+    minLength: 1,
   };
 
   handleStart = () => {
@@ -31,7 +32,7 @@ class App extends React.Component {
   };
 
   onClickReset = () => {
-    this.setState({ goods: [...goodsFromServer] });
+    this.setState({ goods: [...goodsFromServer], minLength: 1 });
   };
 
   onClickReverse = () => {
@@ -54,36 +55,40 @@ class App extends React.Component {
 
   onSelectLength = (e) => {
     this.setState({
+      minLength: e.target.value,
       goods: goodsFromServer
         .filter(good => good.length >= e.target.value),
     });
   };
 
   render() {
-    const { goods, shouldStart } = this.state;
+    const { goods, shouldStart, minLength } = this.state;
 
     return (
       <div className="App">
         {!shouldStart
           ? (
-            <Button handleClick={this.handleStart}>
+            <Filter handleClick={this.handleStart}>
             Start!
-            </Button>
+            </Filter>
           )
           : (
             <section>
               <div
                 className="buttons-wrapper"
               >
-                <Button handleClick={this.onClickReverse}>Reverse</Button>
-                <Button handleClick={this.onClickSortAbc}>
+                <Filter handleClick={this.onClickReverse}>Reverse</Filter>
+                <Filter handleClick={this.onClickSortAbc}>
                   Sort alphabetically
-                </Button>
-                <Button handleClick={this.onClickReset}>Reset</Button>
-                <Button handleClick={this.onClickSortByLen}>
+                </Filter>
+                <Filter handleClick={this.onClickReset}>Reset</Filter>
+                <Filter handleClick={this.onClickSortByLen}>
                   Sort by length
-                </Button>
-                <Select handleClick={this.onSelectLength} />
+                </Filter>
+                <Select
+                  handleClick={this.onSelectLength}
+                  currentValue={minLength}
+                />
               </div>
               <GoodList goodList={goods} />
             </section>
