@@ -4,10 +4,6 @@ body {
   text-align: center;
 }
 
-.button--hide {
-  display: none;
-}
-
 .button {
   padding: 10px 20px;
   border: 2px solid rgb(0, 217, 255);

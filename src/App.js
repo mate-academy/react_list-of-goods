@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <button
         type="button"
-        className={this.state.isClicked ? 'button--hide' : 'button'}
+        className="button"
         onClick={this.buttonStart}
       >
         Start

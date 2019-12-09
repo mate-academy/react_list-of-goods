@@ -1,5 +1,5 @@
 import React from 'react';
-import Buttons from './Buttons';
+import Filter from './Filter';
 import ShowList from './ShowList';
 import SelectLength from './SelectLength';
 
@@ -26,7 +26,7 @@ class GoodsList extends React.Component {
     this.setState(state => ({ list: [...state.list].reverse() }))
   )
 
-  sortAlphabetic =() => (
+  sortAlphabetic = () => (
     this.setState(state => ({
       list: [...state.list].sort((a, b) => (
         a > b ? 1 : -1
@@ -58,14 +58,21 @@ class GoodsList extends React.Component {
   )
 
   render() {
+    const filters = [
+      { title: 'Reverse', callback: this.reverse },
+      { title: 'Sort by alphabetic', callback: this.sortAlphabetic },
+      { title: 'Reset', callback: this.reset },
+      { title: 'Sort by length', callback: this.sortLength },
+    ];
+
     return (
       <div className="goods">
-        <Buttons
-          reverse={this.reverse}
-          sortAlphabetic={this.sortAlphabetic}
-          reset={this.reset}
-          sortLength={this.sortLength}
-        />
+        {filters.map(filter => (
+          <Filter
+            title={filter.title}
+            callback={filter.callback}
+          />
+        ))}
         <SelectLength
           sortSelect={this.sortSelect}
           select={this.state.selectNumber}
