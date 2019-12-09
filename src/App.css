@@ -1,0 +1,63 @@
+.App {
+  width: 400px;
+  margin: 30px auto;
+}
+
+.list {
+  display: none;
+}
+
+.visible__list {
+  width: 400px;
+  height: 200px;
+  padding: 25px 0 30px 40px;
+  border: 1px solid lightgray;
+  background-color: oldlace;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(56, 53, 53);
+  font-size: small;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+.hidden__start {
+  display: none;
+}
+
+.visible__start {
+  width: 60px;
+  height: 21px;
+  display: block;
+  margin: 10px auto;
+  background-color: cadetblue;
+  border: 1px solid green;
+  border-radius: 5px;
+  outline: none;
+}
+
+.visible__start:hover {
+  transform: scale(1.1);
+}
+
+.select {
+  margin: 10px 5px;
+  background-color: lightblue;
+  border-radius: 3px;
+  width: 40px;
+  height: 20px;
+  outline: none;
+}
+
+.button {
+  background-color: lightcyan;
+  border: 1px solid lightgray;
+  margin: 5px;
+  height: 25px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.button:hover {
+  transform: scale(1.1);
+}
