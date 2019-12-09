@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from './Select';
+import Filter from './Filter';
 
 class GoodList extends React.Component {
   state = {
     isShow: false,
     goods: [...this.props.goods],
+  }
+
+  start = () => {
+    this.setState({ isShow: true });
   }
 
   reset = () => {
@@ -19,17 +24,17 @@ class GoodList extends React.Component {
     });
   }
 
-  sortLength() {
+  sortLength = () => {
     this.setState(state => (
       { ...state.goods.sort((a, b) => a.length - b.length) }));
   }
 
-  sortAlphabetically() {
+  sortAlphabetically = () => {
     this.setState(state => (
       { ...state.goods.sort((a, b) => a.localeCompare(b)) }));
   }
 
-  reverse() {
+  reverse = () => {
     this.setState(state => (
       { ...state.goods.reverse() }));
   }
@@ -38,69 +43,33 @@ class GoodList extends React.Component {
     const { isShow, goods } = this.state;
 
     return (
-      <section className="goodsList">
-        <div className="buttons">
-          <button
-            className="button button-start"
-            type="button"
-            style={isShow === true ? { display: 'none' } : { display: '' }}
-            onClick={() => {
-              this.setState({ isShow: true });
-            }}
-          >
-            {'start'}
-          </button>
-          <button
-            className="button button-reverse"
-            type="button"
-            style={isShow === false ? { display: 'none' } : { display: '' }}
-            onClick={() => {
-              this.reverse();
-            }}
-          >
-            {'reverse'}
-          </button>
-          <button
-            className="button button-sort-alphabet"
-            type="button"
-            style={isShow === false ? { display: 'none' } : { display: '' }}
-            onClick={() => {
-              this.sortAlphabetically();
-            }}
-          >
-            {'Sort alphabetically'}
-          </button>
-          <button
-            className="button button-reset"
-            type="button"
-            style={isShow === false ? { display: 'none' } : { display: '' }}
-            onClick={this.reset}
-          >
-            {'reset'}
-          </button>
-          <button
-            className="button button-sort-length"
-            type="button"
-            style={isShow === false ? { display: 'none' } : { display: '' }}
-            onClick={() => {
-              this.sortLength();
-            }}
-          >
-            {'Sort by lengths'}
-          </button>
-        </div>
-        <Select
-          goods={goods}
-          isShow={isShow}
-          filter={this.filterLength}
-        />
-        <ul
-          className="goods"
-          style={isShow === false ? { display: 'none' } : { display: '' }}
-        >
-          { goods.map(good => (<li key={good} className="good">{good}</li>)) }
-        </ul>
-      </section>
+      <>
+        { !isShow
+          ? (
+            <button type="button" onClick={this.start}>
+              start
+            </button>
+          )
+          : (
+            <>
+              <div className="buttons">
+                <Filter callback={this.reverse} title="reverse" />
+                <Filter
+                  callback={this.sortAlphabetically}
+                  title="sortAlphabetically"
+                />
+                <Filter callback={this.reset} title="reset" />
+                <Filter callback={this.sortLength} title="sort by lengths" />
+              </div>
+              <Select goods={goods} filter={this.filterLength} />
+              <ul className="goods">
+                { goods.map(good => (
+                  <li key={good} className="good">{good}</li>)) }
+              </ul>
+            </>
+          )
+        }
+      </>
     );
   }
 }
