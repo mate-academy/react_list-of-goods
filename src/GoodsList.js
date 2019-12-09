@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Goods from './Goods';
 import StartButton from './StartButton';
-import ReverseButton from './ReverseButton';
-import SortAlphButton from './SortAlphButton';
-import ResetButton from './ResetButton';
-import SortLenButton from './SortLenButton';
+import Button from './Button';
 import Select from './Select';
 
 class GoodsList extends React.Component {
@@ -52,17 +49,21 @@ class GoodsList extends React.Component {
           handlerStart={this.start}
           visibility={this.state.visible}
         />
-        <ReverseButton
-          handlerReverse={this.reverse}
+        <Button
+          handler={this.reverse}
+          title="Reverse"
         />
-        <SortAlphButton
-          handlerSortAlph={this.sortAlph}
+        <Button
+          handler={this.sortAlph}
+          title="Sort alphabetically"
         />
-        <ResetButton
-          handlerReset={this.reset}
+        <Button
+          handler={this.reset}
+          title="Reset"
         />
-        <SortLenButton
-          handlerSortLen={this.sortLen}
+        <Button
+          handler={this.sortLen}
+          title="Sort by length"
         />
         <Select
           handlerFilterLen={this.filterLen}
