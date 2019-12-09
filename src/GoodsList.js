@@ -62,7 +62,9 @@ class GoodsList extends React.Component {
        { title: 'reset', callback: this.resetHandler },
      ];
 
-     const options = Array(maxLegnthOfGoods).fill('');
+     const options = Array(maxLegnthOfGoods)
+       .fill('')
+       .map((elem, i) => i);
 
      return (
        <>
