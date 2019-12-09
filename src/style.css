@@ -1,0 +1,34 @@
+.list {
+  width: 555px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: beige;
+}
+
+.list__button {
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: lightgray;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+.list__button--reset {
+  background-color: pink;
+}
+
+.list__button--select {
+  height: 38px;
+}
+
+.list__button--start {
+  display: block;
+  margin: auto;
+}
+
+.list__items {
+  font-size: 20px;
+}
