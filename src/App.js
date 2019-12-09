@@ -52,6 +52,17 @@ class App extends React.Component {
     );
   };
 
+  selectByLength = (event) => {
+    const value = +event.target.value;
+
+    this.setState(
+      state => ({
+        visibleGoods: [...goodsFromServer]
+          .filter(item => item.length >= value),
+      }),
+    );
+  };
+
   selectOptions = () => {
     const arr = [];
 
@@ -87,7 +98,7 @@ class App extends React.Component {
               >
                 Sort by length
               </button>
-              <select>
+              <select onChange={this.selectByLength}>
                 {this.selectOptions()}
               </select>
               <GoodsList goods={visibleGoods} />
