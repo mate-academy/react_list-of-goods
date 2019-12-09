@@ -17,8 +17,9 @@ const goodsFromServer = [
 
 export default class App extends Component {
   state = {
-    listOfGoods: null,
+    listOfGoods: [],
     isBtnStartClicked: false,
+    selectValue: 1,
   };
 
   handleClick = () => {
@@ -49,7 +50,10 @@ export default class App extends Component {
   };
 
   ResetToInitialValue = () => {
-    this.setState({ listOfGoods: [...goodsFromServer] });
+    this.setState({
+      listOfGoods: [...goodsFromServer],
+      selectValue: 1,
+    });
   };
 
   SelectByLength = (e) => {
@@ -58,16 +62,30 @@ export default class App extends Component {
     this.setState({
       listOfGoods: [...goodsFromServer]
         .filter(good => good.length >= selectValue),
+      selectValue,
     });
   };
 
+  SearchBox = (e) => {
+    const searchValue = e.target.value;
+
+    this.setState(state => ({
+      listOfGoods: searchValue === ''
+        ? [...goodsFromServer]
+        : [...state.listOfGoods]
+          .filter(good => good.toLowerCase()
+            .startsWith(searchValue.toLowerCase())),
+    }));
+  };
+
   render() {
-    const { listOfGoods } = this.state;
+    const { listOfGoods, selectValue, isBtnStartClicked } = this.state;
 
     return (
       <div className="App">
         <h1 className="nav">Goods 1</h1>
-        {!this.state.isBtnStartClicked
+
+        {!isBtnStartClicked
           ? (
             <button
               className="btn waves-effect waves-light"
@@ -79,56 +97,62 @@ export default class App extends Component {
           )
           : null
         }
-        {this.state.listOfGoods !== null
-          ? (
-            <div>
-              <button
-                className="waves-effect waves-light btn"
-                type="button"
-                onClick={this.handleReverse}
-              >
+        {listOfGoods.length > 0
+           && (
+             <div>
+               <form>
+                 <label htmlFor="Search">
+                  Search
+                   <input onChange={this.SearchBox} type="text" name="name" />
+                 </label>
+               </form>
+               <button
+                 className="waves-effect waves-light btn"
+                 type="button"
+                 onClick={this.handleReverse}
+               >
                 Reverse
-              </button>
-              <button
-                className="waves-effect waves-light btn"
-                type="button"
-                onClick={this.handleSortAbc}
-              >
+               </button>
+               <button
+                 className="waves-effect waves-light btn"
+                 type="button"
+                 onClick={this.handleSortAbc}
+               >
                 Sort ABC
-              </button>
-              <button
-                className="waves-effect waves-light btn"
-                type="button"
-                onClick={this.handleSortByLength}
-              >
+               </button>
+               <button
+                 className="waves-effect waves-light btn"
+                 type="button"
+                 onClick={this.handleSortByLength}
+               >
                 Sort by length
-              </button>
-              <button
-                className="waves-effect waves-light btn"
-                type="button"
-                onClick={this.ResetToInitialValue}
-              >
+               </button>
+               <button
+                 className="waves-effect waves-light btn"
+                 type="button"
+                 onClick={this.ResetToInitialValue}
+               >
                 Reset to Initial value
-              </button>
-              <select
-                className="waves-effect waves-light btn select"
-                onChange={this.SelectByLength}
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </select>
-              <ListOfGoods list={listOfGoods} />
-            </div>
-          )
-          : null
+               </button>
+               <select
+                 value={selectValue}
+                 className="waves-effect waves-light btn select"
+                 onChange={this.SelectByLength}
+               >
+                 <option>1</option>
+                 <option>2</option>
+                 <option>3</option>
+                 <option>4</option>
+                 <option>5</option>
+                 <option>6</option>
+                 <option>7</option>
+                 <option>8</option>
+                 <option>9</option>
+                 <option>10</option>
+               </select>
+               <ListOfGoods list={listOfGoods} />
+             </div>
+           )
         }
       </div>
     );
