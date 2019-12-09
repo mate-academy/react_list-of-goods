@@ -29,38 +29,38 @@ export default class App extends Component {
   };
 
   resetList = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.originalGoods],
+    this.setState(state => ({
+      goods: [...state.originalGoods],
       selectedOption: 1,
     }));
   };
 
   reverseList = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].reverse(),
+    this.setState(state => ({
+      goods: [...state.goods].reverse(),
     }));
   };
 
   sortLength = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].sort((a, b) => (
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => (
         a.replace(/\s/g, '').length - b.replace(/\s/g, '').length
       )),
     }));
   };
 
   sortAlphabetical = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
   selectValue = ({ target }) => {
     const { value } = target;
 
-    this.setState(prevState => ({
+    this.setState(state => ({
       selectedOption: value,
-      goods: [...prevState.originalGoods].filter(
+      goods: [...state.originalGoods].filter(
         item => item.length >= value
       ),
     }));
