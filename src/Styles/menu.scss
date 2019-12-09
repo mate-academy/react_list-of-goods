@@ -1,0 +1,53 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.buttons {
+  display: flex;
+  justify-content: center;
+
+  &__button {
+    box-sizing: border-box;
+    width: 15vw;
+    height: 100px;
+    border: 1px solid $c-blue;
+    background-color: $c-green;
+    outline: none;
+    padding: 10px;
+    color: $c-blue;
+    font-size: 16px;
+    cursor: pointer;
+    @include hover(background-color, $c-yellow);
+  }
+  &__button:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: $buttonsRadius;
+    text-align: center;
+    width: 30vw;
+  }
+  &__button:last-child {
+    border-top-right-radius: $buttonsRadius;
+  }
+
+  &__button--select {
+    background-color: transparent;
+    outline: none;
+    border-color: transparent;
+    color: $c-blue;
+  }
+  &__button--initial {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+    border-radius: $buttonsRadius;
+    margin: 20px auto;
+
+  }
+  @media(max-width: 560px) {
+    &__button {
+      font-size: 10px;
+      padding: 5px;
+    }
+  }
+}
