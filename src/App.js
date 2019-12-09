@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import OptionList from './components/OptionsList';
+import Filter from './components/Filter';
 
 const goodsFromServer = [
   'Dumplings',
@@ -73,28 +75,15 @@ export default class App extends Component {
       <div className="App">
         {isLoaded ? (
           <>
-            <button type="button" onClick={this.reverseList}>Reverse</button>
-            <button type="button" onClick={this.sortAlphabetical}>
-              Sort alphabetically
-            </button>
-            <button type="button" onClick={this.sortLength}>
-              Sort by length
-            </button>
-            <button type="button" onClick={this.resetList}>Reset</button>
+            <Filter func={this.reverseList} name="Reverse" />
+            <Filter func={this.sortAlphabetical} name="Sort alphabetically" />
+            <Filter func={this.sortLength} name="Sort by length" />
+            <Filter func={this.resetList} name="Reset" />
             <select
               value={selectedOption}
               onChange={this.selectValue}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              <OptionList />
             </select>
             <ul>
               {goods.map(item => (
