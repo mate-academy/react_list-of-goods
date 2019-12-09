@@ -27,8 +27,9 @@ class ShowList extends React.Component {
 
   alphabetSort = () => {
     this.setState(state => ({
-      order:
-      state.order.sort((a, b) => a.localeCompare(b)),
+      order: state.order.sort((a, b) => (
+        a.localeCompare(b)
+      )),
     }));
   }
 
@@ -56,15 +57,17 @@ class ShowList extends React.Component {
   render() {
     const { activeteList, selectValue, lengths, order } = this.state;
 
-    return (
-      <>
+    return !activeteList
+      ? (
         <button
           type="button"
-          className={!activeteList ? 'button' : 'none'}
+          className="button"
           onClick={() => this.setState({ activeteList: true })}
         >
           start
         </button>
+      )
+      : (
         <div className={!activeteList ? 'none' : 'list'}>
           <div>
             <select
@@ -115,8 +118,7 @@ class ShowList extends React.Component {
             }
           </ul>
         </div>
-      </>
-    );
+      );
   }
 }
 
