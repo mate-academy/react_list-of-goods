@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import ButtonsList from './ButtonList';
 import GoodList from './GoodsList';
 
 const goodsFromServer = [
@@ -62,6 +61,12 @@ class App extends React.Component {
 
   render() {
     const { isStarted, visibleGoods, selectedLength } = this.state;
+    const lengthsForSelection = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const filters = [
+      { name: 'Reverse', callback: this.toReverse },
+      { name: 'Sort Alphabetically', callback: this.toSortAlphabetically },
+      { name: 'Reset', callback: this.toReset },
+      { name: 'Sort by length', callback: this.toSortByLength }];
 
     return (
       <section className="goods">
@@ -76,15 +81,30 @@ class App extends React.Component {
         )}
         {isStarted && (
           <>
-            <ButtonsList
-              toReverse={this.toReverse}
-              toSortAlphabetically={this.toSortAlphabetically}
-              toReset={this.toReset}
-              toSortByLength={this.toSortByLength}
-              toSelectByLength={this.toSelectByLength}
-              selectedLength={selectedLength}
-            />
-            <GoodList visibleGoods={visibleGoods} />
+            <div className="goods__buttons">
+              {filters.map(filter => (
+                <button
+                  onClick={filter.callback}
+                  type="button"
+                  className="goods__button"
+                >
+                  {filter.name}
+                </button>
+              ))}
+              <select
+                onChange={this.toSelectByLength}
+                value={selectedLength}
+                className="goods__button"
+              >
+                {lengthsForSelection.map(goodLength => (
+                  <option key={goodLength} value={goodLength}>
+                    Length &ge; &nbsp;
+                    {goodLength}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <GoodList list={visibleGoods} />
           </>
         )}
       </section>

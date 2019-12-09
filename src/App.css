@@ -34,6 +34,10 @@ body {
   transition: background-color 1s;
 }
 
+.goods__button:focus {
+  background-color: rgba(247, 188, 222, 0.8);
+}
+
 .goods__button--start {
   margin-top: 100px;
   width: 100px;
