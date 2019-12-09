@@ -8,7 +8,7 @@ import Button from './components/Button';
 class App extends Component {
   state = { isInitialized: false }
 
-  handleIntialization = () => {
+  handleInitialization = () => {
     this.setState({ isInitialized: true });
   }
 
@@ -21,7 +21,7 @@ class App extends Component {
         {isInitialized
           ? <ListWithButtons />
           : (
-            <Button onClick={this.handleIntialization}>
+            <Button handleClick={this.handleInitialization}>
               Start
             </Button>
           )

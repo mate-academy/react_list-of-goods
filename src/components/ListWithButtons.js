@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import GoodsList from './GoodsList';
-import Buttons from './Buttons';
+import Button from './Button';
 
 const goodsFromServer = [
   'Dumplings',
@@ -15,25 +15,24 @@ const goodsFromServer = [
   'Jam',
   'Garlic',
 ];
-const lengths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 class ListWithButtons extends Component {
   state = {
-    originalList: goodsFromServer,
-    filteredList: goodsFromServer,
-    selectedLength: `$(lengths[0]}`,
+    filteredList: [...goodsFromServer],
+    selectedLength: 1,
   };
 
   reverseList = () => {
-    this.setState(prevState => (
-      { filteredList: [...prevState.filteredList].reverse() }
+    this.setState(state => (
+      { filteredList: [...state.filteredList].reverse() }
     ));
   };
 
   resetList = () => {
-    this.setState(prevState => (
-      { filteredList: [...prevState.originalList] }
-    ));
+    this.setState({
+      filteredList: [...goodsFromServer],
+      selectedLength: 1,
+    });
   };
 
   sortByAlphabet = () => {
@@ -49,18 +48,17 @@ class ListWithButtons extends Component {
   };
 
   sortList = (callback) => {
-    const { originalList } = this.state;
-
-    this.setState({ filteredList: [...originalList].sort(callback) });
+    this.setState(state => (
+      { filteredList: [...state.filteredList].sort(callback) }
+    ));
   };
 
-  selectByLength = (event) => {
+  filterByLength = (event) => {
     const { target: { value } } = event;
-    const { originalList } = this.state;
 
     this.setState({
-      selectedLength: value,
-      filteredList: [...originalList].filter(word => word.length >= value),
+      selectedLength: +value,
+      filteredList: [...goodsFromServer].filter(word => word.length >= +value),
     });
   };
 
@@ -69,15 +67,39 @@ class ListWithButtons extends Component {
 
     return (
       <section className="goods">
-        <Buttons
-          handleReverseClick={this.reverseList}
-          handleAlphaSortClick={this.sortByAlphabet}
-          handleResetClick={this.resetList}
-          handleLengthSortClick={this.sortByLength}
-          handleSelectClick={this.selectByLength}
-          selectedOption={selectedLength}
-          lengths={lengths}
-        />
+        <div className="goods__buttons-container">
+          <Button handleClick={this.reverseList}>
+            Reverse
+          </Button>
+
+          <Button handleClick={this.sortByAlphabet}>
+            Sort alphabetically
+          </Button>
+
+          <Button handleClick={this.resetList}>
+            Reset
+          </Button>
+
+          <Button handleClick={this.sortByLength}>
+            Sort by length
+          </Button>
+
+          <select
+            className="goods__select"
+            onChange={this.filterByLength}
+            value={selectedLength}
+          >
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(length => (
+              <option
+                className="goods__option"
+                key={length}
+                value={length}
+              >
+                {`Goods with length >= ${length}`}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <GoodsList goodsList={filteredList} />
       </section>
