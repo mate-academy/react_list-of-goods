@@ -17,23 +17,21 @@ const goodsFromServer = [
 ];
 
 class GoodsList extends React.Component {
-  goodsList = [...goodsFromServer]
-
   state = {
-    list: this.goodsList,
+    list: [...goodsFromServer],
     selectNumber: 1,
   }
 
   reverse = () => (
-    this.setState({ list: this.goodsList.reverse() })
+    this.setState(state => ({ list: [...state.list].reverse() }))
   )
 
   sortAlphabetic =() => (
-    this.setState({
-      list: this.goodsList.sort((a, b) => (
+    this.setState(state => ({
+      list: [...state.list].sort((a, b) => (
         a > b ? 1 : -1
       )),
-    })
+    }))
   )
 
   reset = () => (
@@ -44,16 +42,16 @@ class GoodsList extends React.Component {
   )
 
   sortLength = () => (
-    this.setState({
-      list: this.goodsList.sort((a, b) => (
+    this.setState(state => ({
+      list: [...state.list].sort((a, b) => (
         b.length - a.length
       )),
-    })
+    }))
   )
 
   sortSelect = event => (
     this.setState({
-      list: this.goodsList.filter(item => (
+      list: [...goodsFromServer].filter(item => (
         item.length >= event.target.value)),
       selectNumber: event.target.value,
     })
