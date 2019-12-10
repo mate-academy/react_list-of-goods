@@ -1,0 +1,33 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.h1 {
+  text-align: center;
+  font-size: 54px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 100px;
+  height: 100px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+button:hover {
+  color: white;
+  background-color: red;
+}
+
+.select {
+  margin-left: 20px;
+  border: none;
+}
