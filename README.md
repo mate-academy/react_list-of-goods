@@ -4,7 +4,7 @@
 Add link here: `[DEMO LINK](https://<your_account>.github.io/<repo_name>/)`
 
 
-## Task 
+## Task
 > Please write the numbers of implemented options in the Pull Request description (Implemented 1-7, or 1-3 and 5-7)
 1. At first show a button `Start` on the page
 2. After clicking a button show a `GoodsList` (ul > li) with given goods and hide the button
@@ -19,27 +19,27 @@ Add link here: `[DEMO LINK](https://<your_account>.github.io/<repo_name>/)`
 
 ## Workflow
 - Fork the repository with task
-- Clone forked repository 
+- Clone forked repository
     ```bash
     git clone git@github.com:<user_name>/<task_repository>.git
     ```
 - Run `npm install` to install dependencies.
 - Then develop
 
-## Development mode 
+## Development mode
 - Run `npm start` to start development server on `http://localhost:3000`
-    When you run server the command line window will no longer be available for 
-    writing commands until you stop server (`ctrl + c`). All other commands you 
+    When you run server the command line window will no longer be available for
+    writing commands until you stop server (`ctrl + c`). All other commands you
     need to run in new command line window.
 - Follow [HTML, CSS styleguide](https://mate-academy.github.io/style-guides/htmlcss.html)
 - Follow [the simplified JS styleguide](https://mate-academy.github.io/style-guides/javascript-standard-modified)
 - run `npm run lint` to check code style
-- When you finished add correct `homepage` to `package.json` and run `npm run deploy` 
+- When you finished add correct `homepage` to `package.json` and run `npm run deploy`
 - Add links to your demo in readme.md.
-  - `[DEMO LINK](https://<your_account>.github.io/<repo_name>/)` - this will be a 
+  - `[DEMO LINK](https://vvxforce.github.io/react_list-of-goods/)` - this will be a
   link to your index.html
 - Commit and push all recent changes.
-- Create `Pull Request` from forked repo `(<branch_name>)` to original repo 
+- Create `Pull Request` from forked repo `(<branch_name>)` to original repo
 (`master`).
 - Add a link at `PR` to Google Spreadsheets.
 
