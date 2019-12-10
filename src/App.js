@@ -53,7 +53,7 @@ class App extends React.Component {
 
   toSelectByLength = ({ target: { value } }) => {
     this.setState(prevState => ({
-      visibleGoods: [...goodsFromServer]
+      visibleGoods: goodsFromServer
         .filter(good => (good.length >= value)),
       selectedLength: value,
     }));
