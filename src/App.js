@@ -21,6 +21,7 @@ class App extends React.Component {
     goods: [...goodsFromServer],
     currentSortAlph: true,
     currentSortByLength: true,
+    selectedValue: 1,
   }
 
   start = () => {
@@ -58,13 +59,17 @@ class App extends React.Component {
   filter = (event) => {
     const threshold = +event.target.value;
 
-    this.setState(
-      { goods: goodsFromServer.filter(item => (item.length >= threshold)) }
-    );
+    this.setState({
+      goods: goodsFromServer.filter(item => (item.length >= threshold)),
+      selectedValue: threshold,
+    });
   }
 
   reset = () => {
-    this.setState({ goods: [...goodsFromServer] });
+    this.setState({
+      goods: [...goodsFromServer],
+      selectedValue: 1,
+    });
   }
 
   render() {
@@ -73,6 +78,7 @@ class App extends React.Component {
       goods,
       currentSortAlph,
       currentSortByLength,
+      selectedValue,
     } = this.state;
 
     return (
@@ -106,19 +112,13 @@ class App extends React.Component {
             </button>
 
             <select
+              value={selectedValue}
               onChange={this.filter}
               className="list__button list__button--select"
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(value => (
+                <option key={value} value={value}>{value}</option>
+              ))}
             </select>
 
             <button
