@@ -19,6 +19,7 @@ class App extends React.Component {
     isStarted: false,
     visibleGoods: [...goodsFromServer],
     index: 1,
+    options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   start = () => {
@@ -26,10 +27,10 @@ class App extends React.Component {
   };
 
   reset = () => {
-    this.setState(state => ({
+    this.setState({
       visibleGoods: [...goodsFromServer],
-      index: 1,
-    }));
+      index: '1',
+    });
   };
 
   reverse = () => {
@@ -61,6 +62,14 @@ class App extends React.Component {
       ),
     }));
   };
+
+  getLength = () => this.state.options
+    .map(i => (
+      <option value={i}>
+        {' '}
+        { i }
+      </option>
+    ))
 
   render() {
     const { isStarted, visibleGoods, index } = this.state;
@@ -103,16 +112,7 @@ class App extends React.Component {
               value={index}
               onChange={this.filterElementsByLength}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              {this.getLength()}
             </select>
 
             <GoodsList visibleGoods={visibleGoods} />
