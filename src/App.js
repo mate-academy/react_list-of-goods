@@ -24,7 +24,7 @@ class App extends React.Component {
     isStarted: false,
     goods: [...goodsFromServer],
     selectGoods: [...goodsFromServer],
-    selectedValue: 1,
+    selectedValue: 0,
     newOptionsArr: [...optionsArr],
   }
 
@@ -54,7 +54,7 @@ class App extends React.Component {
     this.setState(elem => (
       {
         goods: [...elem.selectGoods]
-          .filter(i => i.length >= elem.selectedValue),
+          .filter(i => i.length - 1 >= elem.selectedValue),
       }
     ));
   }
@@ -96,7 +96,7 @@ class App extends React.Component {
               onChange={item => this.optionValue(item)}
             >
               {newOptionsArr.map((item, i) => (
-                <option value={i} key={item}>{i}</option>
+                <option value={i} key={item}>{item + 1}</option>
               ))}
             </select>
             <ul>
