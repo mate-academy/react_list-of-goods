@@ -15,6 +15,10 @@ const goodsFromServer = [
 
 const optionsArr = new Array(10);
 
+for (let i = 0; i < optionsArr.length; i += 1) {
+  optionsArr[i] = i;
+}
+
 class App extends React.Component {
   state = {
     isStarted: false,
@@ -91,7 +95,9 @@ class App extends React.Component {
               value={selectedValue}
               onChange={item => this.optionValue(item)}
             >
-              {newOptionsArr.map((item, i) => <option value={i}>{i}</option>)}
+              {newOptionsArr.map((item, i) => (
+                <option value={i} key={item}>{i}</option>
+              ))}
             </select>
             <ul>
               {goods.map(item => (
