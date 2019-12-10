@@ -36,7 +36,13 @@ class App extends React.Component {
 
   sortByAlphabet = () => {
     this.setState(state => ({
-      visibleGoods: [...state.visibleGoods].sort(),
+      visibleGoods: [...state.visibleGoods].sort((a, b) => a.localeCompare(b)),
+    }));
+  };
+
+  sortByLength = () => {
+    this.setState(state => ({
+      visibleGoods: [...state.visibleGoods].sort((a, b) => a.length - b.length),
     }));
   };
 
@@ -49,6 +55,7 @@ class App extends React.Component {
 
   filter = (point) => {
     this.setState({ selectedLength: point.target.value });
+    this.setState({ visibleGoods: [...goodsFromServer] });
     this.setState(state => ({
       visibleGoods: [...state.visibleGoods]
         .filter(good => good.length >= state.selectedLength),
@@ -81,7 +88,14 @@ class App extends React.Component {
               type="button"
               onClick={this.sortByAlphabet}
             >
-              Sort
+              Sort alphabetically
+            </button>
+
+            <button
+              type="button"
+              onClick={this.sortByLength}
+            >
+              Sort by length
             </button>
 
             <select
