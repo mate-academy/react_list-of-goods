@@ -1,0 +1,24 @@
+body {
+  background-color: rgba(9, 255, 9, 0.4);
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.button {
+  padding: 10px 20px;
+  border: 2px solid rgb(0, 217, 255);
+  background-color: #fff;
+  border-radius: 15px;
+  font-size: 20px;
+  margin: auto;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 10px;
+  outline: none;
+}
+
+.goods__list {
+  list-style: none;
+  font-size: 26px;
+  padding: 0;
+}
