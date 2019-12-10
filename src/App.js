@@ -61,7 +61,7 @@ class App extends React.Component {
 
     this.setState(
       state => ({
-        visibleGoods: [...goodsFromServer]
+        visibleGoods: goodsFromServer
           .filter(item => item.length >= value),
         valueOfSelect: value,
       }),
