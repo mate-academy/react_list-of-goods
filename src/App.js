@@ -55,9 +55,8 @@ class App extends React.Component {
 
   filter = (point) => {
     this.setState({ selectedLength: point.target.value });
-    this.setState({ visibleGoods: [...goodsFromServer] });
     this.setState(state => ({
-      visibleGoods: [...state.visibleGoods]
+      visibleGoods: [...goodsFromServer]
         .filter(good => good.length >= state.selectedLength),
     }));
   };
@@ -99,7 +98,6 @@ class App extends React.Component {
             </button>
 
             <select
-              // value={selectedLength}
               onChange={point => this.filter(point)}
             >
               <Options />
