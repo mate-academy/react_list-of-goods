@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Select = ({ isShow, filter }) => (
+const Select = ({ filter }) => (
   <select
     className="select"
-    style={isShow === false ? { display: 'none' } : { display: '' }}
     name="number"
     size="8"
     onChange={filter}
@@ -18,9 +17,6 @@ const Select = ({ isShow, filter }) => (
   </select>
 );
 
-Select.propTypes = {
-  isShow: PropTypes.bool.isRequired,
-  filter: PropTypes.func.isRequired,
-};
+Select.propTypes = { filter: PropTypes.func.isRequired };
 
 export default Select;
