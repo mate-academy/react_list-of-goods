@@ -13,12 +13,15 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const optionsArr = new Array(10);
+
 class App extends React.Component {
   state = {
     isStarted: false,
     goods: [...goodsFromServer],
     selectGoods: [...goodsFromServer],
     selectedValue: 1,
+    newOptionsArr: [...optionsArr],
   }
 
   viewList = () => {
@@ -26,32 +29,34 @@ class App extends React.Component {
   };
 
   reverseGoods = () => {
-    this.setState(item => ({ goods: item.goods.reverse() }));
+    this.setState(item => ({ goods: [...item.goods].reverse() }));
   };
 
   sort = () => {
-    this.setState(item => ({ goods: item.goods.sort() }));
+    this.setState(item => ({ goods: [...item.goods].sort() }));
   }
 
   reset = () => {
-    this.setState({ goods: [...goodsFromServer] });
+    this.setState({ goods: [...goodsFromServer], selectedValue: 1 });
   }
 
   sortLength = () => {
     this.setState(item => (
-      { goods: item.goods.sort((a, b) => a.length - b.length) }));
+      { goods: [...item.goods].sort((a, b) => a.length - b.length) }));
   }
 
   optionValue = (item) => {
     this.setState({ selectedValue: item.target.value });
     this.setState(elem => (
-      { goods: [...elem.selectGoods].slice(0, elem.selectedValue) }
+      {
+        goods: [...elem.selectGoods]
+          .filter(i => i.length >= elem.selectedValue),
+      }
     ));
   }
 
   render() {
-    const { isStarted } = this.state;
-    const { goods } = this.state;
+    const { goods, selectedValue, isStarted, newOptionsArr } = this.state;
 
     return (
       <section className="goods">
@@ -83,19 +88,10 @@ class App extends React.Component {
               Sort by length
             </button>
             <select
-              default="1"
-              onChange={this.optionValue}
+              value={selectedValue}
+              onChange={item => this.optionValue(item)}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              {newOptionsArr.map((item, i) => <option value={i}>{i}</option>)}
             </select>
             <ul>
               {goods.map(item => (
