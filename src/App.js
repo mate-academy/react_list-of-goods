@@ -108,7 +108,7 @@ Goods
               <option value="10">10</option>
             </select>
 
-            <GoodsList item={visibleGoods} />
+            <GoodsList list={visibleGoods} />
           </section>
 
         ) : (
