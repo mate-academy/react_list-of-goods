@@ -18,6 +18,7 @@ class App extends React.Component {
   state = {
     isStarted: false,
     visibleGoods: [...goodsFromServer],
+    selectValue: 1,
   };
 
   start = () => {
@@ -31,6 +32,7 @@ class App extends React.Component {
 
   reset = () => {
     this.setState({ visibleGoods: [...goodsFromServer] });
+    this.setState({ selectValue: 1 });
   };
 
   sortByName = () => {
@@ -47,8 +49,18 @@ class App extends React.Component {
     }));
   };
 
+  lengthSelect = (element) => {
+    this.setState({
+      visibleGoods: goodsFromServer.filter(word => (
+        word.length >= +element.target.value
+      )),
+      selectValue: element.target.value,
+    });
+  };
+
   render() {
-    const { isStarted, visibleGoods } = this.state;
+    const { isStarted, visibleGoods, selectValue } = this.state;
+    const lengthsForSelection = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
       <div className="App">
@@ -95,17 +107,15 @@ Goods
               Sort By Length
             </button>
 
-            <select>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+            <select
+              onChange={this.lengthSelect}
+              value={selectValue}
+            >
+              {lengthsForSelection.map(neededLength => (
+                <option key={neededLength} value={neededLength}>
+                  {neededLength}
+                </option>
+              ))}
             </select>
 
             <GoodsList list={visibleGoods} />
