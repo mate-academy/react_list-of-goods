@@ -53,7 +53,7 @@ class App extends React.Component {
  selectChange = (e) => {
    this.setState({ selectedIndex: e.target.value });
    this.setState(state => ({
-     goods: [...state.goods]
+     goods: goodsFromServer
        .filter(item => item.length >= state.selectedIndex),
    }));
  };
