@@ -18,6 +18,7 @@ class App extends React.Component {
   state = {
     isStarted: false,
     visibleGoods: [...goodsFromServer],
+    valueOfSelect: '1',
   };
 
   start = () => {
@@ -25,7 +26,10 @@ class App extends React.Component {
   };
 
   reset = () => {
-    this.setState({ visibleGoods: [...goodsFromServer] });
+    this.setState({
+      visibleGoods: [...goodsFromServer],
+      valueOfSelect: '1',
+    });
   };
 
   reverse = () => {
@@ -59,6 +63,7 @@ class App extends React.Component {
       state => ({
         visibleGoods: [...goodsFromServer]
           .filter(item => item.length >= value),
+        valueOfSelect: value,
       }),
     );
   };
@@ -75,7 +80,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { isStarted, visibleGoods } = this.state;
+    const { isStarted, visibleGoods, valueOfSelect } = this.state;
 
     return (
       <div className="App">
@@ -98,7 +103,7 @@ class App extends React.Component {
               >
                 Sort by length
               </button>
-              <select onChange={this.selectByLength}>
+              <select value={valueOfSelect} onChange={this.selectByLength}>
                 {this.selectOptions()}
               </select>
               <GoodsList goods={visibleGoods} />
