@@ -1,21 +1,10 @@
 import React from 'react';
-
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import './App.css';
+import GoodsList from './components/GoodsList';
 
 const App = () => (
   <div className="App">
-    <h1>Goods 1</h1>
+    <GoodsList />
   </div>
 );
 

@@ -1,0 +1,21 @@
+body {
+
+  background: lightgrey;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  font-size: 20px;
+  margin: 80px auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.start-bth {
+  width: 100px;
+  height: 50px;
+}
