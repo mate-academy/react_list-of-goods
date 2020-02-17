@@ -6,11 +6,13 @@ export class GoodsList extends React.Component {
   state = {
     goodsFromServer: this.props.goodsFromServer,
     originalGoodsFromServer: this.props.goodsFromServer,
+    defaultSelect: false,
   };
 
-  updateData = (value) => {
+  updateData = (value, value2) => {
     this.setState({
       goodsFromServer: value,
+      defaultSelect: value2,
     });
   };
 
@@ -29,6 +31,7 @@ export class GoodsList extends React.Component {
           goodsFromServer={this.state.goodsFromServer}
           callbackUpdateData={this.updateData}
           originalGoodsFromServer={this.state.originalGoodsFromServer}
+          defaultSelect={this.state.defaultSelect}
         />
       </>
     );

@@ -17,12 +17,12 @@ const goodsFromServer = [
 
 export class App extends React.Component {
   state = {
-    test: false,
+    renderList: false,
   };
 
   renderGoodList = () => {
     this.setState({
-      test: true,
+      renderList: true,
     });
   };
 
@@ -31,7 +31,7 @@ export class App extends React.Component {
       <div>
         <h1>GoodList</h1>
         {
-          this.state.test
+          this.state.renderList
             ? <GoodsList goodsFromServer={goodsFromServer} />
             : <button type="button" onClick={this.renderGoodList}>Start</button>
         }

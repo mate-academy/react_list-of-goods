@@ -12,6 +12,7 @@ export const ButtonList = (props) => {
     goodsFromServer,
     callbackUpdateData,
     originalGoodsFromServer,
+    defaultSelect,
   } = props;
 
   return (
@@ -39,6 +40,7 @@ export const ButtonList = (props) => {
       <Select
         originalGoodsFromServer={originalGoodsFromServer}
         callbackUpdateData={callbackUpdateData}
+        defaultSelect={defaultSelect}
       />
     </div>
   );
@@ -48,4 +50,9 @@ ButtonList.propTypes = {
   callbackUpdateData: PropsTypes.func.isRequired,
   originalGoodsFromServer: PropsTypes.arrayOf(PropsTypes.string).isRequired,
   goodsFromServer: PropsTypes.arrayOf(PropsTypes.string).isRequired,
+  defaultSelect: PropsTypes.bool,
+};
+
+ButtonList.defaultProps = {
+  defaultSelect: undefined,
 };

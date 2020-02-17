@@ -8,7 +8,9 @@ export const ButtonReset = (props) => {
   return (
     <button
       type="button"
-      onClick={() => callbackUpdateData(sortedArr)}
+      onClick={() => {
+        callbackUpdateData(sortedArr, true);
+      }}
     >
       Reset
     </button>
