@@ -35,7 +35,7 @@ export class App extends React.Component {
     this.state = {
       goods: preparedGoodsList,
       selected: 1,
-      isStart: true,
+      isStart: false,
     };
   }
 
@@ -60,25 +60,27 @@ export class App extends React.Component {
     return this.state.isStart
       ? (
         <div className="App">
-          <h1>Goods</h1>
-          {goodsFromServer.length}
-          <GoodList>{this.state.goods}</GoodList>
-          <ReverseButton handler={this.handlerButton}>
-            {this.state.goods}
-          </ReverseButton>
-          <SortByLetter handler={this.handlerButton}>
-            {this.state.goods}
-          </SortByLetter>
-          <ResetButton handler={this.handlerButton}>
-            {this.state.goods}
-          </ResetButton>
-          <SortByLengthButton handler={this.handlerButton}>
-            {this.state.goods}
-          </SortByLengthButton>
-          <Select selectedItem={this.state.selected}>
-            {this.handlerSelect}
-          </Select>
-          <ResetSelectionButton>{this.handlerSelect}</ResetSelectionButton>
+          <div className="App__list">
+            <GoodList>{this.state.goods}</GoodList>
+          </div>
+          <div className="App__buttons">
+            <ReverseButton handler={this.handlerButton}>
+              {this.state.goods}
+            </ReverseButton>
+            <SortByLetter handler={this.handlerButton}>
+              {this.state.goods}
+            </SortByLetter>
+            <ResetButton handler={this.handlerButton}>
+              {this.state.goods}
+            </ResetButton>
+            <SortByLengthButton handler={this.handlerButton}>
+              {this.state.goods}
+            </SortByLengthButton>
+            <Select selectedItem={this.state.selected}>
+              {this.handlerSelect}
+            </Select>
+            <ResetSelectionButton>{this.handlerSelect}</ResetSelectionButton>
+          </div>
         </div>
       )
       : (<StartButton>{this.handlerStart}</StartButton>);
