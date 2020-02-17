@@ -1,0 +1,14 @@
+.list {
+  list-style: none;
+  font-size: 20px;
+  color: #111d5e;
+  padding: 0;
+}
+
+.list__item {
+  line-height: 30px;
+  width: 150px;
+  margin: auto;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ffbd69;
+}

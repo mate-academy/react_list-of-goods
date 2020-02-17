@@ -1,0 +1,48 @@
+.App {
+  width: 600px;
+  margin: auto;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.button-start {
+  background-color: #fe346e;
+  font-size: 40px;
+  color: #111d5e;
+  padding: 10px 20px;
+  border: 1px solid #b21f66;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.4s ease-in-out,
+    transform 0.4s ease-in-out;
+}
+
+.button-start:hover {
+  transform: scale(1.1);
+  background-color: #b21f66;
+}
+
+.buttons {
+  width: 100%;
+}
+
+.button {
+  width: 100px;
+  margin: 0 10px;
+  background-color: #fe346e;
+  font-size: 24px;
+  color: #111d5e;
+  padding: 10px 0;
+  border: 1px solid #b21f66;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.4s ease-in-out,
+    transform 0.4s ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  background-color: #b21f66;
+}
