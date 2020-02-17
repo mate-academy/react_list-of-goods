@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
 
+import LoadButton from './LoadButton/LoadButton';
+import GoodsList from './GoodsList/GoodsList';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -14,11 +17,30 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    visibility: true,
+  }
+
+  visibilityOfListHandler = () => {
+    this.setState(prevState => ({
+      visibility: !prevState.visibility,
+    }));
+  }
+
+  render() {
+    const { visibility } = this.state;
+
+    return (
+      <div className="App">
+        <LoadButton
+          hidden={!visibility}
+          onClick={this.visibilityOfListHandler}
+        />
+        <GoodsList goods={goodsFromServer} visibility={visibility} />
+      </div>
+    );
+  }
+}
 
 export default App;
