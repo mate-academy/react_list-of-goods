@@ -38,8 +38,9 @@ class GoodsList extends React.Component {
 
   selectedHandler = (e) => {
     const goodsList = [...this.props.goods];
-    // eslint-disable-next-line max-len
-    const filteredList = goodsList.filter(good => good.length >= e.target.value);
+    const filteredList = goodsList.filter(good => (
+      good.length >= e.target.value
+    ));
 
     this.setState({
       goodsList: filteredList,

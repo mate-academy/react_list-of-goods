@@ -19,25 +19,25 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    visibility: true,
+    isLoaded: true,
   }
 
   visibilityOfListHandler = () => {
     this.setState(prevState => ({
-      visibility: !prevState.visibility,
+      isLoaded: !prevState.isLoaded,
     }));
   }
 
   render() {
-    const { visibility } = this.state;
+    const { isLoaded } = this.state;
 
-    return visibility
+    return isLoaded
       ? (
         <LoadButton
           onClick={this.visibilityOfListHandler}
         />
       ) : (
-        <div className="App">
+        <div className="app">
           <GoodsList goods={goodsFromServer} />
         </div>
       );
