@@ -75,9 +75,5 @@ GoodsList.propTypes = {
   handleSortAZ: PropTypes.func.isRequired,
   handleSortByLength: PropTypes.func.isRequired,
   handleSelect: PropTypes.func.isRequired,
-  optionSelected: PropTypes.number,
-};
-
-GoodsList.defaultProps = {
-  optionSelected: 10,
+  optionSelected: PropTypes.number.isRequired,
 };
