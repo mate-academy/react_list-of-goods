@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid/v4';
 
 import './Goods.css';
 
 const Goods = ({ goods }) => (
   <ul className="list">
     {goods.map(good => (
-      <li key={uuidv4()}>
+      <li key={good}>
         {good}
       </li>
     ))}
