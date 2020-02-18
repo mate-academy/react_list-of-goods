@@ -1,0 +1,20 @@
+body {
+  box-sizing: border-box;
+  font-family: "DejaVu Sans", serif;
+  font-size: 23px;
+}
+
+.App {
+  margin: 10vh auto;
+  width: 500px;
+  height: 450px;
+  text-align: center;
+  background: ghostwhite;
+  border-radius: 30px;
+}
+
+.title {
+  font-size: 34px;
+  padding: 10px;
+  margin: 0 ;
+}

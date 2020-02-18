@@ -1,0 +1,14 @@
+.button_start {
+  margin: 10vh;
+  width: 150px;
+  height: 50px;
+  font-size: 40px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  transition: ease-in-out 0.4s;
+  cursor: pointer;
+}
+
+.button_start:hover {
+  transform: scale(1.2);
+}
