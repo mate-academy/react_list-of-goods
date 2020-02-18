@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid/v4';
 import Good from '../Good/Good';
 import './Goodslist.css';
 
 class Goodslist extends React.Component {
-  state= {
+  state = {
     listOfGoods: [...this.props.list],
-    lengthofGood: 1,
+    minLength: 1,
   }
 
   reverseSort = () => {
@@ -25,13 +24,15 @@ class Goodslist extends React.Component {
   resetSort = () => {
     this.setState({
       listOfGoods: [...this.props.list],
-      lengthofGood: 1,
+      minLength: 1,
     });
   }
 
   lengthSort = () => {
     this.setState(prevState => ({
-      listOfGoods: prevState.listOfGoods.sort((a, b) => a.length - b.length),
+      listOfGoods: prevState.listOfGoods.sort((a, b) => (
+        a.length - b.length
+      )),
     }));
   }
 
@@ -41,18 +42,16 @@ class Goodslist extends React.Component {
 
     this.setState(prevState => ({
       listOfGoods: currentList.filter(item => item.length >= value),
-      lengthofGood: value,
+      minLength: value,
     }));
   }
 
   render() {
-    const { listOfGoods } = this.state;
-    const { lengthofGood } = this.state;
-    const { visible } = this.props;
+    const { listOfGoods, minLength } = this.state;
 
     return (
       <>
-        <div hidden={visible}>
+        <div>
           <button
             className="button"
             type="button"
@@ -83,7 +82,7 @@ class Goodslist extends React.Component {
           </button>
           <select
             className="select"
-            value={lengthofGood}
+            value={minLength}
             onChange={this.selectedLength}
           >
             <option>1</option>
@@ -98,9 +97,9 @@ class Goodslist extends React.Component {
             <option>10</option>
           </select>
         </div>
-        <ul hidden={visible}>
+        <ul>
           {listOfGoods.map(good => (
-            <Good key={uuidv4()} good={good} />
+            <Good key={good} good={good} />
           ))}
         </ul>
       </>
@@ -110,12 +109,10 @@ class Goodslist extends React.Component {
 
 Goodslist.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string.isRequired),
-  visible: PropTypes.bool,
 };
 
 Goodslist.defaultProps = {
   list: [],
-  visible: 1,
 };
 
 export default Goodslist;

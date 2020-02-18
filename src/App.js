@@ -16,29 +16,34 @@ const goodsFromServer = [
 ];
 
 class App extends React.Component {
-  state={
-    visible: true,
+  state = {
+    isStarted: true,
   }
 
-  visibleList = () => {
+  handleStart = () => {
     this.setState(prevState => ({
-      visible: !prevState.visible,
+      isStarted: !prevState.isStarted,
     }));
   }
 
   render() {
-    const { visible } = this.state;
+    const { isStarted } = this.state;
 
     return (
       <div className="App">
-        <button
-          type="button"
-          hidden={!visible}
-          onClick={this.visibleList}
-        >
-          Start
-        </button>
-        <Goodslist list={goodsFromServer} visible={visible} />
+        {
+          isStarted
+            ? (
+              <button
+                type="button"
+                onClick={this.handleStart}
+              >
+              Start
+              </button>
+            ) : (
+              <Goodslist list={goodsFromServer} />
+            )
+        }
       </div>
     );
   }
