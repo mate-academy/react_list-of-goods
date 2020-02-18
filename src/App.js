@@ -20,6 +20,7 @@ class App extends Component {
     isStartButton: false,
     goods: [...goodsFromServer],
     initialGoods: [...goodsFromServer],
+    length: 1,
   };
 
   handleStart = () => {
@@ -51,19 +52,19 @@ class App extends Component {
   handleReset = () => {
     this.setState(prevState => ({
       goods: prevState.initialGoods,
+      length: 1,
     }));
   }
 
-  handleSelect = (e) => {
-    const { value } = e.target;
-
+  handleSelect = ({ target }) => {
     this.setState(prevState => ({
-      goods: prevState.initialGoods.filter(item => item.length <= value),
+      length: target.value,
+      goods: prevState.initialGoods.filter(item => item.length <= target.value),
     }));
   };
 
   render() {
-    const { isStartButton, goods } = this.state;
+    const { isStartButton, goods, length } = this.state;
 
     return (
       <div className="App">
@@ -77,6 +78,7 @@ class App extends Component {
                 handleReset={this.handleReset}
                 handleSortByLength={this.handleSortByLength}
                 handleSelect={this.handleSelect}
+                value={length}
               />
             )
             : (

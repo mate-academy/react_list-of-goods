@@ -9,7 +9,7 @@ export const GoodsList = (props) => {
     handleSortByLength,
     handleReset,
     handleSelect,
-    optionSelected } = props;
+    value } = props;
 
   return (
     <div className="goods">
@@ -44,7 +44,7 @@ export const GoodsList = (props) => {
 
       <select
         onChange={handleSelect}
-        value={optionSelected}
+        value={value}
         className="goods__select"
       >
         <option value="1">1</option>
@@ -75,5 +75,5 @@ GoodsList.propTypes = {
   handleSortAZ: PropTypes.func.isRequired,
   handleSortByLength: PropTypes.func.isRequired,
   handleSelect: PropTypes.func.isRequired,
-  optionSelected: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
