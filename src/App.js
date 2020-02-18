@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +15,86 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isStartButtonClicked: false,
+    goods: [...goodsFromServer],
+    initGoods: [...goodsFromServer],
+    selectedValue: 1,
+  }
+
+  handleClickStart = () => {
+    this.setState({
+      isStartButtonClicked: true,
+    });
+  }
+
+  handleClickReverse = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
+  }
+
+  handleClickSortByAlphabet = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort(),
+    }));
+  }
+
+  handleClickSortByLength = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods]
+        .sort((a, b) => a.length - b.length),
+    }));
+  }
+
+  handleClickReset = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.initGoods],
+    }));
+  }
+
+  handleChangeSelect = ({ target }) => {
+    const { value } = target;
+
+    this.setState(prevState => ({
+      selectedValue: value,
+      goods: [...prevState.initGoods]
+        .filter(good => good.length >= value),
+    }));
+  }
+
+  render() {
+    const { isStartButtonClicked, goods, selectedValue } = this.state;
+
+    return (
+      <div className="container is-fluid">
+        <h1 className="title">List of goods</h1>
+        {isStartButtonClicked
+          ? (
+            <GoodsList
+              goods={goods}
+              handleClickReverse={this.handleClickReverse}
+              handleClickSortByAlphabet={this.handleClickSortByAlphabet}
+              handleClickSortByLength={this.handleClickSortByLength}
+              handleClickReset={this.handleClickReset}
+              handleChangeSelect={this.handleChangeSelect}
+              selectedValue={selectedValue}
+            />
+          )
+          : (
+            <button
+              type="button"
+              className="button is-link"
+              onClick={this.handleClickStart}
+            >
+              Start
+            </button>
+          )
+        }
+      </div>
+    );
+  }
+}
 
 export default App;
