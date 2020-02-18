@@ -1,0 +1,9 @@
+.select {
+  margin: 0 20px;
+  height: 35px;
+  background-image: linear-gradient(to left, #f0f0f0, #c9bbae, #f0f0f0);
+}
+
+.select:focus {
+  outline: none;
+}

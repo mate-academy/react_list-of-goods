@@ -1,0 +1,22 @@
+.list {
+  margin-top: 50px;
+}
+
+.list > li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+  color: #000;
+  display: block;
+  width: 200px;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+.list > li:last-child {
+  border: none;
+}
+
+li:hover {
+  font-size: 30px;
+  background: #f6f6f6;
+}
