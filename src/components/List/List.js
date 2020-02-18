@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Actions from '../Actions/Actions';
+import Start from '../Start/Start';
+import ListItems from '../ListItems/ListItems';
 import './list.css';
 
 export default class List extends Component {
@@ -25,29 +27,27 @@ export default class List extends Component {
 
   handleReverse = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.reverse(),
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
   handleSortAbc = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.localeCompare(b)),
+      goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   handleSortLength = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.length - b.length),
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
   handleReset = () => {
-    const { initialGoods } = this.state;
-
-    this.setState({
-      goods: [...initialGoods],
+    this.setState(prevState => ({
+      goods: prevState.initialGoods,
       length: 1,
-    });
+    }));
   }
 
   handleSelect = (e) => {
@@ -64,13 +64,7 @@ export default class List extends Component {
       <>
         {!isStarted
           ? (
-            <button
-              className="button"
-              type="button"
-              onClick={this.handleStart}
-            >
-              Start
-            </button>
+            <Start handleStart={this.handleStart} />
           ) : (
             <>
               <Actions
@@ -82,12 +76,7 @@ export default class List extends Component {
                 handleReset={this.handleReset}
               />
               <ul className="list">
-                {currentGoods.map(good => (
-                  <li className="item" key={good}>
-                    {good}
-                  </li>
-                ))
-                }
+                <ListItems goods={currentGoods} />
               </ul>
             </>
           )
