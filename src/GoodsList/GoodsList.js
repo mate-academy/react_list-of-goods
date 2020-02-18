@@ -48,9 +48,8 @@ class GoodsList extends React.Component {
   }
 
   render() {
-    const { goodsList } = this.state;
-    const { goodsLength } = this.state;
     const { visibility } = this.props;
+    const { goodsList, goodsLength } = this.state;
 
     return (
       <>

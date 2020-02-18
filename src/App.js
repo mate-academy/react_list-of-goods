@@ -31,15 +31,17 @@ class App extends React.Component {
   render() {
     const { visibility } = this.state;
 
-    return (
-      <div className="App">
+    return visibility
+      ? (
         <LoadButton
           hidden={!visibility}
           onClick={this.visibilityOfListHandler}
         />
-        <GoodsList goods={goodsFromServer} visibility={visibility} />
-      </div>
-    );
+      ) : (
+        <div className="App">
+          <GoodsList goods={goodsFromServer} visibility={visibility} />
+        </div>
+      );
   }
 }
 
