@@ -34,12 +34,11 @@ class App extends React.Component {
     return visibility
       ? (
         <LoadButton
-          hidden={!visibility}
           onClick={this.visibilityOfListHandler}
         />
       ) : (
         <div className="App">
-          <GoodsList goods={goodsFromServer} visibility={visibility} />
+          <GoodsList goods={goodsFromServer} />
         </div>
       );
   }

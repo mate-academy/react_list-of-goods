@@ -48,26 +48,24 @@ class GoodsList extends React.Component {
   }
 
   render() {
-    const { visibility } = this.props;
     const { goodsList, goodsLength } = this.state;
 
     return (
       <>
-        <div hidden={visibility}>
+        <div>
           <Button onClick={this.reverseHandler}>Reverse</Button>
           <Button onClick={this.abcSortHandler}>Sort alphabetically</Button>
           <Button onClick={this.resetHandler}>Reset</Button>
           <Button onClick={this.lengthSortHandler}>Sort by length</Button>
           <Select value={goodsLength} onChange={this.selectedHandler} />
         </div>
-        <Goods visibility={visibility} goods={goodsList} />
+        <Goods goods={goodsList} />
       </>
     );
   }
 }
 
 GoodsList.propTypes = {
-  visibility: PropTypes.bool.isRequired,
   goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 

@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LoadButton = ({ hidden, onClick }) => (
+const LoadButton = ({ onClick }) => (
   <button
     type="button"
-    hidden={hidden}
     onClick={onClick}
   >
     Start
@@ -12,7 +11,6 @@ const LoadButton = ({ hidden, onClick }) => (
 );
 
 LoadButton.propTypes = {
-  hidden: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
