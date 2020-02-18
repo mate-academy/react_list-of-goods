@@ -58,34 +58,31 @@ export class GoodsList extends React.Component {
     const { goods, isClicked, length } = this.state;
     const filteredGoods = goods.filter(item => item.length > length);
 
-    if (!isClicked) {
-      return (
-        <button
-          type="button"
-          className="button"
-          onClick={this.clicked}
-        >
-          Start
-        </button>
+    return !isClicked ? (
+      <button
+        type="button"
+        className="button"
+        onClick={this.clicked}
+      >
+        Start
+      </button>
+    )
+      : (
+        <>
+          <Select
+            onChange={this.selected}
+            numbers={this.state.resetGoods.length}
+            length={this.state.length}
+          />
+          <Buttons
+            reversed={this.reversed}
+            sortedAlphabetically={this.sortedAlphabetically}
+            reseted={this.reseted}
+            sortedByLength={this.sortedByLength}
+          />
+          <Goods goods={filteredGoods} />
+        </>
       );
-    }
-
-    return (
-      <>
-        <Select
-          onChange={this.selected}
-          numbers={this.state.resetGoods.length}
-          length={this.state.length}
-        />
-        <Buttons
-          reversed={this.reversed}
-          sortedAlphabetically={this.sortedAlphabetically}
-          reseted={this.reseted}
-          sortedByLength={this.sortedByLength}
-        />
-        <Goods goods={filteredGoods} />
-      </>
-    );
   }
 }
 
