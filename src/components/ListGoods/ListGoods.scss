@@ -7,8 +7,8 @@
   border-radius: 5px;
   transition: ease-in-out 0.4s;
   cursor: pointer;
-}
 
-.button_start:hover {
-  transform: scale(1.2);
+  &:hover {
+    transform: scale(1.2);
+  }
 }

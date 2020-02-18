@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Goods } from '../Goods/Goods';
 import { Controls } from '../Controls/Controls';
-import './ListGoods.css';
+import './ListGoods.scss';
 
 export class ListGoods extends React.Component {
   state = {

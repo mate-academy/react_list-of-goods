@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Goods.css';
+import './Goods.scss';
 import uuid from 'uuid';
 
 export const Goods = ({ goods }) => (

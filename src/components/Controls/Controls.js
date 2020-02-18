@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Controls.css';
+import './Controls.scss';
 import uuid from 'uuid';
 
 export const Controls = (
