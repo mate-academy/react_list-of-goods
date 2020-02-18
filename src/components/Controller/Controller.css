@@ -1,0 +1,11 @@
+.App .jumbotron {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+}
+
+.App .btn {
+  flex-basis: 18%;
+}
