@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-/* eslint-disable-next-line */
-const Actions = ({ value, handleSelect, handleReverse, handleSortAbc, handleSortLength, handleReset }) => (
+
+const Actions = ({
+  value,
+  handleSelect,
+  handleReverse,
+  handleSortAbc,
+  handleSortLength,
+  handleReset,
+}) => (
   <div className="actions">
     <select className="select" value={value} onChange={handleSelect}>
-      <option value="1" key={1}>{1}</option>
-      <option value="2" key={2}>{2}</option>
-      <option value="3" key={3}>{3}</option>
-      <option value="4" key={4}>{4}</option>
-      <option value="5" key={5}>{5}</option>
-      <option value="6" key={6}>{6}</option>
-      <option value="7" key={7}>{7}</option>
-      <option value="8" key={8}>{8}</option>
-      <option value="9" key={9}>{9}</option>
-      <option value="10" key={10}>{10}</option>
+      {Array.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], item => (
+        <option value={item} key={item}>{item}</option>
+      ))}
     </select>
     <button className="button" type="button" onClick={handleReverse}>
       Reverse
