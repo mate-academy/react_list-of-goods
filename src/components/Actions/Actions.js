@@ -11,8 +11,8 @@ const Actions = ({
 }) => (
   <div className="actions">
     <select className="select" value={value} onChange={handleSelect}>
-      {Array.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], item => (
-        <option value={item} key={item}>{item}</option>
+      {Array.from({ length: 10 }, (v, item) => (
+        <option value={item + 1} key={item + 1}>{item + 1}</option>
       ))}
     </select>
     <button className="button" type="button" onClick={handleReverse}>
