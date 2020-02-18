@@ -19,43 +19,43 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     isStart: false,
-    goodsList: [],
+    goodsList: goodsFromServer,
     selectOfLength: 1,
   }
 
-  startHandler = () => {
+  toStart = () => {
     this.setState({
       isStart: true,
       goodsList: [...goodsFromServer],
     });
   };
 
-  reverseHandler = () => {
+  toReverse = () => {
     this.setState(prevState => ({
-      goodsList: [...goodsFromServer].reverse(),
+      goodsList: [...prevState.goodsList].reverse(),
     }));
   };
 
-  sortAbcHandler = () => {
+  toSortAbc = () => {
     this.setState(prevState => ({
-      goodsList: [...goodsFromServer].sort((a, b) => a.localeCompare(b)),
+      goodsList: [...prevState.goodsList].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
-  resetHandler = () => {
+  toReset = () => {
     this.setState({
       goodsList: [...goodsFromServer],
       selectOfLength: 1,
     });
   };
 
-  sortLengthHandler = () => {
+  toSortLength = () => {
     this.setState(prevState => ({
-      goodsList: [...goodsFromServer].sort((a, b) => a.length - b.length),
+      goodsList: [...prevState.goodsList].sort((a, b) => a.length - b.length),
     }));
   };
 
-  selectHandler = (evt) => {
+  toSelect = (evt) => {
     this.setState({
       goodsList: [...goodsFromServer]
         .filter(good => good.length >= evt.target.value),
@@ -69,37 +69,38 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {isStart || (
-          <button
-            type="button"
-            className="button-start"
-            onClick={this.startHandler}
-          >
+        {!isStart
+          ? (
+            <button
+              type="button"
+              className="button-start"
+              onClick={this.toStart}
+            >
             Start!
-          </button>
-        )}
-        {isStart && (
-          <>
-            <div className="buttons">
-              <Button clickHandler={this.reverseHandler}>Reverse</Button>
-              <Button clickHandler={this.sortAbcHandler}>Sort ABC</Button>
-              <Button clickHandler={this.resetHandler}>Reset</Button>
-              <Button clickHandler={this.sortLengthHandler}>Sort length</Button>
-              <select
-                className="button"
-                onChange={this.selectHandler}
-                value={selectOfLength}
-              >
-                {selectOptions.map(value => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <GoodsList list={goodsList} />
-          </>
-        )}
+            </button>
+          )
+          : (
+            <>
+              <div className="buttons">
+                <Button clickHandler={this.toReverse}>Reverse</Button>
+                <Button clickHandler={this.toSortAbc}>Sort ABC</Button>
+                <Button clickHandler={this.toReset}>Reset</Button>
+                <Button clickHandler={this.toSortLength}>Sort length</Button>
+                <select
+                  className="button"
+                  onChange={this.toSelect}
+                  value={selectOfLength}
+                >
+                  {selectOptions.map(value => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <GoodsList list={goodsList} />
+            </>
+          )}
       </div>
     );
   }
