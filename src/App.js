@@ -19,7 +19,9 @@ const goodsFromServer = [
 export class App extends React.Component {
   state = {
     isLoaded: false,
-    goods: goodsFromServer,
+    originGoods: [...goodsFromServer],
+    goods: [...goodsFromServer],
+    defaultLength: 1,
   }
 
   handleStart = () => {
@@ -47,9 +49,10 @@ export class App extends React.Component {
   }
 
   reset = () => {
-    this.setState({
-      goods: goodsFromServer,
-    });
+    this.setState(prevState => ({
+      goods: [...prevState.originGoods],
+      defaultLength: 1,
+    }));
   }
 
   sortByLength = () => {
@@ -63,11 +66,12 @@ export class App extends React.Component {
     this.setState({
       goods: [...goodsFromServer]
         .filter(good => good.length >= Number(event.target.value)),
+      defaultLength: event.target.value,
     });
   }
 
   render() {
-    const { isLoaded, goods } = this.state;
+    const { isLoaded, goods, defaultLength } = this.state;
 
     return (
       <div className="App">
@@ -82,6 +86,7 @@ export class App extends React.Component {
               reset={this.reset}
               sortByLength={this.sortByLength}
               filterByLength={this.filterByLength}
+              defaultLength={defaultLength}
             />
           </>
         ) : (

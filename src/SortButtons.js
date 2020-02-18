@@ -7,6 +7,7 @@ export const SortButtons = ({
   sortAlphabetically,
   reset, sortByLength,
   filterByLength,
+  defaultLength,
 }) => (
   <>
     <button type="button" onClick={handleHide}>
@@ -24,7 +25,7 @@ export const SortButtons = ({
     <button type="button" onClick={sortByLength}>
       Sort by length
     </button>
-    <select onChange={filterByLength}>
+    <select onChange={filterByLength} value={defaultLength}>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -46,4 +47,5 @@ SortButtons.propTypes = {
   reset: PropTypes.func.isRequired,
   sortByLength: PropTypes.func.isRequired,
   filterByLength: PropTypes.func.isRequired,
+  defaultLength: PropTypes.number.isRequired,
 };
