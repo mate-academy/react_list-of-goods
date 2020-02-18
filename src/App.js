@@ -18,23 +18,23 @@ const goodsFromServer = [
 
 export class App extends React.Component {
   state = {
-    isButtonClicked: false,
+    isLoaded: false,
     goods: goodsFromServer,
   }
 
-  startButtonCliked = () => {
+  handleStart = () => {
     this.setState({
-      isButtonClicked: true,
+      isLoaded: true,
     });
   }
 
-  hideList = () => {
+  handleHide = () => {
     this.setState({
-      isButtonClicked: false,
+      isLoaded: false,
     });
   }
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
     }));
@@ -67,17 +67,17 @@ export class App extends React.Component {
   }
 
   render() {
-    const { isButtonClicked, goods } = this.state;
+    const { isLoaded, goods } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isButtonClicked ? (
+        {isLoaded ? (
           <>
             <Goods goods={goods} />
             <SortButtons
-              hideList={this.hideList}
-              reverse={this.reverse}
+              handleHide={this.handleHide}
+              handleReverse={this.handleReverse}
               sortAlphabetically={this.sortAlphabetically}
               reset={this.reset}
               sortByLength={this.sortByLength}
@@ -85,7 +85,7 @@ export class App extends React.Component {
             />
           </>
         ) : (
-          <button type="button" onClick={this.startButtonCliked}>
+          <button type="button" onClick={this.handleStart}>
             Start
           </button>
         )}

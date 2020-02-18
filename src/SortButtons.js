@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const SortButtons = (
-  {
-    hideList,
-    reverse,
-    sortAlphabetically,
-    reset, sortByLength,
-    filterByLength,
-  },
-) => (
+export const SortButtons = ({
+  handleHide,
+  handleReverse,
+  sortAlphabetically,
+  reset, sortByLength,
+  filterByLength,
+}) => (
   <>
-    <button type="button" onClick={hideList}>
+    <button type="button" onClick={handleHide}>
       Hide
     </button>
-    <button type="button" onClick={reverse}>
+    <button type="button" onClick={handleReverse}>
       Reverse
     </button>
     <button type="button" onClick={sortAlphabetically}>
@@ -42,8 +40,8 @@ export const SortButtons = (
 );
 
 SortButtons.propTypes = {
-  hideList: PropTypes.func.isRequired,
-  reverse: PropTypes.func.isRequired,
+  handleHide: PropTypes.func.isRequired,
+  handleReverse: PropTypes.func.isRequired,
   sortAlphabetically: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   sortByLength: PropTypes.func.isRequired,
