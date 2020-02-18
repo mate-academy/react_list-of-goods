@@ -55,11 +55,10 @@ class App extends Component {
   }
 
   handleSelect = (e) => {
-    const list = [...goodsFromServer];
     const { value } = e.target;
 
     this.setState(prevState => ({
-      goods: list.filter(item => item.length <= value),
+      goods: prevState.initialGoods.filter(item => item.length <= value),
     }));
   };
 
