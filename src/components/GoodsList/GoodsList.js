@@ -14,11 +14,11 @@ export class GoodsList extends React.Component {
     length: 1,
   }
 
-  clicked = () => {
+  handleClick = () => {
     this.setState({ isClicked: true });
   }
 
-  reversed = () => {
+  handleReverse = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
     }));
@@ -40,13 +40,13 @@ export class GoodsList extends React.Component {
     }));
   }
 
-  reseted = () => {
+  handleReset = () => {
     this.setState(prevState => ({
       goods: prevState.resetGoods, length: 1,
     }));
   }
 
-  selected = (event) => {
+  handleSelect = (event) => {
     const selectedLength = +event.target.value;
 
     this.setState({
@@ -55,14 +55,14 @@ export class GoodsList extends React.Component {
   }
 
   render() {
-    const { goods, isClicked, length } = this.state;
+    const { goods, isClicked, length, resetGoods } = this.state;
     const filteredGoods = goods.filter(item => item.length > length);
 
     return !isClicked ? (
       <button
         type="button"
         className="button"
-        onClick={this.clicked}
+        onClick={this.handleClick}
       >
         Start
       </button>
@@ -70,14 +70,14 @@ export class GoodsList extends React.Component {
       : (
         <>
           <Select
-            onChange={this.selected}
-            numbers={this.state.resetGoods.length}
-            length={this.state.length}
+            onChange={this.handleSelect}
+            numbers={resetGoods.length}
+            length={length}
           />
           <Buttons
-            reversed={this.reversed}
+            handleReverse={this.handleReverse}
             sortedAlphabetically={this.sortedAlphabetically}
-            reseted={this.reseted}
+            handleReset={this.handleReset}
             sortedByLength={this.sortedByLength}
           />
           <Goods goods={filteredGoods} />

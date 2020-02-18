@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import './Buttons.css';
 
 export const Buttons = (
-  { reversed, sortedAlphabetically, reseted, sortedByLength },
+  { handleReverse, sortedAlphabetically, handleReset, sortedByLength },
 ) => (
   <>
     <button
       type="button"
       className="button"
-      onClick={reversed}
+      onClick={handleReverse}
     >
       Reverse
     </button>
@@ -24,7 +24,7 @@ export const Buttons = (
     <button
       type="button"
       className="button"
-      onClick={reseted}
+      onClick={handleReset}
     >
     Reset
     </button>
@@ -39,8 +39,8 @@ export const Buttons = (
 );
 
 Buttons.propTypes = {
-  reversed: PropTypes.func.isRequired,
+  handleReverse: PropTypes.func.isRequired,
   sortedAlphabetically: PropTypes.func.isRequired,
-  reseted: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
   sortedByLength: PropTypes.func.isRequired,
 };

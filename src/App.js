@@ -16,7 +16,7 @@ const goodsFromServer = [
 ];
 
 const App = () => (
-  <div className="App">
+  <div className="app">
     <h1>Goods</h1>
     <GoodsList goodsList={goodsFromServer} />
   </div>
