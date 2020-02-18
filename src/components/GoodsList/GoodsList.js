@@ -19,15 +19,15 @@ export class GoodsList extends React.Component {
   }
 
   reversed = () => {
-    const reversedGoods = this.props.goodsList.reverse();
-
-    this.setState({ goods: reversedGoods });
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
   }
 
   sortedAlphabetically = () => {
-    const sortedAlf = this.props.goodsList.sort();
-
-    this.setState({ goods: sortedAlf });
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort(),
+    }));
   }
 
   sortedByLength = () => {
@@ -35,9 +35,9 @@ export class GoodsList extends React.Component {
       return a.length - b.length;
     }
 
-    const sortedByLength = this.props.goodsList.sort(compare);
-
-    this.setState({ goods: sortedByLength });
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort(compare),
+    }));
   }
 
   reseted = () => {
