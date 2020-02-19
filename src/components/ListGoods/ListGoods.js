@@ -65,7 +65,7 @@ export class ListGoods extends React.Component {
             className="button_start"
             onClick={this.startClick}
           >
-          start
+            start
           </button>
 
         )
