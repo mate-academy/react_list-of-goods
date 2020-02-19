@@ -19,6 +19,7 @@ const goodsFromServer = [
 
 export class App extends React.Component {
   state = {
+    initialGoods: [],
     goods: [],
     isStarted: false,
     currentSelected: 'length',
@@ -26,6 +27,7 @@ export class App extends React.Component {
 
   handleStart = () => {
     this.setState(prevState => ({
+      initialGoods: [...goodsFromServer],
       goods: [...goodsFromServer],
       isStarted: true,
     }));
@@ -39,10 +41,10 @@ export class App extends React.Component {
   }
 
   handleReset = () => {
-    this.setState({
-      goods: [...goodsFromServer],
+    this.setState(prevState => ({
+      goods: [...prevState.initialGoods],
       currentSelected: 'length',
-    });
+    }));
   }
 
   handleSortByLength = () => {
@@ -57,10 +59,10 @@ export class App extends React.Component {
       ? 1
       : e.target.value;
 
-    this.setState({
-      goods: [...goodsFromServer].filter(el => el.length >= minLength),
+    this.setState(prevState => ({
+      goods: [...prevState.initialGoods].filter(el => el.length >= minLength),
       currentSelected: minLength,
-    });
+    }));
   }
 
   handleSort = () => {
