@@ -59,7 +59,6 @@ export class GoodList extends React.Component {
         <Select
           stringLength={length}
           selectBtn={this.selectFunc}
-          quantity={[...this.props.goodList].length}
         />
         <ul>
           {goods.map(good => (

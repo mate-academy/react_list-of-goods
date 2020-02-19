@@ -7,7 +7,7 @@ export const Select = ({ stringLength, selectBtn, quantity }) => (
     value={stringLength}
   >
     {
-      new Array(quantity).fill(1).map((element, index) => (
+      new Array(10).fill(1).map((element, index) => (
         <option key={element} value={index + 1}>{index + 1}</option>
       ))
     }
