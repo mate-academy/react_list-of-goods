@@ -18,9 +18,17 @@ const goodsFromServer = [
 
 class App extends Component {
   state = {
-    goods: [...goodsFromServer],
+    goods: [],
     isStarted: false,
     selectedIndex: 1,
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        goods: [...goodsFromServer],
+      });
+    }, 3000);
   }
 
   handleStart = () => (
@@ -32,7 +40,7 @@ class App extends Component {
 
   handleReset = () => (
     this.setState({
-      goods: goodsFromServer,
+      goods: [...goodsFromServer],
       selectedIndex: 1,
     })
   )
@@ -71,53 +79,60 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {!isStarted ? (
-          <button
-            type="button"
-            className="button"
-            onClick={this.handleStart}
-          >
-            Start
-          </button>
-        ) : (
-          <div>
+
+        {!isStarted
+          && (
             <button
               type="button"
               className="button"
-              onClick={this.handleReset}
+              onClick={this.handleStart}
             >
+              {!isStarted && 'Start'}
+            </button>
+          )}
+        {goods.length === 0 && isStarted && (
+          <p className="loading">Loading...</p>)}
+        {goods.length > 0 && isStarted
+          && (
+            <div>
+              <button
+                type="button"
+                className="button"
+                onClick={this.handleReset}
+              >
               reset
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClick={this.handleReverse}
-            >
+              </button>
+              <button
+                type="button"
+                className="button"
+                onClick={this.handleReverse}
+              >
               reverse
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClick={this.sortByLength}
-            >
+              </button>
+              <button
+                type="button"
+                className="button"
+                onClick={this.sortByLength}
+              >
               sort by length
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClick={this.sortAlphabetically}
-            >
+              </button>
+              <button
+                type="button"
+                className="button"
+                onClick={this.sortAlphabetically}
+              >
               sort alphabetically
-            </button>
-            <Select
-              selectedIndex={selectedIndex}
-              handleChange={this.handleChange}
-            />
-            <div className="list">
-              <GoodsList goods={goods} />
+              </button>
+              <Select
+                selectedIndex={selectedIndex}
+                handleChange={this.handleChange}
+              />
+              <div className="list">
+                <GoodsList goods={goods} />
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
       </div>
     );
   }
