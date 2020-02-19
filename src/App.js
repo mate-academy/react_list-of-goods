@@ -59,7 +59,7 @@ class App extends Component {
   handleSelect = ({ target }) => {
     this.setState(prevState => ({
       length: target.value,
-      goods: prevState.initialGoods.filter(item => item.length <= target.value),
+      goods: prevState.initialGoods.filter(item => item.length >= target.value),
     }));
   };
 
