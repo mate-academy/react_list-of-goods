@@ -20,8 +20,8 @@ const goodsFromServer = [
 export class App extends Component {
   state = {
     isStarted: false,
-    goodsList: [...goodsFromServer],
-    goodsListCopy: [...goodsFromServer],
+    defaultGoods: [...goodsFromServer],
+    originalGoods: [...goodsFromServer],
     length: '1',
   };
 
@@ -33,19 +33,19 @@ export class App extends Component {
 
   reverse = () => {
     this.setState(prevState => ({
-      goodsList: prevState.goodsList.reverse(),
+      defaultGoods: prevState.defaultGoods.reverse(),
     }));
   };
 
   sortByAplh = () => {
     this.setState(prevState => ({
-      goodsList: prevState.goodsList.sort(),
+      defaultGoods: prevState.defaultGoods.sort(),
     }));
   };
 
   sortByLength = () => {
     this.setState(prevState => ({
-      goodsList: prevState.goodsList.sort((a, b) => (
+      defaultGoods: prevState.defaultGoods.sort((a, b) => (
         a.length - b.length
       )),
     }));
@@ -53,7 +53,7 @@ export class App extends Component {
 
   resetParams = () => {
     this.setState(prevState => ({
-      goodsList: [...prevState.goodsListCopy],
+      defaultGoods: [...prevState.originalGoods],
       length: '1',
     }));
   };
@@ -61,8 +61,9 @@ export class App extends Component {
   handleSelect = ({ target }) => {
     this.setState(prevState => ({
       length: target.value,
-      goodsList: prevState.goodsListCopy.filter(item => (
-        target.value <= item.length)),
+      defaultGoods: prevState.originalGoods.filter(
+        item => (target.value <= item.length),
+      ),
     }));
   }
 
@@ -70,7 +71,7 @@ export class App extends Component {
     const {
       isStarted,
       length,
-      goodsList,
+      defaultGoods,
     } = this.state;
 
     return (
@@ -89,7 +90,7 @@ export class App extends Component {
                 quantity={length}
                 quantityFunc={this.handleSelect}
               />
-              <GoodList goods={goodsList} />
+              <GoodList goods={defaultGoods} />
             </>
           )
           : (

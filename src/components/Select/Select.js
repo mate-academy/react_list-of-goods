@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
 
 export const Select = ({ quantity, quantityFunc }) => (
   <select
@@ -9,9 +8,9 @@ export const Select = ({ quantity, quantityFunc }) => (
     onChange={quantityFunc}
   >
     {
-      new Array(10).fill('initValue').map((element, index) => (
+      new Array(10).fill('initValue').map((item, index) => (
         <option
-          key={uuid()}
+          key={item}
           value={index + 1}
           className="select__item"
         >
