@@ -57,26 +57,28 @@ export class App extends React.Component {
   }
 
   render() {
-    return this.state.isStart
+    const { goods, selected, isStart } = this.state;
+
+    return isStart
       ? (
         <div className="App">
           <div className="App__list">
-            <GoodList>{this.state.goods}</GoodList>
+            <GoodList>{goods}</GoodList>
           </div>
           <div className="App__buttons">
             <ReverseButton handler={this.handlerButton}>
-              {this.state.goods}
+              {goods}
             </ReverseButton>
             <SortByLetter handler={this.handlerButton}>
-              {this.state.goods}
+              {goods}
             </SortByLetter>
             <ResetButton handler={this.handlerButton}>
-              {this.state.goods}
+              {goods}
             </ResetButton>
             <SortByLengthButton handler={this.handlerButton}>
-              {this.state.goods}
+              {goods}
             </SortByLengthButton>
-            <Select selectedItem={this.state.selected}>
+            <Select selectedItem={selected}>
               {this.handlerSelect}
             </Select>
             <ResetSelectionButton>{this.handlerSelect}</ResetSelectionButton>
