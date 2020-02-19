@@ -17,15 +17,15 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    isLoad: false,
+    isLoaded: false,
     goods: [...goodsFromServer],
-    goodsSelected: [...goodsFromServer],
-    minLength: '1',
+    originalGoods: [...goodsFromServer],
+    minLength: 1,
   };
 
-  checkButton = () => {
+  handleStart = () => {
     this.setState({
-      isLoad: true,
+      isLoaded: true,
     });
   };
 
@@ -43,8 +43,8 @@ class App extends React.Component {
 
   handleResetList = () => {
     this.setState(prevState => ({
-      minLength: '1',
-      goods: [...prevState.goodsSelected],
+      minLength: 1,
+      goods: [...prevState.originalGoods],
     }));
   };
 
@@ -57,19 +57,19 @@ class App extends React.Component {
   handleSelectList = ({ target }) => {
     this.setState(prevState => ({
       minLength: target.value,
-      goods: [...prevState.goodsSelected]
+      goods: prevState.originalGoods
         .filter(good => good.length >= target.value),
     }));
   };
 
   render() {
-    const { goods, minLength, isLoad } = this.state;
+    const { goods, minLength, isLoaded } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
         <h1>Goods</h1>
         {
-          isLoad
+          isLoaded
             ? (
               <GoodList
                 goods={goods}
@@ -84,9 +84,9 @@ class App extends React.Component {
             : (
               <button
                 type="button"
-                onClick={this.checkButton}
+                onClick={this.handleStart}
               >
-              List
+                List
               </button>
             )
         }

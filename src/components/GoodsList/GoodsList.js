@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 
 export const GoodList = (props) => {
   const {
-    goods, minLength, handleReverseList,
-    handleSortAlphabet, handleResetList, handleSortByLength, handleSelectList,
+    goods,
+    minLength,
+    handleReverseList,
+    handleSortAlphabet,
+    handleResetList,
+    handleSortByLength,
+    handleSelectList,
   } = props;
 
   return (
@@ -43,18 +48,9 @@ export const GoodList = (props) => {
         onChange={handleSelectList}
         value={minLength}
       >
-        <>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </>
+        {Array.from(10).fill(1).map((item, index) => (
+          <option value={index + 1}>{index + 1}</option>
+        ))}
       </select>
       <ul>
         {goods.map(good => (
@@ -72,7 +68,7 @@ GoodList.propTypes = {
   handleResetList: PropTypes.func.isRequired,
   handleSortByLength: PropTypes.func.isRequired,
   handleSelectList: PropTypes.func.isRequired,
-  minLength: PropTypes.string,
+  minLength: PropTypes.number,
 };
 
 GoodList.defaultProps = {
