@@ -47,7 +47,8 @@ class App extends Component {
   }
 
   sortByLength = () => this.setState(prevState => ({
-    goods: [...prevState.goods].sort((a, b) => a.length - b.length),
+    goods: [...prevState.goods]
+      .sort((good, good1) => good.length - good1.length),
   }))
 
   handleChangeSelect = ({ target }) => {
