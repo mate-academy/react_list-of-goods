@@ -6,7 +6,6 @@ export class Goods extends Component {
   state = {
     displayList: false,
     goods: this.props.goods,
-    initial: this.props.goods,
     minLength: 1,
   }
 
@@ -29,10 +28,10 @@ export class Goods extends Component {
   }
 
   reset = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.initial],
+    this.setState({
+      goods: this.props.goods,
       minLength: 1,
-    }));
+    });
   }
 
   sortByLength = () => {
