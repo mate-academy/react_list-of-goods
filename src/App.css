@@ -1,0 +1,51 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  outline: none;
+  transition: all 1s;
+  border-radius: 5px;
+}
+
+.App {
+  text-align: center;
+  padding-top: 20px;
+  background: lightskyblue;
+  height: 100vh;
+}
+
+.button {
+  padding: 10px 40px;
+  border: 1px solid transparent;
+  margin: 20px;
+  font-weight: bold;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
+.select {
+  padding: 10px;
+  background-color: #eee;
+  border: 1px solid transparent;
+}
+
+.select:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
+.list {
+  border: 2px solid gray;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 230px;
+}
+
+.loading {
+  margin-top: 100px;
+}
