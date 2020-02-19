@@ -19,6 +19,7 @@ export class App extends React.Component {
   state = {
     isGoodsLoaded: false,
     listOfGoods: [...goodsFromServer],
+    initialListOfGoods: [...goodsFromServer],
     minLength: 1,
   }
 
@@ -30,36 +31,36 @@ export class App extends React.Component {
 
   reverseGoods = () => {
     this.setState(prevState => ({
-      listOfGoods: prevState.listOfGoods.reverse(),
+      listOfGoods: [...prevState.listOfGoods].reverse(),
     }));
   }
 
   sortAlphabetically = () => {
     this.setState(prevState => ({
-      listOfGoods: prevState.listOfGoods.sort(),
+      listOfGoods: [...prevState.listOfGoods].sort(),
     }));
   }
 
   resetGoods = () => {
-    this.setState({
-      listOfGoods: [...goodsFromServer],
+    this.setState(prevState => ({
+      listOfGoods: [...prevState.initialListOfGoods],
       minLength: 1,
-    });
+    }));
   }
 
   sortByLength = () => {
     this.setState(prevState => ({
-      listOfGoods: prevState.listOfGoods
+      listOfGoods: [...prevState.listOfGoods]
         .sort((a, b) => a.length - b.length),
     }));
   }
 
   selectedLength = (e) => {
-    this.setState({
-      listOfGoods: [...goodsFromServer]
+    this.setState(prevState => ({
+      listOfGoods: [...prevState.initialListOfGoods]
         .filter(goods => goods.length >= e.target.value),
       minLength: Number(e.target.value),
-    });
+    }));
   }
 
   render() {
