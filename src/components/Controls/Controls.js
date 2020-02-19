@@ -3,43 +3,43 @@ import PropTypes from 'prop-types';
 import './Controls.scss';
 import uuid from 'uuid';
 
-export const Controls = (
-  { reversed,
-    sortedAlpha,
-    resetedGoods,
-    sortByLength,
-    selectAction,
-    length,
-    selectedArray },
-) => (
+export const Controls = ({
+  reversed,
+  sortedAlpha,
+  resetedGoods,
+  sortByLength,
+  selectAction,
+  length,
+  selectedArray,
+}) => (
   <div className="controls">
     <button
       type="button"
       className="controls__button"
       onClick={reversed}
     >
-  Reverse
+    Reverse
     </button>
     <button
       type="button"
       className="controls__button"
       onClick={sortedAlpha}
     >
-Sort Alpha
+    Sort Alpha
     </button>
     <button
       type="button"
       className="controls__button"
       onClick={resetedGoods}
     >
-Reset
+    Reset
     </button>
     <button
       type="button"
       className="controls__button"
       onClick={sortByLength}
     >
-Sort by length
+    Sort by length
     </button>
     <select className="select" value={length} onChange={selectAction}>
       {selectedArray.map((item, index) => (

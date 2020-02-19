@@ -6,15 +6,15 @@ import './ListGoods.scss';
 
 export class ListGoods extends React.Component {
   state = {
-    goods: this.props.listOfGoods,
-    isClicked: false,
+    goods: [...this.props.listOfGoods],
+    isLoaded: false,
     initialGoods: [...this.props.listOfGoods],
     length: 1,
   };
 
   startClick = () => {
     this.setState({
-      isClicked: true,
+      isLoaded: true,
     });
   };
 
@@ -54,11 +54,11 @@ export class ListGoods extends React.Component {
   };
 
   render() {
-    const { isClicked, goods, initialGoods } = this.state;
+    const { isLoaded, goods, initialGoods } = this.state;
 
     return (
 
-      !isClicked
+      !isLoaded
         ? (
           <button
             type="button"
