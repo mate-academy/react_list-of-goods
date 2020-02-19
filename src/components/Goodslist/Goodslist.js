@@ -40,10 +40,10 @@ class Goodslist extends React.Component {
     const { value } = event.target;
     const currentList = [...this.props.list];
 
-    this.setState(prevState => ({
+    this.setState({
       listOfGoods: currentList.filter(item => item.length >= value),
       minLength: value,
-    }));
+    });
   }
 
   render() {
