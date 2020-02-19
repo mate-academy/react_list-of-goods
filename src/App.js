@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-/* import uuid from 'uuid'; */
+import { ListOfGoods } from './Components/ListOfGoods/ListOfGoods';
+import { Buttons } from './Components/Buttons/Buttons';
 
 const goodsFromServer = [
   'Dumplings',
@@ -20,6 +21,7 @@ class App extends Component {
     isGoodsLoaded: false,
     goods: [...goodsFromServer],
     goods1: [...goodsFromServer],
+    handleValue: 1,
   }
 
   loadGoods = () => {
@@ -42,6 +44,7 @@ class App extends Component {
 
   reset = () => {
     this.setState(prevState => ({
+      handleValue: 1,
       goods: [...prevState.goods1],
     }));
   }
@@ -55,63 +58,31 @@ class App extends Component {
     const { value } = target;
 
     this.setState(prevState => ({
+      handleValue: value,
       goods: [...prevState.goods1]
         .filter(good => good.length >= value),
     }));
   }
 
   render() {
+    const { isGoodsLoaded, goods, handleValue } = this.state;
+
     return (
       <div className="App">
         <h1>List of goods</h1>
         {
-          this.state.isGoodsLoaded
+          isGoodsLoaded
             ? (
               <>
-                <button
-                  type="button"
-                  onClick={this.reverseGoods}
-                >
-                Reverse
-                </button>
-                <button
-                  type="button"
-                  onClick={this.sortAlphabetically}
-                >
-                Sort Alphabetically
-                </button>
-                <button
-                  type="button"
-                  onClick={this.reset}
-                >
-                Reset
-                </button>
-                <button
-                  type="button"
-                  onClick={this.sortByLength}
-                >
-                Sort by length
-                </button>
-                <select
-                  onChange={this.handleChangeSelect}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-
-                <ul>
-                  {this.state.goods.map(good => (
-                    <li>{good}</li>
-                  ))}
-                </ul>
+                <Buttons
+                  reverseGoods={this.reverseGoods}
+                  sortAlphabetically={this.sortAlphabetically}
+                  reset={this.reset}
+                  sortByLength={this.sortByLength}
+                  handleChangeSelect={this.handleChangeSelect}
+                  handleValue={handleValue}
+                />
+                <ListOfGoods goods={goods} />
               </>
             )
             : (
