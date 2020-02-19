@@ -1,0 +1,35 @@
+.goods {
+  margin: auto;
+  width: 80%;
+}
+
+.goods__btn {
+  width: 130px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: linear-gradient(60deg, rgba(111,199,234,1) 0%,
+  rgba(55,184,203,1) 100%);
+  font-weight: bold;
+}
+
+.goods__select {
+  display: inline-block;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(60deg, rgba(111,199,234,1) 0%,
+  rgba(55,184,203,1) 100%);
+  outline: none;
+  font-weight: bold;
+}
+
+.goods__list {
+  padding-top: 40px;
+}
+
+.goods__item {
+  margin: 10px 0;
+}

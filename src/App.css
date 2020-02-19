@@ -1,0 +1,18 @@
+.start-btn {
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: auto;
+  display: block;
+  background: linear-gradient(60deg, rgba(111,199,234,1) 0%,
+  rgba(55,184,203,1) 100%);
+}
+
+.App {
+  padding-top: 100px;
+}
