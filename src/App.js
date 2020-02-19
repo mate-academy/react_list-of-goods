@@ -19,7 +19,6 @@ class App extends React.Component {
   state = {
     isStartButtonClicked: false,
     goods: [...goodsFromServer],
-    initGoods: [...goodsFromServer],
     selectedValue: 1,
   }
 
@@ -49,19 +48,20 @@ class App extends React.Component {
   }
 
   handleClickReset = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.initGoods],
-    }));
+    this.setState({
+      goods: [...goodsFromServer],
+      selectedValue: 1,
+    });
   }
 
   handleChangeSelect = ({ target }) => {
     const { value } = target;
 
-    this.setState(prevState => ({
+    this.setState({
       selectedValue: value,
-      goods: [...prevState.initGoods]
+      goods: [...goodsFromServer]
         .filter(good => good.length >= value),
-    }));
+    });
   }
 
   render() {
