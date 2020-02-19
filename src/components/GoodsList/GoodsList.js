@@ -3,36 +3,36 @@ import PropTypes from 'prop-types';
 
 export const GoodList = (props) => {
   const {
-    goods, goodsSelected, selectValueNumber, reverseButton, sortButton,
-    resetButton, sortByLength, selectButton,
+    goods, minLength, handleReverseList,
+    handleSortAlphabet, handleResetList, handleSortByLength, handleSelectList,
   } = props;
 
   return (
     <>
       <button
         type="button"
-        onClick={reverseButton}
+        onClick={handleReverseList}
       >
       Reverse
       </button>
 
       <button
         type="button"
-        onClick={sortButton}
+        onClick={handleSortAlphabet}
       >
       Sort
       </button>
 
       <button
         type="button"
-        onClick={() => resetButton({ goodsSelected })}
+        onClick={handleResetList}
       >
       Reset
       </button>
 
       <button
         type="button"
-        onClick={sortByLength}
+        onClick={handleSortByLength}
       >
       Length
       </button>
@@ -40,8 +40,8 @@ export const GoodList = (props) => {
       <select
         name="goods"
         id="goods-select"
-        onChange={selectButton}
-        value={selectValueNumber}
+        onChange={handleSelectList}
+        value={minLength}
       >
         <>
           <option value="1">1</option>
@@ -67,17 +67,15 @@ export const GoodList = (props) => {
 
 GoodList.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string),
-  goodsSelected: PropTypes.arrayOf(PropTypes.string),
-  reverseButton: PropTypes.func.isRequired,
-  sortButton: PropTypes.func.isRequired,
-  resetButton: PropTypes.func.isRequired,
-  sortByLength: PropTypes.func.isRequired,
-  selectButton: PropTypes.func.isRequired,
-  selectValueNumber: PropTypes.string,
+  handleReverseList: PropTypes.func.isRequired,
+  handleSortAlphabet: PropTypes.func.isRequired,
+  handleResetList: PropTypes.func.isRequired,
+  handleSortByLength: PropTypes.func.isRequired,
+  handleSelectList: PropTypes.func.isRequired,
+  minLength: PropTypes.string,
 };
 
 GoodList.defaultProps = {
   goods: [],
-  goodsSelected: [],
-  selectValueNumber: '1',
+  minLength: '1',
 };

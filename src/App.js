@@ -17,69 +17,68 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    isPressedButton: false,
+    isLoad: false,
     goods: [...goodsFromServer],
     goodsSelected: [...goodsFromServer],
-    selectValueNumber: '1',
+    minLength: '1',
   };
 
   checkButton = () => {
     this.setState({
-      isPressedButton: true,
+      isLoad: true,
     });
   };
 
-  reverseButton = () => {
+  handleReverseList = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
     }));
   };
 
-  sortButton = () => {
+  handleSortAlphabet = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
-  resetButton = ({ goodsSelected }) => {
-    this.setState({
-      selectValueNumber: '1',
-      goods: goodsSelected,
-    });
+  handleResetList = () => {
+    this.setState(prevState => ({
+      minLength: '1',
+      goods: [...prevState.goodsSelected],
+    }));
   };
 
-  sortByLength = () => {
+  handleSortByLength = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   };
 
-  selectButton = ({ target }) => {
+  handleSelectList = ({ target }) => {
     this.setState(prevState => ({
-      selectValueNumber: target.value,
+      minLength: target.value,
       goods: [...prevState.goodsSelected]
         .filter(good => good.length >= target.value),
     }));
   };
 
   render() {
-    const { goods, goodsSelected, selectValueNumber } = this.state;
+    const { goods, minLength, isLoad } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
         {
-          this.state.isPressedButton
+          isLoad
             ? (
               <GoodList
                 goods={goods}
-                goodsSelected={goodsSelected}
-                selectValueNumber={selectValueNumber}
-                reverseButton={this.reverseButton}
-                sortButton={this.sortButton}
-                resetButton={this.resetButton}
-                sortByLength={this.sortByLength}
-                selectButton={this.selectButton}
+                minLength={minLength}
+                handleReverseList={this.handleReverseList}
+                handleSortAlphabet={this.handleSortAlphabet}
+                handleResetList={this.handleResetList}
+                handleSortByLength={this.handleSortByLength}
+                handleSelectList={this.handleSelectList}
               />
             )
             : (
@@ -87,7 +86,7 @@ class App extends React.Component {
                 type="button"
                 onClick={this.checkButton}
               >
-            List
+              List
               </button>
             )
         }
