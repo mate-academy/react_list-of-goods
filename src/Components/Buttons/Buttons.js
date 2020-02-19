@@ -8,7 +8,7 @@ export const Buttons = (
     reset,
     sortByLength,
     handleChangeSelect,
-    handleValue,
+    minLength,
   },
 ) => (
   <>
@@ -16,28 +16,28 @@ export const Buttons = (
       type="button"
       onClick={reverseGoods}
     >
-                Reverse
+      Reverse
     </button>
     <button
       type="button"
       onClick={sortAlphabetically}
     >
-                Sort Alphabetically
+      Sort Alphabetically
     </button>
     <button
       type="button"
       onClick={reset}
     >
-                Reset
+      Reset
     </button>
     <button
       type="button"
       onClick={sortByLength}
     >
-                Sort by length
+      Sort by length
     </button>
     <select
-      value={handleValue}
+      value={minLength}
       onChange={handleChangeSelect}
     >
       <option value="1">1</option>
@@ -60,5 +60,5 @@ Buttons.propTypes = {
   reset: PropTypes.func.isRequired,
   sortByLength: PropTypes.func.isRequired,
   handleChangeSelect: PropTypes.func.isRequired,
-  handleValue: PropTypes.number.isRequired,
+  minLength: PropTypes.number.isRequired,
 };

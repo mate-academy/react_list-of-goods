@@ -20,8 +20,8 @@ class App extends Component {
   state = {
     isGoodsLoaded: false,
     goods: [...goodsFromServer],
-    goods1: [...goodsFromServer],
-    handleValue: 1,
+    originalGoods: [...goodsFromServer],
+    minLength: 1,
   }
 
   loadGoods = () => {
@@ -44,8 +44,8 @@ class App extends Component {
 
   reset = () => {
     this.setState(prevState => ({
-      handleValue: 1,
-      goods: [...prevState.goods1],
+      minLength: 1,
+      goods: [...prevState.originalGoods],
     }));
   }
 
@@ -58,14 +58,14 @@ class App extends Component {
     const { value } = target;
 
     this.setState(prevState => ({
-      handleValue: value,
-      goods: [...prevState.goods1]
+      minLength: value,
+      goods: prevState.originalGoods
         .filter(good => good.length >= value),
     }));
   }
 
   render() {
-    const { isGoodsLoaded, goods, handleValue } = this.state;
+    const { isGoodsLoaded, goods, minLength } = this.state;
 
     return (
       <div className="App">
@@ -80,7 +80,7 @@ class App extends Component {
                   reset={this.reset}
                   sortByLength={this.sortByLength}
                   handleChangeSelect={this.handleChangeSelect}
-                  handleValue={handleValue}
+                  minLength={minLength}
                 />
                 <ListOfGoods goods={goods} />
               </>
