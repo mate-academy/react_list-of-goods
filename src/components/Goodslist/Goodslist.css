@@ -1,0 +1,18 @@
+.button {
+  width: 150px;
+  height: 40px;
+  margin-right: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background-color: #07613b;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.select {
+  display: block;
+  margin: 20px 5px;
+  width: 150px;
+}
