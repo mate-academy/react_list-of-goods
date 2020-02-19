@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const GoodList = (props) => {
   const {
-    goods, goodsSelected, reverseButton, sortButton,
+    goods, goodsSelected, selectValueNumber, reverseButton, sortButton,
     resetButton, sortByLength, selectButton,
   } = props;
 
@@ -41,6 +41,7 @@ export const GoodList = (props) => {
         name="goods"
         id="goods-select"
         onChange={selectButton}
+        value={selectValueNumber}
       >
         <>
           <option value="1">1</option>
@@ -72,9 +73,11 @@ GoodList.propTypes = {
   resetButton: PropTypes.func.isRequired,
   sortByLength: PropTypes.func.isRequired,
   selectButton: PropTypes.func.isRequired,
+  selectValueNumber: PropTypes.string,
 };
 
 GoodList.defaultProps = {
   goods: [],
   goodsSelected: [],
+  selectValueNumber: '1',
 };

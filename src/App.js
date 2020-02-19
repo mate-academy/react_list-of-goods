@@ -20,6 +20,7 @@ class App extends React.Component {
     isPressedButton: false,
     goods: [...goodsFromServer],
     goodsSelected: [...goodsFromServer],
+    selectValueNumber: '1',
   };
 
   checkButton = () => {
@@ -42,6 +43,7 @@ class App extends React.Component {
 
   resetButton = ({ goodsSelected }) => {
     this.setState({
+      selectValueNumber: '1',
       goods: goodsSelected,
     });
   };
@@ -54,13 +56,14 @@ class App extends React.Component {
 
   selectButton = ({ target }) => {
     this.setState(prevState => ({
+      selectValueNumber: target.value,
       goods: [...prevState.goodsSelected]
         .filter(good => good.length >= target.value),
     }));
   };
 
   render() {
-    const { goods, goodsSelected } = this.state;
+    const { goods, goodsSelected, selectValueNumber } = this.state;
 
     return (
       <div className="App">
@@ -71,6 +74,7 @@ class App extends React.Component {
               <GoodList
                 goods={goods}
                 goodsSelected={goodsSelected}
+                selectValueNumber={selectValueNumber}
                 reverseButton={this.reverseButton}
                 sortButton={this.sortButton}
                 resetButton={this.resetButton}
