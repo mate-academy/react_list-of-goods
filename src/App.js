@@ -51,7 +51,12 @@ export class App extends React.Component {
   };
 
   handleSelectChange = (evt) => {
-    this.setState({ minGoodLength: evt.target.value });
+    const { value } = evt.target;
+
+    this.setState({
+      minGoodLength: value,
+      goods: [...goodsFromServer.filter(good => good.length >= value)],
+    });
   };
 
   renderContent = () => {
@@ -61,11 +66,9 @@ export class App extends React.Component {
 
     const { minGoodLength, goods } = this.state;
 
-    const goodsToRender = goods.filter(good => good.length >= minGoodLength);
-
     return (
       <>
-        <GoodsList goods={goodsToRender} />
+        <GoodsList goods={goods} />
         <Button
           text="Reverse"
           handler={this.handleReverseButtonClick}
