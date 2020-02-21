@@ -26,10 +26,10 @@ export const Select = ({ onselect, currentSelected }) => (
 
 Select.propTypes = {
   onselect: PropTypes.func,
-  currentSelected: PropTypes.number,
+  currentSelected: PropTypes.string,
 };
 
 Select.defaultProps = {
   onselect: () => {},
-  currentSelected: 0,
+  currentSelected: '',
 };

@@ -23,7 +23,7 @@ export class App extends React.Component {
     goods: [],
     isStarted: false,
     currentSelected: 'length',
-  }
+  };
 
   handleStart = () => {
     this.setState(prevState => ({
@@ -31,28 +31,28 @@ export class App extends React.Component {
       goods: [...goodsFromServer],
       isStarted: true,
     }));
-  }
+  };
 
   handleReverse = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
         .reverse(),
     }));
-  }
+  };
 
   handleReset = () => {
     this.setState(prevState => ({
       goods: [...prevState.initialGoods],
       currentSelected: 'length',
     }));
-  }
+  };
 
   handleSortByLength = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
         .sort((a, b) => a.length - b.length),
     }));
-  }
+  };
 
   handleSelect = (e) => {
     const minLength = e.target.value === 'length'
@@ -60,17 +60,17 @@ export class App extends React.Component {
       : e.target.value;
 
     this.setState(prevState => ({
-      goods: [...prevState.initialGoods].filter(el => el.length >= minLength),
+      goods: prevState.initialGoods.filter(el => el.length >= minLength),
       currentSelected: minLength,
     }));
-  }
+  };
 
   handleSort = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
         .sort((a, b) => a.localeCompare(b)),
     }));
-  }
+  };
 
   render() {
     const { goods, isStarted, currentSelected } = this.state;
@@ -87,7 +87,7 @@ export class App extends React.Component {
                   sort={this.handleSort}
                   reverse={this.handleReverse}
                   sortLength={this.handleSortByLength}
-                  onselect={e => this.handleSelect(e)}
+                  onselect={this.handleSelect}
                   currentSelected={currentSelected}
                 />
                 <GoodsList goods={goods} />
