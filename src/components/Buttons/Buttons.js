@@ -1,38 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Buttons = ({ reverseBtn, sortBtn, sortLengthBtn, resetBtn }) => (
-  <React.Fragment>
+export const Buttons = ({
+  handleReverse,
+  handleAlphabetSort,
+  handleLengthSort,
+  handleReset,
+}) => (
+  <>
     <button
       type="button"
-      onClick={reverseBtn}
+      onClick={handleReverse}
     >
-     Reverse
+      Reverse
     </button>
     <button
       type="button"
-      onClick={sortBtn}
+      onClick={handleAlphabetSort}
     >
       Sort alphabetically
     </button>
     <button
       type="button"
-      onClick={resetBtn}
+      onClick={handleReset}
     >
       reset
     </button>
     <button
       type="button"
-      onClick={sortLengthBtn}
+      onClick={handleLengthSort}
     >
       Sort by length
     </button>
-  </React.Fragment>
+  </>
 );
 
 Buttons.propTypes = {
-  reverseBtn: PropTypes.func.isRequired,
-  sortBtn: PropTypes.func.isRequired,
-  sortLengthBtn: PropTypes.func.isRequired,
-  resetBtn: PropTypes.func.isRequired,
+  handleReverse: PropTypes.func.isRequired,
+  handleAlphabetSort: PropTypes.func.isRequired,
+  handleLengthSort: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
 };

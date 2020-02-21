@@ -17,22 +17,22 @@ const goodsFromServer = [
 
 export class App extends Component {
   state = {
-    isShown: false,
+    isLoaded: false,
   }
 
   showClick = () => {
     this.setState({
-      isShown: true,
+      isLoaded: true,
     });
   }
 
   render() {
-    const { isShown } = this.state;
+    const { isLoaded } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isShown
+        {isLoaded
           ? (<GoodList goodList={goodsFromServer} />)
           : (
             <button

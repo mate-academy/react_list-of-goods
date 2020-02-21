@@ -6,8 +6,8 @@ import { Select } from '../Select/Select';
 export class GoodList extends React.Component {
   state = {
     goods: [...this.props.goodList],
-    length: '1',
-    goodsCopy: [...this.props.goodList],
+    minLength: 1,
+    originalGoods: [...this.props.goodList],
   }
 
   reversed = () => {
@@ -32,32 +32,32 @@ export class GoodList extends React.Component {
 
   reset = () => {
     this.setState(prevState => ({
-      goods: prevState.goodsCopy,
-      length: '1',
+      goods: prevState.originalGoods,
+      minLength: 1,
     }));
   }
 
   selectFunc = ({ target }) => {
     this.setState(prevState => ({
-      length: target.value,
-      goods: prevState.goodsCopy.filter(item => (
+      minLength: target.value,
+      goods: prevState.originalGoods.filter(item => (
         item.length >= target.value)),
     }));
   }
 
   render() {
-    const { goods, length } = this.state;
+    const { goods, minLength } = this.state;
 
     return (
-      <React.Fragment>
+      <>
         <Buttons
-          reverseBtn={this.reversed}
-          sortBtn={this.sortAlph}
-          sortLengthBtn={this.sortLength}
-          resetBtn={this.reset}
+          handleReverse={this.reversed}
+          handleAlphabetSort={this.sortAlph}
+          handleLengthSort={this.sortLength}
+          handleReset={this.reset}
         />
         <Select
-          stringLength={length}
+          stringLength={minLength}
           selectBtn={this.selectFunc}
         />
         <ul>
@@ -65,7 +65,7 @@ export class GoodList extends React.Component {
             <li key={good}>{good}</li>
           ))}
         </ul>
-      </React.Fragment>
+      </>
     );
   }
 }

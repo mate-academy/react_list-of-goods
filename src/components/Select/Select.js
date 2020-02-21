@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Select = ({ stringLength, selectBtn, quantity }) => (
+export const Select = ({ stringLength, selectBtn }) => (
   <select
     onChange={selectBtn}
     value={stringLength}
@@ -17,5 +17,4 @@ export const Select = ({ stringLength, selectBtn, quantity }) => (
 Select.propTypes = {
   stringLength: PropTypes.string.isRequired,
   selectBtn: PropTypes.func.isRequired,
-  quantity: PropTypes.number.isRequired,
 };
