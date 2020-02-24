@@ -61,16 +61,15 @@ class App extends React.Component {
     ));
   }
 
-  onSelectChange = (event) => {
-    this.setState({ selectedValue: event.target.value });
-    this.setState(prevState => (
-      {
-        visibleGoods: goodsFromServer.filter(
-          good => good.length >= prevState.selectedValue,
-        ),
-      }
-    ));
-  }
+  onSelectChange = ({ target }) => {
+    const { value } = target;
+
+    this.setState(prevState => ({
+      selectedValue: value,
+      visibleGoods: goodsFromServer
+        .filter(good => good.length >= value),
+    }));
+  };
 
   render() {
     const { isStarted, visibleGoods, selectedValue } = this.state;
