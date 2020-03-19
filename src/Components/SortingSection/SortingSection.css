@@ -1,0 +1,7 @@
+.sorting_section {
+  display: none;
+}
+
+.sorting_section.active {
+  display: block;
+}

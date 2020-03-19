@@ -1,23 +1,10 @@
 import React from 'react';
-import './App.css';
-
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import StartButton from './Components/StartButton/StartButton';
 
 const App = () => (
   <div className="App">
     <h1>Goods</h1>
-    {goodsFromServer.length}
+    <StartButton />
   </div>
 );
 
