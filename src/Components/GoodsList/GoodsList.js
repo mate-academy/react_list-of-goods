@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GoodsList = ({ props }) => {
-  const list = props;
+const GoodsList = ({ list }) => {
+  const goodItems = list;
 
   return (
     <ul>
-      {list.map((item, index) => (
+      {goodItems.map((item, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <li key={index}>{item}</li>
       ))}
@@ -15,7 +15,7 @@ const GoodsList = ({ props }) => {
 };
 
 GoodsList.propTypes = {
-  props: PropTypes.arrayOf(PropTypes.string).isRequired,
+  list: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default GoodsList;

@@ -64,8 +64,9 @@ class ButtonsList extends React.Component {
           <select onChange={event => this.selectNum(event.target.value)}>
             {this.state.list.map((item, index) => (
               <option
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
                 value={index}
-                selected
               >
                 {index + 1}
               </option>
