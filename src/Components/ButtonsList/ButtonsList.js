@@ -5,6 +5,8 @@ import GoodsList from '../GoodsList/GoodsList';
 class ButtonsList extends React.Component {
   state = {
     list: this.props.goodsList,
+    lengthToggle: true,
+    sortAlphabetically: true,
   };
 
   handleClick = () => {
@@ -12,14 +14,51 @@ class ButtonsList extends React.Component {
   }
 
   handleSortLength = () => {
-    // eslint-disable-next-line max-len
-    const sortedByLength = [...this.props.goodsList].sort((a, b) => a.length - b.length);
+    const { lengthToggle } = this.state;
 
-    this.setState({ list: sortedByLength });
+    this.handleSortLengthFirst = () => {
+      const sortedByLength = [...this.props.goodsList]
+        .sort((a, b) => a.length - b.length);
+
+      this.setState({
+        list: sortedByLength,
+        lengthToggle: false,
+      });
+    };
+
+    this.handleSortLengthSecond = () => {
+      const sortedByLengthBack = [...this.props.goodsList]
+        .sort((a, b) => b.length - a.length);
+
+      this.setState({
+        list: sortedByLengthBack,
+        lengthToggle: true,
+      });
+    };
+
+    lengthToggle ? this.handleSortLengthFirst() : this.handleSortLengthSecond();
   }
 
   handleSortAlphabetically = () => {
-    this.setState({ list: [...this.props.goodsList].sort() });
+    const { sortAlphabetically } = this.state;
+
+    this.sortAlphabeticallyFirst = () => {
+      this.setState({
+        list: [...this.props.goodsList].sort(),
+        sortAlphabetically: false,
+      });
+    };
+
+    this.sortAlphabeticallyReverse = () => {
+      this.setState({
+        list: [...this.props.goodsList].sort().reverse(),
+        sortAlphabetically: true,
+      });
+    };
+
+    sortAlphabetically
+      ? this.sortAlphabeticallyFirst()
+      : this.sortAlphabeticallyReverse();
   }
 
   handleReset = () => {
@@ -34,7 +73,7 @@ class ButtonsList extends React.Component {
   }
 
   render() {
-    const goodsArr = this.state.list;
+    const goodsArray = this.state.list;
 
     return (
       <>
@@ -67,7 +106,7 @@ class ButtonsList extends React.Component {
         </button>
 
         <select onChange={event => this.handleSelectChange(event.target.value)}>
-          {goodsArr.map((item, index) => (
+          {goodsArray.map((item, index) => (
             <option
               // eslint-disable-next-line react/no-array-index-key
               key={index}
