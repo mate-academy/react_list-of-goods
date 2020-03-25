@@ -1,6 +1,6 @@
 # React list of goods
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/)
-- Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://AnnieMarkina.github.io/react_list-of-goods/)
+- Follow the [React task guideline](https://github.com/AnnieMarkina/react_task-guideline#react-tasks-guideline)
 
 ## Task
 > Please write the numbers of implemented options in the Pull Request description (Implemented 1-7, or 1-3 and 5-7)
