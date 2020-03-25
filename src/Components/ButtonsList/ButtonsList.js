@@ -73,7 +73,7 @@ class ButtonsList extends React.Component {
   }
 
   render() {
-    const goodsArray = this.state.list;
+    const { list } = this.state;
 
     return (
       <>
@@ -81,35 +81,34 @@ class ButtonsList extends React.Component {
           type="button"
           onClick={this.handleClick}
         >
-        Reverse
+          Reverse
         </button>
 
         <button
           type="button"
           onClick={this.handleSortLength}
         >
-        Sort by length
+          Sort by length
         </button>
 
         <button
           type="button"
           onClick={this.handleSortAlphabetically}
         >
-        Sort alphabetically
+          Sort alphabetically
         </button>
 
         <button
           type="button"
           onClick={this.handleReset}
         >
-        Reset
+          Reset
         </button>
 
         <select onChange={event => this.handleSelectChange(event.target.value)}>
-          {goodsArray.map((item, index) => (
+          {list.map((item, index) => (
             <option
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
+              key={item}
               value={index}
             >
               {index + 1}

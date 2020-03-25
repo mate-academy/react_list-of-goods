@@ -13,11 +13,15 @@ class StartButton extends React.Component {
     }
 
     render() {
+      const { buttonVisible } = this.state;
+
       return (
         <>
-          {this.state.buttonVisible
-            ? <button type="button" onClick={this.handleClick}>Start</button>
-            : <SortingSection />}
+          {buttonVisible ? (
+            <button type="button" onClick={this.handleClick}>Start</button>
+          ) : (
+            <SortingSection />
+          )}
         </>
       );
     }
