@@ -9,6 +9,7 @@ class GoodsList extends Component {
     visibleStartBtn: true,
     visibleControlBtns: false,
     visibleSelect: false,
+    selectedLength: 1,
   };
 
   start = () => {
@@ -17,6 +18,7 @@ class GoodsList extends Component {
       visibleStartBtn: false,
       visibleControlBtns: true,
       visibleSelect: true,
+      selectedLength: 1,
     });
   };
 
@@ -47,11 +49,17 @@ class GoodsList extends Component {
       goodsList: [...this.props.goodsList.filter(good => (
         good.length >= length
       ))],
+      selectedLength: length,
     }));
   };
 
   render() {
-    const { visibleStartBtn, visibleControlBtns, visibleSelect } = this.state;
+    const {
+      visibleStartBtn,
+      visibleControlBtns,
+      visibleSelect,
+      selectedLength,
+    } = this.state;
 
     return (
       <section className="goods">
@@ -63,6 +71,7 @@ class GoodsList extends Component {
           ))}
         </ul>
         <Select
+          selectedLength={selectedLength}
           action={this.select}
           visible={visibleSelect}
         />
