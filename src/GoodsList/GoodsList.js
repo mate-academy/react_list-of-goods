@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './GoodsList.css';
+
+import { GoodsItem } from '../GoodsItem/GoodsItem';
+import { SelectLength } from '../SelectLength/SelectLength';
+
 export class GoodsList extends React.Component {
+  goodMinLength = 1;
+
   state = {
     hideList: true,
-    initialGoodsList: [...this.props.goodsList],
     goodsList: [...this.props.goodsList],
   }
 
@@ -15,49 +21,39 @@ export class GoodsList extends React.Component {
   }
 
   reverseList = () => {
-    this.state.goodsList.reverse();
-    this.setState({});
+    this.setState(({ goodsList }) => ({
+      goodsList: goodsList.reverse(),
+    }));
   }
 
   alphabetically = () => {
-    this.state.goodsList.sort((a, b) => (
-      a.localeCompare(b)
-    ));
-    this.setState({});
-  }
-
-  resetList = () => {
-    this.setState(prevState => ({
-      goodsList: [...prevState.initialGoodsList],
+    this.setState(({ goodsList }) => ({
+      goodsList: goodsList.sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   sortByLength = () => {
-    this.state.goodsList.sort((a, b) => (
-      a.length - b.length
-    ));
-    this.setState({});
-  }
-
-  filterByLength = (e) => {
-    e.preventDefault();
-
-    const length = document.getElementById('filterByLength').value;
-
-    this.setState({
-      initialGoodsList: this.props.goodsList.filter(good => (
-        good.length >= length
-      )),
-    });
-
-    this.setState(prevState => ({
-      goodsList: [...prevState.initialGoodsList],
+    this.setState(({ goodsList }) => ({
+      goodsList: goodsList.sort((a, b) => a.length - b.length),
     }));
   }
 
+  resetList = () => {
+    this.setState({
+      goodsList: this.props.goodsList.filter(good => (
+        good.length >= this.goodMinLength
+      )),
+    });
+  }
+
+  filterByLength = (e) => {
+    this.goodMinLength = +e.target.value;
+
+    this.resetList();
+  }
+
   render() {
-    const { goodsList } = this.state;
-    const { hideList } = this.state;
+    const { goodsList, hideList } = this.state;
 
     return (
       <div>
@@ -72,11 +68,7 @@ export class GoodsList extends React.Component {
         {!hideList && (
           <>
             <ul>
-              {goodsList.map(good => (
-                <li key={good}>
-                  {good}
-                </li>
-              ))}
+              <GoodsItem goodsList={goodsList} />
             </ul>
             <button
               type="button"
@@ -102,20 +94,9 @@ export class GoodsList extends React.Component {
             >
               Sort by length
             </button>
-            <br />
-            <form onSubmit={this.filterByLength}>
-              <input
-                id="filterByLength"
-                type="number"
-                min="1"
-                max="10"
-                defaultValue="1"
-                required
-              />
-              <button type="button">
-                Filter by length
-              </button>
-            </form>
+            <SelectLength
+              filterByLength={this.filterByLength}
+            />
           </>
         )}
       </div>
