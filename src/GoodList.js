@@ -11,6 +11,7 @@ class GoodList extends React.Component {
     sortLengthOpposite: false,
     isHidden: true,
     elements: [...this.props.elements],
+    defaultOptionValue: 1,
   }
 
   reverse = () => {
@@ -42,6 +43,7 @@ class GoodList extends React.Component {
 
     this.setState(() => ({
       elements: [...elements],
+      defaultOptionValue: 1,
     }));
   }
 
@@ -71,11 +73,12 @@ class GoodList extends React.Component {
       elements: [...elements.filter(element => (
         element.length >= this.maxLength
       ))],
+      defaultOptionValue: updateValue,
     }));
   }
 
   render() {
-    const { isHidden, elements } = this.state;
+    const { isHidden, elements, defaultOptionValue } = this.state;
     const selectOption = new Array(10).fill(0).map((el, i) => i + 1);
 
     return (
@@ -102,6 +105,7 @@ class GoodList extends React.Component {
               sortLength={this.sortLength}
             />
             <select
+              value={defaultOptionValue}
               onChange={this.sortSelectLength}
             >
               {selectOption.map(value => (
