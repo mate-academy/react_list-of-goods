@@ -1,0 +1,24 @@
+.app {
+  padding: 50px;
+  text-align: center;
+}
+
+.btn {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.btn-panel {
+  white-space: nowrap;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  max-width: 175px;
+  width: auto;
+}
+
+.list-group {
+  text-align: left;
+  width: 100%;
+}
