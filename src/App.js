@@ -67,9 +67,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <button type="button" onClick={this.showContent}>
-          Start
-        </button>
+        {!isVisible && (
+          <button type="button" onClick={this.showContent}>
+            Start
+          </button>
+        )}
         {
           isVisible
           && (
