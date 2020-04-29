@@ -15,25 +15,23 @@ class GoodList extends React.Component {
   }
 
   reverse = () => {
-    const { elements } = this.state;
-
-    this.setState(() => (
-      { elements: elements.reverse() }
+    this.setState(state => (
+      { elements: state.elements.reverse() }
     ));
   }
 
   sortAlph = () => {
-    const { elements, sortAlphOpposite } = this.state;
+    const { sortAlphOpposite } = this.state;
 
     if (!sortAlphOpposite) {
-      this.setState(() => ({
-        elements: elements.sort((a, b) => a.localeCompare(b)),
-        sortAlphOpposite: !sortAlphOpposite,
+      this.setState(state => ({
+        elements: state.elements.sort((a, b) => a.localeCompare(b)),
+        sortAlphOpposite: !state.sortAlphOpposite,
       }));
     } else {
-      this.setState(() => ({
-        elements: elements.sort((a, b) => b.localeCompare(a)),
-        sortAlphOpposite: !sortAlphOpposite,
+      this.setState(state => ({
+        elements: state.elements.sort((a, b) => b.localeCompare(a)),
+        sortAlphOpposite: !state.sortAlphOpposite,
       }));
     }
   }
@@ -48,32 +46,31 @@ class GoodList extends React.Component {
   }
 
   sortLength = () => {
-    const { elements, sortLengthOpposite } = this.state;
+    const { sortLengthOpposite } = this.state;
 
     if (!sortLengthOpposite) {
-      this.setState(() => ({
-        elements: elements.sort((a, b) => a.length - b.length),
-        sortLengthOpposite: !sortLengthOpposite,
+      this.setState(state => ({
+        elements: state.elements.sort((a, b) => a.length - b.length),
+        sortLengthOpposite: !state.sortLengthOpposite,
       }));
     } else {
-      this.setState(() => ({
-        elements: elements.sort((a, b) => b.length - a.length),
-        sortLengthOpposite: !sortLengthOpposite,
+      this.setState(state => ({
+        elements: state.elements.sort((a, b) => b.length - a.length),
+        sortLengthOpposite: !state.sortLengthOpposite,
       }));
     }
   }
 
   sortSelectLength = (e) => {
     const { elements } = this.props;
-    const updateValue = +e.target.value;
 
-    this.maxLength = updateValue;
+    this.maxLength = +e.target.value;
 
     this.setState(() => ({
       elements: [...elements.filter(element => (
         element.length >= this.maxLength
       ))],
-      defaultOptionValue: updateValue,
+      defaultOptionValue: this.maxLength,
     }));
   }
 
