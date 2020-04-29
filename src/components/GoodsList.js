@@ -5,9 +5,10 @@ class GoodsList extends React.Component {
   state = {
     isHidden: true,
     goods: [...this.props.goods],
-    options: [...Array(10).keys()].map(x => x + 1),
     defaultSelectValue: 1,
   }
+
+  options = [...Array(10).keys()].map(x => x + 1);
 
   reverse = () => {
     this.setState(state => ({
@@ -48,7 +49,7 @@ class GoodsList extends React.Component {
   }
 
   render() {
-    const { isHidden, goods, defaultSelectValue, options } = this.state;
+    const { isHidden, goods, defaultSelectValue } = this.state;
 
     return (
       <div>
@@ -102,7 +103,7 @@ class GoodsList extends React.Component {
                 onChange={this.sortBySelectedLength}
                 value={defaultSelectValue}
               >
-                {options.map(number => (
+                {this.options.map(number => (
                   <option
                     key={number}
                     value={number}
