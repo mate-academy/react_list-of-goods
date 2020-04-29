@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 class GoodList extends React.Component {
   state = {
     goods: [...this.props.goods],
-    count: 0,
+    count: 1,
+    toggle: true,
   }
 
   reverse = () => {
@@ -12,22 +13,36 @@ class GoodList extends React.Component {
   }
 
   sort = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
-    }));
+    this.setState(({ goods, toggle }) => (toggle
+      ? {
+        goods: [...goods].sort((a, b) => a.localeCompare(b)),
+        toggle: false,
+      }
+      : {
+        goods: [...goods].sort((a, b) => b.localeCompare(a)),
+        toggle: true,
+      }
+    ));
   }
 
   reset = () => {
     this.setState({
       goods: this.props.goods,
       count: 1,
+      toggle: true,
     });
   }
 
   sortLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.length - b.length),
-    }));
+    this.setState(({ goods, toggle }) => (toggle
+      ? {
+        goods: [...goods].sort((a, b) => a.length - b.length),
+        toggle: false,
+      }
+      : {
+        goods: [...goods].sort((a, b) => b.length - a.length),
+        toggle: true,
+      }));
   }
 
   selectGoodsLength = (len) => {
