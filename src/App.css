@@ -1,0 +1,76 @@
+body {
+  background-color: rgba(207,218, 236, 1);
+  color: #094d74;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-panel {
+  margin: 30px 0 40px;
+}
+
+button {
+  border-style: none;
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  padding: 15px 30px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 40px 40px #759cd8 inset, 0 0 0 0 #759cd8;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: white;
+  transition: all 0.15s ease-in-out;
+}
+
+button:hover {
+  box-shadow: 0 0 10px 0 #759cd8 inset, 0 0 10px 4px #759cd8;
+  color: #759cd8;
+}
+
+ul {
+  background-color: rgba(238, 240, 246, 1);
+  width: 400px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0  #759cd8;
+}
+
+li {
+  list-style: none;
+  font-size: 24px;
+  padding: 15px 0;
+}
+
+.select-btn {
+  font-weight: bold;
+  padding: 15px 30px;
+  letter-spacing: 2px;
+  color: white;
+  font-size: 16px;
+  font-family: sans-serif;
+  line-height: 1.3;
+  border-radius: 10px;
+  box-shadow: 0 0 40px 40px  #759cd8 inset, 0 0 0 0 #759cd8;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.select-btn:hover {
+  box-shadow: 0 0 10px 0 #759cd8 inset, 0 0 10px 4px #759cd8;
+  color: #759cd8;
+}
+
+.select-btn:focus {
+  outline: none;
+}
+
+.select-btn option {
+  font-weight: normal;
+  color: #759cd8;
+}
