@@ -17,9 +17,9 @@ export class GoodsList extends React.Component {
   ));
 
   reverse = () => {
-    this.setState({
-      goods: [...this.props.goods].reverse(),
-    });
+    this.setState(prev => (
+      { goods: [...prev.goods].reverse(), }
+    ));
   }
 
   sortAlphabetically = () => {
