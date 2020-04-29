@@ -15,7 +15,7 @@ class GoodsList extends React.Component {
 
   alphabeticallySort = () => {
     this.setState(({ goodsList }) => ({
-      goodsList: goodsList.sort((a, b) => a.localeCompare(b)),
+      goodsList: [...goodsList].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
@@ -35,10 +35,10 @@ class GoodsList extends React.Component {
   filterBySelectedLength = (event) => {
     const { value } = event.target;
 
-    this.setState(({ goodsList }) => ({
-      goodsList: [...goodsList].filter(good => good.length >= value),
+    this.setState({
+      goodsList: this.props.goodsList.filter(good => good.length >= value),
       minLengthOfGood: value,
-    }));
+    });
   }
 
   render() {

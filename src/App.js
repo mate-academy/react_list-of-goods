@@ -20,6 +20,12 @@ class App extends React.Component {
     button: true,
   }
 
+  clickToStart = () => {
+    this.setState({
+      button: false,
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -28,11 +34,7 @@ class App extends React.Component {
           ? (
             <button
               type="button"
-              onClick={() => {
-                this.setState(() => ({
-                  button: false,
-                }));
-              }}
+              onClick={this.clickToStart}
             >
               Start
             </button>
