@@ -32,31 +32,31 @@ class App extends PureComponent {
 
   reverse = () => {
     this.setState(state => ({
-      goodsList: [...state.goodsList.reverse()],
+      goodsList: [...state.goodsList].reverse(),
     }));
   };
 
   sortAlphabetically = () => {
     this.setState(state => ({
-      goodsList: [...state.goodsList.sort((a, b) => (
+      goodsList: [...state.goodsList].sort((a, b) => (
         a.localeCompare(b)
-      ))],
+      )),
     }));
   };
 
   sortByLength = () => {
     this.setState(state => ({
-      goodsList: [...state.goodsList.sort((a, b) => (
+      goodsList: [...state.goodsList].sort((a, b) => (
         a.length - b.length
-      ))],
+      )),
     }));
   };
 
   select = (length) => {
     this.setState(state => ({
-      goodsList: [...goodsFromServer.filter(good => (
+      goodsList: goodsFromServer.filter(good => (
         good.length >= length
-      ))],
+      )),
       selectedLength: length,
     }));
   };
