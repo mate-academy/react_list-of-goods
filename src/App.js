@@ -22,6 +22,7 @@ class App extends Component {
   state = {
     start: true,
     goods: goodsFromServer,
+    defaultValue: 1,
   }
 
   startChangePage = () => this.setState({ start: false });
@@ -38,6 +39,7 @@ class App extends Component {
 
   resetGoodsList = () => this.setState(() => ({
     goods: goodsFromServer,
+    defaultValue: 1,
   }))
 
   sortByLengthGoodsList = () => {
@@ -53,6 +55,7 @@ class App extends Component {
 
     return this.setState({
       goods: goodsFromServer.filter(item => item.length >= +target.value),
+      defaultValue: +target.value,
     });
   };
 
@@ -70,53 +73,44 @@ class App extends Component {
         )}
 
         {!this.state.start
-        && <GoodsList list={this.state.goods} />}
-        {!this.state.start
         && (
-          <button
-            type="button"
-            onClick={this.reverseGoodsList}
-          >
-            Reverse
-          </button>
-        )}
+          <>
+            <GoodsList list={this.state.goods} />
 
-        {!this.state.start
-        && (
-          <button
-            type="button"
-            onClick={this.sortGoodsList}
-          >
-            Sort
-          </button>
-        )}
+            <button
+              type="button"
+              onClick={this.reverseGoodsList}
+            >
+              Reverse
+            </button>
 
-        {!this.state.start
-        && (
-          <button
-            type="button"
-            onClick={this.resetGoodsList}
-          >
-            Reset
-          </button>
-        )}
+            <button
+              type="button"
+              onClick={this.sortGoodsList}
+            >
+              Sort
+            </button>
 
-        {!this.state.start
-        && (
-          <button
-            type="button"
-            onClick={this.sortByLengthGoodsList}
-          >
-            Sort by length
-          </button>
-        )}
+            <button
+              type="button"
+              onClick={this.resetGoodsList}
+            >
+              Reset
+            </button>
 
-        {!this.state.start
-        && (
-          <SelectList
-            numbers={numbers}
-            callback={this.selectGoodsList}
-          />
+            <button
+              type="button"
+              onClick={this.sortByLengthGoodsList}
+            >
+              Sort by length
+            </button>
+
+            <SelectList
+              numbers={numbers}
+              callback={this.selectGoodsList}
+              value={this.state.defaultValue}
+            />
+          </>
         )}
       </div>
     );
