@@ -40,7 +40,12 @@ class Start extends React.PureComponent {
   }
 
   handleReset = () => {
-    this.setState({ goods: [...this.props.goods] });
+    this.setState(({ goods, selectedWordLength }) => (
+      {
+        goods: [...this.props.goods],
+        selectedWordLength: 1,
+      }
+    ));
   }
 
   handleDefineLength = (event) => {
