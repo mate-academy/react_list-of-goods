@@ -1,0 +1,24 @@
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+button,
+select {
+  width: auto;
+  border-radius: 4px;
+  border: 1px solid grey;
+  padding: 8px;
+  margin: 4px;
+}
+
+ul {
+  list-style-type: none;
+
+}
+
+li {
+  padding: 8px;
+  border: 1px solid darkgrey;
+  border-radius: 3px;
+}
