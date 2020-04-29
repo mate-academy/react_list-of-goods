@@ -17,7 +17,7 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     copyGoods: [...goodsFromServer],
-    isHiddenToggle: true,
+    isHiddenToggle: false,
     alphabetically: true,
     length: true,
     selectValue: 1,
