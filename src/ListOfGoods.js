@@ -10,25 +10,22 @@ class ListOfGoods extends React.Component {
 
   reverseArr = () => {
     this.setState(prevState => ({
-      goods: prevState.goods
-        .reverse()
-        .filter(good => (good.length <= prevState.maxLength)),
+      goods: [...prevState.goods]
+        .reverse(),
     }));
   }
 
   alphabetSort = () => {
     this.setState(prevState => ({
-      goods: prevState.goods
-        .sort()
-        .filter(good => (good.length <= prevState.maxLength)),
+      goods: [...prevState.goods]
+        .sort(),
     }));
   }
 
   lengthSort = () => {
     this.setState(prevState => ({
-      goods: prevState.goods
-        .sort((a, b) => (a.length - b.length))
-        .filter(good => (good.length <= prevState.maxLength)),
+      goods: [...prevState.goods]
+        .sort((a, b) => (a.length - b.length)),
     }));
   }
 
@@ -40,11 +37,13 @@ class ListOfGoods extends React.Component {
   }
 
   selectChange = (event) => {
-    this.setState({
-      maxLength: event.target.value,
-      goods: [...this.props.goods]
-        .filter(good => (good.length <= event.target.value)),
-    });
+    const { value } = event.target;
+
+    this.setState(prevState => ({
+      maxLength: value,
+      goods: prevState.goods
+        .filter(good => (good.length <= value)),
+    }));
   }
 
   render() {
