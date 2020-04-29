@@ -76,7 +76,10 @@ class Start extends React.PureComponent {
           Sort by Length
         </button>
         <button type="button" onClick={this.handleReset}>Reset</button>
-        <select onChange={this.handleDefineLength}>
+        <select
+          onChange={this.handleDefineLength}
+          value={selectedWordLength}
+        >
           {wordLength.map((el, index) => (
             <option key={el}>{index + 1}</option>
           ))}
