@@ -48,8 +48,8 @@ export class GoodsList extends Component {
     const { value } = event.target;
 
     this.setState(({ goods }) => ({
-      goods: [...goods].filter(el => el.length >= value),
       select: value,
+      goods: [...goods].filter(el => el.length >= value),
     }));
   }
 
@@ -63,6 +63,7 @@ export class GoodsList extends Component {
 
   render() {
     const { active } = this.props;
+    const selectedOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
       <>
@@ -92,16 +93,9 @@ export class GoodsList extends Component {
             value={this.state.select}
             onChange={this.sortBySelectedLength}
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            {selectedOptions.map(value => (
+              <option key={value} value={value}>{value}</option>
+            ))}
           </select>
           <button
             type="button"
