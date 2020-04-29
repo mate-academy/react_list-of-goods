@@ -31,8 +31,8 @@ class GoodList extends React.Component {
 
   resetAll = () => {
     this.setState(prevState => ({
+      goods: [...prevState.startingGoods],
       length: 1,
-      goods: prevState.startingGoods,
     }));
   }
 
