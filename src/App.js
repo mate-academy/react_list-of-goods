@@ -29,7 +29,7 @@ class App extends React.Component {
     return (
       <div className="App">
         {startButtonClicked
-          ? <GoodsList goods={goodsFromServer} />
+          ? <GoodsList goods={this.state.goodsCopy} />
           : (
             <button
               type="button"
@@ -51,7 +51,19 @@ class GoodsList extends React.Component {
 
   ReverseGoods = () => {
     this.setState(({ goodsCopy }) => ({
-      goodsCopy: goodsCopy.reverse(),
+      goodsCopy: [...goodsCopy].reverse(),
+    }));
+  }
+
+  SortGoods = () => {
+    this.setState(({ goodsCopy }) => ({
+      goodsCopy: [...goodsCopy].sort(),
+    }));
+  }
+
+  ResetGoods = () => {
+    this.setState(() => ({
+      goodsCopy: [...goodsFromServer],
     }));
   }
 
@@ -66,6 +78,18 @@ class GoodsList extends React.Component {
           onClick={this.ReverseGoods}
         >
           Reverse Goods
+        </button>
+        <button
+          type="button"
+          onClick={this.SortGoods}
+        >
+          Sort Goods
+        </button>
+        <button
+          type="button"
+          onClick={this.ResetGoods}
+        >
+          Reset Goods
         </button>
         <ul className="list">
           {listOfGoods.map(good => (
