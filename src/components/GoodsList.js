@@ -37,15 +37,10 @@ class GoodsList extends React.Component {
     }));
   }
 
-  sortBySelectedLength = (event) => {
-    const { value } = event.target;
-
-    this.setState(
-      {
-        goods: this.props.goods.filter(item => item.length >= value),
-        defaultSelectValue: value,
-      },
-    );
+  setSelectValue = (event) => {
+    this.setState({
+      defaultSelectValue: event.target.value,
+    });
   }
 
   render() {
@@ -69,11 +64,13 @@ class GoodsList extends React.Component {
           && (
             <>
               <ul>
-                {goods.map(item => (
-                  <li key={item}>
-                    {item}
-                  </li>
-                ))}
+                {goods
+                  .filter(item => item.length >= defaultSelectValue)
+                  .map(item => (
+                    <li key={item}>
+                      {item}
+                    </li>
+                  ))}
               </ul>
               <button
                 type="button"
@@ -100,7 +97,7 @@ class GoodsList extends React.Component {
                 Sort by length
               </button>
               <select
-                onChange={this.sortBySelectedLength}
+                onChange={this.setSelectValue}
                 value={defaultSelectValue}
               >
                 {this.options.map(number => (
