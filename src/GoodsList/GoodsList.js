@@ -22,19 +22,19 @@ export class GoodsList extends React.Component {
 
   reverseList = () => {
     this.setState(({ goodsList }) => ({
-      goodsList: goodsList.reverse(),
+      goodsList: [...goodsList].reverse(),
     }));
   }
 
   alphabetically = () => {
     this.setState(({ goodsList }) => ({
-      goodsList: goodsList.sort((a, b) => a.localeCompare(b)),
+      goodsList: [...goodsList].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   sortByLength = () => {
     this.setState(({ goodsList }) => ({
-      goodsList: goodsList.sort((a, b) => a.length - b.length),
+      goodsList: [...goodsList].sort((a, b) => a.length - b.length),
     }));
   }
 
