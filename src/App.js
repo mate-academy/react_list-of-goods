@@ -20,16 +20,10 @@ class App extends React.Component {
     isActiveButton: false,
   }
 
-  showContent = () => {
-    this.setState({
-      isActiveButton: true,
-    });
-  }
-
-  hideContent = () => {
-    this.setState({
-      isActiveButton: false,
-    });
+  handleToggle = () => {
+    this.setState(state => ({
+      isActiveButton: !state.isActiveButton,
+    }));
   }
 
   render() {
@@ -44,7 +38,7 @@ class App extends React.Component {
         <div className="goods">
           {isActiveButton ? (
             <>
-              <button type="button" onClick={this.hideContent}>Hide</button>
+              <button type="button" onClick={this.handleToggle}>Hide</button>
               <div className="list">
                 <GoodsList
                   goods={goodsFromServer}
@@ -54,7 +48,7 @@ class App extends React.Component {
             </>
           ) : (
             <>
-              <button type="button" onClick={this.showContent}>Show</button>
+              <button type="button" onClick={this.handleToggle}>Show</button>
               <div className="list">
                 <GoodsList
                   goods={goodsFromServer}

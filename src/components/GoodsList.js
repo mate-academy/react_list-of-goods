@@ -19,12 +19,12 @@ export class GoodsList extends Component {
   sortAlphabet = () => {
     if (this.state.isSortedA === 1) {
       this.setState(({ goods }) => ({
-        goods: [...goods].sort((a, b) => (a < b ? 1 : -1)),
+        goods: [...goods].sort((a, b) => b.localeCompare(a)),
         isSortedA: 0,
       }));
     } else {
       this.setState(({ goods }) => ({
-        goods: [...goods].sort((a, b) => (a > b ? 1 : -1)),
+        goods: [...goods].sort((a, b) => a.localeCompare(b)),
         isSortedA: 1,
       }));
     }
@@ -47,10 +47,10 @@ export class GoodsList extends Component {
   sortBySelectedLength = (event) => {
     const { value } = event.target;
 
-    this.setState(({ goods }) => ({
+    this.setState({
       select: value,
-      goods: [...goods].filter(el => el.length >= value),
-    }));
+      goods: this.props.goods.filter(el => el.length >= value),
+    });
   }
 
   handleReset = () => {
@@ -68,8 +68,8 @@ export class GoodsList extends Component {
     return (
       <>
         <ul className={active ? 'showIn' : 'showOut'}>
-          {this.state.goods.map(g => (
-            <li key={g}>{g}</li>
+          {this.state.goods.map(good => (
+            <li key={good}>{good}</li>
           ))}
           <button
             type="button"
