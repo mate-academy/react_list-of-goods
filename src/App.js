@@ -95,7 +95,6 @@ class App extends React.Component {
             Goods
           </h1>
           <select
-            value={9}
             onChange={event => this.setState({ length: event.target.value })}
           >
             {indexOfGoods.map(index => (
