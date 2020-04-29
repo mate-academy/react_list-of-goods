@@ -12,13 +12,8 @@ class GoodsList extends React.Component {
 
   reverse = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.reverse().filter(good => prevState.goods.indexOf(good) < this.state.numberOfSelectedPoints),
-    }));
-  }
-
-  sorAlphabetically = () => {
-    this.setState(prevState => ({
-      goods: prevState.goods.sort().filter(good => prevState.goods.indexOf(good) < this.state.numberOfSelectedPoints),
+      goods: [...prevState.goods]
+        .reverse(),
     }));
   }
 
@@ -32,7 +27,8 @@ class GoodsList extends React.Component {
 
   sortByLength = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.length - b.length).filter(good => prevState.goods.indexOf(good) < this.state.numberOfSelectedPoints),
+      goods: [...prevState.goods]
+        .sort((a, b) => a.length - b.length),
     }));
   }
 
@@ -44,23 +40,32 @@ class GoodsList extends React.Component {
   }
 
   render() {
-    const { goods } = this.state;
-    const { defaultValue } = this.state;
+    const { goods, defaultValue } = this.state;
+
+    const sorAlphabetically = () => {
+      this.setState(prevState => ({
+        goods: [...prevState.goods]
+          .sort(),
+      }));
+    };
 
     return (
       <>
         <ul>
-          {goods.filter(good => goods.indexOf(good) < this.state.numberOfSelectedPoints).map(good => (
-            <li key={good}>{good}</li>
-          ))}
+          {goods
+            .filter(good => goods
+              .indexOf(good) < this.state.numberOfSelectedPoints)
+            .map(good => (
+              <li key={good}>{good}</li>
+            ))}
         </ul>
         <Button
           reset={this.reset}
           sortByLength={this.sortByLength}
-          sorAlphabetically={this.sorAlphabetically}
+          sorAlphabetically={sorAlphabetically}
           reverse={this.reverse}
         />
-        <Selcted selected={this.selected} defaultValue={defaultValue}/>
+        <Selcted selected={this.selected} defaultValue={defaultValue} />
       </>
     );
   }

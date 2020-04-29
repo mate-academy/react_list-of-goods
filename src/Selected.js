@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Selected = ({ selected, defaultValue }) => (
-  <select value={defaultValue}
+  <select
+    value={defaultValue}
     onChange={event => selected(event.target.value)}
   >
     {Array(10)
@@ -15,6 +16,7 @@ const Selected = ({ selected, defaultValue }) => (
 
 Selected.propTypes = {
   selected: PropTypes.func.isRequired,
+  defaultValue: PropTypes.number.isRequired,
 };
 
 export default Selected;
