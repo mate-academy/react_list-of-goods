@@ -21,6 +21,7 @@ class App extends React.Component {
     alphabetically: true,
     length: true,
     selectValue: 1,
+    selects: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   isHidden = () => (
@@ -34,7 +35,7 @@ class App extends React.Component {
   reverse = () => (
     this.setState(prevState => (
       {
-        copyGoods: prevState.copyGoods.reverse(),
+        copyGoods: [...prevState.copyGoods].reverse(),
       }
     ))
   );
@@ -43,8 +44,8 @@ class App extends React.Component {
     this.setState(prevState => (
       {
         copyGoods: prevState.alphabetically
-          ? prevState.copyGoods.sort((a, b) => a.localeCompare(b))
-          : prevState.copyGoods.sort((a, b) => b.localeCompare(a)),
+          ? [...prevState.copyGoods].sort((a, b) => a.localeCompare(b))
+          : [...prevState.copyGoods].sort((a, b) => b.localeCompare(a)),
       }
     ));
     this.setState(prevState => (
@@ -67,8 +68,8 @@ class App extends React.Component {
     this.setState(prevState => (
       {
         copyGoods: prevState.length
-          ? prevState.copyGoods.sort((a, b) => a.length - b.length)
-          : prevState.copyGoods.sort((a, b) => b.length - a.length),
+          ? [...prevState.copyGoods].sort((a, b) => a.length - b.length)
+          : [...prevState.copyGoods].sort((a, b) => b.length - a.length),
       }
     ));
     this.setState(prevState => (
@@ -93,6 +94,7 @@ class App extends React.Component {
       copyGoods,
       isHiddenToggle,
       selectValue,
+      selects,
     } = this.state;
 
     return (
@@ -120,16 +122,9 @@ class App extends React.Component {
           Length
         </button>
         <select value={selectValue} onChange={this.selectLength}>
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-          <option value={7}>7</option>
-          <option value={8}>8</option>
-          <option value={9}>9</option>
-          <option value={10}>10</option>
+          {selects.map(option => (
+            <option key={option} value={option}>{option}</option>
+          ))}
         </select>
       </div>
     );
