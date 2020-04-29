@@ -33,21 +33,22 @@ class GoodsList extends React.Component {
   }
 
   filterBySelectedLength = (event) => {
-    const { value } = event.target;
-
     this.setState({
-      goodsList: this.props.goodsList.filter(good => good.length >= value),
-      minLengthOfGood: value,
+      minLengthOfGood: event.target.value,
     });
   }
 
   render() {
+    const { goodsList, minLengthOfGood } = this.state;
+
     return (
       <>
         <ul>
-          {this.state.goodsList.map(good => (
-            <li key={good}>{good}</li>
-          ))}
+          {goodsList
+            .filter(good => good.length >= minLengthOfGood)
+            .map(good => (
+              <li key={good}>{good}</li>
+            ))}
         </ul>
         <button type="button" onClick={this.reverse}>
           Reverse
