@@ -30,7 +30,7 @@ GoodList.propTypes = {
 
 class App extends React.Component {
   state = {
-    goodsArr: goodsFromServer,
+    goodsArr: [...goodsFromServer],
     visible: false,
     chooseSelect: 1,
   }
@@ -43,7 +43,7 @@ class App extends React.Component {
 
   reverseClick = () => {
     this.setState(state => ({
-      goodsArr: state.goodsArr.reverse(),
+      goodsArr: [...state.goodsArr].reverse(),
     }));
   }
 
@@ -56,7 +56,7 @@ class App extends React.Component {
   resetClick = () => {
     this.setState({
       chooseSelect: 1,
-      goodsArr: goodsFromServer,
+      goodsArr: [...goodsFromServer],
     });
   }
 
@@ -123,7 +123,7 @@ class App extends React.Component {
                 className="btn btn-warning form-control"
               >
                 {limitLetter.map(option => (
-                  <option value={option}>{option}</option>
+                  <option key={option} value={option}>{option}</option>
                 ))}
               </select>
             </div>
