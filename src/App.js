@@ -98,7 +98,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {goodsFromServer.length}
+        {copyGoods.length}
         {isHiddenToggle && copyGoods.map(good => (
           <div key={good}>
             {good}
