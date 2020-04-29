@@ -67,26 +67,6 @@ class GoodsList extends React.Component {
             ))}
           </select>
         </div>
-        {/* <button type="button" onClick={this.reverseList}>
-          Reverse
-        </button>
-        <button type="button" onClick={this.sortAlphabetically}>
-          Sort
-        </button>
-        <button type="button" onClick={this.resetState}>
-          Reset
-        </button>
-        <button type="button" onClick={this.lengthSort}>
-          Sort by Length
-        </button>
-        <select
-          value={this.state.selectValue}
-          onChange={element => this.selectLength(element.target.value)}
-        >
-          {lengthLimit.map(num => (
-            <option key={num}>{num + 1}</option>
-          ))}
-        </select> */}
         <ul>
           {this.state.goodsList.map(good => (
             <li key={good}>
