@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Selected = ({ selected }) => (
-  <select
+const Selected = ({ selected, defaultValue }) => (
+  <select value={defaultValue}
     onChange={event => selected(event.target.value)}
   >
     {Array(10)

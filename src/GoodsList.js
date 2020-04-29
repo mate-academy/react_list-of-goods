@@ -7,6 +7,7 @@ class GoodsList extends React.Component {
   state = {
     goods: [...this.props.goodsFromServer],
     numberOfSelectedPoints: 10,
+    defaultValue: 1,
   }
 
   reverse = () => {
@@ -25,6 +26,7 @@ class GoodsList extends React.Component {
     this.setState({
       goods: [...this.props.goodsFromServer],
       numberOfSelectedPoints: 10,
+      defaultValue: 1,
     });
   }
 
@@ -37,6 +39,7 @@ class GoodsList extends React.Component {
   selected = (value) => {
     this.setState({
       numberOfSelectedPoints: value,
+      defaultValue: value,
     });
   }
 
@@ -57,7 +60,7 @@ class GoodsList extends React.Component {
           sorAlphabetically={this.sorAlphabetically}
           reverse={this.reverse}
         />
-        <Selcted selected={this.selected} />
+        <Selcted selected={this.selected} defaultValue={defaultValue}/>
       </>
     );
   }
