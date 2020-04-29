@@ -20,7 +20,7 @@ class App extends React.Component {
     isExpanded: true,
   }
 
-  handleExpand() {
+  handleExpand = () => {
     this.setState(state => ({
       isExpanded: !state.isExpanded,
     }));
@@ -34,7 +34,7 @@ class App extends React.Component {
         <h1>Goods</h1>
         <button
           type="button"
-          onClick={() => this.handleExpand()}
+          onClick={this.handleExpand}
         >
           {isExpanded ? 'Close' : 'Start'}
         </button>
