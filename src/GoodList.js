@@ -15,9 +15,11 @@ class GoodList extends React.Component {
   }
 
   reverse = () => {
-    this.setState(state => (
-      { elements: state.elements.reverse() }
-    ));
+    this.setState(state => ({
+      elements: [...state.elements.reverse()],
+      sortAlphOpposite: !state.sortAlphOpposite,
+      sortLengthOpposite: !state.sortLengthOpposite,
+    }));
   }
 
   sortAlph = () => {
@@ -25,12 +27,12 @@ class GoodList extends React.Component {
 
     if (!sortAlphOpposite) {
       this.setState(state => ({
-        elements: state.elements.sort((a, b) => a.localeCompare(b)),
+        elements: [...state.elements.sort((a, b) => a.localeCompare(b))],
         sortAlphOpposite: !state.sortAlphOpposite,
       }));
     } else {
       this.setState(state => ({
-        elements: state.elements.sort((a, b) => b.localeCompare(a)),
+        elements: [...state.elements.sort((a, b) => b.localeCompare(a))],
         sortAlphOpposite: !state.sortAlphOpposite,
       }));
     }
@@ -50,12 +52,12 @@ class GoodList extends React.Component {
 
     if (!sortLengthOpposite) {
       this.setState(state => ({
-        elements: state.elements.sort((a, b) => a.length - b.length),
+        elements: [...state.elements.sort((a, b) => a.length - b.length)],
         sortLengthOpposite: !state.sortLengthOpposite,
       }));
     } else {
       this.setState(state => ({
-        elements: state.elements.sort((a, b) => b.length - a.length),
+        elements: [...state.elements.sort((a, b) => b.length - a.length)],
         sortLengthOpposite: !state.sortLengthOpposite,
       }));
     }
@@ -67,9 +69,9 @@ class GoodList extends React.Component {
     this.maxLength = +e.target.value;
 
     this.setState(() => ({
-      elements: [...elements.filter(element => (
+      elements: elements.filter(element => (
         element.length >= this.maxLength
-      ))],
+      )),
       defaultOptionValue: this.maxLength,
     }));
   }
