@@ -118,5 +118,5 @@ export class GoodsList extends Component {
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
-  active: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired,
 };
