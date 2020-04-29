@@ -32,11 +32,9 @@ class GoodsList extends React.Component {
     }));
   }
 
-  selectLength = (value) => {
+  selectLength = (event) => {
     this.setState({
-      selectValue: value,
-      goodsList: this.props.goodsList
-        .filter(element => element.length >= value),
+      selectValue: event.target.value,
     });
   }
 
@@ -60,7 +58,7 @@ class GoodsList extends React.Component {
           </button>
           <select
             value={this.state.selectValue}
-            onChange={element => this.selectLength(element.target.value)}
+            onChange={this.selectLength}
           >
             {lengthLimit.map(num => (
               <option key={num}>{num + 1}</option>
@@ -68,11 +66,13 @@ class GoodsList extends React.Component {
           </select>
         </div>
         <ul>
-          {this.state.goodsList.map(good => (
-            <li key={good}>
-              {good}
-            </li>
-          ))}
+          {this.state.goodsList
+            .filter(element => element.length >= this.state.selectValue)
+            .map(good => (
+              <li key={good}>
+                {good}
+              </li>
+            ))}
         </ul>
       </>
     );
