@@ -5,27 +5,34 @@ class GoodsList extends React.Component {
   state = {
     isHidden: true,
     goods: [...this.props.goods],
+    options: [...Array(10).keys()].map(x => x + 1),
+    defaultSelectValue: 1,
   }
 
   reverse = () => {
     this.setState(state => ({
-      goods: state.goods.reverse(),
+      goods: [...state.goods].reverse(),
     }));
   }
 
   sortByAlph = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.localeCompare(b)),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   reset = () => {
-    this.setState({ goods: [...this.props.goods] });
+    this.setState(
+      {
+        goods: [...this.props.goods],
+        defaultSelectValue: 1,
+      },
+    );
   }
 
   sortByLength = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.length - b.length),
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
@@ -33,13 +40,15 @@ class GoodsList extends React.Component {
     const { value } = event.target;
 
     this.setState(
-      { goods: this.props.goods.filter(item => item.length >= value) },
+      {
+        goods: this.props.goods.filter(item => item.length >= value),
+        defaultSelectValue: value,
+      },
     );
   }
 
   render() {
-    const { isHidden, goods } = this.state;
-    const options = Array.from(Array(10), (e, i) => i + 1);
+    const { isHidden, goods, defaultSelectValue, options } = this.state;
 
     return (
       <div>
@@ -91,6 +100,7 @@ class GoodsList extends React.Component {
               </button>
               <select
                 onChange={this.sortBySelectedLength}
+                value={defaultSelectValue}
               >
                 {options.map(number => (
                   <option
