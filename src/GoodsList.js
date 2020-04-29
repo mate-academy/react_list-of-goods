@@ -35,11 +35,11 @@ class GoodsList extends React.Component {
     }));
   }
 
-  handleFilterByLength = (value) => {
+  handleFilterByLength = (e) => {
     this.setState({
       goodsList: this.props.goodsList
-        .filter(item => item.length >= value),
-      selectValue: value,
+        .filter(item => item.length >= e.target.value),
+      selectValue: e.target.value,
     });
   }
 
@@ -82,7 +82,7 @@ class GoodsList extends React.Component {
         </label>
         <select
           value={this.state.selectValue}
-          onChange={e => this.handleFilterByLength(e.target.value)}
+          onChange={this.handleFilterByLength}
           id="goods"
         >
           {this.state.lengthsList.map(item => (
