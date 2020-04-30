@@ -42,6 +42,7 @@ class App extends React.Component {
   reset = () => {
     this.setState(state => ({
       goods: goodsFromServer,
+      select: 1,
     }));
   }
 
