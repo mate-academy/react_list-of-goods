@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './App.css';
 import GoodList from './GoodList';
 
@@ -17,7 +18,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     isVisible: false,
     select: 1,
   }
