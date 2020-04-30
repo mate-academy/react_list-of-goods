@@ -22,6 +22,7 @@ class App extends React.Component {
     sortedAlp: false,
     sortedLen: false,
     selectValue: 1,
+    options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   showBasket = () => {
@@ -32,7 +33,7 @@ class App extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      goods: state.goods.reverse(),
+      goods: [...state.goods].reverse(),
     }));
   };
 
@@ -40,13 +41,13 @@ class App extends React.Component {
     this.setState((state) => {
       if (!state.sortedAlp) {
         return {
-          goods: state.goods.sort(),
+          goods: [...state.goods].sort(),
           sortedAlp: !state.sortedAlp,
         };
       }
 
       return {
-        goods: state.goods.sort().reverse(),
+        goods: [...state.goods].sort().reverse(),
         sortedAlp: !state.sortedAlp,
       };
     });
@@ -65,13 +66,13 @@ class App extends React.Component {
     this.setState((state) => {
       if (!state.sortedLen) {
         return {
-          goods: state.goods.sort((a, b) => a.length - b.length),
+          goods: [...state.goods].sort((a, b) => a.length - b.length),
           sortedLen: !state.sortedLen,
         };
       }
 
       return {
-        goods: state.goods.sort((a, b) => b.length - a.length),
+        goods: [...state.goods].sort((a, b) => b.length - a.length),
         sortedLen: !state.sortedLen,
       };
     });
@@ -88,7 +89,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { goods, bool, selectValue } = this.state;
+    const { goods, bool, selectValue, options } = this.state;
 
     return (
       <div className="App">
@@ -163,25 +164,9 @@ class App extends React.Component {
               { hide: !this.state.bool },
             )}
         >
-          <option value={1}>1</option>
-
-          <option value={2}>2</option>
-
-          <option value={3}>3</option>
-
-          <option value={4}>4</option>
-
-          <option value={5}>5</option>
-
-          <option value={6}>6</option>
-
-          <option value={7}>7</option>
-
-          <option value={8}>8</option>
-
-          <option value={9}>9</option>
-
-          <option value={10}>10</option>
+          {options.map(option => (
+            <option key={option} value={option}>{option}</option>
+          ))}
         </select>
 
         <ul className="list">
