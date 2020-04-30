@@ -31,11 +31,10 @@ class App extends React.Component {
   }
 
   limitByWordLength = (event) => {
-    const maxWordLength = event.target.value;
+    const selectedLength = event.target.value;
 
     this.setState({
-      wordMaxLength: maxWordLength,
-      goodsList: goodsFromServer.filter(item => item.length >= maxWordLength),
+      wordMaxLength: selectedLength,
     });
   }
 
@@ -75,7 +74,11 @@ class App extends React.Component {
       <div className="App">
         <h1>Goods</h1>
         <h2>{goodsFromServer.length}</h2>
-        <GoodsList visibility={isVisible} goodsList={goodsList} />
+        <GoodsList
+          visibility={isVisible}
+          goodsList={goodsList}
+          wordMaxLength={wordMaxLength}
+        />
         <button
           type="button"
           hidden={isVisible}
@@ -125,9 +128,11 @@ class App extends React.Component {
   }
 }
 
-const GoodsList = ({ visibility, goodsList }) => (
+const GoodsList = ({ visibility, goodsList, wordMaxLength }) => (
   <ul hidden={!visibility}>
-    {goodsList.map(itemName => <Item key={itemName} item={itemName} />)}
+    {goodsList
+      .filter(itemName => itemName.length >= wordMaxLength)
+      .map(item => <Item key={item} item={item} />)}
   </ul>
 );
 
@@ -137,6 +142,7 @@ const Item = ({ item }) => (
 
 GoodsList.propTypes = {
   visibility: PropTypes.bool.isRequired,
+  wordMaxLength: PropTypes.number.isRequired,
   goodsList: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ).isRequired,
