@@ -9,13 +9,13 @@ class GoodsList extends React.Component {
 
   listReverse = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.reverse(),
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
   sortByAlphabets = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort(),
+      goods: [...prevState.goods].sort(),
     }));
   }
 
@@ -28,19 +28,12 @@ class GoodsList extends React.Component {
 
   sortByLength = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.length - b.length),
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
   selectLength = (e) => {
-    const wordLength = e.target.value;
-
-    this.setState(prevState => ({
-      maxWordLength: wordLength,
-      goods: prevState.goods.filter(word => (
-        word.length <= wordLength
-      )),
-    }));
+    this.setState({ maxWordLength: e.target.value });
   }
 
   render() {
