@@ -8,40 +8,39 @@ class GoodList extends React.Component {
   state = {
     goods: [...this.props.goodList],
     length: 1,
-    startingGoods: [...this.props.goodList],
   }
 
   reverse = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.reverse(),
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
   sortOnAlphabet = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort(),
+      goods: [...prevState.goods].sort(),
     }));
   }
 
   sortOnLength = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.length - b.length),
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
   resetAll = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.startingGoods],
+    this.setState({
+      goods: [...this.props.goodList],
       length: 1,
-    }));
+    });
   }
 
   chooseMethod = ({ target }) => {
-    this.setState(prevState => ({
+    this.setState({
       length: target.value,
-      goods: prevState.startingGoods.filter(item => (
+      goods: [...this.props.goodList].filter(item => (
         item.length >= target.value)),
-    }));
+    });
   }
 
   render() {
