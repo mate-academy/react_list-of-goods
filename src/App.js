@@ -118,6 +118,7 @@ class App extends React.Component {
             .map(itemLength => (
               <option
                 value={itemLength}
+                key={itemLength}
               >
                 {itemLength}
               </option>
