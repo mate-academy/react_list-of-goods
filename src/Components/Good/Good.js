@@ -1,8 +1,11 @@
 import React from 'react';
+import './Good.css';
 import PropTypes from 'prop-types';
 
 export const Good = ({ good }) => (
-  <li>{good}</li>
+  <li className="sorting__list item">
+    <span>{good}</span>
+  </li>
 );
 
 Good.propTypes = {

@@ -1,0 +1,14 @@
+.sorting__section {
+  margin: 0 auto;
+}
+
+.sorting__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.button.select {
+  width: 50px;
+}

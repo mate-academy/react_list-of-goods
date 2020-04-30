@@ -1,0 +1,15 @@
+.sorting__list.item {
+  display: block;
+  width: 100%;
+  background-color: rgba(212, 188, 135, 0.4);
+  border-bottom: 1px solid rgba(212, 188, 135, 0.9);
+  padding: 15px 0;
+}
+
+.sorting__list.item li {
+  list-style: none;
+}
+
+span {
+  padding-left: 25px;
+}

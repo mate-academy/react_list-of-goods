@@ -16,10 +16,11 @@ class StartBtn extends React.Component {
     const { isVisible } = this.state;
 
     return (
-      <>
+      <div className="start__screen">
         {isVisible ? (
           <button
             type="button"
+            className="button"
             onClick={this.handleActiveState}
           >
           Start
@@ -27,7 +28,7 @@ class StartBtn extends React.Component {
         ) : (
           <SortingSection goods={goodsFromServer} />
         )}
-      </>
+      </div>
     );
   }
 }

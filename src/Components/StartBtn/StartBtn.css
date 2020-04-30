@@ -1,0 +1,12 @@
+.start__screen {
+  margin: auto;
+  margin: auto;
+  width: 50%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.start__screen .button {
+  margin: 0 auto;
+}

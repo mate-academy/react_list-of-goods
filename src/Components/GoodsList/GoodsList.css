@@ -1,0 +1,9 @@
+.sorting__list {
+  width: 100%;
+  padding-left: 0px;
+}
+
+.sorting__list ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}

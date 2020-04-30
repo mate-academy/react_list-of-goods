@@ -1,0 +1,15 @@
+html,
+body {
+  margin: 0;
+}
+
+.button {
+  background-color: rgba(222, 184, 135, 0.7);
+  border: 1px solid black;
+  width: 150px;
+  height: 45px;
+  cursor: pointer;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
