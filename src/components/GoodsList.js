@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Commodity from './Commodity';
 
 const GoodsList = ({ goodsList }) => (
   <ul className="goods__list">
-    {goodsList.map(item => (
-      <li
-        key={item}
-        className="goods__item"
-      >
-        {item}
-      </li>
-    ))}
+    {!goodsList.length
+      ? <p className="goods__item">No elements to display</p>
+      : goodsList.map(item => (
+        <Commodity
+          key={item}
+          commodity={item}
+        />
+      ))}
   </ul>
 );
 

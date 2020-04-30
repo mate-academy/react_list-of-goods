@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  font-family: "Indie Flower", cursive;
+  background: linear-gradient(to bottom, #b2fefa, #0ed2f7);
+}
+
+.page {
+  width: 100%;
+  height: 100vh;
+  padding-top: 20px;
+  text-align: center;
+
+  &__title {
+    margin: 0;
+    color: midnightblue;
+    font-size: 2.2rem;
+    line-height: 1;
+    font-family: "Kalam", cursive;
+  }
+}
+
+.goods {
+  min-width: 320px;
+  margin-top: 5px;
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+  }
+
+  &__button,
+  &__select,
+  &__option {
+    margin: 0 5px 10px;
+    padding: 5px 20px;
+    font: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Kalam", cursive;
+    color: white;
+    background: midnightblue;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__button:hover,
+  &__select:hover {
+    color: black;
+    background-color: deepskyblue;
+    box-shadow: 0 0 10px 2px rgba(white, 0.4);
+  }
+
+  &__button:disabled {
+    color: lightcoral;
+    opacity: 0.7;
+  }
+
+  &__list {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto 30px;
+    padding: 5px 25px;
+    min-width: 280px;
+    width: 30vw;
+    list-style: none;
+    text-align: left;
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  &__list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    z-index: -1;
+    background: url("./img/horiz.png") center center;
+    background-size: 500px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    //cursor: pointer;
+    margin: 10px 0;
+    font-size: 25px;
+    color: darkblue;
+  }
+}

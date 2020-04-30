@@ -5,7 +5,7 @@ import goodsFromServer from '../api/goodsFromServer';
 
 class ListButtons extends Component {
   state = {
-    filteredList: [...goodsFromServer],
+    filteredList: goodsFromServer,
     selectedLength: 1,
   };
 
@@ -17,7 +17,7 @@ class ListButtons extends Component {
 
   resetList = () => {
     this.setState({
-      filteredList: [...goodsFromServer],
+      filteredList: goodsFromServer,
       selectedLength: 1,
     });
   };
@@ -41,11 +41,11 @@ class ListButtons extends Component {
   };
 
   filterByLength = (event) => {
-    const { value } = event.target;
+    const { name, value } = event.target;
 
     this.setState({
-      selectedLength: +value,
-      filteredList: [...goodsFromServer].filter(word => word.length >= +value),
+      [name]: +value,
+      filteredList: goodsFromServer.filter(word => word.length >= +value),
     });
   };
 
@@ -54,25 +54,22 @@ class ListButtons extends Component {
 
     return (
       <section className="goods">
-        <div className="goods__buttons-container">
+        <div className="goods__inner">
           <Button handleClick={this.reverseList}>
             Reverse
           </Button>
-
           <Button handleClick={this.sortByAlphabet}>
             Sort alphabetically
           </Button>
-
           <Button handleClick={this.resetList}>
             Reset
           </Button>
-
           <Button handleClick={this.sortByLength}>
             Sort by length
           </Button>
-
           <select
             className="goods__select"
+            name="selectedLength"
             onChange={this.filterByLength}
             value={selectedLength}
           >

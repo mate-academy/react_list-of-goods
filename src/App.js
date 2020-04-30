@@ -10,14 +10,16 @@ const App = () => {
   const handleInitialization = () => setInitial({ flag: true });
 
   return (
-    <div className="App">
-      <h1 className="main-title">List of Goods</h1>
+    <div className="page">
+      <h1 className="page__title">List of Goods</h1>
       {isInitial.flag
         ? <ListButtons />
         : (
-          <Button handleClick={handleInitialization}>
-            Display list
-          </Button>
+          <div className="goods__inner">
+            <Button handleClick={handleInitialization}>
+              Display list
+            </Button>
+          </div>
         )
       }
     </div>
