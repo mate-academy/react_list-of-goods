@@ -9,6 +9,7 @@ const goodsFromServer = [
   'Honey',
   'Jam',
   'Garlic',
+  'Horseradish',
 ];
 
 export default goodsFromServer;

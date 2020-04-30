@@ -73,7 +73,7 @@ class ListButtons extends Component {
             onChange={this.filterByLength}
             value={selectedLength}
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(length => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(length => (
               <option
                 className="goods__option"
                 key={length}

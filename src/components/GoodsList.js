@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Commodity from './Commodity';
+import GoodsIcon from './GoodsIcon';
 
 const GoodsList = ({ goodsList }) => (
   <ul className="goods__list">
     {!goodsList.length
       ? <p className="goods__item">No elements to display</p>
       : goodsList.map(item => (
-        <Commodity
-          key={item}
-          commodity={item}
-        />
+        <li key={item} className="goods__item">
+          <GoodsIcon commodity={item} w="40" h="40" />
+          &nbsp;
+          {item}
+        </li>
       ))}
   </ul>
 );

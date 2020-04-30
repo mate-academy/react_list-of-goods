@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   font-size: 1em;
   font-family: "Indie Flower", cursive;
   background: linear-gradient(to bottom, #b2fefa, #0ed2f7);
@@ -8,7 +9,7 @@ body {
 
 .page {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding-top: 20px;
   text-align: center;
 
