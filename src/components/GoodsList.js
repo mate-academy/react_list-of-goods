@@ -10,26 +10,26 @@ class GoodsList extends React.Component {
 
   reverse = () => {
     this.setState(({ goods }) => ({
-      goods: goods.reverse(),
+      goods: [...goods].reverse(),
     }));
   }
 
   sort = () => {
     this.setState(({ goods }) => ({
-      goods: goods.sort((a, b) => a.localeCompare(b)),
+      goods: [...goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   sortByLength = () => {
     this.setState(({ goods }) => ({
-      goods: goods.sort((a, b) => a.length - b.length),
+      goods: [...goods].sort((a, b) => a.length - b.length),
     }));
   }
 
   filterByValue = (value) => {
     this.setState(() => ({
       selectValue: value,
-      goods: [...this.props.goods].filter(item => item.length >= value),
+      goods: this.props.goods.filter(item => item.length >= value),
     }));
   }
 
@@ -42,6 +42,7 @@ class GoodsList extends React.Component {
 
   render() {
     const { goods, selectValue } = this.state;
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
       <>
@@ -62,16 +63,14 @@ class GoodsList extends React.Component {
             this.filterByValue(e.target.value);
           }}
         >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+          {arr.map(item => (
+            <option
+              value={item}
+              key={item}
+            >
+              {item}
+            </option>
+          ))}
         </select>
       </>
     );
