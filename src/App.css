@@ -27,7 +27,12 @@
 
   color: white;
   font-size: 14px;
+  transition: transform 0.3s;
+}
 
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
 
 .button_start {
@@ -37,9 +42,14 @@
   top: 50%;
   left: 49%;
   font-size: 24px;
+  color: white;
 
   border-radius: 50%;
   border: 1px solid rgba(16, 16, 197, 0.6 );
   background-color: rgb(75, 75, 221);
   transform: translate(-50%, -50%);
+}
+
+.button_start:hover {
+  cursor: pointer;
 }

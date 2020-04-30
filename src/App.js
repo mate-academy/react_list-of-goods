@@ -27,70 +27,85 @@ class App extends React.Component {
     length: 1,
   }
 
+  sortGoods = () => {
+    this.setState((state) => {
+      const array = [...state.visibleGoods];
+
+      return { visibleGoods: array.reverse() };
+    });
+  }
+
+  sortAlphabetically = () => {
+    this.setState((state) => {
+      const array = [...state.visibleGoods];
+
+      return { visibleGoods: array.sort((a, b) => (a.localeCompare(b))) };
+    });
+  }
+
+  reset = () => {
+    this.setState({ visibleGoods: [...goodsFromServer] });
+  }
+
+  sortByLength = () => {
+    this.setState((state) => {
+      const array = [...state.visibleGoods];
+
+      return { visibleGoods: array.sort((a, b) => (a.length - b.length)) };
+    });
+  }
+
   render() {
+    const { visibleGoods, startIsVisible, length } = this.state;
+
     return (
       <div className="App">
         <button
-          className="button button_start"
+          className="button_start"
           type="button"
           onClick={() => {
             this.setState({ startIsVisible: false });
           }}
-          hidden={!this.state.startIsVisible}
+          hidden={!startIsVisible}
         >
           start
         </button>
 
-        <div className="button-wrapper" hidden={this.state.startIsVisible}>
+        <div className="button-wrapper">
           <button
-            hidden={this.state.startIsVisible}
+            hidden={startIsVisible}
             className="button"
             type="button"
-            onClick={() => this.setState(
-              state => ({ visibleGoods: state.visibleGoods.reverse() }),
-            )}
+            onClick={this.sortGoods}
           >
             reverse
           </button>
           <button
-            hidden={this.state.startIsVisible}
+            hidden={startIsVisible}
             className="button"
             type="button"
-            onClick={() => this.setState(
-              state => ({
-                visibleGoods: state.visibleGoods.sort(
-                  (a, b) => a.localeCompare(b),
-                ),
-              }),
-            )}
+            onClick={this.sortAlphabetically}
           >
             Sort alphabetically
           </button>
           <button
-            hidden={this.state.startIsVisible}
+            hidden={startIsVisible}
             className="button"
             type="button"
-            onClick={
-              () => this.setState({ visibleGoods: [...goodsFromServer] })}
+            onClick={this.reset}
           >
             Reset
           </button>
           <button
-            hidden={this.state.startIsVisible}
+            hidden={startIsVisible}
             className="button"
             type="button"
-            onClick={() => this.setState(
-              state => ({
-                visibleGoods: state.visibleGoods.sort(
-                  (a, b) => a.length - b.length,
-                ),
-              }),
-            )}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
         </div>
-        <div className="wrapper" hidden={this.state.startIsVisible}>
+        <div className="wrapper" hidden={startIsVisible}>
           <h1>
             Goods
           </h1>
@@ -103,9 +118,9 @@ class App extends React.Component {
               </option>
             ))}
           </select>
-          <ul hidden={this.state.startIsVisible}>
-            {this.state.visibleGoods
-              .filter(good => good.length >= this.state.length).map(good => (
+          <ul hidden={startIsVisible}>
+            {visibleGoods
+              .filter(good => good.length >= length).map(good => (
                 <li key={good}>
                   {good}
                 </li>
