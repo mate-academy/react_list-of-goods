@@ -1,0 +1,25 @@
+.goods-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+  border: 1px solid grey;
+  cursor: pointer;
+}
+
+.goods-list__items {
+  list-style: none;
+}
+
+.goods-list__button-wrap {
+  display: flex;
+  width: 100%;
+}
+
+.goods-list__button {
+  height: 64px;
+  width: 100px;
+  background-color: rosybrown;
+  color: aliceblue;
+  border: 1px solid grey;
+  cursor: pointer;
+}
