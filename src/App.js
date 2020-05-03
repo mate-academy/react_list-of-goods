@@ -59,7 +59,7 @@ class App extends React.Component {
     }));
   }
 
-  handler = (event) => {
+  select = (event) => {
     event.persist();
 
     this.setState((prevState) => {
@@ -107,7 +107,7 @@ class App extends React.Component {
               >
                 Reset
               </button>
-              <select value={value} onChange={this.handler}>
+              <select value={value} onChange={this.select}>
                 {[...Array(10).keys()].map((item, index) => (
                   <option key={item + 1} value={index + 1}>{index + 1}</option>
                 ))}
