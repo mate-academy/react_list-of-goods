@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: ivory;
+}
+
+.goods__container {
+  background-color: #f9fcfb;
+  height: 450px;
+  width: 450px;
+  border: 1px solid black;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.button {
+  padding: 0;
+  margin: 5px;
+  width: 120px;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+}
+
+.button__start {
+  margin-top: 50px;
+  margin-left: 40%;
+  background-color: #7fcd91;
+}
+
+.button__reverse {
+  background-color: #75b79e;
+}
+
+.button__sortA {
+  background-color: #b0eacd;
+}
+
+.button__reset {
+  background-color: #fd5e53;
+}
+
+.button__sortL {
+  background-color: #21bf73;
+}
+
+.select {
+  padding-left: 50px;
+  background-color: #baf1a1;
+}
+
+.list {
+  list-style: none;
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-// import PropTypes from 'prop-types';
+import GoodsList from './GoodList';
 
-const goodsFromServer = [
+export const goodsFromServer = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -30,9 +30,10 @@ class App extends React.Component {
     return (
       <div className="App">
         {startButtonClicked
-          ? <GoodsList goods={this.state.goodsCopy} />
+          ? <GoodsList goods={goodsFromServer} />
           : (
             <button
+              className="button button__start"
               type="button"
               onClick={this.StartClick}
             >
@@ -44,97 +45,5 @@ class App extends React.Component {
     );
   }
 }
-
-class GoodsList extends React.Component {
-  state = {
-    goodsCopy: [...goodsFromServer],
-    select: 1,
-  }
-
-  reverseGoods = () => {
-    this.setState(({ goodsCopy }) => ({
-      goodsCopy: [...goodsCopy].reverse(),
-    }));
-  }
-
-  sortGoods = () => {
-    this.setState(({ goodsCopy }) => ({
-      goodsCopy: [...goodsCopy].sort(),
-    }));
-  }
-
-  resetGoods = () => {
-    this.setState(() => ({
-      goodsCopy: [...goodsFromServer],
-    }));
-  }
-
-  sortByLengthGoods = () => {
-    this.setState(({ goodsCopy }) => ({
-      goodsCopy: [...goodsCopy].sort((a, b) => a.length - b.length),
-    }));
-  }
-
-  sortBySelectedLength = (event) => {
-    const { value } = event.target;
-
-    this.setState({
-      select: value,
-      goodsCopy: [...goodsFromServer].filter(el => el.length >= value),
-    });
-  }
-
-  render() {
-    const listOfGoods = this.state.goodsCopy;
-    const selectedArr = Array.from(Array(10).keys());
-
-    return (
-      <>
-        <h1>Goods</h1>
-        <button
-          type="button"
-          onClick={this.reverseGoods}
-        >
-          Reverse
-        </button>
-        <button
-          type="button"
-          onClick={this.sortGoods}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          type="button"
-          onClick={this.resetGoods}
-        >
-          Reset
-        </button>
-        <button
-          type="button"
-          onClick={this.sortByLengthGoods}
-        >
-          Sort by length
-        </button>
-        <select
-          value={this.state.select}
-          onChange={this.sortBySelectedLength}
-        >
-          {selectedArr.map(item => (
-            <option value={item} key={item}>{item}</option>
-          ))}
-        </select>
-        <ul className="list">
-          {listOfGoods.map(good => (
-            <li className="list__item" key={good}>{good}</li>
-          ))}
-        </ul>
-      </>
-    );
-  }
-}
-
-// GoodsList.propTypes = {
-//   goodsCopy: PropTypes.arrayOf(PropTypes.string).isRequired,
-// };
 
 export default App;
