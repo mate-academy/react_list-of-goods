@@ -16,7 +16,7 @@ const goodsFromServer = [
 
 const initState = {
   isVisible: false,
-  goods: goodsFromServer,
+  goods: [...goodsFromServer],
   selectedOption: 1,
 };
 
@@ -28,21 +28,25 @@ class App extends React.Component {
   }
 
   handleReverse = () => {
-    this.setState({ goods: goodsFromServer.reverse() });
+    this.setState(prev => ({
+      goods: [...prev.goods].reverse(),
+    }));
   }
 
   handleSort = () => {
-    this.setState({ goods: goodsFromServer.sort() });
+    this.setState(prev => ({
+      goods: [...prev.goods].sort(),
+    }));
   }
 
   handleSortbyLength = () => {
-    this.setState(
-      { goods: goodsFromServer.sort((a, b) => (a.length - b.length)) },
-    );
+    this.setState(prev => ({
+      goods: [...prev.goods].sort((a, b) => (a.length - b.length)),
+    }));
   }
 
-  handleSelect = (i) => {
-    this.setState({ selectedOption: i.target.value });
+  handleSelect = (e) => {
+    this.setState({ selectedOption: e.target.value });
   }
 
   handleReset = () => {
@@ -71,10 +75,10 @@ class App extends React.Component {
         </button>
         <select
           value={this.state.selectedOption}
-          onChange={i => this.handleSelect(i)}
+          onChange={e => this.handleSelect(e)}
         >
           {
-            Array.from({ length: 10 }, (x, i) => i).map(option => (
+            Array.from({ length: 10 }, (x, e) => e).map(option => (
               <option
                 key={option}
                 value={option}
