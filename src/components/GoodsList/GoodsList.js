@@ -45,7 +45,7 @@ export class GoodsList extends React.Component {
   selectByLength = (length) => {
     this.setState({
       goodsLength: length,
-      goodsList: [...this.props.goodsList]
+      goodsList: this.props.goodsList
         .filter(good => good.length >= length),
     });
   };
@@ -67,7 +67,9 @@ export class GoodsList extends React.Component {
         {!hideList && (
           <>
             <ul className="goods-list__items">
-              <GoodsItem goodsList={goodsList} />
+              {goodsList.map(good => (
+                <GoodsItem good={good} />
+              ))}
             </ul>
             <div className="goods-list__button-wrap">
               <button
