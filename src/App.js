@@ -28,7 +28,10 @@ class GoodsList extends React.Component {
   state = {
     listIsHidden: true,
     goods: this.props.goods,
+    selectedLength: 1,
   }
+
+  selectOptions = Array(10).fill(1).map((item, index) => index + 1);
 
   changeListVisibility = () => {
     this.setState({
@@ -42,7 +45,7 @@ class GoodsList extends React.Component {
     }));
   }
 
-  showListSortedByAlpha = () => {
+  sortByAlpha = () => {
     this.setState(prevValue => ({
       goods: [...prevValue.goods].sort(),
     }));
@@ -54,8 +57,26 @@ class GoodsList extends React.Component {
     });
   }
 
+  sortByLength = () => {
+    this.setState(prevValue => ({
+      goods: [...prevValue.goods].sort((a, b) => a.length - b.length),
+    }));
+  }
+
+  changeSelectedLength = (event) => {
+    this.setState({
+      selectedLength: event.target.value,
+    });
+  }
+
+  resetSelectedLength = () => {
+    this.setState({
+      selectedLength: 1,
+    });
+  }
+
   render() {
-    const { goods, listIsHidden } = this.state;
+    const { goods, listIsHidden, selectedLength } = this.state;
 
     return (
       <div>
@@ -69,7 +90,7 @@ class GoodsList extends React.Component {
 
         <div hidden={listIsHidden}>
           <ul>
-            {goods.map(good => (
+            {goods.filter(item => item.length >= selectedLength).map(good => (
               <li key={good}>{good}</li>
             ))}
           </ul>
@@ -84,7 +105,7 @@ class GoodsList extends React.Component {
 
             <button
               type="button"
-              onClick={this.showListSortedByAlpha}
+              onClick={this.sortByAlpha}
             >
               SORT ALPHABETICALLY
             </button>
@@ -94,6 +115,26 @@ class GoodsList extends React.Component {
               onClick={this.resetList}
             >
               RESET
+            </button>
+
+            <button
+              type="button"
+              onClick={this.sortByLength}
+            >
+              SORT by LENGTH
+            </button>
+
+            <select onChange={this.changeSelectedLength}>
+              {this.selectOptions.map(option => (
+                <option key={option}>{option}</option>
+              ))}
+            </select>
+
+            <button
+              type="button"
+              onClick={this.resetSelectedLength}
+            >
+              RESET SELECTED LENGTH
             </button>
           </div>
         </div>
