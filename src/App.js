@@ -38,14 +38,20 @@ class GoodsList extends React.Component {
 
   showListReversed = () => {
     this.setState(prevValue => ({
-      goods: prevValue.goods.reverse(),
+      goods: [...prevValue.goods].reverse(),
     }));
   }
 
   showListSortedByAlpha = () => {
     this.setState(prevValue => ({
-      goods: prevValue.goods.sort(),
+      goods: [...prevValue.goods].sort(),
     }));
+  }
+
+  resetList = () => {
+    this.setState({
+      goods: this.props.goods,
+    });
   }
 
   render() {
@@ -68,17 +74,26 @@ class GoodsList extends React.Component {
             ))}
           </ul>
           <div className="btns-section">
+
             <button
               type="button"
               onClick={this.showListReversed}
             >
               REVERSE
             </button>
+
             <button
               type="button"
               onClick={this.showListSortedByAlpha}
             >
               SORT ALPHABETICALLY
+            </button>
+
+            <button
+              type="button"
+              onClick={this.resetList}
+            >
+              RESET
             </button>
           </div>
         </div>
