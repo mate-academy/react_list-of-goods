@@ -1,15 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+const goodsFromServer = [
+  'Dumplings',
+  'Carrot',
+  'Eggs',
+  'Ice cream',
+  'Apple',
+  'Bread',
+  'Fish',
+  'Honey',
+  'Jam',
+  'Garlic',
+];
 
 class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.listOfGoods],
+    goods: [...goodsFromServer],
     defaultSelectValue: 1,
   }
 
-  array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  arrayOfNumsForSelectOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  reverceGoods = () => {
+  reverseGoods = () => {
     this.setState(prev => ({
       goods: [...prev.goods].reverse(),
     }));
@@ -17,13 +29,13 @@ class GoodsList extends React.Component {
 
   sortAlphabetically = () => {
     this.setState(prev => ({
-      goods: [...prev.goods].sort(),
+      goods: [...prev.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   reset = () => {
     this.setState(prev => ({
-      goods: [...this.props.listOfGoods],
+      goods: [...goodsFromServer],
       defaultSelectValue: 1,
     }));
   }
@@ -34,9 +46,9 @@ class GoodsList extends React.Component {
     }));
   }
 
-  lenghFilter = ({ target }) => {
-    this.setState(() => ({
-      goods: [...this.props.listOfGoods].filter(a => a.length >= target.value),
+  filterByLength = ({ target }) => {
+    this.setState(prev => ({
+      goods: goodsFromServer.filter(a => a.length >= target.value),
       defaultSelectValue: target.value,
     }));
   }
@@ -52,7 +64,7 @@ class GoodsList extends React.Component {
         <div className="goods__buttons>">
           <button
             type="button"
-            onClick={this.reverceGoods}
+            onClick={this.reverseGoods}
           >
             Reverse
           </button>
@@ -79,10 +91,10 @@ class GoodsList extends React.Component {
           </button>
         </div>
         <select
-          onChange={this.lenghFilter}
+          onChange={this.filterByLength}
           value={this.state.defaultSelectValue}
         >
-          {this.array.map(option => (
+          {this.arrayOfNumsForSelectOptions.map(option => (
             <option key={option}>
               {option}
             </option>
@@ -92,9 +104,5 @@ class GoodsList extends React.Component {
     );
   }
 }
-
-GoodsList.propTypes = {
-  listOfGoods: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
 
 export default GoodsList;

@@ -2,34 +2,21 @@ import React from 'react';
 import './App.css';
 import GoodsList from './components/GoodsList/GoodsList';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
-
 class App extends React.Component {
   state = {
-    button: true,
+    showStartButton: true,
   }
 
   toggleList = () => {
     this.setState(prev => ({
-      button: !prev.button,
+      showStartButton: !prev.showStartButton,
     }));
   }
 
   render() {
     return (
       <div className="App">
-        {this.state.button
+        {this.state.showStartButton
           ? (
             <button
               type="button"
@@ -39,7 +26,7 @@ class App extends React.Component {
             </button>
           )
           : (
-            <GoodsList listOfGoods={goodsFromServer} />
+            <GoodsList />
           )}
       </div>
     );
