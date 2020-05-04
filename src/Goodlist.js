@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { goodsFromServer } from './goodsFromserver';
 
 class GoodList extends React.Component {
   state = {
-    goods: [...this.props.goods],
+    goods: [...goodsFromServer],
     length: 1,
+    arrayOfSelect: Array(10).fill(''),
   };
 
   reverseGoods = () => {
@@ -21,7 +22,7 @@ class GoodList extends React.Component {
 
   resetGoods = () => {
     this.setState(
-      { goods: [...this.props.goods] },
+      { goods: [...goodsFromServer] },
     );
   }
 
@@ -37,14 +38,13 @@ class GoodList extends React.Component {
 
     this.setState({
       length: value,
-      goods: this.props.goods
+      goods: goodsFromServer
         .filter(good => (good.length <= value)),
     });
   }
 
   render() {
-    const { goods } = this.state;
-    const arrayOfSelect = Array(10).fill('');
+    const { goods, arrayOfSelect } = this.state;
 
     return (
       <div className="goods">
@@ -101,9 +101,5 @@ class GoodList extends React.Component {
     );
   }
 }
-
-GoodList.propTypes = {
-  goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-};
 
 export default GoodList;

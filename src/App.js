@@ -2,19 +2,6 @@ import React from 'react';
 import GoodList from './Goodlist';
 import './App.css';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
-
 class App extends React.Component {
   state = {
     isVisible: true,
@@ -38,7 +25,8 @@ class App extends React.Component {
               <button type="button" onClick={this.hideStartButton}>
                 Push to start
               </button>
-            ) : <GoodList goods={goodsFromServer} />}
+            ) : <GoodList />
+        }
       </div>
     );
   }
