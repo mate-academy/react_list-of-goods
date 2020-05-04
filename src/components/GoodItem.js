@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const GoodItem = ({ list }) => (
-  list.map(item => (
-    <li className="list__item" key={item}>
-      {item}
-    </li>
-  ))
+export const GoodItem = ({ item }) => (
+  <li className="list__item">
+    {item}
+  </li>
 );
+
+GoodItem.propTypes = {
+  item: PropTypes.string.isRequired,
+};

@@ -63,7 +63,7 @@ export class GoodList extends React.Component {
         {!allHidden && (
           <>
             <ul className="list">
-              <GoodItem list={list} />
+              {list.map(el => (<GoodItem item={el} key={el} />))}
             </ul>
             <Buttons
               reverse={this.reverse}
