@@ -1,19 +1,7 @@
 import React from 'react';
 import './App.css';
 import GoodsList from './GoodList';
-
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import { goodsFromServer } from './goodsFromServer';
 
 class App extends React.Component {
   state = {

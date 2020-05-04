@@ -1,30 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { goodsFromServer } from './goodsFromServer';
 
 class GoodsList extends React.Component {
   state = {
     goodsLength: 1,
-    goods: [...this.props.goods],
+    goods: [...goodsFromServer],
   }
+
+  selectArray = Array(10).fill(1).map((item, index) => index + 1);
 
   reverse = () => {
     this.setState(prevState => ({
-      goods: [...prevState.goods]
-        .reverse(),
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
   sortAlphabetically = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
-        .sort(),
+        .sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   sortByLength = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
-        .sort((a, b) => (a.length - b.length)),
+        .sort((a, b) => a.length - b.length),
     }));
   }
 
@@ -46,6 +48,8 @@ class GoodsList extends React.Component {
   }
 
   render() {
+    const { selectArray } = this.state;
+
     return (
       <>
         <ul>
@@ -72,8 +76,13 @@ class GoodsList extends React.Component {
             onInput={this.select}
             defaultValue={this.state.goodsLength}
           >
-            {[...Array(10).keys()].map((item, index) => (
-              <option key={item + 1} value={index + 1}>{index + 1}</option>
+            {selectArray.map((item, index) => (
+              <option
+                key={item + 1}
+                value={index + 1}
+              >
+                {index + 1}
+              </option>
             ))}
           </select>
         </div>
