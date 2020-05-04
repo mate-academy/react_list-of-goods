@@ -5,11 +5,10 @@ import { GoodsItem } from '../GoodsItem/GoodsItem';
 import './GoodsList.css';
 
 export class GoodsList extends React.Component {
-  goodsLength = 1;
-
   state = {
     hideList: true,
     goodsList: [...this.props.goodsList],
+    goodsLength: 1,
   }
 
   showList = () => {
@@ -32,9 +31,8 @@ export class GoodsList extends React.Component {
 
   resetList = () => {
     this.setState({
-      goodsList: this.props.goodsList.filter(good => (
-        good.length >= this.goodsLength
-      )),
+      goodsList: [...this.props.goodsList],
+      goodsLength: 1,
     });
   }
 
@@ -45,9 +43,11 @@ export class GoodsList extends React.Component {
   }
 
   selectByLength = (length) => {
-    this.goodsLength = length;
-
-    this.resetList();
+    this.setState({
+      goodsLength: length,
+      goodsList: [...this.props.goodsList]
+        .filter(good => good.length >= length),
+    });
   };
 
   render() {
@@ -99,7 +99,7 @@ export class GoodsList extends React.Component {
                 Sort by length
               </button>
               <select
-                defaultValue={this.goodsLength}
+                value={this.state.goodsLength}
                 onChange={event => this.selectByLength(event.target.value)}
               >
                 {Array(10).fill('').map((item, index) => (
