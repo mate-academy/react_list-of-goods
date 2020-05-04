@@ -23,7 +23,8 @@ class App extends React.Component {
 
   toggle = () => {
     this.setState(state => ({
-      isHide: !state.isHide, isShow: !state.isShow,
+      isHide: !state.isHide,
+      isShow: !state.isShow,
     }));
   };
 

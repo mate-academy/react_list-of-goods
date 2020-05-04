@@ -3,36 +3,36 @@ import PropTypes from 'prop-types';
 
 class GoodsList extends React.Component {
   state = {
-    arr: [...this.props.items],
+    namesList: [...this.props.items],
   };
 
   reverse = () => {
     this.setState(() => ({
-      arr: [...this.props.items].reverse(),
+      namesList: [...this.props.items].reverse(),
     }));
   }
 
   sort = () => {
     this.setState(() => ({
-      arr: [...this.props.items].sort((a, b) => (a < b ? -1 : 1)),
+      namesList: [...this.props.items].sort((a, b) => (a < b ? -1 : 1)),
     }));
   }
 
   reset = () => {
     this.setState(() => ({
-      arr: [...this.props.items],
+      namesList: [...this.props.items],
     }));
   }
 
-  length = () => {
+  sortByLength = () => {
     this.setState(() => ({
-      arr: [...this.props.items].sort((a, b) => a.length - b.length),
+      namesList: [...this.props.items].sort((a, b) => a.length - b.length),
     }));
   }
 
   selectLength = (items) => {
     this.setState(() => ({
-      arr: [...this.props.items].filter(item => items >= item.length),
+      namesList: this.props.items.filter(item => items <= item.length),
     }));
   }
 
@@ -42,7 +42,7 @@ class GoodsList extends React.Component {
     return (
       <>
         <ol>
-          {this.state.arr.map(item => (
+          {this.state.namesList.map(item => (
             <li>
               {item}
             </li>
@@ -52,7 +52,9 @@ class GoodsList extends React.Component {
         <button type="button" onClick={this.reverse}>Reverse</button>
         <button type="button" onClick={this.sort}>Sort</button>
         <button type="button" onClick={this.reset}>Reset</button>
-        <button type="button" onClick={this.length}>Sort by length</button>
+        <button type="button" onClick={this.sortByLength}>
+          Sort by length
+        </button>
 
         <select
           name="select"
