@@ -42,6 +42,12 @@ class GoodsList extends React.Component {
     }));
   }
 
+  showListSortedByAlpha = () => {
+    this.setState(prevValue => ({
+      goods: prevValue.goods.sort(),
+    }));
+  }
+
   render() {
     const { goods, listIsHidden } = this.state;
 
@@ -67,6 +73,12 @@ class GoodsList extends React.Component {
               onClick={this.showListReversed}
             >
               REVERSE
+            </button>
+            <button
+              type="button"
+              onClick={this.showListSortedByAlpha}
+            >
+              SORT ALPHABETICALLY
             </button>
           </div>
         </div>
