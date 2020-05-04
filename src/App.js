@@ -32,13 +32,13 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {(isVisible)
-          ? (
-            <button type="button" onClick={this.hideStartButton}>
-              Push to start
-            </button>
-          )
-          : <GoodList goods={goodsFromServer} />}
+        {
+          isVisible
+            ? (
+              <button type="button" onClick={this.hideStartButton}>
+                Push to start
+              </button>
+            ) : <GoodList goods={goodsFromServer} />}
       </div>
     );
   }

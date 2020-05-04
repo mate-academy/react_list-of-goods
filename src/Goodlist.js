@@ -7,43 +7,44 @@ class GoodList extends React.Component {
     length: 1,
   };
 
-  goodsReverse = () => {
+  reverseGoods = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
     }));
   }
 
-  goodsSortAlphabet = () => {
+  sortAlphabetGoods = () => {
     this.setState(prevState => ({
-      goods: [...prevState.goods].sort(),
+      goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
-  goodsReset = () => {
+  resetGoods = () => {
     this.setState(
       { goods: [...this.props.goods] },
     );
   }
 
-  goodsSortByLength = () => {
+  sortByLengthGoods = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
         .sort((a, b) => a.length - b.length),
     }));
   }
 
-  goodsSelectChange = (event) => {
+  selectedChangeOfGoods = (event) => {
     const { value } = event.target;
 
-    this.setState(prevState => ({
+    this.setState({
       length: value,
-      goods: prevState.goods
+      goods: this.props.goods
         .filter(good => (good.length <= value)),
-    }));
+    });
   }
 
   render() {
     const { goods } = this.state;
+    const arrayOfSelect = Array(10).fill('');
 
     return (
       <div className="goods">
@@ -57,37 +58,37 @@ class GoodList extends React.Component {
 
         <button
           type="button"
-          onClick={this.goodsReverse}
+          onClick={this.reverseGoods}
         >
           Reverse
         </button>
 
         <button
           type="button"
-          onClick={this.goodsSortAlphabet}
+          onClick={this.sortAlphabetGoods}
         >
           Sort Alphabetically
         </button>
 
         <button
           type="button"
-          onClick={this.goodsReset}
+          onClick={this.resetGoods}
         >
           Reset
         </button>
 
         <button
           type="button"
-          onClick={this.goodsSortByLength}
+          onClick={this.sortByLengthGoods}
         >
           Sort by Length
         </button>
 
         <select
-          onInput={this.goodsSelectChange}
+          onInput={this.selectedChangeOfGoods}
           value={this.state.length}
         >
-          {Array(10).fill('').map((item, index) => (
+          {arrayOfSelect.map((item, index) => (
             <option
               value={index + 1}
             >
