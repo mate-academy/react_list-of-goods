@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GoodsList } from './GoodsList';
+import { goodsFromServer } from './goodsFromServer';
 
 class SortingGoods extends React.Component {
   state = {
-    goodsList: [...this.props.goods],
+    goodsList: [...goodsFromServer],
     sortAlphabet: false,
     sortLength: 0,
     select: 1,
+    selectedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   handleReversed = () => {
     this.setState(({ goodsList }) => ({
-      goodsList: goodsList.reverse(),
+      goodsList: [...goodsList].reverse(),
     }));
   }
 
@@ -22,13 +24,13 @@ class SortingGoods extends React.Component {
     sortAlphabet
       ? (
         this.setState(({ goodsList }) => ({
-          goodsList: goodsList.sort(),
+          goodsList: [...goodsList].sort(),
           sortAlphabet: false,
         }))
       )
       : (
         this.setState(({ goodsList }) => ({
-          goodsList: goodsList.sort().reverse(),
+          goodsList: [...goodsList].sort().reverse(),
           sortAlphabet: true,
         }))
       );
@@ -53,7 +55,7 @@ class SortingGoods extends React.Component {
 
     this.setState(state => ({
       select: value,
-      goodsList: [...this.props.goods].filter(el => el.length >= value),
+      goodsList: state.goodsList.filter(el => el.length >= value),
     }));
   }
 
@@ -62,8 +64,7 @@ class SortingGoods extends React.Component {
   }
 
   render() {
-    const { goodsList } = this.state;
-    const selectedValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const { goodsList, selectedValues } = this.state;
 
     return (
       <div>
