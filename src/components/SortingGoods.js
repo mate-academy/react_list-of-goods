@@ -1,70 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GoodsList } from './GoodsList';
-import { goodsFromServer } from './goodsFromServer';
 
 class SortingGoods extends React.Component {
   state = {
-    goodsList: [...goodsFromServer],
+    goodsList: this.props.goods,
+    sortLength: true,
     sortAlphabet: false,
-    sortLength: 0,
     select: 1,
     selectedValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   handleReversed = () => {
-    this.setState(({ goodsList }) => ({
-      goodsList: [...goodsList].reverse(),
+    this.setState(prevState => ({
+      goodsList: [...prevState.goodsList].reverse(),
     }));
-  }
+  };
 
   handleAlphabetSort = () => {
     const { sortAlphabet } = this.state;
 
     sortAlphabet
       ? (
-        this.setState(({ goodsList }) => ({
-          goodsList: [...goodsList].sort(),
+        this.setState(prevState => ({
+          goodsList: [...prevState.goodsList].sort(
+            (a, b) => a.localeCompare(b),
+          ),
           sortAlphabet: false,
         }))
       )
       : (
-        this.setState(({ goodsList }) => ({
-          goodsList: [...goodsList].sort().reverse(),
+        this.setState(prevState => ({
+          goodsList: [...prevState.goodsList].sort(
+            (a, b) => b.localeCompare(a),
+          ),
           sortAlphabet: true,
         }))
       );
-  }
+  };
 
   handleLengthSort = () => {
-    const { sortLength, goodsList } = this.state;
+    const { sortLength } = this.state;
 
     sortLength
-      ? (this.setState(() => ({
-        goodsList: goodsList.sort((a, b) => b.length - a.length),
-        sortLength: false,
-      })))
-      : (this.setState(() => ({
-        goodsList: goodsList.sort((a, b) => a.length - b.length),
-        sortLength: true,
-      })));
-  }
-
-  sortBySelectedLength = (event) => {
-    const { value } = event.target;
-
-    this.setState(state => ({
-      select: value,
-      goodsList: state.goodsList.filter(el => el.length >= value),
-    }));
-  }
+      ? (
+        this.setState(prevState => ({
+          goodsList: [...prevState.goodsList].sort(
+            (a, b) => a.length - b.length,
+          ),
+          sortLength: false,
+        }))
+      )
+      : (
+        this.setState(prevState => ({
+          goodsList: [...prevState.goodsList].sort(
+            (a, b) => b.length - a.length,
+          ),
+          sortLength: true,
+        }))
+      )
+  };
 
   handleReset = () => {
-    this.setState(state => ({ goodsList: [...this.props.goods] }));
-  }
+    this.setState({
+      goodsList: this.props.goods,
+      select: 1,
+    });
+  };
 
   render() {
-    const { goodsList, selectedValues } = this.state;
+    const { goodsList, selectedValues, select } = this.state;
+    const filteredGoods = goodsList
+      .filter(good => good.length >= select);
 
     return (
       <div>
@@ -91,8 +98,10 @@ class SortingGoods extends React.Component {
           </button>
 
           <select
-            value={this.state.select}
-            onChange={this.sortBySelectedLength}
+            value={select}
+            onChange={(event) => {
+              this.setState({ select: +event.target.value });
+            }}
           >
             {selectedValues.map(value => (
               <option
@@ -111,7 +120,7 @@ class SortingGoods extends React.Component {
             Reset
           </button>
         </div>
-        <GoodsList goods={goodsList} />
+        <GoodsList goods={filteredGoods} />
       </div>
     );
   }
