@@ -58,7 +58,7 @@ class SortingGoods extends React.Component {
           ),
           sortLength: true,
         }))
-      )
+      );
   };
 
   handleReset = () => {
