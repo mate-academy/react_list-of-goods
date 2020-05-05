@@ -1,9 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+export const goodsFromServer = [
+  'Dumplings',
+  'Carrot',
+  'Eggs',
+  'Ice cream',
+  'Apple',
+  'Bread',
+  'Fish',
+  'Honey',
+  'Jam',
+  'Garlic',
+];
+
 export class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.goods],
+    goods: [...goodsFromServer],
     selectedLength: 1,
   }
 
@@ -24,7 +37,7 @@ export class GoodsList extends React.Component {
 
   sortAlphabetically = () => {
     this.setState({
-      goods: [...this.props.goods].sort(),
+      goods: [...this.props.goods].sort((a, b) => a.localeCompare(b)),
     });
   }
 
@@ -42,6 +55,8 @@ export class GoodsList extends React.Component {
   }
 
   render() {
+    const { select } = this.state;
+
     return (
       <div>
         <ul>
