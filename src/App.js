@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { GoodsList, goodsFromServer } from './Components/GoodList/GoodList';
+import { GoodsList } from './Components/GoodList/GoodList';
 
 class App extends React.Component {
   state = {
@@ -13,9 +13,7 @@ class App extends React.Component {
         <h1>Goods</h1>
         {this.state.isToggleOn
           ? (
-            <GoodsList
-              goods={goodsFromServer}
-            />
+            <GoodsList />
           )
           : (
             <button

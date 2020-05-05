@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -37,19 +36,19 @@ export class GoodsList extends React.Component {
 
   sortAlphabetically = () => {
     this.setState({
-      goods: [...this.props.goods].sort((a, b) => a.localeCompare(b)),
+      goods: [...goodsFromServer].sort((a, b) => a.localeCompare(b)),
     });
   }
 
   sortByLength = () => {
     this.setState({
-      goods: [...this.props.goods].sort((a, b) => a.length - b.length),
+      goods: [...goodsFromServer].sort((a, b) => a.length - b.length),
     });
   }
 
   reset = () => {
     this.setState({
-      goods: [...this.props.goods],
+      goods: [...goodsFromServer],
       selectedLength: 1,
     });
   }
@@ -99,7 +98,3 @@ export class GoodsList extends React.Component {
     );
   }
 }
-
-GoodsList.propTypes = {
-  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
