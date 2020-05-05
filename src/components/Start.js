@@ -31,27 +31,22 @@ class Start extends React.Component {
   )
 
   reset = () => (
-    this.setState({ list: [...this.props.list] })
-  )
-
-  selectedLength = event => (
     this.setState({
-      value: event.target.value,
-      list: [...this.props.list]
-        .filter(item => item.length >= event.target.value),
+      list: [...this.props.list],
+      value: 1,
     })
   )
 
   render() {
-    const { isVisible } = this.state;
-    const { list, selectLength, value } = this.state;
+    const { list, selectLength, value, isVisible } = this.state;
+    const filteredGoods = list.filter(good => good.length >= value);
 
     return (
       <>
         {isVisible
           ? (
             <div>
-              <List list={list} />
+              <List list={filteredGoods} />
 
               <button type="button" onClick={this.sortAlphabetically}>
                 Sort alphabetically
@@ -69,7 +64,12 @@ class Start extends React.Component {
                 Reset
               </button>
 
-              <select value={value} onChange={this.selectedLength}>
+              <select
+                value={value}
+                onChange={(event) => {
+                  this.setState({ value: +event.target.value });
+                }}
+              >
                 {selectLength.map(item => (
                   <option key={item}>{item}</option>
                 ))}
