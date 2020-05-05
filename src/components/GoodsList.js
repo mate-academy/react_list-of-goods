@@ -26,13 +26,6 @@ class GoodsList extends React.Component {
     }));
   }
 
-  filterByValue = (value) => {
-    this.setState(() => ({
-      selectValue: value,
-      goods: this.props.goods.filter(item => item.length >= value),
-    }));
-  }
-
   reset = () => {
     this.setState(() => ({
       selectValue: 1,
@@ -43,11 +36,12 @@ class GoodsList extends React.Component {
   render() {
     const { goods, selectValue } = this.state;
     const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const filteredGoods = goods.filter(item => item.length >= selectValue);
 
     return (
       <>
         <ul>
-          {goods.map(good => (
+          {filteredGoods.map(good => (
             <Good good={good} key={good} />
           ))}
         </ul>
@@ -60,7 +54,9 @@ class GoodsList extends React.Component {
         <select
           value={selectValue}
           onChange={(e) => {
-            this.filterByValue(e.target.value);
+            this.setState({
+              selectValue: +e.target.value,
+            });
           }}
         >
           {arr.map(item => (
