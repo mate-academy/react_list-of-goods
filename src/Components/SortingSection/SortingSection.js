@@ -65,7 +65,7 @@ class SortingSection extends React.Component {
 
   handleSelectChange = (value) => {
     this.setState(() => ({
-      goodsList: [...this.props.goods].filter((_, index) => index < value),
+      goodsList: [...this.props.goods].filter(word => word.length >= value),
       checkboxValue: value,
     }));
   }
