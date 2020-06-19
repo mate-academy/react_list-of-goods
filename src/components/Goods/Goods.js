@@ -18,24 +18,13 @@ class Goods extends React.Component {
         ? (
           <Button
             handleClick={this.toggleList}
-            type="success"
+            color="success"
             size="lg"
           >
             Start
           </Button>
         )
-        : (
-          <div>
-            <Button
-              handleClick={this.toggleList}
-              type="danger"
-              size="lg"
-            >
-              Hide
-            </Button>
-            <GoodsList goods={this.props.goods} />
-          </div>
-        )
+        : <GoodsList goods={this.props.goods} />
     );
   }
 }

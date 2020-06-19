@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Button = props => (
   <button
     type="button"
-    className={`btn btn-${props.type} btn-${props.size} mb-2`}
+    className={`btn btn-${props.color} btn-${props.size} mb-2`}
     onClick={props.handleClick}
   >
     {props.children}
@@ -14,13 +14,13 @@ const Button = props => (
 export { Button };
 
 Button.defaultProps = {
-  type: 'light',
+  color: 'light',
   size: 'btn-md',
 };
 
 Button.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  type: PropTypes.string,
+  color: PropTypes.string,
   children: PropTypes.string.isRequired,
   size: PropTypes.string,
 };

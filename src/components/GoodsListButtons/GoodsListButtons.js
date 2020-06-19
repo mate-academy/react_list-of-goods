@@ -10,11 +10,11 @@ const GoodsListButtons = props => (
     <Button handleClick={props.sortAlphabetically}>
       Sort alphabetically
     </Button>
-    <Button handleClick={props.reset}>
-      Reset
-    </Button>
     <Button handleClick={props.sortByLength}>
       Sort by length
+    </Button>
+    <Button handleClick={props.reset} color="danger">
+      Reset
     </Button>
   </div>
 );
