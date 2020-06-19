@@ -16,7 +16,7 @@ const goodsFromServer = [
 ];
 
 const App = () => (
-  <div className="App container">
+  <div className="App container" style={{ maxWidth: 600 }}>
     <h1>
       {goodsFromServer.length}
       &nbsp;
