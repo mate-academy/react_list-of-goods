@@ -3,7 +3,7 @@ import React from 'react';
 import { ShapeGoodsItem } from './Shapes';
 
 export const GoodItem = (props) => {
-  const display = (props.display) ? 'inline-block' : 'none';
+  const display = (props.display) ? 'block' : 'none';
 
   return (
     <li style={{ display: `${display}` }}>{props.item}</li>

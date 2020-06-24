@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 import React from 'react';
-import { ShapeGoodsItem } from './Shapes';
+import { ShapeOptionsList } from './Shapes';
 import { Option } from './Option';
 
 export const OptionsList = (props) => {
@@ -23,4 +23,4 @@ export const OptionsList = (props) => {
   );
 };
 
-OptionsList.propTypes = ShapeGoodsItem.isRequired;
+OptionsList.propTypes = ShapeOptionsList.isRequired;

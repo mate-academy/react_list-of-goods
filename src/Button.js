@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShapeGoodsItem } from './Shapes';
+import { ShapeButton } from './Shapes';
 
 export const Button = props => (
   <button
@@ -11,4 +11,4 @@ export const Button = props => (
   </button>
 );
 
-Button.propTypes = ShapeGoodsItem.isRequired;
+Button.propTypes = ShapeButton.isRequired;
