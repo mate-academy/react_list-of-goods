@@ -15,9 +15,9 @@ export const ShapePrevious = PropTypes.shape({
   previous: PropTypes.func.isRequired,
 });
 
-export const ShapeButton = PropTypes.shape({
-  action: PropTypes.func.isRequired,
-  display: PropTypes.string.isRequired,
+export const ShapeButtonAction = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  effect: PropTypes.func.isRequired,
 });
 
 export const ShapeOption = PropTypes.shape({

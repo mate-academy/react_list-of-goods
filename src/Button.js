@@ -1,14 +1,18 @@
 import React from 'react';
-import { ShapeButton } from './Shapes';
+import PropTypes from 'prop-types';
+import { ShapeButtonAction } from './Shapes';
 
 export const Button = props => (
   <button
     type="button"
-    onClick={() => props.action[1]()}
+    onClick={() => props.action.effect()}
     style={{ display: props.display }}
   >
-    {props.action[0]}
+    {props.action.name}
   </button>
 );
 
-Button.propTypes = ShapeButton.isRequired;
+Button.propTypes = {
+  display: PropTypes.string.isRequired,
+  action: ShapeButtonAction.isRequired,
+};
