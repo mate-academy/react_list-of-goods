@@ -1,7 +1,10 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 import React from 'react';
 import './App.css';
 import { GoodsList } from './GoodsList';
+import { Button } from './Button';
+import { OptionsList } from './OptionsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -20,76 +23,71 @@ class App extends React.Component {
   state = {
     sorted: [...goodsFromServer],
     display: 'none',
+    startDisplay: 'block',
+    goodsItemsDisplay: goodsFromServer.map(item => Boolean(item)),
+    selectedLength: 3,
     actions: {
-      sortByLength: () => (
+      'sort by length': () => (
         this.setState(prevState => ({
           sorted: prevState.sorted.sort((a, b) => a.length - b.length),
         }))
       ),
-      sortReverse: () => (
+      'sort reverse': () => (
         this.setState(prevState => ({
           sorted: prevState.sorted.reverse(),
         }))
       ),
-      sortByName: () => (
+      'sort by name': () => (
         this.setState(prevState => ({
           sorted: prevState.sorted.sort(),
         }))
       ),
-      reset: () => (
+      'reset button': () => (
         this.setState(prevState => ({
+          goodsItemsDisplay: goodsFromServer.map(item => Boolean(item)),
           sorted: [...goodsFromServer],
-        }))
-      ),
-      start: () => (
-        this.setState(prevState => ({
-          display: 'block',
+          selectedLength: 1,
         }))
       ),
     },
   }
 
-  render() {
-    const { sorted, display, actions } = this.state;
+  start = () => (
+    this.setState(prevState => ({
+      startDisplay: 'none',
+      display: 'flex',
+    }))
+  )
 
-    console.log(Object.entries(actions));
+  choose= (ev) => {
+    ev.persist();
+
+    return (
+      this.setState(prevState => ({
+        selectedLength: ev.target.value,
+        goodsItemsDisplay: prevState.sorted.map(item => item.length > ev.target.value),
+      }))
+    );
+  }
+
+  render() {
+    const { sorted, display, startDisplay, actions, goodsItemsDisplay, selectedLength } = this.state;
 
     return (
       <div className="App">
-        <h1>Goods</h1>
-        {goodsFromServer.length}
-        <button
-          type="button"
-          onClick={() => actions.start()}
-        >
-          Start
-        </button>
-        <GoodsList list={sorted} display={display} />
-
-        <button
-          type="button"
-          onClick={() => actions.sortByLength()}
-        >
-          Sort by length
-        </button>
-        <button
-          type="button"
-          onClick={() => actions.sortByName()}
-        >
-          Sort by Name
-        </button>
-        <button
-          type="button"
-          onClick={() => actions.sortReverse()}
-        >
-          Reverse
-        </button>
-        <button
-          type="button"
-          onClick={() => actions.reset()}
-        >
-          Reset
-        </button>
+        <h1>
+          {goodsFromServer.length}
+          &nbsp;
+          Goods
+        </h1>
+        <Button key="start" action={['start', this.start]} display={startDisplay} />
+        <GoodsList list={sorted} display={display} goodsDisplay={goodsItemsDisplay} />
+        <div className="container">
+          {Object.entries(actions).map(action => (
+            <Button key={action[0]} action={action} display={display} />
+          ))}
+          <OptionsList i={10} selected={selectedLength} choose={this.choose} display={display} />
+        </div>
       </div>
     );
   }

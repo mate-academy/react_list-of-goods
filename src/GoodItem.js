@@ -3,10 +3,10 @@ import React from 'react';
 import { ShapeGoodsItem } from './Shapes';
 
 export const GoodItem = (props) => {
-  console.log(props);
+  const display = (props.display) ? 'inline-block' : 'none';
 
   return (
-    <li>{props.item}</li>
+    <li style={{ display: `${display}` }}>{props.item}</li>
   );
 };
 
