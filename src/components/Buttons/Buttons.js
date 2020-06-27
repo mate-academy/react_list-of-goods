@@ -2,41 +2,20 @@ import React from 'react';
 import './Buttons.css';
 import { ButtonsShape } from '../../shapes';
 
-export const Buttons = (props) => {
-  const { sortReverse, sortAlphabetically, sortByLength, reset } = props;
-
-  return (
-    <div className="btn-group">
+export const Buttons = props => (
+  <div className="btn-group">
+    {Object.entries(props).map(name => (
       <button
-        onClick={sortReverse}
+        key={name}
+        onClick={name[1]}
         type="button"
         className="btn btn-info"
       >
-        Reverse
+        {name[0].replace(/sort/ig, '')}
       </button>
-      <button
-        onClick={sortAlphabetically}
-        type="button"
-        className="btn btn-info"
-      >
-        Sort alphabetically
-      </button>
-      <button
-        onClick={sortByLength}
-        type="button"
-        className="btn btn-info"
-      >
-        Sort by length
-      </button>
-      <button
-        onClick={reset}
-        type="button"
-        className="btn btn-info"
-      >
-        Reset
-      </button>
-    </div>
-  );
-};
+    ))
+    }
+  </div>
+);
 
 Buttons.propTypes = ButtonsShape.isRequired;

@@ -2,7 +2,7 @@ import React from 'react';
 import { GoodsSelectShape } from '../../shapes';
 
 export const GoodsSelect = (props) => {
-  const { selectLength, options } = props;
+  const { selectLength, options, selected } = props;
 
   return (
     <div className="input-group mb-3">
@@ -20,7 +20,13 @@ export const GoodsSelect = (props) => {
         onChange={e => selectLength(e.target.value)}
       >
         {options.map(val => (
-          <option key={val} value={val + 1}>{val + 1}</option>
+          <option
+            key={val}
+            value={val + 1}
+            selected={selected === val}
+          >
+            {val + 1}
+          </option>
         ))}
       </select>
     </div>

@@ -19,6 +19,7 @@ export const ButtonToggleShape = PropTypes.shape({
 });
 
 export const GoodsSelectShape = PropTypes.shape({
-  GoodsSelect: PropTypes.func,
+  selectLength: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.number.isRequired),
+  selected: PropTypes.number,
 });

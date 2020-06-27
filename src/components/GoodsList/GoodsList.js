@@ -8,6 +8,7 @@ export class GoodsList extends React.Component {
     state = {
       goods: this.props.goods,
       maxLength: this.props.goods.length,
+      selected: 0,
     };
 
   sortReverse = () => {
@@ -33,17 +34,19 @@ export class GoodsList extends React.Component {
   reset = () => {
     this.setState(prevState => ({
       goods: [...this.props.goods],
+      selected: 0,
     }));
   }
 
   selectLength = (value) => {
     this.setState({
       goods: this.props.goods.filter(item => item.length >= value),
+      selected: value,
     });
   }
 
   render() {
-    const { goods, maxLength } = this.state;
+    const { goods, maxLength, selected } = this.state;
     const { height } = this.props;
 
     const options = [...Array(maxLength).keys()];
@@ -55,7 +58,7 @@ export class GoodsList extends React.Component {
             goods.map(item => (
               <li
                 className="list-group-item"
-                key={item.slice(0, 3)}
+                key={item}
               >
                 {item}
               </li>
@@ -71,7 +74,7 @@ export class GoodsList extends React.Component {
         <GoodsSelect
           options={options}
           selectLength={this.selectLength}
-          resetSelect={this.resetSelect}
+          selected={selected}
         />
       </div>
     );
