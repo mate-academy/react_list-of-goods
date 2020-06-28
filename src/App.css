@@ -1,0 +1,14 @@
+.app {
+  display: flex;
+}
+
+.app__start {
+  padding: 25px 60px;
+  font-size: 56px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #333;
+  border: 3px solid #333;
+  border-radius: 20px;
+  cursor: pointer;
+}
