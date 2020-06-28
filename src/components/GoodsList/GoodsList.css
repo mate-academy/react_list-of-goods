@@ -1,0 +1,15 @@
+.goods-list {
+  margin: 0 auto;
+  width: 500px;
+}
+
+.control-panel {
+  display: flex;
+  justify-content: space-around;
+
+  margin: 10px;
+  padding: 30px;
+
+  border: 1px solid #dfdfdf;
+  border-radius: 10px;
+}
