@@ -53,6 +53,7 @@ class App extends React.Component {
     this.resetSorts = () => (
       this.setState(state => ({
         goods: [...goodsFromServer],
+        initialLength: 1,
       }))
     );
 
