@@ -1,4 +1,5 @@
 import React from 'react';
+import { Content } from './Components/Content/Content';
 import './App.css';
 
 const goodsFromServer = [
@@ -14,11 +15,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
-
-export default App;
+export class App extends React.PureComponent {
+  render() {
+    return (
+      <div className="App center">
+        <h1>Goods</h1>
+        <Content goods={goodsFromServer} />
+      </div>
+    );
+  }
+}
