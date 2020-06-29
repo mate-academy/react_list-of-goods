@@ -47,9 +47,9 @@ export class GoodList extends React.Component {
     const { value } = e.target;
 
     this.setState(prevState => ({
-      array: prevState.array
+      array: [...this.props.goods]
         .filter(item => item.length >= value),
-      defaultSelect: +value,
+      defaultSelect: value,
     }));
   }
 
