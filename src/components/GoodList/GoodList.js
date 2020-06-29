@@ -1,12 +1,12 @@
 import React from 'react';
 import './GoodList.css';
+import { Button } from '../Button/Button';
 import { Buttons } from '../Buttons/Buttons';
 import { GoodListTypes } from '../Shape/Shape';
 
 export class GoodList extends React.Component {
   state = {
     array: [...this.props.goods],
-    listToHide: true,
     startToHide: false,
     defaultSelect: 1,
   }
@@ -14,7 +14,6 @@ export class GoodList extends React.Component {
   openList = () => {
     this.setState({
       startToHide: true,
-      listToHide: false,
     });
   }
 
@@ -58,22 +57,16 @@ export class GoodList extends React.Component {
     return (
       <>
         <div className="wrapper">
-          <button
-            type="button"
-            className={`
-              btn
-              btn-success
-              ${this.state.startToHide
-        ? 'toggle-none'
-        : ''
-      }`}
-            onClick={this.openList}
-
-          >
-            Start
-          </button>
+          <Button
+            classN={`btn btn-success ${this.state.startToHide
+              ? 'toggle-none'
+              : ''
+            }`}
+            func={this.openList}
+            text="Start"
+          />
           <div
-            className={`${this.state.listToHide
+            className={`${!this.state.startToHide
               ? 'toggle-none'
               : ''}`}
             role="button"
