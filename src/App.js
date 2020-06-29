@@ -15,17 +15,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-class App extends React.PureComponent {
-  render() {
-    return (
-      <div className="App">
-        <h1 className="heading">
-          {`Goods of ${goodsFromServer.length} items`}
-        </h1>
-        <GoodList goods={goodsFromServer} />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div className="App">
+    <h1 className="heading">
+      {`Goods of ${goodsFromServer.length} items`}
+    </h1>
+    <GoodList goods={goodsFromServer} />
+  </div>
+);
 
 export default App;
