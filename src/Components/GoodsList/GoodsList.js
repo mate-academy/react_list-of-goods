@@ -2,6 +2,7 @@ import React from 'react';
 import { GoodsSection } from '../GoodsSection/GoodsSection';
 import { Button } from '../Button/Button';
 import { Select } from '../Select/Select';
+import { ShapeGoodsList } from '../Shapes/ShapeGoodsList';
 
 export class GoodsList extends React.PureComponent {
   render() {
@@ -12,7 +13,7 @@ export class GoodsList extends React.PureComponent {
             goods={this.props.goods}
           />
         </div>
-        <div className="row">
+        <div className="d-flex justify-content-between">
           <Button
             title="Reverse"
             onClick={this.props.onSortedReverse}
@@ -30,13 +31,14 @@ export class GoodsList extends React.PureComponent {
             onClick={this.props.onReset}
           />
           <Select
-            default={1}
+            defaultSelect={this.props.defaultSelect}
             quantity={10}
             onSelected={this.props.onSelected}
-            defaultSelect={this.props.defaultSelect}
           />
         </div>
       </>
     );
   }
 }
+
+GoodsList.propTypes = ShapeGoodsList.isRequired;

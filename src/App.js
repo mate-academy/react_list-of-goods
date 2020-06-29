@@ -18,7 +18,7 @@ const goodsFromServer = [
 export class App extends React.PureComponent {
   render() {
     return (
-      <div className="App center">
+      <div className="App d-flex flex-column align-items-center">
         <h1>Goods</h1>
         <Content goods={goodsFromServer} />
       </div>

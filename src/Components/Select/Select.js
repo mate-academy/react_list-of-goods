@@ -1,9 +1,11 @@
 import React from 'react';
+import { ShapeSelect } from '../Shapes/ShapeSelect';
 
 export class Select extends React.PureComponent {
   render() {
     return (
       <select
+        // className="mdb-select md-form"
         value={this.props.defaultSelect}
         onChange={event => this.props.onSelected(event.target.value)}
       >
@@ -19,3 +21,5 @@ export class Select extends React.PureComponent {
     );
   }
 }
+
+Select.propTypes = ShapeSelect.isRequired;

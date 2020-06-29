@@ -1,4 +1,5 @@
 import React from 'react';
+import { ShapeButton } from '../Shapes/ShapeButton';
 
 export class Button extends React.PureComponent {
   render() {
@@ -15,3 +16,5 @@ export class Button extends React.PureComponent {
     );
   }
 }
+
+Button.propTypes = ShapeButton.isRequired;
