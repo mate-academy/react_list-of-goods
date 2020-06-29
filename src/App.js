@@ -16,18 +16,9 @@ const goodsFromServer = [
 ];
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      listVisible: false,
-    };
-  }
-
-  componentDidMount() {
-    document.getElementById('start')
-      .addEventListener('click', this.onStartSelected);
-  }
+  state = {
+    listVisible: false,
+  };
 
   onStartSelected = () => {
     this.setState(state => ({
@@ -41,7 +32,11 @@ class App extends React.Component {
         {
           !this.state.listVisible
           && (
-            <button className="app__start" id="start" type="button">
+            <button
+              className="app__start"
+              type="button"
+              onClick={this.onStartSelected}
+            >
               Start
             </button>
           )

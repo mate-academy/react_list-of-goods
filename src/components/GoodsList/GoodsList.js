@@ -3,32 +3,17 @@ import PropType from 'prop-types';
 import './GoodsList.css';
 
 class GoodsList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      selectValue: 1,
-      goods: [...props.goods],
-      goodsInitial: [...props.goods],
-    };
-  }
-
-  componentDidMount() {
-    document.getElementById('sort_reverse')
-      .addEventListener('click', this.onReverseOrder);
-    document.getElementById('sort_alphabet')
-      .addEventListener('click', this.onAlphabeticallyOrder);
-    document.getElementById('reset')
-      .addEventListener('click', this.onReset);
-    document.getElementById('sort_length')
-      .addEventListener('click', this.onLengthOrder);
-  }
+  state = {
+    selectOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    selectValue: 1,
+    goods: [...this.props.goods],
+    goodsInitial: [...this.props.goods],
+  };
 
   onReverseOrder = () => {
     this.setState(state => ({
       goods: this.filterByMinLength(
-        [...state.goodsInitial].reverse(),
+        [...state.goods].reverse(),
       ),
     }));
   };
@@ -85,22 +70,22 @@ class GoodsList extends React.Component {
         <div className="goods__sort">
           <button
             className="goods__sort-btn"
-            id="sort_reverse"
             type="button"
+            onClick={this.onReverseOrder}
           >
             Reverse
           </button>
           <button
             className="goods__sort-btn"
-            id="sort_length"
             type="button"
+            onClick={this.onLengthOrder}
           >
             Sort by length
           </button>
           <button
             className="goods__sort-btn"
-            id="sort_alphabet"
             type="button"
+            onClick={this.onAlphabeticallyOrder}
           >
             Sort alphabetically
           </button>
@@ -117,8 +102,8 @@ class GoodsList extends React.Component {
           </span>
           <button
             className="goods__sort-btn"
-            id="reset"
             type="button"
+            onClick={this.onReset}
           >
             Reset
           </button>
