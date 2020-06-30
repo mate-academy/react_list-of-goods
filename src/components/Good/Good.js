@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Good.css';
 
 const Good = ({ good }) => (
-  <li>{good}</li>
+  <li className="GoodsList__Good Good">{good}</li>
 );
 
 export default Good;

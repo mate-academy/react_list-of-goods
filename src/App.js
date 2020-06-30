@@ -62,9 +62,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Goods</h1>
+        <h1 className="App__header">Goods</h1>
         {goodsFromServer.length}
         <button
+          className="App__button"
           type="button"
           onClick={this.start}
           hidden={this.state.isStart}
@@ -72,6 +73,7 @@ class App extends React.Component {
           Start
         </button>
         <button
+          className="App__button"
           type="button"
           onClick={this.reverse}
           hidden={!this.state.isStart}
@@ -79,6 +81,7 @@ class App extends React.Component {
           Reverse
         </button>
         <button
+          className="App__button"
           type="button"
           onClick={this.sortAlphabetically}
           hidden={!this.state.isStart}
@@ -86,6 +89,7 @@ class App extends React.Component {
           Sort alphabetically
         </button>
         <button
+          className="App__button"
           type="button"
           onClick={this.reset}
           hidden={!this.state.isStart}
@@ -93,6 +97,7 @@ class App extends React.Component {
           Reset
         </button>
         <button
+          className="App__button"
           type="button"
           onClick={this.sortLenght}
           hidden={!this.state.isStart}
@@ -100,6 +105,7 @@ class App extends React.Component {
           Sort by length
         </button>
         <select
+          className="App__select"
           hidden={!this.state.isStart}
           value={this.state.selectValue}
           onChange={this.filterLength}

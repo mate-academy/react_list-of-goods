@@ -1,11 +1,11 @@
-h1 {
+.App__header {
   text-align: center;
 }
 
-button {
+.App__button {
   margin-left: 10px;
 }
 
-select {
+.App__select {
   margin-left: 10px;
 }
