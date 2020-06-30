@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GoodsItem } from '../GoodsItem/GoodsItem';
-import { LengthFilter } from '../LengthFilter/LengthFilter';
+import { Actions } from '../Actions/Actions';
 
 export class GoodsList extends React.Component {
   state = {
@@ -61,32 +61,12 @@ export class GoodsList extends React.Component {
                 )}
                 />
               </div>
-              <button
-                type="button"
-                onClick={this.reverseList}
-              >
-                Reverse
-              </button>
-              <button
-                type="button"
-                onClick={this.sortByName}
-              >
-                Alphabetically
-              </button>
-              <button
-                type="button"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-              <button
-                type="button"
-                onClick={this.sortByLength}
-              >
-                Length
-              </button>
-              <LengthFilter
-                onChange={this.handleLengthSelection}
+              <Actions
+                reverseList={this.reverseList}
+                sortByName={this.sortByName}
+                reset={this.reset}
+                sortByLength={this.sortByLength}
+                handleLengthSelection={this.handleLengthSelection}
                 minLength={minLength}
               />
             </div>
