@@ -6,22 +6,30 @@ import { Select } from '../Select/Select';
 
 export const Buttons = (props) => {
   const {
-    reverse,
-    alphabet,
-    reset,
-    byLength,
-    selectNumber,
-    defaultSelect,
+    onReverse,
+    onAlphabet,
+    onReset,
+    onByLength,
+    onSelectNumber,
+    onDefaultSelect,
   } = props;
-  const bClass = 'btn btn-info';
+  const buttonClass = 'btn btn-info';
 
   return (
     <div className="buttons">
-      <Button classN={bClass} func={reverse} text="Reverse" />
-      <Button classN={bClass} func={alphabet} text="Sort alphabetically" />
-      <Button classN={bClass} func={reset} text="Reset" />
-      <Button classN={bClass} func={byLength} text="Sort by length" />
-      <Select value={defaultSelect} func={selectNumber} />
+      <Button className={buttonClass} action={onReverse} text="Reverse" />
+      <Button
+        className={buttonClass}
+        action={onAlphabet}
+        text="Sort alphabetically"
+      />
+      <Button className={buttonClass} action={onReset} text="Reset" />
+      <Button
+        className={buttonClass}
+        action={onByLength}
+        text="Sort by length"
+      />
+      <Select value={onDefaultSelect} action={onSelectNumber} />
     </div>
   );
 };

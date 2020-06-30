@@ -17,19 +17,19 @@ export class GoodList extends React.Component {
     });
   }
 
-  reverse = () => {
+  reverseList = () => {
     this.setState(prevState => ({
       array: prevState.array.reverse(),
     }));
   }
 
-  alphabet = () => {
+  sortByAlphabet = () => {
     this.setState(prevState => ({
       array: prevState.array.sort(),
     }));
   }
 
-  byLength = () => {
+  sortByLength = () => {
     this.setState(prevState => ({
       array: prevState.array
         .sort((itemA, itemB) => itemA.length - itemB.length),
@@ -58,11 +58,11 @@ export class GoodList extends React.Component {
       <>
         <div className="wrapper">
           <Button
-            classN={`btn btn-success ${this.state.startToHide
+            className={`btn btn-success ${this.state.startToHide
               ? 'toggle-none'
-              : ''
+              : '123'
             }`}
-            func={this.openList}
+            action={this.openList}
             text="Start"
           />
           <div
@@ -85,12 +85,12 @@ export class GoodList extends React.Component {
             </ul>
 
             <Buttons
-              reverse={this.reverse}
-              alphabet={this.alphabet}
-              reset={this.reset}
-              byLength={this.byLength}
-              selectNumber={this.selectNumber}
-              defaultSelect={this.state.defaultSelect}
+              onReverse={this.reverseList}
+              onAlphabet={this.sortByAlphabet}
+              onReset={this.reset}
+              onByLength={this.sortByLength}
+              onSelectNumber={this.selectNumber}
+              onDefaultSelect={this.state.defaultSelect}
             />
           </div>
         </div>

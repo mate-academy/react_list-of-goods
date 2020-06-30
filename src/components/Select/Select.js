@@ -4,7 +4,7 @@ import { SelectTypes } from '../Shape/Shape';
 export const Select = (props) => {
   const {
     value,
-    func,
+    action,
   } = props;
   const maxLength = 10;
   const numbers = [];
@@ -19,7 +19,7 @@ export const Select = (props) => {
       id="exampleSelect1"
       name="select"
       value={value}
-      onChange={func}
+      onChange={action}
     >
       {numbers.map(number => (
         <option key={number}>{number}</option>

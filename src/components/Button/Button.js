@@ -1,18 +1,19 @@
 import React from 'react';
+import './Button.css';
 import { ButtonTypes } from '../Shape/Shape';
 
 export const Button = (props) => {
   const {
-    classN,
-    func,
+    className,
+    action,
     text,
   } = props;
 
   return (
     <button
       type="button"
-      className={classN}
-      onClick={func}
+      className={className}
+      onClick={action}
     >
       {text}
     </button>

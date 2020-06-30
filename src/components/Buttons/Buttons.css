@@ -2,7 +2,3 @@
   width: 200px;
   margin: 30px auto;
 }
-
-.btn-info:not(:last-child) {
-  margin-right: 5px;
-}
