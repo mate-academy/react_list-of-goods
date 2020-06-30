@@ -16,14 +16,13 @@ export const GoodsSelect = (props) => {
       </div>
       <select
         className="custom-select"
-        id="inputGroupSelect"
         onChange={e => selectLength(e.target.value)}
+        value={selected}
       >
         {options.map(val => (
           <option
             key={val}
             value={val + 1}
-            selected={selected === val}
           >
             {val + 1}
           </option>
