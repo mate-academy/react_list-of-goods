@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { buttonShapes } from '../../PropsShapes/PropShapes';
 
 export class Button extends React.PureComponent {
   render() {
@@ -15,7 +15,4 @@ export class Button extends React.PureComponent {
   }
 }
 
-Button.propTypes = {
-  click: PropTypes.func.isRequired,
-  buttonName: PropTypes.string.isRequired,
-};
+Button.propTypes = buttonShapes;

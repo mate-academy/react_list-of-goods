@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { lengthSelectionShapes } from '../../PropsShapes/PropShapes';
 
 export class LengthSelection extends React.PureComponent {
   render() {
@@ -19,7 +19,4 @@ export class LengthSelection extends React.PureComponent {
   }
 }
 
-LengthSelection.propTypes = {
-  change: PropTypes.func.isRequired,
-  selected: PropTypes.number.isRequired,
-};
+LengthSelection.propTypes = lengthSelectionShapes;

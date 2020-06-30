@@ -1,5 +1,5 @@
 import React from 'react';
-import { goodsShapes } from '../../PropsShapes/goodsShapes';
+import { goodsShapes } from '../../PropsShapes/PropShapes';
 import { GoodsItem } from '../GoodsItem/GoodsItem';
 import './GoodsList.css';
 import { Button } from '../Button/Button';
@@ -8,7 +8,6 @@ import { LengthSelection } from '../LengthSelection/LengthSelection';
 export class GoodsList extends React.Component {
   state = {
     isStarted: false,
-    isInitial: true,
     goodCopy: [...this.props.goods],
     isSelected: 1,
   }
@@ -22,21 +21,18 @@ export class GoodsList extends React.Component {
   reverseGoodsList = () => {
     this.setState(prevState => ({
       goodCopy: prevState.goodCopy.reverse(),
-      isInitial: false,
     }));
   }
 
   sortByAbc = () => {
     this.setState(prevState => ({
       goodCopy: prevState.goodCopy.sort(),
-      isInitial: false,
     }));
   }
 
   setInitial = () => {
     this.setState(() => ({
       goodCopy: [...this.props.goods],
-      isInitial: true,
       isSelected: 1,
     }));
   }
@@ -44,24 +40,20 @@ export class GoodsList extends React.Component {
   sortByLength = () => {
     this.setState(prevState => ({
       goodCopy: prevState.goodCopy.sort((a, b) => a.length - b.length),
-      isInitial: false,
     }));
   }
 
   filterByLength = (event) => {
     const value = +event.target.value;
 
-    this.setState(prevState => ({
-      goodCopy: prevState.goodCopy.filter(a => a.length >= value),
-      isInitial: false,
+    this.setState(() => ({
+      goodCopy: this.props.goods.filter(a => a.length >= value),
       isSelected: value,
     }));
   }
 
   render() {
-    const goods = this.state.isInitial
-      ? this.props.goods
-      : this.state.goodCopy;
+    const goods = this.state.goodCopy;
 
     return (
       <div className="goods-list">
