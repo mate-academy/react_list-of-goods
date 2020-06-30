@@ -1,0 +1,15 @@
+button {
+  padding: 10px;
+  margin: 10px;
+}
+
+.select {
+  padding: 4px;
+  margin: 10px;
+}
+
+.select-description {
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
