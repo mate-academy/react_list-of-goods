@@ -8,12 +8,12 @@ export const Select = ({ onChange, value }) => (
   >
     {
       Array.from(Array(10), (_, i) => i + 1)
-        .map(element => (<option>{element}</option>))
+        .map(element => (<option key={element}>{element}</option>))
     }
   </select>
 );
 
 Select.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
 };

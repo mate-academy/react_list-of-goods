@@ -7,7 +7,7 @@ export class GoodsList extends Component {
   state = {
     isShown: false,
     goods: this.props.things,
-    selectedValue: 1,
+    selectedValue: '1',
   }
 
   clickHandler = () => {
@@ -31,7 +31,7 @@ export class GoodsList extends Component {
 
     this.setState(() => ({
       goods: things,
-      selectedValue: 1,
+      selectedValue: '1',
     }));
   }
 
