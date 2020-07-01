@@ -6,32 +6,32 @@ import { GoodsListSelect } from '../GoodsListSelect/GoodsListSelect';
 
 class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.goods],
+    goods: this.props.goods,
     minLength: 1,
   }
 
   reverse = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.reverse(),
+      goods: [...prevState.goods.reverse()],
     }));
   }
 
   sortAlphabetically = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.localeCompare(b)),
+      goods: [...prevState.goods.sort((a, b) => a.localeCompare(b))],
     }));
   }
 
   reset = () => {
     this.setState({
-      goods: [...this.props.goods],
+      goods: this.props.goods,
       minLength: 1,
     });
   }
 
   sortByLength = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.length - b.length),
+      goods: [...prevState.goods.sort((a, b) => a.length - b.length)],
     }));
   }
 
