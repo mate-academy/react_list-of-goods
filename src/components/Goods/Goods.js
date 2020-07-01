@@ -58,7 +58,7 @@ class Goods extends React.Component {
     const { isActive } = this.state;
     const { goods } = this.state;
     const { minLength } = this.state;
-    const filteredminLength = minLength
+    const filteredMinLength = minLength
       ? goods.filter(item => item.length >= minLength)
       : goods;
 
@@ -69,7 +69,7 @@ class Goods extends React.Component {
           <div
             className="goods__container"
           >
-            <GoodsList goods={filteredminLength} />
+            <GoodsList goods={filteredMinLength} />
             <ButtonsSort
               handleReverse={this.handleReverse}
               handleAlphabetically={this.handleSortAlphabetically}
