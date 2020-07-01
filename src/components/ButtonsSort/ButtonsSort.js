@@ -13,28 +13,28 @@ const ButtonsSort = (props) => {
   return (
     <div className="goods__buttons">
       <button
-        onClick={() => handleReverse()}
+        onClick={handleReverse}
         type="button"
         className="goods__button goods__button-reverse"
       >
         Reverse
       </button>
       <button
-        onClick={() => handleAlphabetically()}
+        onClick={handleAlphabetically}
         type="button"
         className="goods__button goods__button-alphabet"
       >
         Sort alphabetically
       </button>
       <button
-        onClick={() => handleByLength()}
+        onClick={handleByLength}
         type="button"
         className="goods__button goods__button-length"
       >
         Sort by length
       </button>
       <button
-        onClick={() => handleReset()}
+        onClick={handleReset}
         type="button"
         className="goods__button goods__button-reset"
       >
