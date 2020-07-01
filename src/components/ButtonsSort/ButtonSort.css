@@ -1,0 +1,27 @@
+.goods__buttons {
+  margin: 20px 0;
+}
+
+.goods__button {
+  font-family: inherit;
+  outline: none;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.goods__button-reverse,
+.goods__button-alphabet,
+.goods__button-length {
+  width: 140px;
+  margin-right: 10px;
+  height: 40px;
+}
+
+.goods__button-reset {
+  width: 80px;
+  height: 40px;
+  background-color: #f92e27;
+  color: white;
+  border-radius: 7%;
+}

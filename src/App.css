@@ -1,0 +1,12 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Heebo&display=swap");
+
+body {
+  font-family: "Heebo", sans-serif;
+}
+
+.App {
+  width: 700px;
+  text-align: center;
+  margin: 0 auto;
+}

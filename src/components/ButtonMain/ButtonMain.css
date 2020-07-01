@@ -1,0 +1,12 @@
+.goods__main {
+  width: 80px;
+  height: 40px;
+  font-family: inherit;
+  text-transform: uppercase;
+  outline: none;
+  background-color: #f92e27;
+  border: none;
+  color: #fff;
+  border-radius: 6%;
+  cursor: pointer;
+}
