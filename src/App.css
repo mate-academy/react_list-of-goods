@@ -12,6 +12,7 @@
 
 .block {
   display: none;
+  position: relative;
 }
 
 .block--unhide {
@@ -53,6 +54,7 @@
   background-color: grey;
   border-radius: 15px;
   cursor: pointer;
+  border: 1px solid white;
 }
 
 .button--start {
@@ -61,4 +63,15 @@
 
 .button--hide {
   display: none;
+}
+
+.options {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  height: 30px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: gray;
 }

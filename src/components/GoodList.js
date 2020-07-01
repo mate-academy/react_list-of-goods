@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Actions } from './Actions';
 import { StartButton } from './StartButton';
+import { GoodItem } from './GoodItem';
+import { SelectedLength } from './SelectedLength';
 
 export class GoodsList extends React.Component {
   state = {
@@ -69,6 +71,11 @@ export class GoodsList extends React.Component {
             selectedLength={this.selectedLength}
             minLength={minLength}
           />
+
+          <SelectedLength
+            selectedLength={this.selectedLength}
+            minLength={minLength}
+          />
         </div>
 
         <StartButton
@@ -79,14 +86,6 @@ export class GoodsList extends React.Component {
     );
   }
 }
-
-const GoodItem = ({ good }) => (
-  <li className="list__item">
-    <span className="item__text">{good}</span>
-  </li>
-);
-
-GoodItem.propTypes = PropTypes.string.isRequired;
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,

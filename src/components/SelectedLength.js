@@ -5,7 +5,11 @@ const arrOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 export const SelectedLength = ({ selectedLength, minLength }) => (
 
-  <select onChange={selectedLength} value={minLength}>
+  <select
+    className="options"
+    onChange={selectedLength}
+    value={minLength}
+  >
     {arrOptions.map(n => (
       <option
         key={n}

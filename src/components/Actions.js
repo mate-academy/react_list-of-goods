@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SelectedLength } from './SelectedLength';
+// import { SelectedLength } from './SelectedLength';
 
 export const Actions = ({
   reverseList,
@@ -43,11 +43,6 @@ export const Actions = ({
       >
         SortByLength
       </button>
-
-      <SelectedLength
-        selectedLength={selectedLength}
-        minLength={minLength}
-      />
     </div>
   </>
 );
