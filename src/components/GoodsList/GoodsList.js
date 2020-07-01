@@ -46,7 +46,8 @@ class GoodsList extends React.Component {
           {
             this.state.goods.map(product => (
               product.length >= this.state.minLength
-                && <GoodItem product={product} key={product} />))
+                && <GoodItem product={product} key={product} />
+            ))
           }
         </ul>
         <GoodsListButtons
@@ -55,8 +56,6 @@ class GoodsList extends React.Component {
           sortAlphabetically={this.sortAlphabetically}
           reset={this.reset}
           sortByLength={this.sortByLength}
-          setMinLength={this.setMinLength}
-          minLength={this.state.minLength}
         />
         <GoodsListSelect
           minLength={this.state.minLength}

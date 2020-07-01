@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const selectValues = [];
@@ -8,27 +8,35 @@ for (let i = 1; i < 11; i++) {
   selectValues.push(i);
 }
 
-const GoodsListSelect = props => (
-  <select
-    className="custom-select"
-    onClick={event => props.setMinLength(event.target.value)}
-  >
-    {
-      selectValues.map(value => (
-        <option
-          key={value}
-          selected={props.minLength === value}
-        >
-          {value}
-        </option>
-      ))
-    }
-  </select>
-);
+const GoodsListSelect = (props) => {
+  const [selectedValue, setSelectedValue] = useState(
+    selectValues[selectValues.length - 1],
+  );
+
+  const onChange = (event) => {
+    const { value } = event.target;
+
+    setSelectedValue(value);
+    props.setMinLength(Number(value));
+  };
+
+  return (
+    <select
+      className="custom-select"
+      onChange={onChange}
+      value={selectedValue}
+    >
+      {
+        selectValues.map(value => (
+          <option key={value}>{value}</option>
+        ))
+      }
+    </select>
+  );
+};
 
 export { GoodsListSelect };
 
 GoodsListSelect.propTypes = {
   setMinLength: PropTypes.func.isRequired,
-  minLength: PropTypes.number.isRequired,
 };
