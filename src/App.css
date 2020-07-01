@@ -1,0 +1,14 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.btn {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  outline: none;
+}
