@@ -21,6 +21,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       goods: [...goodsFromServer],
       visibility: true,
       initialLength: 1,
@@ -34,19 +35,19 @@ class App extends React.Component {
 
     this.reverseGoods = () => (
       this.setState(state => ({
-        goods: state.goods.reverse(),
+        goods: [...goodsFromServer].reverse(),
       }))
     );
 
     this.alphabeticSort = () => (
       this.setState(state => ({
-        goods: state.goods.sort(),
+        goods: [...goodsFromServer].sort(),
       }))
     );
 
     this.lengthSort = () => (
       this.setState(state => ({
-        goods: state.goods.sort((a, b) => a.length - b.length),
+        goods: [...goodsFromServer].sort((a, b) => a.length - b.length),
       }))
     );
 
@@ -105,6 +106,7 @@ class App extends React.Component {
           text="Reset"
         />
         <Select
+          options={this.state.options}
           handleClick={this.filterGoods}
           value={String(this.state.initialLength)}
         />
