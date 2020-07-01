@@ -10,7 +10,7 @@ class Goods extends React.Component {
     isActive: true,
     goods: [...this.props.goods],
     defaultValue: 1,
-    maxLength: null,
+    minLength: null,
   };
 
   handleShowingList = () => {
@@ -46,7 +46,7 @@ class Goods extends React.Component {
 
   handleSelectLength = (digit) => {
     this.setState({
-      maxLength: digit,
+      minLength: digit,
     });
   }
 
@@ -57,9 +57,9 @@ class Goods extends React.Component {
   render() {
     const { isActive } = this.state;
     const { goods } = this.state;
-    const { maxLength } = this.state;
-    const filteredMaxLength = maxLength
-      ? goods.filter(item => item.length >= maxLength)
+    const { minLength } = this.state;
+    const filteredminLength = minLength
+      ? goods.filter(item => item.length >= minLength)
       : goods;
 
     return (
@@ -69,7 +69,7 @@ class Goods extends React.Component {
           <div
             className="goods__container"
           >
-            <GoodsList goods={filteredMaxLength} />
+            <GoodsList goods={filteredminLength} />
             <ButtonsSort
               handleReverse={this.handleReverse}
               handleAlphabetically={this.handleSortAlphabetically}
