@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const GoodsSelectionItems = ({ digit }) => (
   <option
-    value={digit}
     className="selection__item"
   >
     {digit}

@@ -40,6 +40,7 @@ class Goods extends React.Component {
   handleReset = () => {
     this.setState({
       goods: [...this.props.goods],
+      minLength: null,
       defaultValue: 1,
     });
   }
