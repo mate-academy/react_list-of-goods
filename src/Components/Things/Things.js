@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Thing } from '../Thing/Thing';
+import styles from './Things.module.css';
 
 export const Things = ({ content }) => (
-  <ul>
+  <ul className={styles.list}>
     {
-      content.map(thing => <Thing name={thing} />)
+      content.map(thing => <Thing key={thing} name={thing} />)
     }
   </ul>
 );

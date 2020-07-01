@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Things } from '../Things/Things';
+import { Select } from '../Select/Select';
 
 export class GoodsList extends Component {
   state = {
@@ -26,8 +27,10 @@ export class GoodsList extends Component {
   }
 
   resetHandler = () => {
+    const { things } = this.props;
+
     this.setState(() => ({
-      goods: this.props.things,
+      goods: things,
       selectedValue: 1,
     }));
   }
@@ -40,19 +43,19 @@ export class GoodsList extends Component {
 
   changeHandler = ({ target }) => {
     const { value } = target;
+    const { things } = this.props;
 
-    this.setState(prevState => ({
-      goods: [...this.props.things].filter(thing => thing.length >= value),
+    this.setState(() => ({
+      goods: [...things].filter(thing => thing.length >= value),
       selectedValue: value,
     }));
   }
 
   render() {
-    const { isShown, goods } = this.state;
+    const { isShown, goods, selectedValue } = this.state;
 
     return (
       <>
-
         { isShown
           ? <Things content={goods} />
           : null
@@ -71,15 +74,10 @@ export class GoodsList extends Component {
         <button type="button" onClick={this.sortLengthHandler}>
           Sort by length
         </button>
-        <select
+        <Select
           onChange={this.changeHandler}
-          value={this.state.selectedValue}
-        >
-          {
-            Array.from(Array(10), (_, i) => i + 1)
-              .map(element => (<option>{element}</option>))
-          }
-        </select>
+          value={selectedValue}
+        />
       </>
     );
   }
