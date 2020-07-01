@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Things } from '../Things/Things';
 import { Select } from '../Select/Select';
+import { Buttons } from '../Buttons/Buttons';
 
 export class GoodsList extends Component {
   state = {
@@ -64,16 +65,12 @@ export class GoodsList extends Component {
           ? <button type="button" onClick={this.clickHandler}>Show list</button>
           : null
         }
-        <button type="button" onClick={this.reverseHandler}>Reverse</button>
-        <button type="button" onClick={this.sortAlphabeticallyHandler}>
-          Sort alphabetically
-        </button>
-        <button type="button" onClick={this.resetHandler}>
-          Reset
-        </button>
-        <button type="button" onClick={this.sortLengthHandler}>
-          Sort by length
-        </button>
+        <Buttons
+          reverse={this.reverseHandler}
+          sortWords={this.sortAlphabeticallyHandler}
+          reset={this.resetHandler}
+          sortLength={this.sortLengthHandler}
+        />
         <Select
           onChange={this.changeHandler}
           value={selectedValue}
