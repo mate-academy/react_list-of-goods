@@ -3,19 +3,23 @@
 }
 
 .goods__button {
+  text-transform: uppercase;
   font-family: inherit;
   outline: none;
   font-size: 14px;
   cursor: pointer;
   border: none;
+  transition: 0.3s;
 }
 
 .goods__button-reverse,
 .goods__button-alphabet,
 .goods__button-length {
-  width: 140px;
+  display: inline-block;
   margin-right: 10px;
+  color: white;
   height: 40px;
+  background-color: #3ab3eb;
 }
 
 .goods__button-reset {
@@ -23,5 +27,8 @@
   height: 40px;
   background-color: #f92e27;
   color: white;
-  border-radius: 7%;
+}
+
+.goods__button:hover {
+  filter: brightness(95%);
 }
