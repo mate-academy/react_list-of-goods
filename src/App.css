@@ -38,6 +38,8 @@
   width: 150px;
   border: 2px solid white;
   font-size: 20px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .item__text {
