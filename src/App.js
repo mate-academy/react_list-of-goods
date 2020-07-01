@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import { Button } from './components/Button/Button';
+import { Select } from './components/Select/Select';
 
 const goodsFromServer = [
   'Dumplings',
@@ -86,51 +88,27 @@ class App extends React.Component {
             {item}
           </li>
         ))}
-        <button
-          className="buttons"
-          onClick={this.reset}
-          type="button"
-        >
-          reset
-        </button>
-        <button
-          className="buttons"
-          onClick={this.reverse}
-          type="button"
-        >
-          reverse
-        </button>
-        <button
-          className="buttons"
-          onClick={this.sortByLength}
-          type="button"
-        >
-          sort by length
-        </button>
-        <button
-          className="buttons"
-          onClick={this.sortByAlphabet}
-          type="button"
-        >
-          sort by alhabet
-        </button>
-        <select
-          className="custom-select"
-          id="inputGroupSelect"
-          onChange={this.select}
+        <Button
+          click={this.reset}
+          text="reset"
+        />
+        <Button
+          click={this.reverse}
+          text="reverse"
+        />
+        <Button
+          click={this.sortByLength}
+          text="sort By Length"
+        />
+        <Button
+          click={this.sortByAlphabet}
+          text="sort By Alphabet"
+        />
+        <Select
+          change={this.select}
           value={String(this.state.initialLength)}
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
+          goods={[...goodsFromServer]}
+        />
       </div>
     );
   }
