@@ -6,7 +6,7 @@ import Select from './Select';
 
 class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.listOfGoods],
+    goods: this.props.listOfGoods,
     length: 1,
   }
 
@@ -30,7 +30,7 @@ class GoodsList extends React.Component {
 
   onReset = () => {
     this.setState({
-      goods: [...this.props.listOfGoods],
+      goods: this.props.listOfGoods,
       length: 1,
     });
   }
@@ -38,7 +38,7 @@ class GoodsList extends React.Component {
   onSelect = ({ target }) => {
     this.setState({
       length: target.value,
-      goods: [...this.props.listOfGoods].filter(item => (
+      goods: this.props.listOfGoods.filter(item => (
         item.length >= target.value)),
     });
   }
