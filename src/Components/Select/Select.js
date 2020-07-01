@@ -8,7 +8,11 @@ export const Select = ({ onChange, value }) => (
   >
     {
       Array.from(Array(10), (_, i) => i + 1)
-        .map(element => (<option key={element}>{element}</option>))
+        .map(element => (
+          <option key={element}>
+            {element}
+          </option>
+        ))
     }
   </select>
 );
