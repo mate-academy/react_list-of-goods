@@ -1,0 +1,13 @@
+.GoodsList {
+  display: flex;
+  flex-direction: row;
+  margin: 25px;
+}
+
+.GoodsList__list {
+  margin: 20px;
+}
+
+.GoodsList__wrapper {
+  margin: 20px 0;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GoodsItem } from '../GoodsItem/GoodsItem';
 import { Actions } from '../Actions/Actions';
+import './GoodsList.css';
 
 export class GoodsList extends React.Component {
   state = {
@@ -51,11 +52,11 @@ export class GoodsList extends React.Component {
     const { isVisible, goods, minLength } = this.state;
 
     return (
-      <div className="Goods__wrapper">
+      <div className="GoodsList">
         {isVisible
           ? (
-            <div>
-              <div>
+            <div className="GoodsList__wrapper">
+              <div className="GoodsList__list">
                 <GoodsItem goods={goods.filter(
                   good => good.length > minLength,
                 )}

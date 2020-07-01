@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LengthFilter } from '../LengthFilter/LengthFilter';
+import './Actions.css';
 
 export const Actions = ({
   reverseList,
@@ -10,7 +11,7 @@ export const Actions = ({
   handleLengthSelection,
   minLength,
 }) => (
-  <div>
+  <div className="Actions">
     <button
       type="button"
       onClick={reverseList}
