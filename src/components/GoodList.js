@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Actions } from './Actions';
+import { StartButton } from './StartButton';
 
 export class GoodsList extends React.Component {
   state = {
     goods: [...this.props.goods],
+    minLength: 1,
   }
 
   reverseList = () => (
@@ -23,6 +25,7 @@ export class GoodsList extends React.Component {
   resetList = () => (
     this.setState({
       goods: [...this.props.goods],
+      minLength: 1,
     })
   )
 
@@ -32,21 +35,45 @@ export class GoodsList extends React.Component {
     }))
   )
 
+  showList = () => (
+    this.setState(prevState => ({
+      listVisibility: 'block--unhide',
+      buttonVisibility: 'button--hide',
+    }))
+  )
+
+  selectedLength = event => (
+    this.setState({
+      minLength: event.target.value,
+    })
+  )
+
   render() {
-    const { goods } = this.state;
+    const { goods, listVisibility, buttonVisibility, minLength } = this.state;
+
+    const goodsFiltered = goods.filter(good => good.length >= minLength);
 
     return (
       <>
-        <ul>
-          {goods.map(good => (
-            <GoodItem good={good} />
-          ))}
-        </ul>
-        <Actions
-          reverseList={this.reverseList}
-          sortByAlphabet={this.sortByAlphabet}
-          resetList={this.resetList}
-          sortByLength={this.sortByLength}
+        <div className={`block ${listVisibility}`}>
+          <ul className="list">
+            {goodsFiltered.map(good => (
+              <GoodItem good={good} key={good} />
+            ))}
+          </ul>
+          <Actions
+            reverseList={this.reverseList}
+            sortByAlphabet={this.sortByAlphabet}
+            resetList={this.resetList}
+            sortByLength={this.sortByLength}
+            selectedLength={this.selectedLength}
+            minLength={minLength}
+          />
+        </div>
+
+        <StartButton
+          buttonVisibility={buttonVisibility}
+          showList={this.showList}
         />
       </>
     );
@@ -54,8 +81,8 @@ export class GoodsList extends React.Component {
 }
 
 const GoodItem = ({ good }) => (
-  <li key={good}>
-    {good}
+  <li className="list__item">
+    <span className="item__text">{good}</span>
   </li>
 );
 

@@ -1,0 +1,64 @@
+.App {
+  margin: 0 auto;
+  width: 50%;
+  background-color: rgb(71, 69, 69);
+  border-radius: 20px;
+}
+
+.title {
+  color: white;
+  text-align: center;
+}
+
+.block {
+  display: none;
+}
+
+.block--unhide {
+  display: block;
+  margin: 10px auto;
+}
+
+.list {
+  background-color: grey;
+  border-radius: 10px;
+  padding-top: 5px;
+  margin: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+}
+
+.list__item {
+  height: 40px;
+  margin-bottom: 5px;
+  width: 150px;
+  border: 2px solid white;
+  font-size: 20px;
+}
+
+.item__text {
+  display: block;
+  margin: 10px;
+}
+
+.button {
+  width: 120px;
+  height: 50px;
+  margin: 10px;
+  font-size: 15px;
+  color: white;
+  background-color: grey;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.button--start {
+  margin: calc(50% - 60px);
+}
+
+.button--hide {
+  display: none;
+}
