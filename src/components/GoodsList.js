@@ -4,6 +4,7 @@ import { GoodItem } from './GoodItem';
 
 export class GoodsList extends React.Component {
   state = {
+    resetGoods: [...this.props.initialGoods],
     currentGoods: this.props.initialGoods,
   };
 
@@ -23,6 +24,19 @@ export class GoodsList extends React.Component {
     }))
   );
 
+  handleResetButton = () => (
+    this.setState(prevState => ({
+      currentGoods: [...prevState.resetGoods],
+    }))
+  );
+
+  handleSortLButton = () => (
+    this.setState(prevState => ({
+      currentGoods: [...prevState.currentGoods]
+        .sort((a, b) => (a.length - b.length)),
+    }))
+  );
+
   render() {
     // const { initialGoods } = this.props;
 
@@ -39,6 +53,18 @@ export class GoodsList extends React.Component {
           onClick={this.handleSortButton}
         >
           Sort
+        </button>
+        <button
+          type="button"
+          onClick={this.handleResetButton}
+        >
+          Reset
+        </button>
+        <button
+          type="button"
+          onClick={this.handleSortLButton}
+        >
+          Sort length
         </button>
         <ul>
           {this.state.currentGoods.map(good => (
