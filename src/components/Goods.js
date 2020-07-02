@@ -43,12 +43,10 @@ export class Goods extends React.Component {
   }
 
   filterLength = (value) => {
-    this.setState(prevState => ({
-      mutatedGoods: prevState.mutatedGoods.length !== 0
-        ? prevState.mutatedGoods.filter(good => good.name.length >= value)
-        : this.goods.filter(good => good.name.length >= value),
+    this.setState({
+      mutatedGoods: this.goods.filter(good => good.name.length >= value),
       selectedLength: value,
-    }));
+    });
   }
 
   render() {
