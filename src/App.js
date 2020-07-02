@@ -22,9 +22,7 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     sorted: [...goodsFromServer],
-    display: 'none',
-    startDisplay: 'block',
-    goodsItemsDisplay: goodsFromServer.map(item => Boolean(item)),
+    ifStarted: false,
     selectedLength: 3,
     actions: [
       {
@@ -55,7 +53,6 @@ class App extends React.Component {
         name: 'reset',
         effect: () => (
           this.setState(prevState => ({
-            goodsItemsDisplay: goodsFromServer.map(item => Boolean(item)),
             sorted: [...goodsFromServer],
             selectedLength: 1,
           }))
@@ -66,24 +63,26 @@ class App extends React.Component {
 
   start = () => (
     this.setState(prevState => ({
-      startDisplay: 'none',
-      display: 'flex',
+      ifStarted: true,
     }))
   )
 
-  choose= (ev) => {
+  chooseLength = (ev) => {
     ev.persist();
 
     return (
       this.setState(prevState => ({
         selectedLength: ev.target.value,
-        goodsItemsDisplay: prevState.sorted.map(item => item.length > ev.target.value),
+        sorted: prevState.sorted.filter(item => item.length > ev.target.value),
       }))
     );
   }
 
   render() {
-    const { sorted, display, startDisplay, actions, goodsItemsDisplay, selectedLength } = this.state;
+    const {
+      sorted, actions,
+      selectedLength, ifStarted,
+    } = this.state;
 
     return (
       <div className="App">
@@ -92,20 +91,28 @@ class App extends React.Component {
           &nbsp;
           Goods
         </h1>
-        <Button
-          key="start"
-          action={{
-            name: 'start', effect: this.start,
-          }}
-          display={startDisplay}
-        />
-        <GoodsList list={sorted} display={display} goodsDisplay={goodsItemsDisplay} />
-        <div className="container">
-          {actions.map(action => (
-            <Button key={action.name} action={{ ...action }} display={display} />
-          ))}
-          <OptionsList i={10} selected={selectedLength} choose={this.choose} display={display} />
-        </div>
+        {
+          !ifStarted
+            ? (
+              <Button
+                key="start"
+                action={{
+                  name: 'start', effect: this.start,
+                }}
+              />
+            )
+            : (
+              <div>
+                <GoodsList list={sorted} />
+                <div className="container">
+                  {actions.map(action => (
+                    <Button key={action.name} action={{ ...action }} />
+                  ))}
+                  <OptionsList i={10} selected={selectedLength} chooseLength={this.chooseLength} />
+                </div>
+              </div>
+            )
+        }
       </div>
     );
   }
