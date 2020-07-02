@@ -8,6 +8,7 @@ import { SelectedLength } from './SelectedLength';
 
 export class GoodsList extends React.Component {
   state = {
+    visible: false,
     goods: this.props.goods,
     minLength: 1,
   }
@@ -39,8 +40,7 @@ export class GoodsList extends React.Component {
 
   showList = () => (
     this.setState(prevState => ({
-      listVisibility: 'block--unhide',
-      buttonVisibility: 'button--hide',
+      visible: true,
     }))
   )
 
@@ -51,38 +51,43 @@ export class GoodsList extends React.Component {
   )
 
   render() {
-    const { goods, listVisibility, buttonVisibility, minLength } = this.state;
+    const { goods, minLength, visible } = this.state;
 
     const goodsFiltered = goods.filter(good => good.length >= minLength);
 
     return (
       <>
-        <div className={`block ${listVisibility}`}>
-          <ul className="list">
-            {goodsFiltered.map(good => (
-              <GoodItem good={good} key={good} />
-            ))}
-          </ul>
+        {
+          visible
+            ? (
+              <div className={`block `}>
+                <ul className="list">
+                  {goodsFiltered.map(good => (
+                    <GoodItem good={good} key={good} />
+                  ))}
+                </ul>
 
-          <Actions
-            reverseList={this.reverseList}
-            sortByAlphabet={this.sortByAlphabet}
-            resetList={this.resetList}
-            sortByLength={this.sortByLength}
-            selectedLength={this.selectedLength}
-            minLength={minLength}
-          />
+                <Actions
+                  reverseList={this.reverseList}
+                  sortByAlphabet={this.sortByAlphabet}
+                  resetList={this.resetList}
+                  sortByLength={this.sortByLength}
+                  selectedLength={this.selectedLength}
+                  minLength={minLength}
+                />
 
-          <SelectedLength
-            selectedLength={this.selectedLength}
-            minLength={minLength}
-          />
-        </div>
-
-        <StartButton
-          buttonVisibility={buttonVisibility}
-          showList={this.showList}
-        />
+                <SelectedLength
+                  selectedLength={this.selectedLength}
+                  minLength={minLength}
+                />
+              </div>
+            )
+            : (
+              <StartButton
+                showList={this.showList}
+              />
+            )
+        }
 
       </>
     );

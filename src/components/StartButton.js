@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const StartButton = ({ buttonVisibility, showList }) => (
+export const StartButton = ({ showList }) => (
   <>
     <button
-      className={`button ${buttonVisibility} button--start`}
+      className="button button--start"
       type="button"
       onClick={showList}
     >
@@ -14,6 +14,5 @@ export const StartButton = ({ buttonVisibility, showList }) => (
 );
 
 StartButton.propTypes = {
-  buttonVisibility: PropTypes.string.isRequired,
   showList: PropTypes.func.isRequired,
 };

@@ -11,13 +11,7 @@
 }
 
 .block {
-  display: none;
   position: relative;
-}
-
-.block--unhide {
-  display: block;
-  margin: 10px auto;
 }
 
 .list {
