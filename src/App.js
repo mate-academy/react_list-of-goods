@@ -32,6 +32,7 @@ class App extends React.Component {
       <div className="App">
         <h1>Goods</h1>
         <button
+          className="btn btn-danger"
           type="button"
           onClick={this.start}
           style={!this.state.show
@@ -95,49 +96,59 @@ class GoodsList extends React.Component {
 
     return (
       <>
-        <ul>
+        <ul className="list-group">
           {this.state.goods
             .filter(x => x.length >= this.state.minL)
             .map(good => (
-              <li key={good}>
+              <li key={good} className="list-group-item">
                 {good}
               </li>
             ))}
         </ul>
-        <button type="button" onClick={this.reverse}>
-          Reverse
-        </button>
-        <button type="button" onClick={this.sortAlphabetically}>
-          Sort alphabetically
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ goods: [...this.props.goods] });
-          }}
-        >
-          Reset
-        </button>
-        <br />
-        <button type="button" onClick={this.sortByLength}>
-          Sort by length
-        </button>
-        <select
-          name="minL"
-          value={this.state.minL}
-          onChange={this.mixLength}
-        >
-          {selections}
-        </select>
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ minL: 1 });
-          }}
-        >
-          Reset
-        </button>
-        <br />
+        <div className="btn-group">
+          <button
+            className="btn btn-light"
+            type="button"
+            onClick={this.reverse}
+          >
+            Reverse
+          </button>
+          <button
+            className="btn btn-light"
+            type="button"
+            onClick={this.sortAlphabetically}
+          >
+            Sort alphabetically
+          </button>
+          <br />
+          <button
+            className="btn btn-light"
+            type="button"
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+          <select
+            className="btn dropdown-toggle btn-light"
+            name="minL"
+            value={this.state.minL}
+            onChange={this.mixLength}
+          >
+            {selections}
+          </select>
+          <button
+            className="btn btn-light"
+            type="button"
+            onClick={() => {
+              this.setState({
+                minL: 1,
+                goods: [...this.props.goods],
+              });
+            }}
+          >
+            Reset
+          </button>
+        </div>
       </>
     );
   }
