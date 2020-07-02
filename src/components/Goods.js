@@ -33,14 +33,6 @@ export class Goods extends React.Component {
     });
   }
 
-  filterLength = (val) => {
-    this.setState(prevState => ({
-      mutatedGoods: prevState.mutatedGoods
-        .filter(good => good.name.length >= val),
-      selectedLength: val,
-    }));
-  }
-
   sortByLength = () => {
     this.setState(prevState => ({
       mutatedGoods: prevState.mutatedGoods
@@ -50,16 +42,25 @@ export class Goods extends React.Component {
     }));
   }
 
+  filterLength = (value) => {
+    this.setState(prevState => ({
+      mutatedGoods: prevState.mutatedGoods.length !== 0
+        ? prevState.mutatedGoods.filter(good => good.name.length >= value)
+        : this.goods.filter(good => good.name.length >= value),
+      selectedLength: value,
+    }));
+  }
+
   render() {
     return (
       <GoodsList
         goods={this.state.mutatedGoods}
-        onReverse={() => this.reverse()}
-        onSortAlphabetically={() => this.sortAlphabetically()}
-        onReset={() => this.reset()}
-        onSortByLength={() => this.sortByLength()}
-        onFilterLength={() => this.filterLength()}
-        val={this.state.selectedLength}
+        onReverse={this.reverse}
+        onSortAlphabetically={this.sortAlphabetically}
+        onReset={this.reset}
+        onSortByLength={this.sortByLength}
+        onFilterLength={this.filterLength}
+        selectedLength={this.state.selectedLength}
       />
     );
   }
