@@ -18,3 +18,13 @@ export const SelectTypes = {
   value: PropTypes.number.isRequired,
   action: PropTypes.func.isRequired,
 };
+
+export const ContentTypes = {
+  onReverse: PropTypes.func.isRequired,
+  onAlphabet: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
+  onByLength: PropTypes.func.isRequired,
+  onSelectNumber: PropTypes.func.isRequired,
+  onDefaultSelect: PropTypes.func.isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

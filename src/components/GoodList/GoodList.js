@@ -1,7 +1,8 @@
 import React from 'react';
 import './GoodList.css';
 import { Button } from '../Button/Button';
-import { Buttons } from '../Buttons/Buttons';
+import { Content } from '../Content/Content';
+
 import { GoodListTypes } from '../Shape/Shape';
 
 export class GoodList extends React.Component {
@@ -71,31 +72,16 @@ export class GoodList extends React.Component {
             />
           )
           : (
-            <div
-              role="button"
-              onKeyPress={this.handleKeyPress}
-              tabIndex={0}
-            >
-              <ul className="list-group">
-                {goods.map(item => (
-                  <li
-                    className="list-group-item list-group-item-action"
-                    key={item}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <Content
+              goods={goods}
+              onReverse={this.reverseList}
+              onAlphabet={this.sortByAlphabet}
+              onReset={this.reset}
+              onByLength={this.sortByLength}
+              onSelectNumber={this.selectNumber}
+              onDefaultSelect={defaultSelect}
+            />
 
-              <Buttons
-                onReverse={this.reverseList}
-                onAlphabet={this.sortByAlphabet}
-                onReset={this.reset}
-                onByLength={this.sortByLength}
-                onSelectNumber={this.selectNumber}
-                onDefaultSelect={defaultSelect}
-              />
-            </div>
           )
         }
       </div>
