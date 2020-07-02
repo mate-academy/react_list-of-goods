@@ -5,7 +5,6 @@ export class Select extends React.PureComponent {
   render() {
     return (
       <select
-        // className="mdb-select md-form"
         value={this.props.defaultSelect}
         onChange={event => this.props.onSelected(event.target.value)}
       >

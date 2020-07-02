@@ -6,7 +6,7 @@ import { ShapeGoods } from '../Shapes/ShapeGood';
 export class Content extends React.Component {
   state = {
     activeItem: false,
-    goods: [...this.props.goods],
+    goods: this.props.goods,
     defaultSelect: 1,
   };
 
@@ -38,7 +38,7 @@ export class Content extends React.Component {
 
   onReset = () => {
     this.setState({
-      goods: [...this.props.goods],
+      goods: this.props.goods,
       defaultSelect: 1,
     });
   };

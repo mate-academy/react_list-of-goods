@@ -8,11 +8,9 @@ export class GoodsList extends React.PureComponent {
   render() {
     return (
       <>
-        <div className="">
-          <GoodsSection
-            goods={this.props.goods}
-          />
-        </div>
+        <GoodsSection
+          goods={this.props.goods}
+        />
         <div className="d-flex justify-content-between">
           <Button
             title="Reverse"
