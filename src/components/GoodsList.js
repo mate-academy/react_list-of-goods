@@ -34,7 +34,7 @@ export class GoodsList extends React.Component {
     })
   );
 
-  handleSortLButton = () => (
+  handleSortByLengthButton = () => (
     this.setState(prevState => ({
       currentGoods: [...prevState.currentGoods]
         .sort((a, b) => (a.length - b.length)),
@@ -75,7 +75,7 @@ export class GoodsList extends React.Component {
         <br />
         <button
           type="button"
-          onClick={this.handleSortLButton}
+          onClick={this.handleSortByLengthButton}
         >
           Sort by length
         </button>
