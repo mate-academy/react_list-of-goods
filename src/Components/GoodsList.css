@@ -1,0 +1,12 @@
+.Goods__list {
+  list-style: none;
+  font-size: 20px;
+}
+
+.Goods__item:nth-child(even) {
+  color: red;
+}
+
+.Goods__item:nth-child(odd) {
+  color: blue;
+}
