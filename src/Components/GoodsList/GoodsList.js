@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Things } from '../Things/Things';
 import { Select } from '../Select/Select';
 import { Buttons } from '../Buttons/Buttons';
+import { Button } from '../Button/Button';
 
 export class GoodsList extends Component {
   state = {
@@ -59,11 +60,7 @@ export class GoodsList extends Component {
       <>
         { isShown
           ? <Things content={goods} />
-          : null
-        }
-        { !isShown
-          ? <button type="button" onClick={this.clickHandler}>Show list</button>
-          : null
+          : <Button onClick={this.clickHandler} name="Show list" />
         }
         <Buttons
           reverse={this.reverseHandler}
