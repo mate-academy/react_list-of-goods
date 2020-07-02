@@ -1,18 +1,14 @@
 import React from 'react';
 import { ShapeButton } from '../Shapes/ShapeButton';
 
-export class Button extends React.PureComponent {
-  render() {
-    return (
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={this.props.onClick}
-      >
-        {this.props.title}
-      </button>
-    );
-  }
-}
+export const Button = props => (
+  <button
+    type="button"
+    className="btn btn-primary"
+    onClick={props.onClick}
+  >
+    {props.title}
+  </button>
+);
 
 Button.propTypes = ShapeButton.isRequired;

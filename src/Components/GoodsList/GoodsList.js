@@ -4,39 +4,47 @@ import { Button } from '../Button/Button';
 import { Select } from '../Select/Select';
 import { ShapeGoodsList } from '../Shapes/ShapeGoodsList';
 
-export class GoodsList extends React.PureComponent {
-  render() {
-    return (
-      <>
-        <GoodsSection
-          goods={this.props.goods}
+export const GoodsList = (props) => {
+  const {
+    goods,
+    onSortedReverse,
+    onSortedAlphabet,
+    onSortedLength,
+    onReset,
+    defaultSelect,
+    onSelected,
+  } = props;
+
+  return (
+    <>
+      <GoodsSection
+        goods={goods}
+      />
+      <div className="d-flex justify-content-between">
+        <Button
+          title="Reverse"
+          onClick={onSortedReverse}
         />
-        <div className="d-flex justify-content-between">
-          <Button
-            title="Reverse"
-            onClick={this.props.onSortedReverse}
-          />
-          <Button
-            title="Sort ABC"
-            onClick={this.props.onSortedAlphabet}
-          />
-          <Button
-            title="Sort by length"
-            onClick={this.props.onSortedLength}
-          />
-          <Button
-            title="Reset"
-            onClick={this.props.onReset}
-          />
-          <Select
-            defaultSelect={this.props.defaultSelect}
-            quantity={10}
-            onSelected={this.props.onSelected}
-          />
-        </div>
-      </>
-    );
-  }
-}
+        <Button
+          title="Sort ABC"
+          onClick={onSortedAlphabet}
+        />
+        <Button
+          title="Sort by length"
+          onClick={onSortedLength}
+        />
+        <Button
+          title="Reset"
+          onClick={onReset}
+        />
+        <Select
+          defaultSelect={defaultSelect}
+          quantity={10}
+          onSelected={onSelected}
+        />
+      </div>
+    </>
+  );
+};
 
 GoodsList.propTypes = ShapeGoodsList.isRequired;
