@@ -8,7 +8,7 @@ import { SelectedLength } from './SelectedLength';
 
 export class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.goods],
+    goods: this.props.goods,
     minLength: 1,
   }
 
@@ -63,6 +63,7 @@ export class GoodsList extends React.Component {
               <GoodItem good={good} key={good} />
             ))}
           </ul>
+
           <Actions
             reverseList={this.reverseList}
             sortByAlphabet={this.sortByAlphabet}
@@ -82,6 +83,7 @@ export class GoodsList extends React.Component {
           buttonVisibility={buttonVisibility}
           showList={this.showList}
         />
+
       </>
     );
   }
