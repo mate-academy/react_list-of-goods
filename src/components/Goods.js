@@ -3,8 +3,8 @@ import { goodsFromServer } from '../api/goodsFromServer';
 import { GoodsList } from './GoodsList';
 
 export class Goods extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.goods = [...goodsFromServer];
 
