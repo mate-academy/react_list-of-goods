@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GoodItem } from './GoodItem';
+import { Select } from './Select';
 
 export class GoodsList extends React.Component {
   state = {
     resetGoods: [...this.props.initialGoods],
     currentGoods: this.props.initialGoods,
+    selectValue: 1,
   };
+
+  options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   handleReverseButton = () => (
     this.setState(prevState => ({
@@ -37,9 +41,14 @@ export class GoodsList extends React.Component {
     }))
   );
 
-  render() {
-    // const { initialGoods } = this.props;
+  handleSelectChanged = () => (
+    this.setState(prevState => ({
+      currentGoods: [...prevState.currentGoods]
+        .filter(item => item.length > 5),
+    }))
+  )
 
+  render() {
     return (
       <>
         <button
@@ -48,24 +57,34 @@ export class GoodsList extends React.Component {
         >
           Reverse
         </button>
+        <br />
         <button
           type="button"
           onClick={this.handleSortButton}
         >
           Sort
         </button>
+        <br />
         <button
           type="button"
           onClick={this.handleResetButton}
         >
           Reset
         </button>
+        <br />
         <button
           type="button"
           onClick={this.handleSortLButton}
         >
           Sort length
         </button>
+        <br />
+        <Select
+          optionsNumbers={this.options}
+          setValue={this.state.selectValue}
+          onSelect={this.handleSelectChanged}
+        />
+        <br />
         <ul>
           {this.state.currentGoods.map(good => (
             <GoodItem
