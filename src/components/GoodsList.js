@@ -5,7 +5,7 @@ import { Select } from './Select';
 
 export class GoodsList extends React.Component {
   state = {
-    resetGoods: [...this.props.initialGoods],
+    // resetGoods: [...this.props.initialGoods], // TODO: move to constants
     currentGoods: this.props.initialGoods,
     selectValue: 1,
   };
@@ -29,9 +29,10 @@ export class GoodsList extends React.Component {
   );
 
   handleResetButton = () => (
-    this.setState(prevState => ({
-      currentGoods: [...prevState.resetGoods],
-    }))
+    this.setState({
+      currentGoods: this.props.initialGoods,
+      selectValue: 1,
+    })
   );
 
   handleSortLButton = () => (
@@ -41,11 +42,12 @@ export class GoodsList extends React.Component {
     }))
   );
 
-  handleSelectChanged = () => (
-    this.setState(prevState => ({
-      currentGoods: [...prevState.currentGoods]
-        .filter(item => item.length > 5),
-    }))
+  handleSelectChanged = val => (
+    this.setState({
+      currentGoods: this.props.initialGoods
+        .filter(item => item.length >= val),
+      selectValue: val,
+    })
   )
 
   render() {
@@ -62,7 +64,7 @@ export class GoodsList extends React.Component {
           type="button"
           onClick={this.handleSortButton}
         >
-          Sort
+          Sort alphabetically
         </button>
         <br />
         <button
@@ -76,7 +78,7 @@ export class GoodsList extends React.Component {
           type="button"
           onClick={this.handleSortLButton}
         >
-          Sort length
+          Sort by length
         </button>
         <br />
         <Select
