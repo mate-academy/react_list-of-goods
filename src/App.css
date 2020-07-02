@@ -1,0 +1,23 @@
+body {
+  background-color: rgb(24, 24, 24);
+}
+
+.App {
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 500px;
+  height: 500px;
+
+  background-color: rgb(24, 24, 24);
+  border-radius: 30px;
+
+  transition: background-color 0.5s;
+}
+
+.App--active {
+  background-color: rgb(255, 255, 255);
+}

@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import './App.css';
@@ -30,7 +31,7 @@ class App extends React.Component {
     const { getStart } = this.state;
 
     return (
-      <div className="App">
+      <div className={`App ${getStart && 'App--active'}`}>
         {
           getStart
             ? (
@@ -48,6 +49,7 @@ class App extends React.Component {
               <button
                 type="button"
                 onClick={this.start}
+                className="btn btn-dark btn-lg"
               >
                 Let Go
               </button>

@@ -16,13 +16,15 @@ export class GoodsList extends React.Component {
 
   alphabetSort = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((prev, curr) => prev.localeCompare(curr)),
+      goods: [...prevState.goods]
+        .sort((prev, curr) => prev.localeCompare(curr)),
     }));
   }
 
   lengthSort = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((prev, curr) => curr.length - prev.length),
+      goods: [...prevState.goods]
+        .sort((prev, curr) => curr.length - prev.length),
     }));
   }
 

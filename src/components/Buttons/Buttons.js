@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonsShapes } from '../Shapes/Shapes';
+import './Buttons.css';
 
 const select = [];
 
@@ -18,39 +19,49 @@ export const Buttons = (props) => {
   } = props;
 
   return (
-    <div className="buttons">
-      <button
-        type="button"
-        onClick={reverse}
+    <>
+      <div className="buttons">
+        <button
+          type="button"
+          onClick={reverse}
+          className="btn btn-light btn-sm button"
+        >
+          Reverse
+        </button>
+        <button
+          type="button"
+          onClick={alphabetSort}
+          className="btn btn-light btn-sm button"
+        >
+          A-Z sort
+        </button>
+        <button
+          type="button"
+          onClick={lengthSort}
+          className="btn btn-light btn-sm button"
+        >
+          Length sort
+        </button>
+        <button
+          type="button"
+          onClick={reset}
+          className="btn btn-light btn-sm button"
+        >
+          Reset
+        </button>
+      </div>
+      <select
+        onChange={lengthFilter}
+        value={value}
+        className="select"
       >
-        Reverse
-      </button>
-      <button
-        type="button"
-        onClick={alphabetSort}
-      >
-        A-Z sort
-      </button>
-      <button
-        type="button"
-        onClick={lengthSort}
-      >
-        Length sort
-      </button>
-      <button
-        type="button"
-        onClick={reset}
-      >
-        Reset
-      </button>
-      <select onChange={lengthFilter} value={value}>
         {
           select.map(item => (
             <option key={item} value={item}>{item}</option>
           ))
         }
       </select>
-    </div>
+    </>
   );
 };
 
