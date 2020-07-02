@@ -1,0 +1,68 @@
+import React from 'react';
+import { goodsFromServer } from '../api/goodsFromServer';
+import { GoodsList } from './GoodsList';
+
+export class Goods extends React.Component {
+  constructor() {
+    super();
+
+    this.goods = [...goodsFromServer];
+
+    this.state = {
+      mutatedGoods: [...goodsFromServer],
+      selectedLength: 1,
+    };
+  }
+
+  reverse = () => {
+    this.setState(prevState => ({
+      mutatedGoods: prevState.mutatedGoods.reverse(),
+    }));
+  }
+
+  sortAlphabetically = () => {
+    this.setState(prevState => ({
+      mutatedGoods: prevState.mutatedGoods
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    }));
+  }
+
+  reset = () => {
+    this.setState({
+      mutatedGoods: [...this.goods],
+    });
+  }
+
+  filterLength = (val) => {
+    this.setState(prevState => ({
+      mutatedGoods: prevState.mutatedGoods
+        .filter(good => good.name.length >= val),
+      selectedLength: val,
+    }));
+  }
+
+  sortByLength = () => {
+    this.setState(prevState => ({
+      mutatedGoods: prevState.mutatedGoods
+        .sort((a, b) => (
+          a.name.replace(' ', '').length - b.name.replace(' ', '').length
+        )),
+    }));
+  }
+
+  render() {
+    return (
+      <GoodsList
+        goods={this.state.mutatedGoods}
+        onReverse={() => this.reverse()}
+        onSortAlphabetically={() => this.sortAlphabetically()}
+        onReset={() => this.reset()}
+        onSortByLength={() => this.sortByLength()}
+        onFilterLength={() => this.filterLength()}
+        val={this.state.selectedLength}
+      />
+    );
+  }
+}
+
+export default Goods;

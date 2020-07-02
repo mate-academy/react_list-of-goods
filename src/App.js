@@ -1,24 +1,40 @@
 import React from 'react';
 import './App.css';
+import { Goods } from './components/Goods';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+class App extends React.Component {
+  state = {
+    isVisible: false,
+  };
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+  makeVisible = () => {
+    this.setState({
+      isVisible: true,
+    });
+  }
+
+  render() {
+    const { isVisible } = this.state;
+
+    return (
+      <div className="App">
+        {
+          isVisible
+            ? (
+              <Goods />
+            )
+            : (
+              <button
+                type="button"
+                onClick={this.makeVisible}
+              >
+                Start
+              </button>
+            )
+        }
+      </div>
+    );
+  }
+}
 
 export default App;
