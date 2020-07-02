@@ -1,54 +1,47 @@
 import React from 'react';
 import PropType from 'prop-types';
 import './GoodsList.css';
+import { SortButton } from '../SortButton/SortButton';
+import { SortSelect } from '../SortSelect/SortSelect';
 
 class GoodsList extends React.Component {
   state = {
-    selectOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     selectValue: 1,
-    goods: [...this.props.goods],
-    goodsInitial: [...this.props.goods],
+    goods: this.props.goods,
+    goodsFull: this.props.goods,
+    goodsInitial: this.props.goods,
   };
 
   onReverseOrder = () => {
     this.setState(state => ({
-      goods: this.filterByMinLength(
-        [...state.goods].reverse(),
-      ),
+      goods: [...state.goods].reverse(),
+      goodsFull: [...state.goodsFull].reverse(),
     }));
   };
 
   onAlphabeticallyOrder = () => {
     this.setState(state => ({
-      goods: this.filterByMinLength(
-        [...state.goodsInitial].sort(),
-      ),
+      goods: [...state.goods].sort(),
+      goodsFull: [...state.goodsFull].sort(),
     }));
   };
 
   onLengthOrder = () => {
     this.setState(state => ({
-      goods: this.filterByMinLength(
-        [...state.goodsInitial].sort((a, b) => a.length - b.length),
-      ),
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
+      goodsFull: [...state.goodsFull].sort((a, b) => a.length - b.length),
     }));
   };
 
   onSelectLength = (event) => {
     const { target } = event;
-    const newValue = target.options[target.selectedIndex].value;
+    const newLength = target.value;
 
     this.setState(state => ({
-      selectValue: newValue,
-      goods: this.filterByMinLength(
-        [...state.goods],
-        newValue,
-      ),
+      selectValue: newLength,
+      goods: [...state.goodsFull].filter(good => good.length >= newLength),
     }));
   };
-
-  // eslint-disable-next-line max-len
-  filterByMinLength = (array, minLength = this.state.selectValue) => array.filter(good => good.length >= minLength);
 
   onReset = () => {
     this.setState(state => ({
@@ -68,45 +61,26 @@ class GoodsList extends React.Component {
           ))}
         </ul>
         <div className="goods__sort">
-          <button
-            className="goods__sort-btn"
-            type="button"
-            onClick={this.onReverseOrder}
-          >
-            Reverse
-          </button>
-          <button
-            className="goods__sort-btn"
-            type="button"
-            onClick={this.onLengthOrder}
-          >
-            Sort by length
-          </button>
-          <button
-            className="goods__sort-btn"
-            type="button"
-            onClick={this.onAlphabeticallyOrder}
-          >
-            Sort alphabetically
-          </button>
-          <span className="goods__sort-select">
-            Min length:&nbsp;
-            <select
-              value={this.state.selectValue}
-              onChange={this.onSelectLength}
-            >
-              {this.state.selectOptions.map(value => (
-                <option key={value} value={value}>{value}</option>
-              ))}
-            </select>
-          </span>
-          <button
-            className="goods__sort-btn"
-            type="button"
-            onClick={this.onReset}
-          >
-            Reset
-          </button>
+          <SortButton
+            onClickHandle={this.onReverseOrder}
+            name="Reverse"
+          />
+          <SortButton
+            onClickHandle={this.onLengthOrder}
+            name="Sort by length"
+          />
+          <SortButton
+            onClickHandle={this.onAlphabeticallyOrder}
+            name="Sort alphabetically"
+          />
+          <SortSelect
+            selectValue={this.state.selectValue}
+            onChangeHandle={this.onSelectLength}
+          />
+          <SortButton
+            onClickHandle={this.onReset}
+            name="Reset"
+          />
         </div>
       </div>
     );

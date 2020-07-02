@@ -11,27 +11,3 @@
   align-content: space-between;
   height: 116px;
 }
-
-.goods__sort-btn {
-  align-self: flex-start;
-  padding: 5px 20px;
-  font-size: 16px;
-  color: #229;
-  background-color: #fdfdfd;
-  border: 2px solid #229;
-  border-radius: 0;
-}
-
-.goods__sort-btn:last-of-type {
-  align-self: flex-end;
-  color: #922;
-  border-color: #922;
-}
-
-.goods__sort-select {
-  font-size: 18px;
-}
-
-.goods__sort-select > select {
-  font-size: inherit;
-}

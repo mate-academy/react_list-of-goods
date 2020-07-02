@@ -30,19 +30,17 @@ class App extends React.Component {
     return (
       <div className="app">
         {
-          !this.state.listVisible
-          && (
-            <button
-              className="app__start"
-              type="button"
-              onClick={this.onStartSelected}
-            >
-              Start
-            </button>
-          )
-        }
-        {
-          this.state.listVisible && <GoodsList goods={goodsFromServer} />
+          this.state.listVisible
+            ? <GoodsList goods={goodsFromServer} />
+            : (
+              <button
+                className="app__start"
+                type="button"
+                onClick={this.onStartSelected}
+              >
+                Start
+              </button>
+            )
         }
       </div>
     );
