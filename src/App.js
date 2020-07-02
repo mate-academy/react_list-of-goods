@@ -1,24 +1,38 @@
 import React from 'react';
 import './App.css';
 import { goodsFromServer } from './api/goods';
-import { showList } from './events/events';
 import GoodsList from './modules/GoodsList';
 
-const App = () => (
-  <div className="App">
+class App extends React.Component {
+  state = {
+    hide: true,
+  }
 
-    <button
-      type="button"
-      onClick={showList}
-      className="goodsButton"
-    >
-      Start
-    </button>
+  showList = (event) => {
+    event.target.classList.add('disable');
 
-    <section className="goodsList disable">
-      <GoodsList goods={goodsFromServer} />
-    </section>
-  </div>
-);
+    this.setState(() => ({
+      hide: false,
+    }));
+  };
+
+  render() {
+    return (
+      <div className="App">
+
+        <button
+          type="button"
+          onClick={this.showList}
+          className="goodsButton"
+        >
+          Start
+        </button>
+        <section className="goodsList">
+          <GoodsList goods={goodsFromServer} hide={this.state.hide} />
+        </section>
+      </div>
+    );
+  }
+}
 
 export default App;

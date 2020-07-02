@@ -45,6 +45,10 @@ class GoodsList extends React.Component {
   }
 
   render() {
+    if (this.props.hide === true) {
+      return null;
+    }
+
     return (
       <>
         <ul className="goodsList__items">
@@ -96,4 +100,5 @@ export default GoodsList;
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+  hide: PropTypes.bool.isRequired,
 };
