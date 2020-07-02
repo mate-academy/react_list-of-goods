@@ -7,6 +7,7 @@ export const Options = (props) => {
     reset,
     sortByLength,
     select,
+    value,
     filterByLength } = props;
 
   return (
@@ -15,7 +16,7 @@ export const Options = (props) => {
       <button type="button" onClick={sortByAlphabet}>Sort By Names</button>
       <button type="button" onClick={reset}>Reset</button>
       <button type="button" onClick={sortByLength}>Sort By Length</button>
-      <select onChange={filterByLength}>
+      <select onChange={filterByLength} value={value}>
         {
           select.map(item => (
             <option key={item} value={item}>{item}</option>
@@ -31,6 +32,7 @@ Options.propTypes = {
   sortByAlphabet: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   sortByLength: PropTypes.func.isRequired,
+  value: PropTypes.number.isRequired,
   filterByLength: PropTypes.func.isRequired,
   select: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 };

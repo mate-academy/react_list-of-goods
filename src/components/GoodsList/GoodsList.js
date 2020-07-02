@@ -12,6 +12,7 @@ for (let i = 1; i < 11; i += 1) {
 export class GoodsList extends React.Component {
   state = {
     goods: this.props.goods,
+    minLength: 1,
   }
 
   reverse = () => {
@@ -31,6 +32,7 @@ export class GoodsList extends React.Component {
   reset = () => {
     this.setState({
       goods: this.props.goods,
+      minLength: 1,
     });
   }
 
@@ -42,13 +44,14 @@ export class GoodsList extends React.Component {
 
   filterByLength = (event) => {
     this.setState({
+      minLength: event.target.value,
       goods: [...this.props.goods]
         .filter(item => item.length >= event.target.value),
     });
   }
 
   render() {
-    const { goods } = this.state;
+    const { goods, minLength } = this.state;
 
     return (
       <>
@@ -68,6 +71,7 @@ export class GoodsList extends React.Component {
           sortByLength={this.sortByLength}
           select={select}
           filterByLength={this.filterByLength}
+          value={minLength}
         />
       </>
     );
