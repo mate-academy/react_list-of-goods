@@ -5,7 +5,6 @@ import { Select } from './Select';
 
 export class GoodsList extends React.Component {
   state = {
-    // resetGoods: [...this.props.initialGoods], // TODO: move to constants
     currentGoods: this.props.initialGoods,
     selectValue: 1,
   };
@@ -55,6 +54,13 @@ export class GoodsList extends React.Component {
       <>
         <button
           type="button"
+          onClick={this.handleResetButton}
+        >
+          Reset
+        </button>
+        <br />
+        <button
+          type="button"
           onClick={this.handleReverseButton}
         >
           Reverse
@@ -65,13 +71,6 @@ export class GoodsList extends React.Component {
           onClick={this.handleSortButton}
         >
           Sort alphabetically
-        </button>
-        <br />
-        <button
-          type="button"
-          onClick={this.handleResetButton}
-        >
-          Reset
         </button>
         <br />
         <button
