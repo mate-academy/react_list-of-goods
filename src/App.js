@@ -27,34 +27,23 @@ class App extends React.Component {
     });
   }
 
-  startDisplay = (isStarted, initialGoods) => {
-    if (!isStarted) {
-      return (
-        <button
-          type="button"
-          onClick={this.handleStartButton}
-        >
-          Start
-        </button>
-      );
-    }
-
-    return (
-      <GoodsList
-        initialGoods={initialGoods}
-      />
-    );
-  }
-
   render() {
     const { initialGoods, isStarted } = this.state;
 
     return (
       <div className="App">
-        {
-          this.startDisplay(
-            isStarted,
-            initialGoods,
+        { !isStarted
+          ? (
+            <button
+              type="button"
+              onClick={this.handleStartButton}
+            >
+              Start
+            </button>
+          ) : (
+            <GoodsList
+              initialGoods={initialGoods}
+            />
           )
         }
         {initialGoods.length}
