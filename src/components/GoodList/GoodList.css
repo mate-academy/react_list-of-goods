@@ -8,10 +8,6 @@
   text-align: center;
 }
 
-.toggle-none {
-  display: none;
-}
-
 .wrapper {
   display: flex;
   justify-content: center;
