@@ -45,14 +45,11 @@ class Goods extends React.Component {
     });
   }
 
-  handleSelectLength = (digit) => {
+  onSelectChange = (digit) => {
     this.setState({
+      defaultValue: Number(digit),
       minLength: digit,
     });
-  }
-
-  onSelectChange = (e) => {
-    this.setState({ defaultValue: Number(e) });
   }
 
   render() {
@@ -78,7 +75,6 @@ class Goods extends React.Component {
               handleReset={this.handleReset}
             />
             <GoodsSelection
-              handleSelectLength={this.handleSelectLength}
               defaultValue={this.state.defaultValue}
               onSelectChange={this.onSelectChange}
             />

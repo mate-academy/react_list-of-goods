@@ -10,18 +10,16 @@ for (let i = 1; i < 11; i += 1) {
 }
 
 const GoodsSelection = (props) => {
-  const { handleSelectLength, defaultValue, onSelectChange } = props;
+  const { defaultValue, onSelectChange } = props;
 
   return (
     <select
       className="goods__selection"
       value={defaultValue}
       onChange={e => onSelectChange(e.target.value)}
-      onClick={e => handleSelectLength(e.target.value)}
     >
       {optionArray.map(digit => (
         <GoodsSelectionItems
-          handleSelectLength={handleSelectLength}
           digit={digit}
           key={digit}
         />
@@ -31,7 +29,6 @@ const GoodsSelection = (props) => {
 };
 
 GoodsSelection.propTypes = {
-  handleSelectLength: PropTypes.func.isRequired,
   defaultValue: PropTypes.number.isRequired,
   onSelectChange: PropTypes.func.isRequired,
 };
