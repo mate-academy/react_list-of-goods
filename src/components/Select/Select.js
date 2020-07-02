@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Select = ({ value, action, listLength }) => {
-  const list = [];
-
-  for (let i = 0; i < listLength; i += 1) {
-    list.push(i + 1);
-  }
+const Select = ({ value, action }) => {
+  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <select onChange={action} value={value}>
@@ -23,7 +19,6 @@ const Select = ({ value, action, listLength }) => {
 Select.propTypes = {
   value: PropTypes.number.isRequired,
   action: PropTypes.func.isRequired,
-  listLength: PropTypes.number.isRequired,
 };
 
 export default Select;

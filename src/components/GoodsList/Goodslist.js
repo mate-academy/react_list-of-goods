@@ -7,7 +7,6 @@ export default class GoodsList extends React.Component {
   state = {
     goods: this.props.goodsList,
     length: 1,
-    listLength: this.props.goodsList.length,
   }
 
   reverse = () => {
@@ -44,7 +43,7 @@ export default class GoodsList extends React.Component {
   }
 
   render() {
-    const { goods, length, listLength } = this.state;
+    const { goods, length } = this.state;
 
     return (
       <ul className="goods">
@@ -59,7 +58,7 @@ export default class GoodsList extends React.Component {
           sort={this.sortAlphabetically}
           sortLength={this.sortLength}
         />
-        <Select value={length} action={this.select} listLength={listLength} />
+        <Select value={length} action={this.select} />
       </ul>
     );
   }
