@@ -6,7 +6,7 @@ import { GoodListTypes } from '../Shape/Shape';
 
 export class GoodList extends React.Component {
   state = {
-    array: [...this.props.goods],
+    goods: [...this.props.goods],
     startToHide: false,
     defaultSelect: 1,
   }
@@ -19,26 +19,26 @@ export class GoodList extends React.Component {
 
   reverseList = () => {
     this.setState(prevState => ({
-      array: prevState.array.reverse(),
+      goods: prevState.goods.reverse(),
     }));
   }
 
   sortByAlphabet = () => {
     this.setState(prevState => ({
-      array: prevState.array.sort(),
+      goods: prevState.goods.sort(),
     }));
   }
 
   sortByLength = () => {
     this.setState(prevState => ({
-      array: prevState.array
+      goods: prevState.goods
         .sort((itemA, itemB) => itemA.length - itemB.length),
     }));
   }
 
   reset = () => {
     this.setState({
-      array: [...this.props.goods],
+      goods: [...this.props.goods],
       defaultSelect: 1,
     });
   }
@@ -47,54 +47,58 @@ export class GoodList extends React.Component {
     const { value } = e.target;
 
     this.setState(prevState => ({
-      array: this.props.goods
+      goods: this.props.goods
         .filter(item => item.length >= value),
       defaultSelect: value,
     }));
   }
 
   render() {
-    return (
-      <>
-        <div className="wrapper">
-          <Button
-            className={`btn btn-success ${this.state.startToHide
-              ? 'toggle-none'
-              : '123'
-            }`}
-            action={this.openList}
-            text="Start"
-          />
-          <div
-            className={`${!this.state.startToHide
-              ? 'toggle-none'
-              : ''}`}
-            role="button"
-            onKeyPress={this.handleKeyPress}
-            tabIndex={0}
-          >
-            <ul className="list-group">
-              {this.state.array.map(item => (
-                <li
-                  className="list-group-item list-group-item-action"
-                  key={item}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+    const {
+      startToHide,
+      defaultSelect,
+      goods,
+    } = this.state;
 
-            <Buttons
-              onReverse={this.reverseList}
-              onAlphabet={this.sortByAlphabet}
-              onReset={this.reset}
-              onByLength={this.sortByLength}
-              onSelectNumber={this.selectNumber}
-              onDefaultSelect={this.state.defaultSelect}
+    return (
+      <div className="wrapper">
+        {!startToHide
+          ? (
+            <Button
+              className="btn btn-success"
+              action={this.openList}
+              text="Start"
             />
-          </div>
-        </div>
-      </>
+          )
+          : (
+            <div
+              role="button"
+              onKeyPress={this.handleKeyPress}
+              tabIndex={0}
+            >
+              <ul className="list-group">
+                {goods.map(item => (
+                  <li
+                    className="list-group-item list-group-item-action"
+                    key={item}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <Buttons
+                onReverse={this.reverseList}
+                onAlphabet={this.sortByAlphabet}
+                onReset={this.reset}
+                onByLength={this.sortByLength}
+                onSelectNumber={this.selectNumber}
+                onDefaultSelect={defaultSelect}
+              />
+            </div>
+          )
+        }
+      </div>
     );
   }
 }
