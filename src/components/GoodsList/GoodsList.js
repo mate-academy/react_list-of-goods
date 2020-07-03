@@ -10,7 +10,7 @@ export class GoodsList extends React.Component {
 
   reverse = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.reverse(),
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
