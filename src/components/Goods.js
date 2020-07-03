@@ -6,36 +6,34 @@ export class Goods extends React.Component {
   constructor(props) {
     super(props);
 
-    this.goods = [...goodsFromServer];
-
     this.state = {
-      mutatedGoods: [...goodsFromServer],
+      goods: goodsFromServer,
       selectedLength: 1,
     };
   }
 
   reverse = () => {
     this.setState(prevState => ({
-      mutatedGoods: prevState.mutatedGoods.reverse(),
+      goods: [...prevState.goods.reverse()],
     }));
   }
 
   sortAlphabetically = () => {
     this.setState(prevState => ({
-      mutatedGoods: prevState.mutatedGoods
+      goods: prevState.goods
         .sort((a, b) => a.name.localeCompare(b.name)),
     }));
   }
 
   reset = () => {
     this.setState({
-      mutatedGoods: [...this.goods],
+      goods: goodsFromServer,
     });
   }
 
   sortByLength = () => {
     this.setState(prevState => ({
-      mutatedGoods: prevState.mutatedGoods
+      goods: prevState.goods
         .sort((a, b) => (
           a.name.replace(' ', '').length - b.name.replace(' ', '').length
         )),
@@ -44,7 +42,7 @@ export class Goods extends React.Component {
 
   filterLength = (value) => {
     this.setState({
-      mutatedGoods: this.goods.filter(good => good.name.length >= value),
+      goods: goodsFromServer.filter(good => good.name.length >= value),
       selectedLength: value,
     });
   }
@@ -52,7 +50,7 @@ export class Goods extends React.Component {
   render() {
     return (
       <GoodsList
-        goods={this.state.mutatedGoods}
+        goods={this.state.goods}
         onReverse={this.reverse}
         onSortAlphabetically={this.sortAlphabetically}
         onReset={this.reset}
