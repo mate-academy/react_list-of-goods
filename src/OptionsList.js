@@ -14,7 +14,7 @@ export const OptionsList = (props) => {
     <select
       style={{ display: props.display }}
       value={props.selected}
-      onChange={ev => props.chooseLength(ev)}
+      onChange={ev => props.chooseLength(ev.target.value)}
     >
       {
         list.map(digit => (<Option digit={digit} key={digit} />))

@@ -21,7 +21,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    sorted: [...goodsFromServer],
+    sorted: goodsFromServer,
     ifStarted: false,
     selectedLength: 3,
     actions: [
@@ -29,7 +29,7 @@ class App extends React.Component {
         name: 'sort by length',
         effect: () => (
           this.setState(prevState => ({
-            sorted: prevState.sorted.sort((a, b) => a.length - b.length),
+            sorted: [...prevState.sorted].sort((a, b) => a.length - b.length),
           }))
         ),
       },
@@ -37,7 +37,7 @@ class App extends React.Component {
         name: 'sort reverse',
         effect: () => (
           this.setState(prevState => ({
-            sorted: prevState.sorted.reverse(),
+            sorted: [...prevState.sorted].reverse(),
           }))
         ),
       },
@@ -45,7 +45,7 @@ class App extends React.Component {
         name: 'sort by name',
         effect: () => (
           this.setState(prevState => ({
-            sorted: prevState.sorted.sort(),
+            sorted: [...prevState.sorted].sort(),
           }))
         ),
       },
@@ -67,16 +67,12 @@ class App extends React.Component {
     }))
   )
 
-  chooseLength = (ev) => {
-    ev.persist();
-
-    return (
-      this.setState(prevState => ({
-        selectedLength: ev.target.value,
-        sorted: prevState.sorted.filter(item => item.length > ev.target.value),
-      }))
-    );
-  }
+  chooseLength = value => (
+    this.setState(() => ({
+      selectedLength: value,
+      sorted: goodsFromServer.filter(item => item.length > value),
+    }))
+  )
 
   render() {
     const {

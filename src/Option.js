@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import React from 'react';
 import { ShapeOption } from './Shapes';
 
