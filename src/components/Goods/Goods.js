@@ -8,7 +8,7 @@ import GoodsSelection from '../GoodsSelection/GoodsSelection';
 class Goods extends React.Component {
   state = {
     isActive: true,
-    goods: [...this.props.goods],
+    goods: this.props.goods,
     defaultValue: 1,
     minLength: null,
   };
@@ -21,25 +21,25 @@ class Goods extends React.Component {
 
   handleReverse = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.reverse(),
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
   handleSortAlphabetically = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.localeCompare(b)),
+      goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
   handleSortByLength = () => {
     this.setState(prevState => ({
-      goods: prevState.goods.sort((a, b) => a.length - b.length),
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
   handleReset = () => {
     this.setState({
-      goods: [...this.props.goods],
+      goods: this.props.goods,
       minLength: null,
       defaultValue: 1,
     });
