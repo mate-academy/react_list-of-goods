@@ -12,10 +12,10 @@ export const Options = (props) => {
 
   return (
     <div>
-      <button type="button" onClick={reverse}>Reverse</button>
       <button type="button" onClick={sortByAlphabet}>Sort By Names</button>
-      <button type="button" onClick={reset}>Reset</button>
       <button type="button" onClick={sortByLength}>Sort By Length</button>
+      <button type="button" onClick={reverse}>Reverse</button>
+      <button type="button" onClick={reset}>Reset</button>
       <select onChange={filterByLength} value={value}>
         {
           select.map(item => (
