@@ -9,7 +9,6 @@ class GoodsList extends React.Component {
     selectValue: 1,
     goods: this.props.goods,
     goodsFull: this.props.goods,
-    goodsInitial: this.props.goods,
   };
 
   onReverseOrder = () => {
@@ -35,18 +34,18 @@ class GoodsList extends React.Component {
 
   onSelectLength = (event) => {
     const { target } = event;
-    const newLength = target.value;
+    const newLength = +target.value;
 
     this.setState(state => ({
       selectValue: newLength,
-      goods: [...state.goodsFull].filter(good => good.length >= newLength),
+      goods: state.goodsFull.filter(good => good.length >= newLength),
     }));
   };
 
   onReset = () => {
     this.setState(state => ({
       selectValue: 1,
-      goods: [...state.goodsInitial],
+      goods: this.props.goods,
     }));
   };
 
