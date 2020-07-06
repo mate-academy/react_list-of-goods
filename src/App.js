@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Buttons from './components/Buttons/Buttons';
+import Select from './components/Select/Select';
 import GoodsList from './components/GoodsList/GoodsList';
 import './App.css';
 
@@ -20,7 +22,7 @@ class App extends React.Component {
   state = {
     isStart: false,
     selectValue: 1,
-    goods: [...goodsFromServer],
+    goods: goodsFromServer,
   }
 
   start = () => {
@@ -28,25 +30,29 @@ class App extends React.Component {
   }
 
   reverse = () => {
-    this.setState(state => ({ goods: state.goods.reverse() }));
+    this.setState(state => ({ goods: [...state.goods].reverse() }));
   }
 
   sortAlphabetically = () => {
     this.setState(state => ({
-      goods: state.goods.sort((good1, good2) => good1.localeCompare(good2)),
+      goods: [...state.goods].sort((good1, good2) => (
+        good1.localeCompare(good2)
+      )),
     }));
   }
 
   reset = () => {
     this.setState({
-      goods: [...goodsFromServer],
+      goods: goodsFromServer,
       selectValue: 1,
     });
   }
 
   sortLenght = () => {
     this.setState(state => ({
-      goods: state.goods.sort((good1, good2) => good1.length - good2.length),
+      goods: [...state.goods].sort((good1, good2) => (
+        good1.length - good2.length
+      )),
     }));
   }
 
@@ -64,63 +70,19 @@ class App extends React.Component {
       <div className="App">
         <h1 className="App__header">Goods</h1>
         {goodsFromServer.length}
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.start}
-          hidden={this.state.isStart}
-        >
-          Start
-        </button>
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.reverse}
-          hidden={!this.state.isStart}
-        >
-          Reverse
-        </button>
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.sortAlphabetically}
-          hidden={!this.state.isStart}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.reset}
-          hidden={!this.state.isStart}
-        >
-          Reset
-        </button>
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.sortLenght}
-          hidden={!this.state.isStart}
-        >
-          Sort by length
-        </button>
-        <select
-          className="App__select"
-          hidden={!this.state.isStart}
-          value={this.state.selectValue}
-          onChange={this.filterLength}
-        >
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-        </select>
+        <Buttons
+          isStart={this.state.isStart}
+          start={this.start}
+          reverse={this.reverse}
+          sortAlphabetically={this.sortAlphabetically}
+          reset={this.reset}
+          sortLenght={this.sortLenght}
+        />
+        <Select
+          isStart={this.state.isStart}
+          selectValue={this.state.selectValue}
+          filterLength={this.filterLength}
+        />
         {this.state.isStart ? <GoodsList goods={this.state.goods} /> : ''}
       </div>
     );
