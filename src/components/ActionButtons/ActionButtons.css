@@ -1,0 +1,8 @@
+.goods__sort {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  height: 116px;
+}

@@ -1,18 +1,18 @@
 import React from 'react';
 import PropType from 'prop-types';
-import './SortButton.css';
+import './Button.css';
 
-export const SortButton = ({ name, onClickHandle }) => (
+export const Button = ({ name, handle }) => (
   <button
     className="goods__sort-btn"
     type="button"
-    onClick={onClickHandle}
+    onClick={handle}
   >
     {name}
   </button>
 );
 
-SortButton.propTypes = {
+Button.propTypes = {
   name: PropType.string.isRequired,
-  onClickHandle: PropType.func.isRequired,
+  handle: PropType.func.isRequired,
 };

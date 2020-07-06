@@ -17,12 +17,12 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    listVisible: false,
+    isLoaded: false,
   };
 
   onStartSelected = () => {
-    this.setState(state => ({
-      listVisible: !state.listVisible,
+    this.setState(prevState => ({
+      isLoaded: !prevState.isLoaded,
     }));
   };
 
@@ -30,7 +30,7 @@ class App extends React.Component {
     return (
       <div className="app">
         {
-          this.state.listVisible
+          this.state.isLoaded
             ? <GoodsList goods={goodsFromServer} />
             : (
               <button

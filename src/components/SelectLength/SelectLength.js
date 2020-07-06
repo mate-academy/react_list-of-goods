@@ -1,8 +1,8 @@
 import React from 'react';
 import PropType from 'prop-types';
-import './SortSelect.css';
+import './SelectLength.css';
 
-export const SortSelect = ({ selectValue, onChangeHandle }) => {
+export const SelectLength = ({ selectValue, handle }) => {
   const selectOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
@@ -10,7 +10,7 @@ export const SortSelect = ({ selectValue, onChangeHandle }) => {
       Min length:&nbsp;
       <select
         value={selectValue}
-        onChange={onChangeHandle}
+        onChange={handle}
       >
         {selectOptions.map(value => (
           <option key={value} value={value}>{value}</option>
@@ -20,7 +20,7 @@ export const SortSelect = ({ selectValue, onChangeHandle }) => {
   );
 };
 
-SortSelect.propTypes = {
+SelectLength.propTypes = {
   selectValue: PropType.number.isRequired,
-  onChangeHandle: PropType.func.isRequired,
+  handle: PropType.func.isRequired,
 };

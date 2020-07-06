@@ -1,10 +1,9 @@
 import React from 'react';
 import PropType from 'prop-types';
 import './GoodsList.css';
-import { SortButton } from '../SortButton/SortButton';
-import { SortSelect } from '../SortSelect/SortSelect';
+import { ActionButtons } from '../ActionButtons/ActionButtons';
 
-class GoodsList extends React.Component {
+export class GoodsList extends React.Component {
   state = {
     selectValue: 1,
     goods: this.props.goods,
@@ -43,10 +42,11 @@ class GoodsList extends React.Component {
   };
 
   onReset = () => {
-    this.setState(state => ({
+    this.setState({
       selectValue: 1,
       goods: this.props.goods,
-    }));
+      goodsFull: this.props.goods,
+    });
   };
 
   render() {
@@ -59,34 +59,18 @@ class GoodsList extends React.Component {
             </li>
           ))}
         </ul>
-        <div className="goods__sort">
-          <SortButton
-            onClickHandle={this.onReverseOrder}
-            name="Reverse"
-          />
-          <SortButton
-            onClickHandle={this.onLengthOrder}
-            name="Sort by length"
-          />
-          <SortButton
-            onClickHandle={this.onAlphabeticallyOrder}
-            name="Sort alphabetically"
-          />
-          <SortSelect
-            selectValue={this.state.selectValue}
-            onChangeHandle={this.onSelectLength}
-          />
-          <SortButton
-            onClickHandle={this.onReset}
-            name="Reset"
-          />
-        </div>
+        <ActionButtons
+          selectValue={this.state.selectValue}
+          handleReverseOrder={this.onReverseOrder}
+          handleAlphabeticallyOrder={this.onAlphabeticallyOrder}
+          handleLengthOrder={this.onLengthOrder}
+          handleSelectLength={this.onSelectLength}
+          handleReset={this.onReset}
+        />
       </div>
     );
   }
 }
-
-export { GoodsList };
 
 GoodsList.propTypes = {
   goods: PropType.arrayOf(PropType.string).isRequired,
