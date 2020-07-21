@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 
-export const GoodItem = (props) => {
+interface Props {
+  good: string;
+}
+export const GoodItem: FC<Props> = (props) => {
   const { good } = props;
 
   return (

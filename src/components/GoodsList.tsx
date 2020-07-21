@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GoodItem } from './GoodItem';
 import { Select } from './Select';
+import { Goods } from '../types';
 
-export class GoodsList extends React.Component {
+interface GLState {
+  currentGoods: Goods;
+  selectValue: number
+}
+
+interface Props {
+  initial: Goods;
+}
+
+export class GoodsList extends React.Component<Props, GLState> {
   state = {
-    currentGoods: this.props.initialGoods,
+    currentGoods: this.props.initial,
     selectValue: 1,
   };
 
@@ -29,7 +39,7 @@ export class GoodsList extends React.Component {
 
   handleResetButton = () => (
     this.setState({
-      currentGoods: this.props.initialGoods,
+      currentGoods: this.props.initial,
       selectValue: 1,
     })
   );
@@ -41,9 +51,9 @@ export class GoodsList extends React.Component {
     }))
   );
 
-  handleSelectChanged = val => (
+  handleSelectChanged = (val: number) => (
     this.setState({
-      currentGoods: this.props.initialGoods
+      currentGoods: this.props.initial
         .filter(item => item.length >= val),
       selectValue: val,
     })
@@ -100,7 +110,7 @@ export class GoodsList extends React.Component {
 }
 
 GoodsList.propTypes = {
-  initialGoods: PropTypes.arrayOf(
+  initial: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ).isRequired,
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
+import { Goods } from './types';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -15,8 +16,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-class App extends React.Component {
-  state = {
+interface State {
+  initialGoods: Goods;
+  isStarted: boolean;
+}
+
+class App extends React.Component<{}, State> {
+  state: State = {
     initialGoods: goodsFromServer,
     isStarted: false,
   };
@@ -42,7 +48,7 @@ class App extends React.Component {
             </button>
           ) : (
             <GoodsList
-              initialGoods={initialGoods}
+              initial={initialGoods}
             />
           )
         }

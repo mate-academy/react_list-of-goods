@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 
-export const Select = (props) => {
+// interface Props {
+//   optionsNumbers:;
+//   onSelect:;
+//   setValue:;
+// }
+
+export const Select: FC<> = (props) => {
   const { optionsNumbers, onSelect, setValue } = props;
   const options = optionsNumbers.map(elem => (
     <option
