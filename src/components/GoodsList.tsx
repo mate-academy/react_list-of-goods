@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { GoodItem } from './GoodItem';
 import { Select } from './Select';
 import { Goods } from '../types';
 
 interface GLState {
   currentGoods: Goods;
-  selectValue: number
+  selectValue: number;
 }
 
 interface Props {
@@ -108,9 +107,3 @@ export class GoodsList extends React.Component<Props, GLState> {
     );
   }
 }
-
-GoodsList.propTypes = {
-  initial: PropTypes.arrayOf(
-    PropTypes.string.isRequired,
-  ).isRequired,
-};
