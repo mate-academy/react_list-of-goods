@@ -1,24 +1,29 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import './App.scss';
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+import ListButtons from './components/ListButtons';
+import Button from './components/Button';
+
+const App = () => {
+  const [isInitial, setInitial] = useState({ flag: false });
+  const handleInitialization = () => setInitial({ flag: true });
+
+  return (
+    <div className="page">
+      <h1 className="page__title">List of Goods</h1>
+      {isInitial.flag
+        ? <ListButtons />
+        : (
+          <div className="goods__inner">
+            <Button handleClick={handleInitialization}>
+              Display list
+            </Button>
+          </div>
+        )
+      }
+    </div>
+  );
+};
 
 export default App;
