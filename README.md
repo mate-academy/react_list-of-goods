@@ -10,7 +10,7 @@
 4. Add `Sort alphabetically` button to show goods in alphabetical order
 5. Add `Reset` button to show the goods in the initial order
 6. Add `Sort by length` button
-7. Add `<select>` with numbers from 1 to 10. (1 is default). All the previous buttons
+7. (*) Add `<select>` with numbers from 1 to 10. (1 is default). All the previous buttons
   should now show only goods having length >= than selected value. When you change the
   value the items should be immediately rerendered accordingly.
 8. (*) `Reset` button should set the default value to the `<select>`
