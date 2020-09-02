@@ -1,0 +1,53 @@
+body {
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.App {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.start {
+  background-color: #111;
+  border: solid 1px #888;
+  padding: 8px 25px;
+  font-size: 26px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  color: #eee;
+  text-align: center;
+}
+
+.list {
+  margin-top: 40px;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list > * {
+  padding: 10px;
+  margin: 2px;
+  width: 130px;
+  border: 1px solid lightgray;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons > * {
+  margin: 5px;
+  width: 140px;
+  height: 40px;
+  background-color: #eee;
+  border: solid 1px #888;
+  cursor: pointer;
+  font-size: 15px;
+  color: #111;
+  text-align: center;
+}
