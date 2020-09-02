@@ -18,15 +18,14 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [...goodsFromServer],
-    display: '',
+    goods: [],
     initialLength: 1,
   }
 
   start = () => {
-    this.setState(prevState => ({
-      display: `block`,
-    }));
+    this.setState({
+      goods: [...goodsFromServer],
+    });
   };
 
   reverse = () => {
@@ -48,22 +47,21 @@ class App extends React.Component {
   }
 
   reset = () => {
-    this.setState(prevState => ({
+    this.setState({
       goods: [...goodsFromServer],
-    }));
+    });
   }
 
   select = (event) => {
     const length = event.target.value;
 
-    this.setState(state => ({
-      goods: [...goodsFromServer].filter(good => good.length >= length),
+    this.setState({
       initialLength: length,
-    }));
+    });
   }
 
   render() {
-    if (this.state.display === '') {
+    if (this.state.goods.length === 0) {
       return (
         <div className="App">
           <button
@@ -80,14 +78,13 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {this.state.goods.map(item => (
-          <li
-            key={item}
-            className="goodItem"
-          >
-            {item}
-          </li>
-        ))}
+        <ul>
+          {this.state.goods.map(item => (
+            item.length >= this.state.initialLength
+              ? <li key={item} className="goodItem">{item}</li>
+              : null
+          ))}
+        </ul>
         <Button
           click={this.reset}
           text="reset"
