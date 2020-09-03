@@ -1,0 +1,35 @@
+body {
+  font-size: 20px;
+}
+
+.button {
+  height: 50px;
+  width: 150px;
+  margin: 20px;
+  background-color: #06d6a0;
+  border: 3px solid #606c38;
+  color: #606c38;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #e5e5e5;
+}
+
+.button[disabled] {
+  color: #84a59d;
+  background-color: #e5e5e5;
+  border-color: #84a59d;
+}
+
+.select {
+  height: 50px;
+  width: 50px;
+  margin: 20px;
+  background-color: #e0fbfc;
+  border: 3px solid #293241;
+  color: #003049;
+  cursor: pointer;
+}
