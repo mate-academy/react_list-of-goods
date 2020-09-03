@@ -1,0 +1,18 @@
+.Select {
+  margin: 5px;
+  outline: none;
+  border: 3px solid #59c173;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #7e2d7b;
+  color: #59c173;
+}
+
+.Select:hover {
+  color: #7e2d7b;
+  border-color: #7e2d7b;
+  background: #59c173;
+  transform: scale(1.1);
+}
