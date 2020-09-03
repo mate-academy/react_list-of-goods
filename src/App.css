@@ -1,0 +1,37 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+
+  outline: none;
+}
+
+.App {
+  width: 500px;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-row-gap: 20px;
+  align-items: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.list {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-row-gap: 20px;
+
+  list-style: none;
+  font-size: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
