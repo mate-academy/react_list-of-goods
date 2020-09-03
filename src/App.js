@@ -19,28 +19,32 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     products: [...goodsFromServer],
-    addList: false,
+    isStarted: false,
   };
 
-  createList = (event) => {
+  createList = () => {
     this.setState({
-      addList: true,
+      isStarted: true,
     });
-    event.target.hidden = true;
   };
 
   render() {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <button
-          type="button"
-          className="button-start"
-          onClick={this.createList}
-        >
-          Star
-        </button>
-        {this.state.addList ? <Products goods={this.state.products} /> : null}
+        {!this.state.isStarted ? (
+          <button
+            type="button"
+            className="button-start"
+            onClick={this.createList}
+          >
+            Star
+          </button>
+        ) : null}
+        {this.state.isStarted
+          ? (<Products goods={this.state.products} />)
+          : null
+        }
       </div>
     );
   }
