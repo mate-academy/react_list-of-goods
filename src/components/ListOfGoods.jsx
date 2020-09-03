@@ -47,7 +47,9 @@ class ListOfGoods extends React.Component {
           <button
             type="button"
             onClick={() => {
-              this.setState({ goods: [...goods.sort((a, b) => b.length - a.length)] });
+              this.setState({
+                goods: [...goods.sort((a, b) => b.length - a.length)]
+              });
             }}
           >
             Sort by length
