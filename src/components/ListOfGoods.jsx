@@ -23,8 +23,7 @@ class ListOfGoods extends React.Component {
           <button
             type="button"
             onClick={() => {
-              goods.reverse();
-              this.forceUpdate();
+              this.setState({ goods: [...goods].reverse() });
             }}
           >
             Reverse
@@ -32,8 +31,7 @@ class ListOfGoods extends React.Component {
           <button
             type="button"
             onClick={() => {
-              goods.sort();
-              this.forceUpdate();
+              this.setState({ goods: [...goods].sort() });
             }}
           >
             Sort alphabetically
@@ -42,7 +40,6 @@ class ListOfGoods extends React.Component {
             type="button"
             onClick={() => {
               this.setState({ goods: [...this.props.goods] });
-              this.forceUpdate();
             }}
           >
             Reset
@@ -50,8 +47,7 @@ class ListOfGoods extends React.Component {
           <button
             type="button"
             onClick={() => {
-              goods.sort((a, b) => b.length - a.length);
-              this.forceUpdate();
+              this.setState({ goods: [...goods.sort((a, b) => b.length - a.length)] });
             }}
           >
             Sort by length
