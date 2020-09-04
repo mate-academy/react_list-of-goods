@@ -30,17 +30,21 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <button
-          type="button"
-          onClick={this.mainClick}
-          hidden={isClicked}
-        >
-          Start
-        </button>
+        {!isClicked && (
+          <button
+            type="button"
+            onClick={this.mainClick}
+            hidden={isClicked}
+          >
+            Start
+          </button>
+        )}
 
-        <div hidden={!isClicked}>
-          <GoodsList goods={goodsFromServer} />
-        </div>
+        {isClicked && (
+          <div hidden={!isClicked}>
+            <GoodsList goods={goodsFromServer} />
+          </div>
+        )}
       </div>
     );
   }
