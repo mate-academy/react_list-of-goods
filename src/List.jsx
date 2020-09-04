@@ -78,4 +78,4 @@ export class List extends React.Component {
 
 List.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
-};git
+};
