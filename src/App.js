@@ -122,7 +122,6 @@ class App extends React.Component {
           Reset
         </button>
         <>{this.start()}</>
-        {goodsFromServer.length}
       </div>
     );
   }
