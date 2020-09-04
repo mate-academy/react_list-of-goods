@@ -19,9 +19,9 @@ export class GoodsList extends React.Component {
   }
 
   reset = () => {
-    this.setState(state => ({
+    this.setState({
       goods: this.props.goods,
-    }));
+    });
   }
 
   sortByLength = () => {
