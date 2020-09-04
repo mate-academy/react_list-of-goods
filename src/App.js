@@ -17,33 +17,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    startList: goodsFromServer,
-    currentList: goodsFromServer,
     isShowed: false,
-  }
-
-  reset = () => {
-    this.setState(state => ({
-      currentList: state.startList,
-    }));
-  }
-
-  reverse = () => {
-    this.setState(state => ({
-      currentList: [...state.currentList].reverse(),
-    }));
-  }
-
-  sortByAlphabet = () => {
-    this.setState(state => ({
-      currentList: [...state.currentList].sort(),
-    }));
-  }
-
-  sortByLength = () => {
-    this.setState(state => ({
-      currentList: [...state.currentList].sort((a, b) => a.length - b.length),
-    }));
   }
 
   showList = () => {
@@ -53,7 +27,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentList, isShowed } = this.state;
+    const { isShowed } = this.state;
 
     return (
       <div className="App">
@@ -61,39 +35,7 @@ class App extends React.Component {
           isShowed
             ? (
               <>
-                <GoodsList goods={currentList} />
-
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.reverse}
-                >
-                  Reverse!
-                </button>
-
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.sortByAlphabet}
-                >
-                  ABC sort!
-                </button>
-
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.reset}
-                >
-                  Reset!
-                </button>
-
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.sortByLength}
-                >
-                  Sort by length!
-                </button>
+                <GoodsList goods={goodsFromServer} />
               </>
             )
             : (
