@@ -49,9 +49,7 @@ class App extends React.Component {
   listSortByLength = () => {
     this.setState(state => ({
       goodsState: [
-        ...state.goodsState
-          .sort((a, b) => a.replace(/' '/g, '').length
-            - b.replace(/' '/g, '').length),
+        ...state.goodsState.sort((a, b) => b.length - a.length),
       ],
     }));
   };
