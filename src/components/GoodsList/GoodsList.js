@@ -34,12 +34,9 @@ export class GoodsList extends React.Component {
     }));
   }
 
-  handleChange = (event) => {
+  handleSelectChange = (event) => {
     this.setState({
       value: event.target.value,
-      goods: this.props.goods.filter(
-        item => item.length >= event.target.value,
-      ),
     });
   }
 
@@ -50,9 +47,11 @@ export class GoodsList extends React.Component {
       <>
         <ul className="list">
           {goods.map(item => (
-            <li className="list__item" key={item}>
-              {item}
-            </li>
+            item.length >= value && (
+              <li className="list__item" key={item}>
+                {item}
+              </li>
+            )
           ))}
         </ul>
 
@@ -69,7 +68,7 @@ export class GoodsList extends React.Component {
           Sort by length
         </button>
 
-        <select value={value} onChange={this.handleChange}>
+        <select value={value} onChange={this.handleSelectChange}>
           {new Array(10)
             .fill()
             .map((_, i) => (
