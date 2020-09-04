@@ -14,11 +14,98 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isVisible: false,
+    goodsState: [...goodsFromServer],
+  }
+
+  visibleList = () => {
+    this.setState({ isVisible: true });
+  };
+
+  listReverse = () => {
+    this.setState(state => ({
+      goodsState: [
+        ...state.goodsState.reverse(),
+      ],
+    }));
+  };
+
+  listSort = () => {
+    this.setState(state => ({
+      goodsState: [
+        ...state.goodsState.sort((a, b) => a.localeCompare(b)),
+      ],
+    }));
+  };
+
+  listReset = () => {
+    this.setState({
+      goodsState: [...goodsFromServer],
+    });
+  };
+
+  listSortByLength = () => {
+    this.setState(state => ({
+      goodsState: [
+        ...state.goodsState
+          .sort((a, b) => a.replace(/' '/g, '').length
+            - b.replace(/' '/g, '').length),
+      ],
+    }));
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        {this.state.isVisible || (
+          <button
+            onClick={this.visibleList}
+            type="button"
+          >
+            Start
+          </button>
+        )}
+        {this.state.isVisible && (
+          <>
+            <ul>
+              {this.state.goodsState.map(good => (
+                <li key={good}>
+                  {good}
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              onClick={this.listReverse}
+            >
+              Reverse
+            </button>
+            <button
+              type="button"
+              onClick={this.listSort}
+            >
+              Sort
+            </button>
+            <button
+              type="button"
+              onClick={this.listReset}
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              onClick={this.listSortByLength}
+            >
+              Sort by length
+            </button>
+          </>
+        )}
+      </div>
+    );
+  }
+}
 
 export default App;
