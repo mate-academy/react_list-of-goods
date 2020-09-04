@@ -75,41 +75,39 @@ class App extends React.Component {
           Start
         </button>
 
-        <button
-          className="button"
-          type="button"
-          onClick={this.showRevere}
-          hidden={!goods.length}
-        >
-          Reverse
-        </button>
+        <div hidden={!goods.length}>
+          <button
+            className="button"
+            type="button"
+            onClick={this.showRevere}
+          >
+            Reverse
+          </button>
 
-        <button
-          className="button"
-          type="button"
-          onClick={this.showAlphabetically}
-          hidden={!goods.length}
-        >
-          Sort alphabetically
-        </button>
+          <button
+            className="button"
+            type="button"
+            onClick={this.showAlphabetically}
+          >
+            Sort alphabetically
+          </button>
 
-        <button
-          className="button"
-          type="button"
-          onClick={this.resetList}
-          hidden={!goods.length}
-        >
-          Reset
-        </button>
+          <button
+            className="button"
+            type="button"
+            onClick={this.resetList}
+          >
+            Reset
+          </button>
 
-        <button
-          className="button"
-          type="button"
-          onClick={this.showByLength}
-          hidden={!goods.length}
-        >
-          Sort by length
-        </button>
+          <button
+            className="button"
+            type="button"
+            onClick={this.showByLength}
+          >
+            Sort by length
+          </button>
+        </div>
 
         <Goodlist goods={goods} />
       </div>
