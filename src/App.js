@@ -23,13 +23,13 @@ function removeSpaces(value) {
 class App extends React.Component {
   state = {
     goods: [],
-    isVisible: false,
+    elemIsVisible: false,
   }
 
   showList = () => {
     this.setState(() => ({
       goods: [...goodsFromServer],
-      isVisible: true,
+      elemIsVisible: true,
     }));
   };
 
@@ -59,7 +59,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { isVisible } = this.state;
+    const { elemIsVisible } = this.state;
 
     return (
       <div className="App">
@@ -71,8 +71,8 @@ class App extends React.Component {
             className={classNames({
               buttons__button: true,
               'buttons__button--green': true,
-              invisible: isVisible,
-              visible: !isVisible,
+              invisible: elemIsVisible,
+              visible: !elemIsVisible,
             })}
             onClick={this.showList}
           >
@@ -84,8 +84,8 @@ class App extends React.Component {
             className={classNames({
               buttons__button: true,
               'buttons__button--green': true,
-              invisible: !isVisible,
-              visible: isVisible,
+              invisible: !elemIsVisible,
+              visible: elemIsVisible,
             })}
             onClick={this.reverseList}
           >
@@ -97,8 +97,8 @@ class App extends React.Component {
             className={classNames({
               buttons__button: true,
               'buttons__button--yellow': true,
-              invisible: !isVisible,
-              visible: isVisible,
+              invisible: !elemIsVisible,
+              visible: elemIsVisible,
             })}
             onClick={this.sortAlphabetically}
           >
@@ -110,8 +110,8 @@ class App extends React.Component {
             className={classNames({
               buttons__button: true,
               'buttons__button--red': true,
-              invisible: !isVisible,
-              visible: isVisible,
+              invisible: !elemIsVisible,
+              visible: elemIsVisible,
             })}
             onClick={this.resetList}
           >
@@ -123,8 +123,8 @@ class App extends React.Component {
             className={classNames({
               buttons__button: true,
               'buttons__button--magenta': true,
-              invisible: !isVisible,
-              visible: isVisible,
+              invisible: !elemIsVisible,
+              visible: elemIsVisible,
             })}
             onClick={this.sortByLength}
           >
@@ -134,7 +134,7 @@ class App extends React.Component {
 
         <GoodList
           goods={this.state.goods}
-          visibility={isVisible}
+          visibility={elemIsVisible}
         />
       </div>
     );
