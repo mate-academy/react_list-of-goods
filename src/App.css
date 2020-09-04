@@ -48,10 +48,6 @@ li {
   transition: background-color 1s;
 }
 
-.button-box__button--input {
-  width: 50px;
-}
-
 .button-box__button:hover {
   background-color: rgb(114, 239, 255);
   cursor: pointer;

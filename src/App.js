@@ -59,7 +59,7 @@ class App extends React.Component {
 
     this.setState(state => ({
       n: i,
-      list: state.list.filter(a => a.length > i),
+      list: state.list.filter(a => a.length >= i),
     }));
   }
 
@@ -111,16 +111,26 @@ class App extends React.Component {
             REVERSE
           </button>
 
-          <input
+          <select
             name="input"
-            className="button-box__button button-box__button--input"
+            className="button-box__button"
             type="number"
             placeholder="10"
             value={n}
-            max="10"
-            min="1"
+            size="1"
             onChange={this.toChange}
-          />
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
         </div>
 
         <div
