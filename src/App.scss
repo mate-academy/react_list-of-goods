@@ -1,0 +1,97 @@
+$darkColor: #434a57;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #20232a;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 40%;
+  margin: 100px auto 0;
+  border: 3px solid $darkColor;
+  border-radius: 10px;
+
+  &__title {
+    color: orange;
+    margin-bottom: 0;
+  }
+
+  &__buttons {
+    margin: 20px 0;
+  }
+}
+
+.good-list {
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+  background-color: $darkColor;
+}
+
+.good-item {
+  margin: 5px 0;
+  font-size: 20px;
+  list-style: none;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: yellowgreen;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  &__button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &--green {
+      background-color: rgb(101, 214, 101);
+    }
+
+    &--yellow {
+      background-color: rgb(236, 236, 84);
+    }
+
+    &--red {
+      background-color: rgb(231, 63, 63);
+    }
+
+    &--magenta {
+      background-color: rgb(231, 98, 231);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.visible {
+  display: block;
+}
+
+.invisible {
+  display: none;
+}
