@@ -1,15 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-export const GoodList = ({ goods, visibility }) => (
-  <ul
-    className={classNames({
-      'good-list': true,
-      invisible: !visibility,
-      visible: visibility,
-    })}
-  >
+export const GoodList = ({ goods }) => (
+  <ul className="good-list">
     {goods.map(good => (
       <li
         key={good}
@@ -23,5 +16,4 @@ export const GoodList = ({ goods, visibility }) => (
 
 GoodList.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
-  visibility: PropTypes.bool.isRequired,
 };

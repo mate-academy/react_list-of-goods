@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { GoodList } from './GoodList';
 import './App.scss';
 
@@ -66,76 +65,58 @@ class App extends React.Component {
         <h1 className="App__title">Goods</h1>
 
         <div className="App__buttons buttons">
-          <button
-            type="button"
-            className={classNames({
-              buttons__button: true,
-              'buttons__button--green': true,
-              invisible: elemIsVisible,
-              visible: !elemIsVisible,
-            })}
-            onClick={this.showList}
-          >
-            Start
-          </button>
+          {!elemIsVisible && (
+            <button
+              type="button"
+              className="buttons__button buttons__button--green"
+              onClick={this.showList}
+            >
+              Start
+            </button>
+          )}
 
-          <button
-            type="button"
-            className={classNames({
-              buttons__button: true,
-              'buttons__button--green': true,
-              invisible: !elemIsVisible,
-              visible: elemIsVisible,
-            })}
-            onClick={this.reverseList}
-          >
-            Reverse
-          </button>
+          {elemIsVisible && (
+            <>
+              <button
+                type="button"
+                className="buttons__button buttons__button--green"
+                onClick={this.reverseList}
+              >
+                Reverse
+              </button>
 
-          <button
-            type="button"
-            className={classNames({
-              buttons__button: true,
-              'buttons__button--yellow': true,
-              invisible: !elemIsVisible,
-              visible: elemIsVisible,
-            })}
-            onClick={this.sortAlphabetically}
-          >
-            Sort alphabetically
-          </button>
+              <button
+                type="button"
+                className="buttons__button buttons__button--yellow"
+                onClick={this.sortAlphabetically}
+              >
+                Sort alphabetically
+              </button>
 
-          <button
-            type="button"
-            className={classNames({
-              buttons__button: true,
-              'buttons__button--red': true,
-              invisible: !elemIsVisible,
-              visible: elemIsVisible,
-            })}
-            onClick={this.resetList}
-          >
-            Reset
-          </button>
+              <button
+                type="button"
+                className="buttons__button buttons__button--red"
+                onClick={this.resetList}
+              >
+                Reset
+              </button>
 
-          <button
-            type="button"
-            className={classNames({
-              buttons__button: true,
-              'buttons__button--magenta': true,
-              invisible: !elemIsVisible,
-              visible: elemIsVisible,
-            })}
-            onClick={this.sortByLength}
-          >
-            Sort by length
-          </button>
+              <button
+                type="button"
+                className="buttons__button buttons__button--magenta"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+            </>
+          )}
         </div>
 
-        <GoodList
-          goods={this.state.goods}
-          visibility={elemIsVisible}
-        />
+        {elemIsVisible && (
+          <GoodList
+            goods={this.state.goods}
+          />
+        )}
       </div>
     );
   }
