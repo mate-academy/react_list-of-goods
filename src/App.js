@@ -16,15 +16,15 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    isVisible: false,
+    listIsVisible: false,
     goodsState: [...goodsFromServer],
   }
 
-  visibleList = () => {
-    this.setState({ isVisible: true });
+  handleList = () => {
+    this.setState({ listIsVisible: true });
   };
 
-  listReverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       goodsState: [
         ...state.goodsState.reverse(),
@@ -32,7 +32,7 @@ class App extends React.Component {
     }));
   };
 
-  listSort = () => {
+  handleSort = () => {
     this.setState(state => ({
       goodsState: [
         ...state.goodsState.sort((a, b) => a.localeCompare(b)),
@@ -40,13 +40,13 @@ class App extends React.Component {
     }));
   };
 
-  listReset = () => {
+  handleReset = () => {
     this.setState({
       goodsState: [...goodsFromServer],
     });
   };
 
-  listSortByLength = () => {
+  handleSortByLength = () => {
     this.setState(state => ({
       goodsState: [
         ...state.goodsState.sort((a, b) => b.length - a.length),
@@ -58,15 +58,15 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {this.state.isVisible || (
+        {!this.state.listIsVisible && (
           <button
-            onClick={this.visibleList}
+            onClick={this.handleList}
             type="button"
           >
             Start
           </button>
         )}
-        {this.state.isVisible && (
+        {this.state.listIsVisible && (
           <>
             <ul>
               {this.state.goodsState.map(good => (
@@ -77,25 +77,25 @@ class App extends React.Component {
             </ul>
             <button
               type="button"
-              onClick={this.listReverse}
+              onClick={this.handleReverse}
             >
               Reverse
             </button>
             <button
               type="button"
-              onClick={this.listSort}
+              onClick={this.handleSort}
             >
               Sort
             </button>
             <button
               type="button"
-              onClick={this.listReset}
+              onClick={this.handleReset}
             >
               Reset
             </button>
             <button
               type="button"
-              onClick={this.listSortByLength}
+              onClick={this.handleSortByLength}
             >
               Sort by length
             </button>
