@@ -37,7 +37,7 @@ render() {
     <>
       <ul>
         {goods.map(item => (
-          <li>{item}</li>
+          <li key="item">{item}</li>
         ))}
       </ul>
       <button
