@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 400px;
+  height: 500px;
+  margin-top: 80px;
+
+  border-radius: 30px;
+  background-color: #fff;
+}
+
+.goods {
+  list-style: none;
+  padding: 0;
+}
+
+.goods__item {
+  text-align: center;
+
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: rgb(4, 107, 93);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
+
+.buttons__item {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(17, 104, 92);
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.buttons__item:hover {
+  background-color: rgb(45, 185, 167);
+}
