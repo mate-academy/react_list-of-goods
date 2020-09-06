@@ -8,7 +8,6 @@ const buttonsName = [
   'Sort alphabetically',
   'Sort by length',
   'Reset',
-  'Select'
 ];
 
 export class GoodList extends React.Component {
