@@ -79,6 +79,7 @@ class ListOfGoods extends React.Component {
     );
   }
 }
+
 ListOfGoods.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
