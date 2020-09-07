@@ -40,7 +40,7 @@ class App extends React.Component {
     this.setState(state => ({
       goods: [
         ...state.goods,
-      ].sort(),
+      ].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
