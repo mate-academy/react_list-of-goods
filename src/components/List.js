@@ -6,6 +6,23 @@ export class List extends React.Component {
     goods: [...this.props.goods],
   }
 
+  getOptions() {
+    const options = [];
+
+    for (let i = 1; i <= this.props.goods.length; i += 1) {
+      options.push(
+        <option
+          value={i}
+          key={i}
+        >
+          {i}
+        </option>,
+      );
+    }
+
+    return options;
+  }
+
   render() {
     return (
       <div className="container">
@@ -18,9 +35,11 @@ export class List extends React.Component {
           type="button"
           className="reverse"
           onClick={() => {
-            this.state.goods.reverse();
-
-            this.forceUpdate();
+            this.setState(prev => (
+              {
+                goods: [...prev.goods].reverse(),
+              }
+            ));
           }}
         >
           Reverse
@@ -30,9 +49,11 @@ export class List extends React.Component {
           type="button"
           className="sort_alphabetically"
           onClick={() => {
-            this.state.goods.sort();
-
-            this.forceUpdate();
+            this.setState(prev => (
+              {
+                goods: [...prev.goods].sort(),
+              }
+            ));
           }}
         >
           Sort alphabetically
@@ -42,7 +63,9 @@ export class List extends React.Component {
           type="button"
           className="reset"
           onClick={() => {
-            this.setState({ goods: [...this.props.goods] });
+            this.setState({
+              goods: [...this.props.goods],
+            });
           }}
         >
           Reset
@@ -52,9 +75,11 @@ export class List extends React.Component {
           type="button"
           className="sort_by_length"
           onClick={() => {
-            this.state.goods.sort((a, b) => a.length - b.length);
-
-            this.forceUpdate();
+            this.setState(prev => (
+              {
+                goods: [...prev.goods].sort((a, b) => a.length - b.length),
+              }
+            ));
           }}
         >
           Sort by length
@@ -63,19 +88,12 @@ export class List extends React.Component {
         <select
           value={this.state.goods.length}
           onChange={(event) => {
-            const cutter = (el, i) => i < event.target.value;
+            const updatedGoods = this.props.goods.slice(0, event.target.value);
 
-            this.setState({ goods: this.props.goods.filter(cutter) });
+            this.setState({ goods: updatedGoods });
           }}
         >
-          {new Array(this.props.goods.length).fill().map((n, i) => (
-            <option
-              value={i + 1}
-              key={Math.random()}
-            >
-              {i + 1}
-            </option>
-          ))}
+          {this.getOptions()}
         </select>
       </div>
     );
