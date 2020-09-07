@@ -8,36 +8,34 @@ export class Goods extends React.Component {
     selectValue: '1',
   }
 
-  reverseGoods = () => {
+  handleReverse = () => {
     this.setState(state => ({
       goods: [...state.goods].reverse(),
     }));
   }
 
-  sortAlphabetical = () => {
+  handleSortAlphabetical = () => {
     this.setState(state => ({
       goods: [...state.goods].sort(),
     }));
   }
 
-  resetSorting = () => {
+  handleReset = () => {
     this.setState({
       goods: [...this.props.goods],
       selectValue: '1',
     });
   }
 
-  sortByLength = () => {
+  handleSortByLength = () => {
     this.setState(state => ({
       goods: [...state.goods]
         .sort((a, b) => a.length - b.length),
     }));
   }
 
-  selectChange = ({ target }) => {
+  handleSelectChange = ({ target }) => {
     this.setState({
-      goods: [...this.props.goods].filter(good => (
-        good.length >= target.value)),
       selectValue: target.value,
     });
   }
@@ -48,17 +46,19 @@ export class Goods extends React.Component {
     return (
       <div className="goods">
         <ul>
-          {goods.map(good => (
-            <li key={good}>
-              {good}
-            </li>
-          ))}
+          {goods
+            .filter(good => (good.length >= selectValue))
+            .map(good => (
+              <li key={good}>
+                {good}
+              </li>
+            ))}
         </ul>
 
         <button
           type="button"
           className="button"
-          onClick={this.reverseGoods}
+          onClick={this.handleReverse}
         >
           Reverse
         </button>
@@ -66,7 +66,7 @@ export class Goods extends React.Component {
         <button
           type="button"
           className="button"
-          onClick={this.sortAlphabetical}
+          onClick={this.handleSortAlphabetical}
         >
           Sort by ABC
         </button>
@@ -74,7 +74,7 @@ export class Goods extends React.Component {
         <button
           type="button"
           className="button"
-          onClick={this.resetSorting}
+          onClick={this.handleReset}
         >
           Reset
         </button>
@@ -82,12 +82,12 @@ export class Goods extends React.Component {
         <button
           type="button"
           className="button"
-          onClick={this.sortByLength}
+          onClick={this.handleSortByLength}
         >
           Sort by length
         </button>
 
-        <select value={selectValue} onChange={this.selectChange}>
+        <select value={selectValue} onChange={this.handleSelectChange}>
           {new Array(10).fill().map((_, index) => (
             <option value={index + 1}>
               {index + 1}

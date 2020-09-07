@@ -20,32 +20,28 @@ class App extends React.Component {
     listVisible: false,
   }
 
-  letsStart = () => {
+  handleStart = () => {
     this.setState({ listVisible: true });
   }
 
   render() {
     const { listVisible } = this.state;
 
-    if (!listVisible) {
-      return (
-        <div className="App">
-          <h1>Goods</h1>
-          <button
-            type="button"
-            className="start__button"
-            onClick={this.letsStart}
-          >
-            Start
-          </button>
-        </div>
-      );
-    }
-
     return (
       <div className="App">
         <h1>Goods</h1>
-        <Goods goods={goodsFromServer} />
+        { !listVisible
+          ? (
+            <button
+              type="button"
+              className="start__button"
+              onClick={this.handleStart}
+            >
+              Start
+            </button>
+          )
+          : (<Goods goods={goodsFromServer} />)
+        }
       </div>
     );
   }
