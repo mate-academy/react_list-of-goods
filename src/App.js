@@ -63,6 +63,7 @@ class App extends React.PureComponent {
   handleReset = () => {
     this.setState(state => ({
       goods: [...goodsFromServer],
+      select: 1,
     }));
   }
 
@@ -90,6 +91,7 @@ class App extends React.PureComponent {
 
   render() {
     const { loading, goods, select, selectedValues } = this.state;
+    const preparedGoods = goods.filter(good => good.length >= select);
 
     return (
       <div className="App">
@@ -136,7 +138,7 @@ class App extends React.PureComponent {
                 </option>
               ))}
             </select>
-            <GoodsList goods={goods} />
+            <GoodsList goods={preparedGoods} />
           </>
         )
         }
