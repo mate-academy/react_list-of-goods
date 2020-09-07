@@ -12,9 +12,9 @@ export class GoodsList extends React.Component {
     }));
   };
 
-  sortAlphb = () => {
+  sortAlphabet = () => {
     this.setState(state => ({
-      products: [...state.products].sort(),
+      products: [...state.products].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
@@ -43,7 +43,7 @@ export class GoodsList extends React.Component {
           ))}
         </ul>
         <button type="button" onClick={this.reverseList}>Reverse</button>
-        <button type="button" onClick={this.sortAlphb}>Sort</button>
+        <button type="button" onClick={this.sortAlphabet}>Sort</button>
         <button type="button" onClick={this.resetList}>Reset</button>
         <button type="button" onClick={this.sortLength}>Sort by length</button>
       </>

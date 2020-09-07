@@ -29,12 +29,10 @@ class App extends React.Component {
       <div className="App">
         <h1>Goods</h1>
         {`Total: ${goodsFromServer.length}`}
-        {!this.state.isVisible && (
-          <button type="button" onClick={this.showList}>Start</button>
-        )}
-        {this.state.isVisible && (
-          <GoodsList products={goodsFromServer} />
-        )}
+        {!this.state.isVisible
+          ? <button type="button" onClick={this.showList}>Start</button>
+          : <GoodsList products={goodsFromServer} />
+        }
       </div>
     );
   }
