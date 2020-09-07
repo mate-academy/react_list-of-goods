@@ -18,13 +18,13 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: [],
-    hideButton: false,
+    isShown: false,
   }
 
   start = () => {
     this.setState(prevState => ({
       goods: [...goodsFromServer],
-      hideButton: !prevState.hideButton,
+      isShown: !prevState.isShown,
     }));
   }
 
@@ -61,11 +61,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { hideButton } = this.state;
+    const { isShown } = this.state;
 
     return (
       <div className="App">
-        {hideButton || (
+        {!isShown && (
           <button
             type="button"
             onClick={this.start}
@@ -75,8 +75,8 @@ class App extends React.Component {
         )}
         <GoodsList goods={this.state.goods} />
 
-        <div className="buttons">
-          {hideButton && (
+        {isShown && (
+          <div className="buttons">
             <button
               className="button"
               type="button"
@@ -84,9 +84,7 @@ class App extends React.Component {
             >
               Reverse
             </button>
-          )}
 
-          {hideButton && (
             <button
               className="button"
               type="button"
@@ -94,9 +92,7 @@ class App extends React.Component {
             >
               Sort alphabetically
             </button>
-          )}
 
-          {hideButton && (
             <button
               className="button"
               type="button"
@@ -104,9 +100,7 @@ class App extends React.Component {
             >
               Reset
             </button>
-          )}
 
-          {hideButton && (
             <button
               className="button"
               type="button"
@@ -114,8 +108,9 @@ class App extends React.Component {
             >
               Sort by words length
             </button>
-          )}
-        </div>
+
+          </div>
+        )}
       </div>
     );
   }
