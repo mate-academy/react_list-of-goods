@@ -27,22 +27,16 @@ class App extends React.Component {
 
   render() {
     return (
-
       <div className="App">
         <h1>Goods</h1>
 
-        {!this.state.isVisible && (
-          <button
-            type="button"
-            className="button"
-            onClick={this.showList}
-          >
+        {!this.state.isVisible ? (
+          <button type="button" className="button" onClick={this.showList}>
             Start
           </button>
+        ) : (
+          <GoodsList goods={goodsFromServer} />
         )}
-
-        {this.state.isVisible
-          && <GoodsList goods={goodsFromServer} />}
 
       </div>
     );
