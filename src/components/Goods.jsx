@@ -89,7 +89,7 @@ export class Goods extends React.Component {
 
         <select value={selectValue} onChange={this.handleSelectChange}>
           {new Array(10).fill().map((_, index) => (
-            <option value={index + 1}>
+            <option key={`${index}abc`} value={index + 1}>
               {index + 1}
             </option>
           ))}
