@@ -41,8 +41,8 @@ class App extends React.Component {
         >
           Start
         </button>
-        <ul className={`hiden ${this.state.show}`}>
-          <GoodsList vegetables={vegetables} clicked={this.state.show} />
+        <ul className={`hidden ${this.state.show}`}>
+          <GoodsList vegetables={vegetables} />
         </ul>
       </div>
     );
