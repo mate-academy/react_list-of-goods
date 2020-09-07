@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.scss';
 
+import { GoodsList } from './components/GoodsList';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -16,99 +18,32 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [],
-  };
+    isVisible: false,
+  }
 
   showList = () => {
-    this.setState({
-      goods: [...goodsFromServer],
-    });
-  };
-
-  reverseList = () => {
-    this.setState(state => ({
-      goods: [...state.goods].reverse(),
-    }));
-  };
-
-  sortList = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((prev, next) => prev.localeCompare(next)),
-    }));
-  };
-
-  resetList = () => {
-    this.setState({
-      goods: goodsFromServer,
-    });
-  };
-
-  sortByLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((prev, next) => prev.length - next.length),
-    }));
-  };
+    this.setState({ isVisible: true });
+  }
 
   render() {
-    const { goods } = this.state;
-
     return (
+
       <div className="App">
-        <div className="container">
+        <h1>Goods</h1>
+
+        {!this.state.isVisible && (
           <button
             type="button"
-            className="button container__button-start"
+            className="button"
             onClick={this.showList}
           >
             Start
           </button>
+        )}
 
-          <ul className="list container__list">
-            {goods.map(good => (
-              <li className="list__item" key="good">
-                {good}
-              </li>
-            ))}
-          </ul>
+        {this.state.isVisible
+          && <GoodsList goods={goodsFromServer} />}
 
-          <div className="list__button">
-            <button
-              type="button"
-              className="button list__button-item"
-              hidden={!goods.length}
-              onClick={this.reverseList}
-            >
-              Reverse
-            </button>
-
-            <button
-              type="button"
-              className="button list__button-item"
-              hidden={!goods.length}
-              onClick={this.sortList}
-            >
-              Sort
-            </button>
-
-            <button
-              type="button"
-              className="button list__button-item"
-              hidden={!goods.length}
-              onClick={this.resetList}
-            >
-              Reset
-            </button>
-
-            <button
-              type="button"
-              className="button list__button-item"
-              hidden={!goods.length}
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
-          </div>
-        </div>
       </div>
     );
   }

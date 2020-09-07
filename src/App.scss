@@ -1,21 +1,11 @@
 html {
   background-color: #eee;
   box-sizing: border-box;
-}
-
-.App {
-  display: flex;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-
-  &__list {
-    width: 200px;
-    justify-content: center;
-  }
+.App {
+  // display: flex;
 }
 
 .button {
@@ -45,16 +35,4 @@ html {
   &:active {
     transform: scale(0.99);
   }
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-
-  list-style: none;
-  padding: 0;
-  margin: 10px 40px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 20px;
 }

@@ -1,0 +1,23 @@
+.GoodsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+
+  &__list {
+    width: 700px;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  list-style: none;
+  padding: 0;
+  margin: 10px 40px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
