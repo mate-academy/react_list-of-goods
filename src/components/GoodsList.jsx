@@ -1,5 +1,6 @@
 import React from 'react';
 import './GoodsList.scss';
+import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
@@ -81,3 +82,7 @@ export class GoodsList extends React.Component {
     );
   }
 }
+
+GoodsList.propTypes = {
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
