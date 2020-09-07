@@ -1,5 +1,7 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import './components/GoodsList/GoodsList.scss';
+import './components/Button/Button.scss';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import { Button } from './components/Button/Button';
 
@@ -99,6 +101,7 @@ class App extends React.PureComponent {
           <button
             type="button"
             onClick={this.startLoading}
+            className="button button--start"
           >
             Start
           </button>
@@ -109,35 +112,39 @@ class App extends React.PureComponent {
               <Button
                 handler={this.handleReverse}
                 textContent="Reverse"
+                className="button"
               />
               <Button
                 handler={this.handleAlphabetSort}
                 textContent="Sort alphabetically"
+                className="button"
               />
               <Button
                 handler={this.handleLengthSort}
                 textContent="Sort by length"
+                className="button"
               />
               <Button
                 handler={this.handleReset}
                 textContent="Reset"
+                className="button"
               />
+              <select
+                value={select}
+                onChange={(event) => {
+                  this.setState({ select: +event.target.value });
+                }}
+              >
+                {selectedValues.map(value => (
+                  <option
+                    key={value}
+                    value={value}
+                  >
+                    {value}
+                  </option>
+                ))}
+              </select>
             </div>
-            <select
-              value={select}
-              onChange={(event) => {
-                this.setState({ select: +event.target.value });
-              }}
-            >
-              {selectedValues.map(value => (
-                <option
-                  key={value}
-                  value={value}
-                >
-                  {value}
-                </option>
-              ))}
-            </select>
             <GoodsList goods={preparedGoods} />
           </>
         )
