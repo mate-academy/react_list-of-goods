@@ -25,21 +25,23 @@ class App extends React.Component {
   }
 
   render() {
+    const { isListOpen } = this.state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
-        {!this.state.isListOpen && (
-          <button
-            type="button"
-            className="button"
-            onClick={this.openList}
-          >
-            Start
-          </button>
-        )}
-        {this.state.isListOpen && (
-          <ListOfGoods goods={goodsFromServer} />
-        )}
+        {!isListOpen
+          ? (
+            <button
+              type="button"
+              className="button"
+              onClick={this.openList}
+            >
+              Start
+            </button>
+          )
+          : <ListOfGoods goods={goodsFromServer} />
+        }
       </div>
     );
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class ListOfGoods extends React.Component {
   state = {
-    goods: this.props.goods,
+    goods: [...this.props.goods],
   }
 
   reverse = () => {
@@ -14,7 +14,7 @@ class ListOfGoods extends React.Component {
 
   sortByAlphabet = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
