@@ -16,99 +16,99 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    n: 1,
-    stan: false,
+    minLength: 1,
+    active: false,
     list: goodsFromServer,
   };
 
-  toStart = () => {
-    const { stan } = this.state;
+  handleStart = () => {
+    const { active } = this.state;
 
-    this.setState({ stan: !stan });
+    this.setState({ active: !active });
   }
 
-  toReset = () => {
+  handleReset = () => {
     this.setState(state => ({
       list: goodsFromServer,
-      n: 1,
+      minLength: 1,
     }));
   }
 
-  toReverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       list: [...state.list].reverse(),
     }));
   }
 
-  toSortAl = () => {
+  handleSortAlphavetically= () => {
     this.setState(state => ({
-      list: [...state.list].sort(),
+      list: [...state.list].sort((word1, word2) => word1.localeCompare(word2)),
     }));
   }
 
-  toSortLen = () => {
+  handleSortLength = () => {
     this.setState(state => ({
       list: [...state.list].sort((a, b) => a.length - b.length),
     }));
   }
 
-  toChange = (event) => {
+  handleChange = (event) => {
     const i = event.target.value;
 
-    this.toReset();
+    this.handleReset();
 
     this.setState(state => ({
-      n: i,
+      minLength: i,
       list: state.list.filter(a => a.length >= i),
     }));
   }
 
   render() {
-    const { stan, list, n } = this.state;
+    const { active, list, minLength } = this.state;
 
     return (
       <div className="App">
         <button
-          className={stan ? 'start--none' : 'start'}
+          className={active ? 'start--none' : 'start'}
           type="button"
-          onClick={this.toStart}
+          onClick={this.handleStart}
         >
-          START
+          Start
         </button>
 
         <div
-          className={stan ? 'button-box' : 'button-box--none'}
+          className={active ? 'button-box' : 'button-box--none'}
         >
           <button
             className="button-box__button"
             type="button"
-            onClick={this.toReset}
+            onClick={this.handleReset}
           >
-            RESET
+            Reset
           </button>
 
           <button
             className="button-box__button"
             type="button"
-            onClick={this.toSortAl}
+            onClick={this.handleSortAlphavetically}
           >
-            SORT ALPHABETICALLY
+            Sort alphavetically
           </button>
 
           <button
             className="button-box__button"
             type="button"
-            onClick={this.toSortLen}
+            onClick={this.handleSortLength}
           >
-            SORT BY LENGTH
+            Sort by length
           </button>
 
           <button
             className="button-box__button"
             type="button"
-            onClick={this.toReverse}
+            onClick={this.handleReverse}
           >
-            REVERSE
+            Reverse
           </button>
 
           <select
@@ -116,30 +116,27 @@ class App extends React.Component {
             className="button-box__button"
             type="number"
             placeholder="10"
-            value={n}
+            value={minLength}
             size="1"
-            onChange={this.toChange}
+            onChange={this.handleChange}
           >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
+            {[...Array(10)].map((_, i) => {
+              const item = i;
+
+              return (
+                <option key={item}>{ i + 1 }</option>
+              );
+            })}
           </select>
         </div>
 
         <div
-          className={stan ? 'list-box' : 'list-box--none'}
+          className={active ? 'list-box' : 'list-box--none'}
         >
           <ul>
             {list.map(good => (
               <li
-                key={Math.random()}
+                key={good}
                 className="list-box__item"
               >
                 {good}
