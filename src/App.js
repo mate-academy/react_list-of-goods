@@ -18,72 +18,81 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
+    start: false,
   }
 
-  Start = (event) => {
-    document.querySelector('.list').classList.add('active');
-    event.target.classList.add('inactive');
+  start = () => {
+    this.setState(state => ({
+      start: true,
+    }));
   }
 
-  Reverse = () => {
+  reverse = () => {
     this.setState(state => ({
       goods: state.goods.reverse(),
     }));
   }
 
-  Sort = () => {
+  sort = () => {
     this.setState(state => ({
-      goods: state.goods.sort(),
+      goods: state.goods.sort((a, b) => a.localeCompare(b)),
     }));
   }
 
-  Reset = () => {
+  reset = () => {
     this.setState(state => ({
       goods: [...goodsFromServer],
     }));
   }
 
-  SortLength = () => {
+  sortLength = () => {
     this.setState(state => ({
       goods: state.goods.sort((a, b) => a.length - b.length),
     }));
   }
 
   render() {
+    const { goods, start } = this.state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
         <button
           type="button"
-          onClick={this.Start}
-        >
-          Start
-        </button>
-        <button
-          type="button"
-          onClick={this.Reverse}
+          onClick={this.reverse}
         >
           Reverse
         </button>
         <button
           type="button"
-          onClick={this.Sort}
+          onClick={this.sort}
         >
           Sort
         </button>
         <button
           type="button"
-          onClick={this.Reset}
+          onClick={this.reset}
         >
           Reset
         </button>
         <button
           type="button"
-          onClick={this.SortLength}
+          onClick={this.sortLength}
         >
           Sort by length
         </button>
-        <GoodsList goods={this.state.goods} />
+        {start
+          ? <GoodsList goods={goods} />
+          : (
+            <button
+              className="start"
+              type="button"
+              onClick={this.start}
+            >
+              Start
+            </button>
+          )
+        }
       </div>
     );
   }
