@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import './Button.css';
 
 export const Button = React.memo(
-  ({ wasStarted, text, call }) => (
+  ({ wasStarted, text, action }) => (
     <button
       type="button"
       className="Button"
       hidden={wasStarted}
-      onClick={call}
+      onClick={action}
     >
       {text}
     </button>
@@ -16,7 +16,7 @@ export const Button = React.memo(
 );
 
 Button.propTypes = {
-  call: PropTypes.func.isRequired,
+  action: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   wasStarted: PropTypes.bool.isRequired,
 };

@@ -4,7 +4,7 @@ import './Select.css';
 
 export const Select = React.memo(
   ({
-    call,
+    action,
     wasStarted,
     targetLength,
     initList,
@@ -13,7 +13,7 @@ export const Select = React.memo(
       className="Select"
       value={targetLength}
       hidden={wasStarted}
-      onChange={call}
+      onChange={action}
     >
       {initList.map((item, index) => (
         <option key={item}>
@@ -25,7 +25,7 @@ export const Select = React.memo(
 );
 
 Select.propTypes = {
-  call: PropTypes.func.isRequired,
+  action: PropTypes.func.isRequired,
   initList: PropTypes.arrayOf(PropTypes.string).isRequired,
   targetLength: PropTypes.number.isRequired,
   wasStarted: PropTypes.bool.isRequired,

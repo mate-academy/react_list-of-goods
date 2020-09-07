@@ -39,7 +39,7 @@ class App extends React.Component {
 
   sortAlphabetically = () => (
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }))
   )
 
@@ -61,38 +61,38 @@ class App extends React.Component {
         <div>
           <Button
             wasStarted={!wasStarted}
-            call={this.reset}
+            action={this.reset}
             text="Reset"
           />
 
           <Button
             wasStarted={wasStarted}
-            call={this.start}
+            action={this.start}
             text="Start"
           />
 
           <Button
             wasStarted={!wasStarted}
-            call={this.reverseList}
+            action={this.reverseList}
             text="Reverse"
           />
 
           <Button
             wasStarted={!wasStarted}
-            call={this.sortAlphabetically}
+            action={this.sortAlphabetically}
             text="Sort alphabetically"
           />
 
           <Button
             wasStarted={!wasStarted}
-            call={this.sortByLength}
+            action={this.sortByLength}
             text="Sort by length"
           />
 
           <Select
             wasStarted={!wasStarted}
-            call={this.selectByLength}
-            targetLength={+wordLength}
+            action={this.selectByLength}
+            targetLength={wordLength}
             initList={goodsFromServer}
           />
         </div>
@@ -100,7 +100,7 @@ class App extends React.Component {
         <GoodsList
           wasStarted={!wasStarted}
           goods={goods}
-          targetLength={+wordLength}
+          targetLength={wordLength}
         />
       </div>
     );
