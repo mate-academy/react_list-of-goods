@@ -1,0 +1,14 @@
+ul {
+  margin: 0;
+  list-style: none;
+  display: none;
+}
+
+.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.inactive {
+  display: none;
+}
