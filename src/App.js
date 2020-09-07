@@ -30,8 +30,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        { !listVisible
-          ? (
+        { listVisible
+          ? (<Goods goods={goodsFromServer} />)
+          : (
             <button
               type="button"
               className="start__button"
@@ -40,7 +41,6 @@ class App extends React.Component {
               Start
             </button>
           )
-          : (<Goods goods={goodsFromServer} />)
         }
       </div>
     );
