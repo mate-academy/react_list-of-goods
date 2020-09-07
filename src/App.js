@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +15,24 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export function App() {
+  const [startClicked, setStart] = useState(false);
 
-export default App;
+  const clickHandler = (event) => {
+    setStart(true);
+    event.target.hidden = true;
+  };
+
+  return (
+    <div className="App">
+      <button
+        className="start"
+        type="button"
+        onClick={clickHandler}
+      >
+        Start
+      </button>
+      {startClicked && <GoodsList initialGoods={goodsFromServer} />}
+    </div>
+  );
+}
