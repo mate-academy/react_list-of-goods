@@ -22,8 +22,7 @@ export class GoodList extends React.Component {
         <button
           type="button"
           onClick={() => {
-            goods.reverse();
-            this.forceUpdate();
+            this.setState({ goods: [...goods].reverse() });
           }}
         >
           Reverse
@@ -32,8 +31,7 @@ export class GoodList extends React.Component {
         <button
           type="button"
           onClick={() => {
-            goods.sort();
-            this.forceUpdate();
+            this.setState({ goods: [...goods].sort() });
           }}
         >
           Sort
@@ -51,8 +49,9 @@ export class GoodList extends React.Component {
         <button
           type="button"
           onClick={() => {
-            goods.sort((a, b) => a.length - b.length);
-            this.forceUpdate();
+            this.setState({
+              goods: [...goods].sort((a, b) => a.length - b.length),
+            });
           }}
         >
           Sort by length
