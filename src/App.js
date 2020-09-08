@@ -30,7 +30,7 @@ export class App extends React.Component {
     this.setState(prevState => ({ goods: prevState.goods.reverse() }));
   }
 
-  sortByAlpha = () => {
+  sortByAlphabet = () => {
     this.setState(prevState => ({
       goods: prevState.goods.sort(
         (item1, item2) => item1.localeCompare(item2),
@@ -39,7 +39,7 @@ export class App extends React.Component {
   }
 
   resetList = () => {
-    this.setState(prevState => ({ goods: prevState.goodsRaw.slice() }));
+    this.setState(prevState => ({ goods: [...prevState.goodsRaw] }));
   }
 
   sortByLength = () => {
@@ -49,12 +49,14 @@ export class App extends React.Component {
   }
 
   render() {
+    const { listVisible } = this.state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
         <div className={classNames(
           'listContainer',
-          { visible: this.state.listVisible },
+          { visible: listVisible },
         )}
         >
           <ul className="listContainer__list">
@@ -76,7 +78,7 @@ export class App extends React.Component {
           <button
             type="button"
             className="button"
-            onClick={this.sortByAlpha}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -100,7 +102,7 @@ export class App extends React.Component {
           className={classNames(
             'button',
             'startButton',
-            { visible: !this.state.listVisible },
+            { visible: !listVisible },
           )}
           onClick={this.showList}
         >
