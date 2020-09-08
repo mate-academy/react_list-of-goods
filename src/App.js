@@ -36,7 +36,7 @@ class App extends React.Component {
 
   sortAlphHandler = () => {
     this.setState((state) => {
-      const sortedGoods = [...state.goods].sort();
+      const sortedGoods = [...state.goods].sort((a, b) => a.localeCompare(b));
 
       return { goods: sortedGoods };
     });
@@ -61,18 +61,8 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        { !showList
-        && (
-          <button
-            type="button"
-            className="start-button"
-            onClick={this.startHandler}
-          >
-            Start
-          </button>
-        )}
-        { showList
-          && (
+        {showList
+          ? (
             <section className="goods-section">
               <h1>Goods</h1>
               <ul className="goods-list">
@@ -113,7 +103,15 @@ class App extends React.Component {
               </div>
             </section>
           )
-        }
+          : (
+            <button
+              type="button"
+              className="start-button"
+              onClick={this.startHandler}
+            >
+              Start
+            </button>
+          )}
       </div>
     );
   }
