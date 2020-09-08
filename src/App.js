@@ -43,23 +43,13 @@ class App extends React.PureComponent {
   handleAlphabetSort = () => {
     const { sortAlphabet } = this.state;
 
-    sortAlphabet
-      ? (
-        this.setState(state => ({
-          goods: [...state.goods].sort(
-            (a, b) => a.localeCompare(b),
-          ),
-          sortAlphabet: false,
-        }))
-      )
-      : (
-        this.setState(state => ({
-          goods: [...state.goods].sort(
-            (a, b) => b.localeCompare(a),
-          ),
-          sortAlphabet: true,
-        }))
-      );
+    this.setState(state => ({
+      goods: [...state.goods]
+        .sort((a, b) => (sortAlphabet
+          ? a.localeCompare(b)
+          : b.localeCompare(a))),
+      sortAlphabet: false,
+    }));
   }
 
   handleReset = () => {
@@ -72,23 +62,13 @@ class App extends React.PureComponent {
   handleLengthSort = () => {
     const { sortLength } = this.state;
 
-    sortLength
-      ? (
-        this.setState(state => ({
-          goods: [...state.goods].sort(
-            (a, b) => a.length - b.length,
-          ),
-          sortLength: false,
-        }))
-      )
-      : (
-        this.setState(state => ({
-          goods: [...state.goods].sort(
-            (a, b) => b.length - a.length,
-          ),
-          sortLength: true,
-        }))
-      );
+    this.setState(state => ({
+      goods: [...state.goods]
+        .sort((a, b) => (sortLength
+          ? a.length - b.length
+          : b.length - a.length)),
+      sortLength: false,
+    }));
   }
 
   render() {
