@@ -15,9 +15,9 @@ export class PreparedList extends React.Component {
     }));
   }
 
-  sortABC = () => {
+  sortAlphabetically = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
@@ -55,7 +55,7 @@ export class PreparedList extends React.Component {
         <Buttons
           reset={this.reset}
           reverse={this.reverse}
-          sortABC={this.sortABC}
+          sortAlphabetically={this.sortAlphabetically}
           sortBySize={this.sortBySize}
         />
         <Select value={length} action={this.select} />

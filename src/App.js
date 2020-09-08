@@ -34,11 +34,11 @@ class App extends React.Component {
       <>
         <h1>List of goods</h1>
         {beginning
-          ? (<PreparedList list={goodsFromServer} />)
+          ? <PreparedList list={goodsFromServer} />
           : (
             <button
               type="button"
-              onClick={() => this.getStart()}
+              onClick={this.getStart}
             >
               Start
             </button>

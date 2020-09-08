@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Buttons = ({ reverse, sortABC, reset, sortBySize }) => (
+export const Buttons = ({ reverse, sortAlphabetically, reset, sortBySize }) => (
   <>
     <button
       type="button"
@@ -11,7 +11,7 @@ export const Buttons = ({ reverse, sortABC, reset, sortBySize }) => (
     </button>
     <button
       type="button"
-      onClick={sortABC}
+      onClick={sortAlphabetically}
     >
       Sort alphabetically
     </button>
@@ -33,6 +33,6 @@ export const Buttons = ({ reverse, sortABC, reset, sortBySize }) => (
 Buttons.propTypes = {
   reset: PropTypes.func.isRequired,
   reverse: PropTypes.func.isRequired,
-  sortABC: PropTypes.func.isRequired,
+  sortAlphabetically: PropTypes.func.isRequired,
   sortBySize: PropTypes.func.isRequired,
 };
