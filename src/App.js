@@ -17,35 +17,12 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
+    visible: true,
   }
 
-  start(param) {
-    if (param === 'reverse') {
-      this.setState(state => ({
-        goods: [...state.goods].reverse(),
-      }));
-    }
-
-    if (param === 'sort') {
-      this.setState(state => ({
-        goods: [...state.goods].sort(),
-      }));
-    }
-
-    if (param === 'reset') {
-      this.setState(state => ({
-        goods: goodsFromServer,
-      }));
-    }
-
-    if (param === 'sortLength') {
-      this.setState(state => ({
-        goods: [...state.goods].sort((a, b) => a.length - b.length),
-      }));
-    }
-
+  start() {
     return (
-      <ul className="list" hidden>
+      <ul className="list" hidden={this.state.visible}>
         {this.state.goods.map(good => (
           <li key={good}>
             {good}
@@ -56,19 +33,27 @@ class App extends React.Component {
   }
 
   reverse() {
-    this.start('reverse');
+    this.setState(state => ({
+      goods: [...state.goods].reverse(),
+    }));
   }
 
   sort() {
-    this.start('sort');
+    this.setState(state => ({
+      goods: [...state.goods].sort(),
+    }));
   }
 
   reset() {
-    this.start('reset');
+    this.setState(state => ({
+      goods: goodsFromServer,
+    }));
   }
 
   sortLength() {
-    this.start('sortLength');
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
+    }));
   }
 
   render() {
@@ -77,10 +62,12 @@ class App extends React.Component {
         <h1>Goods</h1>
         <button
           type="button"
+          hidden={!this.state.visible}
           className="startButton"
           onClick={() => {
-            document.querySelector('.list').hidden = false;
-            document.querySelector('.startButton').hidden = true;
+            this.setState(state => ({
+              visible: !state.visible,
+            }));
           }}
         >
           Start
