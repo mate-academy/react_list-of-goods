@@ -20,7 +20,7 @@ export class GoodsList extends React.Component {
     this.setState(state => (
       {
         goods: state.goods
-          .sort((a, b) => (a > b ? 1 : -1)),
+          .sort((a, b) => (a.localeCompare(b))),
       }
     ));
   }
@@ -37,7 +37,7 @@ export class GoodsList extends React.Component {
     this.setState(state => (
       {
         goods: state.goods
-          .sort((a, b) => (a.length > b.length ? 1 : -1)),
+          .sort((a, b) => (a.length - b.length)),
       }
     ));
   }
