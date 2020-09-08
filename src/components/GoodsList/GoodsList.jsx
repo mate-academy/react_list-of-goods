@@ -13,7 +13,7 @@ export function GoodsList({ initialGoods }) {
   };
 
   const sortByAlphabet = () => {
-    updateGoods([...goods].sort());
+    updateGoods([...goods].sort((a, b) => a.localeCompare(b)));
   };
 
   const sortByLength = () => {
@@ -23,7 +23,9 @@ export function GoodsList({ initialGoods }) {
   return (
     <>
       <ul className="list">
-        {goods.map(item => <li key={item}>{item}</li>)}
+        {goods.map(item => (
+          <li key={item}>{item}</li>
+        ))}
       </ul>
       <div className="buttons">
         <button type="button" onClick={reverse}>

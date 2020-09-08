@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList/GoodsList';
 
@@ -15,24 +15,35 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-export function App() {
-  const [startClicked, setStart] = useState(false);
-
-  const clickHandler = (event) => {
-    setStart(true);
-    event.target.hidden = true;
+export class App extends React.Component {
+  state = {
+    products: [...goodsFromServer],
+    isStarted: false,
   };
 
-  return (
-    <div className="App">
-      <button
-        className="start"
-        type="button"
-        onClick={clickHandler}
-      >
-        Start
-      </button>
-      {startClicked && <GoodsList initialGoods={goodsFromServer} />}
-    </div>
-  );
+  createList = () => {
+    this.setState({
+      isStarted: true,
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        {!this.state.isStarted ? (
+          <button
+            type="button"
+            className="start"
+            onClick={this.createList}
+          >
+            Star
+          </button>
+        ) : null}
+        {this.state.isStarted
+          ? (<GoodsList initialGoods={this.state.products} />)
+          : null
+        }
+      </div>
+    );
+  }
 }
