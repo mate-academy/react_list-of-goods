@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../GoodLists/GoodList.css';
 import { Buttons } from '../Buttons/Buttons';
 
-const buttonsName = [
+const buttonNames = [
   'Reverse',
   'Sort alphabetically',
   'Sort by length',
@@ -17,25 +18,25 @@ export class GoodList extends React.Component {
     start: false,
   };
 
-  selectButton = (event) => {
-    event.target.hidden = true;
+  selectButton = () => {
     this.setState({ start: true });
   }
 
   handleButtonClick = (buttonName) => {
-    if (buttonName === buttonsName[0]) {
+    if (buttonName === buttonNames[0]) {
       this.setState((state) => ({
-        goods: state.goods.reverse(),
+        goods: [...state.goods.reverse()],
       }),
-    )} else if (buttonName === buttonsName[1]) {
+    )} else if (buttonName === buttonNames[1]) {
       this.setState((state) => ({
-        goods: state.goods.sort(),
+        goods: [...state.goods].sort(),
       }),
-    )} else if (buttonName === buttonsName[2]) {
+    )} else if (buttonName === buttonNames[2]) {
       this.setState((state) => ({
-        goods: state.goods.sort((prev, curr) => prev.length - curr.length),
+        goods: [...state.goods]
+          .sort((prev, curr) => prev.length - curr.length),
       }),
-    )} else if (buttonName === buttonsName[3]) {
+    )} else if (buttonName === buttonNames[3]) {
       this.setState(() => ({
         goods: [...this.props.goods],
       }),
@@ -47,17 +48,19 @@ export class GoodList extends React.Component {
     
     return(
       <div className="goods good">
-        <button
-          className="start"
-          type="submit"
-          onClick={(event) => {
-            this.selectButton(event);
-          }}
-        >
-          Start
+        {!this.state.start && (
+          <button
+            className={classNames("start", {start: true})}
+            type="submit"
+            onClick={(event) => {
+              this.selectButton();
+            }}
+          >
+            Start
         </button>
+        )}
         {
-          start ? (
+          start && (
             <>
               <ul className="good__list">
               {
@@ -66,19 +69,19 @@ export class GoodList extends React.Component {
                     className={"good__item"}
                     key={good}
                   >
-                      {good}
+                    {good}
                   </li>
                 ))
               }
               </ul>
                 {
                   <Buttons
-                    buttons={buttonsName}
+                    buttons={buttonNames}
                     identifyButton={this.handleButtonClick}
                   />
                 }
             </>
-          ) : ''
+          )
         }
       </div>
     )
