@@ -1,0 +1,32 @@
+.App {
+  max-width: 960px;
+  margin: 0 auto;
+  border: 1px solid #663ab6;
+  padding: 50px;
+}
+
+.hidden {
+  display: none;
+}
+
+.goods-list {
+  font-size: 20px;
+  list-style: square;
+}
+
+.button {
+  padding: 10px 25px;
+  background: #673ab7;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.select {
+  padding: 8px;
+  border: none;
+  background: #663ab6;
+  color: #fff;
+  border-radius: 5px;
+}
