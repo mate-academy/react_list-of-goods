@@ -19,113 +19,101 @@ const goodsFromServer = [
 export default class App extends React.Component {
 state = {
   goodsList: [],
-  value: 'Dumplings',
+  valueDefaultSelected: 'Dumplings',
   hidden: false,
 }
 
-hiddenButton = () => {
+showListAndShowButtons = () => {
   this.setState({
     goodsList: [...goodsFromServer],
     hidden: true,
   });
 }
 
-reverseButton = () => {
-  this.setState({ goodsList: [...goodsFromServer].reverse() });
+reverseList = () => {
+  this.setState(state => ({ goodsList: state.goodsList.reverse() }));
 }
 
-sortABCButton = () => {
-  this.setState({ goodsList: [...goodsFromServer].sort() });
+sortABCList = () => {
+  this.setState(state => ({ goodsList: state.goodsList.sort() }));
 }
 
-resetButton = () => {
+resetList = () => {
   this.setState({
     goodsList: [...goodsFromServer],
-    value: 'Dumplings',
+    valueDefaultSelected: 'Dumplings',
   });
 }
 
-sortByLengthButton = () => {
-  this.setState({ goodsList: [...goodsFromServer]
-    .sort((a, b) => a.length - b.length) });
+sortListByLength = () => {
+  this.setState(state => ({ goodsList: state.goodsList
+    .sort((a, b) => a.length - b.length) }));
 }
 
-generateNumForList = (event) => {
+filterList = (event) => {
+  const newList = [...goodsFromServer];
+
   this.setState({
-    value: event.target.value,
-    goodsList: [...goodsFromServer]
-      .filter(good => good.length >= event.target.value.length),
+    valueDefaultSelected: event.target.value,
+    goodsList: newList.filter(good => good.length >= event.target.value),
   });
 }
 
 render() {
+  const { goodsList, hidden, valueDefaultSelected } = this.state;
+
   return (
     <div className="App">
       <h1>Goods</h1>
       <button
         type="button"
-        onClick={(event) => {
-          this.hiddenButton(event);
-        }}
-        hidden={this.state.hidden}
+        onClick={this.showListAndShowButtons}
+        hidden={hidden}
       >
         Start
       </button>
       <button
         type="button"
-        onClick={() => {
-          this.reverseButton();
-        }}
-        hidden={!this.state.hidden}
+        onClick={this.reverseList}
+        hidden={!hidden}
       >
         Reverse
       </button>
       <button
         type="button"
-        onClick={() => {
-          this.sortABCButton();
-        }}
-        hidden={!this.state.hidden}
+        onClick={this.sortABCList}
+        hidden={!hidden}
       >
         Sort alphabetically
       </button>
       <button
         type="button"
-        onClick={() => {
-          this.resetButton();
-        }}
-        hidden={!this.state.hidden}
+        onClick={this.resetList}
+        hidden={!hidden}
       >
         Reset
       </button>
       <button
         type="button"
-        onClick={() => {
-          this.sortByLengthButton();
-        }}
-        hidden={!this.state.hidden}
+        onClick={this.sortListByLength}
+        hidden={!hidden}
       >
         Sort by length
       </button>
       <List
-        goodsList={this.state.goodsList}
+        goodsList={goodsList}
       />
       <select
-        value={this.state.value}
-        onChange={this.generateNumForList}
-        hidden={!this.state.hidden}
+        value={valueDefaultSelected}
+        onChange={this.filterList}
+        hidden={!hidden}
       >
         {this.state.goodsList.map((good, index) => (
           <option
             key={good}
-            value={good}
+            value={index + 1}
           >
-            Number
-            {' '}
             {index + 1}
-            :
-            {' '}
-            {good}
           </option>
         ))}
       </select>
