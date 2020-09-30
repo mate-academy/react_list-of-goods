@@ -29,11 +29,11 @@ showListAndShowButtons = () => {
 }
 
 reverseList = () => {
-  this.setState(state => ({ goodsList: state.goodsList.reverse() }));
+  this.setState(state => ({ goodsList: [...state.goodsList].reverse() }));
 }
 
 sortABCList = () => {
-  this.setState(state => ({ goodsList: state.goodsList.sort() }));
+  this.setState(state => ({ goodsList: [...state.goodsList].sort() }));
 }
 
 resetList = () => {
@@ -43,7 +43,7 @@ resetList = () => {
 }
 
 sortListByLength = () => {
-  this.setState(state => ({ goodsList: state.goodsList
+  this.setState(state => ({ goodsList: [...state.goodsList]
     .sort((a, b) => a.length - b.length) }));
 }
 
