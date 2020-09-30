@@ -9,7 +9,6 @@ export const List = ({ goodsList }) => (
           {good}
         </li>
       ))
-
       }
     </ul>
   </div>

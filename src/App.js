@@ -18,14 +18,12 @@ const goodsFromServer = [
 
 export default class App extends React.Component {
 state = {
-  goodsList: [],
-  valueDefaultSelected: 'Dumplings',
+  goodsList: [...goodsFromServer],
   isHidden: false,
 }
 
 showListAndShowButtons = () => {
   this.setState({
-    goodsList: [...goodsFromServer],
     isHidden: true,
   });
 }
@@ -41,7 +39,6 @@ sortABCList = () => {
 resetList = () => {
   this.setState({
     goodsList: [...goodsFromServer],
-    valueDefaultSelected: 'Dumplings',
   });
 }
 
@@ -50,17 +47,14 @@ sortListByLength = () => {
     .sort((a, b) => a.length - b.length) }));
 }
 
-filterList = (event) => {
-  const newList = [...goodsFromServer];
-
+filterList = (value) => {
   this.setState({
-    valueDefaultSelected: event.target.value,
-    goodsList: newList.filter(good => good.length >= event.target.value),
+    goodsList: goodsFromServer.filter(good => good.length >= value),
   });
 }
 
 render() {
-  const { goodsList, isHidden, valueDefaultSelected } = this.state;
+  const { goodsList, isHidden } = this.state;
 
   return (
     <div className="App">
@@ -105,17 +99,20 @@ render() {
               goodsList={goodsList}
             />
             <select
-              value={valueDefaultSelected}
-              onChange={this.filterList}
+              onChange={(event) => {
+                this.filterList(event.target.value);
+              }}
             >
-              {this.state.goodsList.map((good, index) => (
-                <option
-                  key={good}
-                  value={index + 1}
-                >
-                  {index + 1}
-                </option>
-              ))}
+              <option key={1} value={1}> 1 </option>
+              <option key={2} value={2}> 2 </option>
+              <option key={3} value={3}> 3 </option>
+              <option key={4} value={4}> 4 </option>
+              <option key={5} value={5}> 5 </option>
+              <option key={6} value={6}> 6 </option>
+              <option key={7} value={7}> 7 </option>
+              <option key={8} value={8}> 8 </option>
+              <option key={9} value={9}> 9 </option>
+              <option key={10} value={10}> 10 </option>
             </select>
           </>
 
