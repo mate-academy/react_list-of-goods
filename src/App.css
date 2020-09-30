@@ -1,0 +1,20 @@
+
+.App {
+  text-align: center;
+  margin: 0 auto;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  width: 150px;
+  height: 50px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(26, 211, 26);
+}
