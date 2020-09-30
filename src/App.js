@@ -20,6 +20,7 @@ export default class App extends React.Component {
 state = {
   goodsList: [...goodsFromServer],
   isHidden: false,
+  selectedValue: 1,
 }
 
 showListAndShowButtons = () => {
@@ -39,6 +40,7 @@ sortABCList = () => {
 resetList = () => {
   this.setState({
     goodsList: [...goodsFromServer],
+    selectedValue: 1,
   });
 }
 
@@ -50,22 +52,22 @@ sortListByLength = () => {
 filterList = (value) => {
   this.setState({
     goodsList: goodsFromServer.filter(good => good.length >= value),
+    selectedValue: value,
   });
 }
 
 render() {
-  const { goodsList, isHidden } = this.state;
+  const { goodsList, isHidden, selectedValue } = this.state;
 
   return (
     <div className="App">
       <h1>Goods</h1>
 
-      {(this.state.isHidden === false)
+      {(!isHidden)
         ? (
           <button
             type="button"
             onClick={this.showListAndShowButtons}
-            hidden={isHidden}
           >
             Start
           </button>
@@ -99,23 +101,16 @@ render() {
               goodsList={goodsList}
             />
             <select
+              value={selectedValue}
               onChange={(event) => {
                 this.filterList(event.target.value);
               }}
             >
-              <option key={1} value={1}> 1 </option>
-              <option key={2} value={2}> 2 </option>
-              <option key={3} value={3}> 3 </option>
-              <option key={4} value={4}> 4 </option>
-              <option key={5} value={5}> 5 </option>
-              <option key={6} value={6}> 6 </option>
-              <option key={7} value={7}> 7 </option>
-              <option key={8} value={8}> 8 </option>
-              <option key={9} value={9}> 9 </option>
-              <option key={10} value={10}> 10 </option>
+              {[...Array(10).keys()].map(i => (
+                <option value={i + 1}>{i + 1}</option>
+              ))}
             </select>
           </>
-
         )}
     </div>
   );
