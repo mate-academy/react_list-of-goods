@@ -19,35 +19,36 @@ class App extends React.Component {
   state = {
     goods: goodsFromServer,
     selectValue: 1,
-    vision: true,
+    selectItems: 10,
+    showGoods: true,
   };
 
-  addList = (event) => {
+  addList = () => {
     this.setState({
-      vision: false,
+      showGoods: false,
     });
   }
 
-  reverseSort = () => {
+  reverseList = () => {
     this.setState(state => ({
       goods: [...state.goods].reverse(),
     }));
   }
 
-  alphabeticallySort = () => {
+  sortAlphabetically = () => {
     this.setState(state => ({
       goods: [...state.goods].sort(),
     }));
   }
 
-  initialSort = () => {
+  initialList = () => {
     this.setState({
       goods: [...goodsFromServer],
       selectValue: 1,
     });
   }
 
-  lengthSort = () => {
+  sortByLength = () => {
     this.setState(state => ({
       goods: [
         ...state.goods,
@@ -58,12 +59,10 @@ class App extends React.Component {
   changeValue = (event) => {
     this.setState({
       selectValue: event.target.value,
-    });
-    this.setState(stat => ({
-      goods: [...goodsFromServer].filter(
-        good => good.length >= +stat.selectValue,
+      goods: goodsFromServer.filter(
+        good => good.length >= +event.target.value,
       ),
-    }));
+    });
   }
 
   reset = () => {
@@ -74,13 +73,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { goods, selectValue, vision } = this.state;
+    const { goods, selectValue, showGoods, selectItems } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
         <ul
-          className={classNames({ invisible: vision })}
+          className={classNames({ invisible: showGoods })}
         >
           {goods.map(good => (
             <li key={good}>
@@ -92,45 +91,63 @@ class App extends React.Component {
           type="button"
           onClick={this.addList}
           className={classNames({
-            invisible: !vision,
+            invisible: !showGoods,
           })}
         >
           Start
         </button>
 
-        <button type="button" onClick={this.reverseSort}>
+        <button
+          type="button"
+          onClick={this.reverseList}
+          className={classNames({ invisible: showGoods })}
+        >
           Reverse
         </button>
 
-        <button type="button" onClick={this.alphabeticallySort}>
+        <button
+          type="button"
+          onClick={this.sortAlphabetically}
+          className={classNames({ invisible: showGoods })}
+        >
           Sort alphabetically
         </button>
 
-        <button type="button" onClick={this.initialSort}>
-          Initial sort
+        <button
+          type="button"
+          onClick={this.initialList}
+          className={classNames({ invisible: showGoods })}
+        >
+          Initial list
         </button>
 
-        <button type="button" onClick={this.lengthSort}>
+        <button
+          type="button"
+          onClick={this.sortByLength}
+          className={classNames({ invisible: showGoods })}
+        >
           Sort by length
         </button>
 
         <select
           value={selectValue}
           onChange={this.changeValue}
+          className={classNames({ invisible: showGoods })}
         >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+
+          {[...new Array(selectItems).keys()].map(elem => (
+            <option key={elem} value={elem + 1}>
+              {elem + 1}
+            </option>
+          ))}
+
         </select>
 
-        <button type="button" onClick={this.reset}>
+        <button
+          type="button"
+          onClick={this.reset}
+          className={classNames({ invisible: showGoods })}
+        >
           Reset
         </button>
       </div>
