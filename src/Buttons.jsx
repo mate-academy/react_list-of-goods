@@ -1,30 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Buttons = props => (
+const Buttons = ({
+  reverseList,
+  sortAlphabetically,
+  initialList,
+  sortByLength,
+  selectValue,
+  changeValue,
+  selectItems,
+  reset,
+}) => (
   <>
-    <button type="button" onClick={props.reverseList}>
+    <button type="button" onClick={reverseList}>
       Reverse
     </button>
 
-    <button type="button" onClick={props.sortAlphabetically}>
+    <button type="button" onClick={sortAlphabetically}>
       Sort alphabetically
     </button>
 
-    <button type="button" onClick={props.initialList}>
+    <button type="button" onClick={initialList}>
       Initial list
     </button>
 
-    <button type="button" onClick={props.sortByLength}>
+    <button type="button" onClick={sortByLength}>
       Sort by length
     </button>
 
     <select
-      value={props.selectValue}
-      onChange={props.changeValue}
+      value={selectValue}
+      onChange={changeValue}
     >
 
-      {[...new Array(props.selectItems).keys()].map(elem => (
+      {[...new Array(selectItems).keys()].map(elem => (
         <option key={elem} value={elem + 1}>
           {elem + 1}
         </option>
@@ -32,7 +41,7 @@ const Buttons = props => (
 
     </select>
 
-    <button type="button" onClick={props.reset}>
+    <button type="button" onClick={reset}>
       Reset
     </button>
   </>
