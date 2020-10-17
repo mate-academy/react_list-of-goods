@@ -27,13 +27,13 @@ class App extends Component {
 
   reverse = () => {
     this.setState(prev => ({
-      goodsFromServer: prev.goodsFromServer.reverse(),
+      goodsFromServer: [...prev.goodsFromServer].reverse(),
     }));
   }
 
   Alphabetically = () => {
     this.setState(prev => ({
-      goodsFromServer: prev.goodsFromServer.sort(
+      goodsFromServer: [...prev.goodsFromServer].sort(
         (good1, good2) => good1.localeCompare(good2),
       ),
     }));
@@ -48,7 +48,7 @@ class App extends Component {
 
   lengthList = () => {
     this.setState(prev => ({
-      goodsFromServer: prev.goodsFromServer.sort(
+      goodsFromServer: [...prev.goodsFromServer].sort(
         (good1, good2) => good1.length - good2.length,
       ),
     }));
@@ -59,7 +59,7 @@ class App extends Component {
       selectVal: e.target.value,
     });
     this.setState(prev => ({
-      goodsFromServer: [...list].filter(
+      goodsFromServer: list.filter(
         good => good.length >= prev.selectVal,
       ),
     }));
@@ -112,16 +112,16 @@ class App extends Component {
                   value={this.state.selectVal}
                   onChange={this.select}
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                  {
+                    list.map((good, index) => (
+                      <option
+                        value={index + 1}
+                        key={good}
+                      >
+                        {index + 1}
+                      </option>
+                    ))
+                  }
                 </select>
               </div>
             )
