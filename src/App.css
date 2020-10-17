@@ -1,0 +1,26 @@
+body {
+  background-color: #f7dede;
+}
+
+.App {
+  display: grid;
+  justify-content: center;
+}
+
+.container {
+  display: inline-flex;
+  justify-content: center;
+  background-color: #f5c0c0c7;
+}
+
+div {
+  margin: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}

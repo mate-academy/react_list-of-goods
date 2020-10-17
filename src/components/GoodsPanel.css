@@ -1,0 +1,28 @@
+.Goods-Panel {
+  display: inline;
+  margin: 5px;
+}
+
+button {
+  margin: 5px;
+  background-color: #dedde4;
+  height: 30px;
+  border-radius: 15px;
+}
+
+select {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #d0cede;
+  box-shadow: 2px 1px  #dedde4;
+}
+
+select:hover {
+  cursor: pointer;
+  background-color: #d1cee7;
+}
