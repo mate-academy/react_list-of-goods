@@ -22,18 +22,14 @@ class App extends React.PureComponent {
   state = {
     listGoods: goodsFromServer,
     started: false,
+    reseted: false,
+    defaultValueSelect: 0,
+    valueSelect: 0,
   }
 
-  handleStart = (event) => {
-    event.target.hidden = true;
-    this.setState(state => ({
-      started: !state.started,
-    }));
-  }
-
-  updateGoods = (value) => {
+  updateGoods = (key, value) => {
     this.setState({
-      listGoods: value,
+      [key]: value,
     });
   }
 
@@ -41,6 +37,9 @@ class App extends React.PureComponent {
     const {
       listGoods,
       started,
+      reseted,
+      defaultValueSelect,
+      valueSelect,
     } = this.state;
 
     return (
@@ -48,28 +47,15 @@ class App extends React.PureComponent {
         <h1>Goods</h1>
         <button
           type="button"
-          onClick={this.handleStart}
+          onClick={() => this.updateGoods('started', !started)}
+          hidden={started ? 'hidden' : ''}
         >
           Start
         </button>
         <div className="container">
-          <div>
-            <h3>Initial order</h3>
-            <GoodsList listGoods={goodsFromServer} />
-          </div>
-          {
-            started
-              ? (
-                <div
-                  style={
-                    {
-                      borderLeft: '2px solid black',
-                    }}
-                >
-                  <h3>Updated order</h3>
-                  <GoodsList listGoods={listGoods} />
-                </div>
-              ) : null
+          {started
+            ? <GoodsList listGoods={listGoods} />
+            : null
           }
         </div>
         {
@@ -78,6 +64,9 @@ class App extends React.PureComponent {
               <GoodsPanel
                 listGoods={listGoods}
                 initialListGoods={goodsFromServer}
+                reseteed={reseted}
+                defaultValueSelect={defaultValueSelect}
+                valueSelect={valueSelect}
                 updateGoods={this.updateGoods}
               />
             )
