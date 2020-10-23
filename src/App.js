@@ -19,9 +19,9 @@ const selectOprions = array.fill(0).map((value, i) => i + 1);
 
 class App extends React.Component {
   state = {
-visability: true,
-items: [...goodsFromServer],
-}
+    visability: true,
+    items: [...goodsFromServer],
+  }
 
 start = () => {
   this.setState({
@@ -61,7 +61,11 @@ leaveItemsByLength = (e) => {
 };
 
 render() {
-const { items, visability, selectedValue } = this.state;
+const {
+  items,
+  visability,
+  selectedValue
+} = this.state;
 
 return (
   <div className="app">
