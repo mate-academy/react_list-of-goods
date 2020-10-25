@@ -2,12 +2,8 @@ import React from 'react';
 
 import { ButtonStart } from './components/ButtonStart';
 import { GoodList } from './components/GoodList';
-import { ResetButton } from './components/ResetButton';
-import { ReverseButton } from './components/ReverseButton';
-import { SortAlphabeticallyButton }
-  from './components/SortAlphabeticallyButton';
-import { SortByLengthButton } from './components/SortByLengthButton';
 import { LengthSelect } from './components/LengthSelect/LengthSelect';
+import { ControllButtons } from './components/ControlButtons/ControlButtons';
 
 import './App.css';
 
@@ -98,20 +94,11 @@ class App extends React.Component {
             : <ButtonStart handleClick={this.start} />
         }
 
-        <ReverseButton
-          handleClick={this.reverseGoods}
-        />
-
-        <SortAlphabeticallyButton
-          handleClick={this.sortGoodsAlphabetically}
-        />
-
-        <ResetButton
-          handleClick={this.reset}
-        />
-
-        <SortByLengthButton
-          handleClick={this.sortGoodsByLength}
+        <ControllButtons
+          reverseGoods={this.reverseGoods}
+          sortGoodsAlphabetically={this.sortGoodsAlphabetically}
+          reset={this.reset}
+          sortGoodsByLength={this.sortGoodsByLength}
         />
 
         <LengthSelect
