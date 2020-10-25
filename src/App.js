@@ -24,13 +24,6 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-// const prepearedGoods = goodsFromServer.map((good, index) => (
-//   {
-//     name: good,
-//     id: index,
-//   }
-// ));
-
 class App extends React.Component {
   state = {
     isListVisible: false,
