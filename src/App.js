@@ -70,10 +70,10 @@ class App extends React.Component {
   setTargetLength = (selectedOption) => {
     const targetLength = selectedOption.value;
 
-    this.setState(prevState => ({
-      goods: prevState.goods.filter(good => good.name.length >= targetLength),
+    this.setState({
+      goods: prepearedGoods.filter(good => good.name.length >= targetLength),
       selectedValue: selectedOption,
-    }));
+    });
   }
 
   sortGoodsByLength = () => {
