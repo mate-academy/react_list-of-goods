@@ -28,7 +28,10 @@ class App extends React.Component {
   state = {
     isListVisible: false,
     goods: goodsFromServer,
-    selectValue: 1,
+    selectedValue: {
+      value: 1,
+      label: 1,
+    },
   }
 
   start = () => {
@@ -50,16 +53,19 @@ class App extends React.Component {
   reset = () => {
     this.setState({
       goods: goodsFromServer,
-      selectValue: 1,
+      selectedValue: {
+        value: 1,
+        label: 1,
+      },
     });
   }
 
-  setTargetLength = (event) => {
-    const targetLength = Number(event.target.value);
+  setTargetLength = (selectedOption) => {
+    const targetLength = selectedOption.value;
 
     this.setState({
       goods: goodsFromServer.filter(good => good.length >= targetLength),
-      selectValue: targetLength,
+      selectedValue: selectedOption,
     });
   }
 
@@ -74,7 +80,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { isListVisible, goods, selectValue } = this.state;
+    const { isListVisible, goods, selectedValue } = this.state;
 
     return (
       <div className="App">
@@ -103,7 +109,7 @@ class App extends React.Component {
 
         <LengthSelect
           handleChange={this.setTargetLength}
-          value={selectValue}
+          value={selectedValue}
         />
       </div>
     );
