@@ -18,16 +18,6 @@ export const LengthSelect = ({ handleChange, value }) => {
       onChange={handleChange}
       options={optionsOfLength}
     />
-    // <select
-    //   value={value}
-    //   onChange={
-    //     event => handleChange(event)
-    //   }
-    // >
-    //   {optionsOfLength.map(option => (
-    //     <option key={option} value={option}>{option}</option>
-    //   ))}
-    // </select>
   );
 };
 
