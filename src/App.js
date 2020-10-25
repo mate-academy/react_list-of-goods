@@ -24,10 +24,15 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const prepearedGoods = goodsFromServer.map((good, index) => ({
+  name: good,
+  id: index,
+}));
+
 class App extends React.Component {
   state = {
     isListVisible: false,
-    goods: goodsFromServer,
+    goods: prepearedGoods,
     selectedValue: {
       value: 1,
       label: 1,
@@ -41,7 +46,9 @@ class App extends React.Component {
   sortGoodsAlphabetically = () => {
     this.setState(prevState => (
       {
-        goods: [...prevState.goods].sort(),
+        goods: [...prevState.goods].sort((prevGood, curGood) => (
+          prevGood.name.localeCompare(curGood.name)
+        )),
       }
     ));
   }
@@ -52,7 +59,7 @@ class App extends React.Component {
 
   reset = () => {
     this.setState({
-      goods: goodsFromServer,
+      goods: prepearedGoods,
       selectedValue: {
         value: 1,
         label: 1,
@@ -64,7 +71,7 @@ class App extends React.Component {
     const targetLength = selectedOption.value;
 
     this.setState({
-      goods: goodsFromServer.filter(good => good.length >= targetLength),
+      goods: prepearedGoods.filter(good => good.name.length >= targetLength),
       selectedValue: selectedOption,
     });
   }
@@ -73,7 +80,7 @@ class App extends React.Component {
     this.setState(prevState => (
       {
         goods: [...prevState.goods].sort((prevGood, curGood) => (
-          prevGood.length - curGood.length
+          prevGood.name.length - curGood.name.length
         )),
       }
     ));
