@@ -7,9 +7,9 @@ import { ReverseButton } from './components/ReverseButton';
 import { SortAlphabeticallyButton }
   from './components/SortAlphabeticallyButton';
 import { SortByLengthButton } from './components/SortByLengthButton';
+import { LengthSelect } from './components/LengthSelect/LengthSelect';
 
 import './App.css';
-import { LengthSelect } from './components/LengthSelect/LengthSelect';
 
 const goodsFromServer = [
   'Dumplings',

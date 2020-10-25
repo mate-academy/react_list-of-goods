@@ -2,6 +2,8 @@ import React from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 
+import './LengthSelect.css';
+
 export const LengthSelect = ({ handleChange, value }) => {
   const optionsOfLength = [];
 
@@ -14,6 +16,7 @@ export const LengthSelect = ({ handleChange, value }) => {
 
   return (
     <Select
+      className="LengthSelect"
       value={value}
       onChange={handleChange}
       options={optionsOfLength}
@@ -23,5 +26,8 @@ export const LengthSelect = ({ handleChange, value }) => {
 
 LengthSelect.propTypes = {
   handleChange: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.shape({
+    value: PropTypes.number.isRequired,
+    label: PropTypes.number.isRequired,
+  }).isRequired,
 };
