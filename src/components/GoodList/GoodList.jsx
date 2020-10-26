@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Good } from '../Good';
+import { GoodListShape } from '../../shapes/GoodListShape';
 import '../../App.scss';
 
 export const GoodList = ({ goods }) => (
@@ -14,9 +14,4 @@ export const GoodList = ({ goods }) => (
   </ul>
 );
 
-GoodList.propTypes = {
-  goods: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-  })).isRequired,
-};
+GoodList.propTypes = GoodListShape;

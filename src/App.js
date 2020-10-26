@@ -1,10 +1,6 @@
 import React from 'react';
 import './App.scss';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-import { GoodList } from './components/GoodList/GoodList';
+import { PageContent } from './components/PageContent';
 import { ListButton } from './components/ListButton';
 
 const goodsFromServer = [
@@ -29,7 +25,7 @@ class App extends React.Component {
   state = {
     showList: false,
     showStartButton: true,
-    goods: [...preparedGoods],
+    goods: preparedGoods,
     wordLength: 1,
   }
 
@@ -54,7 +50,7 @@ class App extends React.Component {
 
   reset = () => {
     this.setState(state => ({
-      goods: [...preparedGoods],
+      goods: preparedGoods,
     }));
   }
 
@@ -66,7 +62,7 @@ class App extends React.Component {
 
   selectLength = (target) => {
     this.setState(state => ({
-      goods: [...preparedGoods].filter(
+      goods: preparedGoods.filter(
         good => good.title.length >= target.value,
       ),
       wordLength: target.value,
@@ -84,45 +80,17 @@ class App extends React.Component {
             title="start"
           />
         )}
-        {showList && (
-          <div className="App__content">
-            <div className="App__buttons">
-              <ListButton onClickFunc={this.reverseList} title="reverse" />
-              <ListButton
-                onClickFunc={this.sortByAlph}
-                title="sort alphabetically"
-              />
-              <ListButton onClickFunc={this.reset} title="reset" />
-              <ListButton
-                onClickFunc={this.sortByLength}
-                title="sort by length"
-              />
-
-              <FormControl>
-                <Select
-                  className="App__select"
-                  labelId="lengthSelector"
-                  id="lengthSelector"
-                  value={wordLength}
-                  onChange={
-                    event => this.selectLength(event.target)
-                  }
-                >
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                  <MenuItem value={7}>7</MenuItem>
-                  <MenuItem value={8}>8</MenuItem>
-                  <MenuItem value={9}>9</MenuItem>
-                  <MenuItem value={10}>10</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <GoodList goods={goods} className="App__list" />
-          </div>
+        {showList
+        && (
+          <PageContent
+            reverseList={this.reverseList}
+            reset={this.reset}
+            sortByAlph={this.sortByAlph}
+            sortByLength={this.sortByLength}
+            wordLength={wordLength}
+            selectLength={this.selectLength}
+            goods={goods}
+          />
         )}
       </div>
     );
