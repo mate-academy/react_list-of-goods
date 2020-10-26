@@ -1,0 +1,29 @@
+body {
+  background-color: #6d6c6c;
+  color: rgb(228, 228, 228);
+  padding: 20px;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+button {
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  color: #6d6c6c;
+  padding: 7px;
+}
+
+.list-group {
+  margin-bottom: 20px;
+}
