@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
-export const Select = ({ value, changeHandler, className, range }) => {
-  const items = [];
-
-  for (let i = 0; i < range; i += 1) {
-    items.push(i + 1);
-  }
+export const Select = React.memo(({
+  value,
+  changeHandler,
+  className,
+  range,
+}) => {
+  const items = [...Array(10).keys()];
 
   return (
     <select
@@ -15,13 +17,13 @@ export const Select = ({ value, changeHandler, className, range }) => {
       className={className}
     >
       {items.map(item => (
-        <option key={item}>
-          {item}
+        <option key={uuidv4()}>
+          {item + 1}
         </option>
       ))}
     </select>
   );
-};
+});
 
 Select.propTypes = {
   value: PropTypes.number.isRequired,

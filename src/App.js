@@ -26,33 +26,29 @@ const preparedGoods = goodsFromServer.map((good, index) => (
 
 class App extends React.Component {
   state = {
-    isShown: false,
+    started: false,
     goods: preparedGoods,
     selected: 1,
   };
 
-  clickHandler = () => {
-    this.setState({
-      isShown: true,
-    });
+  handleStart = () => {
+    this.setState(prevState => ({
+      started: !prevState.started,
+    }));
   }
 
   reverseGoods = () => {
-    this.setState(prevState => (
-      {
-        goods: [...prevState.goods].reverse(),
-      }
-    ));
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
   }
 
   sortAlphabetically = () => {
-    this.setState(prevState => (
-      {
-        goods: [...prevState.goods].sort((x, y) => (
-          x.name.localeCompare(y.name)
-        )),
-      }
-    ));
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((a, b) => (
+        a.name.localeCompare(b.name)
+      )),
+    }));
   }
 
   reset = () => {
@@ -63,37 +59,35 @@ class App extends React.Component {
   }
 
   sortByLength = () => {
-    this.setState(prevState => (
-      {
-        goods: [...prevState.goods].sort((x, y) => (
-          x.name.length - y.name.length
-        )),
-      }
-    ));
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((x, y) => (
+        x.name.length - y.name.length
+      )),
+    }));
   }
 
   chengeMinLength = (event) => {
     const minLength = +event.target.value;
 
-    this.setState(() => (
-      {
-        goods: preparedGoods.filter(good => good.name.length >= minLength),
-        selected: minLength,
-      }
-    ));
+    this.setState(() => ({
+      goods: preparedGoods.filter(good => good.name.length >= minLength),
+      selected: minLength,
+    }));
   }
 
   render() {
+    const { started, goods, selected } = this.state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
 
-        {this.state.isShown
+        {started
           ? (
-            <GoodList goods={this.state.goods} />
+            <GoodList goods={goods} />
           )
           : (
-            <Button text="Start" onClick={this.clickHandler} />
+            <Button text="Start" onClick={this.handleStart} />
           )}
 
         <div className="btn-group">
@@ -116,7 +110,7 @@ class App extends React.Component {
         </div>
 
         <Select
-          value={this.state.selected}
+          value={selected}
           changeHandler={event => this.chengeMinLength(event)}
           className="custom-select"
           range={10}

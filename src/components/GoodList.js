@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { GoodShape } from '../shapes/GoodShape';
 
 export const GoodList = React.memo(({ goods }) => (
   <ul className="list-group">
@@ -12,10 +13,5 @@ export const GoodList = React.memo(({ goods }) => (
 ));
 
 GoodList.propTypes = {
-  goods: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired,
-  ).isRequired,
+  goods: PropTypes.arrayOf(GoodShape).isRequired,
 };
