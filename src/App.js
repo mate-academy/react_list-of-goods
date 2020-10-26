@@ -62,12 +62,7 @@ class App extends React.Component {
         {
           !visibleList && (
             <div>
-              <button
-                type="button"
-                onClick={this.showList}
-              >
-                Start
-              </button>
+              <Button text="Start" callback={this.showList} />
             </div>
           )
         }
