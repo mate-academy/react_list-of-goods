@@ -8,16 +8,21 @@ export const Select = React.memo(({
   className,
   range,
 }) => {
-  const items = [...Array(10).keys()];
+  const items = [...Array(range).keys()];
+  const keys = [];
+
+  for (let i = 0; i < range; i += 1) {
+    keys.push(uuidv4());
+  }
 
   return (
     <select
       value={value}
-      onChange={event => changeHandler(event)}
+      onChange={changeHandler}
       className={className}
     >
-      {items.map(item => (
-        <option key={uuidv4()}>
+      {items.map((item, index) => (
+        <option key={keys[index]}>
           {item + 1}
         </option>
       ))}

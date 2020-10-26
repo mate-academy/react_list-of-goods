@@ -66,7 +66,7 @@ class App extends React.Component {
     }));
   }
 
-  chengeMinLength = (event) => {
+  changeMinLength = (event) => {
     const minLength = +event.target.value;
 
     this.setState(() => ({
@@ -77,6 +77,23 @@ class App extends React.Component {
 
   render() {
     const { started, goods, selected } = this.state;
+    const buttons = [
+      {
+        id: 1, text: 'Reverse', handler: this.reverseGoods,
+      },
+      {
+        id: 2, text: 'Sort alphabetically', handler: this.sortAlphabetically,
+      },
+      {
+        id: 3, text: 'Reset', handler: this.reset,
+      },
+      {
+        id: 4, text: 'Sort by length', handler: this.sortByLength,
+      },
+    ];
+    const handleChange = (event) => {
+      this.changeMinLength(event);
+    };
 
     return (
       <div className="App">
@@ -91,27 +108,18 @@ class App extends React.Component {
           )}
 
         <div className="btn-group">
-          <Button
-            text="Reverse"
-            onClick={this.reverseGoods}
-          />
-          <Button
-            text="Sort alphabetically"
-            onClick={this.sortAlphabetically}
-          />
-          <Button
-            text="Reset"
-            onClick={this.reset}
-          />
-          <Button
-            text="Sort by length"
-            onClick={this.sortByLength}
-          />
+          {buttons.map(button => (
+            <Button
+              key={button.id}
+              text={button.text}
+              onClick={button.handler}
+            />
+          ))}
         </div>
 
         <Select
           value={selected}
-          changeHandler={event => this.chengeMinLength(event)}
+          changeHandler={handleChange}
           className="custom-select"
           range={10}
         />
