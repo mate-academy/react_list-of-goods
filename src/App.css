@@ -1,0 +1,81 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+body,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  margin: 20px;
+  width: 500px;
+
+  background-color: #f5f5f5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #269de1;
+
+  border-radius: 4px;
+}
+
+.header button {
+  padding: 5px 7px;
+  width: 100px;
+
+  border-radius: 4px;
+  border: none;
+  background-color: #f4516c;
+
+  text-transform: capitalize;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.GoodsList {
+  list-style: none;
+
+  padding: 25px;
+}
+
+.GoodsList li {
+  padding: 10px 15px;
+
+  background-color: #fff;
+  border: 1px solid #ccc;
+
+  font-family: "Segoe UI", sans-serif;
+}
+
+.footer {
+  padding: 15px;
+  background-color: #269de1;
+
+  border-radius: 0 0 4px 4px;
+}
+
+.footer select {
+  width: 50%;
+}
+
+.footer span {
+  padding-right: 25px;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 500;
+  color: #fff;
+}
