@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Button } from './components/Button';
 import { GoodList } from './components/GoodList';
+import { Select } from './components/Select';
 
 const goodsFromServer = [
   'Dumplings',
@@ -112,22 +113,12 @@ class App extends React.Component {
           />
         </div>
 
-        <select
-          defaultValue={this.state.selected}
-          onChange={event => this.chengeMinLength(event)}
+        <Select
+          value={this.state.selected}
+          changeHandler={event => this.chengeMinLength(event)}
           className="custom-select"
-        >
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-        </select>
+          range={10}
+        />
       </div>
     );
   }

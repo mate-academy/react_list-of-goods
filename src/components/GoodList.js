@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const GoodList = ({ goods }) => (
+export const GoodList = React.memo(({ goods }) => (
   <ul className="list-group">
     {goods.map(good => (
       <li key={good.id} className="list-group-item">
@@ -9,7 +9,7 @@ export const GoodList = ({ goods }) => (
       </li>
     ))}
   </ul>
-);
+));
 
 GoodList.propTypes = {
   goods: PropTypes.arrayOf(
