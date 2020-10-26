@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GoodsList = ({ items }) => (
+const GoodsList = React.memo(({ items }) => (
   <ul className="GoodsList">
     {
       items.map(item => (
@@ -11,7 +11,7 @@ const GoodsList = ({ items }) => (
       ))
     }
   </ul>
-);
+));
 
 GoodsList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({

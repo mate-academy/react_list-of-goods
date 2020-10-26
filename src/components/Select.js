@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Select = ({ selectedValue, handleSelect }) => (
+const Select = React.memo(({ selectedValue, handleSelect }) => (
   <select
     value={selectedValue}
     onChange={handleSelect}
@@ -17,7 +17,7 @@ const Select = ({ selectedValue, handleSelect }) => (
       ))
     }
   </select>
-);
+));
 
 Select.propTypes = {
   selectedValue: PropTypes.number.isRequired,

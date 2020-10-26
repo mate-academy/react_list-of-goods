@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonsBlock = (props) => {
+const ButtonsBlock = React.memo((props) => {
   const {
     clickReverseList,
     clickSortList,
@@ -40,7 +40,7 @@ const ButtonsBlock = (props) => {
       </button>
     </>
   );
-};
+});
 
 ButtonsBlock.propTypes = {
   clickReverseList: PropTypes.func.isRequired,
