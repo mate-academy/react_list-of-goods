@@ -26,14 +26,14 @@ const preparedGoods = goodsFromServer.map((good, index) => (
 
 class App extends React.Component {
   state = {
-    isShowen: false,
+    isShown: false,
     goods: preparedGoods,
     selected: 1,
   };
 
   clickHandler = () => {
     this.setState({
-      isShowen: true,
+      isShown: true,
     });
   }
 
@@ -88,11 +88,13 @@ class App extends React.Component {
       <div className="App">
         <h1>Goods</h1>
 
-        {this.state.isShowen === true ? (
-          <GoodList goods={this.state.goods} />
-        ) : (
-          <Button text="Start" onClick={this.clickHandler} />
-        )}
+        {this.state.isShown
+          ? (
+            <GoodList goods={this.state.goods} />
+          )
+          : (
+            <Button text="Start" onClick={this.clickHandler} />
+          )}
 
         <div className="btn-group">
           <Button
