@@ -42,13 +42,13 @@ class App extends React.Component {
 
   reverseList = () => {
     this.setState(state => ({
-      goods: state.goods.reverse(),
+      goods: [...state.goods].reverse(),
     }));
   }
 
   sortByAlph = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.title.localeCompare(b.title)),
+      goods: [...state.goods].sort((a, b) => a.title.localeCompare(b.title)),
     }));
   }
 
@@ -60,7 +60,7 @@ class App extends React.Component {
 
   sortByLength = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.title.length - b.title.length),
+      goods: [...state.goods].sort((a, b) => a.title.length - b.title.length),
     }));
   }
 
@@ -78,57 +78,52 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {showStartButton
-          ? (
-            <ListButton
-              onClickFunc={this.startList}
-              title="start"
-            />
-          )
-          : ''}
-        {showList
-          ? (
-            <div className="App__content">
-              <div className="App__buttons">
-                <ListButton onClickFunc={this.reverseList} title="reverse" />
-                <ListButton
-                  onClickFunc={this.sortByAlph}
-                  title="sort alphabetically"
-                />
-                <ListButton onClickFunc={this.reset} title="reset" />
-                <ListButton
-                  onClickFunc={this.sortByLength}
-                  title="sort by length"
-                />
+        {showStartButton && (
+          <ListButton
+            onClickFunc={this.startList}
+            title="start"
+          />
+        )}
+        {showList && (
+          <div className="App__content">
+            <div className="App__buttons">
+              <ListButton onClickFunc={this.reverseList} title="reverse" />
+              <ListButton
+                onClickFunc={this.sortByAlph}
+                title="sort alphabetically"
+              />
+              <ListButton onClickFunc={this.reset} title="reset" />
+              <ListButton
+                onClickFunc={this.sortByLength}
+                title="sort by length"
+              />
 
-                <FormControl>
-                  <Select
-                    className="App__select"
-                    labelId="lengthSelector"
-                    id="lengthSelector"
-                    value={wordLength}
-                    onChange={
-                      event => this.selectLength(event.target)
-                    }
-                  >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={6}>6</MenuItem>
-                    <MenuItem value={7}>7</MenuItem>
-                    <MenuItem value={8}>8</MenuItem>
-                    <MenuItem value={9}>9</MenuItem>
-                    <MenuItem value={10}>10</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-              <GoodList goods={goods} className="App__list" />
+              <FormControl>
+                <Select
+                  className="App__select"
+                  labelId="lengthSelector"
+                  id="lengthSelector"
+                  value={wordLength}
+                  onChange={
+                    event => this.selectLength(event.target)
+                  }
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                  <MenuItem value={6}>6</MenuItem>
+                  <MenuItem value={7}>7</MenuItem>
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={9}>9</MenuItem>
+                  <MenuItem value={10}>10</MenuItem>
+                </Select>
+              </FormControl>
             </div>
-          )
-          : ''
-        }
+            <GoodList goods={goods} className="App__list" />
+          </div>
+        )}
       </div>
     );
   }
