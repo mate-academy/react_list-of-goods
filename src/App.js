@@ -39,13 +39,13 @@ class App extends PureComponent {
     });
   }
 
-  reversHandler = () => {
+  handleRevers = () => {
     this.setState(state => ({
       goods: [...state.goods].reverse(),
     }));
   }
 
-  resetHandler = () => {
+  handleReset = () => {
     this.setState({
       goods: preparedGoodsFromServer,
     });
@@ -79,10 +79,10 @@ class App extends PureComponent {
           <Row hidden={hidden} className="justify-content-md-center">
             <Col>
               <ButtonGroup vertical aria-label="Basic example">
-                <Button variant="dark" onClick={this.reversHandler}>
+                <Button variant="dark" onClick={this.handleRevers}>
                   Reverse
                 </Button>
-                <Button variant="danger" onClick={this.resetHandler}>
+                <Button variant="danger" onClick={this.handleReset}>
                   Reset
                 </Button>
                 <Button variant="warning" onClick={this.sortByAbc}>
