@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.button {
+  border-radius: 10px;
+  border: 2px solid rgb(24, 82, 150);
+  background-color: rgb(190, 203, 218);
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  color: rgb(0, 45, 97);
+
+  cursor: pointer;
+  transition: color 0.3s, background-color 0.3s;
+
+  &:hover {
+    background-color: rgb(24, 82, 150);
+    color: #fff;
+  }
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  &__header {
+    margin: 0;
+
+    color: rgb(120, 159, 204);
+  }
+
+  &__wrapper {
+    width: 600px;
+    padding: 0 20px 20px;
+
+    border-radius: 20px;
+  }
+
+  &__button {
+    width: 120px;
+    height: 40px;
+    margin: 20px 0;
+
+    font-size: 18px;
+  }
+}
