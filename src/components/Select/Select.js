@@ -2,7 +2,7 @@ import React from 'react';
 import { SelectProps } from '../../props/SelectProps';
 import './Select.css';
 
-export const Select = ({ minLength, changeMinLength }) => (
+export const Select = React.memo(({ minLength, changeMinLength }) => (
   <select
     name="length"
     className="select custom-select"
@@ -21,6 +21,6 @@ export const Select = ({ minLength, changeMinLength }) => (
     <option value="9">9</option>
     <option value="10">10</option>
   </select>
-);
+));
 
 Select.propTypes = SelectProps;

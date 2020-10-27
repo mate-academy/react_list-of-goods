@@ -1,7 +1,7 @@
 import React from 'react';
 import { ControlersGoodsProps } from '../../props/ControlersGoodsProps';
 
-export const ControlersGoods = ({
+export const ControlersGoods = React.memo(({
   reverse,
   sortByAlph,
   sortByLength,
@@ -40,6 +40,6 @@ export const ControlersGoods = ({
       Reset
     </button>
   </>
-);
+));
 
 ControlersGoods.propTypes = ControlersGoodsProps;
