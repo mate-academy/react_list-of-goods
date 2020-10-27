@@ -80,34 +80,40 @@ class App extends React.PureComponent {
     const { isListShown, goods, minLength } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
         <h1>Goods</h1>
         {!isListShown && <Button name="Start" onClick={this.toggleList} />}
         {isListShown
           && (
             <>
               <GoodsList goods={goods} />
-              <Button
-                name="Reverse"
-                onClick={this.reverse}
-              />
 
-              <Button
-                name="Sort alphabetically"
-                onClick={this.sortAlphabetically}
-              />
+              <div>
+                <Button
+                  name="Reverse"
+                  onClick={this.reverse}
+                />
 
-              <Button
-                name="Sort by length"
-                onClick={this.sortByLength}
-              />
+                <Button
+                  name="Sort alphabetically"
+                  onClick={this.sortAlphabetically}
+                />
 
-              <Button
-                name="Reset"
-                onClick={this.reset}
-              />
+                <Button
+                  name="Sort by length"
+                  onClick={this.sortByLength}
+                />
 
-              Min length of words :
+                <Button
+                  name="Reset"
+                  onClick={this.reset}
+                />
+              </div>
+
+              <p>
+                Min length of words :
+              </p>
+
               <LengthSelect
                 range={range}
                 onChange={this.changeMinLength}

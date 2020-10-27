@@ -5,6 +5,7 @@ export const Button = React.memo(({ name, onClick }) => (
   <button
     type="button"
     onClick={onClick}
+    className="button"
   >
     {name}
   </button>
