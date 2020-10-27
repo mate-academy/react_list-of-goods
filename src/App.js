@@ -78,11 +78,11 @@ class App extends React.PureComponent {
       sortBy,
     } = this.state;
 
-    const changedGoods = [...goods].filter(good => (
+    const visibleGoods = [...goods].filter(good => (
       good.name.length >= minLength
     ));
 
-    changedGoods.sort((a, b) => {
+    visibleGoods.sort((a, b) => {
       switch (sortBy) {
         case 'id':
           return a[sortBy] - b[sortBy];
@@ -99,7 +99,7 @@ class App extends React.PureComponent {
     });
 
     if (isReversed) {
-      changedGoods.reverse();
+      visibleGoods.reverse();
     }
 
     return (
@@ -109,7 +109,7 @@ class App extends React.PureComponent {
         {isListShown
           && (
             <>
-              <GoodsList goods={changedGoods} />
+              <GoodsList goods={visibleGoods} />
 
               <div>
                 <Button
