@@ -33,7 +33,9 @@ class App extends React.PureComponent {
   state = {
     isListShown: false,
     goods: preperedGoods,
-    minLength: 1,
+    minLength: 0,
+    sortBy: 'id',
+    isReversed: false,
   }
 
   toggleList = () => {
@@ -44,40 +46,61 @@ class App extends React.PureComponent {
 
   reverse = () => {
     this.setState(state => ({
-      goods: [...state.goods].reverse(),
+      isReversed: !state.isReversed,
     }));
   }
 
   sortAlphabetically = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.name.localeCompare(b.name)),
-    }));
+    this.setState({ sortBy: 'alphabet' });
   }
 
   sortByLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.name.length - b.name.length),
-    }));
+    this.setState({ sortBy: 'length' });
   }
 
   reset = () => {
-    this.setState(state => ({
-      goods: preperedGoods,
-      minLength: 1,
-    }));
+    this.setState({
+      sortBy: 'id',
+      minLength: 0,
+    });
   }
 
   changeMinLength = (event) => {
-    const minLength = +event.target.value;
-
-    this.setState(state => ({
-      goods: preperedGoods.filter(good => good.name.length >= minLength),
-      minLength,
-    }));
+    this.setState({ minLength: +event.target.value });
   }
 
   render() {
-    const { isListShown, goods, minLength } = this.state;
+    const {
+      isListShown,
+      goods,
+      minLength,
+      isReversed,
+      sortBy,
+    } = this.state;
+
+    const changedGoods = [...goods].filter(good => (
+      good.name.length >= minLength
+    ));
+
+    changedGoods.sort((a, b) => {
+      switch (sortBy) {
+        case 'id':
+          return a[sortBy] - b[sortBy];
+
+        case 'length':
+          return a.name.length - b.name.length;
+
+        case 'alphabet':
+          return a.name.localeCompare(b.name);
+
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      changedGoods.reverse();
+    }
 
     return (
       <div className="app">
@@ -86,7 +109,7 @@ class App extends React.PureComponent {
         {isListShown
           && (
             <>
-              <GoodsList goods={goods} />
+              <GoodsList goods={changedGoods} />
 
               <div>
                 <Button
