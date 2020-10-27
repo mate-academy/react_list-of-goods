@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 export const GoodsList = React.memo(({ goods }) => (
   <ul>
     {goods.map(good => (
-      <li key={good.id}>
-        {good.name}
+      <li key={good}>
+        {good}
       </li>
     ))}
   </ul>
@@ -13,9 +13,6 @@ export const GoodsList = React.memo(({ goods }) => (
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-    }).isRequired,
+    PropTypes.string.isRequired,
   ).isRequired,
 };

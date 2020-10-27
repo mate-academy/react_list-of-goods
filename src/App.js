@@ -17,11 +17,6 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const preperedGoods = goodsFromServer.map((good, index) => ({
-  name: good,
-  id: index,
-}));
-
 const maxLength = 10;
 const range = [];
 
@@ -32,7 +27,7 @@ for (let i = 1; i <= maxLength; i += 1) {
 class App extends React.PureComponent {
   state = {
     isListShown: false,
-    goods: preperedGoods,
+    goods: goodsFromServer,
     minLength: 0,
     sortBy: 'id',
     isReversed: false,
@@ -79,19 +74,17 @@ class App extends React.PureComponent {
     } = this.state;
 
     const visibleGoods = [...goods].filter(good => (
-      good.name.length >= minLength
+      good.length >= minLength
     ));
 
     visibleGoods.sort((a, b) => {
       switch (sortBy) {
         case 'id':
+        case 'length':
           return a[sortBy] - b[sortBy];
 
-        case 'length':
-          return a.name.length - b.name.length;
-
         case 'alphabet':
-          return a.name.localeCompare(b.name);
+          return a.localeCompare(b);
 
         default:
           return 0;
