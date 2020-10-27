@@ -17,10 +17,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const maxLength = 10;
+const maxLength = goodsFromServer.reduce((acc, item) => (
+  acc < item.length ? item.length : acc
+), 0);
+
 const range = [];
 
-for (let i = 1; i <= maxLength; i += 1) {
+for (let i = 1; i <= maxLength + 1; i += 1) {
   range.push(i);
 }
 
