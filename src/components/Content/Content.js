@@ -61,7 +61,7 @@ export class Content extends React.PureComponent {
       range,
     } = this.state;
 
-    const visibleGoods = [...goods].filter(good => (
+    const visibleGoods = goods.filter(good => (
       good.length >= minLength
     ));
 
