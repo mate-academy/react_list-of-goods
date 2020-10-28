@@ -4,7 +4,7 @@ import Options from './Options';
 
 class GoodList extends React.Component {
   state = {
-    date: this.props.goodsFromServer,
+    goodsList: this.props.goodsFromServer,
     show: false,
   };
 
@@ -16,30 +16,30 @@ class GoodList extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      date: [...state.date].reverse(),
+      goodsList: [...state.goodsList].reverse(),
     }));
   }
 
   sortByAlphabetically = () => {
     this.setState(state => ({
-      date: [...state.date].sort((a, b) => a.localeCompare(b)),
+      goodsList: [...state.goodsList].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   reset = () => {
     this.setState({
-      date: this.props.goodsFromServer,
+      goodsList: this.props.goodsFromServer,
     });
   }
 
   sortByLength = () => {
     this.setState(state => ({
-      date: [...state.date].sort((a, b) => a.length - b.length),
+      goodsList: [...state.goodsList].sort((a, b) => a.length - b.length),
     }));
   }
 
   render() {
-    const { date, show } = this.state;
+    const { goodsList, show } = this.state;
 
     return (
       <>
@@ -62,7 +62,7 @@ class GoodList extends React.Component {
               reset={this.reset}
               sortByLength={this.sortByLength}
             />
-            {date.map(good => (
+            {goodsList.map(good => (
               <li key={good} className="ui bulleted list">
                 {good}
               </li>
@@ -76,7 +76,6 @@ class GoodList extends React.Component {
 
 GoodList.propTypes = {
   goodsFromServer: PropTypes.arrayOf.isRequired,
-  // show: PropTypes.bool.isRequired,
 };
 
 export default GoodList;
