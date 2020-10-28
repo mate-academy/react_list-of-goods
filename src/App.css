@@ -1,0 +1,44 @@
+.app {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 2vw auto;
+}
+
+.button-start {
+  position: relative;
+  left: 45vw;
+  top: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+.list-title {
+  text-align: center;
+}
+
+.list-block {
+  display: flex;
+  width: 10vw;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list-item {
+  display: inline-block;
+  font-size: large;
+  width: 8vw;
+  border-bottom: 2px solid white;
+}
+
+.button-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 10vw;
+  gap: 10px;
+  margin: 60px 20px 0;
+}
