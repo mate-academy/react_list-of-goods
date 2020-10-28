@@ -40,7 +40,7 @@ class App extends Component {
 
   sort = () => {
     this.setState(state => ({
-      visibleGoods: [...state.goods].sort((a, b) => (
+      visibleGoods: state.visibleGoods.sort((a, b) => (
         a.name.localeCompare(b.name)
       )),
     }));
@@ -54,8 +54,18 @@ class App extends Component {
 
   sortByLength = () => {
     this.setState(state => ({
-      visibleGoods: [...state.goods].sort((a, b) => (
+      visibleGoods: state.visibleGoods.sort((a, b) => (
         a.name.length - b.name.length
+      )),
+    }));
+  }
+
+  selectValue = (event) => {
+    const value = +event.target.value;
+
+    this.setState(state => ({
+      visibleGoods: state.goods.filter(item => (
+        item.name.length >= value
       )),
     }));
   }
@@ -106,6 +116,19 @@ class App extends Component {
           >
             Sort by length
           </button>
+
+          <select
+            className="ui primary button"
+            onChange={this.selectValue}
+          >
+            {
+              [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))
+            }
+          </select>
 
           <ul className="App__list ui inverted segment">
             {

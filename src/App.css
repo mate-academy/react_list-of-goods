@@ -1,3 +1,16 @@
+html {
+  background-color: #e0e3eb;
+}
+
+.App {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  white-space: nowrap;
+}
+
 .App__list {
   width: 470px;
 }
