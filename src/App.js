@@ -68,16 +68,16 @@ class App extends React.PureComponent {
 
     return (
       <div>
-        {/* <button
+        <button
           type="button"
-          className=""
+          className="button-start"
           hidden={!hidden}
           onClick={this.showList}
         >
           Start
-        </button> */}
+        </button>
 
-        <div hidden={!hidden} className="app">
+        <div hidden={hidden} className="app">
           <div className="button-block">
             <button
               type="button"
