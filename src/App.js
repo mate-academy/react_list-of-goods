@@ -77,7 +77,7 @@ class App extends React.PureComponent {
           Start
         </button>
 
-        <div hidden={hidden} className="app">
+        <section hidden={hidden} className="app">
           <div className="button-block">
             <button
               type="button"
@@ -116,7 +116,7 @@ class App extends React.PureComponent {
             <h1 className="list-title">Goods</h1>
             <GoodsList goods={goods} />
           </div>
-        </div>
+        </section>
       </div>
     );
   }
