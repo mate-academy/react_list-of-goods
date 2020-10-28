@@ -33,9 +33,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        {isStartBtnVisible ? (<CustomButton title="Start" func={showContent} />)
-          : (<Content listFromServer={goodsFromServer} />)
-        }
+        {isStartBtnVisible ? (
+          <CustomButton title="Start" func={showContent} />
+        ) : (
+          <Content listFromServer={goodsFromServer} />
+        )}
       </div>
     );
   }
