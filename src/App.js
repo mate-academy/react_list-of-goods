@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 const goodsFromServer = [
@@ -14,11 +14,115 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+const completeGoods = goodsFromServer.map((good, index) => ({
+  name: good,
+  id: index,
+}));
+
+class App extends Component {
+  state = {
+    visible: false,
+    goods: completeGoods,
+    visibleGoods: completeGoods,
+  }
+
+  visible = () => {
+    this.setState(state => ({
+      visible: !state.visible,
+    }));
+  }
+
+  reverse = () => {
+    this.setState(state => ({
+      visibleGoods: state.visibleGoods.reverse(),
+    }));
+  }
+
+  sort = () => {
+    this.setState(state => ({
+      visibleGoods: [...state.goods].sort((a, b) => (
+        a.name.localeCompare(b.name)
+      )),
+    }));
+  }
+
+  reset = () => {
+    this.setState(state => ({
+      visibleGoods: state.goods,
+    }));
+  }
+
+  sortByLength = () => {
+    this.setState(state => ({
+      visibleGoods: [...state.goods].sort((a, b) => (
+        a.name.length - b.name.length
+      )),
+    }));
+  }
+
+  render() {
+    const { visible, visibleGoods } = this.state;
+
+    return (
+      <div className="App">
+        <button
+          className="App__btn--start"
+          hidden={visible}
+          type="button"
+          onClick={this.visible}
+        >
+          Start
+        </button>
+
+        <div hidden={!visible}>
+          <button
+            className="ui primary button"
+            type="button"
+            onClick={this.reverse}
+          >
+            Reverse
+          </button>
+
+          <button
+            className="ui primary button"
+            type="button"
+            onClick={this.sort}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            className="ui primary button"
+            type="button"
+            onClick={this.reset}
+          >
+            Reset
+          </button>
+
+          <button
+            className="ui primary button"
+            type="button"
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+
+          <ul className="App__list ui inverted segment">
+            {
+              visibleGoods.map(good => (
+                <li
+                  key={good.id}
+                  className="App__good"
+                >
+                  {good.name}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default App;

@@ -1,0 +1,19 @@
+.App__list {
+  width: 470px;
+}
+
+.App__good {
+  margin: 20px 0;
+  font-size: 28px;
+  list-style-type: none;
+}
+
+.App__btn--start {
+  width: 150px;
+  height: 50px;
+
+  font-size: 24px;
+  color: aliceblue;
+  background-color: #f6a2b1;
+  border-radius: 10px;
+}
