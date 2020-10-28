@@ -42,8 +42,9 @@ class App extends React.Component {
 
     return (
       <div className="App m-auto">
-        {
-          !isVisibleGoods && (
+        {isVisibleGoods
+          ? <Content goods={preparedGoods} />
+          : (
             <button
               className="btn btn-warning"
               type="button"
@@ -53,8 +54,6 @@ class App extends React.Component {
             </button>
           )
         }
-
-        {isVisibleGoods && <Content goods={preparedGoods} />}
       </div>
     );
   }
