@@ -40,7 +40,7 @@ class App extends Component {
 
   sort = () => {
     this.setState(state => ({
-      visibleGoods: state.visibleGoods.sort((a, b) => (
+      visibleGoods: [...state.visibleGoods].sort((a, b) => (
         a.name.localeCompare(b.name)
       )),
     }));
@@ -54,7 +54,7 @@ class App extends Component {
 
   sortByLength = () => {
     this.setState(state => ({
-      visibleGoods: state.visibleGoods.sort((a, b) => (
+      visibleGoods: [...state.visibleGoods].sort((a, b) => (
         a.name.length - b.name.length
       )),
     }));
@@ -64,7 +64,7 @@ class App extends Component {
     const value = +event.target.value;
 
     this.setState(state => ({
-      visibleGoods: state.goods.filter(item => (
+      visibleGoods: [...state.goods].filter(item => (
         item.name.length >= value
       )),
     }));
