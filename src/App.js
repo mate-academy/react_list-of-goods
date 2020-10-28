@@ -68,55 +68,59 @@ class App extends React.PureComponent {
 
     return (
       <div>
-        <button
-          type="button"
-          className="button-start"
-          hidden={!hidden}
-          onClick={this.showList}
-        >
-          Start2
-        </button>
-
-        <section hidden={hidden} className="app">
-          <div className="button-block">
+        { hidden
+          ? (
             <button
               type="button"
-              className="ui olive large button"
-              onClick={this.sortByName}
+              className="ui green big button button-start"
+              onClick={this.showList}
             >
-              Sort alphabetically
+              Start
             </button>
+          )
+          : (
+            <section className="app">
+              <div className="button-block">
+                <button
+                  type="button"
+                  className="ui olive large button"
+                  onClick={this.sortByName}
+                >
+                  Sort alphabetically
+                </button>
 
-            <button
-              type="button"
-              className="ui yellow large button"
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
+                <button
+                  type="button"
+                  className="ui yellow large button"
+                  onClick={this.sortByLength}
+                >
+                  Sort by length
+                </button>
 
-            <button
-              type="button"
-              className="ui orange large button"
-              onClick={this.reverseList}
-            >
-              Reverse
-            </button>
+                <button
+                  type="button"
+                  className="ui orange large button"
+                  onClick={this.reverseList}
+                >
+                  Reverse
+                </button>
 
-            <button
-              type="button"
-              className="ui red large button"
-              onClick={this.resetList}
-            >
-              Reset
-            </button>
-          </div>
+                <button
+                  type="button"
+                  className="ui red large button"
+                  onClick={this.resetList}
+                >
+                  Reset
+                </button>
+              </div>
 
-          <div className="list-block">
-            <h1 className="list-title">Goods</h1>
-            <GoodsList goods={goods} />
-          </div>
-        </section>
+              <div className="list-block">
+                <h1 className="list-title">Goods</h1>
+                <GoodsList goods={goods} />
+              </div>
+            </section>
+          )
+        }
       </div>
     );
   }
