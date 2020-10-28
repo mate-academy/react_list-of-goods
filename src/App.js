@@ -30,9 +30,9 @@ class App extends React.PureComponent {
   }
 
   showList = () => {
-    this.setState({
-      hidden: false,
-    });
+    this.setState(state => ({
+      hidden: !state.hidden,
+    }));
   }
 
   reverseList = () => {
@@ -68,6 +68,15 @@ class App extends React.PureComponent {
 
     return (
       <div>
+        <button
+          type="button"
+          className="button-start"
+          hidden={!hidden}
+          onClick={this.showList}
+        >
+          Start2
+        </button>
+
         <section hidden={hidden} className="app">
           <div className="button-block">
             <button
@@ -108,15 +117,6 @@ class App extends React.PureComponent {
             <GoodsList goods={goods} />
           </div>
         </section>
-
-        <button
-          type="button"
-          className="button-start"
-          hidden={!hidden}
-          onClick={this.showList}
-        >
-          Start
-        </button>
       </div>
     );
   }
