@@ -1,0 +1,14 @@
+.App__buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px;
+}
+
+.App__list {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.App__select {
+  background-color: #f2f2f2;
+}

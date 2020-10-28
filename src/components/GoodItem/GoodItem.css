@@ -1,0 +1,13 @@
+.list__item {
+  background-color: #e4e5e6;
+
+  text-align: center;
+  line-height: 40px;
+  text-transform: uppercase;
+
+  height: 40px;
+  width: 400px;
+  border-radius: 10px;
+
+  margin-bottom: 5px;
+}
