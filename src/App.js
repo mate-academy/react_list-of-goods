@@ -60,27 +60,26 @@ class App extends React.Component {
         <h1>Goods</h1>
         {goodsFromServer.length}
         {
-          !visibleList && (
-            <div>
-              <Button text="Start" callback={this.showList} />
-            </div>
-          )
-        }
-        {
-          visibleList && (
-            <div>
-              <GoodsList goods={goods} />
-              <p>
-                <Button text="Reverse" callback={this.reverseList} />
-                <Button
-                  text="Sort alphabetically"
-                  callback={this.sortAlphabetList}
-                />
-                <Button text="Reset" callback={this.toDefaultList} />
-                <Button text="Sort by length" callback={this.sortByLength} />
-              </p>
-            </div>
-          )
+          !visibleList
+            ? (
+              <div>
+                <Button text="Start" callback={this.showList} />
+              </div>
+            )
+            : (
+              <div>
+                <GoodsList goods={goods} />
+                <p>
+                  <Button text="Reverse" callback={this.reverseList} />
+                  <Button
+                    text="Sort alphabetically"
+                    callback={this.sortAlphabetList}
+                  />
+                  <Button text="Reset" callback={this.toDefaultList} />
+                  <Button text="Sort by length" callback={this.sortByLength} />
+                </p>
+              </div>
+            )
         }
       </div>
     );
