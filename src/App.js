@@ -72,7 +72,7 @@ class App extends React.PureComponent {
           ? (
             <button
               type="button"
-              className="ui green big button button-start"
+              className="ui green massive button button-start"
               onClick={this.showList}
             >
               Start

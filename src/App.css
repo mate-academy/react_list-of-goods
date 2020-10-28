@@ -7,19 +7,8 @@
 
 .button-start {
   position: relative;
-  left: 48vw;
+  left: 45vw;
   top: 20px;
-  font-size: 48px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: green;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.button-start:hover {
-  background-color: rgb(4, 194, 4);
 }
 
 li {
