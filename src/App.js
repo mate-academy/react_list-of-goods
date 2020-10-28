@@ -3,9 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
 
-import { GoodList } from './components/GoodList';
-import { ControlersGoods } from './components/Buttons';
-import { Select } from './components/Select/Select';
+import { Content } from './components/Content/Content';
 
 const goodsFromServer = [
   'Dumplings',
@@ -27,72 +25,25 @@ const preparedGoods = goodsFromServer.map((good, index) => ({
 
 class App extends React.Component {
   state = {
-    goods: preparedGoods,
     isVisibleGoods: false,
-    isVisibleButton: true,
-    minLength: 1,
   }
 
   start = () => {
-    this.setState(({ isVisibleGoods, isVisibleButton }) => ({
+    this.setState(({ isVisibleGoods }) => ({
       isVisibleGoods: !isVisibleGoods,
-      isVisibleButton: !isVisibleButton,
     }));
-  }
-
-  reverse = () => {
-    this.setState(({ goods }) => ({
-      goods: [...goods].reverse(),
-    }));
-  }
-
-  changeMinLength = ({ target }) => {
-    this.setState({
-      minLength: +target.value,
-    });
-  }
-
-  sortByAlph = () => {
-    this.setState(({ goods }) => ({
-      goods: [...goods].sort((a, b) => a.name.localeCompare(b.name)),
-    }));
-  }
-
-  sortByLength = () => {
-    this.setState(({ goods }) => ({
-      goods: [...goods].sort((a, b) => a.name.length - b.name.length),
-    }));
-  }
-
-  reset = () => {
-    this.setState({
-      goods: preparedGoods,
-      minLength: 1,
-    });
-  }
-
-  filterGoods = () => {
-    const { goods, minLength } = this.state;
-
-    return goods.filter(({ name }) => name.length >= minLength);
   }
 
   render() {
     const {
-      state: { isVisibleGoods, minLength, isVisibleButton },
+      state: { isVisibleGoods },
       start,
-      reverse,
-      sortByAlph,
-      sortByLength,
-      reset,
-      changeMinLength,
-      filterGoods,
     } = this;
 
     return (
       <div className="App m-auto">
         {
-          isVisibleButton && (
+          !isVisibleGoods && (
             <button
               className="btn btn-warning"
               type="button"
@@ -103,25 +54,7 @@ class App extends React.Component {
           )
         }
 
-        {isVisibleGoods && (
-          <>
-            <div className="mb-3">
-              <ControlersGoods
-                reverse={reverse}
-                sortByAlph={sortByAlph}
-                sortByLength={sortByLength}
-                reset={reset}
-              />
-
-              <Select
-                minLength={minLength}
-                changeMinLength={changeMinLength}
-              />
-            </div>
-
-            <GoodList goods={filterGoods()} />
-          </>
-        )}
+        {isVisibleGoods && <Content goods={preparedGoods} />}
       </div>
     );
   }
