@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import GoodList from './components/GoodList';
+import 'semantic-ui-css/semantic.min.css';
 
 const goodsFromServer = [
   'Dumplings',
@@ -16,8 +18,9 @@ const goodsFromServer = [
 
 const App = () => (
   <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
+    <GoodList
+      goodsFromServer={goodsFromServer}
+    />
   </div>
 );
 
