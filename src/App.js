@@ -48,7 +48,7 @@ class App extends Component {
 
   reset = () => {
     this.setState(state => ({
-      visibleGoods: state.goods,
+      visibleGoods: [...state.goods],
     }));
   }
 
