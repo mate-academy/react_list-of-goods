@@ -10,6 +10,7 @@ import { ResetButton } from '../ResetButton';
 export const GoodList = React.memo(
   ({
     goodsList,
+    goodsFromServer,
     reverse,
     alphabeticalSort,
     lengthSort,
@@ -23,8 +24,8 @@ export const GoodList = React.memo(
           select(+event.target.value);
         }}
       >
-        {goodsList.map((good) => {
-          const index = goodsList.indexOf(good) + 1;
+        {goodsFromServer.map((good) => {
+          const index = goodsFromServer.indexOf(good) + 1;
 
           return <option key={index} value={index}>{index}</option>;
         })}
@@ -50,6 +51,9 @@ export const GoodList = React.memo(
 
 GoodList.propTypes = {
   goodsList: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
+  goodsFromServer: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ).isRequired,
   reverse: PropTypes.func.isRequired,

@@ -46,13 +46,15 @@ class App extends React.Component {
   }
 
   select = (callback) => {
-    this.setState(state => ({
-      goods: [...state.goods].filter(good => good.length >= callback),
-    }));
+    this.setState({
+      goods: goodsFromServer.filter(good => good.length >= callback),
+    });
   }
 
   reset = () => {
-    this.setState({ goods: goodsFromServer });
+    this.setState({
+      goods: goodsFromServer,
+    });
   }
 
   render() {
@@ -80,6 +82,7 @@ class App extends React.Component {
           ? (
             <GoodList
               goodsList={goods}
+              goodsFromServer={goodsFromServer}
               listVisibility={listVisibility}
               reverse={this.reverse}
               alphabeticalSort={this.alphabeticalSort}
