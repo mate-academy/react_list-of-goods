@@ -11,6 +11,7 @@ export const GoodList = React.memo(
   ({
     goodsList,
     goodsFromServer,
+    selectValue,
     reverse,
     alphabeticalSort,
     lengthSort,
@@ -20,6 +21,7 @@ export const GoodList = React.memo(
     <>
       <select
         className="App__select select"
+        value={selectValue}
         onChange={(event) => {
           select(+event.target.value);
         }}
@@ -27,7 +29,14 @@ export const GoodList = React.memo(
         {goodsFromServer.map((good) => {
           const index = goodsFromServer.indexOf(good) + 1;
 
-          return <option key={index} value={index}>{index}</option>;
+          return (
+            <option
+              key={index}
+              value={index}
+            >
+              {index}
+            </option>
+          );
         })}
       </select>
 
@@ -56,6 +65,7 @@ GoodList.propTypes = {
   goodsFromServer: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ).isRequired,
+  selectValue: PropTypes.string.isRequired,
   reverse: PropTypes.func.isRequired,
   alphabeticalSort: PropTypes.func.isRequired,
   lengthSort: PropTypes.func.isRequired,

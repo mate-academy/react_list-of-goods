@@ -21,6 +21,7 @@ class App extends React.Component {
   state = {
     listVisibility: false,
     goods: goodsFromServer,
+    selectValue: '',
   }
 
   enter = (callback) => {
@@ -48,17 +49,19 @@ class App extends React.Component {
   select = (callback) => {
     this.setState({
       goods: goodsFromServer.filter(good => good.length >= callback),
+      selectValue: callback.toString(),
     });
   }
 
   reset = () => {
     this.setState({
       goods: goodsFromServer,
+      selectValue: '1',
     });
   }
 
   render() {
-    const { listVisibility, goods } = this.state;
+    const { listVisibility, goods, selectValue } = this.state;
 
     return (
       <div className="App">
@@ -84,6 +87,7 @@ class App extends React.Component {
               goodsList={goods}
               goodsFromServer={goodsFromServer}
               listVisibility={listVisibility}
+              selectValue={selectValue}
               reverse={this.reverse}
               alphabeticalSort={this.alphabeticalSort}
               lengthSort={this.lengthSort}
