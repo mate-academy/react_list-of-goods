@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GoodList.css';
 
-import { GoodItem } from '../GoodItem';
-import { ReverseButton } from '../ReverseButton';
-import { SortButton } from '../SortButton';
-import { ResetButton } from '../ResetButton';
+import { SelectList } from '../SelectList';
+import { List } from '../List';
+import { Buttons } from '../Buttons';
 
 export class GoodList extends React.Component {
   state = {
@@ -49,40 +48,23 @@ export class GoodList extends React.Component {
 
   render() {
     const { goodsList, selectValue } = this.state;
-    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
       <div className="App">
-        <select
-          className="App__select select"
-          value={selectValue}
-          onChange={(event) => {
-            this.select(+event.target.value);
-          }}
-        >
-          {numbers.map(number => (
-            <option
-              key={numbers}
-              value={number}
-            >
-              {number}
-            </option>
-          ))}
-        </select>
+        <SelectList
+          selectValue={selectValue}
+          select={this.select}
+        />
 
-        <ul className="App__list list">
-          {goodsList.map(good => <GoodItem good={good} key={good} />)}
-        </ul>
+        <List goodsList={goodsList}/>
 
         <div className="App__buttons buttons">
-          <ReverseButton reverse={this.reverse} />
-
-          <SortButton
+          <Buttons
+            reverse={this.reverse}
             alphabeticalSort={this.alphabeticalSort}
             lengthSort={this.lengthSort}
+            reset={this.reset}
           />
-
-          <ResetButton reset={this.reset} />
         </div>
       </div>
     );

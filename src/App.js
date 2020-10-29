@@ -33,20 +33,17 @@ class App extends React.Component {
       <div className="wrapper">
         <h1>Goods List</h1>
 
-        {listVisibility
-          ? (
-            <GoodList
-              goodsList={goodsFromServer}
-              goodsFromServer={goodsFromServer}
-            />
-          )
-          : (
-            <StartButton
-              listVisibility={listVisibility}
-              enter={this.enter}
-            />
-          )
-        }
+        {listVisibility ? (
+          <GoodList
+            goodsList={goodsFromServer}
+            goodsFromServer={goodsFromServer}
+          />
+        ) : (
+          <StartButton
+            listVisibility={listVisibility}
+            enter={this.enter}
+          />
+        )}
       </div>
     );
   }
