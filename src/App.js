@@ -35,11 +35,17 @@ class App extends React.PureComponent {
   }
 
   sortListByABC = () => {
-    this.setState({ isSorted: 'alphabet' });
+    this.setState({
+      isSorted: 'alphabet',
+      isReversed: false,
+    });
   }
 
   sortListByLength = () => {
-    this.setState({ isSorted: 'length' });
+    this.setState({
+      isSorted: 'length',
+      isReversed: false,
+    });
   }
 
   resetList = () => {
