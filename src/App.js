@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import './App.scss';
 
-import { GoodsList } from './components/GoodsList';
-import { ListOptions } from './components/ListOptions';
+import { Content } from './components/Content';
 
 const goodsFromServer = [
   'Dumplings',
@@ -25,64 +24,22 @@ const preparedGoods = goodsFromServer.map((good, id) => ({
 class App extends PureComponent {
   state = {
     isListVisible: false,
-    isButtonVisible: true,
-    goods: preparedGoods,
-    minWordLength: 1,
   }
 
   showList = () => {
-    this.setState(state => ({
-      isListVisible: true,
-      isButtonVisible: false,
-    }));
-  };
-
-  reverseList = () => {
-    this.setState(state => ({
-      goods: [...state.goods].reverse(),
-    }));
-  };
-
-  sortByAlphabet = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((prevGood, nextGood) => (
-        prevGood.name.localeCompare(nextGood.name)
-      )),
-    }));
-  };
-
-  resetList = () => {
-    this.setState(state => ({
-      goods: preparedGoods,
-      minWordLength: 1,
-    }));
-  };
-
-  sortByLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((prevGood, nextGood) => (
-        prevGood.name.length - nextGood.name.length
-      )),
-    }));
-  }
-
-  selectLength = (minWordLength) => {
     this.setState({
-      goods: preparedGoods.filter(good => (
-        good.name.length >= minWordLength
-      )),
-      minWordLength: +minWordLength,
+      isListVisible: true,
     });
-  }
+  };
 
   render() {
-    const { goods, isListVisible, isButtonVisible, minWordLength } = this.state;
+    const { isListVisible } = this.state;
 
     return (
       <div className="app">
         <h1 className="app__header">Goods</h1>
 
-        {isButtonVisible && (
+        {!isListVisible && (
           <button
             type="button"
             className="app__button button"
@@ -93,18 +50,7 @@ class App extends PureComponent {
         )}
 
         {isListVisible && (
-          <div className="app__wrapper">
-            <GoodsList goods={goods} />
-
-            <ListOptions
-              reverseList={this.reverseList}
-              resetList={this.resetList}
-              sortByAlphabet={this.sortByAlphabet}
-              sortByLength={this.sortByLength}
-              minWordLength={minWordLength}
-              selectLength={this.selectLength}
-            />
-          </div>
+          <Content goods={preparedGoods} />
         )}
       </div>
     );
