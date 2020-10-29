@@ -25,8 +25,8 @@ const preparedGoods = goodsFromServer.map((good, index) => ({
 
 class App extends React.Component {
   state = {
-    startButtonVisible: false,
-    contentVisible: true,
+    startButtonVisible: true,
+    contentVisible: false,
     goods: preparedGoods,
   }
 
@@ -59,12 +59,6 @@ class App extends React.Component {
   sortByLength = () => {
     this.setState(state => ({
       goods: [...state.goods].sort((a, b) => a.name.length - b.name.length),
-    }));
-  }
-
-  selectByLength = (value) => {
-    this.setState(state => ({
-      goods: state.goods.filter(good => good.length >= value),
     }));
   }
 

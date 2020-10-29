@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
 export const StartButton = ({ toggleVisible }) => (
-  <button
+  <Button
     type="button"
     onClick={toggleVisible}
   >
     Start
-  </button>
+  </Button>
 );
 
 StartButton.propTypes = {
