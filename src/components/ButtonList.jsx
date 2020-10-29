@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ButtonList = ({
+export const ButtonList = React.memo(({
   reverseGoods,
   sortAlphabet,
   reset,
@@ -37,7 +37,7 @@ export const ButtonList = ({
       Reset
     </button>
   </>
-);
+));
 
 ButtonList.propTypes = {
   reverseGoods: PropTypes.func.isRequired,

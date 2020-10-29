@@ -78,7 +78,7 @@ class App extends PureComponent {
           />
         </div>
 
-        <ul className="list-group  mx-auto w-25" hidden={hidden}>
+        <ul className="list-group mx-auto w-25" hidden={hidden}>
           {goods.map(item => (
             <li key={item} className="list-group-item text-center">
               {item}
