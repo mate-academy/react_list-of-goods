@@ -1,5 +1,7 @@
-import React from 'react';
-import './App.css';
+import React, { PureComponent } from 'react';
+import './App.scss';
+
+import { Content } from './components/Content';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +16,43 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+const preparedGoods = goodsFromServer.map((good, id) => ({
+  name: good,
+  id,
+}));
+
+class App extends PureComponent {
+  state = {
+    isListVisible: false,
+  }
+
+  showList = () => {
+    this.setState({
+      isListVisible: true,
+    });
+  };
+
+  render() {
+    const { isListVisible } = this.state;
+
+    return (
+      <div className="app">
+        <h1 className="app__header">Goods</h1>
+
+        {isListVisible
+          ? <Content goods={preparedGoods} />
+          : (
+            <button
+              type="button"
+              className="app__button button"
+              onClick={this.showList}
+            >
+              Start
+            </button>
+          )}
+      </div>
+    );
+  }
+}
 
 export default App;
