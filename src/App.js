@@ -26,105 +26,88 @@ const preparedGoodsList = goodsFromServer.map((item, index) => ({
 }));
 
 class App extends React.Component {
+  goodsList = preparedGoodsList;
+
   state = {
-    goodsList: preparedGoodsList,
-    listVisible: false,
-    buttonVisible: true,
-    listReversed: false,
-    sortBy: 'default',
+    visibleList: [...preparedGoodsList],
+    visible: true,
     lengthSortingLimit: 1,
   }
 
   showGoodsList = () => {
     this.setState(state => ({
       listVisible: !state.listVisible,
-      buttonVisible: !state.buttonVisible,
+      visible: !state.visible,
     }));
   }
 
   reverseList = () => {
     this.setState(state => ({
-      listReversed: !state.listReversed,
+      visibleList: state.visibleList.reverse(),
     }));
   }
 
   sortByAlphabet = () => {
-    this.setState({
-      sortBy: 'alphabet',
-    });
+    this.setState(state => ({
+      visibleList: state.visibleList.sort((item1, item2) => (
+        item1.name.localeCompare(item2.name))),
+    }));
   }
 
   sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-    });
+    this.setState(state => ({
+      visibleList: state.visibleList.sort((item1, item2) => (
+        item1.name.length - item2.name.length)),
+    }));
   }
 
   selectLengthSorting = (event) => {
+    const { value } = event.target;
+
     this.setState({
-      lengthSortingLimit: event.target.value,
+      lengthSortingLimit: value,
+      visibleList: [...preparedGoodsList].filter(
+        item => item.name.length >= value,
+      ),
     });
   }
 
   resetSorting = () => {
     this.setState({
-      sortBy: 'default',
-      listReversed: false,
-      lengthSortingLimit: 0,
+      visibleList: [...preparedGoodsList],
     });
   }
 
   render() {
     const {
-      goodsList,
-      listVisible,
-      buttonVisible,
-      listReversed,
-      sortBy,
+      visible,
+      visibleList,
       lengthSortingLimit,
     } = this.state;
-
-    const visibleList = goodsList.filter(
-      item => item.name.length >= lengthSortingLimit,
-    );
-
-    visibleList.sort((item1, item2) => {
-      switch (sortBy) {
-        case 'alphabet':
-          return item1.name.localeCompare(item2.name);
-
-        case 'length':
-          return item1.name.length - item2.name.length;
-
-        case 'default':
-        default:
-          return 0;
-      }
-    });
-
-    if (listReversed) {
-      visibleList.reverse();
-    }
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {buttonVisible && (<StartButton showGoodsList={this.showGoodsList} />)}
+        {visible && (<StartButton showGoodsList={this.showGoodsList} />)}
 
-        <SortingButtons
-          reverseList={this.reverseList}
-          sortByAlphabet={this.sortByAlphabet}
-          sortByLength={this.sortByLength}
-        />
+        {!visible && (
+          <>
+            <SortingButtons
+              reverseList={this.reverseList}
+              sortByAlphabet={this.sortByAlphabet}
+              sortByLength={this.sortByLength}
+            />
 
-        <SelectLengthButton
-          selectLengthSorting={this.selectLengthSorting}
-          lengthSortingLimit={lengthSortingLimit}
-        />
+            <SelectLengthButton
+              selectLengthSorting={this.selectLengthSorting}
+              lengthSortingLimit={lengthSortingLimit}
+            />
 
-        <ResetButton resetSorting={this.resetSorting} />
+            <ResetButton resetSorting={this.resetSorting} />
 
-        {listVisible && (<GoodsList visibleList={visibleList} />)}
+            <GoodsList visibleList={visibleList} />
+          </>
+        )}
       </div>
     );
   }

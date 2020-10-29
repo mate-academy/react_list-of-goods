@@ -13,6 +13,7 @@ export function SortingButtons({ reverseList, sortByAlphabet, sortByLength }) {
       </button>
 
       <button
+        value="alphabet"
         type="button"
         onClick={sortByAlphabet}
         className="ui secondary button"
@@ -21,6 +22,7 @@ export function SortingButtons({ reverseList, sortByAlphabet, sortByLength }) {
       </button>
 
       <button
+        value="length"
         type="button"
         onClick={sortByLength}
         className="ui secondary button"
