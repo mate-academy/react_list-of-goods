@@ -67,15 +67,7 @@ class App extends React.PureComponent {
     return (
       <div className="app">
         {isStartVisible
-          ? (
-            <button
-              className="app__button"
-              type="button"
-              onClick={this.start}
-            >
-              Start
-            </button>
-          )
+          ? <Button text="Start" onclick={this.start} />
           : null
         }
 
