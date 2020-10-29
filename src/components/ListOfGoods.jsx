@@ -6,6 +6,7 @@ import Good from './Good';
 class listOfGoods extends React.PureComponent {
   state = {
     goods: [...goodsFromServer],
+    originalGoods: [...goodsFromServer],
     selectedOption: null,
   }
 
@@ -23,7 +24,7 @@ class listOfGoods extends React.PureComponent {
 
   handleClickReset = () => {
     this.setState(prevState => ({
-      goods: prevState.goods,
+      goods: prevState.originalGoods,
       selectedOption: null,
     }));
   }
