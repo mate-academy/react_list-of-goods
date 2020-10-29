@@ -32,7 +32,7 @@ export const Buttons = (props) => {
         onClick={sortByLength}
         className="button"
       >
-        Sort by name length
+        Sort by length
       </button>
     </div>
   );
