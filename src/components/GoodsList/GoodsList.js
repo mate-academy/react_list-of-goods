@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './GoodsList.css';
 
 export class GoodsList extends React.Component {
   state = {
@@ -18,7 +19,7 @@ sortAlphabetically = () => {
   }));
 }
 
-reset = () => {
+resetList = () => {
   this.setState({
     goods: [...this.props.goods],
   });
@@ -35,7 +36,7 @@ render() {
 
   return (
     <>
-      <ul>
+      <ul className="goodsList">
         {goods.map(item => (
           <li key="item">{item}</li>
         ))}
@@ -54,7 +55,7 @@ render() {
       </button>
       <button
         type="button"
-        onClick={this.reset}
+        onClick={this.resetList}
       >
         Reset
       </button>

@@ -1,0 +1,15 @@
+.goodsList {
+  color: rgb(0, 56, 8);
+  font-size: 32px;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: aqua;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 5px;
+  box-shadow: 5px 5px 5px black;
+  padding: 5px;
+}
