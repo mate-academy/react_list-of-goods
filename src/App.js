@@ -20,82 +20,32 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     listVisibility: false,
-    goods: goodsFromServer,
-    selectValue: '',
   }
 
-  enter = (callback) => {
-    this.setState({ listVisibility: callback });
-  }
-
-  reverse = () => {
-    this.setState(state => ({
-      goods: [...state.goods].reverse(),
-    }));
-  }
-
-  alphabeticalSort = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort(),
-    }));
-  }
-
-  lengthSort = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.length - b.length),
-    }));
-  }
-
-  select = (callback) => {
-    this.setState({
-      goods: goodsFromServer.filter(good => good.length >= callback),
-      selectValue: callback.toString(),
-    });
-  }
-
-  reset = () => {
-    this.setState({
-      goods: goodsFromServer,
-      selectValue: '1',
-    });
+  enter = (isVisible) => {
+    this.setState({ listVisibility: isVisible });
   }
 
   render() {
-    const { listVisibility, goods, selectValue } = this.state;
+    const { listVisibility } = this.state;
 
     return (
-      <div className="App">
-        <h1>
-          Goods List
-          {' '}
-          {goods.length}
-        </h1>
+      <div className="wrapper">
+        <h1>Goods List</h1>
 
-        {!listVisibility
+        {listVisibility
           ? (
+            <GoodList
+              goodsList={goodsFromServer}
+              goodsFromServer={goodsFromServer}
+            />
+          )
+          : (
             <StartButton
               listVisibility={listVisibility}
               enter={this.enter}
             />
           )
-          : <div />
-        }
-
-        {listVisibility
-          ? (
-            <GoodList
-              goodsList={goods}
-              goodsFromServer={goodsFromServer}
-              listVisibility={listVisibility}
-              selectValue={selectValue}
-              reverse={this.reverse}
-              alphabeticalSort={this.alphabeticalSort}
-              lengthSort={this.lengthSort}
-              reset={this.reset}
-              select={this.select}
-            />
-          )
-          : <div />
         }
       </div>
     );
