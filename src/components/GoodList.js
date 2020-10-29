@@ -43,32 +43,32 @@ class GoodList extends React.Component {
 
     return (
       <>
-        {!show
-        && (
-          <button
-            className="ui button"
-            type="button"
-            onClick={this.show}
-          >
-            Start
-          </button>
-        )}
         {show
-        && (
-          <ul className="ui list">
-            <Options
-              reverse={this.reverse}
-              sortByAlphabetically={this.sortByAlphabetically}
-              reset={this.reset}
-              sortByLength={this.sortByLength}
-            />
-            {goodsList.map(good => (
-              <li key={good} className="ui bulleted list">
-                {good}
-              </li>
-            ))}
-          </ul>
-        )}
+          ? (
+            <ul className="ui list">
+              <Options
+                reverse={this.reverse}
+                sortByAlphabetically={this.sortByAlphabetically}
+                reset={this.reset}
+                sortByLength={this.sortByLength}
+              />
+              {goodsList.map(good => (
+                <li key={good} className="ui bulleted list">
+                  {good}
+                </li>
+              ))}
+            </ul>
+          )
+          : (
+            <button
+              className="ui button"
+              type="button"
+              onClick={this.show}
+            >
+              Start
+            </button>
+          )
+        }
       </>
     );
   }
