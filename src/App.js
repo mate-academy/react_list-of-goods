@@ -17,9 +17,9 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const goodsPrepared = goodsFromServer.map((good, index) => ({
+const goodsPrepared = goodsFromServer.map((item, index) => ({
   id: index,
-  good,
+  good: item,
 }));
 
 class App extends React.PureComponent {
@@ -39,7 +39,6 @@ class App extends React.PureComponent {
   reverse = () => {
     this.setState(state => ({
       goods: [...state.goods].reverse(),
-
     }));
   }
 
