@@ -39,19 +39,17 @@ class App extends PureComponent {
       <div className="app">
         <h1 className="app__header">Goods</h1>
 
-        {!isListVisible && (
-          <button
-            type="button"
-            className="app__button button"
-            onClick={this.showList}
-          >
-            Start
-          </button>
-        )}
-
-        {isListVisible && (
-          <Content goods={preparedGoods} />
-        )}
+        {isListVisible
+          ? <Content goods={preparedGoods} />
+          : (
+            <button
+              type="button"
+              className="app__button button"
+              onClick={this.showList}
+            >
+              Start
+            </button>
+          )}
       </div>
     );
   }
