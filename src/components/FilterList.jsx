@@ -74,12 +74,12 @@ const FiltersList = ({
 );
 
 FiltersList.propTypes = {
-  reverse: PropTypes.string.isRequired,
-  alfabeticSort: PropTypes.string.isRequired,
-  reset: PropTypes.string.isRequired,
-  sortByLength: PropTypes.string.isRequired,
-  selectLength: PropTypes.string.isRequired,
-  selectedOption: PropTypes.string.isRequired,
+  reverse: PropTypes.func.isRequired,
+  alfabeticSort: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+  sortByLength: PropTypes.func.isRequired,
+  selectLength: PropTypes.func.isRequired,
+  selectedOption: PropTypes.func.isRequired,
 }.isRequired;
 
 export default FiltersList;
