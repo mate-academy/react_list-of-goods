@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { ButtonList } from './components/ButtonList';
+import { Options } from './components/Options';
 
 import './App.css';
 
@@ -16,10 +16,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 class App extends PureComponent {
   state = {
     hidden: true,
     goods: goodsFromServer,
+    goodLength: 1,
   }
 
   start = () => {
@@ -45,6 +48,7 @@ class App extends PureComponent {
   reset = () => {
     this.setState({
       goods: goodsFromServer,
+      goodLength: 1,
     });
   }
 
@@ -56,8 +60,17 @@ class App extends PureComponent {
     }));
   }
 
+  minLength = (e) => {
+    const { value } = e.target;
+
+    this.setState({
+      goodLength: value,
+      goods: goodsFromServer.filter(good => good.length >= value),
+    });
+  }
+
   render() {
-    const { hidden, goods } = this.state;
+    const { hidden, goods, goodLength } = this.state;
 
     return (
       <div className="container text-center my-5">
@@ -69,12 +82,24 @@ class App extends PureComponent {
         >
           Start
         </button>
+        {/* eslint-disable-next-line */}
+        <select
+          hidden={hidden}
+          className="form-control w-25 mx-auto text-center"
+          value={goodLength}
+          onChange={this.minLength}
+        >
+          {selectList.map(item => (
+            <option key={item} value={item}>{item}</option>
+          ))}
+        </select>
         <div hidden={hidden} className="btn-group my-5">
-          <ButtonList
+          <Options
             reverseGoods={this.reverseGoods}
             sortAlphabet={this.sortAlphabet}
             reset={this.reset}
             sortLength={this.sortLength}
+            minLength={this.minLength}
           />
         </div>
 
@@ -85,6 +110,7 @@ class App extends PureComponent {
             </li>
           ))}
         </ul>
+
       </div>
     );
   }

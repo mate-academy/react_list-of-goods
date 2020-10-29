@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ButtonList = React.memo(({
+export const Options = React.memo(({
   reverseGoods,
   sortAlphabet,
   reset,
@@ -39,7 +39,7 @@ export const ButtonList = React.memo(({
   </>
 ));
 
-ButtonList.propTypes = {
+Options.propTypes = {
   reverseGoods: PropTypes.func.isRequired,
   sortAlphabet: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
