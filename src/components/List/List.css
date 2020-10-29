@@ -1,0 +1,10 @@
+.list {
+  text-align: left;
+}
+
+.list__item {
+  background-color: #cbc29f;
+  width: 180px;
+  margin: 10px;
+  border-radius: 3px;
+}
