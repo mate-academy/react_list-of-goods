@@ -68,9 +68,7 @@ class App extends React.Component {
     const length = Number(event.target.value);
 
     this.setState(() => ({
-      goods: [...goodsFromServer.filter(item => (
-        item.length >= length
-      ))],
+      goods: [...goodsFromServer.filter(item => (item.length >= length))],
       selected: length,
     }));
   }
