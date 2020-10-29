@@ -24,7 +24,7 @@ class App extends React.PureComponent {
     selectValue: 1,
   };
 
-  startHideClick = () => {
+  startHideButton = () => {
     this.setState(state => ({
       clickedStart: !state.clickedStart,
     }));
@@ -43,7 +43,10 @@ class App extends React.PureComponent {
   };
 
   resetGoods = () => {
-    this.setState({ goods: goodsFromServer });
+    this.setState({
+      goods: goodsFromServer,
+      selectValue: 1,
+    });
   };
 
   sortGoodsByLength = () => {
@@ -62,7 +65,7 @@ class App extends React.PureComponent {
   };
 
   render() {
-    const { clickedStart, goods } = this.state;
+    const { clickedStart, goods, selectValue } = this.state;
     const buttonsList = [
       {
         name: 'Reverse',
@@ -97,7 +100,7 @@ class App extends React.PureComponent {
               <button
                 type="button"
                 className="ui button"
-                onClick={this.startHideClick}
+                onClick={this.startHideButton}
               >
                 Hide
               </button>
@@ -105,7 +108,7 @@ class App extends React.PureComponent {
               <ButtonsList buttonsList={buttonsList} />
               <select
                 onChange={this.handleSelect}
-                value={this.state.selectValue}
+                value={selectValue}
               >
                 {numbers.map(number => (
                   <option
@@ -122,7 +125,7 @@ class App extends React.PureComponent {
             <button
               type="button"
               className="ui button"
-              onClick={this.startHideClick}
+              onClick={this.startHideButton}
             >
               Start
             </button>
