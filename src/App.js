@@ -20,7 +20,6 @@ const goodsFromServer = [
 
 class App extends React.PureComponent {
   state = {
-    goods: goodsFromServer,
     isVisible: false,
     isReversed: false,
     isSorted: false,
@@ -57,13 +56,13 @@ class App extends React.PureComponent {
 
   render() {
     const {
-      goods,
       isVisible,
       isReversed,
       isSorted,
       defaultLength,
     } = this.state;
-    const newGoods = goods.filter(good => good.length >= defaultLength);
+    const newGoods = goodsFromServer
+      .filter(good => good.length >= defaultLength);
 
     if (isSorted) {
       newGoods.sort((g1, g2) => {
