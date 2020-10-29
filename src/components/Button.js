@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 
-export class Button extends React.PureComponent {
+export class MyButton extends React.PureComponent {
   render() {
     const { text, onClick } = this.props;
 
     return (
-      <button
+      <Button
         type="button"
         onClick={onClick}
+        variant="outline-success"
+        className="rounded-pill m-2"
       >
         {text}
-      </button>
+      </Button>
     );
   }
 }
 
-Button.propTypes = {
+MyButton.propTypes = {
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
