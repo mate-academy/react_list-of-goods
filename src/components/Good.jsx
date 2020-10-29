@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GoodsList = ({ good }) => (
+const Good = ({ good }) => (
   <>
     <li className="app__list-item">
       {good}
@@ -9,8 +9,8 @@ const GoodsList = ({ good }) => (
   </>
 );
 
-GoodsList.propTypes = {
+Good.propTypes = {
   good: PropTypes.string.isRequired,
 }.isRequired;
 
-export default GoodsList;
+export default Good;

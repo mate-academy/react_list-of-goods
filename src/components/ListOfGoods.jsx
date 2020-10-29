@@ -1,12 +1,11 @@
 import React from 'react';
 import goodsFromServer from '../api/goods';
 import FiltersList from './FilterList';
-import GoodsList from './GoodsList';
+import Good from './Good';
 
 class listOfGoods extends React.PureComponent {
   state = {
     goods: [...goodsFromServer],
-    originalGoods: [...goodsFromServer],
     selectedOption: null,
   }
 
@@ -24,7 +23,8 @@ class listOfGoods extends React.PureComponent {
 
   handleClickReset = () => {
     this.setState(prevState => ({
-      goods: prevState.originalGoods,
+      goods: prevState.goods,
+      selectedOption: null,
     }));
   }
 
@@ -32,6 +32,7 @@ class listOfGoods extends React.PureComponent {
     this.setState(prevState => ({
       goods: [...prevState.goods]
         .sort((prevGood, nextGood) => prevGood.length - nextGood.length),
+      selectedOption: '',
     }));
   }
 
@@ -61,7 +62,7 @@ class listOfGoods extends React.PureComponent {
         <ul className="app__list">
           {goods
             .map(good => (
-              <GoodsList
+              <Good
                 key={good}
                 good={good}
               />
