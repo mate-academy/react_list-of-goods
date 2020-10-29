@@ -24,6 +24,7 @@ class App extends Component {
     visible: false,
     goods: completeGoods,
     visibleGoods: completeGoods,
+    selectedValue: 1,
   }
 
   visible = () => {
@@ -48,6 +49,7 @@ class App extends Component {
 
   reset = () => {
     this.setState(state => ({
+      selectedValue: 1,
       visibleGoods: [...state.goods],
     }));
   }
@@ -61,9 +63,10 @@ class App extends Component {
   }
 
   selectValue = (event) => {
-    const value = +event.target.value;
+    const value = Number(event.target.value);
 
     this.setState(state => ({
+      selectedValue: value,
       visibleGoods: [...state.goods].filter(item => (
         item.name.length >= value
       )),
@@ -71,7 +74,7 @@ class App extends Component {
   }
 
   render() {
-    const { visible, visibleGoods } = this.state;
+    const { visible, visibleGoods, selectedValue } = this.state;
 
     return (
       <div className="App">
@@ -118,6 +121,7 @@ class App extends Component {
           </button>
 
           <select
+            value={selectedValue}
             className="ui primary button"
             onChange={this.selectValue}
           >
