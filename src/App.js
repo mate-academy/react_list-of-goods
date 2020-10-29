@@ -1,5 +1,7 @@
 import React from 'react';
-import './App.css';
+import { StartButton } from './components/StartButton';
+import { GoodsList } from './components/GoodsList';
+import './App.scss';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +16,29 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isStartVisible: true,
+  }
+
+  showList = () => {
+    this.setState({
+      isStartVisible: false,
+    });
+  }
+
+  render() {
+    const { isStartVisible } = this.state;
+
+    return (
+      <div className="App">
+        {isStartVisible
+          ? <StartButton showList={this.showList} />
+          : <GoodsList goods={goodsFromServer} />
+        }
+      </div>
+    );
+  }
+}
 
 export default App;
