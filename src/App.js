@@ -25,14 +25,12 @@ const preparedGoods = goodsFromServer.map((good, index) => ({
 
 class App extends React.Component {
   state = {
-    startButtonVisible: true,
     contentVisible: false,
     goods: preparedGoods,
   }
 
   toggleVisible = () => {
     this.setState(state => ({
-      startButtonVisible: !state.startButtonVisible,
       contentVisible: !state.contentVisible,
       goods: preparedGoods,
     }));
@@ -63,23 +61,22 @@ class App extends React.Component {
   }
 
   render() {
-    const { goods, startButtonVisible, contentVisible } = this.state;
+    const { goods, contentVisible } = this.state;
 
     return (
       <Container className="pt-5">
-        {startButtonVisible && (
+        {!contentVisible ? (
           <StartButton toggleVisible={this.toggleVisible} />
-        )}
-        {contentVisible
-        && (
-          <PageContent
-            goods={goods}
-            reverseList={this.reverseList}
-            sortByAlph={this.sortByAlph}
-            reset={this.reset}
-            sortByLength={this.sortByLength}
-          />
-        )}
+        )
+          : (
+            <PageContent
+              goods={goods}
+              reverseList={this.reverseList}
+              sortByAlph={this.sortByAlph}
+              reset={this.reset}
+              sortByLength={this.sortByLength}
+            />
+          )}
       </Container>
     );
   }
