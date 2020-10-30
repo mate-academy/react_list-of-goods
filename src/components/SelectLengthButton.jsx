@@ -31,6 +31,6 @@ export class SelectLengthButton extends React.Component {
 }
 
 SelectLengthButton.propTypes = {
-  lengthSortingLimit: PropTypes.number.isRequired,
+  lengthSortingLimit: PropTypes.string.isRequired,
   selectLengthSorting: PropTypes.func.isRequired,
 };

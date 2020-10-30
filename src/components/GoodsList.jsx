@@ -1,20 +1,84 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { SortingButtons } from './SortingButtons';
+import { SelectLengthButton } from './SelectLengthButton';
+import { ResetButton } from './ResetButton';
 
-export function GoodsList({ visibleList }) {
-  return (
-    <ul className="goods-list">
-      {visibleList.map(item => (
-        <li className="list-item" key={item.id}>
-          {item.name}
-        </li>
-      ))}
-    </ul>
-  );
+export class GoodsList extends React.Component {
+  state = {
+    visibleList: [...this.props.goodsList],
+    lengthSortingLimit: 1,
+  }
+
+  reverseList = () => {
+    this.setState(state => ({
+      visibleList: state.visibleList.reverse(),
+    }));
+  }
+
+  sortByAlphabet = () => {
+    this.setState(state => ({
+      visibleList: state.visibleList.sort((item1, item2) => (
+        item1.name.localeCompare(item2.name))),
+    }));
+  }
+
+  sortByLength = () => {
+    this.setState(state => ({
+      visibleList: state.visibleList.sort((item1, item2) => (
+        item1.name.length - item2.name.length)),
+    }));
+  }
+
+  selectLengthSorting = (event) => {
+    const { value } = event.target;
+
+    this.setState({
+      lengthSortingLimit: Number(value),
+      visibleList: [...this.props.goodsList].filter(
+        item => item.name.length >= value,
+      ),
+    });
+  }
+
+  resetSorting = () => {
+    this.setState({
+      visibleList: [...this.props.goodsList],
+    });
+  }
+
+  render() {
+    const { visibleList, lengthSortingLimit } = this.state;
+
+    return (
+      <>
+        <SortingButtons
+          reverseList={this.reverseList}
+          sortByAlphabet={this.sortByAlphabet}
+          sortByLength={this.sortByLength}
+        />
+
+        <SelectLengthButton
+          selectLengthSorting={this.selectLengthSorting}
+          lengthSortingLimit={lengthSortingLimit}
+        />
+
+        <ResetButton resetSorting={this.resetSorting} />
+
+        <ul className="goods-list">
+          {visibleList.map(item => (
+            <li className="list-item" key={item.id}>
+              {item.name}
+            </li>
+          ))}
+        </ul>
+      </>
+    );
+  }
 }
 
 GoodsList.propTypes = {
-  visibleList: PropTypes.arrayOf(
+  goodsList: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
