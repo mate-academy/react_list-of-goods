@@ -1,7 +1,7 @@
 import React from 'react';
-import FlipMove from 'react-flip-move';
-import { ListGroup, FormControl, Jumbotron } from 'react-bootstrap';
-import { MyButton } from './components/Button';
+import { Jumbotron } from 'react-bootstrap';
+import { MyButton } from './components/MyButton';
+import { ListOfGoods } from './components/ListOfGoods/ListOfGoods';
 
 import './App.css';
 
@@ -27,11 +27,15 @@ class App extends React.PureComponent {
   }
 
   showList = () => {
-    this.setState(state => ({ isVisible: !state.isVisible }));
+    this.setState(state => ({
+      isVisible: !state.isVisible,
+    }));
   }
 
   reverseList = () => {
-    this.setState(state => ({ isReversed: !state.isReversed }));
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
   }
 
   sortListByABC = () => {
@@ -57,7 +61,9 @@ class App extends React.PureComponent {
   }
 
   setLength = (event) => {
-    this.setState({ defaultLength: event.target.value });
+    this.setState({
+      defaultLength: +event.target.value,
+    });
   }
 
   render() {
@@ -88,49 +94,41 @@ class App extends React.PureComponent {
       <Jumbotron className="App text-center js-container">
         <h1 className="display-4">Goods</h1>
 
-        {!isVisible && <MyButton onClick={this.showList} text="Start" />}
+        {!isVisible && (
+          <MyButton
+            onClick={this.showList}
+            text="Start"
+          />
+        )}
 
         {isVisible && (
           <>
-            <MyButton onClick={this.reverseList} text="Reverse" />
+            <MyButton
+              onClick={this.reverseList}
+              text="Reverse"
+            />
 
-            <MyButton onClick={this.sortListByABC} text="Sort alphabetically" />
+            <MyButton
+              onClick={this.sortListByABC}
+              text="Sort alphabetically"
+            />
 
-            <MyButton onClick={this.resetList} text="Reset" />
+            <MyButton
+              onClick={this.sortListByLength}
+              text="Sort by length"
+            />
 
-            <MyButton onClick={this.sortListByLength} text="Sort by length" />
+            <MyButton
+              onClick={this.resetList}
+              text="Reset"
+              variant="outline-danger"
+            />
 
-            <FormControl
-              as="select"
-              size="sm"
-              name="lengths"
-              value={defaultLength}
-              onChange={this.setLength}
-              className="js-container"
-            >
-              {goodsFromServer.map((item, i) => (
-                <option value={i + 1} key={Math.random()}>
-                  {i + 1}
-                </option>
-              ))}
-            </FormControl>
-
-            <ListGroup className="js-container">
-              <FlipMove
-                duration={800}
-                easing="ease-out"
-              >
-                {newGoods.map(good => (
-                  <ListGroup.Item
-                    key={good}
-                    variant="success"
-                    className="rounded-pill my-1 py-1"
-                  >
-                    {good}
-                  </ListGroup.Item>
-                ))}
-              </FlipMove>
-            </ListGroup>
+            <ListOfGoods
+              goods={newGoods}
+              defaultLength={defaultLength}
+              setLength={this.setLength}
+            />
           </>
         )}
       </Jumbotron>
