@@ -65,6 +65,7 @@ class App extends Component {
 
     return (
       <div className="goods">
+
         <button
           type="button"
           className="positive ui button"
@@ -72,6 +73,7 @@ class App extends Component {
         >
           {isVisible ? 'Hide' : 'Show'}
         </button>
+
         <button
           type="button"
           disabled={isVisible ? '' : 'disabled'}
@@ -80,6 +82,7 @@ class App extends Component {
         >
           {isSorted ? 'Sort DESC' : 'Sort ASC'}
         </button>
+
         <button
           type="button"
           disabled={isVisible ? '' : 'disabled'}
@@ -88,6 +91,7 @@ class App extends Component {
         >
           Reverse
         </button>
+
         <button
           type="button"
           disabled={isVisible ? '' : 'disabled'}
@@ -96,6 +100,7 @@ class App extends Component {
         >
           Reset
         </button>
+
         <button
           type="button"
           disabled={isVisible ? '' : 'disabled'}
@@ -104,11 +109,8 @@ class App extends Component {
         >
           { isSorted ? 'Sort by Length DESC' : 'Sort by Length ASC' }
         </button>
-        <ul
-          style={isVisible ? { display: 'block' } : { display: 'none' }}
-        >
-          <GoodsList goods={goods} />
-        </ul>
+
+        { isVisible ? <ul><GoodsList goods={goods} /></ul> : '' }
       </div>
     );
   }
