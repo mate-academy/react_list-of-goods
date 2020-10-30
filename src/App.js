@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import GoodsList from './components/GoodsList';
+import ReverseButton from './components/ReverseButton';
+import SortButton from './components/SortButton';
+import StartButton from './components/StartButton';
+import ResetButton from './components/ResetButton';
+import SortByLengthButton from './components/SortByLengthButton';
 
 const goodsFromServer = [
   'Dumplings',
@@ -66,49 +71,34 @@ class App extends Component {
     return (
       <div className="goods">
 
-        <button
-          type="button"
-          className="positive ui button"
-          onClick={this.Start}
-        >
-          {isVisible ? 'Hide' : 'Show'}
-        </button>
+        <StartButton
+          start={this.Start}
+          isVisible={isVisible}
+        />
 
-        <button
-          type="button"
-          disabled={isVisible ? '' : 'disabled'}
-          className="ui secondary button"
-          onClick={isSorted ? this.Reverse : this.Sort}
-        >
-          {isSorted ? 'Sort DESC' : 'Sort ASC'}
-        </button>
+        <SortButton
+          isVisible={isVisible}
+          isSorted={isSorted}
+          reverse={this.Reverse}
+          sort={this.Sort}
+        />
 
-        <button
-          type="button"
-          disabled={isVisible ? '' : 'disabled'}
-          className="ui secondary button"
-          onClick={this.Reverse}
-        >
-          Reverse
-        </button>
+        <ReverseButton
+          isVisible={isVisible}
+          reverse={this.Reverse}
+        />
 
-        <button
-          type="button"
-          disabled={isVisible ? '' : 'disabled'}
-          className="ui secondary button"
-          onClick={this.Reset}
-        >
-          Reset
-        </button>
+        <ResetButton
+          isVisible={isVisible}
+          reset={this.Reset}
+        />
 
-        <button
-          type="button"
-          disabled={isVisible ? '' : 'disabled'}
-          className="ui secondary button"
-          onClick={isSorted ? this.Reverse : this.SortbyLength}
-        >
-          { isSorted ? 'Sort by Length DESC' : 'Sort by Length ASC' }
-        </button>
+        <SortByLengthButton
+          isVisible={isVisible}
+          isSorted={isSorted}
+          reverse={this.Reverse}
+          sortbyLength={this.SortbyLength}
+        />
 
         { isVisible ? <ul><GoodsList goods={goods} /></ul> : '' }
       </div>
