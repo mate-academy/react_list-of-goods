@@ -16,9 +16,8 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const preperedGoods = goodsFromServer.map((good, index) => ({
+const preperedGoods = goodsFromServer.map(good => ({
   name: good,
-  id: index,
 }));
 
 class App extends React.Component {

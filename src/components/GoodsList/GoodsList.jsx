@@ -1,5 +1,4 @@
 import React from 'react';
-import { Good } from '../Good';
 import { GoodsListShape } from '../shapes/GoodsListShape';
 import './GoodsList.css';
 
@@ -8,10 +7,10 @@ export const GoodsList = ({ goods }) => (
     {
       goods.map(good => (
         <li
-          key={good.id}
+          key={good.name}
           className="list__item"
         >
-          <Good name={good.name} />
+          {good.name}
         </li>
       ))
     }
