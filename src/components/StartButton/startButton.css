@@ -1,0 +1,9 @@
+.App__button {
+  display: block;
+  width: 50px;
+  height: 30px;
+  margin: 50px auto;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
