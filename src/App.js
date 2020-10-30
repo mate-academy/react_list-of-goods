@@ -32,12 +32,9 @@ class App extends React.Component {
     return (
       <div className="App">
         {
-          isShowed
-            ? (
-              <>
-                <GoodsList goods={goodsFromServer} />
-              </>
-            )
+          isShowed ? (
+            <GoodsList goods={goodsFromServer} />
+          )
             : (
               <button
                 type="button"
@@ -46,8 +43,7 @@ class App extends React.Component {
               >
                 DON`T PRESS!!!
               </button>
-            )
-        }
+            )}
       </div>
     );
   }

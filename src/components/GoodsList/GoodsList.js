@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    currentList: [...this.props.goods],
+    currentList: this.props.goods,
   };
 
   reset = () => {
