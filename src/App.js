@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import { Buttons } from './components/Buttons';
-import { GoodsList } from './components/GoodsList';
+import { Wrapper } from './components/Wrapper';
 
 const goodsFromServer = [
   'Dumplings',
@@ -80,22 +79,16 @@ class App extends React.Component {
                 Start
               </button>
             )
-            : ''
+            : (
+              <Wrapper
+                goods={goods}
+                sortAlphabetically={this.sortAlphabetically}
+                sortByLength={this.sortByLength}
+                reverse={this.reverse}
+                reset={this.reset}
+              />
+            )
         }
-
-        <div
-          hidden={isListVisible}
-        >
-          <h1>Goods</h1>
-          <GoodsList goods={goods} />
-
-          <Buttons
-            sortAlphabetically={this.sortAlphabetically}
-            sortByLength={this.sortByLength}
-            reverse={this.reverse}
-            reset={this.reset}
-          />
-        </div>
       </div>
     );
   }
