@@ -29,32 +29,32 @@ class App extends React.PureComponent {
     goods: goodsPrepared,
   }
 
-  start = () => {
+  startHandle = () => {
     this.setState({
       isListVisible: true,
       isStartVisible: false,
     });
   }
 
-  reverse = () => {
+  reverseHandle = () => {
     this.setState(state => ({
       goods: [...state.goods].reverse(),
     }));
   }
 
-  sort = () => {
+  sortHandle = () => {
     this.setState(state => ({
       goods: [...state.goods].sort((a, b) => a.good.localeCompare(b.good)),
     }));
   }
 
-  sortByLength = () => {
+  sortLengthHandle = () => {
     this.setState(state => ({
       goods: [...state.goods].sort((a, b) => a.good.length - b.good.length),
     }));
   }
 
-  reset = () => {
+  resetHandle = () => {
     this.setState(state => ({
       goods: goodsPrepared,
     }));
@@ -65,25 +65,21 @@ class App extends React.PureComponent {
 
     return (
       <div className="app">
-        {isStartVisible
-          ? <Button text="Start" onclick={this.start} />
-          : null
-        }
+        {isStartVisible && <Button text="Start" onclick={this.startHandle} />}
 
         {isListVisible
-          ? (
+          && (
             <div className="app__content">
               <div className="app__buttons">
-                <Button text="Reverse" onclick={this.reverse} />
-                <Button text="Sort" onclick={this.sort} />
-                <Button text="Sort by length" onclick={this.sortByLength} />
-                <Button text="Reset" onclick={this.reset} />
+                <Button text="Reverse" onclick={this.reverseHandle} />
+                <Button text="Sort" onclick={this.sortHandle} />
+                <Button text="Sort by length" onclick={this.sortLengthHandle} />
+                <Button text="Reset" onclick={this.resetHandle} />
               </div>
 
               <GoodList goods={goods} />
             </div>
           )
-          : null
         }
       </div>
     );
