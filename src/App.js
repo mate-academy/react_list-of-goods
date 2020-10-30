@@ -24,44 +24,36 @@ class App extends React.Component {
   }
 
   start = () => {
-    this.setState(
-      {
-        visibility: true,
-      },
-    );
+    this.setState({
+      visibility: true,
+    });
   }
 
   reverse = () => {
-    this.setState(prev => (
-      {
-        goods: [...prev.goods.reverse()],
-      }
-    ));
+    this.setState(prev => ({
+      goods: [...prev.goods.reverse()],
+    }));
   }
 
   sort = () => {
-    this.setState(prev => (
-      {
-        goods: [...prev.goods.sort()],
-      }
+    this.setState(prev => ({
+      goods: [...prev.goods.sort()],
+    }
     ));
   }
 
   sortLength = () => {
-    this.setState(prev => (
-      {
-        goods: [...prev.goods.sort((a, b) => (a.length - b.length))],
-      }
+    this.setState(prev => ({
+      goods: [...prev.goods.sort((a, b) => (a.length - b.length))],
+    }
     ));
   }
 
   reset = () => {
-    this.setState(() => (
-      {
-        goods: [...goodsFromServer],
-        selected: 1,
-      }
-    ));
+    this.setState(() => ({
+      goods: [...goodsFromServer],
+      selected: 1,
+    }));
   }
 
   selectLength = (event) => {
@@ -89,8 +81,7 @@ class App extends React.Component {
           START
         </button>
         {
-          visibility
-          && (
+          visibility && (
             <GoodsList
               list={goods}
               reverse={this.reverse}

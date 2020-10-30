@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { Select } from './select';
 import '../App.css';
 
-export function GoodsList(
-  { list,
-    reverse,
-    sort,
-    sortLength,
-    reset,
-    selectLength,
-    selected },
-) {
+export function GoodsList({
+  list,
+  reverse,
+  sort,
+  sortLength,
+  reset,
+  selectLength,
+  selected,
+}) {
   return (
     <ul>
       {list.map(good => (
