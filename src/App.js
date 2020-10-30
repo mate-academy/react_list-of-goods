@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { GoodsList } from './components/GoodsList';
+import { Content } from './components/Content';
 import { StartButton } from './components/StartButton';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -41,10 +41,9 @@ class App extends React.Component {
     return (
       <div className="App">
         {!listVisible
-          ? (<StartButton showGoodsList={this.showGoodsList} />)
-          : (
-            <GoodsList goodsList={preparedGoodsList} />
-          )}
+          ? <StartButton showGoodsList={this.showGoodsList} />
+          : <Content goodsList={preparedGoodsList} />
+        }
       </div>
     );
   }
