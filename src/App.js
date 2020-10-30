@@ -100,7 +100,7 @@ class App extends Component {
           sortbyLength={this.SortbyLength}
         />
 
-        { isVisible ? <ul><GoodsList goods={goods} /></ul> : '' }
+        { isVisible && <GoodsList goods={goods} /> }
       </div>
     );
   }

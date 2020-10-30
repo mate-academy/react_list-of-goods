@@ -5,7 +5,7 @@ const SortByLengthButton = ({ isVisible, isSorted, reverse, sortbyLength}) => {
   return (
     <button
       type="button"
-      disabled={isVisible ? '' : 'disabled'}
+      disabled={!isVisible && 'disabled'}
       className="ui secondary button"
       onClick={isSorted ? reverse : sortbyLength}
     >

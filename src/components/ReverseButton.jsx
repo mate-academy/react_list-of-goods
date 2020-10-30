@@ -5,7 +5,7 @@ const ReverseButton = ({ isVisible, reverse}) => {
   return (
     <button
       type="button"
-      disabled={isVisible ? '' : 'disabled'}
+      disabled={!isVisible && 'disabled'}
       className="ui secondary button"
       onClick={reverse}
     >

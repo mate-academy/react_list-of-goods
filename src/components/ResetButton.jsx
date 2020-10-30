@@ -5,7 +5,7 @@ const ResetButton = ({ isVisible, reset }) => {
   return (
   <button
     type="button"
-    disabled={isVisible ? '' : 'disabled'}
+    disabled={!isVisible && 'disabled'}
     className="ui secondary button"
     onClick={reset}
   >

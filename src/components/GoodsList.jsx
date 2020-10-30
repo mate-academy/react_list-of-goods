@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 const GoodsList = ({ goods }) => {
   return (
-    goods.map(item => (
-    <li key={item.id}>{item.name}</li>))
+    <ul>
+      {goods.map(item => (
+        <li key={item.id}>{item.name}</li>))}
+    </ul>
   );
 };
 
