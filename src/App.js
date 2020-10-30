@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
 
+import Buttons from './components/Buttons/Buttons';
+import ListOfGoods from './components/ListOfGoods/ListOfGoods';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -91,44 +94,19 @@ class App extends React.Component {
               Start
             </button>
           )
-          : ''
+          : (
+            <Buttons
+              clickReverse={this.reverse}
+              clickSortAlphabetically={this.sortAlphabetically}
+              clickSortByLength={this.sortByLength}
+              clickReset={this.reset}
+            />
+          )
         }
 
-        <button
-          type="button"
-          onClick={this.reverse}
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          onClick={this.sortAlphabetically}
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          onClick={this.reset}
-        >
-          Reset
-        </button>
-
-        <ul>
-          {this.state.newList.map(item => (
-            <li key={item}>
-              {item}
-            </li>
-          ))}
-        </ul>
+        <ListOfGoods
+          items={this.state.newList}
+        />
       </div>
     );
   }
