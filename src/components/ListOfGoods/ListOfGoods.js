@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ListOfGoods = React.memo(({ items }) => (
+const ListOfGoods = ({ items }) => (
   <ul>
     {items.map(item => (
       <li key={item}>
@@ -9,7 +9,7 @@ const ListOfGoods = React.memo(({ items }) => (
       </li>
     ))}
   </ul>
-));
+);
 
 ListOfGoods.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
