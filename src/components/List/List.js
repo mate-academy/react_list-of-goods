@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from '../Button';
 import './list.css';
 
 const List = ({ goodsList }) => {
@@ -26,44 +27,29 @@ const List = ({ goodsList }) => {
       <div className="page__content">
         <ol className="page__list list">
           {goods.map(good => (
-            <li className="list__item">
+            <li className="list__item" key={good}>
               {good}
             </li>
           ))
           }
         </ol>
         <div className="page__buttons">
-          <button
-            type="button"
-            className="page__button"
-            onClick={reverseList}
-          >
-            Reverse
-          </button>
-
-          <button
-            type="button"
-            className="page__button"
-            onClick={() => sortList(alphabetSorter)}
-          >
-            Sort alphabetically
-          </button>
-
-          <button
-            type="button"
-            className="page__button"
-            onClick={resetList}
-          >
-            Reset
-          </button>
-
-          <button
-            type="button"
-            className="page__button"
-            onClick={() => sortList(lengthSorter)}
-          >
-            Sort by length
-          </button>
+          <Button
+            name="Reverse"
+            handler={reverseList}
+          />
+          <Button
+            name="Sort alphabetically"
+            handler={() => sortList(alphabetSorter)}
+          />
+          <Button
+            name="Reset"
+            handler={resetList}
+          />
+          <Button
+            name="Sort by length"
+            handler={() => sortList(lengthSorter)}
+          />
         </div>
       </div>
     </div>
