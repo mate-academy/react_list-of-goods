@@ -45,7 +45,7 @@ class App extends React.Component {
   sortByLength = () => {
     this.setState(prevState => ({
       list: [...prevState.list].sort(
-        (currentItem, nextItem) => currentItem.length - nextItem.length,
+        (a, b) => a.length - b.length,
       ),
     }));
   }
@@ -57,14 +57,15 @@ class App extends React.Component {
   }
 
   render() {
+    const { isActive } = this.state;
     const buttonClassName = cn(
       'App__start-button',
-      { App__none: this.state.isActive },
+      { App__none: isActive },
     );
 
     const contentClassName = cn(
       'App__content',
-      { App__none: !this.state.isActive },
+      { App__none: !isActive },
     );
 
     return (
