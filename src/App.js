@@ -54,24 +54,20 @@ class App extends React.Component {
     return (
       <div className="App">
         <button
-          className={isActive ? 'hidden' : ''}
+          hidden={isActive}
           type="button"
           onClick={this.activeList}
         >
           Start
         </button>
 
-        {
-          isActive
-            ? (
-              <ul>
-                {goods.map(item => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            )
-            : ''
-        }
+        {isActive && (
+          <ul>
+            {goods.map(item => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        )}
 
         <button
           type="button"
