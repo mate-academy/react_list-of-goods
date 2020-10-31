@@ -2,24 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GoodList from './GoodList';
 
-class Content extends React.Component {
+class Select extends React.Component {
   state = {
-    content: false,
+    select: false,
   };
 
-  content = () => {
+  select = () => {
     this.setState({
-      content: true,
+      select: true,
     });
   }
 
   render() {
-    const { content } = this.state;
+    const { select } = this.state;
     const { goodsFromServer } = this.props;
 
     return (
       <>
-        {content ? (
+        {select ? (
           <GoodList
             goodsFromServer={goodsFromServer}
           />
@@ -27,7 +27,7 @@ class Content extends React.Component {
           <button
             className="ui button black"
             type="button"
-            onClick={this.content}
+            onClick={this.select}
           >
             Start
           </button>
@@ -37,8 +37,8 @@ class Content extends React.Component {
   }
 }
 
-Content.propTypes = {
+Select.propTypes = {
   goodsFromServer: PropTypes.arrayOf.isRequired,
 };
 
-export default Content;
+export default Select;
