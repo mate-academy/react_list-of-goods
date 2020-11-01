@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ListOfGoods = ({ items }) => (
-  <ul>
-    {items.map(item => (
-      <li key={item}>
-        {item}
-      </li>
-    ))}
-  </ul>
+  <>
+    <ul>
+      {items.map(item => (
+        <li key={item}>
+          {item}
+        </li>
+      ))}
+    </ul>
+  </>
 );
 
 ListOfGoods.propTypes = {

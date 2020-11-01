@@ -19,16 +19,15 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goodsList: [...goodsFromServer],
     newList: [],
     showButton: true,
     sortAlphabeticallyIncrease: true,
-    sortByLengthIncrease: true,
+    sortByLength: true,
   }
 
   startList = () => {
     this.setState(state => ({
-      newList: state.goodsList,
+      newList: [...goodsFromServer],
       showButton: false,
     }));
   }
@@ -40,39 +39,37 @@ class App extends React.Component {
   };
 
   sortAlphabetically = () => {
-    if (this.state.sortAlphabeticallyIncrease) {
-      this.setState(state => ({
-        newList: state.newList.sort((a, b) => (
-          a.localeCompare(b)
-        )),
-        sortAlphabeticallyIncrease: !state.sortAlphabeticallyIncrease,
-      }));
-    } else {
-      this.setState(state => ({
-        newList: state.newList.sort((a, b) => (
-          b.localeCompare(a)
-        )),
-        sortAlphabeticallyIncrease: !state.sortAlphabeticallyIncrease,
-      }));
-    }
+    const { sortAlphabeticallyIncrease, newList } = this.state;
+
+    const sortedList = newList.sort((a, b) => {
+      if (sortAlphabeticallyIncrease) {
+        return a.localeCompare(b);
+      }
+
+      return b.localeCompare(a);
+    });
+
+    this.setState({
+      newList: sortedList,
+      sortAlphabeticallyIncrease: !sortAlphabeticallyIncrease,
+    });
   };
 
   sortByLength = () => {
-    if (this.state.sortByLengthIncrease) {
-      this.setState(state => ({
-        newList: state.newList.sort((a, b) => (
-          a.length - b.length
-        )),
-        sortByLengthIncrease: !state.sortByLengthIncrease,
-      }));
-    } else {
-      this.setState(state => ({
-        newList: state.newList.sort((a, b) => (
-          b.length - a.length
-        )),
-        sortByLengthIncrease: !state.sortByLengthIncrease,
-      }));
-    }
+    const { sortByLength, newList } = this.state;
+
+    const sortedList = newList.sort((a, b) => {
+      if (sortByLength) {
+        return a.length - b.length;
+      }
+
+      return b.length - a.length;
+    });
+
+    this.setState({
+      newList: sortedList,
+      sortByLength: !sortByLength,
+    });
   };
 
   reset = () => {
@@ -95,18 +92,19 @@ class App extends React.Component {
             </button>
           )
           : (
-            <Buttons
-              clickReverse={this.reverse}
-              clickSortAlphabetically={this.sortAlphabetically}
-              clickSortByLength={this.sortByLength}
-              clickReset={this.reset}
-            />
+            <div>
+              <Buttons
+                clickReverse={this.reverse}
+                clickSortAlphabetically={this.sortAlphabetically}
+                clickSortByLength={this.sortByLength}
+                clickReset={this.reset}
+              />
+              <ListOfGoods
+                items={this.state.newList}
+              />
+            </div>
           )
         }
-
-        <ListOfGoods
-          items={this.state.newList}
-        />
       </div>
     );
   }
