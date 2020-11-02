@@ -1,0 +1,80 @@
+.App {
+  text-align: center;
+}
+
+.start {
+  margin-top: 100px;
+  font-size: 40px;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgb(231, 85, 81);
+  color: white;
+  border: 3px solid black;
+}
+
+.Goods {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 35px;
+  margin: 0 auto;
+  width: 300px;
+  margin-top: 50px;
+  background-color: rgb(230, 255, 236);
+}
+
+.goods {
+  text-align: right;
+}
+
+select {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: rgb(10, 116, 254);
+  color: white;
+  font-weight: bold;
+}
+
+select:focus {
+  outline: none;
+}
+
+.reset,
+.asc,
+.reverse,
+.length {
+  width: 65px;
+  margin-right: 5px;
+  border-radius: 5px;
+  background-color: rgb(44, 152, 74);
+  color: white;
+  border: 2px solid black;
+  font-weight: bold;
+
+}
+
+button:focus {
+  outline: none;
+}
+
+.GoodsList {
+  text-align: left;
+  font-size: 20px;
+  margin-left: -20px;
+  color: rgb(119, 22, 22);
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+li {
+  list-style-type: none;
+  padding: 3px;
+}
+
+.reset {
+  background-color: rgb(231, 85, 81);
+}
+
+h1 {
+  text-decoration: underline;
+}
