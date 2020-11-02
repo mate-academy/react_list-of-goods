@@ -17,42 +17,38 @@ const goodsFromServer = [
 export class App extends React.Component {
   state = {
     goods: goodsFromServer,
-    visibleGoods: goodsFromServer,
     hidden: false,
     count: 10,
     goodValue: 0,
   };
 
   handleChange = (value) => {
-    const { goods } = this.state;
-    const goodsResult = goods.filter(good => good.length >= value);
-
     this.setState({
-      visibleGoods: goodsResult,
-      count: goodsResult.length,
-      goodValue: value,
+      goods: [...goodsFromServer].filter(good => good.length >= value),
     });
+    this.setState(state => ({
+      count: state.goods.length,
+      goodValue: value,
+    }));
   };
 
   handleSort = (value) => {
-    const { visibleGoods } = this.state;
-
     switch (value) {
       case 'asc':
-        this.setState({
-          visibleGoods: [...visibleGoods].sort(),
-        });
+        this.setState(state => ({
+          goods: [...state.goods].sort(),
+        }));
         break;
       case 'reverse':
-        this.setState({
-          visibleGoods: [...visibleGoods].reverse(),
-        });
+        this.setState(state => ({
+          goods: [...state.goods].reverse(),
+        }));
         break;
       case 'length':
-        this.setState({
-          visibleGoods: [...visibleGoods]
+        this.setState(state => ({
+          goods: [...state.goods]
             .sort((good1, good2) => good1.length - good2.length),
-        });
+        }));
         break;
       default:
         break;
@@ -60,17 +56,15 @@ export class App extends React.Component {
   }
 
   handleReset = () => {
-    const { goods } = this.state;
-
     this.setState({
-      visibleGoods: goods,
-      count: goods.length,
+      goods: goodsFromServer,
+      count: goodsFromServer.length,
       goodValue: 1,
     });
   };
 
   render() {
-    const { hidden, count, goodValue, visibleGoods } = this.state;
+    const { goods, hidden, count, goodValue } = this.state;
 
     return (
       <div className="App">
@@ -92,14 +86,14 @@ export class App extends React.Component {
               value={goodValue}
               onChange={(e => this.handleChange(e.target.value))}
             >
-              {Array(10).fill(0).map((_, index) => (
-                <option>{index + 1}</option>
+              {[...Array(10).keys()].map(el => (
+                <option key={el}>{el + 1}</option>
               ))}
             </select>
           </div>
           <div className="GoodsList">
             <ul>
-              {visibleGoods.map(good => <li key={good}>{good}</li>)}
+              {goods.map(good => <li key={good}>{good}</li>)}
             </ul>
           </div>
           <button
