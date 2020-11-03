@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Options from './Options';
+import ListOfGoods from './ListOfGoods';
 
 class GoodList extends React.Component {
   state = {
@@ -42,13 +43,9 @@ class GoodList extends React.Component {
           reset={this.reset}
           sortByLength={this.sortByLength}
         />
-        <ul className="ui list">
-          {goodsList.map(good => (
-            <li key={good} className="ui list">
-              {good}
-            </li>
-          ))}
-        </ul>
+        <ListOfGoods
+          items={goodsList}
+        />
       </>
     );
   }

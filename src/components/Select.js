@@ -4,22 +4,22 @@ import GoodList from './GoodList';
 
 class Select extends React.Component {
   state = {
-    select: false,
+    isSelected: false,
   };
 
   select = () => {
     this.setState({
-      select: true,
+      isSelected: true,
     });
   }
 
   render() {
-    const { select } = this.state;
+    const { isSelected } = this.state;
     const { goodsFromServer } = this.props;
 
     return (
       <>
-        {select ? (
+        {isSelected ? (
           <GoodList
             goodsFromServer={goodsFromServer}
           />
