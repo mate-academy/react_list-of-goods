@@ -1,0 +1,8 @@
+.js-container {
+  max-width: 50%;
+  margin: 5% auto 0;
+}
+
+.list-group {
+  transition: 5s;
+}
