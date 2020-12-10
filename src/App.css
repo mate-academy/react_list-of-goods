@@ -1,0 +1,62 @@
+h1 {
+  color: red;
+}
+
+.App {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 30%;
+  border: 1px solid blue;
+  padding: 15px;
+  border-radius: 2%;
+}
+
+select {
+  padding: 10px;
+}
+
+select:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.container {
+  display: flex;
+}
+
+li {
+  text-align: center;
+  list-style: none;
+  display: block;
+  width: 100%;
+  margin: 5px;
+  padding: 10px;
+  border: 1px rgb(55, 55, 160) solid;
+  border-radius: 3%;
+}
+
+ul {
+  padding: 0;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+button {
+  margin-right: 10px;
+  outline: none;
+  border: 0.5px solid black;
+  border-radius: 5%;
+  padding: 10px;
+  background-color: aqua;
+  transition: transform 0.5s;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
