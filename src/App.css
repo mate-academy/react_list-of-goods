@@ -1,0 +1,30 @@
+#root {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.App__content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.App__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.App__none {
+  display: none !important;
+}
+
+.App__start-button {
+  width: 300px;
+  height: 80px;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  font-size: 30px !important;
+}
