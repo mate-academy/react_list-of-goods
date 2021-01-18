@@ -1,0 +1,26 @@
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 0;
+}
+
+body {
+  font-size: 24px;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+}
+
+.start-button {
+  height: 200px;
+  width: 200px;
+  background-color: red;
+  color: white;
+  font-size: inherit;
+  cursor: pointer;
+  border-radius: 50% ;
+}
