@@ -1,0 +1,8 @@
+.list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list__item {
+  color: #d65aff;
+}
