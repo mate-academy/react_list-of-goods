@@ -1,5 +1,9 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
+
+import { Content } from './components/Content/Content';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +18,45 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+const preparedGoods = goodsFromServer.map((good, index) => ({
+  name: good,
+  id: index,
+}));
+
+class App extends React.Component {
+  state = {
+    isVisibleGoods: false,
+  }
+
+  start = () => {
+    this.setState(({ isVisibleGoods }) => ({
+      isVisibleGoods: !isVisibleGoods,
+    }));
+  }
+
+  render() {
+    const {
+      state: { isVisibleGoods },
+      start,
+    } = this;
+
+    return (
+      <div className="App m-auto">
+        {isVisibleGoods
+          ? <Content goods={preparedGoods} />
+          : (
+            <button
+              className="btn btn-warning"
+              type="button"
+              onClick={start}
+            >
+              Start
+            </button>
+          )
+        }
+      </div>
+    );
+  }
+}
 
 export default App;
