@@ -69,15 +69,15 @@ class App extends React.PureComponent {
           sortBy={sortBy}
           value={value}
         />
-        <div className="has-text-centered">
-          <button
-            type="button"
-            className={classNames('button is-primary is-light m-2',
-              { hidden: hideButton })}
-            onClick={this.startButton}
-          >
-            Start
-          </button>
+        <button
+          type="button"
+          className={classNames('button is-primary is-light m-2',
+            { hidden: hideButton })}
+          onClick={this.startButton}
+        >
+          Start
+        </button>
+        <div className={classNames('has-text-centered', { hidden: showList })}>
           <button
             type="button"
             onClick={this.reverse}
@@ -107,7 +107,7 @@ class App extends React.PureComponent {
             Sort by length
           </button>
         </div>
-        <div className="select is-rounded">
+        <div className={classNames('select is-rounded', { hidden: showList })}>
           <select value={this.state.value} onChange={this.handleChange}>
             <option value="1">1</option>
             <option value="2">2</option>
