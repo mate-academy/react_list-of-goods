@@ -43,4 +43,5 @@ GoodsList.propTypes = {
   isReversed: PropTypes.bool.isRequired,
   sortBy: PropTypes.string.isRequired,
   showList: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
 };
