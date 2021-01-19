@@ -1,0 +1,73 @@
+html {
+  font-family: Roboto, sans-serif;
+}
+
+body {
+  background-color: whitesmoke;
+}
+
+.choose-page {
+  position: relative;
+  width: 340px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #f1f1e8;
+  box-shadow: 0 5px 10px -5px;
+  border-radius: 10px;
+}
+
+.page-title {
+  /*text-align: center;*/
+  margin: 0 0 10px 15px;
+}
+
+.goods-block {
+  width: 300px;
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px 0;
+}
+
+.goods-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.goods-item {
+  padding: 5px 0;
+}
+
+.btn {
+  background: #44c767 linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+  border-radius: 10px;
+  border: 1px solid #18ab29;
+  display: inline-block;
+  cursor: pointer;
+  color: #fff;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  padding: 5px 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 #2f6627;
+}
+
+.btn:hover {
+  background: #5cbf2a linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+}
+
+.start-btn {
+  position: absolute;
+  right: 35px;
+  top: 25px;
+  background: #d0451b linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  border: #d0451b;
+}
