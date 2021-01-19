@@ -58,6 +58,7 @@ export class App extends React.Component {
     this.setState({
       isReversed: false,
       sortedBy: '',
+      lengthFilter: '1',
     });
   }
 
