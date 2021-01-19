@@ -15,7 +15,7 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-export class App extends React.Component {
+class App extends React.Component {
   state = {
     goods: goodsFromServer,
     listVisibility: false,
