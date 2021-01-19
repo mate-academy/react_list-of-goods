@@ -8,25 +8,25 @@ export class ListOfGoods extends React.Component {
 
   reverseList = () => {
     this.setState(state => ({
-      goods: [...state.goods].reverse(),
+      goods: state.goods.reverse(),
     }));
   }
 
   sortAlphabetically = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
+      goods: state.goods.sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   sortByLength = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.length - b.length),
+      goods: state.goods.sort((a, b) => a.length - b.length),
     }));
   }
 
   reset = () => {
     this.setState(() => ({
-      goods: [...this.props.goods],
+      goods: this.props.goods,
     }));
   }
 
