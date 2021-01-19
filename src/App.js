@@ -15,11 +15,14 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const filterOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 export class App extends React.Component {
   state = {
     isContentVisible: false,
     isReversed: false,
     sortedBy: '',
+    lengthFilter: '1',
   };
 
   enableContent = (event) => {
@@ -43,6 +46,14 @@ export class App extends React.Component {
     });
   }
 
+  handleFilter = (event) => {
+    const { value } = event.target;
+
+    this.setState({
+      lengthFilter: value,
+    });
+  }
+
   reset = () => {
     this.setState({
       isReversed: false,
@@ -52,9 +63,7 @@ export class App extends React.Component {
 
   render() {
     const {
-      isContentVisible,
-      isReversed,
-      sortedBy,
+      isContentVisible, isReversed, sortedBy, lengthFilter,
     } = this.state;
 
     return (
@@ -102,12 +111,26 @@ export class App extends React.Component {
           Reset
         </button>
 
+        <select
+          disabled={!isContentVisible}
+          name="lengthFilter"
+          value={lengthFilter}
+          onChange={this.handleFilter}
+        >
+          {filterOptions.map(number => (
+            <option value={`${number}`} key={number}>
+              {number}
+            </option>
+          ))}
+        </select>
+
         {isContentVisible
           && (
             <GoodsList
               goods={goodsFromServer}
               reversed={isReversed}
               sortedBy={sortedBy}
+              minLength={lengthFilter}
             />
           )}
       </div>
