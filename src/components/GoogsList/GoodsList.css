@@ -1,0 +1,20 @@
+.GoodsList {
+  margin: 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.GoodsList__item {
+  width: 550px;
+  text-align: center;
+  font-weight: bold;
+  color: #7af1f0;
+}
+
+.GoodsList__item:nth-child(odd) {
+  background: rgba(224, 183, 111, 0.5);
+}
+
+.GoodsList__item:nth-child(even) {
+  background: rgba(227, 221, 106, 0.5);
+}
