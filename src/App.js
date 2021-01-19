@@ -16,15 +16,15 @@ const goodsFromServer = [
   'Jam',
   'Garlic',
 ];
-const initialState = {
-  listIsVisible: true,
-  buttonIsVisible: false,
-  products: goodsFromServer,
-  selectedElementLength: 1,
-};
 
 class App extends React.Component {
-  state = initialState
+  state = {
+    listIsVisible: true,
+    buttonIsVisible: false,
+    products: goodsFromServer,
+    initialState: goodsFromServer,
+    selectedElementLength: 1,
+  }
 
   showList = () => {
     this.setState(prevState => ({
@@ -51,7 +51,7 @@ class App extends React.Component {
   reset = () => {
     this.setState(prevState => ({
       ...prevState,
-      products: initialState.products,
+      products: prevState.initialState,
     }));
   }
 
@@ -64,8 +64,8 @@ class App extends React.Component {
   }
 
   sortBySelect = ({ target }) => {
-    this.setState(() => ({
-      products: initialState.products
+    this.setState(prevState => ({
+      products: prevState.initialState
         .filter(product => product.length >= target.value),
     }));
   }
