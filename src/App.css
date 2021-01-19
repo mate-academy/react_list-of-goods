@@ -1,0 +1,46 @@
+body {
+  font-family: monospace, sans-serif;
+}
+
+.App {
+  display: flex;
+}
+
+.cell {
+  margin-bottom: 10px;
+  padding: 0 10px;
+  height: 30px;
+  width: 200px;
+  font-family: monospace, sans-serif;
+  font-size: 16px;
+  outline: 0;
+  border: 0;
+}
+
+.App__buttons {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.App__button {
+  background-color: rgb(144, 205, 255);
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.App__button:hover {
+  opacity: 0.7;
+}
+
+.App__button--show {
+  background-color: rgb(124, 252, 134);
+}
+
+.App__button--reset {
+  background-color: rgb(255, 152, 152);
+}
+
+.App__button--reverse {
+  background-color: rgb(255, 226, 97);
+}

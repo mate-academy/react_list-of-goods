@@ -1,0 +1,12 @@
+.GoodsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.GoodsList__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 253, 144);
+}
