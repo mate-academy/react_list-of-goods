@@ -1,0 +1,33 @@
+.start-button {
+  width: 300px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.buttons {
+  padding: 7px 10px;
+  margin: 5px;
+  font-family: Helvetica, sans-serif;
+  background-color: rgb(141, 141, 243);
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    box-shadow: 1px 1px 1px black;
+  }
+
+  &--reset {
+    background-color: rgb(231, 136, 136);
+  }
+}
+
+.select-goods {
+  padding: 7px;
+  margin: 0 10px 0 5px;
+  border: 3px solid rgb(141, 141, 243);
+  border-radius: 5px;
+  font-weight: bold;
+  outline: none;
+}
