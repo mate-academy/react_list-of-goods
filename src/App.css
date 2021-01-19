@@ -1,0 +1,80 @@
+.App {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.btn {
+  outline: none;
+  border: none;
+}
+
+.btn_main {
+  padding: 100px;
+  background-color: #16c79a;
+  font-size: 40px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition-duration: 0.5s ;
+}
+
+.btn_main:hover {
+  box-shadow: 10px 10px 10px #007965;
+}
+
+.btn_main:focus {
+  transform: scale(0);
+  box-shadow: none;
+}
+
+.btn_list {
+  padding: 20px;
+  font-size: 20px;
+  color: #f8f1f1;
+  background-color: #11698e;
+  border: 2px solid transparent;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-right: 10px;
+  transition-duration: 0.4s;
+}
+
+.btn_list:hover {
+  background-color: white;
+  color: #222831;
+  border-color: #11698e;
+}
+
+.btn_list:focus {
+  background-color: white;
+  color: #222831;
+  border-color: #11698e;
+  transform: scale(1.1);
+  box-shadow: 2px 2px 10px #007965;
+}
+
+.list {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  padding-left: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.list__item {
+  color: #222831;
+  font-size: 30px;
+  font-family: sans-serif;
+  border-bottom: 4px solid#11698e;
+  transition-duration: 0.4s;
+  margin-bottom: 10px;
+  width: 300px;
+}
+
+.list__item:hover {
+  transform: scale(1.2);
+}
