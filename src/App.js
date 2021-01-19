@@ -15,7 +15,7 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const filterOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const filterOptions = Array.from(Array(10).keys());
 
 export class App extends React.Component {
   state = {
@@ -118,8 +118,8 @@ export class App extends React.Component {
           onChange={this.handleFilter}
         >
           {filterOptions.map(number => (
-            <option value={`${number}`} key={number}>
-              {number}
+            <option value={`${number + 1}`} key={number + 1}>
+              {number + 1}
             </option>
           ))}
         </select>
