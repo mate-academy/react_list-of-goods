@@ -22,6 +22,11 @@ class App extends React.PureComponent {
     showList: true,
     isReversed: false,
     sortBy: '',
+    value: '1',
+  }
+
+  handleChange = (event) => {
+    this.setState({ value: event.target.value });
   }
 
   startButton = () => {
@@ -47,12 +52,12 @@ class App extends React.PureComponent {
 
   reset = () => {
     this.setState({
-      sortBy: '', isReversed: false,
+      sortBy: '', isReversed: false, value: '1',
     });
   }
 
   render() {
-    const { isReversed, sortBy, showList, hideButton } = this.state;
+    const { isReversed, sortBy, showList, hideButton, value } = this.state;
 
     return (
       <div className="App box has-text-centered">
@@ -62,6 +67,7 @@ class App extends React.PureComponent {
           goods={goodsFromServer}
           isReversed={isReversed}
           sortBy={sortBy}
+          value={value}
         />
         <div className="has-text-centered">
           <button
@@ -100,6 +106,20 @@ class App extends React.PureComponent {
           >
             Sort by length
           </button>
+        </div>
+        <div className="select is-rounded">
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
         </div>
       </div>
     );

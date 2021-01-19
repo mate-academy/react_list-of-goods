@@ -4,8 +4,12 @@ import classNames from 'classnames';
 
 export class GoodsList extends React.PureComponent {
   render() {
-    const { goods, isReversed, sortBy, showList } = this.props;
-    const goodsList = [...goods];
+    const { goods, isReversed, sortBy, showList, value } = this.props;
+    let goodsList = [...goods];
+
+    if (value > 1) {
+      goodsList = [...goods.filter(good => good.length <= value)];
+    }
 
     goodsList.sort((g1, g2) => {
       switch (sortBy) {
