@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  background-color: #8DEEEE;
+}
+
+h1 {
+  margin: 0;
+}
+
+.App {
+  height: 320px;
+  margin: 20px;
+  padding: 10px 0;
+  border-radius: 20px;
+  text-align: center;
+  background-color: azure;
+
+  .button--start {
+    margin-top: 130px;
+    padding: 20px;
+  }
+}
