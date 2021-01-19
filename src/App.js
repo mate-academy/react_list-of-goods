@@ -45,7 +45,10 @@ class App extends React.Component {
   }
 
   reset = () => {
-    this.setState({ sortBy: 'default' });
+    this.setState(state => ({
+      sortBy: 'default',
+      isReverse: false,
+    }));
   }
 
   render() {
