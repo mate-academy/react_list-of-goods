@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Margarine&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+ul {
+  margin: 0;
+}
+
+html {
+  font-family: "Margarine", cursive;
+  color: rgb(122, 218, 235);
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+  /* stylelint-disable-next-line */
+  background-image: linear-gradient(-225deg, #3d4e81 0%, #5753c9 48%, #6e7ff3 100%);
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 52px;
+  }
+
+  &__buttons {
+    margin-top: 10px;
+    display: flex;
+    column-gap: 10px;
+  }
+
+  &__btn {
+    border: none;
+    border-radius: 40%;
+    width: 110px;
+    height: 60px;
+    font-size: 18px;
+    color: aliceblue;
+
+    font-family: inherit;
+
+    background-color: rgb(156, 146, 214);
+
+    cursor: pointer;
+
+    transition: 0.3s ease-in-out;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: rgba(233, 157, 71, 0.86);
+    }
+  }
+}

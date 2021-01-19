@@ -1,0 +1,17 @@
+.goods-list {
+  list-style-type: none;
+  margin-top: 20px;
+  width: 50%;
+  display: grid;
+  row-gap: 5px;
+
+  &__item {
+    padding: 10px 15px;
+    width: 100%;
+    border-radius: 20px;
+
+    background-color: rgba(122, 124, 226, 0.28);
+
+    cursor: pointer;
+  }
+}
