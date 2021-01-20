@@ -22,36 +22,27 @@ class App extends React.Component {
   }
 
   showList = () => {
-    this.setState(state => ({
-      ...state,
-      listVisibility: true,
-    }));
+    this.setState({ listVisibility: true });
   }
 
   reverseList = () => {
     this.setState(state => ({
-      ...state,
       goods: [...state.goods].reverse(),
     }));
   };
 
   sortByAlphabeticalOrder = () => {
     this.setState(state => ({
-      ...state,
       goods: [...state.goods].sort(),
     }));
   };
 
   reset = () => {
-    this.setState(state => ({
-      ...state,
-      goods: goodsFromServer,
-    }));
+    this.setState({ goods: goodsFromServer });
   }
 
   sortByLength = () => {
     this.setState(state => ({
-      ...state,
       goods: [...state.goods].sort((a, b) => a.length - b.length),
     }));
   }

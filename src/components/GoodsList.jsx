@@ -15,9 +15,7 @@ export const GoodsList = ({
       <>
         <ul>
           {goods.map(good => (
-            <li
-              key={good}
-            >
+            <li key={good}>
               {`- ${good}`}
             </li>
           ))}
@@ -26,7 +24,7 @@ export const GoodsList = ({
         <button
           type="button"
           className="button is-primary is-rounded m-2"
-          onClick={() => reverseList()}
+          onClick={reverseList}
         >
           Reverse
         </button>
@@ -34,7 +32,7 @@ export const GoodsList = ({
         <button
           type="button"
           className="button is-link is-rounded m-2"
-          onClick={() => sortByAlphabeticalOrder()}
+          onClick={sortByAlphabeticalOrder}
         >
           Sort alphabetically
         </button>
@@ -42,7 +40,7 @@ export const GoodsList = ({
         <button
           type="button"
           className="button is-danger is-rounded m-2"
-          onClick={() => reset()}
+          onClick={reset}
         >
           Reset
         </button>
@@ -50,7 +48,7 @@ export const GoodsList = ({
         <button
           type="button"
           className="button is-warning is-rounded m-2"
-          onClick={() => sortByLength()}
+          onClick={sortByLength}
         >
           Sort by length
         </button>
