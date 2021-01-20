@@ -27,10 +27,6 @@ class App extends React.Component {
     this.setState({ isVisible: true });
   }
 
-  hideList = () => {
-    this.setState({ isVisible: false });
-  }
-
   nameSortList = () => {
     this.setState({ sortedBy: 'name' });
   }
@@ -53,8 +49,22 @@ class App extends React.Component {
   }
 
   render() {
-    const { goods, isVisible, sortedBy, isReversed } = this.state;
-    const copyGoods = goods.slice();
+    const { goods, isVisible, isReversed, sortedBy } = this.state;
+
+    const copyGoods = [...goods].sort((first, second) => {
+      switch (sortedBy) {
+        case 'name':
+          return first.localeCompare(second);
+        case 'length':
+          return first.length - second.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      copyGoods.reverse();
+    }
 
     return (
       <div className="App">
