@@ -14,20 +14,18 @@ const goodsFromServer = [
   'Jam',
   'Garlic',
 ];
+const selecting = new Array(10).fill(0).map((item, index) => index + 1);
 
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
     visibleList: false,
-    visibleButton: 'visible',
-    initial: goodsFromServer,
     selectedLength: 1,
   }
 
   showGoods = (event) => {
     this.setState(state => ({
       visibleList: !state.visibleList,
-      visibleButton: 'hidden',
     }));
   }
 
@@ -42,19 +40,19 @@ class App extends React.Component {
 
     this.setState(state => ({
       selectedLength: value,
-      goods: state.initial.filter(item => item.length >= +value),
+      goods: goodsFromServer.filter(item => item.length >= +value),
     }));
   }
 
   sortByAlphabet = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   backToInitial = () => {
     this.setState(state => ({
-      goods: state.initial,
+      goods: goodsFromServer,
       selectedLength: 1,
     }));
   }
@@ -66,8 +64,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { visibleList, goods, visibleButton } = this.state;
-    const selecting = new Array(10).fill(0);
+    const { visibleList, goods, selectedLength } = this.state;
 
     return (
       <div className="App">
@@ -85,17 +82,17 @@ class App extends React.Component {
               size={3}
               name="select"
               id="23"
-              value={this.state.selectedLength}
+              value={selectedLength}
               onChange={this.selectChange}
             >
               <option disabled>Select number</option>
               {selecting
-                .map((item, index) => (
+                .map(item => (
                   <option
-                    value={index + 1}
-                    key={Math.random()}
+                    value={item}
+                    key={item}
                   >
-                    {index + 1}
+                    {item}
                   </option>
                 ))}
             </select>
@@ -135,16 +132,18 @@ class App extends React.Component {
             Sort by length
           </button>
 
-          <button
-            className="button is-dark"
-            type="button"
-            onClick={this.showGoods}
-            style={{ visibility: `${visibleButton}` }}
-          >
-            Show
-          </button>
+          {!visibleList
+            && (
+              <button
+                className="button is-dark"
+                type="button"
+                onClick={this.showGoods}
+              >
+                Show
+              </button>
+            )
+          }
         </div>
-
       </div>
     );
   }
