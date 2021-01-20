@@ -17,12 +17,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+let selectedIndexes = new Array(10).fill(1);
+
+selectedIndexes = selectedIndexes.map((number, index) => index + 1);
 class App extends React.Component {
   state = {
-    listIsVisible: true,
-    buttonIsVisible: false,
+    listIsVisible: false,
     products: goodsFromServer,
-    initialState: goodsFromServer,
     selectedElementLength: 1,
   }
 
@@ -30,7 +31,6 @@ class App extends React.Component {
     this.setState(prevState => ({
       ...prevState,
       listIsVisible: !prevState.listIsVisible,
-      buttonIsVisible: !prevState.buttonIsVisible,
     }));
   }
 
@@ -51,7 +51,7 @@ class App extends React.Component {
   reset = () => {
     this.setState(prevState => ({
       ...prevState,
-      products: prevState.initialState,
+      products: goodsFromServer,
     }));
   }
 
@@ -65,15 +65,14 @@ class App extends React.Component {
 
   sortBySelect = ({ target }) => {
     this.setState(prevState => ({
-      products: prevState.initialState
+      products: goodsFromServer
         .filter(product => product.length >= target.value),
     }));
   }
 
   render() {
-    const { listIsVisible, products, buttonIsVisible } = this.state;
+    const { listIsVisible, products } = this.state;
     const productsCopy = [...products];
-    const selectArray = new Array(10).fill(0);
 
     return (
       <>
@@ -87,13 +86,13 @@ class App extends React.Component {
             <select
               name="selectList"
               id="selectList"
-              size={3}
+              size={5}
               onChange={this.sortBySelect}
             >
-              {selectArray.map((select, index) => (
+              {goodsFromServer.map((select, index) => (
                 <option
-                  value={index + 1}
-                  key={Math.random()}
+                  value={selectedIndexes[index]}
+                  key={selectedIndexes[index]}
                 >
                   {index + 1}
                 </option>
@@ -103,7 +102,7 @@ class App extends React.Component {
           <Button
             onClick={this.showList}
             type="button"
-            hidden={buttonIsVisible}
+            hidden={listIsVisible}
             className="mr-2"
           >
             Start
@@ -139,11 +138,10 @@ class App extends React.Component {
           >
             Sort by length
           </Button>
-          <div hidden={listIsVisible}>
-            <ProductList
-              products={productsCopy}
-            />
-          </div>
+          {listIsVisible
+            // eslint-disable-next-line max-len
+            && <div hidden={!listIsVisible}><ProductList products={productsCopy} /></div>
+          }
         </div>
       </>
     );
