@@ -28,13 +28,13 @@ class App extends React.Component {
 
   reverseList = () => {
     this.setState(state => ({
-      goods: state.goods.reverse(),
+      goods: [...state.goods].reverse(),
     }));
   }
 
   sortList = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.localeCompare(b)),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
@@ -46,7 +46,7 @@ class App extends React.Component {
 
   sortLength = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.length - b.length),
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
