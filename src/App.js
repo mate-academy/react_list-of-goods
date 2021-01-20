@@ -23,13 +23,10 @@ class App extends React.Component {
     sortBy: 'id',
     selectValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     selectedValue: 1,
-    filterValue: 1,
   };
 
   start = () => {
-    this.setState(state => ({
-      isVisible: true,
-    }));
+    this.setState({ isVisible: true });
   }
 
   reverse = () => {
@@ -39,33 +36,24 @@ class App extends React.Component {
   };
 
   sortAlphabetically = () => {
-    this.setState(state => ({
-      sortBy: 'alphabetically',
-      filterValue: state.selectedValue,
-    }));
+    this.setState({ sortBy: 'alphabetically' });
   };
 
   sortByLength = () => {
-    this.setState(state => ({
-      sortBy: 'length',
-      filterValue: state.selectedValue,
-    }));
+    this.setState({ sortBy: 'length' });
   };
 
   reset = () => {
-    this.setState(state => ({
+    this.setState({
       goods: goodsFromServer,
       isReversed: false,
       sortBy: 'id',
       selectedValue: 1,
-      filterValue: 1,
-    }));
+    });
   };
 
   select = ({ target }) => {
-    this.setState(state => ({
-      selectedValue: target.value,
-    }));
+    this.setState({ selectedValue: target.value });
   }
 
   render() {
@@ -76,10 +64,9 @@ class App extends React.Component {
       sortBy,
       selectValues,
       selectedValue,
-      filterValue,
     } = this.state;
 
-    const startGoods = goods.filter(good => good.length >= filterValue);
+    const startGoods = goods.filter(good => good.length >= selectedValue);
 
     startGoods.sort((g1, g2) => {
       switch (sortBy) {
