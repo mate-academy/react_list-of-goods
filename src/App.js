@@ -1,4 +1,5 @@
 import React from 'react';
+import ClassNames from 'classnames';
 import './App.css';
 import { GoodsList } from './GoodsList';
 
@@ -90,7 +91,11 @@ class App extends React.Component {
           ? (
             <div>
               <GoodsList goods={visibleGoods} />
-              <button type="button" onClick={this.reverse}>
+              <button
+                type="button"
+                onClick={this.reverse}
+                className={ClassNames({ 'reverse-active': isReversed })}
+              >
                 Reverse
               </button>
               <button type="button" onClick={this.sortAbc}>

@@ -9,6 +9,10 @@ button {
   margin: 10px;
 }
 
+.reverse-active {
+  background-color: rgba(235, 96, 96, 0.5);
+}
+
 form {
   display: flex;
   justify-content: center;
