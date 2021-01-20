@@ -30,7 +30,7 @@ class App extends React.Component {
   reverse = () => {
     if (this.state.isVisible) {
       this.setState(state => ({
-        goods: [...state.goods.reverse()],
+        goods: [...state.goods].reverse(),
       }));
     }
   };
@@ -38,7 +38,7 @@ class App extends React.Component {
   sortAlphabetically = () => {
     if (this.state.isVisible) {
       this.setState(state => ({
-        goods: [...state.goods.sort((a, b) => a.localeCompare(b))],
+        goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
       }));
     }
   };
@@ -54,7 +54,7 @@ class App extends React.Component {
   sortByLength = () => {
     if (this.state.isVisible) {
       this.setState(state => ({
-        goods: [...state.goods.sort((a, b) => a.length - b.length)],
+        goods: [...state.goods].sort((a, b) => a.length - b.length),
       }));
     }
   };
