@@ -16,6 +16,8 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const valuesForSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
@@ -61,6 +63,21 @@ class App extends React.Component {
 
   render() {
     const { isReversed, goods, showList, sortBy, selectedValue } = this.state;
+    let newGoods = [...goods];
+
+    if (sortBy === 'name') {
+      newGoods.sort((a, b) => a.localeCompare(b));
+    }
+
+    if (sortBy === 'length') {
+      newGoods.sort((a, b) => a.length - b.length);
+    }
+
+    if (isReversed) {
+      newGoods.reverse();
+    }
+
+    newGoods = newGoods.filter(good => good.length >= +selectedValue);
 
     return (
       <div className="App">
@@ -104,17 +121,16 @@ class App extends React.Component {
                   Sort by length
                 </button>
 
-                <select className="select-goods" onChange={this.changeValue}>
-                  <option value="1" defaultChecked>1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                <select
+                  className="select-goods"
+                  onChange={this.changeValue}
+                  value={selectedValue}
+                >
+                  {
+                    valuesForSelect.map(value => (
+                      <option value={value} key={value}>{value}</option>
+                    ))
+                  }
                 </select>
 
                 <button
@@ -125,12 +141,7 @@ class App extends React.Component {
                   Reset
                 </button>
 
-                <GoodsList
-                  goods={goods}
-                  isReversed={isReversed}
-                  sortBy={sortBy}
-                  selectedValue={selectedValue}
-                />
+                <GoodsList goods={newGoods} />
               </div>
             )
         }
