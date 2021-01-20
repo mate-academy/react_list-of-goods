@@ -62,10 +62,33 @@ export class App extends React.Component {
     });
   }
 
+  processGoodsList = (list) => {
+    const { isReversed, sortedBy, lengthFilter } = this.state;
+
+    const processedList = [...list]
+      .filter(item => item.length >= +lengthFilter);
+
+    switch (sortedBy) {
+      case 'name':
+        processedList.sort((a, b) => (a.localeCompare(b)));
+        break;
+
+      case 'length':
+        processedList.sort((a, b) => a.length - b.length);
+        break;
+
+      default:
+    }
+
+    if (isReversed) {
+      processedList.reverse();
+    }
+
+    return processedList;
+  }
+
   render() {
-    const {
-      isContentVisible, isReversed, sortedBy, lengthFilter,
-    } = this.state;
+    const { isContentVisible, lengthFilter } = this.state;
 
     return (
       <div className="App">
@@ -128,10 +151,7 @@ export class App extends React.Component {
         {isContentVisible
           && (
             <GoodsList
-              goods={goodsFromServer}
-              reversed={isReversed}
-              sortedBy={sortedBy}
-              minLength={lengthFilter}
+              goods={this.processGoodsList(goodsFromServer)}
             />
           )}
       </div>
