@@ -1,0 +1,20 @@
+
+.button__start-visible {
+  background-color: red;
+}
+
+.button__start-unvisible {
+  display: none;
+}
+
+.filter-visible {
+  color: brown;
+}
+
+.filter-unvisible {
+  display: none;
+}
+
+.GoodsList__list {
+  list-style-type: none;
+}
