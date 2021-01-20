@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { GoodsList } from './components/GoodsList';
 import './App.css';
 
@@ -16,10 +15,11 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const preparedValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 class App extends React.PureComponent {
   state = {
-    hideButton: false,
-    showList: true,
+    showList: false,
     isReversed: false,
     sortBy: '',
     value: '1',
@@ -30,10 +30,7 @@ class App extends React.PureComponent {
   }
 
   startButton = () => {
-    this.setState(prevState => ({
-      hideButton: !prevState.hideButton,
-      showList: false,
-    }));
+    this.setState({ showList: true });
   }
 
   reverse = () => {
@@ -57,70 +54,95 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const { isReversed, sortBy, showList, hideButton, value } = this.state;
+    const { isReversed, sortBy, showList, value } = this.state;
+
+    let goodsList = [...goodsFromServer];
+
+    if (value > 1) {
+      goodsList = [...goodsFromServer.filter(good => good.length >= value)];
+    }
+
+    goodsList.sort((g1, g2) => {
+      switch (sortBy) {
+        case 'alphabet':
+          return g1.localeCompare(g2);
+
+        case 'length':
+          return g1.length - g2.length;
+
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      goodsList.reverse();
+    }
 
     return (
       <div className="App box has-text-centered">
         <h1 className="title is-1">Goods</h1>
-        <GoodsList
-          showList={showList}
-          goods={goodsFromServer}
-          isReversed={isReversed}
-          sortBy={sortBy}
-          value={value}
-        />
-        <button
-          type="button"
-          className={classNames('button is-primary is-light m-2',
-            { hidden: hideButton })}
-          onClick={this.startButton}
-        >
-          Start
-        </button>
-        <div className={classNames('has-text-centered', { hidden: showList })}>
+        {!showList && (
           <button
             type="button"
-            onClick={this.reverse}
-            className="button is-link is-light m-2"
+            className="button is-primary is-light m-2"
+            onClick={this.startButton}
           >
-            Reverse
+            Start
           </button>
-          <button
-            type="button"
-            onClick={this.sortAlph}
-            className="button is-success is-light m-2"
-          >
-            Sort alphabetically
-          </button>
-          <button
-            type="button"
-            onClick={this.reset}
-            className="button is-danger is-light m-2"
-          >
-            Reset
-          </button>
-          <button
-            type="button"
-            onClick={this.sortLength}
-            className="button is-warning is-light m-2"
-          >
-            Sort by length
-          </button>
-        </div>
-        <div className={classNames('select is-rounded', { hidden: showList })}>
-          <select value={this.state.value} onChange={this.handleChange}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </div>
+        )}
+        {showList && (
+          <>
+            <GoodsList
+              goods={goodsList}
+            />
+            <div>
+              <button
+                type="button"
+                onClick={this.reverse}
+                className="button is-link is-light m-2"
+              >
+                Reverse
+              </button>
+              <button
+                type="button"
+                onClick={this.sortAlph}
+                className="button is-success is-light m-2"
+              >
+                Sort alphabetically
+              </button>
+              <button
+                type="button"
+                onClick={this.sortLength}
+                className="button is-warning is-light m-2"
+              >
+                Sort by length
+              </button>
+              <button
+                type="button"
+                onClick={this.reset}
+                className="button is-danger is-light m-2"
+              >
+                Reset
+              </button>
+            </div>
+            <div className="select is-rounded">
+              <select
+                value={this.state.value}
+                onChange={this.handleChange}
+              >
+                {preparedValues.map(item => (
+                  <option
+                    value={item}
+                    key={item}
+                  >
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        )}
       </div>
     );
   }
