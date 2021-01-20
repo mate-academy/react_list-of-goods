@@ -34,11 +34,11 @@ class App extends React.Component {
 
   sortAsString = () => {
     this.setState({ sortBy: 'string' });
-  }
+  };
 
   sortAsNumber = () => {
     this.setState({ sortBy: 'number' });
-  }
+  };
 
   resetList = () => {
     this.setState({
@@ -79,10 +79,6 @@ class App extends React.Component {
         )}
         {isVissible && (
           <>
-            <ul>
-              {newGoods.map(good => (<li key={good}>{good}</li>))}
-            </ul>
-
             <button type="button" onClick={this.reverseList}>
               Reverse
             </button>
@@ -98,6 +94,10 @@ class App extends React.Component {
             <button type="button" onClick={this.resetList}>
               Reset
             </button>
+
+            <ul>
+              {newGoods.map(good => (<li key={good}>{good}</li>))}
+            </ul>
 
           </>
         )}
