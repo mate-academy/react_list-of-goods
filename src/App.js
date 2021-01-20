@@ -65,53 +65,51 @@ class App extends React.Component {
         </button>
         <div className="content">
           {
-            showContent
-              ? (
-                <>
-                  <h1>Goods:</h1>
+            showContent && (
+              <>
+                <h1>Goods:</h1>
 
-                  <ul>
-                    {goods.map(item => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                <ul>
+                  {goods.map(item => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
 
-                  <div className="buttons">
-                    <button
-                      type="button"
-                      className="button"
-                      onClick={this.reversing}
-                    >
-                      Reverse
-                    </button>
+                <div className="buttons">
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.reversing}
+                  >
+                    Reverse
+                  </button>
 
-                    <button
-                      type="button"
-                      className="button"
-                      onClick={this.alphabetSorting}
-                    >
-                      Sort alphabetically
-                    </button>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.alphabetSorting}
+                  >
+                    Sort alphabetically
+                  </button>
 
-                    <button
-                      type="button"
-                      className="button"
-                      onClick={this.resetting}
-                    >
-                      Reset
-                    </button>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.resetting}
+                  >
+                    Reset
+                  </button>
 
-                    <button
-                      type="button"
-                      className="button"
-                      onClick={this.lengthSorting}
-                    >
-                      Sort by length
-                    </button>
-                  </div>
-                </>
-              )
-              : null
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.lengthSorting}
+                  >
+                    Sort by length
+                  </button>
+                </div>
+              </>
+            )
           }
         </div>
       </div>
