@@ -17,15 +17,13 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
-    visibleList: true,
-    visibleButton: false,
+    isListVisible: false,
     disabledButton: true,
   };
 
   hidenList = () => {
     this.setState({
-      visibleList: false,
-      visibleButton: true,
+      isListVisible: true,
       disabledButton: false,
     });
   }
@@ -50,29 +48,33 @@ class App extends React.Component {
 
   sortByLength = () => {
     this.setState(prev => ({
-      goods: [...prev.goods].sort((pr1, pr2) => pr1.length - pr2.length),
+      goods: [...prev.goods]
+        .sort((good1, good2) => good1.length - good2.length),
     }));
   }
 
   render() {
-    const { goods, visibleList, visibleButton, disabledButton } = this.state;
+    const { goods, isListVisible, disabledButton } = this.state;
 
     return (
       <div className="app">
         <h1 className="app__title">Goods</h1>
-        <button
-          type="button"
-          onClick={this.hidenList}
-          hidden={visibleButton}
-          className="app__button"
-        >
-          Start
-        </button>
-        <ul hidden={visibleList} className="app__list">
-          {goods.map(item => (
-            <li key={Math.random()} className="app__item">{item}</li>
-          ))}
-        </ul>
+        {!isListVisible && (
+          <button
+            type="button"
+            onClick={this.hidenList}
+            className="app__button"
+          >
+            Start
+          </button>
+        )}
+        {isListVisible && (
+          <ul className="app__list">
+            {goods.map(item => (
+              <li key={Math.random()} className="app__item">{item}</li>
+            ))}
+          </ul>
+        )}
         <div>
           <button
             type="button"
