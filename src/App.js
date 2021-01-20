@@ -15,12 +15,15 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const selectOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 class App extends React.Component {
   state = {
     stateGoods: goodsFromServer,
     isStarted: false,
     isReversed: false,
     sortBy: '',
+    filterLength: 1,
   }
 
   start = () => {
@@ -41,17 +44,26 @@ class App extends React.Component {
     this.setState({ sortBy: 'alphabet' });
   }
 
-  resetSort = () => {
-    this.setState({ sortBy: '' });
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortBy: '',
+      filterLength: 1,
+    });
   }
 
   sortByLength = () => {
     this.setState({ sortBy: 'length' });
   }
 
+  selectSort = (event) => {
+    this.setState({ filterLength: event.target.value });
+  }
+
   render() {
-    const { stateGoods, isStarted, isReversed, sortBy } = this.state;
-    const goodsCopy = [...stateGoods];
+    const { stateGoods, isStarted, isReversed, sortBy, filterLength }
+    = this.state;
+    const goodsCopy = stateGoods.filter(good => good.length > filterLength);
 
     goodsCopy.sort((value1, value2) => {
       switch (sortBy) {
@@ -86,12 +98,23 @@ class App extends React.Component {
             </button>
           )}
         {isStarted
-          && <button type="button" onClick={this.resetSort}>Reset</button>}
+          && <button type="button" onClick={this.reset}>Reset</button>}
         {isStarted
           && (
             <button type="button" onClick={this.sortByLength}>
               Sort by length
             </button>
+          )}
+        {isStarted
+          && (
+            <select onChange={this.selectSort} value={filterLength}>
+              {selectOptions
+                .map(selectOption => (
+                  <option key={selectOption}>
+                    {selectOption}
+                  </option>
+                ))}
+            </select>
           )}
         {isStarted && <GoodsList goods={goodsCopy} />}
       </div>
