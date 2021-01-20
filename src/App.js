@@ -15,7 +15,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const selectOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const selectOptions = Array(10).fill(0).map((item, i) => {
+  let itemCopy = item;
+
+  itemCopy = i + 1;
+
+  return itemCopy;
+});
 
 class App extends React.Component {
   state = {
@@ -88,35 +94,28 @@ class App extends React.Component {
         {!isStarted
           && <button type="button" onClick={this.start}>Start</button>}
         {isStarted
-          && <button type="button" onClick={this.hide}>Hide</button>}
-        {isStarted
-          && <button type="button" onClick={this.reverse}>Reverse</button>}
-        {isStarted
           && (
-            <button type="button" onClick={this.sortAlphabetically}>
-              Sort alphabetically
-            </button>
+            <>
+              <button type="button" onClick={this.hide}>Hide</button>
+              <button type="button" onClick={this.reverse}>Reverse</button>
+              <button type="button" onClick={this.sortAlphabetically}>
+                Sort alphabetically
+              </button>
+              <button type="button" onClick={this.reset}>Reset</button>
+              <button type="button" onClick={this.sortByLength}>
+                Sort by length
+              </button>
+              <select onChange={this.selectSort} value={filterLength}>
+                {selectOptions
+                  .map(selectOption => (
+                    <option key={selectOption}>
+                      {selectOption}
+                    </option>
+                  ))}
+              </select>
+              <GoodsList goods={goodsCopy} />
+            </>
           )}
-        {isStarted
-          && <button type="button" onClick={this.reset}>Reset</button>}
-        {isStarted
-          && (
-            <button type="button" onClick={this.sortByLength}>
-              Sort by length
-            </button>
-          )}
-        {isStarted
-          && (
-            <select onChange={this.selectSort} value={filterLength}>
-              {selectOptions
-                .map(selectOption => (
-                  <option key={selectOption}>
-                    {selectOption}
-                  </option>
-                ))}
-            </select>
-          )}
-        {isStarted && <GoodsList goods={goodsCopy} />}
       </div>
     );
   }
