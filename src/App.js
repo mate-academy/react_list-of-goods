@@ -86,13 +86,41 @@ class App extends React.Component {
           </button>
           <div className="goods-block">
             {isListVisible && (
-              <GoodsList
-                goods={goods}
-                reverse={this.reverse}
-                sortByAlphabet={this.sortByAlphabet}
-                sortByLength={this.sortByLength}
-                reset={this.reset}
-              />
+              <>
+                <GoodsList
+                  goods={goods}
+                />
+                <div className="btn-bar">
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={this.reverse}
+                  >
+                    Reverse
+                  </button>
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={this.sortByAlphabet}
+                  >
+                    Sort A-Z
+                  </button>
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={this.sortByLength}
+                  >
+                    Sort by length
+                  </button>
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={this.reset}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </>
             )}
           </div>
         </div>
