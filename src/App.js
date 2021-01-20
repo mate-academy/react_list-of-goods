@@ -17,12 +17,12 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
-    hiddenList: true,
+    isListHidden: true,
   }
 
   getGoods = () => {
     this.setState({
-      hiddenList: false,
+      isListHidden: false,
     });
   }
 
@@ -51,17 +51,21 @@ class App extends React.Component {
   }
 
   render() {
-    const { goods, hiddenList } = this.state;
+    const { goods, isListHidden } = this.state;
 
     return (
       <div className="App">
-        <button
-          type="button"
-          onClick={this.getGoods}
-          hidden={!hiddenList}
-        >
-          Start
-        </button>
+        {isListHidden
+          && (
+            <button
+              type="button"
+              onClick={this.getGoods}
+              hidden={!isListHidden}
+            >
+              Start
+            </button>
+          )
+        }
 
         <button
           type="button"
@@ -93,11 +97,15 @@ class App extends React.Component {
 
         <h1>Goods</h1>
 
-        <ul hidden={hiddenList}>
-          {goods.map(good => (
-            <li key={good}>{good}</li>
-          ))}
-        </ul>
+        {isListHidden
+          || (
+            <ul>
+              {goods.map(good => (
+                <li key={good}>{good}</li>
+              ))}
+            </ul>
+          )
+        }
       </div>
     );
   }
