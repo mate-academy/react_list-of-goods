@@ -1,0 +1,29 @@
+.startbtn {
+  width: 200px;
+  height: 50px;
+  background-color: green;
+  color: white;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.startbtn:hover {
+  background-color: darkgreen;
+  color: black;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+.btn {
+  width: 90px;
+  height: 40px;
+  margin: 0 5px;
+}
+
+.btn:hover {
+  background-color: darkgray;
+  color: white;
+  border: none;
+}
