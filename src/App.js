@@ -17,8 +17,6 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    baseOrder: [...goodsFromServer],
-    buttonVisibility: true,
     listVisibility: false,
     products: [...goodsFromServer],
   }
@@ -53,13 +51,13 @@ class App extends React.Component {
   }
 
   reset = () => {
-    this.setState(state => ({
-      products: [...state.baseOrder],
+    this.setState(() => ({
+      products: [...goodsFromServer],
     }));
   }
 
   render() {
-    const { listVisibility, buttonVisibility, products } = this.state;
+    const { listVisibility, products } = this.state;
 
     return (
       <div className="App">
@@ -96,14 +94,14 @@ class App extends React.Component {
             Reset
           </button>
 
-          {buttonVisibility
+          {!listVisibility
             && (
               <button
                 type="button"
                 className="cell App__button App__button--show"
                 onClick={this.showList}
               >
-                show
+                Show
               </button>
             )
           }
