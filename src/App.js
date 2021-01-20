@@ -21,8 +21,7 @@ class App extends React.Component {
   state = {
     isVisible: false,
     isReversed: false,
-    sortedByName: false,
-    sortedByLength: false,
+    sortBy: '',
     minLength: 1,
   }
 
@@ -40,23 +39,20 @@ class App extends React.Component {
 
   sortByName = () => {
     this.setState({
-      sortedByLength: false,
-      sortedByName: true,
+      sortBy: 'name',
     });
   }
 
   sortByLength = () => {
     this.setState({
-      sortedByLength: true,
-      sortedByName: false,
+      sortBy: 'length',
     });
   }
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortedByName: false,
-      sortedByLength: false,
+      sortBy: '',
       minLength: 1,
     });
   }

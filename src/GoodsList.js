@@ -4,19 +4,22 @@ import PropTypes from 'prop-types';
 export const GoodsList = ({
   goodsList,
   isReversed,
-  sortedByName,
-  sortedByLength,
+  sortBy,
   minLength,
 }) => {
-  const goods = [...goodsList]
-    .filter(good => good.length >= minLength);
+  const goods = goodsList.filter(good => good.length >= minLength);
 
-  if (sortedByLength) {
-    goods.sort((a, b) => a.length - b.length);
-  }
+  switch (sortBy) {
+    case 'name':
+      goods.sort();
+      break;
 
-  if (sortedByName) {
-    goods.sort();
+    case 'length':
+      goods.sort((a, b) => a.length - b.length);
+      break;
+
+    default:
+      break;
   }
 
   if (isReversed) {
@@ -35,7 +38,6 @@ GoodsList.propTypes = {
     PropTypes.string.isRequired,
   ).isRequired,
   isReversed: PropTypes.bool.isRequired,
-  sortedByName: PropTypes.bool.isRequired,
-  sortedByLength: PropTypes.bool.isRequired,
+  sortBy: PropTypes.string.isRequired,
   minLength: PropTypes.number.isRequired,
 };
