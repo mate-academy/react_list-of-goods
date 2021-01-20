@@ -60,7 +60,6 @@ class App extends React.Component {
             <button
               type="button"
               onClick={this.getGoods}
-              hidden={!isListHidden}
             >
               Start
             </button>
