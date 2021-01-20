@@ -57,6 +57,7 @@ class App extends React.Component {
       isReversed: false,
       sortedByName: false,
       sortedByLength: false,
+      minLength: 1,
     });
   }
 
@@ -109,7 +110,7 @@ class App extends React.Component {
 
         <br />
 
-        <select onChange={this.select}>
+        <select value={this.state.minLength} onChange={this.select}>
           {options.map(x => <option key={x}>{x}</option>)}
         </select>
 
