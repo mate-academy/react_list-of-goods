@@ -17,16 +17,13 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    // eslint-disable-next-line react/no-unused-state
-    goodsdatas: goodsFromServer,
-    // eslint-disable-next-line react/no-unused-state
+    goodsDatas: goodsFromServer,
     start: true,
     isReversed: false,
     sortBy: 'alphabet',
   }
 
   start = () => {
-    // eslint-disable-next-line react/no-unused-state
     this.setState({ start: false });
   };
 
@@ -45,7 +42,7 @@ class App extends React.Component {
 
   reset = () => {
     this.setState({
-      sortBy: 'reset',
+      sortBy: '',
       isReversed: false,
     });
   };
@@ -58,9 +55,9 @@ class App extends React.Component {
   };
 
   render() {
-    const { goodsdatas, start, isReversed, sortBy } = this.state;
+    const { goodsDatas, start, isReversed, sortBy } = this.state;
 
-    const goodsCopy = [...goodsdatas];
+    const goodsCopy = [...goodsDatas];
 
     goodsCopy.sort((a, b) => {
       switch (sortBy) {
