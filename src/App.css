@@ -1,0 +1,6 @@
+.App button {
+  height: 40px;
+  min-width: 40px;
+  margin-right: 20px;
+  border-radius: 10px;
+}
