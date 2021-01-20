@@ -32,14 +32,15 @@ html {
   &__buttons {
     margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
     column-gap: 10px;
   }
 
   &__btn {
     border: none;
-    border-radius: 40%;
-    width: 110px;
-    height: 60px;
+    border-radius: 30%;
+    width: 80px;
+    height: 50px;
     font-size: 18px;
     color: aliceblue;
 

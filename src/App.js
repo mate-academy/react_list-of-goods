@@ -52,7 +52,33 @@ class App extends React.Component {
   }
 
   render() {
-    const { isVisible } = this.state;
+    const {
+      isVisible,
+      sortBy,
+      isReverse,
+      goodsList,
+    } = this.state;
+
+    const newGoods = [...goodsList];
+
+    if (sortBy !== 'default') {
+      newGoods.sort((a, b) => {
+        switch (sortBy) {
+          case 'alphabet':
+            return a.localeCompare(b);
+
+          case 'length':
+            return a.length - b.length;
+
+          default:
+            return 0;
+        }
+      });
+    }
+
+    if (isReverse) {
+      newGoods.reverse();
+    }
 
     return (
       <div className="App">
@@ -113,7 +139,7 @@ class App extends React.Component {
             </button>
           </div>
           {isVisible
-            && <GoodsList {...this.state} />
+            && <GoodsList goodsList={newGoods} />
           }
         </div>
       </div>
