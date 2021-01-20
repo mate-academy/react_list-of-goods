@@ -8,7 +8,7 @@ export class GoodsList extends React.PureComponent {
     let goodsList = [...goods];
 
     if (value > 1) {
-      goodsList = [...goods.filter(good => good.length <= value)];
+      goodsList = [...goods.filter(good => good.length >= value)];
     }
 
     goodsList.sort((g1, g2) => {
