@@ -1,0 +1,17 @@
+.App {
+  display: grid;
+  justify-items: center;
+  border: 1px solid black;
+}
+
+button {
+  height: 30px;
+  margin: 10px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  height: 30px;
+  padding-bottom: 20px;
+}
