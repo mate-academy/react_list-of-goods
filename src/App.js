@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import './App.css';
 
 const goodsFromServer = [
@@ -14,11 +15,119 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    goods: goodsFromServer,
+    isVisible: false,
+    isReversed: false,
+    sortBy: 'id',
+    selectValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    selectedValue: 1,
+  };
+
+  start = () => {
+    this.setState({ isVisible: true });
+  }
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  sortAlphabetically = () => {
+    this.setState({ sortBy: 'alphabetically' });
+  };
+
+  sortByLength = () => {
+    this.setState({ sortBy: 'length' });
+  };
+
+  reset = () => {
+    this.setState({
+      goods: goodsFromServer,
+      isReversed: false,
+      sortBy: 'id',
+      selectedValue: 1,
+    });
+  };
+
+  select = ({ target }) => {
+    this.setState({ selectedValue: target.value });
+  }
+
+  render() {
+    const {
+      goods,
+      isVisible,
+      isReversed,
+      sortBy,
+      selectValues,
+      selectedValue,
+    } = this.state;
+
+    const startGoods = goods.filter(good => good.length >= selectedValue);
+
+    startGoods.sort((g1, g2) => {
+      switch (sortBy) {
+        case 'alphabetically':
+          return g1.localeCompare(g2);
+        case 'length':
+          return g1.length - g2.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      startGoods.reverse();
+    }
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        <pre>{goodsFromServer.length}</pre>
+        <button
+          type="button"
+          className={classNames({ hidden: isVisible })}
+          onClick={this.start}
+        >
+          Start
+        </button>
+        <ul className={classNames({ hidden: !isVisible })}>
+          <span>Select length </span>
+          <select value={selectedValue} onChange={this.select}>
+            {selectValues
+              .map(value => (
+                <option value={value} key={value}>
+                  {value}
+                </option>
+              ))
+            }
+          </select>
+          <button
+            type="button"
+            onClick={this.sortAlphabetically}
+          >
+            sortAlphabetically
+          </button>
+          <button
+            type="button"
+            onClick={this.sortByLength}
+          >
+            sortByLength
+          </button>
+          <button type="button" onClick={this.reverse}>Reverse</button>
+          <button type="button" onClick={this.reset}>Reset</button>
+          {startGoods.map(good => (
+            <li key={good}>
+              {good}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default App;
