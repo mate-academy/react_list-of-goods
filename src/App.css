@@ -1,0 +1,33 @@
+.App {
+  font-size: larger;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.button--start {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 200px;
+}
+
+.button {
+  height: 40px;
+  margin: 0 5px;
+  padding: 10px;
+
+  color: #f0f8ff;
+  border-radius: 10px;
+  border: none;
+  background-color: #3751ff;
+  cursor: pointer;
+}
+
+.button--reset {
+  border: 1px solid #3751ff;
+  color: #3751ff;
+  background-color: #fff;
+}
