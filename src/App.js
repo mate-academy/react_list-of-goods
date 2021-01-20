@@ -23,7 +23,7 @@ class App extends React.Component {
     sortBy: 'id',
     selectValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     selectedValue: 1,
-    filterValue: 10,
+    filterValue: 1,
   };
 
   start = () => {
@@ -58,7 +58,7 @@ class App extends React.Component {
       isReversed: false,
       sortBy: 'id',
       selectedValue: 1,
-      filterValue: 10,
+      filterValue: 1,
     }));
   };
 
@@ -79,7 +79,7 @@ class App extends React.Component {
       filterValue,
     } = this.state;
 
-    const startGoods = goods.filter(good => good.length <= filterValue);
+    const startGoods = goods.filter(good => good.length >= filterValue);
 
     startGoods.sort((g1, g2) => {
       switch (sortBy) {
@@ -107,11 +107,17 @@ class App extends React.Component {
         >
           Start
         </button>
-        <select value={selectedValue} onChange={this.select}>
-          {selectValues
-            .map(value => <option value={value} key={value}>{value}</option>)}
-        </select>
         <ul className={classNames({ hidden: !isVisible })}>
+          <span>Select length </span>
+          <select value={selectedValue} onChange={this.select}>
+            {selectValues
+              .map(value => (
+                <option value={value} key={value}>
+                  {value}
+                </option>
+              ))
+            }
+          </select>
           <button
             type="button"
             onClick={this.sortAlphabetically}
