@@ -1,0 +1,11 @@
+.list {
+  background-color: rgb(234, 243, 245);
+  padding: 10px;
+  border-radius: 10px;
+
+  &__item {
+    margin-top: 10px;
+    border-bottom: 1px solid;
+    text-shadow: 1px 2px 2px rgb(110, 107, 107);
+  }
+}
