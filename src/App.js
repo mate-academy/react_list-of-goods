@@ -35,7 +35,7 @@ class App extends React.Component {
 
   sortAlpbList = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   }
 
@@ -53,8 +53,6 @@ class App extends React.Component {
 
   render() {
     const { goods } = this.state;
-
-    this.a = 10;
 
     return (
       <div className="App">
