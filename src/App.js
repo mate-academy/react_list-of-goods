@@ -41,8 +41,7 @@ class App extends React.Component {
     this.setState(state => ({
       goodsList: [...state.goodsList].sort(
         (a, b) => (
-          a.toLowerCase()
-          > b.toLowerCase() ? 1 : -1
+          a.localeCompare(b)
         ),
       ),
     }));
@@ -52,7 +51,7 @@ class App extends React.Component {
     this.setState(state => ({
       goodsList: [...state.goodsList].sort(
         (a, b) => (
-          a.length > b.length ? 1 : -1
+          a.length - b.length
         ),
       ),
     }));
@@ -73,13 +72,39 @@ class App extends React.Component {
           </button>
         )}
         {goodsVisibility && (
-          <GoodsList
-            goodsList={goodsList}
-            reverse={this.reverseHandler}
-            sortAlphabet={this.sortAlphabetHandler}
-            reset={this.resetHandler}
-            sortByLength={this.sortByLength}
-          />
+          <>
+            <button
+              type="button"
+              onClick={this.reverseHandler}
+            >
+              Reverse
+            </button>
+
+            <button
+              type="button"
+              onClick={this.sortAlphabetHandler}
+            >
+              Sort alphabetically
+            </button>
+
+            <button
+              type="button"
+              onClick={this.resetHandler}
+            >
+              Reset
+            </button>
+
+            <button
+              type="button"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+
+            <GoodsList
+              goodsList={goodsList}
+            />
+          </>
         )}
       </div>
     );
