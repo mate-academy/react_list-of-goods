@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoodList } from './components/GoodList';
 import './App.css';
 
 const goodsFromServer = [
@@ -33,11 +34,17 @@ class App extends React.Component {
   };
 
   sortAsString = () => {
-    this.setState({ sortBy: 'string' });
+    this.setState({
+      sortBy: 'string',
+      isReversed: false,
+    });
   };
 
   sortAsNumber = () => {
-    this.setState({ sortBy: 'number' });
+    this.setState({
+      sortBy: 'number',
+      isReversed: false,
+    });
   };
 
   resetList = () => {
@@ -95,10 +102,7 @@ class App extends React.Component {
               Reset
             </button>
 
-            <ul>
-              {newGoods.map(good => (<li key={good}>{good}</li>))}
-            </ul>
-
+            <GoodList goods={newGoods} />
           </>
         )}
       </div>
