@@ -18,13 +18,13 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
-    isVissible: false,
+    isVisible: false,
     isReversed: false,
     sortBy: '',
   };
 
   showList = () => {
-    this.setState({ isVissible: true });
+    this.setState({ isVisible: true });
   };
 
   reverseList = () => {
@@ -56,7 +56,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isVissible, goods, isReversed, sortBy } = this.state;
+    const { isVisible, goods, isReversed, sortBy } = this.state;
     const newGoods = [...goods];
 
     newGoods.sort((prevGood, nextGood) => {
@@ -79,12 +79,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isVissible || (
+        {isVisible || (
           <button type="button" onClick={this.showList}>
             Start
           </button>
         )}
-        {isVissible && (
+        {isVisible && (
           <>
             <button type="button" onClick={this.reverseList}>
               Reverse
