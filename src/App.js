@@ -15,13 +15,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const options = Array(10).fill(0).map((x, i) => i + 1);
 
 class App extends React.Component {
   state = {
     isVisible: false,
     isReversed: false,
-    sortBy: '',
+    sortBy: 'name',
     minLength: 1,
   }
 
@@ -61,6 +61,30 @@ class App extends React.Component {
     this.setState({
       minLength: +target.value,
     });
+  }
+
+  prepareGoods = (goodsList) => {
+    const { minLength, sortBy, isReversed } = this.state;
+    const goods = goodsList.filter(good => good.length >= minLength);
+
+    switch (sortBy) {
+      case 'name':
+        goods.sort();
+        break;
+
+      case 'length':
+        goods.sort((a, b) => a.length - b.length);
+        break;
+
+      default:
+        break;
+    }
+
+    if (isReversed) {
+      goods.reverse();
+    }
+
+    return goods;
   }
 
   render() {
@@ -111,7 +135,7 @@ class App extends React.Component {
         </select>
 
         {this.state.isVisible
-          && <GoodsList goodsList={goodsFromServer} {...this.state} />}
+          && <GoodsList goodsList={this.prepareGoods(goodsFromServer)} />}
       </div>
     );
   }
