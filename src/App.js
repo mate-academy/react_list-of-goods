@@ -43,6 +43,7 @@ export class App extends React.Component {
 
   resetIt = () => {
     this.setState({
+      goods: goodsFromServer,
       sortedBy: '',
       isReversed: false,
     });
