@@ -84,11 +84,7 @@ class App extends React.Component {
         {isVisible
           && (
             <>
-              <GoodsList
-                goods={copyGoods}
-                sortedBy={sortedBy}
-                isReversed={isReversed}
-              />
+              <GoodsList goods={copyGoods} />
 
               <section className="section">
                 Sort By
