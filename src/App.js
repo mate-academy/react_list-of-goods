@@ -19,6 +19,7 @@ class App extends React.Component {
     goods: [...goodsFromServer],
     visability: false,
     limit: 1,
+    maxLength: 10,
   }
 
   start = () => {
@@ -29,7 +30,7 @@ class App extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      goods: state.goods.reverse(),
+      goods: [...state.goods].reverse(),
     }));
   }
 
@@ -77,22 +78,18 @@ class App extends React.Component {
           <>
             Max length to display:
             {' '}
+
             <select
               className="limit-select"
               name="limiter"
               onChange={this.limiter}
               value={this.state.limit}
             >
-              <option value="1" key="1">1</option>
-              <option value="2" key="2">2</option>
-              <option value="3" key="3">3</option>
-              <option value="4" key="4">4</option>
-              <option value="5" key="5">5</option>
-              <option value="6" key="6">6</option>
-              <option value="7" key="7">7</option>
-              <option value="8" key="8">8</option>
-              <option value="9" key="9">9</option>
-              <option value="10" key="10">10</option>
+
+              {[...Array(this.state.maxLength)].map((el, i) => (
+                <option value={i + 1}>{i + 1}</option>
+              ))}
+
             </select>
 
             <div>
