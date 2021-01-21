@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+h1,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.App {
+  padding: 30px;
+  background-color: rgb(201, 241, 235);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  &__title {
+    text-align: center;
+    color: rgb(11, 91, 105) ;
+  }
+
+  &__buttons {
+    display: none;
+
+    &--visible {
+      display: flex;
+      justify-content: space-between;
+      visibility: visible;
+      margin-top: 30px;
+    }
+  }
+
+  &__button {
+    height: 40px;
+    width: 100px;
+    border: none;
+    border-radius: 10px;
+    background: radial-gradient(#bbe9f5, rgb(27, 188, 216));
+    color: rgb(11, 91, 105);
+    transition: transform 0.2s;
+
+    &:hover {
+      background: radial-gradient(#2fcbf1, rgb(27, 188, 216));
+      transform: scale(0.9, 1);
+    }
+  }
+}
