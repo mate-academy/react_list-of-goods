@@ -16,7 +16,7 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const selectItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const selectItems = Array.from(Array(10).keys());
 
 class App extends React.Component {
   state = {
@@ -122,8 +122,8 @@ class App extends React.Component {
                         onChange={this.filterByLength}
                       >
                         {selectItems.map(item => (
-                          <option value={item} key={item}>
-                            {item}
+                          <option value={item + 1} key={item + 1}>
+                            {item + 1}
                           </option>
                         ))}
                       </select>
