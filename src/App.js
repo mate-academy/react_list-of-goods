@@ -18,10 +18,8 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     startedList: false,
-    reversed: false,
-    sortBy: '',
   };
 
   isStarted = () => {
@@ -30,15 +28,14 @@ class App extends React.Component {
 
   resetList = () => {
     this.setState({
-      sortBy: '',
-      reversed: false,
+      goods: [...goodsFromServer],
     });
   };
 
-  sortedList = (sortBy, goods) => {
-    const visibleGoods = [...goods];
+  sortedList = (sortBy) => {
+    const { goods } = this.state;
 
-    visibleGoods.sort((a, b) => {
+    const sortedGoods = goods.sort((a, b) => {
       switch (sortBy) {
         case 'string':
           return a.localeCompare(b);
@@ -51,36 +48,35 @@ class App extends React.Component {
       }
     });
 
-    return visibleGoods;
+    this.setState({
+      goods: sortedGoods,
+    });
   };
 
   isReversed = () => {
     this.setState(state => ({
-      reversed: !state.reversed,
+      goods: state.goods.reverse(),
     }));
   };
 
   render() {
-    const { goods, startedList, sortBy, reversed } = this.state;
-    const visibleGoods = this.sortedList(sortBy, goods);
-
-    if (reversed) {
-      visibleGoods.reverse();
-    }
+    const { goods, startedList } = this.state;
+    const visibleGoods = goods;
 
     return (
       <div className="App">
         <h1 className="App__title">Goods</h1>
-        <button
-          type="button"
-          className={classNames(
-            'App__button',
-            { 'App__button--hidden': startedList },
-          )}
-          onClick={this.isStarted}
-        >
-          Start
-        </button>
+        {
+          !startedList
+            && (
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.isStarted}
+              >
+                Start
+              </button>
+            )}
         {startedList && <GoodsList goodsList={visibleGoods} />}
         <div
           className={classNames(
@@ -98,14 +94,18 @@ class App extends React.Component {
           <button
             type="button"
             className="App__button"
-            onClick={() => this.setState({ sortBy: 'string' })}
+            onClick={() => {
+              this.sortedList('string');
+            }}
           >
             Sort alphabetically
           </button>
           <button
             type="button"
             className="App__button"
-            onClick={() => this.setState({ sortBy: 'length' })}
+            onClick={() => {
+              this.sortedList('length');
+            }}
           >
             Sort by length
           </button>
