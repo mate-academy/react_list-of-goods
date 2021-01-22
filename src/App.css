@@ -1,0 +1,66 @@
+/* <10 min css */
+body {
+  margin: 0;
+  background-color: rgb(192, 192, 192);
+}
+
+.bigRedButton {
+  margin-left: calc(50vw - 150px);
+  margin-top: calc(50vh - 150px);
+  background-color: red;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  box-sizing: border-box;
+  transition: 0.4s;
+  font-size: 30px;
+  font-family: helvetica, sans-serif;
+  color: white;
+}
+
+.bigRedButton:hover {
+  border-color: grey;
+  transform: scale(2);
+  cursor: pointer;
+}
+
+.button {
+  margin: 15px;
+  width: 80px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list__product {
+  list-style: none;
+  display: block;
+  height: 80px;
+  width: 600px;
+  background-color: white;
+  margin: 10px;
+  border-radius: 8px;
+  font-size: 30px;
+  font-family: helvetica, sans-serif;
+  text-align: center;
+  line-height: 80px;
+}
+
+.header {
+  display: flex;
+  background-color: rgb(14, 14, 14);
+  height: 60px;
+  padding-left: 40px;
+}
+
+.header__heading {
+  line-height: 60px;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
