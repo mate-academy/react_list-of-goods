@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-// import { GoodsList } from './components/GoodsList';
-import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
+// import classNames from 'classnames';
 
 const goodsFromServer = [
   'Dumplings',
@@ -125,36 +125,12 @@ class App extends React.Component {
                   Close All
                 </button>
 
-                <ul className="list">
-                  {goodsVisible.map(el => (
-                    <li key={el} className="item">
-                      <span className={`item-text, ${
-                        selectedGoods.includes(el)
-                          ? 'active' : ''}`}
-                      >
-                        {el}
-                      </span>
-                      <div className="buttons">
-                        <button
-                          type="button"
-                          onClick={() => this.addSelectedGoods(el)}
-                          className={classNames(`add`, {
-                            addSelected: selectedGoods.includes(el) === true,
-                          })}
-                        >
-                          Select
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => this.removeSelectedGoods(el)}
-                          className="remove"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                <GoodsList
+                  goodsVisible={goodsVisible}
+                  selectedGoods={selectedGoods}
+                  addSelectedGoods={this.addSelectedGoods}
+                  removeSelectedGoods={this.removeSelectedGoods}
+                />
               </>
             )}
           {isVisible && (
