@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GoodList = (
-  { goodsList, reverse, sortByAlphabet, sortByLength, reset },
-) => (
+const GoodList = ({
+  goodsList,
+  reverse,
+  sortByAlphabet,
+  sortByLength,
+  reset,
+}) => (
   <div>
     <button
       type="button"
@@ -31,7 +35,7 @@ const GoodList = (
     </button>
     <ul>
       {goodsList.map(item => (
-        <li>
+        <li key={item}>
           {item}
         </li>
       ))}

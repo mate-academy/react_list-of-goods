@@ -42,15 +42,13 @@ class App extends React.Component {
 
   sortByAlphabet = () => {
     this.setState(prevState => ({
-      goodsList: [...prevState.goodsList].sort((a, b) => a.localeCompare(b)),
+      goodsList: [...prevState.goodsList].sort(),
     }));
   }
 
   sortByLength = () => {
     this.setState(prevState => ({
-      goodsList: [...prevState.goodsList].sort(
-        (a, b) => (a.length > b.length ? 1 : -1),
-      ),
+      goodsList: [...prevState.goodsList].sort((a, b) => a.length - b.length),
     }));
   }
 
