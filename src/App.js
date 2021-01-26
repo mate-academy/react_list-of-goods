@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { ListOfGoods } from './Components/ListOfGoods';
+import { GoodsList } from './Components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -17,113 +17,80 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goodsList: [...goodsFromServer],
-    appStarted: false,
-    isReverse: false,
-    sorting: 'default',
+    goods: [],
+    isVisible: false,
   }
 
-  setVisible = () => {
+  showList = () => {
+    this.setState({
+      goods: [...goodsFromServer],
+      isVisible: true,
+    });
+  };
+
+  reverse = () => {
     this.setState(state => ({
-      appStarted: !state.appStarted,
+      goods: state.goods.reverse(),
     }));
   }
 
-  makeReverse = () => {
+  sortByName = () => {
     this.setState(state => ({
-      isReverse: !state.isReverse,
+      goods: state.goods.sort((fg, sg) => fg.localeCompare(sg)),
     }));
-  }
-
-  alphabetSort = () => {
-    this.setState({ sorting: 'alphabet' });
-  }
-
-  lengthSort = () => {
-    this.setState({ sorting: 'length' });
   }
 
   reset = () => {
     this.setState({
-      goodsList: [...goodsFromServer],
-      sorting: 'default',
-      isReverse: false,
+      goods: [...goodsFromServer],
     });
   }
 
+  sortByLength = () => {
+    this.setState(state => ({
+      goods: state.goods.sort((fg, sg) => fg.length - sg.length),
+    }));
+  }
+
   render() {
-    const {
-      appStarted,
-      sorting,
-      isReverse,
-      goodsList,
-    } = this.state;
-
-    goodsList.sort((a, b) => {
-      switch (sorting) {
-        case 'alphabet':
-          return a.localeCompare(b);
-
-        case 'length':
-          return a.length - b.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReverse) {
-      goodsList.reverse();
-    }
-
     return (
       <div className="App">
-
-        <h1>Goods</h1>
-        {!appStarted
-          ? (
-            <button
-              type="button"
-              onClick={this.setVisible}
-            >
-              Start
-            </button>
-          )
-          : (
-            <>
-              <button
-                type="button"
-                onClick={this.makeReverse}
-              >
-                Reverse
-              </button>
-
-              <button
-                type="button"
-                onClick={this.alphabetSort}
-              >
-                Sort by alphabet
-              </button>
-
-              <button
-                type="button"
-                onClick={this.lengthSort}
-              >
-                Sort by length
-              </button>
-
-              <button
-                type="button"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-
-              <ListOfGoods goodsArr={goodsList} />
-            </>
-          )
-        }
-
+        <button
+          type="button"
+          onClick={this.showList}
+          className={this.state.isVisible ? 'invisible' : ''}
+        >
+          Start
+        </button>
+        <button
+          type="button"
+          onClick={this.reverse}
+          className={this.state.isVisible ? '' : 'invisible'}
+        >
+          Reverse
+        </button>
+        <button
+          type="button"
+          onClick={this.sortByName}
+          className={this.state.isVisible ? '' : 'invisible'}
+        >
+          Sort by alphabet
+        </button>
+        <button
+          type="button"
+          onClick={this.reset}
+          className={this.state.isVisible ? '' : 'invisible'}
+        >
+          Reset
+        </button>
+        <button
+          type="button"
+          onClick={this.sortByLength}
+          className={this.state.isVisible ? '' : 'invisible'}
+        >
+          Sort by length
+        </button>
+        <GoodsList goodsList={this.state.goods} />
       </div>
     );
   }
