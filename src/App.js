@@ -69,8 +69,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        {this.state.isVisible
-          ? (
+        {
+          this.state.isVisible && (
             <>
               <button
                 type="button"
@@ -99,14 +99,15 @@ class App extends React.Component {
               <GoodsList goods={this.state.goods} />
             </>
           )
-          : (
-            <button
-              type="button"
-              onClick={this.showList}
-            >
-              Start
-            </button>
-          )
+        }
+        {this.state.isVisible || (
+          <button
+            type="button"
+            onClick={this.showList}
+          >
+            Start
+          </button>
+        )
         }
       </div>
     );
