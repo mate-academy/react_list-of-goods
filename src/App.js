@@ -29,15 +29,24 @@ class App extends React.Component {
   };
 
   reverse = () => {
-    this.setState(state => ({
-      goods: state.goods.reverse(),
-    }));
+    this.setState((prevState) => {
+      const reversedArray = [...prevState.goods].reverse();
+
+      return ({
+        goods: reversedArray,
+      });
+    });
   }
 
   sortByName = () => {
-    this.setState(state => ({
-      goods: state.goods.sort((fg, sg) => fg.localeCompare(sg)),
-    }));
+    this.setState((prevState) => {
+      const sortedArray = [...prevState.goods]
+        .sort((firstGood, secondGood) => firstGood.localeCompare(secondGood));
+
+      return ({
+        goods: sortedArray,
+      });
+    });
   }
 
   reset = () => {
@@ -47,50 +56,58 @@ class App extends React.Component {
   }
 
   sortByLength = () => {
-    this.setState(state => ({
-      goods: state.goods.sort((fg, sg) => fg.length - sg.length),
-    }));
+    this.setState((prevState) => {
+      const sortedArray = [...prevState.goods]
+        .sort((firstGood, secondGood) => firstGood.length - secondGood.length);
+
+      return ({
+        goods: sortedArray,
+      });
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <button
-          type="button"
-          onClick={this.showList}
-          className={this.state.isVisible ? 'invisible' : ''}
-        >
-          Start
-        </button>
-        <button
-          type="button"
-          onClick={this.reverse}
-          className={this.state.isVisible ? '' : 'invisible'}
-        >
-          Reverse
-        </button>
-        <button
-          type="button"
-          onClick={this.sortByName}
-          className={this.state.isVisible ? '' : 'invisible'}
-        >
-          Sort by alphabet
-        </button>
-        <button
-          type="button"
-          onClick={this.reset}
-          className={this.state.isVisible ? '' : 'invisible'}
-        >
-          Reset
-        </button>
-        <button
-          type="button"
-          onClick={this.sortByLength}
-          className={this.state.isVisible ? '' : 'invisible'}
-        >
-          Sort by length
-        </button>
-        <GoodsList goodsList={this.state.goods} />
+        {this.state.isVisible
+          ? (
+            <>
+              <button
+                type="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+              <button
+                type="button"
+                onClick={this.sortByName}
+              >
+                Sort by alphabet
+              </button>
+              <button
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+              <GoodsList goods={this.state.goods} />
+            </>
+          )
+          : (
+            <button
+              type="button"
+              onClick={this.showList}
+            >
+              Start
+            </button>
+          )
+        }
       </div>
     );
   }

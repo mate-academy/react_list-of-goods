@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const GoodsList = ({ goodsList }) => (
+export const GoodsList = ({ goods }) => (
   <ul>
-    {goodsList.map(good => (
+    {goods.map(good => (
       <li key={good}>
         {good}
       </li>
@@ -12,5 +12,5 @@ export const GoodsList = ({ goodsList }) => (
 );
 
 GoodsList.propTypes = {
-  goodsList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
