@@ -17,56 +17,78 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [],
+    goods: [...goodsFromServer],
     isVisible: false,
+    isReversed: false,
+    isReseted: false,
+    sortBy: '',
   }
 
   showList = () => {
     this.setState({
-      goods: [...goodsFromServer],
       isVisible: true,
     });
   };
 
-  reverse = () => {
-    this.setState((prevState) => {
-      const reversedArray = [...prevState.goods].reverse();
+  reset = () => {
+    this.setState(prevState => ({
+      isReseted: !prevState.isReseted,
+      isReversed: false,
+      sortBy: '',
+    }));
+  }
 
-      return ({
-        goods: reversedArray,
-      });
-    });
+  reverse = () => {
+    this.setState(prevState => ({
+      isReversed: !prevState.isReversed,
+      isReseted: false,
+      sortBy: prevState.sortBy,
+    }));
   }
 
   sortByName = () => {
-    this.setState((prevState) => {
-      const sortedArray = [...prevState.goods]
-        .sort((firstGood, secondGood) => firstGood.localeCompare(secondGood));
-
-      return ({
-        goods: sortedArray,
-      });
-    });
-  }
-
-  reset = () => {
     this.setState({
-      goods: [...goodsFromServer],
+      sortBy: 'alphabet',
+      isReseted: false,
+      isReversed: false,
     });
   }
 
   sortByLength = () => {
-    this.setState((prevState) => {
-      const sortedArray = [...prevState.goods]
-        .sort((firstGood, secondGood) => firstGood.length - secondGood.length);
-
-      return ({
-        goods: sortedArray,
-      });
+    this.setState({
+      sortBy: 'length',
+      isReseted: false,
+      isReversed: false,
     });
   }
 
   render() {
+    const { goods, isReversed, isReseted, sortBy } = this.state;
+    let visibleGoods = [...goods];
+
+    if (sortBy) {
+      visibleGoods.sort((firstGood, secondGood) => {
+        switch (sortBy) {
+          case 'length':
+            return firstGood.length - secondGood.length;
+
+          case 'alphabet':
+            return firstGood.localeCompare(secondGood);
+
+          default:
+            return 0;
+        }
+      });
+    }
+
+    if (isReseted) {
+      visibleGoods = [...goods];
+    }
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
     return (
       <div className="App">
         {
@@ -78,29 +100,33 @@ class App extends React.Component {
               >
                 Reverse
               </button>
+
               <button
                 type="button"
                 onClick={this.sortByName}
               >
                 Sort by alphabet
               </button>
+
               <button
                 type="button"
                 onClick={this.reset}
               >
                 Reset
               </button>
+
               <button
                 type="button"
                 onClick={this.sortByLength}
               >
                 Sort by length
               </button>
-              <GoodsList goods={this.state.goods} />
+
+              <GoodsList goods={visibleGoods} />
             </>
           )
         }
-        {this.state.isVisible || (
+        {!this.state.isVisible && (
           <button
             type="button"
             onClick={this.showList}
