@@ -21,24 +21,22 @@ class App extends React.Component {
     isVisible: false,
     goods: goodsFromServer,
     sortBy: '',
-    reverse: false,
+    opposite: false,
     selectedGoods: [],
   }
 
   addSelectedGoods = (goods) => {
-    const { selectedGoods } = this.state;
-
-    this.setState({
-      selectedGoods: [...selectedGoods, goods],
-    });
+    this.setState(prevState => ({
+      ...prevState,
+      selectedGoods: [...prevState.selectedGoods, goods],
+    }));
   }
 
   removeSelectedGoods = (goods) => {
-    const { selectedGoods } = this.state;
-
-    this.setState({
-      selectedGoods: selectedGoods.filter(el => el !== goods),
-    });
+    this.setState(prevState => ({
+      ...prevState,
+      selectedGoods: prevState.selectedGoods.filter(el => el !== goods),
+    }));
   }
 
   deleteSelectedGoods = () => {
@@ -53,34 +51,37 @@ class App extends React.Component {
     this.setState({ isVisible: false });
   }
 
-  reverse = () => {
-    this.setState({ reverse: true });
-  }
-
   sortAlf = () => {
     this.setState({ sortBy: 'alph' });
   }
 
   sortLeng = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({
+      sortBy: 'length',
+      opposite: false,
+    });
+  }
+
+  reverse = () => {
+    this.setState({ opposite: true });
   }
 
   reset = () => {
     this.setState({
       sortBy: '',
-      reverse: false,
+      opposite: false,
     });
   }
 
   render() {
-    const { isVisible, goods, sortBy, reverse, selectedGoods } = this.state;
-    const goodsVisible = [...goods];
+    const { isVisible, goods, sortBy, opposite, selectedGoods } = this.state;
+    const visibleGoods = [...goods];
 
-    if (reverse) {
-      goodsVisible.reverse();
+    if (opposite) {
+      visibleGoods.reverse();
     }
 
-    goodsVisible.sort((a, b) => {
+    visibleGoods.sort((a, b) => {
       switch (sortBy) {
         case 'alph':
           return a.localeCompare(b);
@@ -92,82 +93,80 @@ class App extends React.Component {
     });
 
     return (
-      <>
-        <div className="App">
-          <h1 className="title">
-            {`Selected goods: ${selectedGoods.join(', ')}`}
-          </h1>
-          {!isVisible ? (
-            <button className="start" type="button" onClick={this.start}>
-              Start
-            </button>
-          )
-            : (
-              <>
-                {selectedGoods.length !== 0 && (
-                  <button
-                    type="button"
-                    className="cross"
-                    onClick={this.deleteSelectedGoods}
-                  >
-                    Х
-                  </button>
-                )}
-                <p className="selected">
-                  {`Selected: 
-             ${selectedGoods.length}`}
-                </p>
-                <button
-                  className="close-all"
-                  type="button"
-                  onClick={this.close}
-                >
-                  Close All
-                </button>
-
-                <GoodsList
-                  goodsVisible={goodsVisible}
-                  selectedGoods={selectedGoods}
-                  addSelectedGoods={this.addSelectedGoods}
-                  removeSelectedGoods={this.removeSelectedGoods}
-                />
-              </>
+      <div className="App">
+        <h1 className="title">
+          {`Selected goods: ${selectedGoods.join(', ')}`}
+        </h1>
+        {!isVisible ? (
+          <button className="start" type="button" onClick={this.start}>
+            Start
+          </button>
+        ) : (
+          <>
+            {selectedGoods.length !== 0 && (
+              <button
+                type="button"
+                className="cross"
+                onClick={this.deleteSelectedGoods}
+              >
+                Х
+              </button>
             )}
-          {isVisible && (
-            <>
-              <button
-                className="m-btn modify-btn"
-                type="button"
-                onClick={this.reverse}
-              >
-                Reverse
-              </button>
-              <button
-                className="m-btn
-                modify-btn"
-                type="button"
-                onClick={this.sortAlf}
-              >
-                Sort A-Z
-              </button>
-              <button
-                className="m-btn modify-btn"
-                type="button"
-                onClick={this.sortLeng}
-              >
-                Sort by length
-              </button>
-              <button
-                className="m-btn modify-btn"
-                type="button"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-            </>
-          )}
-        </div>
-      </>
+            <p className="selected">
+              {`Selected: 
+          ${selectedGoods.length}`}
+            </p>
+            <button
+              className="close-all"
+              type="button"
+              onClick={this.close}
+            >
+              Close All
+            </button>
+
+            <GoodsList
+              visibleGoods={visibleGoods}
+              selectedGoods={selectedGoods}
+              addSelectedGoods={this.addSelectedGoods}
+              removeSelectedGoods={this.removeSelectedGoods}
+            />
+          </>
+        )}
+        {isVisible && (
+          <>
+            <button
+              className="m-btn modify-btn"
+              type="button"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+            <button
+              className="m-btn
+              modify-btn"
+              type="button"
+              onClick={this.sortAlf}
+            >
+              Sort A-Z
+            </button>
+            <button
+              className="m-btn modify-btn"
+              type="button"
+              onClick={this.sortLeng}
+            >
+              Sort by length
+            </button>
+            <button
+              className="m-btn modify-btn"
+              type="button"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          </>
+        )}
+      </div>
+
     );
   }
 }

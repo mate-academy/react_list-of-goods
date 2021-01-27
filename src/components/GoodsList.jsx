@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const GoodsList = ({
-  goodsVisible,
+  visibleGoods,
   selectedGoods,
   addSelectedGoods,
   removeSelectedGoods,
 }) => (
   <ul className="list">
-    {goodsVisible.map(el => (
+    {visibleGoods.map(el => (
       <li key={el} className="item">
-        <span className={`item-text, ${
-          selectedGoods.includes(el)
-            ? 'active' : ''}`}
+        <span className={`item-text, ${selectedGoods.includes(el)
+          ? 'active' : ''}`}
         >
           {el}
         </span>
@@ -41,8 +40,8 @@ export const GoodsList = ({
 );
 
 GoodsList.propTypes = {
-  goodsVisible: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectedGoods: PropTypes.arrayOf.isRequired,
+  visibleGoods: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedGoods: PropTypes.arrayOf(PropTypes.object).isRequired,
   addSelectedGoods: PropTypes.func.isRequired,
   removeSelectedGoods: PropTypes.func.isRequired,
 };
