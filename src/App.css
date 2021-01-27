@@ -1,0 +1,15 @@
+.Container {
+  display: flex;
+}
+
+button {
+  margin: 10px;
+}
+
+form {
+  margin: 10px;
+}
+
+.Action {
+  display: none;
+}
