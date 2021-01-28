@@ -18,7 +18,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    isVisible: false,
+    isVisiblePage: false,
     goods: goodsFromServer,
     sortBy: '',
     opposite: false,
@@ -27,15 +27,13 @@ class App extends React.Component {
 
   addSelectedGoods = (goods) => {
     this.setState(prevState => ({
-      ...prevState,
       selectedGoods: [...prevState.selectedGoods, goods],
     }));
   }
 
   removeSelectedGoods = (goods) => {
     this.setState(prevState => ({
-      ...prevState,
-      selectedGoods: prevState.selectedGoods.filter(el => el !== goods),
+      selectedGoods: prevState.selectedGoods.filter(arr => arr !== goods),
     }));
   }
 
@@ -44,11 +42,11 @@ class App extends React.Component {
   }
 
   start = () => {
-    this.setState({ isVisible: true });
+    this.setState({ isVisiblePage: true });
   }
 
   close = () => {
-    this.setState({ isVisible: false });
+    this.setState({ isVisiblePage: false });
   }
 
   sortAlf = () => {
@@ -58,7 +56,6 @@ class App extends React.Component {
   sortLeng = () => {
     this.setState({
       sortBy: 'length',
-      opposite: false,
     });
   }
 
@@ -74,12 +71,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { isVisible, goods, sortBy, opposite, selectedGoods } = this.state;
+    const { isVisiblePage,
+      goods,
+      sortBy,
+      opposite,
+      selectedGoods } = this.state;
     const visibleGoods = [...goods];
-
-    if (opposite) {
-      visibleGoods.reverse();
-    }
 
     visibleGoods.sort((a, b) => {
       switch (sortBy) {
@@ -92,15 +89,20 @@ class App extends React.Component {
       }
     });
 
+    if (opposite) {
+      visibleGoods.reverse();
+    }
+
     return (
       <div className="App">
         <h1 className="title">
           {`Selected goods: ${selectedGoods.join(', ')}`}
         </h1>
-        {!isVisible ? (
+        {!isVisiblePage ? (
           <button className="start" type="button" onClick={this.start}>
             Start
           </button>
+
         ) : (
           <>
             {selectedGoods.length !== 0 && (
@@ -112,10 +114,13 @@ class App extends React.Component {
                 Х
               </button>
             )}
+
             <p className="selected">
               {`Selected: 
-          ${selectedGoods.length}`}
+                ${selectedGoods.length}`
+              }
             </p>
+
             <button
               className="close-all"
               type="button"
@@ -132,7 +137,7 @@ class App extends React.Component {
             />
           </>
         )}
-        {isVisible && (
+        {isVisiblePage && (
           <>
             <button
               className="m-btn modify-btn"

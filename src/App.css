@@ -32,11 +32,6 @@
   height: 40px;
 }
 
-.item-text {
-  display: flex;
-  align-items: center;
-}
-
 .list {
   list-style: none;
   padding-top: 20px;

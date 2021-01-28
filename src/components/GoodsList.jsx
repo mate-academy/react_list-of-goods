@@ -9,30 +9,32 @@ export const GoodsList = ({
   removeSelectedGoods,
 }) => (
   <ul className="list">
-    {visibleGoods.map(el => (
-      <li key={el} className="item">
-        <span className={`item-text, ${selectedGoods.includes(el)
+    {visibleGoods.map(product => (
+      <li key={product} className="item">
+        <span className={`item-text ${selectedGoods.includes(product)
           ? 'active' : ''}`}
         >
-          {el}
+          {product}
         </span>
         <div className="buttons">
           <button
             type="button"
-            onClick={() => addSelectedGoods(el)}
+            onClick={() => addSelectedGoods(product)}
             className={classNames(`add`, {
-              addSelected: selectedGoods.includes(el) === true,
+              addSelected: selectedGoods.includes(product),
             })}
           >
             Select
           </button>
-          <button
-            type="button"
-            onClick={() => removeSelectedGoods(el)}
-            className="remove"
-          >
-            Remove
-          </button>
+          {selectedGoods.includes(product) && (
+            <button
+              type="button"
+              onClick={() => removeSelectedGoods(product)}
+              className="remove"
+            >
+              Remove
+            </button>
+          )}
         </div>
       </li>
     ))}
