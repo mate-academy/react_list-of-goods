@@ -1,0 +1,75 @@
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  background-color: #e7fff2;
+}
+
+.header {
+  font-size: 40px;
+  text-decoration: underline #20bf6b;
+}
+
+.goods {
+  margin-left: 0;
+  list-style: none;
+  counter-reset: li;
+  max-width: 100px;
+}
+
+.goods li {
+  position: relative;
+  margin-bottom: 7px;
+  border: 3px solid #cadfcf;
+  padding: 0.6em;
+  border-radius: 4px;
+  background: #fefefe;
+  color: #231f20;
+}
+
+.goods li:before {
+  position: absolute;
+  top: -0.7em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  font-size: 16px;
+  font-weight: bold;
+  color: #20bf6b;
+  background: #fefefe;
+  border-radius: 50%;
+  counter-increment: li;
+  content: counter(li);
+}
+
+button {
+  margin-left: 15px;
+  color: #20bf6b ;
+  text-transform: uppercase;
+  background: #fff;
+  padding: 20px;
+  border: 4px solid #20bf6b ;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease 0s;
+}
+
+button:hover {
+  color: #494949 ;
+  border-radius: 50px;
+  border-color: #494949 ;
+  transition: all 0.3s ease 0s;
+}
+
+select {
+  margin-left: 10px;
+  position: relative;
+  border: 4px solid #20bf6b;
+  padding: 10px 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+select:hover {
+  color: #494949 ;
+  border-radius: 50px;
+  border-color: #494949 ;
+  transition: all 0.3s ease 0s;
+}
