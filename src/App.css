@@ -1,0 +1,121 @@
+.App {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding-left: 40px;
+  color: rgb(95, 81, 81);
+}
+
+.title {
+  font-size: 37px;
+}
+
+.selected {
+  font-size: 30px;
+  padding-left: 160px;
+}
+
+.cross {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(360deg, #ff2525 , #fef9d7);
+  font-size: 20px;
+  color: white;
+  border: none;
+  margin-left: 200px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+  padding-top: 13px;
+  height: 40px;
+}
+
+.list {
+  list-style: none;
+  padding-top: 20px;
+  width: 360px;
+}
+
+.buttons {
+  display: inline-flex;
+  margin-left: 5px;
+}
+
+.remove {
+  margin-left: 15px;
+  width: 85px;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #ff2525 , #fef9d7);
+  border: none;
+  cursor: pointer;
+}
+
+.add {
+  width: 85px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #a1ffce, #f9ffd1);
+  border: none;
+  cursor: pointer;
+}
+
+.modify-btn {
+  min-width: 85px;
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #a8edea, #fed6e3);
+  border: none;
+  cursor: pointer;
+  line-height: 40px;
+  margin-top: 25px;
+}
+
+.m-btn {
+  margin-right: 20px;
+}
+
+.close-all {
+  min-width: 85px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(120deg, #ff2525 , #fef9d7);
+  font-size: 16px;
+  line-height: 40px;
+  color: rgb(247, 246, 221);
+}
+
+.start {
+  min-width: 85px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(45deg, #a8edea, #fed6e3);
+  color: rgb(7, 81, 104);
+  font-size: 18px;
+  line-height: 40px;
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.start:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.active {
+  text-align: center;
+  background: linear-gradient(45deg, #a8edea, #fed6e3);
+  width: 130px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 8px;
+}
+
+.addSelected {
+  border-radius: 8px;
+  background: linear-gradient(45deg, #37ecba, #72afd3);
+}
