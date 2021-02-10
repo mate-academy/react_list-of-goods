@@ -17,28 +17,30 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
-    isReversed: false,
-    sortBy: '',
     selectedNumber: 1,
     isStarted: false,
   }
 
   reverse = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
+      goods: [...state.goods].reverse(),
     }));
   }
 
   sortByAlphabetically = () => {
-    this.setState({
-      sortBy: 'name',
-    });
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => (
+        a.localeCompare(b)
+      )),
+    }));
   }
 
   sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-    });
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => (
+        a.length - b.length
+      )),
+    }));
   }
 
   start = () => {
@@ -49,7 +51,7 @@ class App extends React.Component {
 
   reset = () => {
     this.setState({
-      sortBy: '', isReversed: false, selectedNumber: 1,
+      goods: goodsFromServer,
     });
   }
 
@@ -60,27 +62,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { goods, isReversed, sortBy, isStarted, selectedNumber } = this.state;
-    let copyGoods = [...goods];
-
-    copyGoods = [...goods.filter(good => good.length >= selectedNumber)];
-
-    copyGoods.sort((a, b) => {
-      switch (sortBy) {
-        case 'name':
-          return a.localeCompare(b);
-
-        case 'length':
-          return a.length - b.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      copyGoods.reverse();
-    }
+    const { goods, isStarted, selectedNumber } = this.state;
 
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -99,13 +81,12 @@ class App extends React.Component {
           : (
             <>
               <ol className="goods">
-                {copyGoods.map(good => (
-                  <li
-                    key={good}
-                  >
-                    {good}
-                  </li>
-                ))}
+                {[...goods].filter(good => good.length >= selectedNumber)
+                  .map(good => (
+                    <li key={good}>
+                      {good}
+                    </li>
+                  ))}
               </ol>
 
               <button
@@ -141,7 +122,7 @@ class App extends React.Component {
               </button>
 
               <select
-                value={this.state.selectedNumber}
+                value={selectedNumber}
                 onChange={this.selectNumber}
               >
                 {numbers.map(number => (
