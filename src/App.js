@@ -18,8 +18,6 @@ class App extends React.Component {
   state = {
     isStarted: false,
     goods: [...goodsFromServer],
-    isReversed: false,
-    sortTypeOf: '',
     goodLength: 1,
   }
 
@@ -31,27 +29,7 @@ class App extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
-  }
-
-  sortString = () => {
-    this.setState(() => ({
-      sortTypeOf: 'string',
-      isReversed: false,
-    }));
-  }
-
-  sortNumber = () => {
-    this.setState(() => ({
-      sortTypeOf: 'number',
-      isReversed: false,
-    }));
-  }
-
-  setGoodLength = (number) => {
-    this.setState(() => ({
-      goodLength: number,
+      goods: [...state.goods].reverse(),
     }));
   }
 
@@ -61,23 +39,16 @@ class App extends React.Component {
 
   reset = () => {
     this.setState(() => ({
-      isReversed: false,
-      sortTypeOf: '',
+      goods: [...goodsFromServer],
       goodLength: 1,
     }));
   }
 
-  render() {
-    const {
-      goods, isStarted, isReversed, sortTypeOf, goodLength,
-    } = this.state;
+  sortAsc = ({ target }) => {
+    const { name } = target;
 
-    const lengthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-    const goodsList = [...goods].filter(el => el.length >= goodLength);
-
-    goodsList.sort((a, b) => {
-      switch (sortTypeOf) {
+    this.setState(state => ({ goods: state.goods.sort((a, b) => {
+      switch (name) {
         case 'string':
           return a.localeCompare(b);
 
@@ -87,11 +58,15 @@ class App extends React.Component {
         default:
           return 0;
       }
-    });
+    }) }));
+  }
 
-    if (isReversed) {
-      goodsList.reverse();
-    }
+  render() {
+    const {
+      goods, isStarted, goodLength,
+    } = this.state;
+
+    const lengthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
       <div className="App">
@@ -106,10 +81,11 @@ class App extends React.Component {
           <span>
             <h1>
               Goods List:&nbsp;
-              {goodsList.length || 0}
+              {goods.length || 0}
             </h1>
             <ul>
-              {goodsList.map(good => <li key={good}>{good}</li>)}
+              {goods.filter(el => el.length >= goodLength)
+                .map(good => <li key={good}>{good}</li>)}
             </ul>
             <button
               type="button"
@@ -119,13 +95,15 @@ class App extends React.Component {
             </button>
             <button
               type="button"
-              onClick={this.sortString}
+              name="string"
+              onClick={event => this.sortAsc(event)}
             >
               Sort alphabetically
             </button>
             <button
               type="button"
-              onClick={this.sortNumber}
+              name="number"
+              onClick={event => this.sortAsc(event)}
             >
               Sort by length
             </button>
