@@ -1,0 +1,54 @@
+h1 {
+  text-align: center;
+  width: 150px;
+  color: #506a6b;
+}
+
+.listWrapper {
+  display: flex;
+}
+
+.btnWrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 25%;
+  left: 15%;
+
+}
+
+button {
+  width: 150px;
+  padding: 10px 5px;
+  background: linear-gradient(to left, #f8ab8d 0%, white, #f8ab8d);
+  border-bottom: 1px solid grey;
+  color: #506a6b;
+  font-size: 16px;
+  box-shadow: 0 5px 5px 0 rgba(0,0,0, 0.2);
+  margin-bottom: 5px;
+  outline: none;
+  border: none;
+}
+
+button li:last-child {
+  border-bottom: none;
+}
+
+label {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  width: 150px;
+  color: #506a6b;
+}
+
+select {
+  border-radius: 15px;
+  background: #fad4c5;
+  outline: none;
+  color: #506a6b;
+}
+
+.hover {
+  display: none;
+}
