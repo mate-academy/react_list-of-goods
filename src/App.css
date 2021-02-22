@@ -1,0 +1,63 @@
+button {
+  box-shadow: 0 1px 0 0 #fff6af;
+  background: #ffec64 linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+  border-radius: 6px;
+  border: 1px solid #fa2;
+  display: inline-block;
+  cursor: pointer;
+  color: #333;
+  font-family: Arial, serif;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  margin: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fe6;
+}
+
+button.start {
+  background: #72b352 linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+}
+
+button.start:hover {
+  background: #72b352 linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+}
+
+button:hover {
+  background: #ffab23 linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+}
+
+button:active {
+  position: relative;
+  top: 1px;
+}
+
+ul.goodsList {
+  display: block;
+  font-size: 22px;
+  margin: 20px auto;
+  max-width: 500px;
+  list-style: none;
+}
+
+.App {
+  font-size: 18px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+select {
+  padding: 5px;
+  background: #72b352 linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+  text-shadow: 0 1px 0 #fe6;
+  border-radius: 6px;
+}
+
+li {
+  background: #72b352;
+  width: 500px;
+}
+
+li:nth-child(odd) {
+  background: #ffab23;
+}
