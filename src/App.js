@@ -27,11 +27,10 @@ class App extends React.Component {
   selectedFilter = (e) => {
     const count = +e.target.value;
 
-    this.setState({ typeSorting: '' });
-    this.setState({ selectCount: count });
-
     this.setState(state => ({
-      goods: state.initialGoods.filter(g => g.length === count),
+      typeSorting: '',
+      selectCount: count,
+      goods: state.initialGoods.filter(g => g.length >= count),
     }));
   }
 
