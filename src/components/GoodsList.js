@@ -21,6 +21,15 @@ export const GoodList = ({
     </div>
 
     <div className="nav">
+      <select
+        defaultValue={1}
+        onChange={limit}
+        disabled={disabled}
+        hidden={!bool}
+      >
+        {options.map(option => <option key={`id${option}`}>{option}</option>)}
+      </select>
+
       <button
         type="button"
         hidden={bool}
@@ -44,27 +53,18 @@ export const GoodList = ({
       </button>
       <button
         type="button"
-        onClick={reset}
-        disabled={!bool}
-      >
-        Reset
-      </button>
-      <button
-        type="button"
         onClick={sortByLength}
         disabled={!bool}
       >
         Sort by length
       </button>
-
-      <select
-        defaultValue={1}
-        onChange={limit}
-        disabled={disabled}
-        hidden={!bool}
+      <button
+        type="button"
+        onClick={reset}
+        disabled={!bool}
       >
-        {options.map(option => <option key={`id${option}`}>{option}</option>)}
-      </select>
+        Reset
+      </button>
     </div>
   </>
 );
