@@ -1,0 +1,41 @@
+body {
+  text-align: center;
+}
+
+.App {
+  font-size: 2.2rem;
+  margin-bottom: -2rem;
+}
+
+.goods {
+  margin-bottom: 1rem;
+}
+
+.goods ul {
+  display: contents;
+  list-style-type: none;
+}
+
+.goods li {
+  font-size: 1.8rem;
+}
+
+.nav button {
+  margin: 0.3rem;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: slategrey;
+}
+
+.nav select {
+  width: 60px;
+  height: 32px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: slategrey;
+  text-align-last: center;
+  border: 2px solid rgb(109, 109, 109);
+  border-radius: 50px;
+  background-color: rgb(245, 245, 245);
+}
