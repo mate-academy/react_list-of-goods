@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const GoodList = ({
+export const GoodList = React.memo(({
   goods,
   bool,
   options,
@@ -67,7 +67,7 @@ export const GoodList = ({
       </button>
     </div>
   </>
-);
+));
 
 GoodList.propTypes = {
   goods: PropTypes.arrayOf(
