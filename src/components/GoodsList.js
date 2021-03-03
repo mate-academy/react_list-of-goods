@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 export const GoodList = React.memo(({
   goods,
-  bool,
-  options,
-  disabled,
+  defValue,
+  booleanValue,
   start,
   limit,
   sortByChar,
@@ -14,25 +13,33 @@ export const GoodList = React.memo(({
   reset,
 }) => (
   <>
-    <div className="goods" hidden={!bool}>
+    <div className="goods" hidden={!booleanValue}>
       <ul>
-        {goods.map(good => <li key={good}>{good}</li>)}
+        {goods.map(good => <li id={good} key={good}>{good}</li>)}
       </ul>
     </div>
 
     <div className="nav">
       <select
-        defaultValue={1}
+        value={defValue}
         onChange={limit}
-        disabled={disabled}
-        hidden={!bool}
+        hidden={!booleanValue}
       >
-        {options.map(option => <option key={`id${option}`}>{option}</option>)}
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
       </select>
 
       <button
         type="button"
-        hidden={bool}
+        hidden={booleanValue}
         onClick={start}
       >
         Start
@@ -40,28 +47,28 @@ export const GoodList = React.memo(({
       <button
         type="button"
         onClick={reverse}
-        disabled={!bool}
+        disabled={!booleanValue}
       >
         Reverse
       </button>
       <button
         type="button"
         onClick={sortByChar}
-        disabled={!bool}
+        disabled={!booleanValue}
       >
         Sort alphabetically
       </button>
       <button
         type="button"
         onClick={sortByLength}
-        disabled={!bool}
+        disabled={!booleanValue}
       >
         Sort by length
       </button>
       <button
         type="button"
         onClick={reset}
-        disabled={!bool}
+        disabled={!booleanValue}
       >
         Reset
       </button>
@@ -73,11 +80,8 @@ GoodList.propTypes = {
   goods: PropTypes.arrayOf(
     PropTypes.string,
   ).isRequired,
-  bool: PropTypes.bool.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.number,
-  ).isRequired,
-  disabled: PropTypes.bool.isRequired,
+  defValue: PropTypes.number.isRequired,
+  booleanValue: PropTypes.bool.isRequired,
   start: PropTypes.func.isRequired,
   limit: PropTypes.func.isRequired,
   sortByChar: PropTypes.func.isRequired,
