@@ -1,0 +1,35 @@
+.App {
+  text-align: center;
+}
+
+.list {
+  padding: 0;
+  margin: 20px 0 0;
+  list-style-type: none;
+  font-size: 150%;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.start {
+  position: absolute;
+  left: 48%;
+  top: 10%;
+}
+
+.button {
+  margin: 0 10px;
+  border: 3px solid deepskyblue;
+  background-color: yellow;
+  border-radius: 5px;
+  outline: none;
+  font-size: 150%;
+}
+
+.button:focus {
+  background-color: deepskyblue;
+}
+
+.hide {
+  visibility: hidden;
+}
