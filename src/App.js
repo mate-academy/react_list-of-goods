@@ -17,34 +17,52 @@ export const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    initialGoods: [...goodsFromServer],
     goods: goodsFromServer,
     isLoading: false,
-    typeSorting: '',
     selectCount: 1,
   }
 
   selectedFilter = (e) => {
     const count = +e.target.value;
+    const reversedArray = [...goodsFromServer].filter(g => g.length >= count);
 
     this.setState(state => ({
-      typeSorting: '',
       selectCount: count,
-      goods: state.initialGoods.filter(g => g.length >= count),
+      goods: reversedArray,
     }));
   }
 
   reset = () => {
     this.setState(state => ({
-      typeSorting: 'reset', selectCount: 1, goods: state.initialGoods,
+      goods: goodsFromServer,
+      selectCount: 1,
     }));
+  }
+
+  reverse = () => {
+    const reversedArray = [...this.state.goods];
+
+    reversedArray.reverse();
+    this.setState(state => ({ goods: reversedArray }));
+  }
+
+  sortAlpha = () => {
+    const sortedGoods = [...this.state.goods];
+
+    sortedGoods.sort();
+    this.setState(state => ({ goods: sortedGoods }));
+  }
+
+  sortLength = () => {
+    const sortedGoods = [...this.state.goods];
+
+    sortedGoods.sort((a, b) => a.length - b.length);
+    this.setState(state => ({ goods: sortedGoods }));
   }
 
   render() {
     const {
       isLoading,
-      typeSorting,
-      initialGoods,
       goods,
       selectCount,
     } = this.state;
@@ -62,13 +80,13 @@ class App extends React.Component {
         </button>
         <button
           type="button"
-          onClick={() => this.setState({ typeSorting: 'reverse' })}
+          onClick={this.reverse}
         >
           Reverse
         </button>
         <button
           type="button"
-          onClick={() => this.setState({ typeSorting: 'abc' })}
+          onClick={this.sortAlpha}
         >
           Sort alphabetically
         </button>
@@ -80,7 +98,7 @@ class App extends React.Component {
         </button>
         <button
           type="button"
-          onClick={() => this.setState({ typeSorting: 'length' })}
+          onClick={this.sortLength}
         >
           Sort by length
         </button>
@@ -100,9 +118,7 @@ class App extends React.Component {
           isLoading
             ? (
               <GoodsList
-                initialGoods={initialGoods}
                 goods={goods}
-                sort={typeSorting}
               />
             )
             : null}
