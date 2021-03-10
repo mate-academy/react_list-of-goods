@@ -57,6 +57,7 @@ class App extends React.Component {
   handleReset = () => {
     this.setState({
       sortBy: '',
+      isReversed: false,
     });
   }
 
