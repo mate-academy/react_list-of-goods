@@ -1,0 +1,22 @@
+ul {
+  margin-top: 2.25rem;
+  display: grid;
+}
+
+select,
+button {
+  border-radius: 25px;
+  height: 40px;
+  width: 150px;
+  outline: 0;
+}
+
+.margin {
+  margin-right: 1.25rem;
+}
+
+li {
+  font-size: 32px;
+  font-style: italic;
+  font-weight: bold;
+}

@@ -1,0 +1,14 @@
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  align-items: center;
+}
