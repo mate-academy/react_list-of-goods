@@ -20,25 +20,25 @@ class App extends React.Component {
     show: false,
   }
 
-  showGoods() {
-    this.setState(state => ({ show: !state.show }));
+  toggleGoodsVisibility = () => {
+    this.setState({ show: true });
   }
 
   render() {
+    const { show } = this.state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
         <button
           type="button"
-          hidden={this.state.show}
-          onClick={
-            () => this.showGoods()
-          }
+          hidden={show}
+          onClick={this.toggleGoodsVisibility}
         >
           Start
         </button>
         {
-          this.state.show && (
+          show && (
             <GoodList goodsFromServer={goodsFromServer} />
           )
         }

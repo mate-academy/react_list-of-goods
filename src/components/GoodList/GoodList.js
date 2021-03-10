@@ -9,7 +9,7 @@ export class GoodList extends React.Component {
     defaultValue: 1,
   }
 
-  limit(e) {
+  filterByLength(e) {
     const { target } = e;
 
     this.setState({
@@ -20,7 +20,9 @@ export class GoodList extends React.Component {
   }
 
   reserveGoods() {
-    this.setState(state => ({ ...state.visibleGoods.reverse() }));
+    this.setState(state => (
+      { visibleGoods: [...state.visibleGoods].reverse() }
+    ));
   }
 
   reset() {
@@ -54,7 +56,7 @@ export class GoodList extends React.Component {
           <select
             className="margin"
             value={defaultValue}
-            onChange={e => this.limit(e)}
+            onChange={e => this.filterByLength(e)}
           >
             {this.state.options.map(option => (
               <option
