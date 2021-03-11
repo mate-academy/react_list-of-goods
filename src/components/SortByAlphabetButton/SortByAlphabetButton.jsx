@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 
-export const ButtonToSortAlphabet = React.memo(
+export const SortByAlphabetButton = React.memo(
   ({ sort }) => (
     <Button
       basic
@@ -13,6 +13,6 @@ export const ButtonToSortAlphabet = React.memo(
   ),
 );
 
-ButtonToSortAlphabet.propTypes = {
+SortByAlphabetButton.propTypes = {
   sort: PropTypes.func.isRequired,
 };

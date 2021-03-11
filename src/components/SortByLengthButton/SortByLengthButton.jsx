@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 
-export const ButtonToSortLength = React.memo(
+export const SortByLengthButton = React.memo(
   ({ sort }) => (
     <Button
       basic
@@ -13,6 +13,6 @@ export const ButtonToSortLength = React.memo(
   ),
 );
 
-ButtonToSortLength.propTypes = {
+SortByLengthButton.propTypes = {
   sort: PropTypes.func.isRequired,
 };

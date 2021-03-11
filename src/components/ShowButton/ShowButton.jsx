@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 
-export const ButtonToShow = React.memo(
+export const ShowButton = React.memo(
   ({ visible }) => (
     <Button
       basic
@@ -13,6 +13,6 @@ export const ButtonToShow = React.memo(
   ),
 );
 
-ButtonToShow.propTypes = {
+ShowButton.propTypes = {
   visible: PropTypes.func.isRequired,
 };

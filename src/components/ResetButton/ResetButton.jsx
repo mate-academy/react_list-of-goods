@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 
-export const ButtonToReset = React.memo(
+export const ResetButton = React.memo(
   ({ reset }) => (
     <Button
       basic
@@ -13,6 +13,6 @@ export const ButtonToReset = React.memo(
   ),
 );
 
-ButtonToReset.propTypes = {
+ResetButton.propTypes = {
   reset: PropTypes.func.isRequired,
 };

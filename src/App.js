@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
-import { ButtonToShow } from './components/ShowButton';
-import { ButtonToReset } from './components/ResetButton';
-import { ButtonToReverse } from './components/ReverseButton';
-import { ButtonToSortAlphabet } from './components/SortByAlphabetButton';
-import { ButtonToSortLength } from './components/SortByLengthButton';
+import { ShowButton } from './components/ShowButton';
+import { ResetButton } from './components/ResetButton';
+import { ReverseButton } from './components/ReverseButton';
+import { SortByAlphabetButton } from './components/SortByAlphabetButton';
+import { SortByLengthButton } from './components/SortByLengthButton';
 
 const goodsFromServer = [
   'Dumplings',
@@ -82,13 +82,13 @@ class App extends React.Component {
       <div className="App">
         <h1 className="title">Goods</h1>
         {isButtonVisible && (
-          <ButtonToShow visible={this.handleVisibility} />
+          <ShowButton visible={this.handleVisibility} />
         )}
         {isGoodsVisible && <GoodsList goods={copiedGoods} />}
-        <ButtonToReverse reverse={this.handleReverse} />
-        <ButtonToSortAlphabet sort={this.sortByAlphabet} />
-        <ButtonToReset reset={this.handleReset} />
-        <ButtonToSortLength sort={this.sortByLength} />
+        <ReverseButton reverse={this.handleReverse} />
+        <SortByAlphabetButton sort={this.sortByAlphabet} />
+        <ResetButton reset={this.handleReset} />
+        <SortByLengthButton sort={this.sortByLength} />
       </div>
     );
   }
