@@ -3,35 +3,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Goods } from '../Goods';
 
-export function GoodsList({
-  isReverse,
-  sortBy,
-  initialGoods,
-}) {
-  const newGoodsList = [...initialGoods];
-
-  newGoodsList.sort((
-    currentGoods, nextGoods,
-  ) => {
-    switch (sortBy) {
-      case 'length':
-        return currentGoods.length - nextGoods.length;
-
-      case 'alphabetically':
-        return currentGoods.localeCompare(nextGoods);
-
-      default:
-        return 0;
-    }
-  });
-
-  if (isReverse) {
-    newGoodsList.reverse();
-  }
-
+export function GoodsList({ goodsList }) {
   return (
     <ul>
-      {newGoodsList.map(goods => (
+      {goodsList.map(goods => (
         <Goods key={goods} goods={goods} />
       ))}
     </ul>

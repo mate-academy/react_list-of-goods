@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const ButtonSortAlphabetically = React.memo(
+export const Button = React.memo(
   props => (
     <button
       type="button"
       onClick={props.handler}
     >
-      Sort alphabetically
+      {props.text}
     </button>
   ),
 );
 
-ButtonSortAlphabetically.propTypes = {
+Button.propTypes = {
   handler: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
 };

@@ -1,1 +1,0 @@
-export { ButtonSortAlphabetically } from './ButtonSortAlphabetically';

@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { GoodsList } from './components/GoodsList';
-import { ButtonShowList } from './components/Buttons/ButtonShowList';
-import { ButtonReverseList }
-  from './components/Buttons/ButtonReverseList.';
-import { ButtonSortAlphabetically }
-  from './components/Buttons/ButtonSortAlphabetically';
-import { ButtonResetList } from './components/Buttons/ButtonResetList';
-import { ButtonSortByLength }
-  from './components/Buttons/ButtonSortByLength';
+import { Button } from './components/Button';
 
 import './App.css';
 
@@ -28,8 +21,7 @@ export class App extends Component {
   state = {
     isShown: false,
     initialGoods: goodsFromServer,
-    isReverse: false,
-    sortBy: '',
+    goodsList: [...goodsFromServer],
   };
 
   showListHandler = () => {
@@ -40,24 +32,25 @@ export class App extends Component {
 
   reverseListHandler = () => {
     this.setState(prevState => ({
-      isReverse: !prevState.isReverse,
+      goodsList: [...prevState.initialGoods].reverse(),
     }));
   }
 
-  sortListAlphabeticallyHandler = () => this.setState({
-    sortBy: 'alphabetically',
-    isReverse: false,
-  })
+  sortListAlphabeticallyHandler = () => this.setState(prevState => ({
+    goodsList: [...prevState.initialGoods].sort(
+      (currentGoods, nextGoods) => currentGoods.localeCompare(nextGoods),
+    ),
+  }))
 
-  sortListByLengthHandler = () => this.setState({
-    sortBy: 'length',
-    isReverse: false,
-  })
+  sortListByLengthHandler = () => this.setState(prevState => ({
+    goodsList: [...prevState.initialGoods].sort(
+      (currentGoods, nextGoods) => currentGoods.length - nextGoods.length,
+    ),
+  }))
 
-  resetListHandler = () => this.setState({
-    isReverse: false,
-    sortBy: '',
-  })
+  resetListHandler = () => this.setState(prevState => ({
+    goodsList: [...prevState.initialGoods],
+  }))
 
   render() {
     const {
@@ -68,7 +61,7 @@ export class App extends Component {
       sortListByLengthHandler,
     } = this;
 
-    const { isShown, isReverse, initialGoods, sortBy } = this.state;
+    const { isShown, goodsList } = this.state;
 
     return (
       <div className="App">
@@ -78,16 +71,31 @@ export class App extends Component {
             `Available choice from: ${goodsFromServer.length}`
           }
         </p>
-        {isShown || <ButtonShowList handler={showListHandler} />}
-        <ButtonReverseList handler={reverseListHandler} />
-        <ButtonSortAlphabetically handler={sortListAlphabeticallyHandler} />
-        <ButtonResetList handler={resetListHandler} />
-        <ButtonSortByLength handler={sortListByLengthHandler} />
+        {
+          isShown
+          || (
+            <Button
+              handler={showListHandler}
+              text="Start"
+            />
+          )
+        }
+        <Button handler={reverseListHandler} text="Revers" />
+        <Button
+          handler={sortListAlphabeticallyHandler}
+          text="Sort Alphabetically"
+        />
+        <Button
+          handler={resetListHandler}
+          text="Reset List"
+        />
+        <Button
+          handler={sortListByLengthHandler}
+          text="Sort By Length"
+        />
         {isShown && (
           <GoodsList
-            isReverse={isReverse}
-            sortBy={sortBy}
-            initialGoods={initialGoods}
+            goodsList={goodsList}
           />
         )}
       </div>
