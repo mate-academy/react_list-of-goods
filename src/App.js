@@ -36,9 +36,15 @@ export class App extends Component {
     }));
   }
 
-  sortListAlphabetically = () => this.setState({ sortBy: 'alphabetically' })
+  sortListAlphabetically = () => this.setState({
+    sortBy: 'alphabetically',
+    isReverse: false,
+  })
 
-  sortListByLength = () => this.setState({ sortBy: 'length' })
+  sortListByLength = () => this.setState({
+    sortBy: 'length',
+    isReverse: false,
+  })
 
   resetList = () => this.setState({
     isReverse: false,
