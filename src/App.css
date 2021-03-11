@@ -1,0 +1,19 @@
+.App {
+  background-color: rgb(201, 199, 199);
+  height: 400px;
+}
+
+.App__button--show-goods {
+  height: 30px;
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+.buttons-box {
+  text-align: center;
+}
+
+.buttons-box > * {
+  height: 30px;
+  margin: 10px 5px 20px 0;
+}
