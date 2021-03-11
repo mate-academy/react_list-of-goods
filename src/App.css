@@ -1,0 +1,22 @@
+button {
+  width: 300px;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  font-weight: bold;
+
+  background-color: goldenrod;
+  border: 1px solid green;
+  border-radius: 12px;
+}
+
+li {
+  list-style-type: unset;
+  color: coral;
+  font-size: 18px;
+}
+
+.App {
+  display: grid;
+  justify-items: center;
+}
