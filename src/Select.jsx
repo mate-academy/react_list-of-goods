@@ -9,7 +9,7 @@ export const Select = ({ handler }) => (
     onChange={event => handler(event)}
   >
     {options.map(option => (
-      <option>{option}</option>
+      <option key={option}>{option}</option>
     ))}
 
   </select>
