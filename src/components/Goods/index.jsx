@@ -1,0 +1,1 @@
+export { Goods } from './Goods';
