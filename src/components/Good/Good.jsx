@@ -7,7 +7,7 @@ export class Good extends React.Component {
     goodsVisible: this.props.goods,
   }
 
-  reset = () => {
+  resetHandler = () => {
     const { goods } = this.props;
 
     this.setState(state => ({
@@ -15,23 +15,23 @@ export class Good extends React.Component {
     }));
   }
 
-  start = () => {
+  startHandler = () => {
     this.setState(state => ({
       isStared: !state.isStarted,
     }))
   }
 
-  reverse = () => {
+  reverseHandler = () => {
     const { goods } = this.props;
 
-    const reversed = [...goods].reverse();
+    const reversedGoods = [...goods].reverse();
 
     this.setState(state => ({
-      goodsVisible: reversed,
+      goodsVisible: reversedGoods,
     }));
   }
 
-  sort = () => {
+  sortHandler = () => {
     const { goods } = this.props;
 
     this.setState(() => {
@@ -45,7 +45,7 @@ export class Good extends React.Component {
     });
   }
 
-  sortByLength = () => {
+  sortByLengthHandler = () => {
     const { goods } = this.props;
 
     this.setState(() => {
@@ -67,32 +67,32 @@ export class Good extends React.Component {
         {!isStared && (
           <button
             type="button"
-            onClick={this.start}
+            onClick={this.startHandler}
           >
             Start
           </button>
         )}
         <button
           type="button"
-          onClick={this.reverse}
+          onClick={this.reverseHandler}
         >
           Reverse
         </button>
         <button
           type="button"
-          onClick={this.sort}
+          onClick={this.sortHandler}
         >
           Sort alphabetically
         </button>
         <button
           type="button"
-          onClick={this.reset}
+          onClick={this.resetHandler}
         >
           Reset
         </button>
         <button
           type="button"
-          onClick={this.sortByLength}
+          onClick={this.sortByLengthHandler}
         >
           Sort by length
         </button>
