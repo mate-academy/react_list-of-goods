@@ -14,7 +14,7 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const options = Array(10).fill('').map((el, index) => index + 1);
+const options = Array.from({ length: 10 }, (_, i) => i + 1);
 
 class App extends React.Component {
   state = {
@@ -23,18 +23,21 @@ class App extends React.Component {
     isGoodsShoven: false,
   }
 
-  showGoods = () => {
+  showGoodsHandler = () => {
     this.setState({ isGoodsShoven: true });
   }
 
-  filter = (event) => {
+  filterHandler = (event) => {
     const valueForFilter = event.target.value;
 
-    this.setState(state => ({ newGoods: state.goods
-      .filter(el => el.length >= valueForFilter) }));
+    this.setState(state => (
+      {
+        newGoods: state.goods.filter(good => good.length >= valueForFilter),
+      }
+    ));
   }
 
-  reverse = () => {
+  reverseHandler = () => {
     this.setState(state => (
       {
         newGoods: [...state.newGoods].reverse(),
@@ -42,11 +45,11 @@ class App extends React.Component {
     ));
   }
 
-  reseting = () => {
+  resetingHandler = () => {
     this.setState(state => ({ newGoods: state.goods }));
   }
 
-  sortAlphabetically = () => {
+  sortAlphabeticallyHandler = () => {
     this.setState(state => (
       {
         newGoods: [...state.newGoods].sort((a, b) => a.localeCompare(b)),
@@ -54,7 +57,7 @@ class App extends React.Component {
     ));
   }
 
-  sortByLength = () => {
+  sortByLengthHandler = () => {
     this.setState(state => (
       {
         newGoods: [...state.newGoods].sort((a, b) => a.length - b.length),
@@ -77,28 +80,28 @@ class App extends React.Component {
                 <button
                   type="button"
                   className="buttons-box__button"
-                  onClick={this.reverse}
+                  onClick={this.reverseHandler}
                 >
                   Reverse
                 </button>
                 <button
                   type="button"
                   className="buttons-box__button"
-                  onClick={this.sortAlphabetically}
+                  onClick={this.sortAlphabeticallyHandler}
                 >
                   Sort alphabetically
                 </button>
                 <button
                   type="button"
                   className="buttons-box__button"
-                  onClick={this.reseting}
+                  onClick={this.resetingHandler}
                 >
                   Reset
                 </button>
                 <button
                   type="button"
                   className="buttons-box__button"
-                  onClick={this.sortByLength}
+                  onClick={this.sortByLengthHandler}
                 >
                   Sort by length
                 </button>
@@ -109,7 +112,7 @@ class App extends React.Component {
                 </span>
                 <select
                   className="button-box__select"
-                  onChange={this.filter}
+                  onChange={this.filterHandler}
                 >
                   {options.map(option => (
                     <option
@@ -140,7 +143,7 @@ class App extends React.Component {
           : (
             <button
               type="button"
-              onClick={this.showGoods}
+              onClick={this.showGoodsHandler}
               className="App__button--show-goods"
             >
               SHOW GOODS
