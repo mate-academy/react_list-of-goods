@@ -4,7 +4,12 @@ import { Button } from 'semantic-ui-react';
 
 export const ButtonToReset = React.memo(
   ({ reset }) => (
-    <Button basic color="pink" content="Reset" onClick={reset} />
+    <Button
+      basic
+      color="pink"
+      content="Reset"
+      onClick={reset}
+    />
   ),
 );
 

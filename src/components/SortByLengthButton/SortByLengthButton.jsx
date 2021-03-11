@@ -4,7 +4,12 @@ import { Button } from 'semantic-ui-react';
 
 export const ButtonToSortLength = React.memo(
   ({ sort }) => (
-    <Button basic color="pink" content="Sort by length" onClick={sort} />
+    <Button
+      basic
+      color="pink"
+      content="Sort by length"
+      onClick={sort}
+    />
   ),
 );
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
-import { ButtonToShow } from './components/ButtonToShow';
-import { ButtonToReset } from './components/ButtonToReset';
-import { ButtonToReverse } from './components/ButtonToReverse';
-import { ButtonToSortAlphabet } from './components/ButtonToSortAlphabet';
-import { ButtonToSortLength } from './components/ButtonToSortLength';
+import { ButtonToShow } from './components/ShowButton';
+import { ButtonToReset } from './components/ResetButton';
+import { ButtonToReverse } from './components/ReverseButton';
+import { ButtonToSortAlphabet } from './components/SortByAlphabetButton';
+import { ButtonToSortLength } from './components/SortByLengthButton';
 
 const goodsFromServer = [
   'Dumplings',
@@ -26,37 +26,40 @@ class App extends React.Component {
     isGoodsVisible: false,
     isButtonVisible: true,
     isReversed: false,
-    sortBy: '',
   }
 
   handleVisibility = () => {
-    this.setState(state => ({
-      isGoodsVisible: !state.isGoodsVisible,
-      isButtonVisible: !state.isButtonVisible,
+    this.setState(prevState => ({
+      isGoodsVisible: !prevState.isGoodsVisible,
+      isButtonVisible: !prevState.isButtonVisible,
     }));
   }
 
   handleReverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
+    this.setState(prevState => ({
+      isReversed: !prevState.isReversed,
     }));
   }
 
   sortByAlphabet = () => {
     this.setState({
-      sortBy: 'Alphabet',
+      goods: [...goodsFromServer].sort((curr, next) => (
+        curr.localeCompare(next)
+      )),
     });
   }
 
   sortByLength = () => {
     this.setState({
-      sortBy: 'Length',
+      goods: [...goodsFromServer].sort((curr, next) => (
+        curr.length - next.length
+      )),
     });
   }
 
   handleReset = () => {
     this.setState({
-      sortBy: '',
+      goods: [...goodsFromServer].sort(() => 0),
       isReversed: false,
     });
   }
@@ -67,23 +70,9 @@ class App extends React.Component {
       isButtonVisible,
       goods,
       isReversed,
-      sortBy,
     } = this.state;
 
     const copiedGoods = [...goods];
-
-    copiedGoods.sort((curr, next) => {
-      switch (sortBy) {
-        case 'Alphabet':
-          return curr.localeCompare(next);
-
-        case 'Length':
-          return curr.length - next.length;
-
-        default:
-          return 0;
-      }
-    });
 
     if (isReversed) {
       copiedGoods.reverse();

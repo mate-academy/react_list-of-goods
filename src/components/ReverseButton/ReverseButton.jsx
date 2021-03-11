@@ -4,7 +4,12 @@ import { Button } from 'semantic-ui-react';
 
 export const ButtonToReverse = React.memo(
   ({ reverse }) => (
-    <Button basic color="pink" content="Reverse" onClick={reverse} />
+    <Button
+      basic
+      color="pink"
+      content="Reverse"
+      onClick={reverse}
+    />
   ),
 );
 
