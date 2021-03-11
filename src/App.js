@@ -2,10 +2,7 @@ import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
 import { ShowButton } from './components/ShowButton';
-import { ResetButton } from './components/ResetButton';
-import { ReverseButton } from './components/ReverseButton';
-import { SortByAlphabetButton } from './components/SortByAlphabetButton';
-import { SortByLengthButton } from './components/SortByLengthButton';
+import { ButtonHandler } from './components/ButtonHandler';
 
 const goodsFromServer = [
   'Dumplings',
@@ -25,7 +22,6 @@ class App extends React.Component {
     goods: [...goodsFromServer],
     isGoodsVisible: false,
     isButtonVisible: true,
-    isReversed: false,
   }
 
   handleVisibility = () => {
@@ -36,8 +32,8 @@ class App extends React.Component {
   }
 
   handleReverse = () => {
-    this.setState(prevState => ({
-      isReversed: !prevState.isReversed,
+    this.setState(({
+      goods: [...goodsFromServer].reverse(),
     }));
   }
 
@@ -60,7 +56,6 @@ class App extends React.Component {
   handleReset = () => {
     this.setState({
       goods: [...goodsFromServer].sort(() => 0),
-      isReversed: false,
     });
   }
 
@@ -69,14 +64,7 @@ class App extends React.Component {
       isGoodsVisible,
       isButtonVisible,
       goods,
-      isReversed,
     } = this.state;
-
-    const copiedGoods = [...goods];
-
-    if (isReversed) {
-      copiedGoods.reverse();
-    }
 
     return (
       <div className="App">
@@ -84,11 +72,23 @@ class App extends React.Component {
         {isButtonVisible && (
           <ShowButton visible={this.handleVisibility} />
         )}
-        {isGoodsVisible && <GoodsList goods={copiedGoods} />}
-        <ReverseButton reverse={this.handleReverse} />
-        <SortByAlphabetButton sort={this.sortByAlphabet} />
-        <ResetButton reset={this.handleReset} />
-        <SortByLengthButton sort={this.sortByLength} />
+        {isGoodsVisible && <GoodsList goods={goods} />}
+        <ButtonHandler
+          handler={this.handleReverse}
+          text="Reverse"
+        />
+        <ButtonHandler
+          handler={this.sortByAlphabet}
+          text="Sort alphabetically"
+        />
+        <ButtonHandler
+          handler={this.handleReset}
+          text="Reset"
+        />
+        <ButtonHandler
+          handler={this.sortByLength}
+          text="Sort by length"
+        />
       </div>
     );
   }
