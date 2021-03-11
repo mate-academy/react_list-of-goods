@@ -35,7 +35,7 @@ class App extends React.Component {
   }
 
   resetHandler =() => {
-    this.setState({ goods: [...goodsFromServer].sort(() => 0) });
+    this.setState({ goods: [...goodsFromServer] });
   }
 
   sortByNameHandler = () => {
@@ -111,7 +111,7 @@ class App extends React.Component {
               >
                 Sort by length
               </button>
-              <Select handler={event => this.changeHandler(event)} />
+              <Select onChange={event => this.changeHandler(event)} />
 
             </div>
           </div>

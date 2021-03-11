@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const options = new Array(10).fill(1).map((el, i) => i + 1);
+const options = Array.from({ length: 10 }, (_, i) => i + 1);
 
-export const Select = ({ handler }) => (
+export const Select = ({ onChange }) => (
   <select
     className="button"
-    onChange={event => handler(event)}
+    onChange={event => onChange(event)}
   >
     {options.map(option => (
       <option key={option}>{option}</option>
@@ -16,5 +16,5 @@ export const Select = ({ handler }) => (
 );
 
 Select.propTypes = {
-  handler: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
