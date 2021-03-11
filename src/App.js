@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import { StartButton } from './StartButton';
+import { Select } from './Select';
 
 const goodsFromServer = [
   'Dumplings',
@@ -19,41 +21,43 @@ class App extends React.Component {
     goods: goodsFromServer,
     isStartPressed: false,
     isListShown: false,
-    isReversed: false,
-    sortBy: '',
-    select: 1,
   };
 
-  showList = () => {
+  showListHandler = () => {
     this.setState(state => ({
       isStartPressed: !state.isStartPressed,
       isListShown: !state.isListShown,
     }));
   }
 
-  reverse =() => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
+  reverseHandler =() => {
+    this.setState({ goods: [...goodsFromServer].reverse() });
   }
 
-  reset =() => {
-    this.setState(state => ({
-      sortBy: '',
-      select: 1,
-    }));
+  resetHandler =() => {
+    this.setState({ goods: [...goodsFromServer].sort(() => 0) });
   }
 
-  sortByName = () => {
-    this.setState({ sortBy: 'name' });
+  sortByNameHandler = () => {
+    this.setState({
+      goods: [...goodsFromServer].sort((prevGood, currentGood) => (
+        prevGood.localeCompare(currentGood))),
+    });
   }
 
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+  sortByLengthHandler = () => {
+    this.setState({
+      goods: [...goodsFromServer].sort((prevGood, currentGood) => (
+        prevGood.length - currentGood.length)),
+    });
   }
 
-  change = (e) => {
-    this.setState({ select: e.nativeEvent.target.value });
+  changeHandler = (event) => {
+    const wordLength = event.target.value;
+
+    this.setState({
+      goods: [...goodsFromServer].filter(good => good.length >= wordLength),
+    });
   }
 
   render() {
@@ -61,45 +65,18 @@ class App extends React.Component {
       goods,
       isStartPressed,
       isListShown,
-      isReversed,
-      select,
-      sortBy,
     } = this.state;
-    const visibleGoods = [...goods].filter(good => good.length >= select);
-
-    visibleGoods.sort((prevGood, currentGood) => {
-      switch (sortBy) {
-        case 'name':
-          return prevGood.localeCompare(currentGood);
-
-        case 'length':
-          return prevGood.length - currentGood.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div className="App">
         <h1 className="goods__header">Goods</h1>
         {!isStartPressed && (
-          <button
-            className="button button--start"
-            type="button"
-            onClick={this.showList}
-          >
-            Start
-          </button>
+          <StartButton handler={this.showListHandler} />
         )}
         {isListShown && (
           <div>
             <ul className="goods__list">
-              {visibleGoods.map(good => (
+              {goods.map(good => (
                 <li key={good} className="goods__item">
                   {good}
                 </li>
@@ -109,47 +86,33 @@ class App extends React.Component {
               <button
                 className="button"
                 type="button"
-                onClick={this.reverse}
+                onClick={this.reverseHandler}
               >
                 Reverse
               </button>
               <button
                 className="button"
                 type="button"
-                onClick={this.sortByName}
+                onClick={this.sortByNameHandler}
               >
                 Sort alphabetically
               </button>
               <button
                 className="button"
                 type="button"
-                onClick={this.reset}
+                onClick={this.resetHandler}
               >
                 Reset
               </button>
               <button
                 className="button"
                 type="button"
-                onClick={this.sortByLength}
+                onClick={this.sortByLengthHandler}
               >
                 Sort by length
               </button>
+              <Select handler={event => this.changeHandler(event)} />
 
-              <select
-                className="button"
-                onChange={e => this.change(e)}
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </select>
             </div>
           </div>
         )}
