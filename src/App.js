@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
-import { ShowButton } from './components/ShowButton';
-import { ButtonHandler } from './components/ButtonHandler';
+import { ButtonForList } from './components/ButtonForList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -70,23 +69,26 @@ class App extends React.Component {
       <div className="App">
         <h1 className="title">Goods</h1>
         {isButtonVisible && (
-          <ShowButton visible={this.handleVisibility} />
+          <ButtonForList
+            onCLick={this.handleVisibility}
+            text="Start"
+          />
         )}
         {isGoodsVisible && <GoodsList goods={goods} />}
-        <ButtonHandler
-          handler={this.handleReverse}
+        <ButtonForList
+          onCLick={this.handleReverse}
           text="Reverse"
         />
-        <ButtonHandler
-          handler={this.sortByAlphabet}
+        <ButtonForList
+          onCLick={this.sortByAlphabet}
           text="Sort alphabetically"
         />
-        <ButtonHandler
-          handler={this.handleReset}
+        <ButtonForList
+          onCLick={this.handleReset}
           text="Reset"
         />
-        <ButtonHandler
-          handler={this.sortByLength}
+        <ButtonForList
+          onCLick={this.sortByLength}
           text="Sort by length"
         />
       </div>
