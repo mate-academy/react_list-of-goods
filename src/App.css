@@ -1,0 +1,25 @@
+button,
+.list__item {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid rgb(0, 133, 133);
+  border-radius: 10px;
+}
+
+button {
+  background-color: aqua;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.list__item {
+  width: max-content;
+  color: white;
+  font-weight: bold;
+  border-color: rgb(76, 24, 126);
+  background-color: blueviolet;
+  list-style-type: none;
+}
