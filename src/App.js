@@ -16,25 +16,24 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: goodsFromServer,
     visibleGoods: [],
     isStartButtonVisible: true,
   };
 
-  makeListVisible = () => {
+  makeListVisibleHandler = () => {
     this.setState(prevState => ({
-      visibleGoods: [...prevState.goods],
+      visibleGoods: [...goodsFromServer],
       isStartButtonVisible: false,
     }));
   }
 
-  reverseList = () => {
+  reverseListHandler = () => {
     this.setState(prevState => ({
       visibleGoods: prevState.visibleGoods.reverse(),
     }));
   }
 
-  sortAlphabetically = () => {
+  sortAlphabeticallyHandler = () => {
     this.setState(prevState => ({
       visibleGoods: prevState.visibleGoods.sort(
         (current, next) => current.localeCompare(next),
@@ -42,7 +41,7 @@ class App extends React.Component {
     }));
   }
 
-  sortByLength = () => {
+  sortByLengthHandler = () => {
     this.setState(prevState => ({
       visibleGoods: prevState.visibleGoods.sort(
         (current, next) => current.length - next.length,
@@ -50,9 +49,9 @@ class App extends React.Component {
     }));
   }
 
-  resetList = () => {
+  resetListHandler = () => {
     this.setState(prevState => ({
-      visibleGoods: [...prevState.goods],
+      visibleGoods: [...goodsFromServer],
     }));
   }
 
@@ -72,7 +71,7 @@ class App extends React.Component {
         <button
           type="button"
           className={this.state.isStartButtonVisible || 'hidden'}
-          onClick={this.makeListVisible}
+          onClick={this.makeListVisibleHandler}
         >
           Start
         </button>
@@ -80,7 +79,7 @@ class App extends React.Component {
         <button
           type="button"
           className={!this.state.isStartButtonVisible || 'hidden'}
-          onClick={this.reverseList}
+          onClick={this.reverseListHandler}
         >
           Reverse
         </button>
@@ -88,7 +87,7 @@ class App extends React.Component {
         <button
           type="button"
           className={!this.state.isStartButtonVisible || 'hidden'}
-          onClick={this.sortAlphabetically}
+          onClick={this.sortAlphabeticallyHandler}
         >
           Sort alphabetically
         </button>
@@ -96,7 +95,7 @@ class App extends React.Component {
         <button
           type="button"
           className={!this.state.isStartButtonVisible || 'hidden'}
-          onClick={this.sortByLength}
+          onClick={this.sortByLengthHandler}
         >
           Sort by length
         </button>
@@ -104,7 +103,7 @@ class App extends React.Component {
         <button
           type="button"
           className={!this.state.isStartButtonVisible || 'hidden'}
-          onClick={this.resetList}
+          onClick={this.resetListHandler}
         >
           Reset
         </button>
