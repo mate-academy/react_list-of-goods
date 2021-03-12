@@ -15,16 +15,13 @@ export class Goods extends React.Component {
 
   sortAlphabetHandler = () => {
     const { goods } = this.props;
+    const sortAlphabetGoods = [...goods].sort((prevGood, currentGood) => (
+      prevGood.localeCompare(currentGood)
+    ));
 
-    this.setState(() => {
-      const sortAlphabetGoods = [...goods].sort((prevGood, currentGood) => (
-        prevGood.localeCompare(currentGood)
-      ));
-
-      return {
-        goodsVisible: sortAlphabetGoods,
-      };
-    });
+    this.setState(() => ({
+      goodsVisible: sortAlphabetGoods,
+    }));
   }
 
   reverseHandler = () => {
@@ -47,11 +44,9 @@ export class Goods extends React.Component {
       prevGood.length - currentGood.length
     ));
 
-    this.setState(() => {
-      return {
-        goodsVisible: sortByLengthGoods,
-      };
-    });
+    this.setState(() => ({
+      goodsVisible: sortByLengthGoods,
+    }));
   }
 
   render() {
