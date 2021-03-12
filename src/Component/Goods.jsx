@@ -28,11 +28,8 @@ export class Goods extends React.Component {
   }
 
   reverseHandler = () => {
-    const { goods } = this.props;
-    const reverseGoods = [...goods].reverse();
-
     this.setState(state => ({
-      goodsVisible: reverseGoods,
+      goodsVisible: [...state.goodsVisible].reverse(),
     }));
   }
 
