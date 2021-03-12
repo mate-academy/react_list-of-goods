@@ -28,8 +28,8 @@ export class Goods extends React.Component {
   }
 
   reverseHandler = () => {
-    this.setState(state => ({
-      goodsVisible: [...state.goodsVisible].reverse(),
+    this.setState(prevState => ({
+      goodsVisible: [...prevState.goodsVisible].reverse(),
     }));
   }
 
@@ -43,12 +43,11 @@ export class Goods extends React.Component {
 
   sortByLengthHandler = () => {
     const { goods } = this.props;
+    const sortByLengthGoods = [...goods].sort((prevGood, currentGood) => (
+      prevGood.length - currentGood.length
+    ));
 
     this.setState(() => {
-      const sortByLengthGoods = [...goods].sort((prevGood, currentGood) => (
-        prevGood.length - currentGood.length
-      ));
-
       return {
         goodsVisible: sortByLengthGoods,
       };
@@ -59,7 +58,14 @@ export class Goods extends React.Component {
     return (
       <>
         {!this.state.isVisible
-        && (<button type="button" onClick={this.startHandler}>Start</button>)
+        && (
+        <button
+          type="button"
+          onClick={this.startHandler}
+        >
+          Start
+        </button>
+        )
         }
         <button
           type="button"
