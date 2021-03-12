@@ -15,19 +15,23 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-class App extends React.Component {
-  state = {
-    goods: goodsFromServer,
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <h1>Goods</h1>
-        <Goods goods={this.state.goods} />
-      </div>
-    );
-  }
+// class App extends React.Component {
+//   render() {
+//     return (
+//       <div className="App">
+//         <h1>Goods</h1>
+//         <Goods goods={goodsFromServer} />
+//       </div>
+//     );
+//   }
+// }
+function App() {
+  return (
+    <div className="App">
+      <h1>Goods</h1>
+      <Goods goods={goodsFromServer} />
+    </div>
+  );
 }
 
 export default App;
