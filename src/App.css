@@ -1,0 +1,36 @@
+html {
+  background-color: aquamarine;
+}
+
+.App {
+  text-align: center;
+  margin-top: 5%;
+}
+
+li {
+  list-style-type: none;
+  font-size: 20px;
+  color: rgb(12, 2, 2);
+}
+
+.button {
+  width: auto;
+  background-color: rgb(79, 231, 79);
+  border-radius: 8px;
+  font-size: 20px;
+  border: blue;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.selectGoods {
+  font-size: 20px;
+}
