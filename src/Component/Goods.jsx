@@ -19,9 +19,9 @@ export class Goods extends React.Component {
       prevGood.localeCompare(currentGood)
     ));
 
-    this.setState(() => ({
-      goodsVisible: sortAlphabetGoods,
-    }));
+    this.setState({
+        goodsVisible: sortAlphabetGoods,
+    })
   }
 
   reverseHandler = () => {
@@ -44,9 +44,9 @@ export class Goods extends React.Component {
       prevGood.length - currentGood.length
     ));
 
-    this.setState(() => ({
+    this.setState({
       goodsVisible: sortByLengthGoods,
-    }));
+    });
   }
 
   render() {
