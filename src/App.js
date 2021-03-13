@@ -18,14 +18,11 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goodsList: goodsFromServer,
-    hiddenButtons: true,
     hiddenStart: false,
+    defaultLength: 1,
   }
 
-  renderGoods = () => {
-    this.setState(state => ({
-      hiddenButtons: !state.hiddenButtons,
-    }));
+  start = () => {
     this.setState(state => ({
       hiddenStart: !state.hiddenStart,
     }));
@@ -44,7 +41,10 @@ class App extends React.Component {
   }
 
   reset = () => {
-    this.setState({ goodsList: [...goodsFromServer] });
+    this.setState({
+      goodsList: [...goodsFromServer],
+      defaultLength: 1,
+    });
   }
 
   sortByLength = () => {
@@ -56,27 +56,41 @@ class App extends React.Component {
 
   selectedLength = ({ target }) => {
     this.setState({
-      goodsList: [...goodsFromServer]
+      goodsList: goodsFromServer
         .filter(good => good.length >= target.value),
+      defaultLength: target.value,
     });
   }
 
   render() {
+    const { hiddenStart, defaultLength } = this.state;
     const goodsLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        <GoodsList
-          {...this.state}
-          selectedLength={this.selectedLength}
-          goodsLength={goodsLength}
-          renderGoods={this.renderGoods}
-          reverseGoods={this.reverseGoods}
-          sortAlphabetically={this.sortAlphabetically}
-          reset={this.reset}
-          sortByLength={this.sortByLength}
-        />
+        <button
+          type="button"
+          className="button"
+          onClick={this.start}
+          hidden={hiddenStart}
+        >
+          Start
+        </button>
+        {hiddenStart
+          && (
+          <GoodsList
+            defaultLength={defaultLength}
+            {...this.state}
+            selectedLength={this.selectedLength}
+            goodsLength={goodsLength}
+            reverseGoods={this.reverseGoods}
+            sortAlphabetically={this.sortAlphabetically}
+            reset={this.reset}
+            sortByLength={this.sortByLength}
+          />
+          )
+        }
       </div>
     );
   }

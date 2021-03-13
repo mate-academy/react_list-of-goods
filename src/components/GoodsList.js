@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 
 export const GoodsList = React.memo(
   ({
+    defaultLength,
     selectedLength,
     goodsLength,
     goodsList,
-    hiddenButtons,
-    hiddenStart,
-    renderGoods,
     reverseGoods,
     sortAlphabetically,
     reset,
@@ -20,7 +18,6 @@ export const GoodsList = React.memo(
           {goodsList.map(good => (
             <li
               key={good}
-              hidden={hiddenButtons}
             >
               {good}
             </li>
@@ -31,16 +28,7 @@ export const GoodsList = React.memo(
         <button
           type="button"
           className="button"
-          onClick={renderGoods}
-          hidden={hiddenStart}
-        >
-          Start
-        </button>
-        <button
-          type="button"
-          className="button"
           onClick={reverseGoods}
-          hidden={hiddenButtons}
         >
           Reverse
         </button>
@@ -48,7 +36,6 @@ export const GoodsList = React.memo(
           type="button"
           className="button"
           onClick={sortAlphabetically}
-          hidden={hiddenButtons}
         >
           Sort alphabetically
         </button>
@@ -56,7 +43,6 @@ export const GoodsList = React.memo(
           type="button"
           className="button"
           onClick={reset}
-          hidden={hiddenButtons}
         >
           Reset
         </button>
@@ -64,16 +50,15 @@ export const GoodsList = React.memo(
           type="button"
           className="button"
           onClick={sortByLength}
-          hidden={hiddenButtons}
         >
           Sort by length
         </button>
         <label
-          hidden={hiddenButtons}
           className="selectGoods"
         >
           Select Goods Length:
           <select
+            value={defaultLength}
             onChange={selectedLength}
           >
             {goodsLength.map(goodLength => (
@@ -89,13 +74,11 @@ export const GoodsList = React.memo(
 );
 
 GoodsList.propTypes = {
+  defaultLength: PropTypes.number.isRequired,
   goodsList: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ),
   selectedLength: PropTypes.func.isRequired,
-  hiddenButtons: PropTypes.bool.isRequired,
-  hiddenStart: PropTypes.bool.isRequired,
-  renderGoods: PropTypes.func.isRequired,
   reverseGoods: PropTypes.func.isRequired,
   sortAlphabetically: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
