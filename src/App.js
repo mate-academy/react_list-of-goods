@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { Goods } from './Component/Goods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +15,13 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+function App() {
+  return (
+    <div className="App">
+      <h1>Goods</h1>
+      <Goods goods={goodsFromServer} />
+    </div>
+  );
+}
 
 export default App;
