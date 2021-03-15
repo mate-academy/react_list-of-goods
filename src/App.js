@@ -63,8 +63,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {
-        !startIsActive && (
+        {!startIsActive && (
         <button
           type="button"
           onClick={this.activeButton}
