@@ -28,6 +28,7 @@ class App extends React.Component {
   state = {
     isListVisible: false,
     currentKey: 'a',
+    goods: goodsFromServer,
   }
 
   startHandler = () => {
@@ -46,7 +47,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isListVisible, currentKey } = this.state;
+    const { isListVisible, currentKey, goods } = this.state;
 
     return (
       <div className="App">
@@ -76,7 +77,7 @@ class App extends React.Component {
 
         {isListVisible && (
           <GoodsList
-            goods={goodsFromServer[currentKey]}
+            goods={goods[currentKey]}
           />
         )}
       </div>
