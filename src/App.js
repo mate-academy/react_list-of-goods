@@ -59,12 +59,14 @@ class App extends React.Component {
           передати інший масив у props. Я хочу щоб мій дитячий компонент
           в такому випадку теж змінив свій список. Як це реалізувати?
         </p>
-        <button
-          type="button"
-          onClick={this.startHandler}
-        >
-          Start
-        </button>
+        {!isListVisible && (
+          <button
+            type="button"
+            onClick={this.startHandler}
+          >
+            Start
+          </button>
+        )}
         <button
           type="button"
           onClick={this.toggleGoodsHandler}
