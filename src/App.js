@@ -39,6 +39,14 @@ class App extends React.Component {
     }
   }
 
+  SortByLength = () => this.setState({
+    goods: this.sortHandler('length'),
+  })
+
+  SortByAlphabet = () => this.setState({
+    goods: this.sortHandler('alphabet'),
+  })
+
   reverseGoods = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
@@ -74,18 +82,14 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={() => this.setState({
-            goods: this.sortHandler('alphabet'),
-          })}
+          onClick={this.SortByAlphabet}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          onClick={() => this.setState({
-            goods: this.sortHandler('length'),
-          })}
+          onClick={this.SortByLength}
         >
           Sort by length
         </button>
