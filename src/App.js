@@ -28,21 +28,15 @@ class App extends React.Component {
   sortHandler = (sortBy) => {
     const goodsCopy = [...this.state.goods];
 
-    const sorted = goodsCopy.sort((good1, good2) => {
-      switch (sortBy) {
-        case 'length':
-          return good1.length - good2.length;
+    switch (sortBy) {
+      case 'length':
+        return goodsCopy.sort((good1, good2) => good1.length - good2.length);
 
-        case 'alphabet':
-          return good1.localeCompare(good2);
+      case 'alphabet':
+        return goodsCopy.sort((good1, good2) => good1.localeCompare(good2));
 
-        default: return 0;
-      }
-    });
-
-    this.setState({
-      goods: sorted,
-    });
+      default: return 0;
+    }
   }
 
   reverseGoods = () => {
@@ -80,14 +74,18 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={() => this.sortHandler('alphabet')}
+          onClick={() => this.setState({
+            goods: this.sortHandler('alphabet'),
+          })}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          onClick={() => this.sortHandler('length')}
+          onClick={() => this.setState({
+            goods: this.sortHandler('length'),
+          })}
         >
           Sort by length
         </button>
