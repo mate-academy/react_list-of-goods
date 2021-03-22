@@ -21,10 +21,8 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     isStarted: false,
-    isReversed: false,
-    sortBy: 'id',
   };
 
   getStart = () => {
@@ -35,25 +33,31 @@ class App extends React.Component {
 
   sortById = () => {
     this.setState({
-      sortBy: 'id',
+      goods: [...goodsFromServer].sort((good1, good2) => (
+        good1.id - good2.id
+      )),
     });
   };
 
   sortByName = () => {
     this.setState({
-      sortBy: 'name',
+      goods: [...goodsFromServer].sort((good1, good2) => (
+        good1.name.localeCompare(good2.name)
+      )),
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortBy: 'length',
+      goods: [...goodsFromServer].sort((good1, good2) => (
+        good1.length - good2.length
+      )),
     });
   };
 
   reverse = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
+      goods: state.goods.reverse(),
     }));
   };
 
@@ -61,27 +65,7 @@ class App extends React.Component {
     const {
       goods,
       isStarted,
-      isReversed,
-      sortBy,
     } = this.state;
-
-    goods.sort((good1, good2) => {
-      switch (sortBy) {
-        case 'id':
-        case 'length':
-          return good1[sortBy] - good2[sortBy];
-
-        case 'name':
-          return good1[sortBy].localeCompare(good2[sortBy]);
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      goods.reverse();
-    }
 
     return (
       <div className="goods">
@@ -96,52 +80,41 @@ class App extends React.Component {
           </button>
           )
         }
+
         {isStarted
-          && (
+        && (
+        <>
           <button
             type="button"
             onClick={this.reverse}
           >
             Reverse
           </button>
-          )
-        }
-        {' '}
-        {isStarted
-          && (
+          {' '}
           <button
             type="button"
             onClick={this.sortByName}
           >
             Sort alphabetically
           </button>
-          )
-        }
-        {' '}
-        {isStarted
-          && (
+          {' '}
           <button
             type="button"
             onClick={this.sortById}
           >
             Reset
           </button>
-          )
-        }
-        {' '}
-        {isStarted
-          && (
+          {' '}
           <button
             type="button"
             onClick={this.sortByLength}
           >
             Sort by length
           </button>
-          )
-        }
 
-        {isStarted
-          && <GoodsList goods={goods} />
+          <GoodsList goods={goods} />
+        </>
+        )
         }
       </div>
     );
