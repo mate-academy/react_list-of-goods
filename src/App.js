@@ -25,16 +25,16 @@ class App extends React.Component {
     this.setState({ isVisible: true });
   }
 
-  reset = () => {
-    this.setState(() => ({
-      goods: [...goodsFromServer],
-    }));
-  }
-
   reverseGoods = () => {
     this.setState(prevState => ({
       ...prevState,
       goods: prevState.goods.reverse(),
+    }));
+  }
+
+  reset = () => {
+    this.setState(() => ({
+      goods: [...goodsFromServer],
     }));
   }
 
