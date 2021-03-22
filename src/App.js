@@ -29,44 +29,51 @@ const goodsWithID = goodsFromServer.map((product, index) => ({
 
 export class App extends React.Component {
   state = {
-    showList: false,
+    goods: goodsWithID,
     showButtons: true,
-    isReversed: false,
-    sortBy: 'id',
   }
 
   showGoods = () => (
     this.setState(state => ({
-      showList: true,
       showButtons: false,
     }))
   );
 
-  reverse = () => (
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }))
-  );
-
   sortByName = () => {
-    this.setState({ sortBy: 'product' });
+    this.setState(prevState => ({
+      goods: prevState.goods.sort((word1, word2) => (
+        word1.product.localeCompare(word2.product)
+      )),
+    }));
   }
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState(prevState => ({
+      goods: prevState.goods.sort((word1, word2) => (
+        word1.product.length - word2.product.length
+      )),
+    }));
   }
 
   reset = () => {
-    this.setState({
-      sortBy: 'id',
-      isReversed: false,
-    });
+    this.setState(prevState => ({
+      goods: prevState.goods.sort((word1, word2) => (
+        word1.id - word2.id
+      )),
+    }));
   }
+
+  reverse = () => (
+    this.setState(prevState => ({
+      goods: prevState.goods.reverse(),
+    }))
+  );
 
   render() {
     const {
       showList,
       showButtons,
+      goods,
       isReversed,
       sortBy,
     } = this.state;
@@ -78,28 +85,29 @@ export class App extends React.Component {
           showGoods={this.showGoods}
           showButtons={showButtons}
         />
-        <ButtonReverse
-          reverse={this.reverse}
-          showButtons={showButtons}
-        />
-        <ButtonSortAlphabetically
-          sortByName={this.sortByName}
-          showButtons={showButtons}
-        />
-        <ButtonReset
-          reset={this.reset}
-          showButtons={showButtons}
-        />
-        <ButtonSortByLength
-          sortByLength={this.sortByLength}
-          showButtons={showButtons}
-        />
-        <GoodsList
-          showList={showList}
-          goods={goodsWithID}
-          isReversed={isReversed}
-          sortBy={sortBy}
-        />
+        {!showButtons
+        && (
+          <>
+            <ButtonReverse
+              reverse={this.reverse}
+            />
+            <ButtonSortAlphabetically
+              sortByName={this.sortByName}
+            />
+            <ButtonReset
+              reset={this.reset}
+            />
+            <ButtonSortByLength
+              sortByLength={this.sortByLength}
+            />
+            <GoodsList
+              showList={showList}
+              goods={goods}
+              isReversed={isReversed}
+              sortBy={sortBy}
+            />
+          </>
+        )}
         {goodsFromServer.length}
       </div>
     );

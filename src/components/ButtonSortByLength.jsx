@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export function ButtonSortByLength({ sortByLength, showButtons }) {
+export function ButtonSortByLength({ sortByLength }) {
   return (
     <>
-      {!showButtons && (
-        <button
-          type="button"
-          onClick={sortByLength}
-        >
-          Sort by length
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={sortByLength}
+      >
+        Sort by length
+      </button>
     </>
   );
 }
 
 ButtonSortByLength.propTypes = {
   sortByLength: PropTypes.func.isRequired,
-  showButtons: PropTypes.bool.isRequired,
 };
