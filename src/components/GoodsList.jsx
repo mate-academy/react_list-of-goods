@@ -19,6 +19,9 @@ export function GoodsList(props) {
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(
-    PropTypes.string,
+    PropTypes.shape({
+      id: PropTypes.number,
+      product: PropTypes.string,
+    }),
   ).isRequired,
 };
