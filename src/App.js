@@ -23,6 +23,7 @@ class App extends React.Component {
     active: false,
     isReversed: false,
     sortBy: 'id',
+    defaultLength: 1,
   };
 
   showList = () => {
@@ -39,6 +40,15 @@ class App extends React.Component {
     this.setState(({
       isReversed: false,
       sortBy: 'id',
+      defaultLength: 1,
+    }));
+  }
+
+  limit = (props) => {
+    const { target } = props;
+
+    this.setState(({
+      defaultLength: target.value,
     }));
   }
 
@@ -51,9 +61,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { active, isReversed, sortBy } = this.state;
+    const { active, isReversed, sortBy, defaultLength } = this.state;
 
-    const copyGoodsFromServer = [...goodsFromServer];
+    const copyGoodsFromServer = [...goodsFromServer].filter(
+      good => good.length >= defaultLength,
+    );
 
     copyGoodsFromServer.sort((prev, next) => {
       switch (sortBy) {
@@ -79,6 +91,22 @@ class App extends React.Component {
         </button>
 
         <div className={`${active ? '' : 'active'}`}>
+          <select
+            value={defaultLength}
+            onChange={this.limit}
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+
           <button type="button" onClick={this.reverse}>
             Reverse
           </button>
