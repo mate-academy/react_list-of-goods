@@ -51,15 +51,15 @@ export class GoodsList extends React.Component {
             ))
           }
         </ul>
-        <Button callBack={this.reverse} text="Reverse" />
-        <Button callBack={this.sortAlphabetically} text="Sort alphabetically" />
-        <Button callBack={this.sortByLength} text="Sort by length" />
-        <Button callBack={this.reset} text="Reset" />
+        <Button onClick={this.reverse} text="Reverse" />
+        <Button onClick={this.sortAlphabetically} text="Sort alphabetically" />
+        <Button onClick={this.sortByLength} text="Sort by length" />
+        <Button onClick={this.reset} text="Reset" />
       </div>
     );
   }
 }
 
 GoodsList.propTypes = {
-  goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

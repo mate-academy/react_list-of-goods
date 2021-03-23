@@ -19,7 +19,7 @@ const goodsFromServer = [
 
 export class App extends React.Component {
   state = {
-    isVissibleList: true,
+    isVissibleList: false,
   }
 
   toggleSwitchList = () => {
@@ -34,7 +34,7 @@ export class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <Button callBack={this.toggleSwitchList} text="Show / Hide List" />
+        <Button onClick={this.toggleSwitchList} text="Show / Hide List" />
         {
           isVissibleList && <GoodsList goods={goodsFromServer} />
         }

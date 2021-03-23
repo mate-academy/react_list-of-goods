@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import './Button.css';
 
-export function Button({ callBack, text }) {
+export function Button({ onClick, text }) {
   return (
     <button
       type="button"
       className="button"
-      onClick={callBack}
+      onClick={onClick}
     >
       {text}
     </button>
@@ -16,6 +16,6 @@ export function Button({ callBack, text }) {
 }
 
 Button.propTypes = {
-  callBack: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
 };
