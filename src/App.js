@@ -43,9 +43,7 @@ class App extends React.Component {
 
   sortByLength = () => {
     this.setState(state => ({
-      visibleGoods: state.visibleGoods.sort(
-        (current, next) => current.length - next.length,
-      ),
+      visibleGoods: state.visibleGoods.sort(),
     }));
   }
 
@@ -62,52 +60,55 @@ class App extends React.Component {
 
         <ul className="list">
           {this.state.visibleGoods.map(good => (
-            <li key="good" className="list__item">
+            <li key={good} className="list__item">
               {good}
             </li>
           ))}
         </ul>
+        {this.state.isVisible && (
+          <button
+            type="button"
+            onClick={this.listVisible}
+          >
+            Start
+          </button>
+        )}
 
-        <button
-          type="button"
-          className={this.state.isVisible || 'hidden'}
-          onClick={this.listVisible}
-        >
-          Start
-        </button>
+        {!this.state.isVisible && (
+          <button
+            type="button"
+            onClick={this.reverseList}
+          >
+            Reverse
+          </button>
+        )}
 
-        <button
-          type="button"
-          className={!this.state.isVisible || 'hidden'}
-          onClick={this.reverseList}
-        >
-          Reverse
-        </button>
+        {!this.state.isVisible && (
+          <button
+            type="button"
+            onClick={this.sortByName}
+          >
+            Sort by Name
+          </button>
+        )}
 
-        <button
-          type="button"
-          className={!this.state.isVisible || 'hidden'}
-          onClick={this.sortByName}
-        >
-          Sort by Name
-        </button>
+        {!this.state.isVisible && (
+          <button
+            type="button"
+            onClick={this.sortByLength}
+          >
+            Sort by Length
+          </button>
+        )}
 
-        <button
-          type="button"
-          className={!this.state.isVisible || 'hidden'}
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className={!this.state.isVisible || 'hidden'}
-          onClick={this.resetList}
-        >
-          Reset
-        </button>
-
+        {!this.state.isVisible && (
+          <button
+            type="button"
+            onClick={this.resetList}
+          >
+            Reset
+          </button>
+        )}
       </div>
     );
   }
