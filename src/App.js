@@ -33,7 +33,7 @@ export class App extends React.PureComponent {
     }));
   }
 
-  goodsSortByAlphabetically = () => {
+  sortByAlphabetically = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].sort(
         (prevGood, currentGood) => prevGood.localeCompare(currentGood),
@@ -41,7 +41,7 @@ export class App extends React.PureComponent {
     }));
   }
 
-  goodsSortByLength = () => {
+  sortByLength = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].sort(
         (prevGood, currentGood) => prevGood.length - currentGood.length,
@@ -49,7 +49,7 @@ export class App extends React.PureComponent {
     }));
   }
 
-  goodsReset = () => {
+  resetSort = () => {
     this.setState({
       goods: [...goodsFromServer],
     });
@@ -79,21 +79,21 @@ export class App extends React.PureComponent {
 
         <button
           type="button"
-          onClick={this.goodsSortByAlphabetically}
+          onClick={this.sortByAlphabetically}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          onClick={this.goodsSortByLength}
+          onClick={this.sortByLength}
         >
           Sort By Length
         </button>
 
         <button
           type="button"
-          onClick={this.goodsReset}
+          onClick={this.resetSort}
         >
           Reset
         </button>
