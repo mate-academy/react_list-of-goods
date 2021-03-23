@@ -36,18 +36,24 @@ class App extends React.Component {
     this.setState({ goods: [...goodsFromServer] });
   }
 
-  sortGoodsAlphabetically = () => {
+  sortGoodsByName = () => {
     const preparedGoods = [...goodsFromServer];
 
-    this.setState({ goods: preparedGoods
-      .sort((prevGood, currentGood) => prevGood.localeCompare(currentGood)) });
+    this.setState({
+      goods: preparedGoods.sort(
+        (prevGood, currentGood) => prevGood.localeCompare(currentGood),
+      ),
+    });
   }
 
   sortGoodsByLength = () => {
     const preparedGoods = [...goodsFromServer];
 
-    this.setState({ goods: preparedGoods
-      .sort((prevGood, currentGood) => prevGood.length - currentGood.length) });
+    this.setState({
+      goods: preparedGoods.sort(
+        (prevGood, currentGood) => (prevGood.length - currentGood.length),
+      ),
+    });
   }
 
   render() {
@@ -73,7 +79,7 @@ class App extends React.Component {
             </button>
             <button
               type="button"
-              onClick={this.sortGoodsAlphabetically}
+              onClick={this.sortGoodsByName}
             >
               Sort alphabetically
             </button>
