@@ -20,94 +20,81 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
+    goods: [...goodsFromServer],
     active: false,
-    isReversed: false,
-    sortBy: 'id',
     defaultLength: 1,
+    selectValues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   showList = () => {
     this.setState(prevState => ({ active: !prevState.active }));
   }
 
-  reverse = () => {
-    this.setState(prevState => ({
-      isReversed: !prevState.isReversed,
-    }));
-  }
-
-  reset = () => {
+  resetList = () => {
     this.setState(({
-      isReversed: false,
-      sortBy: 'id',
-      defaultLength: 1,
+      goods: [...goodsFromServer],
     }));
   }
 
-  limit = (props) => {
+  limitLengthListItem = (props) => {
     const { target } = props;
 
     this.setState(({
       defaultLength: target.value,
+      goods: goodsFromServer.filter(good => good.length >= target.value),
     }));
   }
 
   sortAlphabetically = () => {
-    this.setState({ sortBy: 'name' });
+    this.setState(prevState => ({
+      goods: prevState.goods.sort((prev, next) => (
+        prev.name.localeCompare(next.name)
+      )),
+    }));
   }
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState(prevState => ({
+      goods: prevState.goods.sort((prev, next) => (
+        prev.length - next.length
+      )),
+    }));
+  }
+
+  reverseList = () => {
+    this.setState(prevState => ({
+      goods: prevState.goods.reverse(),
+    }));
   }
 
   render() {
-    const { active, isReversed, sortBy, defaultLength } = this.state;
-
-    const copyGoodsFromServer = [...goodsFromServer].filter(
-      good => good.length >= defaultLength,
-    );
-
-    copyGoodsFromServer.sort((prev, next) => {
-      switch (sortBy) {
-        case 'id':
-        case 'length':
-          return prev[sortBy] - next[sortBy];
-        case 'name':
-          return prev[sortBy].localeCompare(next[sortBy]);
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      copyGoodsFromServer.reverse();
-    }
+    const {
+      goods,
+      active,
+      defaultLength,
+      selectValues,
+    } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
         <button type="button" onClick={this.showList}>
-          Show list
+          {`${active ? 'Close list' : 'Show list'}`}
         </button>
 
         <div className={`${active ? '' : 'active'}`}>
           <select
             value={defaultLength}
-            onChange={this.limit}
+            onChange={this.limitLengthListItem}
           >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
+            {selectValues.map(value => (
+              <option>
+                {value}
+              </option>
+            ))}
           </select>
 
-          <button type="button" onClick={this.reverse}>
+          <button type="button" onClick={this.reverseList}>
             Reverse
           </button>
 
@@ -119,13 +106,13 @@ class App extends React.Component {
             Sort by length
           </button>
 
-          <button type="button" onClick={this.reset}>
+          <button type="button" onClick={this.resetList}>
             Reset
           </button>
         </div>
 
         <ul className={`${active ? '' : 'active'}`}>
-          {copyGoodsFromServer.map(good => (
+          {goods.map(good => (
             <li key={good.id}>
               {good.name}
             </li>
