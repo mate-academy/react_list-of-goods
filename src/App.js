@@ -16,18 +16,19 @@ const goodsFromServer = [
 ];
 
 const goodsWithId = goodsFromServer.map((name, index) => ({
-  name, id: index + 1,
+  name,
+  id: index + 1,
 }));
 
 class App extends React.Component {
   state = {
     goods: [...goodsWithId],
-    isGoodsVisible: false,
+    isGoodsListVisible: false,
   }
 
   showGoods = () => {
     this.setState(prevState => ({
-      isGoodsVisible: !prevState.isGoodsVisible,
+      isGoodsListVisible: !prevState.isGoodsListVisible,
     }));
   }
 
@@ -61,14 +62,14 @@ class App extends React.Component {
 
   render() {
     const {
-      isGoodsVisible,
+      isGoodsListVisible,
       goods,
     } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isGoodsVisible ? (
+        {isGoodsListVisible ? (
           <>
             <GoodsList goods={goods} />
 
