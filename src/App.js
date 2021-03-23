@@ -17,8 +17,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    generalArray: goodsFromServer,
-    usingArray: goodsFromServer,
+    goods: goodsFromServer,
     listIsPublished: false,
   }
 
@@ -28,15 +27,15 @@ class App extends React.Component {
     }));
   }
 
-  reversed = () => {
+  reverseList = () => {
     this.setState(state => ({
-      usingArray: [...state.usingArray].reverse(),
+      goods: [...state.goods].reverse(),
     }));
   }
 
-  sortedByLength = () => {
+  sortByLength = () => {
     this.setState(state => ({
-      usingArray: [...state.usingArray].sort(
+      goods: [...state.goods].sort(
         (prev, next) => prev.length - next.length,
       ),
     }));
@@ -44,21 +43,19 @@ class App extends React.Component {
 
   sortByAlphabeth = () => {
     this.setState(state => ({
-      usingArray: [...state.usingArray].sort(),
+      goods: [...state.goods].sort(),
     }));
   }
 
   reset = () => {
     this.setState(state => ({
-      usingArray: [...state.generalArray],
+      goods: [...goodsFromServer],
     }));
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Goods</h1>
-        {goodsFromServer.length}
         {
           !this.state.listIsPublished && (
             <button
@@ -73,19 +70,19 @@ class App extends React.Component {
           this.state.listIsPublished && (
             <>
               <GoodsList
-                dataForRender={this.state.usingArray}
+                dataForRender={this.state.goods}
               />
 
               <button
                 type="button"
-                onClick={this.reversed}
+                onClick={this.reverseList}
               >
                 Reverse order
               </button>
 
               <button
                 type="button"
-                onClick={this.sortedByLength}
+                onClick={this.sortByLength}
               >
                 Sort By Length
               </button>
