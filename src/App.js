@@ -66,7 +66,6 @@ class App extends React.Component {
           <Buttons
             method={this.showListHandler}
             title="Start"
-            className="button button__start"
           />
         )}
 
