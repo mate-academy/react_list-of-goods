@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const GoodsList = React.memo(
-  ({ friends }) => (
+  ({ goods }) => (
     <ul>
-      {friends.map(friend => (
+      {goods.map(friend => (
         <li>
           {friend}
         </li>

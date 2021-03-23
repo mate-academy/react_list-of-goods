@@ -27,7 +27,7 @@ export class App extends React.PureComponent {
     }));
   }
 
-  goodsReverse = () => {
+  reverseGoods = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
     }));
@@ -35,13 +35,17 @@ export class App extends React.PureComponent {
 
   goodsSortByAlphabetically = () => {
     this.setState(prevState => ({
-      goods: [...prevState.goods].sort((f1, f2) => f1.localeCompare(f2)),
+      goods: [...prevState.goods].sort(
+        (prevGood, currentGood) => prevGood.localeCompare(currentGood),
+      ),
     }));
   }
 
   goodsSortByLength = () => {
     this.setState(prevState => ({
-      goods: [...prevState.goods].sort((f1, f2) => f1.length - f2.length),
+      goods: [...prevState.goods].sort(
+        (prevGood, currentGood) => prevGood.length - currentGood.length,
+      ),
     }));
   }
 
@@ -68,7 +72,7 @@ export class App extends React.PureComponent {
 
         <button
           type="button"
-          onClick={this.goodsReverse}
+          onClick={this.reverseGoods}
         >
           Reverse
         </button>
@@ -95,7 +99,7 @@ export class App extends React.PureComponent {
         </button>
 
         {visible && (
-          <GoodsList friends={goods} />
+          <GoodsList goods={goods} />
         )}
       </>
     );
