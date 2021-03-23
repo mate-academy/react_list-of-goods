@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ProductButtons } from './ProductButtons';
-import { ProductStartButtons } from './ProductStartButton';
+import { ProductButton } from './ProductButton';
+import { StartButton } from './StartButton';
 
 export class ProductList extends React.Component {
   state = {
@@ -10,7 +10,7 @@ export class ProductList extends React.Component {
   };
 
   start = () => {
-    this.setState(state => ({ isVisibleList: false }));
+    this.setState(prevState => ({ isVisibleList: false }));
   };
 
   reverseList = () => {
@@ -58,28 +58,28 @@ export class ProductList extends React.Component {
         </ul>
 
         <div className="product__container-button">
-          <ProductStartButtons
+          <StartButton
             callBack={this.start}
             text="Start"
             isVisibleList={isVisibleList}
           />
 
-          <ProductButtons
+          <ProductButton
             callBack={this.reverseList}
             text="Reverse"
             isVisibleList={isVisibleList}
           />
-          <ProductButtons
+          <ProductButton
             callBack={this.sortAlphabetically}
             text="Sort alphabetically"
             isVisibleList={isVisibleList}
           />
-          <ProductButtons
+          <ProductButton
             callBack={this.resetList}
             text="Reset"
             isVisibleList={isVisibleList}
           />
-          <ProductButtons
+          <ProductButton
             callBack={this.sortByLength}
             text="Sort by length"
             isVisibleList={isVisibleList}
