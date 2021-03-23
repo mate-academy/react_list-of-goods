@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Buttons } from './components/Buttons';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -46,9 +46,9 @@ export class App extends React.PureComponent {
   }
 
   goodsReset = () => {
-    this.setState(prevState => ({
+    this.setState({
       goods: [...goodsFromServer],
-    }));
+    });
   }
 
   render() {
@@ -95,7 +95,7 @@ export class App extends React.PureComponent {
         </button>
 
         {visible && (
-          <Buttons friends={goods} />
+          <GoodsList friends={goods} />
         )}
       </>
     );

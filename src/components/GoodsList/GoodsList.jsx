@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Buttons = React.memo(
+export const GoodsList = React.memo(
   ({ friends }) => (
     <ul>
       {friends.map(friend => (
@@ -13,6 +13,6 @@ export const Buttons = React.memo(
   ),
 );
 
-Buttons.propTypes = PropTypes.arrayOf(
+GoodsList.propTypes = PropTypes.arrayOf(
   PropTypes.string,
 ).isRequired;
