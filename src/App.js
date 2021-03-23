@@ -33,9 +33,7 @@ class App extends React.Component {
   }
 
   reset = () => {
-    this.setState(() => ({
-      goods: [...goodsFromServer],
-    }));
+    this.setState({ goods: [...goodsFromServer] });
   }
 
   sortGoodsAlphabetically = () => {
