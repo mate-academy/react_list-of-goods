@@ -98,7 +98,7 @@ class App extends React.Component {
                   type="button"
                   onClick={this.sortByLendth}
                 >
-                  sortByLendth
+                  sortByLength
                 </button>
                 <button
                   type="button"
