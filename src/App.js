@@ -52,11 +52,12 @@ export class App extends React.PureComponent {
   }
 
   resetGood = () => {
-    this.setState({
+    this.setState(prevState => ({
+      isReverse: false,
       isSort: false,
-      isReset: true,
+      isReset: !prevState.isReset,
       sortBy: 'alphabetically',
-    });
+    }));
   }
 
   render() {
@@ -66,17 +67,12 @@ export class App extends React.PureComponent {
       sortBy,
       isSort,
       isReverse,
-      isReset,
     } = this.state;
 
     let copiedArray = [...friends];
 
     if (isReverse) {
       copiedArray.reverse();
-    }
-
-    if (isReset) {
-      copiedArray = [...friends];
     }
 
     if (isSort) {
