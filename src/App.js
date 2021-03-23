@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
 
+import { GoodsList } from './ components/GoodsList';
+import { Button } from './ components/Button';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -14,11 +17,28 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component {
+  state = {
+    isVissibleList: false,
+  }
 
-export default App;
+  toggleSwitchList = () => {
+    this.setState(prevState => ({
+      isVissibleList: !prevState.isVissibleList,
+    }));
+  }
+
+  render() {
+    const { isVissibleList } = this.state;
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        <Button onClick={this.toggleSwitchList} text="Show / Hide List" />
+        {
+          isVissibleList && <GoodsList goods={goodsFromServer} />
+        }
+      </div>
+    );
+  }
+}
