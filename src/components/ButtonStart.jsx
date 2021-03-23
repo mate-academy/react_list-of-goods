@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 
 export function ButtonStart({ showGoods, showButtons }) {
   return (
-    <>
-      {showButtons && (
-        <button
-          type="button"
-          onClick={showGoods}
-        >
-          Start
-        </button>
-      )}
-    </>
+    <button
+      type="button"
+      onClick={showGoods}
+    >
+      Start
+    </button>
   );
 }
 

@@ -3,11 +3,7 @@ import React from 'react';
 import { GoodsList } from './components/GoodsList';
 import { ButtonStart } from './components/ButtonStart';
 import './App.css';
-import { ButtonReverse } from './components/ButtonReverse';
-// eslint-disable-next-line max-len
-import { ButtonSortAlphabetically } from './components/ButtonSortAlphabetically';
-import { ButtonReset } from './components/ButtonReset';
-import { ButtonSortByLength } from './components/ButtonSortByLength';
+import { Button } from './components/Button';
 
 const goodsFromServer = [
   'Dumplings',
@@ -22,14 +18,14 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const goodsWithID = goodsFromServer.map((product, index) => ({
+const preparedGoods = goodsFromServer.map((product, index) => ({
   product,
   id: index + 1,
 }));
 
 export class App extends React.Component {
   state = {
-    goods: goodsWithID,
+    goods: [...preparedGoods],
     showButtons: true,
   }
 
@@ -56,11 +52,9 @@ export class App extends React.Component {
   }
 
   reset = () => {
-    this.setState(prevState => ({
-      goods: prevState.goods.sort((word1, word2) => (
-        word1.id - word2.id
-      )),
-    }));
+    this.setState({
+      goods: [...preparedGoods],
+    });
   }
 
   reverse = () => (
@@ -71,40 +65,40 @@ export class App extends React.Component {
 
   render() {
     const {
-      showList,
-      showButtons,
       goods,
-      isReversed,
-      sortBy,
+      showButtons,
     } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
+        {showButtons && (
         <ButtonStart
           showGoods={this.showGoods}
           showButtons={showButtons}
         />
+        )}
         {!showButtons
         && (
           <>
-            <ButtonReverse
-              reverse={this.reverse}
+            <Button
+              clickButton={this.reverse}
+              text="Reverse"
             />
-            <ButtonSortAlphabetically
-              sortByName={this.sortByName}
+            <Button
+              clickButton={this.sortByName}
+              text="Sort alphabetically"
             />
-            <ButtonReset
-              reset={this.reset}
+            <Button
+              clickButton={this.reset}
+              text="Reset"
             />
-            <ButtonSortByLength
-              sortByLength={this.sortByLength}
+            <Button
+              clickButton={this.sortByLength}
+              text="Sort by length"
             />
             <GoodsList
-              showList={showList}
               goods={goods}
-              isReversed={isReversed}
-              sortBy={sortBy}
             />
           </>
         )}
