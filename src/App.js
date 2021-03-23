@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { GoodsList } from './components/GoodsList';
-import { ButtonStart } from './components/ButtonStart';
-import './App.css';
 import { Button } from './components/Button';
+import './App.css';
 
 const goodsFromServer = [
   'Dumplings',
@@ -30,9 +29,7 @@ export class App extends React.Component {
   }
 
   showGoods = () => (
-    this.setState(state => ({
-      showButtons: false,
-    }))
+    this.setState({ showButtons: false })
   );
 
   sortByName = () => {
@@ -51,13 +48,13 @@ export class App extends React.Component {
     }));
   }
 
-  reset = () => {
+  resetGoodsList = () => {
     this.setState({
       goods: [...preparedGoods],
     });
   }
 
-  reverse = () => (
+  reverseGoodsList = () => (
     this.setState(prevState => ({
       goods: prevState.goods.reverse(),
     }))
@@ -73,16 +70,16 @@ export class App extends React.Component {
       <div className="App">
         <h1>Goods</h1>
         {showButtons && (
-        <ButtonStart
-          showGoods={this.showGoods}
-          showButtons={showButtons}
+        <Button
+          clickButton={this.showGoods}
+          text="Start"
         />
         )}
         {!showButtons
         && (
           <>
             <Button
-              clickButton={this.reverse}
+              clickButton={this.reverseGoodsList}
               text="Reverse"
             />
             <Button
@@ -90,7 +87,7 @@ export class App extends React.Component {
               text="Sort alphabetically"
             />
             <Button
-              clickButton={this.reset}
+              clickButton={this.resetGoodsList}
               text="Reset"
             />
             <Button
