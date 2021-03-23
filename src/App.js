@@ -42,7 +42,7 @@ class App extends React.Component {
     });
   }
 
-  sortByLendth = () => {
+  sortByLength = () => {
     this.setState({
       sortBy: 'length',
     });
@@ -96,7 +96,7 @@ class App extends React.Component {
                 </button>
                 <button
                   type="button"
-                  onClick={this.sortByLendth}
+                  onClick={this.sortByLength}
                 >
                   sortByLength
                 </button>
