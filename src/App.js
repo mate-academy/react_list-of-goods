@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { ProductList } from './components/ProductList/ProductList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -16,8 +17,9 @@ const goodsFromServer = [
 
 const App = () => (
   <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
+
+    <ProductList products={goodsFromServer} />
+
   </div>
 );
 
