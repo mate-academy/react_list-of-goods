@@ -17,81 +17,47 @@ const goodsFromServer = [
 
 export class App extends React.PureComponent {
   state = {
-    friends: goodsFromServer,
-    isStarted: false,
-    isSort: false,
-    isReset: false,
-    isReverse: false,
-    sortBy: 'alphabetically',
+    goods: [...goodsFromServer],
+    visible: false,
   }
 
   getStarted = () => {
     this.setState(prevState => ({
-      isStarted: !prevState.isStarted,
+      visible: !prevState.visible,
     }));
   }
 
-  reverseGood = () => {
+  goodsReverse = () => {
     this.setState(prevState => ({
-      isReverse: !prevState.isReverse,
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
-  sortByAlphabet = () => {
+  goodsSortByAlphabetically = () => {
     this.setState(prevState => ({
-      isSort: !prevState.isSort,
-      sortBy: 'alphabetically',
+      goods: [...prevState.goods].sort((f1, f2) => f1.localeCompare(f2)),
     }));
   }
 
-  sortByLength = () => {
+  goodsSortByLength = () => {
     this.setState(prevState => ({
-      isSort: !prevState.isSort,
-      sortBy: 'length',
+      goods: [...prevState.goods].sort((f1, f2) => f1.length - f2.length),
     }));
   }
 
-  resetGood = () => {
+  goodsReset = () => {
     this.setState(prevState => ({
-      isReverse: false,
-      isSort: false,
-      isReset: !prevState.isReset,
-      sortBy: 'alphabetically',
+      goods: [...goodsFromServer],
     }));
   }
 
   render() {
-    const {
-      friends,
-      isStarted,
-      sortBy,
-      isSort,
-      isReverse,
-    } = this.state;
-
-    let copiedArray = [...friends];
-
-    if (isReverse) {
-      copiedArray.reverse();
-    }
-
-    if (isSort) {
-      switch (sortBy) {
-        case 'alphabetically':
-          copiedArray = [...friends].sort((f1, f2) => f1.localeCompare(f2));
-          break;
-        case 'length':
-          copiedArray = [...friends].sort((f1, f2) => f1.length - f2.length);
-          break;
-        default:
-          break;
-      }
-    }
+    const { goods, visible } = this.state;
 
     return (
       <>
         <h1>Goods</h1>
-        {!isStarted && (
+        {!visible && (
           <button
             type="button"
             onClick={this.getStarted}
@@ -102,34 +68,34 @@ export class App extends React.PureComponent {
 
         <button
           type="button"
-          onClick={this.reverseGood}
+          onClick={this.goodsReverse}
         >
-          reverse
+          Reverse
         </button>
 
         <button
           type="button"
-          onClick={this.sortByAlphabet}
+          onClick={this.goodsSortByAlphabetically}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          onClick={this.sortByLength}
+          onClick={this.goodsSortByLength}
         >
           Sort By Length
         </button>
 
         <button
           type="button"
-          onClick={this.resetGood}
+          onClick={this.goodsReset}
         >
           Reset
         </button>
 
-        {isStarted && (
-          <Buttons friends={copiedArray} />
+        {visible && (
+          <Buttons friends={goods} />
         )}
       </>
     );
