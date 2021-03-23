@@ -47,8 +47,8 @@ class App extends React.Component {
 
   nameLengthSort = () => {
     this.setState({
-      goods: [...goodsFromServer].sort((prev, next) => (
-        prev.length - next.length
+      goods: [...goodsFromServer].sort((previous, next) => (
+        previous.length - next.length
       )),
     });
   };
