@@ -20,12 +20,11 @@ class App extends React.Component {
     goods: [],
   }
 
-  displayList = (clickEvent) => {
+  displayList = () => {
     this.setState(({
       isButtonsVisible: true,
       goods: goodsFromServer,
     }));
-    clickEvent.target.classList.add('hidden');
   }
 
   reverseList = () => {
@@ -68,6 +67,11 @@ class App extends React.Component {
           <button
             type="button"
             onClick={this.displayList}
+            className={
+              this.state.isButtonsVisible
+                ? 'hidden'
+                : ''
+            }
           >
             Start
           </button>
