@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { GoodsList } from './components/GoodsList/GoodsList';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -50,7 +50,7 @@ class App extends React.Component {
   sortByLengthGoods = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].sort(
-        (prev, next) => next.length - prev.length,
+        (prev, next) => prev.length - next.length,
       ),
     }));
   };
