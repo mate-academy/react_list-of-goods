@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap");
+
+body {
+  font-family: "Shadows Into Light", cursive;
+  font-size: 22px;
+  background-image: url(https://i.imgur.com/eHUVxw0.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-color: rgb(59, 8, 71);
+}
+
+h1 {
+  margin: 0;
+  font-size: 68px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.goodsList {
+  height: 360px;
+  width: 200px;
+  --borderWidth: 3px;
+  background: #c6cacc;
+  position: relative;
+  border-radius: var(--borderWidth);
+  color: #000;
+}
+
+.goodsList:after {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f79533, #f37055
+  ,#ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ed3330;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
