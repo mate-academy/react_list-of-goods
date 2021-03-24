@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { Buttons } from './components/Buttons';
+import { Button } from './components/Button';
 
 const goodsFromServer = [
   'Dumplings',
@@ -63,8 +63,8 @@ class App extends React.Component {
     return (
       <div className="App">
         {isButtonVisible && (
-          <Buttons
-            method={this.showListHandler}
+          <Button
+            onClick={this.showListHandler}
             title="Start"
           />
         )}
@@ -79,23 +79,23 @@ class App extends React.Component {
               ))}
             </ul>
 
-            <Buttons
-              method={this.reverseHandler}
+            <Button
+              onClick={this.reverseHandler}
               title="Reverse"
             />
 
-            <Buttons
-              method={this.alphabeticalSortHandler}
+            <Button
+              onClick={this.alphabeticalSortHandler}
               title="Sort alphabetically"
             />
 
-            <Buttons
-              method={this.resetHandler}
+            <Button
+              onClick={this.resetHandler}
               title="Reset"
             />
 
-            <Buttons
-              method={this.lengthSortHandler}
+            <Button
+              onClick={this.lengthSortHandler}
               title="Sort by length"
             />
           </>

@@ -11,7 +11,7 @@
 1. Add `Sort by length` button to show the goods ordered by name length
 
 ## (*) Advanced tasks (require understanding of Forms in React)
-1. Add `<select>` with numbers from 1 to 10. (1 is default). All the previous buttons
+1. Add `<select>` with numbers from 1 to 10. (1 is default). All the previous Button
   should now show only goods having length >= than the selected value. When you change the
   value the items should be immediately rerendered accordingly.
 1. `Reset` button should set the default value to the `<select>`
