@@ -16,13 +16,13 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    isButtonsVisible: false,
+    isButtonsHidden: true,
     goods: [],
   }
 
   displayList = () => {
     this.setState(({
-      isButtonsVisible: true,
+      isButtonsHidden: false,
       goods: goodsFromServer,
     }));
   }
@@ -48,7 +48,7 @@ class App extends React.Component {
   sortListByLength = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
-        .sort((first, second) => first.length - second.length),
+        .sort((prev, next) => prev.length - next.length),
     }));
   }
 
@@ -64,18 +64,16 @@ class App extends React.Component {
           ))}
         </ul>
         <div>
-          <button
-            type="button"
-            onClick={this.displayList}
-            className={
-              this.state.isButtonsVisible
-                ? 'hidden'
-                : ''
-            }
-          >
-            Start
-          </button>
-          {this.state.isButtonsVisible && (
+          {this.state.isButtonsHidden
+        && (
+        <button
+          type="button"
+          onClick={this.displayList}
+        >
+          Start
+        </button>
+        )}
+          {!this.state.isButtonsHidden && (
           <>
             <button
               type="button"
@@ -91,15 +89,15 @@ class App extends React.Component {
             </button>
             <button
               type="button"
-              onClick={this.resetList}
-            >
-              Reset
-            </button>
-            <button
-              type="button"
               onClick={this.sortListByLength}
             >
               Sort by length
+            </button>
+            <button
+              type="button"
+              onClick={this.resetList}
+            >
+              Reset
             </button>
           </>
           )}

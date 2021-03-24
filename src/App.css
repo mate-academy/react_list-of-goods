@@ -21,10 +21,6 @@ h1 {
   align-items: center;
 }
 
-.hidden {
-  display: none;
-}
-
 .goodsList {
   height: 360px;
   width: 200px;
