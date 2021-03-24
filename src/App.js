@@ -60,7 +60,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <h1>Goods</h1>
+        <h1 className="header">Goods</h1>
         {' '}
         {
           isVisible && (
