@@ -19,8 +19,6 @@ class App extends React.Component {
   state = {
     goods: goodsFromServer,
     isVisible: false,
-    isReversed: false,
-    sortBy: '',
   }
 
   showGoods = () => {
@@ -32,45 +30,34 @@ class App extends React.Component {
 
   reverseGoods = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
+      goods: [...state.goods].reverse(),
     }));
   }
 
   sortByNameOfGood = () => {
-    this.setState({ sortBy: 'name' });
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (previousGood, nextGood) => previousGood.localeCompare(nextGood),
+      ),
+    }));
   }
 
   sortByNameLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (previousGood, nextGood) => previousGood.length - nextGood.length,
+      ),
+    }));
   }
 
   resetHandler = () => {
     this.setState({
-      sortBy: '', isReversed: false,
+      goods: goodsFromServer,
     });
   }
 
   render() {
-    const { goods, isVisible, isReversed, sortBy } = this.state;
-
-    const visibleGoods = [...goods];
-
-    visibleGoods.sort((previousGood, nextGood) => {
-      switch (sortBy) {
-        case 'name':
-          return previousGood.localeCompare(nextGood);
-
-        case 'length':
-          return previousGood.length - nextGood.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const { goods, isVisible } = this.state;
 
     return (
       <div className="App">
@@ -87,7 +74,7 @@ class App extends React.Component {
         <>
           <h1>Goods List</h1>
 
-          <GoodsList goods={visibleGoods} />
+          <GoodsList goods={goods} />
 
           <button
             type="button"
