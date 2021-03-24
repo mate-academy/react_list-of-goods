@@ -20,38 +20,33 @@ class App extends React.Component {
     goods: [],
   }
 
-  start = () => {
-    if (this.state.goods.length === 0) {
-      this.setState({
-        isButtonsVisible: true,
-        goods: goodsFromServer,
-      });
-    }
-
-    this.setState(prevState => ({
-      goods: prevState.goods,
+  displayList = (clickEvent) => {
+    this.setState(({
+      isButtonsVisible: true,
+      goods: goodsFromServer,
     }));
+    clickEvent.target.classList.add('hidden');
   }
 
-  reverse = () => {
+  reverseList = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
     }));
   }
 
-  sort = () => {
+  sortListByDefault = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].sort(),
     }));
   }
 
-  reset = () => {
+  resetList = () => {
     this.setState(({
       goods: goodsFromServer,
     }));
   }
 
-  sortByLength = () => {
+  sortListByLength = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods]
         .sort((first, second) => first.length - second.length),
@@ -72,7 +67,7 @@ class App extends React.Component {
         <div>
           <button
             type="button"
-            onClick={this.start}
+            onClick={this.displayList}
           >
             Start
           </button>
@@ -80,25 +75,25 @@ class App extends React.Component {
           <>
             <button
               type="button"
-              onClick={this.reverse}
+              onClick={this.reverseList}
             >
               Reverse
             </button>
             <button
               type="button"
-              onClick={this.sort}
+              onClick={this.sortListByDefault}
             >
               Sort alphabetically
             </button>
             <button
               type="button"
-              onClick={this.reset}
+              onClick={this.resetList}
             >
               Reset
             </button>
             <button
               type="button"
-              onClick={this.sortByLength}
+              onClick={this.sortListByLength}
             >
               Sort by length
             </button>
