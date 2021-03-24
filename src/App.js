@@ -16,70 +16,59 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [...goodsFromServer],
+    isButtonsVisible: false,
+    goods: [],
   }
 
   start = () => {
-    const goodsList = document.querySelector('.goodsList');
+    if (this.state.goods.length === 0) {
+      this.setState({
+        isButtonsVisible: true,
+        goods: goodsFromServer,
+      });
+    }
 
-    goodsList.innerHTML = '';
-    this.state.goods.map((product) => {
-      const html = `<li>${product}</li>`;
-
-      return goodsList.insertAdjacentHTML('beforeend', html);
-    });
+    this.setState(prevState => ({
+      goods: prevState.goods,
+    }));
   }
 
   reverse = () => {
-    const goodsList = document.querySelector('.goodsList');
-
-    goodsList.innerHTML = '';
-    [...this.state.goods].reverse().map((product) => {
-      const html = `<li>${product}</li>`;
-
-      return goodsList.insertAdjacentHTML('beforeend', html);
-    });
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
   }
 
   sort = () => {
-    const goodsList = document.querySelector('.goodsList');
-
-    goodsList.innerHTML = '';
-    [...this.state.goods].sort().map((product) => {
-      const html = `<li>${product}</li>`;
-
-      return goodsList.insertAdjacentHTML('beforeend', html);
-    });
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort(),
+    }));
   }
 
   reset = () => {
-    const goodsList = document.querySelector('.goodsList');
-
-    goodsList.innerHTML = '';
-    this.state.goods.map((product) => {
-      const html = `<li>${product}</li>`;
-
-      return goodsList.insertAdjacentHTML('beforeend', html);
-    });
+    this.setState(({
+      goods: goodsFromServer,
+    }));
   }
 
   sortByLength = () => {
-    const goodsList = document.querySelector('.goodsList');
-
-    goodsList.innerHTML = '';
-    [...this.state.goods].sort((a, b) => b.length - a.length)
-      .map((product) => {
-        const html = `<li>${product}</li>`;
-
-        return goodsList.insertAdjacentHTML('beforeend', html);
-      });
+    this.setState(prevState => ({
+      goods: [...prevState.goods]
+        .sort((first, second) => first.length - second.length),
+    }));
   }
 
   render() {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <ul className="goodsList" />
+        <ul className="goodsList">
+          {this.state.goods.map(product => (
+            <li key={product}>
+              {product}
+            </li>
+          ))}
+        </ul>
         <div>
           <button
             type="button"
@@ -87,30 +76,34 @@ class App extends React.Component {
           >
             Start
           </button>
-          <button
-            type="button"
-            onClick={this.reverse}
-          >
-            Reverse
-          </button>
-          <button
-            type="button"
-            onClick={this.sort}
-          >
-            Sort alphabetically
-          </button>
-          <button
-            type="button"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
-          <button
-            type="button"
-            onClick={this.sortByLength}
-          >
-            Sort by length
-          </button>
+          {this.state.isButtonsVisible && (
+          <>
+            <button
+              type="button"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+            <button
+              type="button"
+              onClick={this.sort}
+            >
+              Sort alphabetically
+            </button>
+            <button
+              type="button"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+          </>
+          )}
         </div>
       </div>
     );
