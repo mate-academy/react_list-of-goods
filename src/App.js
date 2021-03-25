@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 import './App.css';
 
 const goodsFromServer = [
@@ -23,11 +24,11 @@ class App extends React.Component {
     goods: goodsFromServer,
   }
 
-  start = () => {
+  startHandler = () => {
     this.setState({ isStarted: true });
   }
 
-  reverse = () => {
+  reverseHandler = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -41,7 +42,7 @@ class App extends React.Component {
     this.setState({ sortBy: 'length' });
   }
 
-  reset = () => {
+  resetHandler = () => {
     this.setState({
       isReversed: false,
       sortBy: '',
@@ -50,16 +51,15 @@ class App extends React.Component {
 
   render() {
     const { isStarted, isReversed, sortBy, goods } = this.state;
-    const { start, reverse, sortByName, sortByLength, reset } = this;
     const visibleGoods = [...goods];
 
-    visibleGoods.sort((prevStuff, currentStuff) => {
+    visibleGoods.sort((prevProduct, currentProduct) => {
       switch (sortBy) {
         case 'name':
-          return prevStuff.localeCompare(currentStuff);
+          return prevProduct.localeCompare(currentProduct);
 
         case 'length':
-          return prevStuff.length - currentStuff.length;
+          return prevProduct.length - currentProduct.length;
 
         default:
           return 0;
@@ -72,24 +72,26 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <h1>Goods</h1>
         {!isStarted
-          ? <button type="button" onClick={start}>Start</button>
-          : (
+          && (
+            <Button
+              handler={this.startHandler}
+              text="Start"
+            />
+          )
+        }
+
+        {isStarted
+          && (
             <>
-              <button type="button" onClick={reverse}>
-                Reverse
-              </button>
-              <button type="button" onClick={sortByName}>
-                Sort alphabetically
-              </button>
-              <button type="button" onClick={sortByLength}>
-                Sort by length
-              </button>
-              <button type="button" onClick={reset}>
-                Reverse
-              </button>
-              <GoodsList goods={visibleGoods} />
+              <h1>Goods</h1>
+              <GoodsList
+                goods={visibleGoods}
+                reverseHandler={this.reverseHandler}
+                sortByName={this.sortByName}
+                sortByLength={this.sortByLength}
+                resetHandler={this.resetHandler}
+              />
             </>
           )
         }
