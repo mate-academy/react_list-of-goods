@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  margin-top: 200px;
+  font-size: 32px;
+  color: darkslategray;
+}
+
+.goodsBlock {
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.button {
+  margin: 2px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: lightpink;
+  font-size: 20px;
+}
