@@ -84,7 +84,7 @@ class App extends React.Component {
         {isStarted
           && (
             <>
-              <h1>Goods</h1>
+              <h1>Goods list</h1>
               <GoodsList
                 goods={visibleGoods}
                 reverseHandler={this.reverseHandler}
