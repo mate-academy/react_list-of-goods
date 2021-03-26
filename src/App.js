@@ -19,63 +19,64 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     isStarted: false,
-    isReversed: false,
     sortBy: '',
     goods: goodsFromServer,
-  }
+    visibleGoods: goodsFromServer,
+  };
 
   startHandler = () => {
     this.setState({ isStarted: true });
-  }
+  };
 
   reverseHandler = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
+      visibleGoods: [...state.visibleGoods].reverse(),
     }));
-  }
+  };
 
   sortByName = () => {
     this.setState({ sortBy: 'name' });
-  }
+    this.sortGoods();
+  };
 
   sortByLength = () => {
     this.setState({ sortBy: 'length' });
-  }
+    this.sortGoods();
+  };
+
+  sortGoods = () => {
+    this.setState(state => ({
+      visibleGoods: [...state.visibleGoods]
+        .sort((prevProduct, currentProduct) => {
+          switch (state.sortBy) {
+            case 'name':
+              return prevProduct.localeCompare(currentProduct);
+
+            case 'length':
+              return prevProduct.length - currentProduct.length;
+
+            default:
+              return 0;
+          }
+        }),
+    }));
+  };
 
   resetHandler = () => {
-    this.setState({
-      isReversed: false,
-      sortBy: '',
-    });
+    this.setState(state => ({
+      visibleGoods: [...state.goods],
+    }));
   }
 
   render() {
-    const { isStarted, isReversed, sortBy, goods } = this.state;
-    const visibleGoods = [...goods];
-
-    visibleGoods.sort((prevProduct, currentProduct) => {
-      switch (sortBy) {
-        case 'name':
-          return prevProduct.localeCompare(currentProduct);
-
-        case 'length':
-          return prevProduct.length - currentProduct.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const { isStarted, visibleGoods } = this.state;
 
     return (
       <div className="App">
         {!isStarted
           && (
             <Button
-              handler={this.startHandler}
+              onClick={this.startHandler}
               text="Start"
             />
           )

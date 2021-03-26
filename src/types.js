@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const ButtonType = {
-  handler: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
 };
 
@@ -11,8 +11,8 @@ export const ListType = {
 
 export const GoodsListType = {
   ...ListType,
-  reverseHandler: ButtonType.handler,
-  sortByName: ButtonType.handler,
-  sortByLength: ButtonType.handler,
-  resetHandler: ButtonType.handler,
+  reverseHandler: ButtonType.onClick,
+  sortByName: ButtonType.onClick,
+  sortByLength: ButtonType.onClick,
+  resetHandler: ButtonType.onClick,
 };

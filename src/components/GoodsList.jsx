@@ -12,22 +12,22 @@ export const GoodsList = ({
 }) => (
   <>
     <Button
-      handler={reverseHandler}
+      onClick={reverseHandler}
       text="Reverse"
     />
 
     <Button
-      handler={sortByName}
+      onClick={sortByName}
       text="Sort alphabetically"
     />
 
     <Button
-      handler={sortByLength}
+      onClick={sortByLength}
       text="Sort by length"
     />
 
     <Button
-      handler={resetHandler}
+      onClick={resetHandler}
       text="Reset"
     />
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { ButtonType } from '../types';
 
-export const Button = ({ handler, text }) => (
+export const Button = ({ onClick, text }) => (
   <button
     type="button"
-    onClick={handler}
+    onClick={onClick}
   >
     {text}
   </button>
