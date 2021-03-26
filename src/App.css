@@ -1,0 +1,29 @@
+.App {
+  width: 500px;
+  margin: 0 auto;
+  background-color: #f2efe4;
+  text-align: center;
+  color: #241a29;
+  font-size: 30px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.button {
+  width: 200px;
+  height: 60px;
+  margin: 10px;
+  border: 2px solid #777690;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #a8beae;
+  color: #241a29;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: "Courier New", Courier, monospace;
+  transition: 0.8s;
+  outline: none;
+}
+
+.button:hover {
+  background-color: #cbc29f;
+}
