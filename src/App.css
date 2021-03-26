@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #ff3772;
+  font-family: sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+button {
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px;
+  transition: 1s;
+  margin: 6px;
+}
+
+button:hover {
+  transform: scale(1.2);
+  background: #ca0d46;
+  color: white;
+}
+
+.header {
+  color: white;
+}
