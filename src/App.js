@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
 
+const activeButtonColor = '6px solid gold';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -19,6 +21,7 @@ class App extends React.Component {
   state = {
     goods: goodsFromServer,
     isVisible: true,
+    isSelected: '',
   }
 
   startGoods = () => {
@@ -30,6 +33,7 @@ class App extends React.Component {
   reverseGoods = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
+      isSelected: 'reverse',
     }));
   };
 
@@ -38,12 +42,14 @@ class App extends React.Component {
       goods: [...prevState.goods].sort(
         (prev, next) => prev.localeCompare(next),
       ),
+      isSelected: 'sortAlphabetically',
     }));
   };
 
   resetGoods = () => {
     this.setState(({
       goods: goodsFromServer,
+      isSelected: 'reset',
     }));
   };
 
@@ -52,6 +58,7 @@ class App extends React.Component {
       goods: [...prevState.goods].sort(
         (prev, next) => prev.length - next.length,
       ),
+      isSelected: 'sortByLength',
     }));
   };
 
@@ -77,24 +84,40 @@ class App extends React.Component {
           !isVisible && (
             <>
               <button
+                style={this.state.isSelected === 'reverse'
+                  ? { border: activeButtonColor }
+                  : {}
+                }
                 type="button"
                 onClick={this.reverseGoods}
               >
                 Reverse
               </button>
               <button
+                style={this.state.isSelected === 'sortAlphabetically'
+                  ? { border: activeButtonColor }
+                  : {}
+              }
                 type="button"
                 onClick={this.sortAlphabeticallyGoods}
               >
                 Sort alphabetically
               </button>
               <button
+                style={this.state.isSelected === 'reset'
+                  ? { border: activeButtonColor }
+                  : {}
+              }
                 type="button"
                 onClick={this.resetGoods}
               >
                 Reset
               </button>
               <button
+                style={this.state.isSelected === 'sortByLength'
+                  ? { border: activeButtonColor }
+                  : {}
+              }
                 type="button"
                 onClick={this.sortByLengthGoods}
               >
