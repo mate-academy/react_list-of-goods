@@ -20,32 +20,32 @@ class App extends React.Component {
     isStartButtonVisible: true,
   }
 
-  start = () => {
+  showList = () => {
     this.setState({
       goods: [...goodsFromServer],
       isStartButtonVisible: false,
     });
   };
 
-  reverse = () => {
+  reverseList = () => {
     this.setState(prevState => ({
       goods: prevState.goods.reverse(),
     }));
   };
 
-  alphabeticSort = () => {
+  sortByAlphabetic = () => {
     this.setState(prevState => ({
       goods: [...goodsFromServer].sort(),
     }));
   };
 
-  reset = () => {
+  resetListToDefault = () => {
     this.setState({
       goods: [...goodsFromServer],
     });
   };
 
-  nameLengthSort = () => {
+  sortByNameLength = () => {
     this.setState({
       goods: [...goodsFromServer].sort((previous, next) => (
         previous.length - next.length
@@ -64,31 +64,31 @@ class App extends React.Component {
             ? 'visible'
             : 'invisible'
           }
-          onClick={this.start}
+          onClick={this.showList}
         >
           Start
         </button>
         <button
           type="button"
-          onClick={this.reverse}
+          onClick={this.reverseList}
         >
           Reverse
         </button>
         <button
           type="button"
-          onClick={this.alphabeticSort}
+          onClick={this.sortByAlphabetic}
         >
           Sort alphabetically
         </button>
         <button
           type="button"
-          onClick={this.reset}
+          onClick={this.resetListToDefault}
         >
           Reset
         </button>
         <button
           type="button"
-          onClick={this.nameLengthSort}
+          onClick={this.sortByNameLength}
         >
           Sort by length
         </button>
