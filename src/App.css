@@ -1,0 +1,81 @@
+body {
+  font-family: "Gill Sans",
+    "Gill Sans MT",
+    Calibri,
+    "Trebuchet MS",
+    sans-serif;
+  font-size: 16px;
+  color: #3b3b3b;
+}
+
+h1,
+button {
+  color: inherit;
+}
+
+h1 {
+  margin: 10px 0;
+  font-size: 2rem;
+  text-align: center;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 12px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.goods-container {
+  margin: 15px auto;
+  padding: 15px 15px 15px 0;
+  max-width: 680px;
+}
+
+.goods-list {
+  padding: 15px 0;
+}
+
+.goods-list li {
+  padding: 0.25em 0;
+  border-bottom: 1px dotted #009652;
+  list-style-type: "\2013\0020";
+  list-style-position: inside;
+  color: #009652;
+  font-size: 1.25rem;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.filters {
+  padding: 15px 0;
+}
+
+.filters button {
+  display: inline;
+  vertical-align: top;
+}
+
+.btn {
+  background-color: transparent;
+  border: 1px solid #009652;
+  font-size: 1.25rem;
+  line-height: 0.9;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: #009652;
+}
+
+.active {
+  background-color: #dde8a0;
+}
