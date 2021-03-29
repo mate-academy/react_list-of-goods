@@ -107,8 +107,7 @@ class App extends React.Component {
             </div>
             <GoodsList listOfGoods={goods} />
           </>
-        )
-        }
+        )}
       </div>
     );
   }
