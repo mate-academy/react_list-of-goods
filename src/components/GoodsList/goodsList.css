@@ -1,0 +1,20 @@
+.products {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.products__list {
+  align-self: start;
+}
+
+.products__item {
+  list-style-type: none;
+  padding: 10px;
+  font-size: 24px;
+}
