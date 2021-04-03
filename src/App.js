@@ -19,12 +19,12 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
-    areGoodsShowed: false,
+    started: false,
   }
 
   showList = () => {
     this.setState({
-      areGoodsShowed: true,
+      started: true,
     });
   }
 
@@ -40,7 +40,7 @@ class App extends React.Component {
     }));
   }
 
-  showReverse = () => {
+  reverse = () => {
     this.setState(state => ({
       goods: [...state.goods].reverse(),
     }));
@@ -53,13 +53,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { goods, areGoodsShowed } = this.state;
+    const { goods, started } = this.state;
 
     return (
       <div className="goods-container">
         <h1>Goods</h1>
 
-        {!areGoodsShowed
+        {!started
           ? (
             <div className="align-center">
               <Button btnTitle="Start" btnAction={this.showList} />
@@ -71,7 +71,7 @@ class App extends React.Component {
               <div className="filters align-center">
                 <Button
                   btnTitle="Reverse"
-                  btnAction={this.showReverse}
+                  btnAction={this.reverse}
                 />
                 <Button
                   btnTitle="Sort alphabetically"
