@@ -19,17 +19,30 @@ class App extends React.Component {
   state = {
     goods: goodsFromServer,
     isVisible: false,
+    selectDefault: 1,
+    sortAlphabet: true,
+    sortLength: true,
   }
 
-  sortAlphabet = () => {
+  sortByAlphabet = () => {
     this.setState(prevState => ({
-      goods: [...prevState.goods].sort(),
+      goods: [...prevState.goods].sort((goodA, goodB) => (
+        prevState.sortAlphabet
+          ? goodA.localeCompare(goodB)
+          : goodB.localeCompare(goodA)
+      )),
+      sortAlphabet: !prevState.sortAlphabet,
     }));
   }
 
   sortByLength = () => {
     this.setState(prevState => ({
-      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
+      goods: [...prevState.goods].sort((goodA, goodB) => (
+        prevState.sortLength
+          ? goodA.length - goodB.length
+          : goodB.length - goodA.length
+      )),
+      sortLength: !prevState.sortLength,
     }));
   }
 
@@ -41,6 +54,7 @@ class App extends React.Component {
 
   leaveByLength = ({ target }) => {
     this.setState({
+      selectDefault: target.value,
       goods: goodsFromServer
         .filter(product => product.length >= target.value),
     });
@@ -50,6 +64,7 @@ class App extends React.Component {
     this.setState(prevState => ({
       ...prevState,
       goods: goodsFromServer,
+      selectDefault: 1,
     }));
   }
 
@@ -57,6 +72,7 @@ class App extends React.Component {
     const {
       isVisible,
       goods,
+      selectDefault,
     } = this.state;
 
     const maxLengthWord = goodsFromServer
@@ -109,7 +125,7 @@ class App extends React.Component {
                 <button
                   className="btn__style"
                   type="button"
-                  onClick={this.sortAlphabet}
+                  onClick={this.sortByAlphabet}
                 >
                   Sort
                 </button>
@@ -128,13 +144,13 @@ class App extends React.Component {
                   Reset
                 </button>
                 <select
+                  value={selectDefault}
                   className="btn__style"
-                  type="button"
-                  onClick={this.leaveByLength}
+                  onChange={this.leaveByLength}
                 >
                   {countSelect.map((_select, index) => (
                     <option
-                      value={countSelect[index]}
+                      value={index + 1}
                       key={countSelect[index]}
                     >
                       {index + 1}
