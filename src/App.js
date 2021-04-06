@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 
-import { GoodsList } from './components/GoodsList';
+import { Goods } from './components/Goods';
 import './App.css';
 
 export class App extends React.Component {
@@ -21,7 +21,7 @@ export class App extends React.Component {
       <div className="app">
         {
           isListShown
-            ? <GoodsList />
+            ? <Goods />
             : (
               <div className="app__button">
                 <Button
