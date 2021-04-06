@@ -1,0 +1,9 @@
+.title {
+  text-align: center;
+}
+
+.btn__row {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+}
