@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { GoodsList } from './GoodsList';
+import { Buttons } from './Buttons';
 
 const goodsFromServer = [
   'Dumplings',
@@ -16,12 +17,14 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const selectorValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 export class App extends React.Component {
   state = {
     visibleSection: 'none',
     visibleButton: 'block',
     visibleGoods: [...goodsFromServer],
-    value: '1',
+    value: 1,
   }
 
   show = () => {
@@ -48,7 +51,7 @@ export class App extends React.Component {
   reset = () => {
     this.setState({
       visibleGoods: [...goodsFromServer],
-      value: '1',
+      value: 1,
     });
   }
 
@@ -76,48 +79,15 @@ export class App extends React.Component {
           Start
         </button>
         <section style={{ display: visibleSection }}>
-          <div className="btn__row">
-            <button
-              className="btn btn-success"
-              type="button"
-              onClick={this.reverse}
-            >
-              Reverse
-            </button>
-            <button
-              className="btn btn-success"
-              type="button"
-              onClick={this.sortAlphabetically}
-            >
-              Sort alphabetically
-            </button>
-            <button
-              className="btn btn-success"
-              type="button"
-              onClick={this.sortByName}
-            >
-              Sort by name length
-            </button>
-            <button
-              className="btn btn-danger"
-              type="button"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
-            <select value={value} onChange={this.handleChange}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
+          <Buttons
+            selectorValues={selectorValues}
+            value={value}
+            reverse={this.reverse}
+            sortAlphabetically={this.sortAlphabetically}
+            sortByName={this.sortByName}
+            reset={this.reset}
+            handleChange={this.handleChange}
+          />
           <GoodsList visibleGoods={visibleGoods} />
         </section>
       </div>
