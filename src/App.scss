@@ -1,0 +1,39 @@
+.app {
+  width: 800px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  background-color: beige;
+  border-radius: 10px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+
+  &__btn {
+    height: 30px;
+    width: 100px;
+    align-self: center;
+    text-transform: uppercase;
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  &__style {
+    text-transform: uppercase;
+  }
+}
+
+.products {
+  &__item {
+    display: flex;
+    min-width: 200px;
+    max-width: 300px;
+    justify-content: space-between;
+  }
+}
