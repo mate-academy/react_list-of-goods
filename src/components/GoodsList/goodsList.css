@@ -1,0 +1,10 @@
+.goods-list {
+  color: #276cda;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.goods-list__item {
+  text-align: center;
+  margin-bottom: 5px;
+}
