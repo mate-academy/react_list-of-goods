@@ -1,24 +1,40 @@
 import React from 'react';
+
+import Button from '@material-ui/core/Button';
+
+import { Goods } from './components/Goods';
 import './App.css';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+export class App extends React.Component {
+  state = {
+    isListShown: false,
+  }
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+  showList = () => {
+    this.setState({ isListShown: true });
+  }
 
-export default App;
+  render() {
+    const { isListShown } = this.state;
+
+    return (
+      <div className="app">
+        {
+          isListShown
+            ? <Goods />
+            : (
+              <div className="app__button">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={this.showList}
+                >
+                  show list of goods
+                </Button>
+              </div>
+            )
+        }
+      </div>
+    );
+  }
+}

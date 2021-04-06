@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+.app {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.app__button {
+  width: fit-content;
+  margin: 0 auto;
+}
