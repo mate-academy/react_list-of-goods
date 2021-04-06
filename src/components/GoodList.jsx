@@ -17,12 +17,20 @@ export const GoodList = React.memo(
     selectDefault,
   }) => (
     <div hidden={mainButton}>
-      {
+      <ul className="list-group list-group-flush">
+        {
         // eslint-disable-next-line react/prop-types
-        goodsList.map(good => (
-          <div key={good.id}>{good.nameGoods}</div>
-        ))
-      }
+          goodsList.map(good => (
+            <li
+              className="list-group-item
+              list-group-item-action list-group-item-success"
+              key={good.id}
+            >
+              {good.nameGoods}
+            </li>
+          ))
+        }
+      </ul>
       <button type="button" onClick={buttonReverse}>reverse</button>
       <button type="button" onClick={buttonSort}>sort</button>
       <button type="button" onClick={buttonReset}>reset</button>

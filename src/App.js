@@ -82,8 +82,12 @@ export class App extends React.Component {
     const { goodsList, mainButton, selectDefault } = this.state;
 
     return (
-      <div>
-        <button type="button" onClick={this.mainButtonClick}>
+      <div className="container-fluid">
+        <button
+          type="button"
+          onClick={this.mainButtonClick}
+          className={(mainButton) ? 'btn btn-success' : 'btn btn-primary'}
+        >
           {(mainButton) ? 'start' : 'close'}
         </button>
         <GoodList
