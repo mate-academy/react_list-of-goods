@@ -54,6 +54,7 @@ export class App extends React.Component {
   buttonReset = () => (
     this.setState({
       goodsList: goodsFromServer,
+      selectDefault: 1,
     })
   )
 
