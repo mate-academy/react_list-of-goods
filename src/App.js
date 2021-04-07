@@ -1,4 +1,7 @@
 import React from 'react';
+import { GoodsList } from './GoodsList';
+
+import 'bulma/css/bulma.css';
 import './App.css';
 
 const goodsFromServer = [
@@ -14,11 +17,52 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component {
+  state = {
+    isGoodsListVisible: false,
+  }
 
-export default App;
+  showGoodsList = () => (
+    this.setState(state => ({
+      isGoodsListVisible: !state.isGoodsListVisible,
+    }))
+  )
+
+  reset = () => (
+    this.setState({
+      isGoodsListVisible: false,
+    })
+  )
+
+  render() {
+    return (
+      <div className="App">
+        <h1 className="title">Goods:</h1>
+
+        {this.state.isGoodsListVisible
+          ? (
+            <div className="wrapper">
+              <GoodsList goods={goodsFromServer} />
+              <button
+                type="button"
+                className="button is-hovered is-danger is-outlined is-large"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
+          )
+          : (
+            <button
+              type="button"
+              className="button is-hovered is-primary is-outlined is-large"
+              onClick={this.showGoodsList}
+            >
+              Start
+            </button>
+          )
+        }
+      </div>
+    );
+  }
+}
