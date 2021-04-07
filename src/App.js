@@ -20,8 +20,6 @@ class App extends React.Component {
     selectedGoods: [],
     goodsList: goodsFromServer,
     isHidden: true,
-    isReversed: false,
-    sortBy: '',
     selectedLength: 1,
   }
 
@@ -64,59 +62,45 @@ class App extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
+      goodsList: [...state.goodsList].reverse(),
     }));
   }
 
   sortByName = () => {
-    this.setState({
-      sortBy: 'name',
-    });
+    this.setState(state => ({
+      goodsList: [...state.goodsList].sort((g1, g2) => g1.localeCompare(g2)),
+    }));
   }
 
   sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-    });
+    this.setState(state => ({
+      goodsList: [...state.goodsList].sort((g1, g2) => g1.length - g2.length),
+    }));
   }
 
   reset = () => {
     this.setState({
-      isReversed: false,
-      sortBy: '',
+      goodsList: goodsFromServer,
       selectedLength: 1,
     });
   }
 
   handleLength = (event) => {
-    this.setState({ selectedLength: +event.target.value });
+    const length = +event.target.value;
+
+    this.setState(state => (
+      { goodsList: [...goodsFromServer]
+        .filter(good => good.length >= length) }));
+    this.setState({ selectedLength: length });
   }
 
   render() {
     const { goodsList,
       selectedGoods,
       isHidden,
-      isReversed,
-      sortBy,
       selectedLength } = this.state;
     const title = this.selectTitle();
-    const visibleGoodsList = goodsList
-      .filter(good => good.length >= selectedLength);
-
-    visibleGoodsList.sort((g1, g2) => {
-      switch (sortBy) {
-        case 'name':
-          return g1.localeCompare(g2);
-        case 'length':
-          return g1.length - g2.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoodsList.reverse();
-    }
+    const selectValues = new Array(10).fill(1);
 
     return (
       <div className="App">
@@ -179,20 +163,15 @@ class App extends React.Component {
         <div hidden={isHidden} className="select">
           <span>Select length: </span>
           <select value={selectedLength} onChange={this.handleLength}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            {selectValues.map((i, index) => {
+              const value = index + 1;
+
+              return (<option key={value} value={`${value}`}>{value}</option>);
+            })}
           </select>
         </div>
         <ul hidden={isHidden}>
-          {visibleGoodsList.map(item => (
+          {goodsList.map(item => (
             <li key={item} className="list__item">
               <span className={classNames(
                 { selected: selectedGoods.includes(item) },
