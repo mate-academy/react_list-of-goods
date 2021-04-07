@@ -1,24 +1,39 @@
 import React from 'react';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Button } from 'react-bootstrap';
+import { List } from './components/List/List';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+export class App extends React.Component {
+  state = {
+    isVisible: true,
+  }
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+  handleShow = () => (
+    this.setState({
+      isVisible: false,
+    })
+  )
 
-export default App;
+  render() {
+    const { isVisible } = this.state;
+
+    return (
+      <div className="App">
+        {isVisible ? (
+          <Container
+            className="d-flex justify-content-center"
+          >
+            <Button
+              onClick={this.handleShow}
+              className="w-25 mt-3"
+            >
+              Show
+            </Button>
+          </Container>
+        ) : (
+          <List />
+        )}
+      </div>
+    );
+  }
+}
