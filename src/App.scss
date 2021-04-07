@@ -1,0 +1,12 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.button-box {
+  margin: 20px;
+  display: flex;
+  gap: 5px;
+}
