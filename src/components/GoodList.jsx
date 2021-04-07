@@ -3,6 +3,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const countSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const classNameItem = {
+  0: 'list-group-item list-group-item-action list-group-item-primary',
+  1: 'list-group-item list-group-item-action list-group-item-secondary',
+  2: 'list-group-item list-group-item-action list-group-item-success',
+  3: 'list-group-item list-group-item-action list-group-item-danger',
+  4: 'list-group-item list-group-item-action list-group-item-warning',
+  5: 'list-group-item list-group-item-action list-group-item-info',
+  6: 'list-group-item list-group-item-action list-group-item-light',
+  7: 'list-group-item list-group-item-action list-group-item-dark',
+  8: 'list-group-item list-group-item-action list-group-item-primary',
+  9: 'list-group-item list-group-item-action list-group-item-success',
+  10: 'list-group-item list-group-item-action list-group-item-secondary',
+};
 
 export const GoodList = React.memo(
   ({
@@ -20,10 +33,9 @@ export const GoodList = React.memo(
       <ul className="list-group list-group-flush">
         {
         // eslint-disable-next-line react/prop-types
-          goodsList.map(good => (
+          goodsList.map((good, index) => (
             <li
-              className="list-group-item
-              list-group-item-action list-group-item-success"
+              className={classNameItem[index]}
               key={good.id}
             >
               {good.nameGoods}
