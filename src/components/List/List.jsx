@@ -59,6 +59,8 @@ export class List extends React.Component {
   handleReset = () => {
     this.setState({
       goods: [...goodsFromServer],
+      reverse: false,
+      selected: 1
     });
   }
 
