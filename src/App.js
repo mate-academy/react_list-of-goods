@@ -61,7 +61,8 @@ class App extends React.Component {
   filterByLength = ({ target }) => {
     this.setState(state => ({
       defaultOption: target.value,
-      goods: [...state.goods].filter(product => product.length >= target.value),
+      goods: [...goodsFromServer]
+        .filter(product => product.length >= target.value),
     }));
   }
 
