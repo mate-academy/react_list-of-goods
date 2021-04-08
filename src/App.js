@@ -19,9 +19,8 @@ const goodsFromServer = [
 export class App extends React.Component {
   state = {
     buttonHide: false,
-    isReversed: false,
-    sortBy: '',
-    reset: false,
+    copyGoods: [...goodsFromServer],
+
   }
 
   showButton = () => {
@@ -32,55 +31,34 @@ export class App extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
-      reset: false,
+      copyGoods: state.copyGoods.reverse(),
     }));
   }
 
   sortAlphabetically = () => {
-    this.setState({
-      sortBy: 'alphabet',
-      reset: false,
-    });
+    this.setState(state => ({
+      copyGoods: state.copyGoods.sort(
+        (itemA, itemB) => itemA.localeCompare(itemB),
+      ),
+    }));
   }
 
   reset = () => {
     this.setState({
-      reset: true,
-      isReversed: false,
-      sortBy: '',
+      copyGoods: [...goodsFromServer],
     });
   }
 
   sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-      reset: false,
-    });
+    this.setState(state => ({
+      copyGoods: state.copyGoods.sort(
+        (itemA, itemB) => itemA.length - itemB.length,
+      ),
+    }));
   }
 
   render() {
-    const { buttonHide, isReversed, sortBy, reset } = this.state;
-    let copyGoods = [...goodsFromServer];
-
-    copyGoods.sort((itemA, itemB) => {
-      switch (sortBy) {
-        case 'alphabet':
-          return itemA.localeCompare(itemB);
-        case 'length':
-          return itemA.length - itemB.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      copyGoods.reverse();
-    }
-
-    if (reset) {
-      copyGoods = [...goodsFromServer];
-    }
+    const { buttonHide, copyGoods } = this.state;
 
     return (
       <div className="App">
