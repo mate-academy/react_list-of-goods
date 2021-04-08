@@ -1,0 +1,9 @@
+.button {
+  padding: 15px 25px;
+  margin: 10px;
+  background-color: darkcyan;
+}
+
+.button:hover {
+  border: 2px solid brown;
+}
