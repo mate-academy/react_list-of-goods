@@ -1,0 +1,104 @@
+$duration: 0.5s;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.app {
+  width: 800px;
+  margin: 20px auto;
+  padding: 10px;
+  background: radial-gradient(ellipse farthest-corner at right bottom,
+  #fedb37 0%, #fdb931 8%, #9f7928 30%,
+  #8a6e2f 40%, transparent 80%),
+    radial-gradient(ellipse farthest-corner at left top, #fff 0%,
+  #ffffac 8%, #d1b464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+  border-radius: 30px;
+
+  &__button {
+    width: 120px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    box-shadow: 0 7px 0 rgb(77, 19, 69);
+    transition: box-shadow $duration,
+      transform $duration;
+
+    &:hover {
+      transform: translateY(3px);
+      box-shadow: 0 4px 0 rgb(77, 19, 69);
+    }
+
+    &:focus {
+      outline: none;
+      transform: translateY(3px);
+      box-shadow: 0 4px 0 rgb(77, 19, 69);
+    }
+  }
+
+  &__button-visibility {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    font-size: 24px;
+    border-radius: 10px;
+    transition: transform $duration,
+      background-color $duration;
+
+    &:hover {
+      transform: scale(1.2);
+      background-color: rgb(5, 228, 142);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__buttons {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(5, auto);
+    justify-content: space-around;
+  }
+
+  &__button-reverse {
+    background-color: rgb(214, 98, 98);
+  }
+
+  &__button-sort {
+    background-color: rgb(214, 168, 98);
+  }
+
+  &__button-reset {
+    background-color: rgb(75, 207, 71);
+  }
+
+  &__button-sortByLength {
+    background-color: rgb(98, 135, 214);
+  }
+
+  &__select {
+    font-size: 20px;
+    border-radius: 15px;
+    transition: transform $duration,
+      background-color $duration;
+
+    &:focus {
+      outline: none;
+      transform: scale(1.2);
+      background-color: rgb(150, 228, 5);
+    }
+
+    &:hover {
+      transform: scale(1.2);
+      background-color: rgb(5, 228, 142);
+    }
+  }
+}
