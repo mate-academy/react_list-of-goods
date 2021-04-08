@@ -17,11 +17,11 @@ const goodsFromServer = [
 export class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
-    show: false,
+    isVisible: false,
   }
 
   start = () => {
-    this.setState({ show: true });
+    this.setState({ isVisible: true });
   }
 
   reverse = () => {
@@ -54,7 +54,7 @@ export class App extends React.Component {
     .map(product => <li key={product}>{product}</li>)
 
   render() {
-    const { show } = this.state;
+    const { isVisible } = this.state;
     const goodsElements = this.goodsElements();
 
     return (
@@ -69,7 +69,7 @@ export class App extends React.Component {
             type="button"
             className="btn btn-outline-dark btn-lg"
             onClick={this.start}
-            hidden={show}
+            hidden={isVisible}
           >
             Start
           </button>
@@ -77,7 +77,7 @@ export class App extends React.Component {
             type="button"
             className="btn btn-outline-dark btn-lg"
             onClick={this.sortName}
-            hidden={!show}
+            hidden={!isVisible}
           >
             Sort alphabetically
           </button>
@@ -85,7 +85,7 @@ export class App extends React.Component {
             type="button"
             className="btn btn-outline-dark btn-lg"
             onClick={this.sortLength}
-            hidden={!show}
+            hidden={!isVisible}
           >
             Sort by length
           </button>
@@ -93,7 +93,7 @@ export class App extends React.Component {
             type="button"
             className="btn btn-outline-dark btn-lg"
             onClick={this.reverse}
-            hidden={!show}
+            hidden={!isVisible}
           >
             Reverse
           </button>
@@ -101,13 +101,13 @@ export class App extends React.Component {
             type="button"
             className="btn btn-outline-dark btn-lg"
             onClick={this.reset}
-            hidden={!show}
+            hidden={!isVisible}
           >
             Reset
           </button>
         </div>
 
-        {show && (
+        {isVisible && (
         <ul className="list-container">
           {goodsElements}
         </ul>
