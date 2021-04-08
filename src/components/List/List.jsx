@@ -37,7 +37,7 @@ export class List extends React.Component {
 
   handleReverse = () => {
     this.setState(prev => ({
-      goods: prev.goods.reverse(),
+      goods: [...prev.goods].reverse(),
     }));
   }
 
@@ -45,7 +45,7 @@ export class List extends React.Component {
     const { reverse } = this.state;
 
     this.setState(prev => ({
-      goods: prev.goods.sort(
+      goods: [...prev.goods].sort(
         (firstGood, secondGood) => (reverse ? (
           firstGood.localeCompare(secondGood)
         ) : (
@@ -60,7 +60,7 @@ export class List extends React.Component {
     this.setState({
       goods: [...goodsFromServer],
       reverse: false,
-      selected: 1
+      selected: 1,
     });
   }
 
@@ -68,7 +68,7 @@ export class List extends React.Component {
     const { reverse } = this.state;
 
     this.setState(prev => ({
-      goods: prev.goods.sort(
+      goods: [...prev.goods].sort(
         (firstGood, secondGood) => (reverse ? (
           firstGood.length - secondGood.length
         ) : (
@@ -91,9 +91,7 @@ export class List extends React.Component {
       >
         <ListGroup>
           {goods.map(good => (
-            <ListGroupItem key={uuidv4()
-            }
-            >
+            <ListGroupItem key={uuidv4()}>
               {good}
             </ListGroupItem>
           ))}
