@@ -35,9 +35,7 @@ export class App extends React.Component {
 
         {this.state.isGoodsListVisible
           ? (
-            <div className="wrapper">
-              <GoodsList goods={goodsFromServer} />
-            </div>
+            <GoodsList goods={goodsFromServer} />
           )
           : (
             <button
