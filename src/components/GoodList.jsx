@@ -19,7 +19,6 @@ const classNameItem = {
 
 export const GoodList = React.memo(
   ({
-    // eslint-disable-next-line react/prop-types
     goodsList,
     mainButton,
     buttonReverse,
@@ -32,7 +31,6 @@ export const GoodList = React.memo(
     <div hidden={mainButton}>
       <ul className="list-group list-group-flush">
         {
-        // eslint-disable-next-line react/prop-types
           goodsList.map((good, index) => (
             <li
               className={classNameItem[index]}
@@ -61,6 +59,7 @@ export const GoodList = React.memo(
 );
 
 GoodList.propTypes = {
+  goodsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   mainButton: PropTypes.bool.isRequired,
   buttonReverse: PropTypes.func.isRequired,
   buttonSort: PropTypes.func.isRequired,

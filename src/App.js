@@ -22,7 +22,7 @@ const goodsFromServer = [
 
 export class App extends React.Component {
   state = {
-    goodsList: goodsFromServer,
+    goodsList: [...goodsFromServer],
     mainButton: true,
     buttonSort: true,
     selectDefault: 1,
@@ -87,9 +87,9 @@ export class App extends React.Component {
         <button
           type="button"
           onClick={this.mainButtonClick}
-          className={(mainButton) ? 'btn btn-success' : 'btn btn-primary'}
+          className={mainButton ? 'btn btn-success' : 'btn btn-primary'}
         >
-          {(mainButton) ? 'start' : 'close'}
+          {mainButton ? 'start' : 'close'}
         </button>
         <GoodList
           goodsList={goodsList}
