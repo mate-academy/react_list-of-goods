@@ -5,6 +5,13 @@
   gap: 30px;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
 .columns {
   margin-top: 30px;
   gap: 20px;

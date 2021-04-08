@@ -28,12 +28,6 @@ export class App extends React.Component {
     }))
   )
 
-  reset = () => (
-    this.setState({
-      isGoodsListVisible: false,
-    })
-  )
-
   render() {
     return (
       <div className="App">
@@ -43,13 +37,6 @@ export class App extends React.Component {
           ? (
             <div className="wrapper">
               <GoodsList goods={goodsFromServer} />
-              <button
-                type="button"
-                className="button is-hovered is-danger is-outlined is-large"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
             </div>
           )
           : (

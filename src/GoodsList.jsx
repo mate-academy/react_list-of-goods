@@ -28,38 +28,53 @@ export class GoodsList extends React.Component {
     }))
   )
 
+  reset = () => (
+    this.setState({
+      goods: [...this.props.goods],
+    })
+  )
+
   render() {
     return (
-      <div className="container">
-        <ul>
-          {this.state.goods.map(good => (
-            <li className="item" key={good}>{good}</li>
-          ))}
-        </ul>
+      <div className="wrapper">
+        <div className="container">
+          <ul>
+            {this.state.goods.map(good => (
+              <li className="item" key={good}>{good}</li>
+            ))}
+          </ul>
 
-        <div className="columns">
+          <div className="columns">
+            <button
+              type="button"
+              className="column button is-dark is-medium"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+
+            <button
+              type="button"
+              className="column button is-dark is-medium"
+              onClick={this.sortAlphabetically}
+            >
+              Sort alphabetically
+            </button>
+
+            <button
+              type="button"
+              className="column button is-dark is-medium"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+          </div>
           <button
             type="button"
-            className="column button is-dark is-medium"
-            onClick={this.reverse}
+            className="button is-hovered is-danger is-outlined is-large"
+            onClick={this.reset}
           >
-            Reverse
-          </button>
-
-          <button
-            type="button"
-            className="column button is-dark is-medium"
-            onClick={this.sortAlphabetically}
-          >
-            Sort alphabetically
-          </button>
-
-          <button
-            type="button"
-            className="column button is-dark is-medium"
-            onClick={this.sortByLength}
-          >
-            Sort by length
+            Reset
           </button>
         </div>
       </div>
@@ -69,6 +84,6 @@ export class GoodsList extends React.Component {
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(
-    PropTypes.string.isRequired
+    PropTypes.string.isRequired,
   ).isRequired,
 };
