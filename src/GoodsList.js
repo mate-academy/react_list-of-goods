@@ -4,14 +4,15 @@ import './App.css';
 
 export class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.goodsFromServer],
     sortBy: '',
     reversed: false,
   }
 
   render() {
+    const goods = [...this.props.goodsFromServer];
+
     const reverse = () => {
-      this.setState({ reversed: true });
+      this.setState(state => ({ reversed: !state.reversed }));
     };
 
     const sortAlphabetically = () => {
@@ -20,7 +21,6 @@ export class GoodsList extends React.Component {
 
     const reset = () => {
       this.setState({
-        goods: [...this.props.goodsFromServer],
         sortBy: '',
         reversed: false,
       });
@@ -30,11 +30,7 @@ export class GoodsList extends React.Component {
       this.setState({ sortBy: 'ByLength' });
     };
 
-    if (this.state.reversed) {
-      this.state.goods.reverse();
-    }
-
-    this.state.goods.sort(
+    goods.sort(
       (thing1, thing2) => {
         switch (this.state.sortBy) {
           case 'ByLength':
@@ -48,6 +44,10 @@ export class GoodsList extends React.Component {
         }
       },
     );
+
+    if (this.state.reversed) {
+      goods.reverse();
+    }
 
     return (
       <>
@@ -76,7 +76,7 @@ export class GoodsList extends React.Component {
           reset
         </button>
         <ul>
-          {this.state.goods.map(
+          {goods.map(
             thing => <li key={thing}>{thing}</li>,
           )}
         </ul>
