@@ -18,13 +18,11 @@ export class App extends React.Component {
   state = {
     goods: [...goodsFromServer],
     isGoodsVisible: false,
-    isShowBtnVisible: true,
   }
 
   showGoods = () => {
     this.setState(prevState => ({
       isGoodsVisible: !prevState.isGoodsVisible,
-      isShowBtnVisible: !prevState.isShowBtnVisible,
     }));
   }
 
@@ -55,11 +53,11 @@ export class App extends React.Component {
   }
 
   render() {
-    const { goods, isGoodsVisible, isShowBtnVisible } = this.state;
+    const { goods, isGoodsVisible } = this.state;
 
     return (
       <div className="App">
-        {isShowBtnVisible
+        {!isGoodsVisible
           ? (
             <button
               type="button"
@@ -68,18 +66,13 @@ export class App extends React.Component {
               Show goods
             </button>
           )
-          : ''}
-
-        {isGoodsVisible
-          ? (
+          : (
             <>
               <h1>
                 Goods
               </h1>
               <p>
-                Number of goods:
-                {' '}
-                {goods.length}
+                {`Number of goods: ${goods.length}`}
               </p>
               <button
                 type="button"
@@ -116,8 +109,7 @@ export class App extends React.Component {
               </ul>
             </>
           )
-          : '' }
-
+        }
       </div>
     );
   }
