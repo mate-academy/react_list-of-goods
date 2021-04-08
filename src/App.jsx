@@ -42,7 +42,8 @@ export class App extends React.PureComponent {
 
   sortAlphabetically = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods]
+        .sort((good1, good2) => good1.localeCompare(good2)),
     }));
   }
 
@@ -58,7 +59,7 @@ export class App extends React.PureComponent {
 
     this.setState(state => ({
       goodLength: value,
-      goods: [...goodsFromServer].filter(good => good.length >= value),
+      goods: state.goods.filter(good => good.length >= value),
     }));
   }
 
