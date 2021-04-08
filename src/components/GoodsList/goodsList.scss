@@ -1,0 +1,12 @@
+.goodsList {
+  list-style: none;
+  width: 300px;
+  margin: 20px auto;
+  text-align: center;
+
+  &__item {
+    font-weight: 600;
+    font-size: 20px;
+    color: rgb(47, 47, 240);
+  }
+}
