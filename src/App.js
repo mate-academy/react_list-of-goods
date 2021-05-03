@@ -18,8 +18,6 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     products: goodsFromServer,
-    isReversed: false,
-    sortBy: '',
     isNotVisible: true,
   }
 
@@ -29,45 +27,34 @@ class App extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
+      products: [...state.products].reverse(),
     }));
   }
 
   sortAlphabetically = () => {
-    this.setState({ sortBy: 'name' });
+    this.setState(state => ({
+      products: [...state.products]
+        .sort((productOne, productTwo) => productOne.localeCompare(productTwo)),
+    }));
   }
 
   sortLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState(state => ({
+      products: [...state.products]
+        .sort((productOne, productTwo) => (
+          productOne.length - productTwo.length
+        )),
+    }));
   }
 
   reset = () => {
     this.setState({
       products: goodsFromServer,
-      isReversed: false,
-      sortBy: '',
     });
   }
 
   render() {
-    const { products, isReversed, sortBy, isNotVisible } = this.state;
-
-    const productsCopy = [...products];
-
-    productsCopy.sort((productOne, productTwo) => {
-      switch (sortBy) {
-        case 'name':
-          return productOne.localeCompare(productTwo);
-        case 'length':
-          return productOne.length - productTwo.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      productsCopy.reverse();
-    }
+    const { products, isNotVisible } = this.state;
 
     return (
       <div className="App">
@@ -85,7 +72,7 @@ class App extends React.Component {
         </p>
 
         <GoodsList
-          products={productsCopy}
+          products={products}
           isNotVisible={isNotVisible}
         />
 
