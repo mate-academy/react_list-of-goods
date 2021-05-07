@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  background-color: gray;
+}
+
+.button {
+  border-radius: 10px;
+  height: 25px;
+}
+
+.button__todo {
+  width: 130px;
+  margin: 0 2px;
+  background-color: greenyellow;
+}
+
+.button__start {
+  background-color: rgb(5, 189, 5);
+}
