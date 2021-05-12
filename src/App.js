@@ -1,7 +1,7 @@
 import React from 'react';
 
-// import './App.css';
 import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 
 const goodsFromServer = [
   'Dumplings',
@@ -22,6 +22,7 @@ class App extends React.Component {
     goods: goodsFromServer,
     reversed: false,
     sortBy: null,
+    minLength: 1,
   };
 
   showGoodsList = () => {
@@ -47,24 +48,26 @@ class App extends React.Component {
     this.setState({
       sortBy: null,
       reversed: false,
+      minLength: 1,
     });
   };
 
-  renderButton = (label, handler) => (
-    <button
-      type="button"
-      onClick={handler}
-    >
-      { label }
-    </button>
-  );
+  handleChange = (e) => {
+    const { name, value } = e.target;
+
+    this.setState({
+      [name]: value,
+    });
+  };
 
   render() {
-    const { showGoods, goods, reversed, sortBy } = this.state;
+    const {
+      showGoods, goods, reversed, sortBy, minLength,
+    } = this.state;
 
-    const preparedGoods = [...goods];
+    const filteredGoods = goods.filter(good => good.length >= minLength);
 
-    preparedGoods.sort((good1, good2) => {
+    filteredGoods.sort((good1, good2) => {
       switch (sortBy) {
         case 'name':
           return good1.localeCompare(good2);
@@ -76,7 +79,7 @@ class App extends React.Component {
     });
 
     if (reversed) {
-      preparedGoods.reverse();
+      filteredGoods.reverse();
     }
 
     return (
@@ -84,17 +87,51 @@ class App extends React.Component {
         {
           showGoods ? (
             <>
-              <GoodsList goods={preparedGoods} />
+              <GoodsList goods={filteredGoods} />
 
-              { this.renderButton('Reverse', this.reverse.bind(this)) }
-              { this.renderButton('Sort', this.sort.bind(this, 'name')) }
-              { this.renderButton(
-                'Sort by length', this.sort.bind(this, 'length'),
-              )}
-              { this.renderButton('Reset', this.reset.bind(this)) }
+              <Button
+                label="Reverse"
+                clickHandler={this.reverse}
+              />
+              <Button
+                label="Sort alphabetically"
+                clickHandler={() => {
+                  this.sort('name');
+                }}
+              />
+              <Button
+                label="Sort by length"
+                clickHandler={() => {
+                  this.sort('length');
+                }}
+              />
+              <Button
+                label="Reset"
+                clickHandler={this.reset}
+              />
+
+              <select
+                name="minLength"
+                value={minLength}
+                onChange={this.handleChange}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
             </>
           ) : (
-            this.renderButton('Show Goods', this.showGoodsList.bind(this))
+            <Button
+              label="Show Goods"
+              clickHandler={this.showGoodsList}
+            />
           )
         }
       </div>
