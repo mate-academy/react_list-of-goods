@@ -1,0 +1,93 @@
+button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07) inset;
+  transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+  border-radius: 4px;
+  color: #555;
+  display: inline-flex;
+  align-items: center;
+  width: 120px;
+  margin-right: 10px;
+  font-size: 14px;
+  text-align: center;
+  height: 50px;
+  padding: auto;
+  text-decoration: none;
+  justify-content: center;
+}
+
+button:hover,
+button:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07) inset,
+    0 0 8px rgba(82, 168, 236, 0.6);
+  outline: 0 none;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.box select {
+  background-color: #fff;
+  color: #555;
+  padding: 12px;
+  width: 70px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+  font-size: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+}
+
+.box::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15%;
+  height: 100%;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.box:hover,
+.box:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07) inset,
+    0 0 8px rgba(82, 168, 236, 0.6);
+  outline: 0 none;
+}
+
+.box select option {
+  padding: 30px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  width: 590px;
+}
+
+.list li {
+  padding: 10px 30px;
+  background: linear-gradient(to left, #8dadf8 0%, white, #f88d8d);
+  border-bottom: 1px solid grey;
+  color: #506a6b;
+  font-size: 20px;
+  text-align: center;
+  box-shadow: 0 5px 5px 0 rgba(0,0,0, 0.2);
+  margin-bottom: 5px;
+}
+
+.list li:last-child {
+  border-bottom: none;
+}
