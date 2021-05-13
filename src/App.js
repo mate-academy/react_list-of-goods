@@ -19,37 +19,45 @@ class App extends React.Component {
   state = {
     visibleList: false,
     goods: goodsFromServer,
-    reverse: false,
+    mutableGoods: [...goodsFromServer],
     filterByLength: 1,
-    sort: '',
   }
 
   reset = () => {
-    this.setState({
-      visibleList: true,
-      goods: goodsFromServer,
-      reverse: false,
+    this.setState(state => ({
+      mutableGoods: [...state.goods],
       filterByLength: 1,
-      sort: '',
-    });
+    }));
   }
 
   reverse = () => {
-    this.setState(state => ({ reverse: !state.reverse }));
+    this.setState(state => ({ mutableGoods: state.mutableGoods.reverse() }));
   }
 
-  sortByAlph = () => {
-    this.setState(state => ({ sort: 'byAlph' }));
-  }
+  sortArr = (sort) => {
+    this.setState(state => ({ mutableGoods: state.mutableGoods
+      .sort((good1, good2) => {
+        switch (sort) {
+          case 'byAlphabetically':
+            return good1.localeCompare(good2);
 
-  sortByLength = () => {
-    this.setState(state => ({ sort: 'byLength' }));
+            break;
+          case 'byLength':
+            return good1.length - good2.length;
+
+            break;
+          default:
+            return 0;
+        }
+      }) }));
   }
 
   handleChange = (event) => {
     const { name, value } = event.target;
 
-    this.setState({ [name]: parseFloat(value) });
+    this.setState(state => ({
+      [name]: parseFloat(value),
+    }));
   }
 
   render() {
@@ -60,27 +68,7 @@ class App extends React.Component {
       selectOptionArr.push(i);
     }
 
-    const { visibleList, goods, reverse, filterByLength, sort } = this.state;
-    const renderedArr = [...goods]
-      .filter(good => good.length <= filterByLength);
-
-    renderedArr.sort((good1, good2) => {
-      switch (sort) {
-        case 'byAlph':
-          return good1.localeCompare(good2);
-
-          break;
-        case 'byLength':
-          return good1.length - good2.length;
-
-          break;
-        default:
-          return 0;
-      }
-    });
-    if (reverse) {
-      renderedArr.reverse();
-    }
+    const { visibleList, filterByLength, mutableGoods } = this.state;
 
     return (
       <div className="App">
@@ -98,11 +86,12 @@ class App extends React.Component {
           )
           : (
             <ol className="list">
-              {renderedArr.map(good => (
-                <li key={good}>
-                  {good}
-                </li>
-              ))}
+              {mutableGoods.filter(good => good.length <= filterByLength)
+                .map(good => (
+                  <li key={good}>
+                    {good}
+                  </li>
+                ))}
             </ol>
           )
         }
@@ -117,13 +106,17 @@ class App extends React.Component {
             </button>
             <button
               type="submit"
-              onClick={this.sortByAlph}
+              onClick={() => {
+                this.sortArr('byAlphabetically');
+              }}
             >
               Sort alphabetically
             </button>
             <button
               type="submit"
-              onClick={this.sortByLength}
+              onClick={() => {
+                this.sortArr('byLength');
+              }}
             >
               Sort by length
             </button>
