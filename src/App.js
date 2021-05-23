@@ -21,9 +21,9 @@ class App extends React.Component {
   };
 
   changeGoodsStatus = () => {
-    this.setState(({ isGoodsVisible }) => ({
-      isGoodsVisible: !isGoodsVisible,
-    }));
+    this.setState({
+      isGoodsVisible: true,
+    });
   };
 
   render() {
@@ -31,12 +31,14 @@ class App extends React.Component {
 
     return (
       <div>
+        {!isGoodsVisible && (
         <button
           type="button"
           onClick={this.changeGoodsStatus}
         >
-          {isGoodsVisible ? 'Hide' : 'Show'}
+          Start
         </button>
+        )}
 
         {isGoodsVisible
           && (
