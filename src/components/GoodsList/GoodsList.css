@@ -1,0 +1,19 @@
+.GoodsList {
+  background-color: #eee;
+}
+
+.GoodsList--hide {
+  display: none;
+}
+
+.GoodsList__toggleButton--hide {
+  display: none;
+}
+
+.GoodsList__modifieButton {
+  margin-right: 10px;
+}
+
+.GoodsList__modifieButton--hide {
+  display: none;
+}
