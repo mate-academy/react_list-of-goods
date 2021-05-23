@@ -61,17 +61,6 @@ export class GoodsList extends Component {
 
     return (
       <>
-        <ul
-          className={classNames('GoodsList', {
-            'GoodsList--hide': hidden,
-          })}
-        >
-          {modifiedGoods.map(good => (
-            <li key={good}>
-              {good}
-            </li>
-          ))}
-        </ul>
         <button
           type="button"
           className={classNames('GoodsList__toggleButton', {
@@ -81,73 +70,76 @@ export class GoodsList extends Component {
         >
           Start
         </button>
-        <button
-          type="button"
-          className={classNames('GoodsList__modifieButton', {
-            'GoodsList__modifieButton--hide': hidden,
+        <div
+          className={classNames('GoodsList', {
+            'GoodsList--hide': hidden,
           })}
-          onClick={this.reverseGoods}
         >
-          Reverse
-        </button>
-        <button
-          type="button"
-          className={classNames('GoodsList__modifieButton', {
-            'GoodsList__modifieButton--hide': hidden,
-          })}
-          onClick={() => {
-            this.setState({
-              sortBy: 'alphabet',
-            });
-          }}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          type="button"
-          className={classNames('GoodsList__modifieButton', {
-            'GoodsList__modifieButton--hide': hidden,
-          })}
-          onClick={() => {
-            this.setState({
-              sortBy: 'length',
-            });
-          }}
-        >
-          Sort by length
-        </button>
-        <button
-          type="button"
-          className={classNames('GoodsList__modifieButton', {
-            'GoodsList__modifieButton--hide': hidden,
-          })}
-          onClick={this.resetGoods}
-        >
-          Reset
-        </button>
-        <select
-          className={classNames('GoodsList__modifieButton', {
-            'GoodsList__modifieButton--hide': hidden,
-          })}
-          defaultValue={goodsSelector}
-          onChange={({ target }) => {
-            this.setState({
-              goodsSelector: target.value,
-            });
-          }}
-          value={goodsSelector}
-        >
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-        </select>
+          <ul>
+            {modifiedGoods.map(good => (
+              <li key={good}>
+                {good}
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            className="GoodsList__modifieButton"
+            onClick={this.reverseGoods}
+          >
+            Reverse
+          </button>
+          <button
+            type="button"
+            className="GoodsList__modifieButton"
+            onClick={() => {
+              this.setState({
+                sortBy: 'alphabet',
+              });
+            }}
+          >
+            Sort alphabetically
+          </button>
+          <button
+            type="button"
+            className="GoodsList__modifieButton"
+            onClick={() => {
+              this.setState({
+                sortBy: 'length',
+              });
+            }}
+          >
+            Sort by length
+          </button>
+          <button
+            type="button"
+            className="GoodsList__modifieButton"
+            onClick={this.resetGoods}
+          >
+            Reset
+          </button>
+          <select
+            className="GoodsList__modifieButton"
+            defaultValue={goodsSelector}
+            onChange={({ target }) => {
+              this.setState({
+                goodsSelector: target.value,
+              });
+            }}
+            value={goodsSelector}
+          >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
       </>
     );
   }
