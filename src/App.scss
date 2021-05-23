@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  background: none;
+  border: none;
+  list-style: none;
+}
+
+.App {
+  margin: 60px auto;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: linear-gradient(rgb(235, 245, 219), rgb(157, 157, 196));
+  max-width: 600px;
+  height: fit-content;
+  padding: 20px;
+
+  .title-block {
+    border: 1px solid rgb(74, 74, 74);
+    box-shadow: 0 0 5px rgb(123, 123, 123);
+    margin-bottom: 10px;
+  }
+
+  .main {
+    position: relative;
+    display: flex;
+
+    .block-controllers {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+
+      .button-wrapper {
+        height: 80px;
+
+        .button {
+          border-radius: 3px;
+          box-shadow: 1px 1px 5px #000;
+
+          margin: auto;
+          width: 170px;
+          height: 60px;
+        }
+
+        .button:hover:enabled {
+          box-shadow: 0 0 5px rgb(0, 0, 0);
+          width: 175px;
+          height: 62px;
+        }
+
+        .button:active:enabled {
+          width: 168px;
+          height: 58px;
+          margin-bottom: -5px;
+        }
+      }
+
+      .range-label {
+        font-size: 20px ;
+        align-self: center;
+        margin-left: 10px;
+      }
+
+    }
+
+    .dispaly-block {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 5px;
+
+      .board {
+        display: flex;
+        color: white;
+        background-color: rgb(62, 62, 67);
+        // border: 1px solid #000;
+        flex-grow: 1;
+        font-size: 20px;
+
+        .pressStart {
+          margin: auto;
+          font-size: 30px;
+        }
+
+        .goods-list {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+      }
+
+      .start-button {
+        width: 100%;
+        height: 50px;
+        border-radius: 3px;
+        box-shadow: inset 0 0 30px rgb(172, 215, 104);
+
+        background-color: #fff;
+        border: 1px solid rgb(0, 0, 0);
+        font-size: 30px;
+
+        &:hover {
+          box-shadow: inset 0 0 30px rgb(218, 218, 114);
+          border: 1px solid rgb(136, 136, 69);
+        }
+
+        &:active {
+          align-self: center;
+          margin-top: 2px;
+          width: 98%;
+          height: 48px;
+          box-shadow: inset 0 0 30px rgb(255, 6, 6);
+          border: 1px solid rgb(165, 3, 3);
+        }
+
+        &--off {
+          color: red;
+          box-shadow: inset 0 0 15px rgb(189, 95, 93);
+
+          &:active {
+            box-shadow: inset 0 0 30px rgb(130, 250, 150);
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+}
