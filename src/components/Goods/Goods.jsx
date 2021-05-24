@@ -4,14 +4,17 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 class Goods extends React.Component {
-  defaultFilters = {
+
+  state = {
     isReverse: false,
     isAlphabetSort: false,
     isLengthSort: false,
     minLength: 1,
   };
 
-  state = this.defaultFilters;
+  componentDidMount() {
+    this.defaultFilters = this.state;
+  }
 
   reverse = () => {
     this.setState(({ isReverse }) => ({
