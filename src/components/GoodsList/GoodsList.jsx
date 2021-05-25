@@ -43,7 +43,7 @@ export class GoodsList extends React.Component {
 
   render() {
     const { goods, isVisible, isReversed, sortBy } = this.state;
-    const sortedGoods = goods.filter(item => item);
+    const sortedGoods = [...goods];
 
     sortedGoods.sort((a, b) => {
       switch (sortBy) {
