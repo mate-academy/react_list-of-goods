@@ -138,7 +138,8 @@ export class App extends React.Component {
                   }}
                   value={length}
                 >
-                  {selectArr.map(el => <option value={el}>{el}</option>)}
+                  {selectArr.map(el => (
+                    <option key={el} value={el}>{el}</option>))}
                 </select>
               </div>
             </>
