@@ -1,4 +1,3 @@
-import { element } from 'prop-types';
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
@@ -20,8 +19,7 @@ class App extends React.Component {
   state = {
     goodsVisability: false,
     reverse: false,
-    sortByAlphabet: false,
-    sortByLength: false,
+    sortBy: '',
     filterByLength: 1,
   }
 
@@ -37,22 +35,13 @@ class App extends React.Component {
     }));
   }
 
-  sortByAlphabet = () => {
-    this.setState(state => ({
-      sortByAlphabet: !state.sortByAlphabet,
-    }));
-  }
-
-  sortByLength = () => {
-    this.setState(state => ({
-      sortByLength: !state.sortByLength,
-    }));
+  sortBy = (event) => {
+    this.setState({
+      sortBy: event.target.name,
+    });
   }
 
   reset = () => {
-    const element = document.getElementById('selectLength');
-    element.value = 1;
-
     this.setState({
       reverse: false,
       sortByAlphabet: false,
@@ -62,12 +51,12 @@ class App extends React.Component {
   }
 
   filterByLength = (event) => {
-    this.setState({ filterByLength: +event.target.value })
+    this.setState({ filterByLength: +event.target.value });
   }
 
   render() {
-    const optionValues = Array(10).fill(0).map((element, index) => (
-      element = index + 1
+    const optionValues = Array(10).fill(0).map((_, index) => (
+      index + 1
     ));
 
     return (
@@ -81,11 +70,19 @@ class App extends React.Component {
                 Reverse
               </button>
 
-              <button type="button" onClick={this.sortByAlphabet}>
+              <button
+                type="button"
+                name="alphabet"
+                onClick={this.sortBy}
+              >
                 Sort alphabetically
               </button>
 
-              <button type="button" onClick={this.sortByLength}>
+              <button
+                type="button"
+                name="length"
+                onClick={this.sortBy}
+              >
                 Sort by length
               </button>
 
@@ -94,21 +91,26 @@ class App extends React.Component {
               </button>
             </div>
 
-              <label htmlFor="selectLength">
-                {'Filter goods by length '}
-              </label>
+            <label htmlFor="selectLength">
+              {'Filter goods by length '}
+            </label>
 
-              <select id="selectLength" onChange={this.filterByLength}>
-                {optionValues.map(element => (
-                  <option key={element}>
-                    {element}
-                  </option>
-                ))}
-              </select>
-            
+            <select
+              id="selectLength"
+              name="selectLength"
+              value={this.state.filterByLength}
+              onChange={this.filterByLength}
+            >
+              {optionValues.map(value => (
+                <option key={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+
             <GoodsList
               goodsList={goodsFromServer}
-              sorting={{...this.state}}
+              sorting={{ ...this.state }}
             />
           </>
         ) : (

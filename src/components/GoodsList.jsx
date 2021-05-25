@@ -7,16 +7,23 @@ export const GoodsList = React.memo(
       element.length >= sorting.filterByLength
     ));
 
-    if (sorting.sortByAlphabet) {
-      changedGoodsList = changedGoodsList.sort((prevGood, good) => (
-        prevGood.localeCompare(good)
-      ));
-    }
+    if (sorting.sortBy) {
+      switch (sorting.sortBy) {
+        case 'length':
+          changedGoodsList = changedGoodsList.sort((prevGood, good) => (
+            prevGood.length - good.length
+          ));
+          break;
 
-    if (sorting.sortByLength) {
-      changedGoodsList = changedGoodsList.sort((prevGood, good) => (
-        prevGood.length - good.length
-      ));
+        case 'alphabet':
+          changedGoodsList = changedGoodsList.sort((prevGood, good) => (
+            prevGood.localeCompare(good)
+          ));
+          break;
+
+        default:
+          break;
+      }
     }
 
     if (sorting.reverse) {
@@ -39,8 +46,7 @@ GoodsList.propTypes = {
   goodsList: PropTypes.arrayOf(PropTypes.string).isRequired,
   sorting: PropTypes.shape({
     reverse: PropTypes.bool.isRequired,
-    sortByAlphabet: PropTypes.bool.isRequired,
-    sortByLength: PropTypes.bool.isRequired,
+    sortBy: PropTypes.string.isRequired,
     filterByLength: PropTypes.number.isRequired,
   }).isRequired,
 };
