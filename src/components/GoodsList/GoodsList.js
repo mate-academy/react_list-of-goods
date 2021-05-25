@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { NIL as NIL_UUID } from 'uuid';
 import './GoodsList.css';
 
 export class GoodsList extends React.Component {
@@ -104,7 +105,7 @@ export class GoodsList extends React.Component {
             value={goodsSelector}
           >
             {new Array(10).fill(0).map((_, i) => (
-              <option key={Math.random()}>{i + 1}</option>
+              <option key={NIL_UUID}>{i + 1}</option>
             ))}
           </select>
         </div>
