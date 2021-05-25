@@ -1,0 +1,13 @@
+.btn {
+  margin: 0 5px;
+  border: 2px solid blue;
+  border-radius: 10%;
+
+  background-color: white;
+
+  font-size: 15px;
+}
+
+.activeBtn {
+  background-color: lightgreen;
+}
