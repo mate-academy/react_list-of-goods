@@ -1,7 +1,0 @@
-.product {
-  width: 50%;
-}
-
-.product :nth-child(2n) {
-  background: rgb(255, 240, 157);
-}

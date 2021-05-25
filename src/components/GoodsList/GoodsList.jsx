@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uniqueKey } from 'uuid';
-import './GoodsList.css';
+import './GoodsList.scss';
 
 export const GoodsList = ({ goods }) => (
   <ul className="product">

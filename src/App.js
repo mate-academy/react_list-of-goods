@@ -1,5 +1,6 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import classname from 'classnames';
 import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer = [
@@ -18,7 +19,7 @@ const goodsFromServer = [
 const INITIAL_CRITERIA = {
   isStartScript: true,
   isReversed: false,
-  sortBy: 'alphabetically',
+  sortBy: null,
 };
 
 class App extends React.Component {
@@ -56,8 +57,9 @@ class App extends React.Component {
         case 'byLength':
           return a.length - b.length;
         case 'alphabetically':
-        default:
           return a.localeCompare(b);
+        default:
+          return 0;
       }
     });
 
@@ -66,50 +68,53 @@ class App extends React.Component {
     }
 
     return (
-      <>
+      <div className="App">
         <button
           type="button"
-          className={isStartScript ? 'show btn' : 'hide btn'}
+          className={classname('start', {
+            show: isStartScript,
+            hide: !isStartScript,
+          })}
           onClick={this.startSript}
         >
           Start
         </button>
         <div
-          className={isStartScript ? 'hide' : ''}
+          className={classname({ hide: isStartScript })}
         >
           <GoodsList goods={goodsByCriteria} />
-          <div>
+          <div className="actions">
             <button
               type="button"
-              className="btn"
+              className="actions__btn"
               onClick={this.reverse}
             >
               Reverse
             </button>
             <button
               type="button"
-              className="btn"
+              className="actions__btn"
               onClick={this.sortAlphabetically}
             >
-              Sort alphabetically
+              Sort A..Z
             </button>
             <button
               type="button"
-              className="btn"
+              className="actions__btn"
               onClick={this.reset}
             >
               Reset
             </button>
             <button
               type="button"
-              className="btn"
+              className="actions__btn"
               onClick={this.sortByLength}
             >
               Sort by length
             </button>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

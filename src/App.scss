@@ -1,0 +1,36 @@
+.App {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.start {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: palegreen;
+  border: 1px solid rgb(128, 235, 128);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+
+  &__btn {
+    width: 120px;
+    height: 60px;
+    padding: 0;
+    background:  rgb(184, 241, 184);
+    border-radius: 20%;
+    border: 1px solid rgb(218, 213, 213);
+  }
+}
