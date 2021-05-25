@@ -1,0 +1,15 @@
+.goods__list {
+  margin-left: -40px;
+}
+
+.goods__item {
+  background-color: #eee;
+  list-style: none;
+  border: 1px solid grey;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
