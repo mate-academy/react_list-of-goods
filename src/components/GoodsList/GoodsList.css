@@ -1,0 +1,17 @@
+.GoodsList {
+  background-color: #eee;
+}
+
+.GoodsList__modifieButton {
+  font-size: 20px;
+  background-color: #0075ff;
+  color: #fff;
+  border: none;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.GoodsList__modifieButton:hover {
+  background-color: #1900ff;
+}
