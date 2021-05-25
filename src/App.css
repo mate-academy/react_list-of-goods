@@ -1,0 +1,12 @@
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.btn {
+  padding: 20px;
+  background: rgb(215, 235, 185);
+}
