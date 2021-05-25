@@ -95,7 +95,7 @@ class App extends React.Component {
             </div>
 
               <label htmlFor="selectLength">
-                {'Filter good by length '}
+                {'Filter goods by length '}
               </label>
 
               <select id="selectLength" onChange={this.filterByLength}>
