@@ -17,7 +17,7 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    startButton: false,
+    startButton: true,
     reverse: false,
     sortBy: '',
     selectLength: 1,

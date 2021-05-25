@@ -20,6 +20,26 @@ ul {
   color: white;
 }
 
+.container__button {
+  background-color: darkblue;
+  color: white;
+  width: 100px;
+  height: 100px;
+
+  border-radius: 50%;
+  border: none;
+
+  font-weight: bold;
+  font-size: 15px;
+
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.container__button:hover {
+  background-color: white;
+  color: black;
+}
+
 .container__Button-list {
   margin: 10px;
   background-color: yellowgreen;
