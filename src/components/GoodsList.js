@@ -6,6 +6,11 @@ class GoodsList extends React.Component {
     goods: this.props.goods,
     isReversed: false,
     sortedBy: '',
+    length: 1,
+  }
+
+  lengthFilter = (event) => {
+    this.setState({ length: event.target.value });
   }
 
   reverse = () => {
@@ -13,29 +18,26 @@ class GoodsList extends React.Component {
   }
 
   sortAlphabetically = () => {
-    this.setState(state => ({
-      ...state,
-      sortedBy: 'alphabetically',
-    }));
+    this.setState({ sortedBy: 'alphabetically' });
   }
 
   reset = () => {
     this.setState({
       isReversed: false,
       sortedBy: '',
+      length: 1,
     });
   }
 
   sortByLength = () => {
-    this.setState(state => ({
-      ...state,
-      sortedBy: 'length',
-    }));
+    this.setState({ sortedBy: 'length' });
   }
 
   render() {
-    const { goods, isReversed, sortedBy } = this.state;
-    const copy = [...goods];
+    const { goods, isReversed, sortedBy, length } = this.state;
+    const copy = [...goods].filter(
+      element => element.length >= this.state.length,
+    );
 
     copy.sort((a, b) => {
       switch (sortedBy) {
@@ -85,6 +87,16 @@ class GoodsList extends React.Component {
         >
           Sort by length
         </button>
+        <select
+          onChange={this.lengthFilter}
+          value={length}
+        >
+          {[...Array(11).keys()].map(element => (
+            <option value={element}>
+              {element}
+            </option>
+          ))}
+        </select>
       </>
     );
   }
