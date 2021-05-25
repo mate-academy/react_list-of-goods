@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import './GoodsList.css';
 
 export class GoodsList extends Component {
@@ -23,12 +22,6 @@ export class GoodsList extends Component {
     }));
   }
 
-  sortGoods = () => {
-    this.setState(state => ({
-      sort: !state.sort,
-    }));
-  }
-
   resetGoods = () => {
     this.setState({
       reverse: false,
@@ -41,6 +34,10 @@ export class GoodsList extends Component {
     const { goods } = this.props;
     const { hidden, reverse, sortBy, goodsSelector } = this.state;
     const modifiedGoods = goods.filter(good => good.length >= goodsSelector);
+    const SORT_CASES = {
+      alphabet: 'alphabet',
+      length: 'length',
+    };
 
     modifiedGoods.sort((goodA, goodB) => {
       switch (sortBy) {
@@ -61,85 +58,76 @@ export class GoodsList extends Component {
 
     return (
       <>
+        {hidden && (
         <button
           type="button"
-          className={classNames('GoodsList__toggleButton', {
-            'GoodsList__toggleButton--hide': !hidden,
-          })}
+          className="GoodsList__modifieButton"
           onClick={this.hideButton}
         >
           Start
         </button>
-        <div
-          className={classNames('GoodsList', {
-            'GoodsList--hide': hidden,
-          })}
-        >
-          <ul>
-            {modifiedGoods.map(good => (
-              <li key={good}>
-                {good}
-              </li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            className="GoodsList__modifieButton"
-            onClick={this.reverseGoods}
-          >
-            Reverse
-          </button>
-          <button
-            type="button"
-            className="GoodsList__modifieButton"
-            onClick={() => {
-              this.setState({
-                sortBy: 'alphabet',
-              });
-            }}
-          >
-            Sort alphabetically
-          </button>
-          <button
-            type="button"
-            className="GoodsList__modifieButton"
-            onClick={() => {
-              this.setState({
-                sortBy: 'length',
-              });
-            }}
-          >
-            Sort by length
-          </button>
-          <button
-            type="button"
-            className="GoodsList__modifieButton"
-            onClick={this.resetGoods}
-          >
-            Reset
-          </button>
-          <select
-            className="GoodsList__modifieButton"
-            defaultValue={goodsSelector}
-            onChange={({ target }) => {
-              this.setState({
-                goodsSelector: target.value,
-              });
-            }}
-            value={goodsSelector}
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-          </select>
-        </div>
+        )
+        }
+        {!hidden && (
+          <div className="GoodsList">
+            <ul>
+              {modifiedGoods.map(good => (
+                <li key={good}>
+                  {good}
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              className="GoodsList__modifieButton"
+              onClick={this.reverseGoods}
+            >
+              Reverse
+            </button>
+            <button
+              type="button"
+              className="GoodsList__modifieButton"
+              onClick={() => {
+                this.setState({
+                  sortBy: SORT_CASES.alphabet,
+                });
+              }}
+            >
+              Sort alphabetically
+            </button>
+            <button
+              type="button"
+              className="GoodsList__modifieButton"
+              onClick={() => {
+                this.setState({
+                  sortBy: SORT_CASES.length,
+                });
+              }}
+            >
+              Sort by length
+            </button>
+            <button
+              type="button"
+              className="GoodsList__modifieButton"
+              onClick={this.resetGoods}
+            >
+              Reset
+            </button>
+            <select
+              className="GoodsList__modifieButton"
+              onChange={({ target }) => {
+                this.setState({
+                  goodsSelector: target.value,
+                });
+              }}
+              value={goodsSelector}
+            >
+              {Array(10).fill(0).map((x, i) => (
+                <option key={Math.random()}>{i + 1}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </>
     );
   }

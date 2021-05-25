@@ -2,14 +2,6 @@
   background-color: #eee;
 }
 
-.GoodsList--hide {
-  display: none;
-}
-
-.GoodsList__toggleButton--hide {
-  display: none;
-}
-
 .GoodsList__modifieButton {
   font-size: 20px;
   background-color: #0075ff;
