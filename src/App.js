@@ -56,10 +56,6 @@ class App extends React.Component {
       good => good.length >= this.state.goodLength,
     );
 
-    if (this.state.isGoodsReversed) {
-      goodsCopy.reverse();
-    }
-
     goodsCopy.sort((g1, g2) => {
       switch (this.state.goodsSortBy) {
         case 'length':
@@ -70,6 +66,10 @@ class App extends React.Component {
           return 0;
       }
     });
+
+    if (this.state.isGoodsReversed) {
+      goodsCopy.reverse();
+    }
 
     return (
       <div className="App">
