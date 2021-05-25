@@ -7,8 +7,7 @@ class Goods extends React.Component {
 
   state = {
     isReverse: false,
-    isAlphabetSort: false,
-    isLengthSort: false,
+    sortBy: null,
     minLength: 1,
   };
 
@@ -17,24 +16,18 @@ class Goods extends React.Component {
   }
 
   reverse = () => {
-    this.setState(({ isReverse }) => ({
+    this.setState(({isReverse}) => ({
       isReverse: !isReverse,
     }));
   };
 
-  sortAlphabet = () => {
-    this.setState(({ isAlphabetSort }) => ({
-      isAlphabetSort: !isAlphabetSort,
-      isLengthSort: false,
-    }));
-  };
+  sortHandler = (event) => {
+    const { name: sortType } = event.target;
 
-  sortLength = () => {
-    this.setState(({ isLengthSort }) => ({
-      isLengthSort: !isLengthSort,
-      isAlphabetSort: false,
+    this.setState(({ sortBy }) => ({
+      sortBy: sortBy === sortType ? null : sortType,
     }));
-  };
+  }
 
   resetFilters = () => {
     this.setState(this.defaultFilters);
@@ -47,16 +40,17 @@ class Goods extends React.Component {
   };
 
   render() {
-    const { goods } = this.props;
-    const { isReverse, isAlphabetSort, isLengthSort, minLength } = this.state;
+    const {goods} = this.props;
+    const {isReverse, sortBy, minLength} = this.state;
     const visibleGoods = goods.filter(good => good.length >= minLength);
 
-    if (isAlphabetSort) {
-      visibleGoods.sort((a, b) => a.localeCompare(b));
-    }
-
-    if (isLengthSort) {
-      visibleGoods.sort((a, b) => a.length - b.length);
+    switch (sortBy) {
+      case 'sortByAlphabet':
+        visibleGoods.sort((a, b) => a.localeCompare(b));
+        break;
+      case 'sortByLength':
+        visibleGoods.sort((a, b) => a.length - b.length);
+        break;
     }
 
     if (isReverse) {
@@ -70,27 +64,31 @@ class Goods extends React.Component {
         </ul>
         <button
           type="button"
+          name="revers"
           onClick={this.reverse}
-          className={classNames('btn', { activeBtn: isReverse })}
+          className={classNames('btn', {activeBtn: isReverse})}
         >
           Reverse
         </button>
         <button
           type="button"
-          onClick={this.sortAlphabet}
-          className={classNames('btn', { activeBtn: isAlphabetSort })}
+          name="sortByAlphabet"
+          onClick={event => this.sortHandler(event)}
+          className={classNames('btn', {activeBtn: sortBy === 'sortByAlphabet'})}
         >
           Sort alphabetically
         </button>
         <button
           type="button"
-          onClick={this.sortLength}
-          className={classNames('btn', { activeBtn: isLengthSort })}
+          name="sortByLength"
+          onClick={event => this.sortHandler(event)}
+          className={classNames('btn', {activeBtn: sortBy === 'sortByLength'})}
         >
           Sort by length
         </button>
         <button
           type="button"
+          name="resetFilter"
           onClick={this.resetFilters}
           className="btn"
         >
@@ -101,16 +99,9 @@ class Goods extends React.Component {
           onChange={event => this.setMinLength(event)}
           value={minLength}
         >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-          <option value={7}>7</option>
-          <option value={8}>8</option>
-          <option value={9}>9</option>
-          <option value={10}>10</option>
+          {new Array(10).fill(0).map((_, i) => i + 1).map(item => (
+            <option value={item} key={item}>{item}</option>
+            ))}
         </select>
       </div>
     );
