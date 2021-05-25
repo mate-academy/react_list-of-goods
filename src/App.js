@@ -122,11 +122,9 @@ class App extends React.Component {
               >
                 Reset
               </button>
+              <GoodsList goods={sortedGoods} />
             </>
           )}
-
-        {isVisible && <GoodsList goods={sortedGoods} />}
-
       </div>
     );
   }
