@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import ListOfGoods from './components/ListOfGoods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +15,14 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.PureComponent {
+  render() {
+    return (
+      <div>
+        <ListOfGoods goods={goodsFromServer} />
+      </div>
+    );
+  }
+}
 
 export default App;
