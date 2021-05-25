@@ -137,7 +137,7 @@ class App extends React.Component {
           </button>
         </div>
 
-        <GoodsList {...displayedGoods} />
+        <GoodsList goods={displayedGoods} />
       </div>
     );
   }
