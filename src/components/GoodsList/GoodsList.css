@@ -1,0 +1,25 @@
+.GoodsList {
+  padding: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: rgb(93, 181, 253);
+}
+
+.button {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #01a51ce1;
+  color: rgb(0, 0, 0);
+  border: none;
+  margin: 0 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.buttonActive {
+  background-color: #00ff0d;
+}
+
+.button__hover:hover {
+  background-color: #00ff0d;
+}
