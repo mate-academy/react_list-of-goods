@@ -63,7 +63,9 @@ class App extends React.Component {
         >
           Select
         </button>
+
         <GoodsList goods={[...goods]} />
+
         <div className="button__wrapper">
           <button
             type="button"
@@ -74,6 +76,7 @@ class App extends React.Component {
           >
             Reverse
           </button>
+
           <button
             type="button"
             className={classNames('button', 'button--sort-alphabetically', {
@@ -83,6 +86,7 @@ class App extends React.Component {
           >
             Sort alphabetically
           </button>
+
           <button
             type="button"
             className={classNames('button', 'button--sort-bylength', {
@@ -92,6 +96,7 @@ class App extends React.Component {
           >
             Sort by length
           </button>
+
           <button
             type="button"
             className={classNames('button', 'button--reset', {
