@@ -1,0 +1,29 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+  width: 400px;
+
+}
+
+.hover {
+  display: none;
+}
+
+.button__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  height: 25px;
+  border-radius: 2px;
+  border: 0.5px solid grey;
+  background: #0000ff30;
+
+}
+
+button:hover {
+  background-color: #0000ff60;
+  border: 0.5px solid grey;
+  border-radius: 2px;
+}
