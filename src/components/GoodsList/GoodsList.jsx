@@ -7,6 +7,7 @@ export class GoodsList extends React.PureComponent {
     goods: this.props.goods,
     isReversed: false,
     sortBy: 'default',
+    lengthFilterValue: 1,
   }
 
   reverse = () => {
@@ -31,13 +32,19 @@ export class GoodsList extends React.PureComponent {
     this.setState({
       sortBy: 'default',
       isReversed: false,
+      lengthFilterValue: 1,
+    });
+  }
+
+  lengthFilter = (event) => {
+    this.setState({
+      lengthFilterValue: event.target.value,
     });
   }
 
   render() {
-    const { goods, isReversed, sortBy } = this.state;
-
-    const visibleGoods = [...goods];
+    const { goods, isReversed, sortBy, lengthFilterValue } = this.state;
+    const visibleGoods = goods.filter(good => good.length >= lengthFilterValue);
 
     if (sortBy === 'length') {
       visibleGoods.sort((good1, good2) => good1.length - good2.length);
@@ -74,6 +81,11 @@ export class GoodsList extends React.PureComponent {
             Reset
           </button>
         </div>
+        <select onChange={this.lengthFilter}>
+          {Array(10).fill(0).map((x, i) => i + 1).map(item => (
+            <option key={item} value={item}>{item}</option>
+          ))}
+        </select>
       </div>
     );
   }
