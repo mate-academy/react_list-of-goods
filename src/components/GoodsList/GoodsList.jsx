@@ -4,16 +4,9 @@ import classNames from 'classnames';
 
 export class GoodsList extends React.Component {
   state = {
-    isVisible: false,
     isReversed: false,
     sortBy: '',
     goods: this.props.goods,
-  };
-
-  showList = () => {
-    this.setState(state => ({
-      isVisible: !state.isVisible,
-    }));
   };
 
   reverseList = () => {
@@ -42,7 +35,7 @@ export class GoodsList extends React.Component {
   }
 
   render() {
-    const { goods, isVisible, isReversed, sortBy } = this.state;
+    const { goods, isReversed, sortBy } = this.state;
     const sortedGoods = [...goods];
 
     sortedGoods.sort((a, b) => {
@@ -63,60 +56,47 @@ export class GoodsList extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {!isVisible
-          ? (
-            <button
-              type="button"
-              onClick={this.showList}
-            >
-              Start
-            </button>
-          )
-          : (
-            <>
-              <button
-                className={classNames(`btn`, {
-                  active: isReversed,
-                })}
-                type="button"
-                onClick={this.reverseList}
-              >
-                Reverse
-              </button>
-              <button
-                className={classNames(`btn`, {
-                  active: sortBy === 'alphabet',
-                })}
-                type="button"
-                onClick={this.sortByAlphabet}
-              >
-                Sort by alphabet
-              </button>
-              <button
-                className={classNames(`btn`, {
-                  active: sortBy === 'length',
-                })}
-                type="button"
-                onClick={this.sortByLength}
-              >
-                Sort by length
-              </button>
-              <button
-                className="btn"
-                type="button"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-              <ul>
-                {sortedGoods.map(item => (
-                  <li key={item}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
+        <button
+          className={classNames(`btn`, {
+            active: isReversed,
+          })}
+          type="button"
+          onClick={this.reverseList}
+        >
+          Reverse
+        </button>
+        <button
+          className={classNames(`btn`, {
+            active: sortBy === 'alphabet',
+          })}
+          type="button"
+          onClick={this.sortByAlphabet}
+        >
+          Sort by alphabet
+        </button>
+        <button
+          className={classNames(`btn`, {
+            active: sortBy === 'length',
+          })}
+          type="button"
+          onClick={this.sortByLength}
+        >
+          Sort by length
+        </button>
+        <button
+          className="btn"
+          type="button"
+          onClick={this.reset}
+        >
+          Reset
+        </button>
+        <ul>
+          {sortedGoods.map(item => (
+            <li key={item}>
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

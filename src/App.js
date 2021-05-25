@@ -15,8 +15,36 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <GoodsList goods={goodsFromServer} />
-);
+class App extends React.Component {
+  state = {
+    isVisible: false,
+  }
+
+  showList = () => {
+    this.setState(state => ({
+      isVisible: !state.isVisible,
+    }));
+  };
+
+  render() {
+    const { isVisible } = this.state;
+
+    return (
+      <>
+        {isVisible
+          ? <GoodsList goods={goodsFromServer} />
+          : (
+            <button
+              type="button"
+              onClick={this.showList}
+            >
+              Start
+            </button>
+          )
+        }
+      </>
+    );
+  }
+}
 
 export default App;
