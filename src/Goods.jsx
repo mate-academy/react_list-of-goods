@@ -42,7 +42,9 @@ export class Goods extends React.Component {
 
   render() {
     const { isReversed, isSorted, goodLength } = this.state;
-    const goodsList = this.props.goods.filter(good => good.length >= goodLength);
+    const goodsList = this.props.goods.filter(
+      good => good.length >= goodLength,
+    );
 
     goodsList.sort((first, second) => {
       switch (isSorted) {
