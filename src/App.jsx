@@ -16,11 +16,9 @@ const goodsFromServer = [
 
 export class App extends React.Component {
   state = {
-    goods: goodsFromServer,
     goodsListVisible: false,
     sortBy: '',
-    doReset: false,
-    doReverse: false,
+    shouldReverse: false,
   }
 
   changeListVisibility = () => {
@@ -34,7 +32,7 @@ export class App extends React.Component {
     this.setState({
       sortBy: 'alphabet',
       doReset: false,
-      doReverse: false,
+      shouldReverse: false,
     });
   }
 
@@ -42,28 +40,28 @@ export class App extends React.Component {
     this.setState({
       sortBy: 'length',
       doReset: false,
-      doReverse: false,
+      shouldReverse: false,
     });
   }
 
   reset = () => {
     this.setState({
       doReset: false,
-      doReverse: false,
+      shouldReverse: false,
       sortBy: '',
     });
   }
 
   reverse = () => {
     this.setState(prevState => ({
-      doReverse: !prevState.doReverse,
+      shouldReverse: !prevState.shouldReverse,
     }));
   }
 
   render() {
-    const { goodsListVisible, sortBy, doReverse, doReset } = this.state;
+    const { goodsListVisible, sortBy, shouldReverse } = this.state;
 
-    let visibleGoods = [...goodsFromServer];
+    const visibleGoods = [...goodsFromServer];
 
     if (sortBy !== '') {
       visibleGoods.sort((good1, good2) => {
@@ -80,11 +78,7 @@ export class App extends React.Component {
       });
     }
 
-    if (doReset) {
-      visibleGoods = goodsFromServer;
-    }
-
-    if (doReverse) {
+    if (shouldReverse) {
       visibleGoods.reverse();
     }
 
