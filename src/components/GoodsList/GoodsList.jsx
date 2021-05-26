@@ -22,8 +22,9 @@ export class GoodsList extends React.Component {
 
   render() {
     const { goods } = this.props;
+    const copy = [...goods];
 
-    goods.sort((a, b) => {
+    copy.sort((a, b) => {
       switch (this.state.sortBy) {
         case 'name':
           return a.localeCompare(b);
@@ -37,50 +38,56 @@ export class GoodsList extends React.Component {
     });
 
     if (this.state.isReversed) {
-      goods.reverse();
+      copy.reverse();
     }
 
     return (
       <>
         <ul className="list">
-          {goods.map(good => (
+          {copy.map(good => (
             <li className="list__item" key={good}>
               {good}
             </li>
           ))}
         </ul>
-        <button
-          type="button"
-          onClick={this.reverse}
-        >
-          Reverse
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({
-              sortBy: 'name',
-            });
-          }}
-        >
-          Sort by alphabet
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({
-              sortBy: 'length',
-            });
-          }}
-        >
-          Sort by length
-        </button>
-        <button
-          type="button"
-          onClick={this.reset}
-        >
-          Reset
-        </button>
+        <div className="container">
+          <button
+            type="button"
+            className="list__btn"
+            onClick={this.reverse}
+          >
+            Reverse
+          </button>
+          <button
+            type="button"
+            className="list__btn"
+            onClick={() => {
+              this.setState({
+                sortBy: 'name',
+              });
+            }}
+          >
+            Sort by alphabet
+          </button>
+          <button
+            type="button"
+            className="list__btn"
+            onClick={() => {
+              this.setState({
+                sortBy: 'length',
+              });
+            }}
+          >
+            Sort by length
+          </button>
+          <button
+            type="button"
+            className="list__btn"
+            onClick={this.reset}
+          >
+            Reset
+          </button>
+        </div>
       </>
     );
   }

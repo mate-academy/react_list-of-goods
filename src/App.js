@@ -34,6 +34,7 @@ class App extends React.Component {
           : (
             <button
               type="button"
+              className="start__btn"
               onClick={this.showList}
             >
               Start
