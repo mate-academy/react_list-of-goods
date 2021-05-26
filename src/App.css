@@ -1,0 +1,8 @@
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.active {
+  background-color: rgba(136, 161, 46, 0.6);
+}
