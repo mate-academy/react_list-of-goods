@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const getGoods = (goods, isReverse, isAlphabetSort, isLengthSort) => {
+const getGoods = (goods, isReverse, sortByAlphabet, SortByLength) => {
   const newGoods = [...goods];
 
-  if (isAlphabetSort) {
+  if (sortByAlphabet) {
     newGoods.sort((g1, g2) => g1.localeCompare(g2));
   }
 
-  if (isLengthSort) {
+  if (SortByLength) {
     newGoods.sort((g1, g2) => g1.length - g2.length);
   }
 
@@ -22,8 +22,8 @@ const getGoods = (goods, isReverse, isAlphabetSort, isLengthSort) => {
 class ListOfGoods extends React.Component {
   state = {
     isReverse: false,
-    isAlphabeticallySort: false,
-    isLengthSort: false,
+    sortByAlphabet: false,
+    SortByLength: false,
   };
 
   Reverse = () => {
@@ -34,35 +34,35 @@ class ListOfGoods extends React.Component {
 
   SortAlphabetically = () => {
     this.setState(state => ({
-      isAlphabeticallySort: !state.isAlphabeticallySort,
-      isLengthSort: false,
+      sortByAlphabet: !state.sortByAlphabet,
+      SortByLength: false,
     }));
   }
 
   SortByLength = () => {
     this.setState(state => ({
-      isLengthSort: !state.isLengthSort,
-      isAlphabeticallySort: false,
+      SortByLength: !state.SortByLength,
+      sortByAlphabet: false,
     }));
   }
 
   Reset = () => {
     this.setState(() => ({
       isReverse: false,
-      isAlphabeticallySort: false,
-      isLengthSort: false,
+      sortByAlphabet: false,
+      SortByLength: false,
     }));
   }
 
   render() {
     const { goods } = this.props;
-    const { isReverse, isAlphabeticallySort, isLengthSort } = this.state;
+    const { isReverse, sortByAlphabet, SortByLength } = this.state;
 
     const visibleGoods = getGoods(
       goods,
       isReverse,
-      isAlphabeticallySort,
-      isLengthSort,
+      sortByAlphabet,
+      SortByLength,
     );
 
     return (

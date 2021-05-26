@@ -42,7 +42,9 @@ class App extends React.Component {
           Start
         </button>
 
-        {isGoodsVisible && <ListOfGoods goods={goodsFromServer} />}
+        {isGoodsVisible && (
+          <ListOfGoods goods={goodsFromServer} />
+        )}
 
       </div>
     );
