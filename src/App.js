@@ -34,7 +34,10 @@ class App extends React.Component {
         <button
           type="button"
           onClick={this.changeGoodsStatus}
-          className={isGoodsVisible ? 'App__start-active' : 'App__start'}
+          className={isGoodsVisible
+            ? 'App__start-active'
+            : 'App__start'
+          }
         >
           Start
         </button>
