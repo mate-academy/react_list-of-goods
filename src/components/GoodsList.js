@@ -4,15 +4,9 @@ import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.goods],
     isReversed: false,
     sortBy: '',
     length: 1,
-    isVisible: false,
-  }
-
-  start = () => {
-    this.setState({ isVisible: true });
   }
 
   reverse = () => {
@@ -31,7 +25,6 @@ export class GoodsList extends React.Component {
 
   reset = () => {
     this.setState({
-      goods: [...this.props.goods],
       isReversed: false,
       sortBy: '',
       length: 1,
@@ -43,9 +36,10 @@ export class GoodsList extends React.Component {
   }
 
   render() {
-    const { goods, isReversed, sortBy, length, isVisible } = this.state;
+    const { isReversed, sortBy, length } = this.state;
     const selectArr = Array(10).fill(0).map((_, i) => i + 1);
-    const visibleGoods = [...goods].filter(good => good.length >= length);
+    const visibleGoods = [...this.props.goods]
+      .filter(good => good.length >= length);
 
     visibleGoods.sort((f1, f2) => {
       switch (sortBy) {
@@ -65,74 +59,55 @@ export class GoodsList extends React.Component {
     }
 
     return (
-      <div className="App">
-        <h1 className="App__title">Goods</h1>
+      <>
+        <ul>
+          {visibleGoods.map(good => <li key={good}>{good}</li>)}
+        </ul>
 
-        {!isVisible
-          && (
+        <div className="App__buttons">
           <button
             type="button"
-            className="App__button-open"
-            onClick={this.start}
+            className="App__reverse-button"
+            onClick={this.reverse}
           >
-            Start
+            Reverse
           </button>
-          )
-        }
 
-        {isVisible
-          && (
-            <>
-              <ul>
-                { visibleGoods.map(good => <li key={good}>{good}</li>)}
-              </ul>
+          <button
+            type="button"
+            className="App__sortAlpha-button"
+            onClick={this.sortByAlphabet}
+          >
+            Sort alphabetically
+          </button>
 
-              <div className="App__buttons">
-                <button
-                  type="button"
-                  className="App__reverse-button"
-                  onClick={this.reverse}
-                >
-                  Reverse
-                </button>
+          <button
+            type="button"
+            className="App__sortLength-button"
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
 
-                <button
-                  type="button"
-                  className="App__sortAlpha-button"
-                  onClick={this.sortByAlphabet}
-                >
-                  Sort alphabetically
-                </button>
+          <button
+            type="button"
+            className="App__reset-button"
+            onClick={this.reset}
+          >
+            Reset
+          </button>
 
-                <button
-                  type="button"
-                  className="App__sortLength-button"
-                  onClick={this.sortByLength}
-                >
-                  Sort by length
-                </button>
-
-                <button
-                  type="button"
-                  className="App__reset-button"
-                  onClick={this.reset}
-                >
-                  Reset
-                </button>
-
-                <select
-                  onChange={(event) => {
-                    this.selectChange(event.target.value);
-                  }}
-                  value={length}
-                >
-                  {selectArr.map(el => (
-                    <option key={el} value={el}>{el}</option>))}
-                </select>
-              </div>
-            </>
-          )}
-      </div>
+          <select
+            onChange={(event) => {
+              this.selectChange(event.target.value);
+            }}
+            value={length}
+          >
+            {selectArr.map(el => (
+              <option key={el} value={el}>{el}</option>))}
+          </select>
+        </div>
+      </>
     );
   }
 }
