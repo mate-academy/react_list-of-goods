@@ -1,0 +1,21 @@
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-item {
+  background-color: aquamarine;
+  padding: 20px;
+  margin: 10px;
+}
+
+.btn {
+  width: 10%;
+  padding: 10px;
+  margin: 0 5%;
+  background-color: cadetblue;
+  border: none;
+  border-radius: 8px;
+  color: white;
+}

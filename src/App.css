@@ -1,0 +1,9 @@
+.start-btn {
+  display: block;
+  width: 150px;
+  height: 50px;
+  margin: 50px auto;
+  background-color: thistle;
+  border: 1px solid tomato;
+  border-radius: 8px;
+}
