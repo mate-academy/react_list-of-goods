@@ -7,3 +7,9 @@
 .button {
   background-color: white;
 }
+
+.button:active {
+  background-color: red;
+  color: white;
+  border-color: white;
+}

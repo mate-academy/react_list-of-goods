@@ -17,17 +17,13 @@ const goodsFromServer = [
 export class App extends React.Component {
   state = {
     isVisibleButtonStart: true,
-    isVisibleGoodsList: false,
     isReversed: false,
-    isSorted: false,
     sortKey: '',
-    isReseted: false,
   }
 
   showList = () => {
     this.setState(state => ({
       isVisibleButtonStart: !state.isVisibleButtonStart,
-      isVisibleGoodsList: !state.isVisibleGoodsList,
     }));
   }
 
@@ -39,28 +35,27 @@ export class App extends React.Component {
 
   sortByKey = (key) => {
     this.setState(state => ({
-      isSorted: !state.isSorted,
       sortKey: key,
     }));
   }
 
   reset = () => {
     this.setState({
-      isReseted: true,
+      isReversed: false,
+      sortKey: '',
     });
   }
 
-  getVisibleGoodsList = () => {
+  render() {
     const {
-      isVisibleGoodsList,
+      isVisibleButtonStart,
       isReversed,
-      isSorted,
       sortKey,
     } = this.state;
 
     const goodsList = [...goodsFromServer];
 
-    if (isSorted && sortKey) {
+    if (sortKey) {
       goodsList.sort((goodA, goodB) => {
         switch (sortKey) {
           case 'alphabet':
@@ -75,29 +70,9 @@ export class App extends React.Component {
       });
     }
 
-    if (isVisibleGoodsList && isReversed) {
+    if (isReversed) {
       goodsList.reverse();
     }
-
-    return goodsList;
-  }
-
-  render() {
-    const {
-      isVisibleGoodsList,
-      isVisibleButtonStart,
-      isReseted,
-      isReversed,
-      isSorted,
-      sortKey,
-
-    } = this.state;
-
-    const goodsList = isReseted
-      ? goodsFromServer
-      : this.getVisibleGoodsList();
-
-    this.state.isReseted = false;
 
     return (
       <div className="App">
@@ -129,7 +104,7 @@ export class App extends React.Component {
         <button
           type="button"
           onClick={() => this.sortByKey('alphabet')}
-          className={isSorted && sortKey === 'alphabet'
+          className={sortKey === 'alphabet'
             ? 'selected'
             : 'button'}
         >
@@ -139,9 +114,7 @@ export class App extends React.Component {
         <button
           type="button"
           onClick={this.reset}
-          className={isReseted
-            ? 'selected'
-            : 'button'}
+          className="button"
         >
           Reset
         </button>
@@ -149,14 +122,14 @@ export class App extends React.Component {
         <button
           type="button"
           onClick={() => this.sortByKey('length')}
-          className={isSorted && sortKey === 'length'
+          className={sortKey === 'length'
             ? 'selected'
             : 'button'}
         >
           Sort by length
         </button>
 
-        {isVisibleGoodsList && (
+        {!isVisibleButtonStart && (
 
           <ul>
             {goodsList.map(good => (
