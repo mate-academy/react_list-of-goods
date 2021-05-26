@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 class GoodsList extends React.Component {
   state = {
-    goods: this.props.goods,
     isReversed: false,
     sortedBy: '',
     length: 1,
@@ -34,8 +33,8 @@ class GoodsList extends React.Component {
   }
 
   render() {
-    const { goods, isReversed, sortedBy, length } = this.state;
-    const copy = [...goods].filter(
+    const { isReversed, sortedBy, length } = this.state;
+    const copy = [...this.props.goods].filter(
       element => element.length >= this.state.length,
     );
 
