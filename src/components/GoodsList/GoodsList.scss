@@ -1,0 +1,16 @@
+.product {
+  list-style: none;
+
+  &__item {
+    height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    color: rgb(30, 155, 30);
+    font-style: italic;
+    border-bottom: 1px solid rgb(173, 240, 173);
+  }
+
+  & :nth-child(2n) {
+    background: rgb(255, 250, 220);
+  }
+}
