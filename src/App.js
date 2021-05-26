@@ -34,9 +34,6 @@ class App extends React.Component {
             <button
               type="button"
               onClick={(event) => {
-                const elem = event.target;
-
-                elem.style.display = 'none';
                 this.setState({ isVisible: true });
               }}
             >
