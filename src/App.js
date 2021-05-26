@@ -17,7 +17,6 @@ const goodsFromServer = [
 
 export class App extends Component {
   state = {
-    initGoods: goodsFromServer,
     goods: [...goodsFromServer],
     visible: false,
   };
@@ -27,7 +26,7 @@ export class App extends Component {
   };
 
   render() {
-    const { goods, visible, initGoods } = this.state;
+    const { goods, visible } = this.state;
 
     return (
       <>
@@ -40,7 +39,7 @@ export class App extends Component {
         {visible && (
           <div>
             <h1>Goods</h1>
-            <GoodsList goods={goods} initGoods={initGoods} />
+            <GoodsList goods={goods} />
           </div>
         )}
       </>
