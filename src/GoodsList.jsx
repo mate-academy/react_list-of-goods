@@ -40,38 +40,30 @@ class GoodsList extends React.Component {
 
         <button
           type="button"
-          onClick={() => {
-            this.reverse();
-          }}
+          onClick={this.reverse}
         >
           Reverse
         </button>
 
         <button
           type="button"
-          onClick={() => {
-            this.alphaSort();
-          }}
+          onClick={this.alphaSort}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          onClick={() => {
-            this.reset();
-          }}
+          onClick={this.lengthSort}
         >
-          Reset
+          Sort by length
         </button>
 
         <button
           type="button"
-          onClick={() => {
-            this.lengthSort();
-          }}
+          onClick={this.reset}
         >
-          Sort by length
+          Reset
         </button>
       </>
     );

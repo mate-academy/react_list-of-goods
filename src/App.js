@@ -17,26 +17,26 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goodsList: '',
+    value: false,
   }
 
   render() {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {this.state.goodsList}
-        {this.state.goodsList === ''
-          && (
-          <button
-            type="button"
-            onClick={() => {
-              this.setState({
-                goodsList: <GoodsList goodsList={goodsFromServer} />,
-              });
-            }}
-          >
-            Start
-          </button>
+        {this.state.value
+          ? <GoodsList goodsList={goodsFromServer} />
+          : (
+            <button
+              type="button"
+              onClick={() => {
+                this.setState({
+                  value: true,
+                });
+              }}
+            >
+              Start
+            </button>
           )
         }
       </div>
