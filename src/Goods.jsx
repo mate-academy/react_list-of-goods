@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 export class Goods extends React.Component {
   state = {
-    goods: [...this.props.goods],
     isReversed: false,
     isSorted: '',
     goodLength: 1,
@@ -42,8 +41,8 @@ export class Goods extends React.Component {
   }
 
   render() {
-    const { goods, isReversed, isSorted, goodLength } = this.state;
-    const goodsList = goods.filter(good => good.length >= goodLength);
+    const { isReversed, isSorted, goodLength } = this.state;
+    const goodsList = this.props.goods.filter(good => good.length >= goodLength);
 
     goodsList.sort((first, second) => {
       switch (isSorted) {
@@ -111,7 +110,7 @@ export class Goods extends React.Component {
 }
 
 Goods.propTypes = {
-  goods: PropTypes.arrayOf({
-    good: PropTypes.string.isRequired,
-  }).isRequired,
+  goods: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
 };

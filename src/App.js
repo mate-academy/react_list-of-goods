@@ -17,16 +17,13 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goodsList: [...goodsFromServer],
-    show: false,
     showBtn: true,
   }
 
   showList = () => {
-    this.setState(prev => ({
-      show: !prev.show,
+    this.setState({
       showBtn: false,
-    }));
+    });
   }
 
   render() {
@@ -46,10 +43,10 @@ class App extends React.Component {
           }
         </div>
 
-        {this.state.show
-          && (
+        {this.state.showBtn
+          || (
           <div>
-            <Goods goods={this.state.goodsList} />
+            <Goods goods={goodsFromServer} />
           </div>
           )
         }
