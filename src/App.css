@@ -1,0 +1,41 @@
+.btn {
+  width: 150px;
+  padding: 15px 25px;
+  margin: 10px;
+  background-color: rgb(135, 45, 219);
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+}
+
+.list__btn {
+
+  padding: 15px 25px;
+  margin: 10px;
+  background-color: rgb(31, 190, 204);
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-hidden,
+.list__btn-hidden,
+.list__reset-btn-hidden {
+  display: none;
+}
+
+.list__reset-btn {
+  padding: 15px 25px;
+  margin: 10px;
+  background-color: rgb(216, 61, 94);
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn:hover,
+.list__btn:hover,
+.list__reset-btn:hover {
+  opacity: 0.8;
+}
