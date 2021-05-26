@@ -17,31 +17,11 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [...goodsFromServer],
     displayList: false,
-    arrayList: [...goodsFromServer],
-  };
-
-  reverseList = () => {
-    this.setState(state => ({
-      arrayList: [...state.arrayList].reverse(),
-    }));
-  };
-
-  sortList = () => {
-    this.setState(state => ({
-      arrayList: [...state.arrayList].sort(),
-    }));
-  };
-
-  sortByLengthList = () => {
-    this.setState(state => ({
-      arrayList: [...state.arrayList].sort((a, b) => a.length - b.length),
-    }));
   };
 
   render() {
-    const { goods, displayList, arrayList } = this.state;
+    const { displayList } = this.state;
 
     return (
       <div className="App">
@@ -58,39 +38,7 @@ class App extends React.Component {
           Start
         </button>
         )}
-
-        {displayList === true && (
-        <>
-          <button type="button" onClick={this.reverseList}>Reverse</button>
-
-          <button
-            type="button"
-            onClick={this.sortList}
-          >
-            Sort alphabetically
-          </button>
-
-          <button
-            type="button"
-            onClick={this.sortByLengthList}
-          >
-            Sort by length
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              this.setState({
-                arrayList: [...goods],
-              });
-            }}
-          >
-            Reset
-          </button>
-        </>
-        )}
-
-        {displayList && <GoodsList goods={arrayList} />}
+        {displayList && <GoodsList goods={goodsFromServer} />}
       </div>
     );
   }
