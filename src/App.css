@@ -1,0 +1,9 @@
+.selected {
+  background-color: red;
+  color: white;
+  border-color: white;
+}
+
+.button {
+  background-color: white;
+}
