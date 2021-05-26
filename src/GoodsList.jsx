@@ -3,15 +3,8 @@ import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    isVisible: false,
     isReversed: false,
     sortBy: '',
-  }
-
-  showList = () => {
-    this.setState({
-      isVisible: true,
-    });
   }
 
   reverseList = () => {
@@ -40,7 +33,7 @@ export class GoodsList extends React.Component {
   }
 
   render() {
-    const { isVisible, isReversed, sortBy } = this.state;
+    const { isReversed, sortBy } = this.state;
     const { goods } = this.props;
     const goodsCopy = [...goods];
 
@@ -60,43 +53,30 @@ export class GoodsList extends React.Component {
     }
 
     return (
-      <div>
-        {isVisible === false && (
-          <button
-            type="button"
-            onClick={this.showList}
-          >
-            Start
-          </button>
-        )}
-
-        {isVisible === true && (
-          <div className="App">
-            <ul>
-              {goodsCopy.map(good => <li key={good}>{good}</li>)}
-            </ul>
-
-            <button type="button" onClick={this.reverseList}>Reverse</button>
-            <button
-              type="button"
-              onClick={this.sortListByAlph}
-            >
-              Sort alphabetically
-            </button>
-            <button
-              type="button"
-              onClick={this.sortListByLength}
-            >
-              Sort by length
-            </button>
-            <button
-              type="button"
-              onClick={this.resetList}
-            >
-              Reset
-            </button>
-          </div>
-        )}
+      <div className="listWrapper">
+        <ul>
+          {goodsCopy.map(good => <li key={good}>{good}</li>)}
+        </ul>
+      
+        <button type="button" onClick={this.reverseList}>Reverse</button>
+        <button
+          type="button"
+          onClick={this.sortListByAlph}
+        >
+          Sort alphabetically
+        </button>
+        <button
+          type="button"
+          onClick={this.sortListByLength}
+        >
+          Sort by length
+        </button>
+        <button
+          type="button"
+          onClick={this.resetList}
+        >
+          Reset
+        </button>
       </div>
     );
   }
