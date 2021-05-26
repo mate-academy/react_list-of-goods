@@ -28,12 +28,6 @@ class Goods extends React.Component {
       this.setState(this.defaultConditions);
     }
 
-    setLength = (event) => {
-      this.setState({
-        length: event.target.value,
-      });
-    }
-
     render() {
       const { goods } = this.props;
       const { isReversed, sortMethod, length } = this.state;
