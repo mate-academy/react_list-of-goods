@@ -27,12 +27,6 @@ class App extends React.Component {
     });
   }
 
-  reset = () => {
-    this.setState({
-      goods: [],
-    });
-  }
-
   reverse = () => {
     this.setState(state => ({
       goods: [...state.goods].reverse(),
@@ -75,7 +69,7 @@ class App extends React.Component {
             'list__reset-btn',
             { 'list__reset-btn-hidden': goods.length === 0 },
           )}
-          onClick={this.reset}
+          onClick={this.showGoods}
         >
           RESET
         </button>
