@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import { GoodsList } from './components/GoodList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +14,35 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isVisible: false,
+  };
+
+  render() {
+    const { isVisible } = this.state;
+
+    return (
+      <div>
+        {!isVisible && (
+          <button
+            type="button"
+            onClick={() => {
+              this.setState({
+                isVisible: true,
+              });
+            }}
+          >
+            Start
+          </button>
+        )}
+
+        {isVisible ? (
+          <GoodsList goods={goodsFromServer} />
+        ) : ('')}
+      </div>
+    );
+  }
+}
 
 export default App;
