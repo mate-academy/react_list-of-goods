@@ -6,41 +6,42 @@ class Goodlist extends React.Component {
   state = {
     isReversed: false,
     sortBy: '',
-  }
+  };
 
   reset = () => {
     this.setState({
       isReversed: false,
       sortBy: '',
     });
-  }
+  };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
-  }
+  };
 
   sortByAlphabet = () => {
-    this.setState(state => ({
+    this.setState({
       sortBy: 'alphabet',
-    }));
+    });
   };
 
   sortByLength = () => {
-    this.setState(state => ({
+    this.setState({
       sortBy: 'length',
-    }));
+    });
   };
 
   render() {
     const { goods } = this.props;
     const { isReversed, sortBy } = this.state;
+    const presentGoods = goods.concat();
 
-    goods.sort((a, b) => {
+    presentGoods.sort((a, b) => {
       switch (sortBy) {
         case 'alphabet':
-          return b.localeCompare(a);
+          return a.localeCompare(b);
         case 'length':
           return a.length - b.length;
         default:
@@ -49,11 +50,11 @@ class Goodlist extends React.Component {
     });
 
     if (isReversed) {
-      goods.reverse();
+      presentGoods.reverse();
     }
 
     return (
-      <>
+      <div className="field">
         <button
           className="button"
           type="button"
@@ -87,14 +88,17 @@ class Goodlist extends React.Component {
         </button>
 
         <h1>Goods</h1>
-        <ul>
-          {goods.map(good => (
-            <li key={good}>
+        <ul className="goods">
+          {presentGoods.map(good => (
+            <li
+              key={good}
+              className="list"
+            >
               {good}
             </li>
           ))}
         </ul>
-      </>
+      </div>
     );
   }
 }

@@ -1,1 +1,18 @@
-/* styles will be here */
+.field {
+  width: 250px;
+  border: 1px solid grey;
+  text-align: center;
+  background-color: rgb(197, 194, 194);
+}
+
+.goods {
+  padding: 0;
+}
+
+.list {
+  list-style: none;
+}
+
+.button {
+  margin-top: 5px;
+}
