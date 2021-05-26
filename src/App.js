@@ -1,6 +1,6 @@
 import React from 'react';
+import GoodsList from './GoodsList';
 import './App.css';
-import { ListOfGoods } from './ListOFGoods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -17,30 +17,28 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    visible: false,
-  };
-
-  start = () => {
-    this.setState(state => ({
-      visible: !state.visible,
-    }));
+    value: false,
   }
 
   render() {
-    const { visible } = this.state;
-
     return (
       <div className="App">
         <h1>Goods</h1>
-        <button
-          className="button"
-          type="button"
-          onClick={this.start}
-        >
-          {visible ? 'Close' : 'Start'}
-        </button>
-
-        {visible && (<ListOfGoods goods={goodsFromServer} />)}
+        {this.state.value
+          ? <GoodsList goodsList={goodsFromServer} />
+          : (
+            <button
+              type="button"
+              onClick={() => {
+                this.setState({
+                  value: true,
+                });
+              }}
+            >
+              Start
+            </button>
+          )
+        }
       </div>
     );
   }
