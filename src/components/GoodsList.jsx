@@ -3,9 +3,8 @@ import PropTypes, { string } from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    goodsList: this.props.goods,
     isReverse: false,
-    sortBy: 'id',
+    sortBy: '',
   }
 
   reverse = () => {
@@ -20,25 +19,24 @@ export class GoodsList extends React.Component {
 
   reset() {
     this.setState({
-      sortBy: 'id', isReverse: false,
+      sortBy: '', isReverse: false,
     });
   }
 
   render() {
-    const { sortBy, isReverse, goodsList } = this.state;
-    const goods = [...goodsList];
+    const { sortBy, isReverse } = this.state;
+    const goods = [...this.props.goods];
 
-    goods.sort((str1, str2) => {
+    goods.sort((prev, next) => {
       switch (sortBy) {
         case 'name': {
-          return str1.localeCompare(str2);
+          return prev.localeCompare(next);
         }
 
         case 'length': {
-          return str1.length - str2.length;
+          return prev.length - next.length;
         }
 
-        case 'id':
         default:
           return 0;
       }
