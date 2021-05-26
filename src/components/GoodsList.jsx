@@ -12,18 +12,24 @@ export class GoodsList extends React.Component {
   }
 
   sortByLetter = () => {
-    this.setState({ sortBy: 'letter' });
-    this.setState({ isReversed: false });
+    this.setState({
+      sortBy: 'letter',
+      isReversed: false,
+    });
   }
 
   reset = () => {
-    this.setState({ sortBy: 'default' });
-    this.setState({ isReversed: false });
+    this.setState({
+      sortBy: 'default',
+      isReversed: false,
+    });
   }
 
   sortByLength = () => {
-    this.setState({ isReversed: false });
-    this.setState({ sortBy: 'length' });
+    this.setState({
+      isReversed: false,
+      sortBy: 'length',
+    });
   }
 
   render() {
@@ -68,9 +74,11 @@ export class GoodsList extends React.Component {
           >
             Sort by length
           </button>
-          {goods.map(good => (
-            <li key={good}>{good}</li>
-          ))}
+          <ul>
+            {goods.map(good => (
+              <li key={good}>{good}</li>
+            ))}
+          </ul>
         </>
       </div>
     );
