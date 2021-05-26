@@ -17,64 +17,63 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    products: goodsFromServer,
-    showList: false,
-    reverse: false,
-    sort: '',
+    shouldShowList: false,
+    isReverse: false,
+    sortBy: '',
   }
 
   showProduct = () => {
     this.setState(state => ({
-      showList: !state.showList,
+      shouldShowList: !state.shouldShowList,
     }));
   }
 
   reverseProduct = () => {
     this.setState(state => ({
-      reverse: !state.reverse,
+      isReverse: !state.isReverse,
     }));
   }
 
   sortByAlphabetical = () => {
-    this.setState({ sort: 'alph' });
+    this.setState({ sortBy: 'alph' });
   }
 
   sortByLength = () => {
     this.setState({
-      sort: 'length',
+      sortBy: 'length',
     });
   }
 
   reset = () => {
     this.setState({
-      reverse: false,
-      sort: '',
+      isReverse: false,
+      sortBy: '',
     });
   }
 
   render() {
-    const { products, showList, reverse, sort } = this.state;
-    const visibleProduct = [...products];
+    const { shouldShowList, isReverse, sortBy } = this.state;
+    const visibleProduct = [...goodsFromServer];
 
-    visibleProduct.sort((p1, p2) => {
-      switch (sort) {
+    visibleProduct.sort((prev, next) => {
+      switch (sortBy) {
         case 'alph':
-          return p1.localeCompare(p2);
+          return prev.localeCompare(next);
         case 'length':
-          return p1.length - p2.length;
+          return prev.length - next.length;
         default:
           return 0;
       }
     });
 
-    if (reverse) {
+    if (isReverse) {
       visibleProduct.reverse();
     }
 
     return (
       <div className="App">
 
-        {showList === false ? (
+        {!shouldShowList ? (
           <button
             type="button"
             onClick={this.showProduct}
