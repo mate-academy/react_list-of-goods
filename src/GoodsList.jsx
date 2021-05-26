@@ -3,112 +3,85 @@ import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    renderForm: false,
     isReversed: false,
     sortBy: '',
-    goods: this.props.goods,
-  };
+  }
 
-  reverse = () => {
+  reverseList = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
-  };
+  }
 
-  sortByName = () => {
-    this.setState(({ sortBy: 'name' }));
-  };
-
-  sortByLength = () => {
-    this.setState(({ sortBy: 'length' }));
-  };
-
-  reset = () => {
+  sortListByAlph = () => {
     this.setState({
-      isReversed: false, sortBy: '',
+      sortBy: 'alph',
     });
-  };
+  }
+
+  sortListByLength = () => {
+    this.setState({
+      sortBy: 'length',
+    });
+  }
+
+  resetList = () => {
+    this.setState({
+      isReversed: false,
+      sortBy: '',
+    });
+  }
 
   render() {
-    const { goods, isReversed, sortBy, renderForm } = this.state;
-    const sortedGoods = [...goods];
+    const { isReversed, sortBy } = this.state;
+    const { goods } = this.props;
+    const goodsCopy = [...goods];
 
-    sortedGoods.sort((g1, g2) => {
+    goodsCopy.sort((el1, el2) => {
       switch (sortBy) {
-        case 'name':
-          return g1.localeCompare(g2);
+        case 'alph':
+          return el1.localeCompare(el2);
         case 'length':
-          return g1.length - g2.length;
-
+          return el1.length - el2.length;
         default:
           return 0;
       }
     });
 
     if (isReversed) {
-      sortedGoods.reverse();
+      goodsCopy.reverse();
     }
 
     return (
-      <div className="App">
-        {!renderForm ? (
-          <button
-            type="button"
-            onClick={() => {
-              this.setState({ renderForm: true });
-            }}
-          >
-            Start
-          </button>
-        ) : (
-          <>
-            <ul>
-              {sortedGoods.map(good => (
-                <li>
-                  {good}
-                </li>
-              ))}
-            </ul>
-
-            <button
-              className="btn"
-              type="button"
-              onClick={this.reverse}
-            >
-              reverse
-            </button>
-
-            <button
-              className="btn"
-              type="button"
-              onClick={this.sortByName}
-            >
-              sort
-            </button>
-
-            <button
-              className="btn"
-              type="button"
-              onClick={this.sortByLength}
-            >
-              sort for length
-            </button>
-
-            <button
-              className="btn"
-              type="button"
-              onClick={this.reset}
-            >
-              reset
-            </button>
-          </>
-        )
-      }
+      <div className="listWrapper">
+        <ul>
+          {goodsCopy.map(good => <li key={good}>{good}</li>)}
+        </ul>
+      
+        <button type="button" onClick={this.reverseList}>Reverse</button>
+        <button
+          type="button"
+          onClick={this.sortListByAlph}
+        >
+          Sort alphabetically
+        </button>
+        <button
+          type="button"
+          onClick={this.sortListByLength}
+        >
+          Sort by length
+        </button>
+        <button
+          type="button"
+          onClick={this.resetList}
+        >
+          Reset
+        </button>
       </div>
     );
   }
 }
 
 GoodsList.propTypes = {
-  goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
