@@ -27,18 +27,23 @@ class App extends React.Component {
         <h1>Goods</h1>
         {goodsFromServer.length}
         <div className="wrapper" />
-        {this.state.isVisible && <GoodsList goods={goodsFromServer} />}
-        <button
-          type="button"
-          onClick={(event) => {
-            const elem = event.target;
+        {this.state.isVisible ? (
+          <GoodsList goods={goodsFromServer} />
+        )
+          : (
+            <button
+              type="button"
+              onClick={(event) => {
+                const elem = event.target;
 
-            elem.style.display = 'none';
-            this.setState({ isVisible: true });
-          }}
-        >
-          Start
-        </button>
+                elem.style.display = 'none';
+                this.setState({ isVisible: true });
+              }}
+            >
+              Start
+            </button>
+          )
+        }
       </div>
     );
   }
