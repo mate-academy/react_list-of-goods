@@ -51,9 +51,9 @@ class App extends React.Component {
 
   reset = () => {
     this.setState(state => ({
-      isSortedByLength: state.isSortedByLength === false,
-      isReversed: state.isReversed === false,
-      isSorted: state.isSorted === false,
+      isReversed: false,
+      isSorted: '',
+      isSortedByLength: '',
     }));
   }
 
