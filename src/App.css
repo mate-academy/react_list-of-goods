@@ -1,0 +1,30 @@
+body {
+  background-color: rgb(10, 241, 191);
+
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+}
+
+.button-start {
+  margin-top: 20px;
+  padding: 20px;
+
+  width: 200px;
+
+  font-size: 30px;
+  color: blue;
+
+  background-color: yellow;
+  border: 3px solid rgb(252, 2, 2);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.button-start:hover {
+  transform: scale(1.2);
+  transition: transform 0.5s;
+}
