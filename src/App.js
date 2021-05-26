@@ -16,7 +16,6 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: goodsFromServer,
     isVisible: false,
     isReversed: false,
     sortBy: '',
@@ -54,9 +53,9 @@ class App extends React.Component {
   };
 
   render() {
-    const { goods, isVisible, isReversed, sortBy } = this.state;
+    const { isVisible, isReversed, sortBy } = this.state;
 
-    const newGoods = [...goods];
+    const newGoods = [...goodsFromServer];
 
     newGoods.sort((g1, g2) => {
       switch (sortBy) {
