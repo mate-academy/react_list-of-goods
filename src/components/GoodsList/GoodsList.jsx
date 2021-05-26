@@ -35,7 +35,10 @@ class GoodsList extends React.Component {
       <div>
         <ul>
           {this.state.goods.map(good => (
-            <li className="good">
+            <li
+              className="good"
+              key={good}
+            >
               <span className="good-item">
                 {good}
               </span>
