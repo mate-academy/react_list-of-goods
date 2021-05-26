@@ -11,29 +11,32 @@ class GoodList extends React.Component {
       reverse: !state.reverse
     }))
   }
+
   sortAlphabetically = () => {
     this.setState({
       sortBy: 'alphabet',
     })
   }
+
   reset = () => {
     this.setState({
       reverse: false,
       sortBy: '',
     })
   }
+
   sortByLength = () => {
     this.setState({
       sortBy: 'length',
     })
   }
 
-  render () {
+  render() {
     const { goods } = this.props;
     const { sortBy, reverse } = this.state;
     const copy = [...goods];
 
-    copy.sort((a,b) => {
+    copy.sort((a, b) => {
       switch (sortBy) {
         case 'alphabet':
           return a.localeCompare(b);
@@ -52,7 +55,9 @@ class GoodList extends React.Component {
       <div>
         <ul>
           {copy.map(good =>
-            <li>{good}</li>)}
+            <li key={good}>
+              {good}
+            </li>)}
         </ul>
 
         <button
