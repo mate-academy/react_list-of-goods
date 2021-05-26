@@ -1,0 +1,15 @@
+.App__button {
+  margin: 10px;
+  width: 150px;
+}
+
+.App__button-active {
+  margin: 10px;
+  width: 150px;
+
+  background-color: rgb(177, 228, 105);
+}
+
+.App__start-active {
+  display: none;
+}
