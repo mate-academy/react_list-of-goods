@@ -19,7 +19,7 @@ class App extends React.Component {
     goods: goodsFromServer,
     listVisibility: true,
     isGoodsReversed: false,
-    goodsSortBy: 'withoutSort',
+    goodsSortBy: '',
     goodLength: 1,
   }
 
@@ -42,7 +42,7 @@ class App extends React.Component {
   resetSortSettings = () => {
     this.setState({
       isGoodsReversed: false,
-      goodsSortBy: 'withoutSort',
+      goodsSortBy: '',
       goodLength: 1,
     });
   }
@@ -80,11 +80,9 @@ class App extends React.Component {
         <br />
         <button type="button" onClick={this.makeVisible}>
           {
-            this.state.listVisibility ? (
-              'Hide list'
-            ) : (
-              'Show list'
-            )
+            this.state.listVisibility
+              ? 'Hide list'
+              : 'Show list'
           }
         </button>
 
