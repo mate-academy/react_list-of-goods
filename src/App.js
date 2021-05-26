@@ -1,4 +1,6 @@
 import React from 'react';
+import { GoodsList } from './components/GoodsList';
+
 import './App.css';
 
 const goodsFromServer = [
@@ -14,11 +16,37 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component {
+  state = {
+    goods: [...goodsFromServer],
+    isListHiden: true,
+  }
 
-export default App;
+  renderList = () => {
+    this.setState(prevState => ({
+      isListHiden: !prevState.isListHiden,
+    }));
+  };
+
+  render() {
+    const { goods } = this.state;
+    const { isListHiden } = this.state;
+
+    return (
+      <div className="App">
+        {!isListHiden
+          ? <GoodsList goods={goods} />
+          : (
+            <button
+              className="start-btn"
+              type="button"
+              onClick={this.renderList}
+            >
+              Start
+            </button>
+          )
+        }
+      </div>
+    );
+  }
+}
