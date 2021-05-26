@@ -4,15 +4,8 @@ import PropTypes from 'prop-types';
 
 class ListOfGoods extends React.Component{
   state = {
-    isVisible: false,
     isReversed: false,
     sortBy: '',
-  }
-
-  showGoodsList = () => {
-    this.setState({
-      isVisible: true
-    })
   }
 
   reverseGoodsList = () => {
@@ -42,7 +35,7 @@ class ListOfGoods extends React.Component{
 
   render () {
     const {goods} = this.props;
-    const {isVisible, isReversed, sortBy} = this.state;
+    const { isReversed, sortBy} = this.state;
     const goodsCopy = [...goods];
 
     goodsCopy.sort((a, b) => {
@@ -60,16 +53,6 @@ class ListOfGoods extends React.Component{
 
     return (
       <div>
-        {isVisible === false && (
-          <button
-            type="button"
-            onClick={this.showGoodsList}
-          >
-            Start
-          </button>
-        )}
-
-        {isVisible === true && (
           <div className="App">
             <ul>
               {goodsCopy.map(good => <li key={good}>{good}</li>)}
@@ -80,7 +63,6 @@ class ListOfGoods extends React.Component{
             <button type="button" onClick={this.sortByLength}>Sort by length</button>
             <button type="button" onClick={this.reset}>Reset</button>
           </div>
-        )}
       </div>
     )
   }

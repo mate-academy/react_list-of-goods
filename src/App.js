@@ -16,10 +16,33 @@ const goodsFromServer = [
 ];
 
 class App extends React.PureComponent {
+  state = {
+    isVisible: false,
+  }
+
+  showGoodsList = () => {
+    this.setState({
+      isVisible: true,
+    });
+  }
+
   render() {
+    const { isVisible } = this.state;
+
     return (
       <div>
-        <ListOfGoods goods={goodsFromServer} />
+        {!isVisible && (
+          <button
+            type="button"
+            onClick={this.showGoodsList}
+          >
+            Start
+          </button>
+        )}
+
+        {isVisible && (
+          <ListOfGoods goods={goodsFromServer} />
+        )}
       </div>
     );
   }
