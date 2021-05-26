@@ -3,105 +3,112 @@ import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    isVisible: false,
+    renderForm: false,
     isReversed: false,
     sortBy: '',
-  }
+    goods: this.props.goods,
+  };
 
-  showList = () => {
-    this.setState({
-      isVisible: true,
-    });
-  }
-
-  reverseList = () => {
+  reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
-  }
+  };
 
-  sortListByAlph = () => {
-    this.setState({
-      sortBy: 'alph',
-    });
-  }
+  sortByName = () => {
+    this.setState(({ sortBy: 'name' }));
+  };
 
-  sortListByLength = () => {
-    this.setState({
-      sortBy: 'length',
-    });
-  }
+  sortByLength = () => {
+    this.setState(({ sortBy: 'length' }));
+  };
 
-  resetList = () => {
+  reset = () => {
     this.setState({
-      isReversed: false,
-      sortBy: '',
+      isReversed: false, sortBy: '',
     });
-  }
+  };
 
   render() {
-    const { isVisible, isReversed, sortBy } = this.state;
-    const { goods } = this.props;
-    const goodsCopy = [...goods];
+    const { goods, isReversed, sortBy, renderForm } = this.state;
+    const sortedGoods = [...goods];
 
-    goodsCopy.sort((el1, el2) => {
+    sortedGoods.sort((g1, g2) => {
       switch (sortBy) {
-        case 'alph':
-          return el1.localeCompare(el2);
+        case 'name':
+          return g1.localeCompare(g2);
         case 'length':
-          return el1.length - el2.length;
+          return g1.length - g2.length;
+
         default:
           return 0;
       }
     });
 
     if (isReversed) {
-      goodsCopy.reverse();
+      sortedGoods.reverse();
     }
 
     return (
-      <div>
-        {isVisible === false && (
+      <div className="App">
+        {!renderForm ? (
           <button
             type="button"
-            onClick={this.showList}
+            onClick={() => {
+              this.setState({ renderForm: true });
+            }}
           >
             Start
           </button>
-        )}
-
-        {isVisible === true && (
-          <div className="App">
+        ) : (
+          <>
             <ul>
-              {goodsCopy.map(good => <li key={good}>{good}</li>)}
+              {sortedGoods.map(good => (
+                <li>
+                  {good}
+                </li>
+              ))}
             </ul>
 
-            <button type="button" onClick={this.reverseList}>Reverse</button>
             <button
+              className="btn"
               type="button"
-              onClick={this.sortListByAlph}
+              onClick={this.reverse}
             >
-              Sort alphabetically
+              reverse
             </button>
+
             <button
+              className="btn"
               type="button"
-              onClick={this.sortListByLength}
+              onClick={this.sortByName}
             >
-              Sort by length
+              sort
             </button>
+
             <button
+              className="btn"
               type="button"
-              onClick={this.resetList}
+              onClick={this.sortByLength}
             >
-              Reset
+              sort for length
             </button>
-          </div>
-        )}
+
+            <button
+              className="btn"
+              type="button"
+              onClick={this.reset}
+            >
+              reset
+            </button>
+          </>
+        )
+      }
       </div>
     );
   }
 }
 
 GoodsList.propTypes = {
-  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
