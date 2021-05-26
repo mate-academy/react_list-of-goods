@@ -21,8 +21,7 @@ class App extends React.Component {
     goods: goodsFromServer,
     isHidden: true,
     isReversed: false,
-    isSorted: false,
-    isSortedByLength: false,
+    sortBy: '',
   }
 
   buttonSatus = () => {
@@ -37,23 +36,16 @@ class App extends React.Component {
     }));
   }
 
-  sortMethod = () => {
-    this.setState(state => ({
-      isSorted: !state.isSorted,
-    }));
-  }
-
-  sortByLength = () => {
-    this.setState(state => ({
-      isSortedByLength: !state.isSortedByLength,
-    }));
+  sortByField = (field) => {
+    this.setState({
+      sortBy: field,
+    });
   }
 
   reset = () => {
     this.setState({
       isReversed: false,
-      isSorted: '',
-      isSortedByLength: '',
+      sortBy: '',
     });
   }
 
@@ -62,19 +54,22 @@ class App extends React.Component {
       goods,
       isHidden,
       isReversed,
-      isSorted,
-      isSortedByLength,
+      sortBy,
     } = this.state;
 
     const copyOfGoods = [...goods];
 
-    if (isSorted) {
-      copyOfGoods.sort();
-    }
+    copyOfGoods.sort((a, b) => {
+      switch (sortBy) {
+        case 'byAlphabet':
+          return a.localeCompare(b);
 
-    if (isSortedByLength) {
-      copyOfGoods.sort((a, b) => a.length - b.length);
-    }
+        case 'byLength':
+          return a.length - b.length;
+        default:
+          return '';
+      }
+    });
 
     if (isReversed) {
       copyOfGoods.reverse();
@@ -112,16 +107,16 @@ class App extends React.Component {
 
               <button
                 type="button"
-                onClick={this.sortMethod}
-                className={classNames(isSorted ? 'active' : '')}
+                onClick={() => this.sortByField('byAlphabet')}
+                className={classNames(sortBy === 'byAlphabet' ? 'active' : '')}
               >
                 Sort alphabetically
               </button>
 
               <button
                 type="button"
-                onClick={this.sortByLength}
-                className={classNames(isSortedByLength ? 'active' : '')}
+                onClick={() => this.sortByField('byLength')}
+                className={classNames(sortBy === 'byLength' ? 'active' : '')}
               >
                 Sort by length
               </button>
