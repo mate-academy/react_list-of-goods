@@ -24,19 +24,19 @@ class App extends React.Component {
 
   reverseList = () => {
     this.setState(state => ({
-      arrayList: [...state.goods].reverse(),
+      arrayList: [...state.arrayList].reverse(),
     }));
   };
 
   sortList = () => {
     this.setState(state => ({
-      arrayList: [...state.goods].sort(),
+      arrayList: [...state.arrayList].sort(),
     }));
   };
 
   sortByLengthList = () => {
     this.setState(state => ({
-      arrayList: [...state.goods].sort((a, b) => a.length - b.length),
+      arrayList: [...state.arrayList].sort((a, b) => a.length - b.length),
     }));
   };
 
