@@ -38,14 +38,12 @@ export class App extends React.Component {
   sortByLength = () => {
     this.setState({
       sortBy: 'length',
-      doReset: false,
       shouldReverse: false,
     });
   }
 
   reset = () => {
     this.setState({
-      doReset: false,
       shouldReverse: false,
       sortBy: '',
     });
