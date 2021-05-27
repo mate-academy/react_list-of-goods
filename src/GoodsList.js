@@ -3,33 +3,43 @@ import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    goods: [...this.props.goods],
+    sortBy: '',
+    reverse: false,
   }
 
   sortByLength = () => {
-    this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.length - b.length),
-    }));
+    this.setState({ sortBy: 'byLength' });
   }
 
   SortByAlphabet = () => {
-    this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.localeCompare(b)),
-    }));
+    this.setState({ sortBy: 'byAlphabet' });
   }
 
   reverseElements = () => {
-    this.setState({ goods: [...this.props.goods] });
+    this.setState({ reverse: true });
   }
 
   resetElements = () => {
-    this.setState(state => ({
-      goods: this.props.goods,
-    }));
+    this.setState({
+      sortBy: '', reverse: false,
+    });
   }
 
   render() {
-    const { goods } = this.state;
+    const goods = [...this.props.goods];
+    const { sortBy, reverse } = this.state;
+
+    if (sortBy === 'byLength') {
+      goods.sort((a, b) => a.length - b.length);
+    }
+
+    if (sortBy === 'byAlphabet') {
+      goods.sort((a, b) => a.localeCompare(b));
+    }
+
+    if (reverse) {
+      goods.reverse();
+    }
 
     return (
       <div>
