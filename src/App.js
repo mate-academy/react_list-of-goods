@@ -17,7 +17,6 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: goodsFromServer,
     listVisebility: false,
   }
 
@@ -30,55 +29,15 @@ class App extends React.Component {
     startButton.target.style.visibility = 'hidden';
   }
 
-  reverseGoods = () => {
-    this.setState(state => ({
-      goods: [...state.goods].reverse(),
-    }));
-  }
-
-  sortGoods = () => {
-    this.setState(state => ({
-      goods: [...state.goods]
-        .sort((firstGood, secondGood) => firstGood.localeCompare(secondGood)),
-    }));
-  }
-
-  resetGoods = () => {
-    this.setState({
-      goods: goodsFromServer,
-    });
-  }
-
-  sortByLengthGoods = () => {
-    this.setState(state => ({
-      goods: [...state.goods]
-        .sort((firstGood, secondGood) => firstGood.length - secondGood.length),
-    }));
-  }
-
   render() {
-    const { listVisebility, goods } = this.state;
+    const { listVisebility } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
         <button type="button" onClick={this.showGoods}>Start</button>
         {listVisebility && (
-          <>
-            <button type="button" onClick={this.reverseGoods}>
-              Reverse
-            </button>
-            <button type="button" onClick={this.sortGoods}>
-              Sort
-            </button>
-            <button type="button" onClick={this.resetGoods}>
-              Reset
-            </button>
-            <button type="button" onClick={this.sortByLengthGoods}>
-              Sort by length
-            </button>
-            <GoodsList goods={goods} />
-          </>
+          <GoodsList goodsList={goodsFromServer} />
         )}
       </div>
     );
