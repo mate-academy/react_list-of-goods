@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 class Goods extends React.Component {
     state = {
+      isReversed: false,
       sortMethod: '',
     };
 
@@ -24,7 +25,7 @@ class Goods extends React.Component {
 
     render() {
       const { goods } = this.props;
-      const { sortMethod } = this.state;
+      const { sortMethod, isReversed } = this.state;
       const visiableGoods = [...goods];
 
       switch (sortMethod) {
@@ -34,12 +35,13 @@ class Goods extends React.Component {
         case('sortByLength'):
         visiableGoods.sort((a, b) => a.length - b.length);
         break;
-        case('reverse'):
-        visiableGoods.reverse();
-        break;
         default:
           break;
       }
+
+      if(isReversed) {
+        visiableGoods.reverse();
+      }  
 
       return (
         <div>
@@ -49,7 +51,7 @@ class Goods extends React.Component {
           <button
             type="button"
             name="reverse"
-            onClick={event => this.sortFunction(event)}
+            onClick={() => this.setState({isReversed: !isReversed})}
           >
             Reverse
           </button>
