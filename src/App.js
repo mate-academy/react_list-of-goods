@@ -17,17 +17,17 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    buttonVisibile: false,
+    isButtonVisibile: false,
   };
 
   start = () => {
     this.setState(state => ({
-      buttonVisibile: !state.buttonVisibile,
+      isButtonVisibile: !state.isButtonVisibile,
     }));
   }
 
   render() {
-    const { buttonVisibile } = this.state;
+    const { isButtonVisibile } = this.state;
 
     return (
       <div className="App">
@@ -37,10 +37,10 @@ class App extends React.Component {
           className="btn"
           onClick={this.start}
         >
-          {buttonVisibile ? 'Close' : 'Start'}
+          Start
         </button>
 
-        {buttonVisibile && (<GoodsList goods={goodsFromServer} />)}
+        {isButtonVisibile && (<GoodsList goods={goodsFromServer} />)}
       </div>
     );
   }

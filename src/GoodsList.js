@@ -19,9 +19,7 @@ export class GoodsList extends React.Component {
   }
 
   reverseElements = () => {
-    this.setState(state => ({
-      goods: state.goods.reverse(),
-    }));
+    this.setState({ goods: [...this.props.goods] });
   }
 
   resetElements = () => {
