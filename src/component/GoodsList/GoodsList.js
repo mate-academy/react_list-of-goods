@@ -7,18 +7,14 @@ export class GoodsList extends Component {
   };
 
   reverseList = () => {
-    const prevState = this.state.goods;
-
-    this.setState(() => ({
-      goods: prevState.reverse(),
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
     }));
   };
 
   sortList = () => {
-    const prevState = this.state.goods;
-
-    this.setState(() => ({
-      goods: prevState.sort((a, b) => a.localeCompare(b)),
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
@@ -29,10 +25,8 @@ export class GoodsList extends Component {
   };
 
   sortLength = () => {
-    const prevState = this.state.goods;
-
-    this.setState(() => ({
-      goods: prevState.sort((a, b) => a.length - b.length),
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
     }));
   };
 
