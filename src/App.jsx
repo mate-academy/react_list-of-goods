@@ -31,7 +31,6 @@ export class App extends React.Component {
   sortByAlphabet = () => {
     this.setState({
       sortBy: 'alphabet',
-      doReset: false,
       shouldReverse: false,
     });
   }
