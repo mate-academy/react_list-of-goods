@@ -1,64 +1,68 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class GoodsList extends React.Component {
+export class GoodsList extends React.Component {
   state = {
-    goodsList: [...this.props.goodsList],
-  }
+    goods: [...this.props.goods],
+  };
 
   reverse = () => {
     this.setState(state => ({
-      goodsList: state.goodsList.reverse(),
+      goods: [...state.goods].reverse(),
     }));
   }
 
-  alphaSort = () => {
+  sortAlphabetically = () => {
     this.setState(state => ({
-      goodsList: state.goodsList.sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
+    }));
+  }
+
+  sortByLength = () => {
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
     }));
   }
 
   reset = () => {
-    this.setState({ goodsList: [...this.props.goodsList] });
-  }
-
-  lengthSort = () => {
     this.setState(state => ({
-      goodsList: state.goodsList.sort((a, b) => a.length - b.length),
+      goods: [...this.props.goods],
     }));
   }
 
   render() {
+    const { goods } = this.state;
+
     return (
       <>
+        <h1>
+          Goods:
+        </h1>
         <ul>
-          {this.state.goodsList.map(good => (
+          {goods.map(good => (
             <li key={good}>
               {good}
             </li>
           ))}
         </ul>
-
         <button
           type="button"
           onClick={this.reverse}
         >
           Reverse
         </button>
-
         <button
           type="button"
-          onClick={this.alphaSort}
+          onClick={this.sortAlphabetically}
         >
           Sort alphabetically
         </button>
-
         <button
           type="button"
-          onClick={this.lengthSort}
+          onClick={this.sortByLength}
         >
           Sort by length
         </button>
-
         <button
           type="button"
           onClick={this.reset}
@@ -70,4 +74,8 @@ class GoodsList extends React.Component {
   }
 }
 
-export default GoodsList;
+GoodsList.propTypes = {
+  goods: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
+};

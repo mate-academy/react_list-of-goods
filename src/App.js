@@ -1,5 +1,5 @@
 import React from 'react';
-import GoodsList from './GoodsList';
+import { GoodsList } from './components/GoodsList/GoodsList';
 import './App.css';
 
 const goodsFromServer = [
@@ -17,27 +17,29 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    value: false,
+    isListShown: false,
+  };
+
+  showList= () => {
+    this.setState(state => ({
+      isListShown: !state.isListShown,
+    }));
   }
 
   render() {
+    const { isListShown } = this.state;
+
     return (
       <div className="App">
-        <h1>Goods</h1>
-        {this.state.value
-          ? <GoodsList goodsList={goodsFromServer} />
-          : (
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({
-                  value: true,
-                });
-              }}
-            >
-              Start
-            </button>
-          )
+        {!isListShown && (
+          <button
+            type="button"
+            onClick={this.showList}
+          >
+            Start
+          </button>
+        )}
+        {isListShown && (<GoodsList goods={goodsFromServer} />)
         }
       </div>
     );
