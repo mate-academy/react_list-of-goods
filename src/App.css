@@ -1,0 +1,27 @@
+body {
+  margin: 50px;
+  font-size: 18px;
+}
+
+.button {
+  margin-top: 15px;
+  margin-right: 5px;
+  padding: 0 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+ul,
+li {
+  text-transform: uppercase;
+  list-style-type: none;
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+}
