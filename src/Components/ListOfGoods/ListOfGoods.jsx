@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+const numbers = [...Array(10)].map((n, i) => i + 1);
+
 export class ListOfGoods extends React.Component {
   state = {
     reverse: false,
@@ -8,7 +10,7 @@ export class ListOfGoods extends React.Component {
     selectLength: 1,
   };
 
-  reset() {
+  reset = () => {
     this.setState({
       reverse: false,
       sortBy: '',
@@ -16,21 +18,21 @@ export class ListOfGoods extends React.Component {
     });
   }
 
-  goodsRevers() {
+  goodsRevers = () => {
     this.setState(state => ({
       reverse: !state.reverse,
     }));
   }
 
-  goodsSortByLength() {
+  goodsSortByLength = () => {
     this.setState({ sortBy: 'length' });
   }
 
-  goodsSortByName() {
+  goodsSortByName = () => {
     this.setState({ sortBy: 'name' });
   }
 
-  selectLength(event) {
+  selectLength = (event) => {
     this.setState({ selectLength: event.target.value });
   }
 
@@ -38,9 +40,7 @@ export class ListOfGoods extends React.Component {
     const { goods } = this.props;
     const { selectLength, sortBy, reverse } = this.state;
 
-    const numbers = [...Array(10)].map((n, i) => i + 1);
-
-    const copyGoods = [...goods].filter(good => (
+    const copyGoods = goods.filter(good => (
       good.length >= selectLength
     ));
 
@@ -64,7 +64,7 @@ export class ListOfGoods extends React.Component {
         <button
           type="button"
           className="container__Button-list"
-          onClick={() => this.goodsRevers()}
+          onClick={this.goodsRevers}
         >
           Reverse
         </button>
@@ -72,7 +72,7 @@ export class ListOfGoods extends React.Component {
         <button
           type="button"
           className="container__Button-list"
-          onClick={() => this.goodsSortByName()}
+          onClick={this.goodsSortByName}
         >
           Sort alphabetically
         </button>
@@ -80,7 +80,7 @@ export class ListOfGoods extends React.Component {
         <button
           type="button"
           className="container__Button-list"
-          onClick={() => this.goodsSortByLength()}
+          onClick={this.goodsSortByLength}
         >
           Sort by length
         </button>
@@ -88,7 +88,7 @@ export class ListOfGoods extends React.Component {
         <button
           type="button"
           className="container__Button-list"
-          onClick={() => this.reset()}
+          onClick={this.reset}
         >
           Reset
         </button>
