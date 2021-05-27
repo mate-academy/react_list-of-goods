@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export class GoodsList extends React.Component {
   state = {
-    goods: this.props.goodsList,
+    goods: [...this.props.goodsList],
   }
 
   reverseGoods = () => {
@@ -21,7 +21,7 @@ export class GoodsList extends React.Component {
 
   resetGoods = () => {
     this.setState({
-      goods: this.props.goodsList,
+      goods: [...this.props.goodsList],
     });
   }
 
