@@ -3,24 +3,18 @@ import PropTypes from 'prop-types';
 
 class Goods extends React.Component {
     state = {
-      isReversed: false,
-      sortMethod: null,
-      length: 1,
+      sortMethod: '',
     };
 
     componentDidMount() {
-      this.defaultConditions = this.state;
-    }
-
-    reverse = () => {
-      this.setState(({ isReversed }) => ({ isReversed: !isReversed }));
+      this.defaultConditions = {...this.state};
     }
 
     sortFunction = (event) => {
       const { name } = event.target;
 
       this.setState(({ sortMethod }) => ({
-        sortMethod: sortMethod === name ? null : name,
+        sortMethod: sortMethod === name ? '' : name,
       }));
     }
 
@@ -30,19 +24,21 @@ class Goods extends React.Component {
 
     render() {
       const { goods } = this.props;
-      const { isReversed, sortMethod, length } = this.state;
-      const visiableGoods = goods.filter(good => good.length >= length);
+      const { sortMethod } = this.state;
+      const visiableGoods = [...goods];
 
-      if (sortMethod === 'sortByAlphabet') {
+      switch (sortMethod) {
+        case('sortByAlphabet'):
         visiableGoods.sort((a, b) => a.localeCompare(b));
-      }
-
-      if (sortMethod === 'sortByLength') {
+        break;
+        case('sortByLength'):
         visiableGoods.sort((a, b) => a.length - b.length);
-      }
-
-      if (isReversed) {
+        break;
+        case('reverse'):
         visiableGoods.reverse();
+        break;
+        default:
+          break;
       }
 
       return (
@@ -53,7 +49,7 @@ class Goods extends React.Component {
           <button
             type="button"
             name="reverse"
-            onClick={this.reverse}
+            onClick={event => this.sortFunction(event)}
           >
             Reverse
           </button>
