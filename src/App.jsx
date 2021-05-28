@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import './App.css';
-import { Goods } from './components/Goods';
+import { Goods } from './components';
 
 const goodsFromServer = [
   'Dumplings',
@@ -15,75 +17,109 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const defaultLengthlimit = 1;
+
+function Start({ runAplication }) {
+  return (
+    <button
+      type="button"
+      className="start-button"
+      onClick={runAplication}
+    >
+      Start
+    </button>
+  );
+}
+
+function Stop({ runAplication }) {
+  return (
+    <button
+      type="button"
+      className="start-button start-button--off"
+      onClick={runAplication}
+    >
+      Stop
+    </button>
+  );
+}
+
 class App extends React.Component {
   state = {
-    goodsList: goodsFromServer,
     status: false,
-    sortBy: 'alphabetically',
-    lengthLimit: 1,
-    toReverse: false,
+    goodsList: goodsFromServer,
+    isReversed: false,
+    sortBy: '',
+    lengthLimit: defaultLengthlimit,
+  };
 
+  componentDidMount() {
+    this.setState(state => ({
+      goodsForDisplay: [...state.goodsList],
+    }));
   }
 
-  defaultState = () => {
-    this.setState({
-      goodsList: goodsFromServer,
-      sortBy: 'alphabetically',
-      lengthLimit: 1,
-      toReverse: false,
-    });
+  setClassName(sortName) {
+    const { sortBy, status } = this.state;
+
+    return sortBy === sortName && status;
   }
 
-  runAplication = (event) => {
-    const button = event.target;
+  resetApp = () => {
+    this.setState(state => ({
+      isReversed: false,
+      sortBy: '',
+      goodsForDisplay: [...state.goodsList],
+      lengthLimit: defaultLengthlimit,
+    }));
+  }
 
+  runAplication = () => {
     this.setState(state => ({
       status: !state.status,
-      lengthLimit: 1,
     }));
+    this.resetApp();
+  };
 
-    if (!this.state.status) {
-      this.defaultState();
-    }
+  filterGoods = (event) => {
+    const maxLength = +event.target.value;
 
-    button.classList.toggle('start-button--off');
-    button.innerText = this.state.status
-      ? 'Start'
-      : 'Stop';
-  }
-
-  setLengthLimit = (event) => {
-    this.setState(({
-      lengthLimit: +event.target.value,
-    }));
-  }
-
-  setReverseStatus = () => {
     this.setState(state => ({
-      toReverse: !state.toReverse,
+      lengthLimit: maxLength,
+      goodsForDisplay: state.goodsList.filter(good => good.length >= maxLength),
     }));
-  }
+  };
 
-  sortBy = (event) => {
-    this.setState({
-      sortBy: event.target.value,
-      toReverse: false,
-    });
-  }
+  sortGoods = (event) => {
+    const sortBy = event.target.name;
+
+    this.setState(state => ({
+      isReversed: false,
+      sortBy,
+      goodsForDisplay: state.goodsForDisplay.sort((a, b) => (
+        sortBy === 'bylength' ? a.length - b.length : a.localeCompare(b)
+      )),
+    }));
+  };
+
+  reverseGoodsList = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+      goodsForDisplay: state.goodsForDisplay.reverse(),
+    }));
+  };
 
   render() {
-    const { status, goodsList, sortBy, toReverse, lengthLimit } = this.state;
-    const goodsForDisplay = goodsList.filter(good => (
-      good.length >= lengthLimit
-    ));
+    const {
+      status,
+      lengthLimit,
+      goodsForDisplay,
+      isReversed,
+      sortBy,
+    } = this.state;
 
-    goodsForDisplay.sort((a, b) => (sortBy === 'byLength'
-      ? a.length - b.length
-      : a.localeCompare(b)));
-
-    if (toReverse) {
-      goodsForDisplay.reverse();
-    }
+    const button = status
+      ? <Stop runAplication={this.runAplication} />
+      : <Start runAplication={this.runAplication} />;
 
     return (
       <div className="App">
@@ -93,24 +129,35 @@ class App extends React.Component {
         </header>
         <main className="main">
           <div className="block-controllers">
+
             <div className="button-wrapper">
               <button
                 type="button"
-                className="button button--enabled"
-                value="alphabetically"
-                disabled={!status}
-                onClick={this.sortBy}
+                className={
+                  classnames(
+                    'button',
+                    { 'button--chosen': this.setClassName('alphabetially') },
+                  )
+                }
+                disabled={!status || sortBy === 'alphabetially'}
+                name="alphabetially"
+                onClick={this.sortGoods}
               >
                 Alphabetially
               </button>
             </div>
+
             <div className="button-wrapper">
               <button
                 type="button"
-                className="button"
-                value="byLength"
-                disabled={!status}
-                onClick={this.sortBy}
+                className={classnames(
+                  'button',
+                  { 'button--chosen': this.setClassName('bylength') },
+                )
+                }
+                disabled={!status || sortBy === 'bylength'}
+                name="bylength"
+                onClick={this.sortGoods}
               >
                 By length
               </button>
@@ -118,9 +165,12 @@ class App extends React.Component {
             <div className="button-wrapper">
               <button
                 type="button"
-                className="button"
+                className={
+                  classnames('button',
+                    { 'button--chosen': (isReversed && status) })
+                }
                 disabled={!status}
-                onClick={this.setReverseStatus}
+                onClick={this.reverseGoodsList}
               >
                 Reverse
               </button>
@@ -131,38 +181,21 @@ class App extends React.Component {
                 type="button"
                 className="button"
                 disabled={!status}
-                onClick={this.defaultState}
+                onClick={this.resetApp}
               >
-                Recet
+                Reset
               </button>
-
             </div>
-
             <div className="button-wrapper">
-
               <input
                 type="range"
                 min="1"
                 max="10"
                 disabled={!status}
-                value={this.state.lengthLimit}
-                onChange={this.setLengthLimit}
+                value={lengthLimit}
+                onChange={this.filterGoods}
               />
-              <label className="range-label">{this.state.lengthLimit}</label>
-
-              <datalist id="tickmarks">
-                <option value="1" />
-                <option value="2" />
-                <option value="3" />
-                <option value="4" />
-                <option value="5" />
-                <option value="6" />
-                <option value="7" />
-                <option value="8" />
-                <option value="9" />
-                <option value="10" />
-              </datalist>
-
+              <label className="range-label">{lengthLimit}</label>
             </div>
 
           </div>
@@ -179,13 +212,9 @@ class App extends React.Component {
                   )
               }
             </div>
-            <button
-              type="button"
-              className="start-button"
-              onClick={this.runAplication}
-            >
-              Start
-            </button>
+
+            {button}
+
           </div>
         </main>
       </div>
@@ -194,3 +223,11 @@ class App extends React.Component {
 }
 
 export default App;
+
+Start.propTypes = {
+  runAplication: PropTypes.func.isRequired,
+};
+
+Stop.propTypes = {
+  runAplication: PropTypes.func.isRequired,
+};
