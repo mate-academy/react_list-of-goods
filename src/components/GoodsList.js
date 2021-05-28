@@ -6,6 +6,7 @@ class GoodsList extends React.Component {
     isReversed: false,
     sortedBy: '',
     length: 1,
+    arrayLength: [...Array(11).keys()],
   }
 
   lengthFilter = (event) => {
@@ -33,8 +34,8 @@ class GoodsList extends React.Component {
   }
 
   render() {
-    const { isReversed, sortedBy, length } = this.state;
-    const copy = [...this.props.goods].filter(
+    const { isReversed, sortedBy, length, arrayLength } = this.state;
+    const copy = this.props.goods.filter(
       element => element.length >= this.state.length,
     );
 
@@ -90,7 +91,7 @@ class GoodsList extends React.Component {
           onChange={this.lengthFilter}
           value={length}
         >
-          {[...Array(11).keys()].map(element => (
+          {arrayLength.map(element => (
             <option value={element}>
               {element}
             </option>
