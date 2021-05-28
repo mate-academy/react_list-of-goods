@@ -7,13 +7,15 @@
   list-style: none;
 }
 
+$activeBackgroundColor: rgb(255, 191, 191);
+
 .App {
   margin: 60px auto;
   text-align: center;
   border: 1px solid #000;
   border-radius: 5px;
   box-shadow: 8px 15px 20px #000;
-  background: linear-gradient(#f9ffe8, #cdae49);
+  background: linear-gradient(rgb(249, 255, 232), rgb(205, 174, 73));
   max-width: 600px;
   height: 540px;
   padding: 20px;
@@ -40,34 +42,34 @@
 }
 
 .button {
-  background-color: #cff99f;
+  background-color: rgb(207, 249, 159);
   border-radius: 3px;
-  border: 1px solid black;
-  box-shadow: inset 2px 2px 7px #242424;
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: inset 2px 2px 7px rgb(36, 36, 36);
   font-size: 20px;
   width: 170px;
   height: 60px;
-}
 
-.button:active {
-  box-shadow: inset 2px 3px 12px #242424;
-  background-color: #ffbfbf;
-  font-size: 16px;
-  font-weight: 700;
-}
+  &:active {
+    box-shadow: inset 2px 3px 12px rgb(36, 36, 36);
+    background-color: $activeBackgroundColor;
+    font-size: 16px;
+    font-weight: 700;
+  }
 
-.button:disabled {
-  background-color: #d5d5d5;
-}
+  &:disabled {
+    background-color: rgb(213, 213, 213);
+  }
 
-.button--chosen {
-  font-size: 18px;
-  font-weight: 700;
-  background-color: #ffbfbf;
-}
+  &--chosen {
+    font-size: 18px;
+    font-weight: 700;
+    background-color: $activeBackgroundColor;
+  }
 
-.button--chosen:disabled {
-  background-color: #ffbfbf;
+  &--chosen:disabled {
+    background-color: $activeBackgroundColor;
+  }
 }
 
 .range-label {
@@ -75,6 +77,10 @@
   align-self: center;
   margin-left: 10px;
 }
+
+
+
+
 
 .dispaly-block {
   display: flex;
@@ -84,7 +90,7 @@
 
 .board {
   display: flex;
-  background-color: whitesmoke;
+  background-color: rgb(245, 245, 245);
   box-shadow: inset 8px 10px 15px #000;
   height: 350px;
   font-size: 20px;
@@ -109,20 +115,18 @@
   width: 100%;
   height: 50px;
   border-radius: 3px;
-  box-shadow: inset 2px 2px 7px #242424;
-  background-color: #cff99f;
-  border: 1px solid #3a3a3a;
+  box-shadow: inset 2px 2px 7px rgb(36, 36, 36);
+  background-color: rgb(207, 249, 159);
+  border: 1px solid rgb(58, 58, 58);
   font-size: 30px;
   transition: 0.1s;
-}
 
-.start-button:active {
-  box-shadow: inset 3px 3px 10px black;
-  font-size: 28px;
-}
+  &:active {
+    box-shadow: inset 3px 3px 10px rgb(0, 0, 0);
+    font-size: 28px;
+  }
 
-.start-button--off {
-  background-color: #ffbfbf;
+  &--off {
+    background-color: $activeBackgroundColor;
+  }
 }
-
-/*# sourceMappingURL=App.css.map */
