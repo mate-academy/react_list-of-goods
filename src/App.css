@@ -19,27 +19,27 @@
   padding: 20px;
 }
 
-.App .title-block {
+.title-block {
   height: 50px;
   border-bottom: 2px solid black;
   margin-bottom: 30px;
 }
 
-.App .main {
+.main {
   display: flex;
 }
 
-.App .main .block-controllers {
+.block-controllers {
   display: flex;
   flex-direction: column;
   width: 300px;
 }
 
-.App .main .block-controllers .button-wrapper {
+.button-wrapper {
   height: 80px;
 }
 
-.App .main .block-controllers .button-wrapper .button {
+.button {
   background-color: #cff99f;
   border-radius: 3px;
   border: 1px solid black;
@@ -49,40 +49,40 @@
   height: 60px;
 }
 
-.App .main .block-controllers .button-wrapper .button:active {
+.button:active {
   box-shadow: inset 2px 3px 12px #242424;
   background-color: #ffbfbf;
   font-size: 16px;
   font-weight: 700;
 }
 
-.App .main .block-controllers .button-wrapper .button:disabled {
+.button:disabled {
   background-color: #d5d5d5;
 }
 
-.App .main .block-controllers .button-wrapper .button--chosen {
+.button--chosen {
   font-size: 18px;
   font-weight: 700;
   background-color: #ffbfbf;
 }
 
-.App .main .block-controllers .button-wrapper .button--chosen:disabled {
+.button--chosen:disabled {
   background-color: #ffbfbf;
 }
 
-.App .main .block-controllers .range-label {
+.range-label {
   font-size: 20px;
   align-self: center;
   margin-left: 10px;
 }
 
-.App .main .dispaly-block {
+.dispaly-block {
   display: flex;
   width: 100%;
   flex-direction: column;
 }
 
-.App .main .dispaly-block .board {
+.board {
   display: flex;
   background-color: whitesmoke;
   box-shadow: inset 8px 10px 15px #000;
@@ -91,13 +91,13 @@
   margin-bottom: 15px;
 }
 
-.App .main .dispaly-block .board .pressStart {
+.pressStart {
   text-shadow: 4px 5px 2px rgba(162, 162, 162, 0.8);
   margin: auto;
   font-size: 30px;
 }
 
-.App .main .dispaly-block .board .goods-list {
+.goods-list {
   text-shadow: 3px 3px 2px rgba(172, 170, 170, 0.8);
   margin: auto;
   display: flex;
@@ -105,7 +105,7 @@
   gap: 5px;
 }
 
-.App .main .dispaly-block .start-button {
+.start-button {
   width: 100%;
   height: 50px;
   border-radius: 3px;
@@ -116,11 +116,13 @@
   transition: 0.1s;
 }
 
-.App .main .dispaly-block .start-button:active {
+.start-button:active {
   box-shadow: inset 3px 3px 10px black;
   font-size: 28px;
 }
 
-.App .main .dispaly-block .start-button--off {
+.start-button--off {
   background-color: #ffbfbf;
 }
+
+/*# sourceMappingURL=App.css.map */

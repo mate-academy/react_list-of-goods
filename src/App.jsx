@@ -20,24 +20,24 @@ const goodsFromServer = [
 
 const defaultLengthlimit = 1;
 
-function Start({ runAplication }) {
+function StartApp({ toggleApplication }) {
   return (
     <button
       type="button"
       className="start-button"
-      onClick={runAplication}
+      onClick={toggleApplication}
     >
       Start
     </button>
   );
 }
 
-function Stop({ runAplication }) {
+function StopApp({ toggleApplication }) {
   return (
     <button
       type="button"
       className="start-button start-button--off"
-      onClick={runAplication}
+      onClick={toggleApplication}
     >
       Stop
     </button>
@@ -47,17 +47,11 @@ function Stop({ runAplication }) {
 class App extends React.Component {
   state = {
     status: false,
-    goodsList: goodsFromServer,
+    goodsForDisplay: [...goodsFromServer],
     isReversed: false,
     sortBy: '',
     lengthLimit: defaultLengthlimit,
   };
-
-  componentDidMount() {
-    this.setState(state => ({
-      goodsForDisplay: [...state.goodsList],
-    }));
-  }
 
   setClassName(sortName) {
     const { sortBy, status } = this.state;
@@ -66,15 +60,15 @@ class App extends React.Component {
   }
 
   resetApp = () => {
-    this.setState(state => ({
+    this.setState({
       isReversed: false,
       sortBy: '',
-      goodsForDisplay: [...state.goodsList],
+      goodsForDisplay: [...goodsFromServer],
       lengthLimit: defaultLengthlimit,
-    }));
+    });
   }
 
-  runAplication = () => {
+  toggleApplication = () => {
     this.setState(state => ({
       status: !state.status,
     }));
@@ -84,10 +78,7 @@ class App extends React.Component {
   filterGoods = (event) => {
     const maxLength = +event.target.value;
 
-    this.setState(state => ({
-      lengthLimit: maxLength,
-      goodsForDisplay: state.goodsList.filter(good => good.length >= maxLength),
-    }));
+    this.setState({ lengthLimit: maxLength });
   };
 
   sortGoods = (event) => {
@@ -113,14 +104,16 @@ class App extends React.Component {
     const {
       status,
       lengthLimit,
-      goodsForDisplay,
+      // goodsForDisplay,
       isReversed,
       sortBy,
     } = this.state;
 
+    const goodsForDisplay1 = this.state.goodsForDisplay.filter(good => good.length >= lengthLimit);
+
     const button = status
-      ? <Stop runAplication={this.runAplication} />
-      : <Start runAplication={this.runAplication} />;
+      ? <StopApp toggleApplication={this.toggleApplication} />
+      : <StartApp toggleApplication={this.toggleApplication} />;
 
     return (
       <div className="App">
@@ -134,17 +127,15 @@ class App extends React.Component {
             <div className="button-wrapper">
               <button
                 type="button"
-                className={
-                  classnames(
-                    'button',
-                    { 'button--chosen': this.setClassName('alphabetially') },
-                  )
-                }
-                disabled={!status || sortBy === 'alphabetially'}
-                name="alphabetially"
+                className={classnames(
+                  'button',
+                  { 'button--chosen': this.setClassName('alphabetically') },
+                )}
+                disabled={!status || sortBy === 'alphabetically'}
+                name="alphabetically"
                 onClick={this.sortGoods}
               >
-                Alphabetially
+                Alphabetically
               </button>
             </div>
 
@@ -154,8 +145,7 @@ class App extends React.Component {
                 className={classnames(
                   'button',
                   { 'button--chosen': this.setClassName('bylength') },
-                )
-                }
+                )}
                 disabled={!status || sortBy === 'bylength'}
                 name="bylength"
                 onClick={this.sortGoods}
@@ -166,10 +156,10 @@ class App extends React.Component {
             <div className="button-wrapper">
               <button
                 type="button"
-                className={
-                  classnames('button',
-                    { 'button--chosen': (isReversed && status) })
-                }
+                className={classnames(
+                  'button',
+                  { 'button--chosen': (isReversed && status) },
+                )}
                 disabled={!status}
                 onClick={this.reverseGoodsList}
               >
@@ -208,14 +198,12 @@ class App extends React.Component {
                   ? <h2 className="pressStart">Press START</h2>
                   : (
                     <Goods
-                      goods={goodsForDisplay}
+                      goods={goodsForDisplay1}
                     />
                   )
               }
             </div>
-
             {button}
-
           </div>
         </main>
       </div>
@@ -225,10 +213,10 @@ class App extends React.Component {
 
 export default App;
 
-Start.propTypes = {
-  runAplication: PropTypes.func.isRequired,
+StartApp.propTypes = {
+  toggleApplication: PropTypes.func.isRequired,
 };
 
-Stop.propTypes = {
-  runAplication: PropTypes.func.isRequired,
+StopApp.propTypes = {
+  toggleApplication: PropTypes.func.isRequired,
 };

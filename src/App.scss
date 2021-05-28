@@ -19,111 +19,114 @@ $activeBackgroundColor: rgb(255, 191, 191);
   max-width: 600px;
   height: 540px;
   padding: 20px;
+}
 
-  .title-block {
-    height: 50px;
-    border-bottom: 2px solid black;
-    margin-bottom: 30px;
+.title-block {
+  height: 50px;
+  border-bottom: 2px solid black;
+  margin-bottom: 30px;
+}
+
+.main {
+  display: flex;
+}
+
+.block-controllers {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.button-wrapper {
+  height: 80px;
+}
+
+.button {
+  background-color: rgb(207, 249, 159);
+  border-radius: 3px;
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: inset 2px 2px 7px rgb(36, 36, 36);
+  font-size: 20px;
+  width: 170px;
+  height: 60px;
+
+  &:active {
+    box-shadow: inset 2px 3px 12px rgb(36, 36, 36);
+    background-color: $activeBackgroundColor;
+    font-size: 16px;
+    font-weight: 700;
   }
 
-  .main {
-    display: flex;
+  &:disabled {
+    background-color: rgb(213, 213, 213);
+  }
 
-    .block-controllers {
-      display: flex;
-      flex-direction: column;
-      width: 300px;
+  &--chosen {
+    font-size: 18px;
+    font-weight: 700;
+    background-color: $activeBackgroundColor;
+  }
 
-      .button-wrapper {
-        height: 80px;
+  &--chosen:disabled {
+    background-color: $activeBackgroundColor;
+  }
+}
 
-        .button {
-          background-color: rgb(207, 249, 159);
+.range-label {
+  font-size: 20px;
+  align-self: center;
+  margin-left: 10px;
+}
 
-          border-radius: 3px;
-          border: 1px solid rgb(0, 0, 0);
-          box-shadow: inset 2px 2px 7px rgb(36, 36, 36);
-          font-size: 20px;
-          width: 170px;
-          height: 60px;
 
-          &:active {
-            box-shadow: inset 2px 3px 12px rgb(36, 36, 36);
-            background-color: $activeBackgroundColor;
-            font-size: 16px;
-            font-weight: 700;
-          }
 
-          &:disabled {
-            background-color: rgb(213, 213, 213);
-          }
 
-          &--chosen {
-            font-size: 18px;
-            font-weight: 700;
-            background-color: $activeBackgroundColor;
-          }
 
-          &--chosen:disabled {
-            background-color: $activeBackgroundColor;
-          }
-        }
-      }
+.dispaly-block {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
 
-      .range-label {
-        font-size: 20px;
-        align-self: center;
-        margin-left: 10px;
-      }
-    }
+.board {
+  display: flex;
+  background-color: rgb(245, 245, 245);
+  box-shadow: inset 8px 10px 15px #000;
+  height: 350px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
 
-    .dispaly-block {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
+.pressStart {
+  text-shadow: 4px 5px 2px rgba(162, 162, 162, 0.8);
+  margin: auto;
+  font-size: 30px;
+}
 
-      .board {
-        display: flex;
-        background-color: rgb(245, 245, 245);
-        box-shadow: inset 8px 10px 15px #000;
-        height: 350px;
-        font-size: 20px;
-        margin-bottom: 15px;
+.goods-list {
+  text-shadow: 3px 3px 2px rgba(172, 170, 170, 0.8);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
-        .pressStart {
-          text-shadow: 4px 5px 2px rgba(162, 162, 162, 0.8);
-          margin: auto;
-          font-size: 30px;
-        }
+.start-button {
+  width: 100%;
+  height: 50px;
+  border-radius: 3px;
+  box-shadow: inset 2px 2px 7px rgb(36, 36, 36);
+  background-color: rgb(207, 249, 159);
+  border: 1px solid rgb(58, 58, 58);
+  font-size: 30px;
+  transition: 0.1s;
 
-        .goods-list {
-          text-shadow: 3px 3px 2px rgba(172, 170, 170, 0.8);
-          margin: auto;
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-        }
-      }
+  &:active {
+    box-shadow: inset 3px 3px 10px rgb(0, 0, 0);
+    font-size: 28px;
+  }
 
-      .start-button {
-        width: 100%;
-        height: 50px;
-        border-radius: 3px;
-        box-shadow: inset 2px 2px 7px rgb(36, 36, 36);
-        background-color: rgb(207, 249, 159);
-        border: 1px solid rgb(58, 58, 58);
-        font-size: 30px;
-        transition: 0.1s;
-
-        &:active {
-          box-shadow: inset 3px 3px 10px rgb(0, 0, 0);
-          font-size: 28px;
-        }
-
-        &--off {
-          background-color: $activeBackgroundColor;
-        }
-      }
-    }
+  &--off {
+    background-color: $activeBackgroundColor;
   }
 }
