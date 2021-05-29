@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 
 export class ListGoods extends React.Component {
   state = {
-    renderForm: false,
     isReversed: false,
     sortBy: '',
-    goods: this.props.goods,
   };
 
   reverse = () => {
@@ -30,8 +28,8 @@ export class ListGoods extends React.Component {
   };
 
   render() {
-    const { goods, isReversed, sortBy, renderForm } = this.state;
-    const sortedGoods = [...goods];
+    const { isReversed, sortBy } = this.state;
+    const sortedGoods = [...this.props.goods];
 
     sortedGoods.sort((g1, g2) => {
       switch (sortBy) {
@@ -50,60 +48,46 @@ export class ListGoods extends React.Component {
     }
 
     return (
-      <div className="App">
-        {!renderForm ? (
-          <button
-            type="button"
-            onClick={() => {
-              this.setState({ renderForm: true });
-            }}
-          >
-            Start
-          </button>
-        ) : (
-          <>
-            <ul>
-              {sortedGoods.map(good => (
-                <li>
-                  {good}
-                </li>
-              ))}
-            </ul>
+      <div>
+        <button
+          className="btn"
+          type="button"
+          onClick={this.reverse}
+        >
+          reverse
+        </button>
 
-            <button
-              className="btn"
-              type="button"
-              onClick={this.reverse}
-            >
-              reverse
-            </button>
+        <button
+          className="btn"
+          type="button"
+          onClick={this.sortByName}
+        >
+          sort
+        </button>
 
-            <button
-              className="btn"
-              type="button"
-              onClick={this.sortByName}
-            >
-              sort
-            </button>
+        <button
+          className="btn"
+          type="button"
+          onClick={this.sortByLength}
+        >
+          sort for length
+        </button>
 
-            <button
-              className="btn"
-              type="button"
-              onClick={this.sortByLength}
-            >
-              sort for length
-            </button>
+        <button
+          className="btn"
+          type="button"
+          onClick={this.reset}
+        >
+          reset
+        </button>
 
-            <button
-              className="btn"
-              type="button"
-              onClick={this.reset}
-            >
-              reset
-            </button>
-          </>
-        )
-      }
+        <ul>
+          {sortedGoods.map(good => (
+            <li key={good}>
+              {good}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
