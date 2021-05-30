@@ -17,9 +17,7 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
-    visibleGoods: [...goodsFromServer],
     started: false,
-    productNameLength: [...Array(10).keys()].map(i => i + 1),
     minProductNameLength: '1',
   }
 
@@ -31,13 +29,13 @@ class App extends React.Component {
 
   reverseHandler = () => {
     this.setState(state => ({
-      visibleGoods: state.visibleGoods.reverse(),
+      goods: [...state.goods].reverse(),
     }));
   }
 
   alphabeticSortHandler = () => {
     this.setState(state => ({
-      visibleGoods: state.visibleGoods.sort((prod1, prod2) => (
+      goods: [...state.goods].sort((prod1, prod2) => (
         prod1.localeCompare(prod2)
       )),
     }));
@@ -45,7 +43,7 @@ class App extends React.Component {
 
   lengthSortHandler = () => {
     this.setState(state => ({
-      visibleGoods: state.visibleGoods.sort((prod1, prod2) => (
+      goods: [...state.goods].sort((prod1, prod2) => (
         prod1.length - prod2.length
       )),
     }));
@@ -53,7 +51,7 @@ class App extends React.Component {
 
   resetHandler = () => {
     this.setState(state => ({
-      visibleGoods: [...state.goods],
+      goods: goodsFromServer,
       minProductNameLength: '1',
     }));
   }
@@ -62,7 +60,7 @@ class App extends React.Component {
     this.setState({ minProductNameLength: target.value });
 
     this.setState(state => ({
-      visibleGoods: [...state.goods].filter(
+      goods: [...goodsFromServer].filter(
         product => product.length >= state.minProductNameLength,
       ),
     }));
@@ -70,18 +68,19 @@ class App extends React.Component {
 
   render() {
     const {
-      visibleGoods,
+      goods,
       started,
-      productNameLength,
       minProductNameLength,
     } = this.state;
+
+    const productNameLength = [...Array(10).keys()].map(i => i + 1);
 
     return (
       <div className="App">
         <h1 className="App__title">Goods</h1>
         { started ? (
           <>
-            <GoodsList preparedGoods={visibleGoods} />
+            <GoodsList preparedGoods={goods} />
 
             <select
               name="productNameLength"
