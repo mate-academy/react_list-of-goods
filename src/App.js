@@ -18,6 +18,8 @@ class App extends React.Component {
   state = {
     goods: goodsFromServer,
     started: false,
+    reversed: false,
+    sortBy: '', // length / alphabet / null
     minProductNameLength: '1',
   }
 
@@ -27,68 +29,85 @@ class App extends React.Component {
     }));
   }
 
-  reverseHandler = () => {
+  changeReverseStatus = () => {
     this.setState(state => ({
-      goods: [...state.goods].reverse(),
+      ...state,
+      reversed: !state.reversed,
     }));
   }
 
-  alphabeticSortHandler = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((prod1, prod2) => (
-        prod1.localeCompare(prod2)
-      )),
-    }));
-  }
-
-  lengthSortHandler = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((prod1, prod2) => (
-        prod1.length - prod2.length
-      )),
-    }));
+  setSortBy = (query) => {
+    this.setState({ sortBy: query });
   }
 
   resetHandler = () => {
-    this.setState(state => ({
-      goods: goodsFromServer,
+    this.setSortBy('');
+    this.setState({
+      reversed: false,
       minProductNameLength: '1',
-    }));
+    });
   }
 
-  lengthFilterHandler = ({ target }) => {
-    this.setState({ minProductNameLength: target.value });
+  lengthFilterHandler = ({ value }) => {
+    this.setState({ minProductNameLength: value });
+  }
 
-    this.setState(state => ({
-      goods: [...goodsFromServer].filter(
-        product => product.length >= state.minProductNameLength,
-      ),
-    }));
+  prepareGoods = () => {
+    const { goods, reversed, sortBy, minProductNameLength } = this.state;
+
+    let preparedGoods = [...goods];
+
+    switch (sortBy) {
+      case 'length':
+        preparedGoods = preparedGoods.sort((prod1, prod2) => (
+          prod1.length - prod2.length
+        ));
+        break;
+
+      case 'alphabetical':
+        preparedGoods = preparedGoods.sort((prod1, prod2) => (
+          prod1.localeCompare(prod2)
+        ));
+        break;
+
+      default:
+        break;
+    }
+
+    preparedGoods = preparedGoods.filter(
+      product => product.length >= minProductNameLength,
+    );
+
+    if (reversed) {
+      preparedGoods = preparedGoods.reverse();
+    }
+
+    return preparedGoods;
   }
 
   render() {
     const {
-      goods,
       started,
       minProductNameLength,
     } = this.state;
 
     const productNameLength = [...Array(10).keys()].map(i => i + 1);
+    const preparedGoods = this.prepareGoods();
 
     return (
       <div className="App">
         <h1 className="App__title">Goods</h1>
         { started ? (
           <>
-            <GoodsList preparedGoods={goods} />
+            <GoodsList preparedGoods={preparedGoods} />
 
             <select
               name="productNameLength"
               id="productNameLength"
               className="App__select"
               value={minProductNameLength}
-              onChange={(event) => {
-                this.lengthFilterHandler(event);
+              onChange={({ target }) => {
+                this.lengthFilterHandler(target);
               }}
             >
               {productNameLength.map(length => (
@@ -104,21 +123,25 @@ class App extends React.Component {
               <button
                 type="button"
                 className="App__btn"
-                onClick={this.reverseHandler}
+                onClick={this.changeReverseStatus}
               >
                 Reverse
               </button>
               <button
                 type="button"
                 className="App__btn"
-                onClick={this.alphabeticSortHandler}
+                onClick={() => {
+                  this.setSortBy('alphabetical');
+                }}
               >
                 Sort alphabetically
               </button>
               <button
                 type="button"
                 className="App__btn"
-                onClick={this.lengthSortHandler}
+                onClick={() => {
+                  this.setSortBy('length');
+                }}
               >
                 Sort by length
               </button>
