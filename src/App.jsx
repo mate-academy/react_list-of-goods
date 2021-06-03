@@ -17,14 +17,14 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [],
+    showGoods: false,
     isReversed: false,
     sortBy: '',
   };
 
   start = () => {
     this.setState({
-      goods: [...goodsFromServer],
+      showGoods: true,
     });
   };
 
@@ -50,8 +50,8 @@ class App extends React.Component {
   };
 
   render() {
-    const { goods, sortBy, isReversed } = this.state;
-    const visibleGoods = [...goods];
+    const { showGoods, sortBy, isReversed } = this.state;
+    const visibleGoods = [...goodsFromServer];
 
     visibleGoods.sort((a, b) => {
       switch (sortBy) {
@@ -73,7 +73,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {goods.length
+        {showGoods
           ? (
             <>
               <button type="button" onClick={this.reverse}>Reverse</button>
