@@ -16,7 +16,7 @@ const goodsFromServer = [
 
 export class App extends React.Component {
  state = {
-   goods: goodsFromServer,
+   goods: '',
    isStarted: false,
    isReversed: false,
    isSorted: false,
@@ -26,26 +26,55 @@ export class App extends React.Component {
 
  startButton = () => {
    this.setState({
-     isStarted: true, buttonStyle: { display: 'none' },
+     goods: [...goodsFromServer], buttonStyle: { display: 'none' },
    });
  }
 
  reverseButton = () => {
-   this.setState(state => ({ isReversed: !state.isReversed }));
+   this.setState(state => ({ goods: state.goods.reverse() }));
  }
 
  sortButton = () => {
-   this.setState(state => ({ isSorted: !state.isSorted }));
+   if (!this.state.isSorted) {
+     this.setState(state => (
+       {
+         isSorted: true,
+         goods: state.goods.sort((g1, g2) => g1.localeCompare(g2)),
+       }));
+   } else {
+     this.setState(state => (
+       {
+         isSorted: false,
+         goods: state.goods.reverse(),
+       }));
+   }
  }
 
  resetButton = () => {
-   this.setState({
-     isSorted: false, isReversed: false, isSortedByLength: false,
-   });
+   this.setState(
+     {
+       isSorted: false,
+       isReversed: false,
+       isSortedByLength: false,
+       goods: [...goodsFromServer],
+     },
+   );
  }
 
  SortByLengthButton = () => {
-   this.setState({ isSortedByLength: true });
+   if (!this.state.isSortedByLength) {
+     this.setState(state => (
+       {
+         isSortedByLength: true,
+         goods: state.goods.sort((g1, g2) => g1.length - g2.length),
+       }));
+   } else {
+     this.setState(state => (
+       {
+         isSortedByLength: false,
+         goods: state.goods.reverse(),
+       }));
+   }
  }
 
  render() {
