@@ -31,7 +31,7 @@ export class App extends React.Component {
  }
 
  reverseButton = () => {
-   this.setState(state => ({ goods: state.goods.reverse() }));
+   this.setState(state => ({ goods: [...state.goods].reverse() }));
  }
 
  sortButton = () => {
@@ -39,13 +39,13 @@ export class App extends React.Component {
      this.setState(state => (
        {
          isSorted: true,
-         goods: state.goods.sort((g1, g2) => g1.localeCompare(g2)),
+         goods: [...state.goods].sort((g1, g2) => g1.localeCompare(g2)),
        }));
    } else {
      this.setState(state => (
        {
          isSorted: false,
-         goods: state.goods.reverse(),
+         goods: [...state.goods].reverse(),
        }));
    }
  }
@@ -66,7 +66,7 @@ export class App extends React.Component {
      this.setState(state => (
        {
          isSortedByLength: true,
-         goods: state.goods.sort((g1, g2) => g1.length - g2.length),
+         goods: [...state.goods].sort((g1, g2) => g1.length - g2.length),
        }));
    } else {
      this.setState(state => (
