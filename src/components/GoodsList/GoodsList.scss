@@ -1,0 +1,14 @@
+.goodsList {
+  // background-color: cornsilk;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.wrapper {
+  // background-color: blue;
+  display: flex;
+  width: 300px;
+  height: 350px;
+}

@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.startImg {
+  width: 400px;
+  margin: auto;
+  border-radius: 7px;
+  border: 1px solid rgb(22, 177, 8);
+}
+
+button {
+  border: 1px solid rgb(22, 177, 8);
+  width: 150px;
+  border-radius: 3px;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgb(218, 218, 218);
+    cursor: pointer;
+  }
+
+  &:active {
+    box-shadow: 0 0 0 0.25rem rgba(22, 177, 8, 0.5);
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 50px 100px;
+  position: relative;
+
+  &::after {
+    content: "";
+    background: url(https://static6.depositphotos.com/1064024/545/i/950/depositphotos_5451400-stock-photo-food-collection.jpg);
+    opacity: 0.4;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+.controlPannel {
+  // background-color: bisque;
+  display: flex;
+  gap: 30px;
+  // border-bottom: 2px solid grey;
+  // padding-bottom: 50px;
+}
+
+.goodsBoard {
+  border-top: 2px solid rgb(22, 177, 8);
+  padding-top: 50px;
+}
+
+.active {
+  background-color: rgba(235, 67, 67, 0.73);
+}
+
+.not-active {
+  background-color: rgba(44, 214, 44, 0.47);
+}
+
+#demo-simple-select-outlined-label {
+  color: rgb(22, 177, 8);
+}
+
+#demo-simple-select-outlined {
+  border-color: green;
+}
