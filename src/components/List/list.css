@@ -1,0 +1,19 @@
+.page {
+  width: 400px;
+  margin: auto;
+}
+
+.page__header {
+  text-align: center;
+}
+
+.page__content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page__buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

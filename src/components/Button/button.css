@@ -1,0 +1,7 @@
+.page__button {
+  height: 30px;
+  margin-bottom: 10px;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
