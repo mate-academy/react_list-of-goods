@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goodItem {
+  list-style: none;
+  border: 1px aquamarine solid;
+  text-align: center;
+  width: 300px;
+  margin: 5px;
+  padding: 10px;
+}
+
+.buttons {
+  margin: 5px;
+  background-color: aliceblue;
+  border: 1px aquamarine solid;
+  text-transform: uppercase;
+  padding: 10px;
+}
