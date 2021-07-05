@@ -1,24 +1,37 @@
 import React from 'react';
 import './App.css';
+import SortingGoods from './components/SortingGoods';
+import { goodsFromServer } from './components/goodsFromServer';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+class App extends React.Component {
+  state = {
+    isVisible: true,
+  };
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+  activeMenu = () => {
+    this.setState({
+      isVisible: false,
+    });
+  }
+
+  render() {
+    const { isVisible } = this.state;
+
+    return (
+      <>
+        {isVisible ? (
+          <button
+            type="button"
+            onClick={this.activeMenu}
+          >
+            Start
+          </button>
+        ) : (
+          <SortingGoods goods={goodsFromServer} />
+        )}
+      </>
+    );
+  }
+}
 
 export default App;
