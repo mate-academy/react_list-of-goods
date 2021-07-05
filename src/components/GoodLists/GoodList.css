@@ -1,0 +1,37 @@
+ul,
+li {
+  list-style: none;
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: "Lucida Sans",
+    "Lucida Sans Regular",
+    "Lucida Grande",
+    "Lucida Sans Unicode",
+    "Geneva",
+    "Verdana",
+    sans-serif;
+}
+
+.start {
+  padding: 15px 70px;
+  border: 1px solid rgba(57, 57, 146, 0.85);
+  color: white;
+  border-radius: 8px;
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.start:hover {
+  border-radius: 10px;
+  transition: all 0.8s ease 0.2s;
+  -webkit-transition: all 0.8s ease 0.2s;
+  -moz-transition: all 0.8s ease 0.2s;
+  -ms-transition: all 0.8s ease 0.2s;
+  -o-transition: all 0.8s ease 0.2s;
+  -webkit-box-shadow: 0 0 40px rgba(73, 115, 255, 0.6);
+  box-shadow: 0 0 40px rgba(73, 115, 255, 0.6);
+}
