@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import GoodsList from './components/GoodsList/Goodslist';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +14,36 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isReady: false,
+  }
+
+  onStart = () => {
+    this.setState({
+      isReady: true,
+    });
+  }
+
+  render() {
+    const { isReady } = this.state;
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        {isReady
+          ? (<GoodsList goodsList={goodsFromServer} />)
+          : (
+            <button
+              type="button"
+              onClick={() => this.onStart(true)}
+            >
+              Start
+            </button>
+          )}
+      </div>
+    );
+  }
+}
 
 export default App;
