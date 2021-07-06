@@ -1,0 +1,7 @@
+.goods__sort-select {
+  font-size: 18px;
+}
+
+.goods__sort-select > select {
+  font-size: inherit;
+}

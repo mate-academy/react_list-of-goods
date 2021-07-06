@@ -1,0 +1,15 @@
+.goods__sort-btn {
+  align-self: flex-start;
+  padding: 5px 20px;
+  font-size: 16px;
+  color: #229;
+  background-color: #fdfdfd;
+  border: 2px solid #229;
+  border-radius: 0;
+}
+
+.goods__sort-btn:last-of-type {
+  align-self: flex-end;
+  color: #922;
+  border-color: #922;
+}
