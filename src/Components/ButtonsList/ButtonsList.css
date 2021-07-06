@@ -1,0 +1,5 @@
+.buttonsList {
+  display: flex;
+  list-style: none;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  width: 500px;
+  margin: 25px auto;
+  text-align: center;
+}
+
+.app__title {
+  margin-bottom: 25px;
+}
