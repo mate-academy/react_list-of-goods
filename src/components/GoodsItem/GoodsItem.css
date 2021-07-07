@@ -1,0 +1,8 @@
+.goods__item {
+  height: 35px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #bfbebe;
+}
