@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import CustomButton from './components/CustomButton/CustomButton';
+import Content from './components/Content/Content';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +16,31 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends Component {
+  state = {
+    isStartBtnVisible: true,
+  }
+
+  showContent = () => {
+    this.setState({
+      isStartBtnVisible: false,
+    });
+  }
+
+  render() {
+    const { isStartBtnVisible } = this.state;
+    const { showContent } = this;
+
+    return (
+      <div className="App">
+        {isStartBtnVisible ? (
+          <CustomButton title="Start" func={showContent} />
+        ) : (
+          <Content listFromServer={goodsFromServer} />
+        )}
+      </div>
+    );
+  }
+}
 
 export default App;
