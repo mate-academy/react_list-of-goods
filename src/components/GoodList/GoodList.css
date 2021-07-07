@@ -1,0 +1,14 @@
+.list-group {
+  margin-bottom: 50px;
+}
+
+.list-group-item {
+  width: 200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
