@@ -1,0 +1,17 @@
+.button {
+  padding: 5px;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+.listContainer {
+  display: none;
+}
+
+.startButton {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
