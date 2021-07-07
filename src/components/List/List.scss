@@ -1,0 +1,9 @@
+.container {
+  &__list {
+    list-style-type: none;
+  }
+
+  &__list-item {
+    font-size: 20px;
+  }
+}

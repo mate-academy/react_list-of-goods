@@ -1,0 +1,24 @@
+.App {
+  &__start-button {
+    width: 200px;
+    height: 50px;
+
+    font-size: 20px;
+    text-transform: uppercase;
+
+    border: transparent;
+    border-radius: 8px;
+
+    color: white;
+    background-color: rgb(17, 192, 17);
+    outline: none;
+
+    cursor: pointer;
+
+    transition: background-color 300ms;
+
+    &:hover {
+      background-color: green;
+    }
+  }
+}
