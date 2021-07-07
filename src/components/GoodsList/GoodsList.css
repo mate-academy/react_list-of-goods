@@ -1,0 +1,13 @@
+.list {
+  list-style: none;
+}
+
+.list__item {
+  margin-bottom: 5px;
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  font-weight: 700;
+  background-color: #9cec91;
+  border-radius: 10px;
+}
