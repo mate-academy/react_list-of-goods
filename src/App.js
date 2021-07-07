@@ -1,24 +1,41 @@
 import React from 'react';
 import './App.css';
+import { goodsFromServer } from './api/goods';
+import GoodsList from './modules/GoodsList';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+class App extends React.Component {
+  state = {
+    hide: true,
+  }
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+  showList = (event) => {
+    this.setState(() => ({
+      hide: false,
+    }));
+  };
+
+  render() {
+    if (this.state.hide === true) {
+      return (
+        <div className="App">
+
+          <button
+            type="button"
+            onClick={this.showList}
+            className="goodsButton"
+          >
+            Start
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="App">
+        <GoodsList goods={goodsFromServer} hide={this.state.hide} />
+      </div>
+    );
+  }
+}
 
 export default App;
