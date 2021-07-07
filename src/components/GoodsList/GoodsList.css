@@ -1,0 +1,15 @@
+.goods {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 600px;
+  margin: 0 auto;
+
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+}
+
+.goods__list {
+  margin-bottom: 20px;
+}
