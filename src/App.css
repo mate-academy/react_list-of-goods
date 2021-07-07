@@ -1,0 +1,27 @@
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.list {
+  margin: 10px;
+  font-size: 30px;
+}
+
+.button {
+  margin: 10px;
+  width: 130px;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: orange;
+}
+
+.button:active {
+  background-color: orangered;
+}
