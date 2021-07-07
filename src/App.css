@@ -1,0 +1,12 @@
+ul {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.start {
+  position: absolute;
+  top: 150px;
+  left: 100px;
+}
