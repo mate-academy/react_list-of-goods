@@ -1,0 +1,40 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__inner {
+    max-width: 600px;
+  }
+
+  &__list {
+    padding: 0;
+  }
+
+  &__filters {
+    max-width: 600px;
+  }
+
+  &__list-item {
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0px 0px 2px black;
+    list-style: none;
+    transition: transform 1s;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__select-styles {
+    margin-top: 10px;
+  }
+}
