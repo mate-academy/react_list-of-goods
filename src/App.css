@@ -1,0 +1,71 @@
+:root {
+  --buttonClearWidth: 170px;
+}
+
+html {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Roboto, sans-serif;
+  color: rgb(58, 58, 58);
+  font-size: 20px;
+  font-weight: normal;
+
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 100vh;
+
+  user-select: none;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.App {
+  border-radius: 5px;
+  text-align: center;
+  background-color: rgb(253, 253, 253);
+  box-shadow: 1px 3px 2px 1px rgb(212, 212, 212);
+}
+
+.button--start {
+  position: absolute;
+  top: calc(50% - var(--buttonClearWidth) / 2);
+  left: calc(50% - var(--buttonClearWidth) / 2);
+
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgb(58, 58, 58);
+
+  background-color: rgb(250, 250, 250);
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 1px 3px 2px 1px rgb(212, 212, 212);
+  transition: transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.button--start:focus {
+  outline: none;
+}
+
+.button--start:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 transparent;
+}

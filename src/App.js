@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+import { SortList } from './components/SortList';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -14,11 +16,31 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isActive: false,
+  };
+
+  render() {
+    const { isActive } = this.state;
+
+    return (
+      <div className="App">
+        {!isActive ? (
+          <button
+            type="button"
+            className="button--start"
+            onClick={() => this.setState({
+              isActive: true,
+            })}
+          >
+            Let&apos;s start!
+          </button>
+        ) : <SortList goods={goodsFromServer} />
+        }
+      </div>
+    );
+  }
+}
 
 export default App;
