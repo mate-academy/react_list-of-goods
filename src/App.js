@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import GoodsList from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +15,25 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+function App() {
+  const [isStarted, setIsStarted] = useState(false);
+
+  return (
+    <div className="App">
+      {
+        isStarted
+          ? <GoodsList goods={goodsFromServer} />
+          : (
+            <button
+              type="button"
+              onClick={() => setIsStarted(true)}
+            >
+              Start
+            </button>
+          )
+      }
+    </div>
+  );
+}
 
 export default App;
