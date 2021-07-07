@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import { Button } from './components/Button';
+import { GoodList } from './components/GoodList';
+import { Select } from './components/Select';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +17,115 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+const preparedGoods = goodsFromServer.map((good, index) => (
+  {
+    name: good,
+    id: index,
+  }
+));
+
+class App extends React.Component {
+  state = {
+    started: false,
+    goods: preparedGoods,
+    selected: 1,
+  };
+
+  handleStart = () => {
+    this.setState(prevState => ({
+      started: !prevState.started,
+    }));
+  }
+
+  reverseGoods = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
+  }
+
+  sortAlphabetically = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((a, b) => (
+        a.name.localeCompare(b.name)
+      )),
+    }));
+  }
+
+  reset = () => {
+    this.setState({
+      goods: preparedGoods,
+      selected: 1,
+    });
+  }
+
+  sortByLength = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((x, y) => (
+        x.name.length - y.name.length
+      )),
+    }));
+  }
+
+  changeMinLength = (event) => {
+    const minLength = +event.target.value;
+
+    this.setState(() => ({
+      goods: preparedGoods.filter(good => good.name.length >= minLength),
+      selected: minLength,
+    }));
+  }
+
+  render() {
+    const { started, goods, selected } = this.state;
+    const buttons = [
+      {
+        id: 1, text: 'Reverse', handler: this.reverseGoods,
+      },
+      {
+        id: 2, text: 'Sort alphabetically', handler: this.sortAlphabetically,
+      },
+      {
+        id: 3, text: 'Reset', handler: this.reset,
+      },
+      {
+        id: 4, text: 'Sort by length', handler: this.sortByLength,
+      },
+    ];
+    const handleChange = (event) => {
+      this.changeMinLength(event);
+    };
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+
+        {started
+          ? (
+            <GoodList goods={goods} />
+          )
+          : (
+            <Button text="Start" onClick={this.handleStart} />
+          )}
+
+        <div className="btn-group">
+          {buttons.map(button => (
+            <Button
+              key={button.id}
+              text={button.text}
+              onClick={button.handler}
+            />
+          ))}
+        </div>
+
+        <Select
+          value={selected}
+          changeHandler={handleChange}
+          className="custom-select"
+          range={10}
+        />
+      </div>
+    );
+  }
+}
 
 export default App;
