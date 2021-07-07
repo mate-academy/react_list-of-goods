@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +15,39 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isClicked: false,
+  }
+
+  mainClick = () => {
+    this.setState({ isClicked: true });
+  }
+
+  render() {
+    const { isClicked } = this.state;
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        {!isClicked && (
+          <button
+            type="button"
+            onClick={this.mainClick}
+            hidden={isClicked}
+          >
+            Start
+          </button>
+        )}
+
+        {isClicked && (
+          <div hidden={!isClicked}>
+            <GoodsList goods={goodsFromServer} />
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
 export default App;
