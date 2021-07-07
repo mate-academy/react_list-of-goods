@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import GoodsList from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +15,35 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isButtonVisible: true,
+  }
+
+  showGoodsFromServer = () => {
+    this.setState({
+      isButtonVisible: false,
+    });
+  }
+
+  render() {
+    const { isButtonVisible } = this.state;
+
+    return (
+      <div>
+        {isButtonVisible
+          ? (
+            <button
+              type="button"
+              onClick={this.showGoodsFromServer}
+            >
+              Start
+            </button>
+          )
+          : <GoodsList goodsList={goodsFromServer} />}
+      </div>
+    );
+  }
+}
 
 export default App;
