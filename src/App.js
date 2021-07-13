@@ -20,29 +20,41 @@ class App extends React.PureComponent {
     goodsList: goodsFromServer,
     visibleGoods: false,
     isReverse: false,
-    isSort: false,
-    sortBy: 'alphabetically',
+    sortBy: '',
   };
 
-  isReverse = () => {
+  getReverseGoods = () => {
     this.setState(state => ({
       isReverse: !state.isReverse,
     }));
   }
 
-  isSort = (sortMethod) => {
-    this.setState(state => ({
-      isSort: !state.isSort,
+  getSortGoods = (sortMethod) => {
+    this.setState({
       sortBy: sortMethod,
-    }));
-  }
+    });
+  };
 
   reset = () => {
-    this.setState(() => ({
+    this.setState({
       isReverse: false,
-      isSort: false,
-    }));
-  }
+      sortBy: '',
+    });
+  };
+
+  showGoods = () => {
+    this.setState({
+      visibleGoods: true,
+    });
+  };
+
+  sortLength = () => {
+    this.getSortGoods('length');
+  };
+
+  sortAlfabetically = () => {
+    this.getSortGoods('alphabetically');
+  };
 
   render() {
     return (
@@ -56,11 +68,7 @@ class App extends React.PureComponent {
           ? (
             <button
               type="button"
-              onClick={() => (
-                this.setState({
-                  visibleGoods: true,
-                })
-              )}
+              onClick={this.showGoods}
             >
               start
             </button>
@@ -68,15 +76,13 @@ class App extends React.PureComponent {
             <>
               <button
                 type="button"
-                onClick={this.isReverse}
+                onClick={this.getReverseGoods}
               >
                 Reverse
               </button>
               <button
                 type="button"
-                onClick={() => (
-                  this.isSort('alphabetically')
-                )}
+                onClick={this.sortAlfabetically}
               >
                 Sort alphabetically
               </button>
@@ -88,9 +94,7 @@ class App extends React.PureComponent {
               </button>
               <button
                 type="button"
-                onClick={() => (
-                  this.isSort('length')
-                )}
+                onClick={this.sortLength}
               >
                 Sort by length
               </button>
