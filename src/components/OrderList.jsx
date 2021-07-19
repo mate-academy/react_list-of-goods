@@ -1,82 +1,78 @@
 import React from 'react';
-import Button from './Button';
 import PropTypes from 'prop-types';
+import Button from './Button';
+import { Select } from './Select';
 
-export const OrderList = ({
-  reverse,
-  sortByLength,
-  sortByName,
-  isReverse,
-  reset,
-  allGoods,
-  sortBy,
-  value,
-  filterByLength,
-}) => {
-  const copyGoods = [...allGoods].filter(good => good.length >= value);
-
-  copyGoods.sort((prev,next) => {
-    switch(sortBy) {
-
-      case 'name': 
-      return prev.localeCompare(next);
+export class OrderList extends React.Component {
+  goodsFilter = (copyGoods, sortBy) => copyGoods.sort((prev, next) => {
+    switch (sortBy) {
+      case 'name':
+        return prev.localeCompare(next);
 
       case 'length':
-      return prev.length - next.length;
+        return prev.length - next.length;
 
       default:
-      return null;
+        return 0;
     }
   })
 
-  if (isReverse) {
-    copyGoods.reverse();
+  render() {
+    const {
+      reverse,
+      sortByLength,
+      sortByName,
+      isReverse,
+      reset,
+      allGoods,
+      sortBy,
+      value,
+      filterByLength,
+      maxNameLength,
+    } = this.props;
+
+    const copyGoods = [...allGoods].filter(good => good.length >= value);
+
+    this.goodsFilter(copyGoods, sortBy);
+
+    if (isReverse) {
+      copyGoods.reverse();
+    }
+
+    return (
+      <>
+        <ul>
+          {copyGoods.map(good => (
+            <li key={good}>
+              {good}
+            </li>
+          ))}
+        </ul>
+        <Button
+          onClick={reverse}
+          text="reverse"
+        />
+        <Button
+          onClick={sortByName}
+          text="sort by Name"
+        />
+        <Button
+          onClick={reset}
+          text="reset"
+        />
+        <Button
+          onClick={sortByLength}
+          text="sort by Length"
+        />
+        <Select
+          onChange={filterByLength}
+          value={value}
+          maxNameLength={maxNameLength}
+        />
+      </>
+    );
   }
-
-  return (
-    <>
-      <ul>
-        {copyGoods.map(good => (
-          <li key={good}>
-            {good}
-          </li>
-        ))}
-      </ul>
-      <Button
-        action={reverse}
-        text='reverse'
-      />
-      <Button
-        action={sortByName}
-        text='sort by Name'
-      />
-      <Button
-        action={reset}
-        text='reset'
-      />
-      <Button
-        action={sortByLength}
-        text='sort by Length'
-      />
-      <select 
-        value={value}
-        onChange={filterByLength}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
-    </>
-  );
 }
-
 
 OrderList.propTypes = {
   sortBy: PropTypes.string.isRequired,
@@ -89,4 +85,5 @@ OrderList.propTypes = {
     PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   value: PropTypes.number.isRequired,
   filterByLength: PropTypes.func.isRequired,
-}
+  maxNameLength: PropTypes.number.isRequired,
+};

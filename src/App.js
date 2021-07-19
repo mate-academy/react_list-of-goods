@@ -22,7 +22,8 @@ class App extends React.Component {
     goodsList: goodsFromServer,
     sortBy: 'null',
     isReverse: false,
-    wordLength: 1,
+    minWordLength: 1,
+    maxNameLength: 10,
   }
 
   reverseList = () => this.setState(state => ({
@@ -38,6 +39,7 @@ class App extends React.Component {
     goodsList: goodsFromServer,
     isReverse: false,
     sortBy: 'null',
+    minWordLength: 0,
   })
 
   sortByName = () => this.setState({
@@ -49,7 +51,7 @@ class App extends React.Component {
   })
 
   filterByLength = event => this.setState({
-    wordLength: +event.target.value,
+    minWordLength: +event.target.value,
   })
 
   render() {
@@ -65,13 +67,14 @@ class App extends React.Component {
               sortByLength={this.sortByLength}
               isReverse={this.state.isReverse}
               sortBy={this.state.sortBy}
-              value={this.state.wordLength}
+              value={this.state.minWordLength}
               filterByLength={this.filterByLength}
+              maxNameLength={this.state.maxNameLength}
             />
           )
           : (
             <Button
-              action={this.listVisibility}
+              onClick={this.listVisibility}
               text="start"
             />
           )
