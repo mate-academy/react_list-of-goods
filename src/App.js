@@ -19,27 +19,32 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     listIsVisible: false,
-    goodsList: [...goodsFromServer],
+    goodsList: goodsFromServer,
+    sortBy: 'null',
+    isReverse: false,
   }
+
+  reverseList = () => this.setState(state => ({
+    isReverse: !state.isReverse,
+  }
+  ));
 
   listVisibility = () => this.setState(
     prevState => ({ listIsVisible: !prevState.listIsVisible }),
   );
 
-  reverseList = () => this.setState({
-    goodsList: [...goodsFromServer].reverse(),
-  });
-
   resetList = () => this.setState({
-    goodsList: [...goodsFromServer],
+    goodsList: goodsFromServer,
+    isReverse: false,
+    sortBy: 'null',
   })
 
   sortByName = () => this.setState({
-    goodsList: [...goodsFromServer].sort(),
+    sortBy: 'name',
   })
 
   sortByLength = () => this.setState({
-    goodsList: [...goodsFromServer].sort((a, b) => a.length - b.length),
+    sortBy: 'length',
   })
 
   render() {
@@ -53,6 +58,8 @@ class App extends React.Component {
               reset={this.resetList}
               sortByName={this.sortByName}
               sortByLength={this.sortByLength}
+              isReverse={this.state.isReverse}
+              sortBy={this.state.sortBy}
             />
           )
           : (
