@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import Select from '../Select/Select';
 
-class GoodsList extends React.PureComponent {
+class GoodsList extends React.Component {
   state = {
     sortBy: 'id',
     isReverse: false,
