@@ -22,6 +22,7 @@ class App extends React.Component {
     goodsList: goodsFromServer,
     sortBy: 'null',
     isReverse: false,
+    wordLength: 1,
   }
 
   reverseList = () => this.setState(state => ({
@@ -47,6 +48,10 @@ class App extends React.Component {
     sortBy: 'length',
   })
 
+  filterByLength = event => this.setState({
+    wordLength: +event.target.value,
+  })
+
   render() {
     return (
       <>
@@ -60,6 +65,8 @@ class App extends React.Component {
               sortByLength={this.sortByLength}
               isReverse={this.state.isReverse}
               sortBy={this.state.sortBy}
+              value={this.state.wordLength}
+              filterByLength={this.filterByLength}
             />
           )
           : (

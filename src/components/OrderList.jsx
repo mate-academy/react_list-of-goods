@@ -10,8 +10,10 @@ export const OrderList = ({
   reset,
   allGoods,
   sortBy,
+  value,
+  filterByLength,
 }) => {
-  const copyGoods = [...allGoods];
+  const copyGoods = [...allGoods].filter(good => good.length >= value);
 
   copyGoods.sort((prev,next) => {
     switch(sortBy) {
@@ -56,6 +58,21 @@ export const OrderList = ({
         action={sortByLength}
         text='sort by Length'
       />
+      <select 
+        value={value}
+        onChange={filterByLength}
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
     </>
   );
 }
@@ -69,5 +86,7 @@ OrderList.propTypes = {
   sortByLength: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   allGoods:
-    PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  value: PropTypes.number.isRequired,
+  filterByLength: PropTypes.func.isRequired,
 }
