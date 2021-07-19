@@ -63,7 +63,10 @@ class GoodsList extends React.PureComponent {
         <Button action={this.sortByABC} text="Sort by Name" />
         <Button action={this.clearGoods} text="Clear" />
         <Button action={this.reverseGoods} text="Reverse" />
-        <Select maxGoodsLength={this.state.maxGoodsLength} takeChildrenState={this.takeChildrenState} />
+        <Select
+          maxGoodsLength={this.state.maxGoodsLength}
+          takeChildrenState={this.takeChildrenState}
+        />
       </>
     );
   }
