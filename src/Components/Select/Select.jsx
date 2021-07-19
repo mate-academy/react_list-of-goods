@@ -14,6 +14,11 @@ class Select extends React.PureComponent {
       arrayOption.push(i);
     }
 
+    if (this.props.isCleanActive === true) {
+      this.setState({ maxGoodsLength: 1 });
+      this.props.takeChildrenState(this.state.maxGoodsLength);
+    }
+
     return (
       <select
         name="number"
@@ -35,6 +40,7 @@ class Select extends React.PureComponent {
 
 Select.propTypes = {
   takeChildrenState: PropTypes.func.isRequired,
+  isCleanActive: PropTypes.bool.isRequired,
 };
 
 export default Select;

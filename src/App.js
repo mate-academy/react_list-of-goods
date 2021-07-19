@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isActive, allGoods, sortBy, cleanGoods } = this.state;
+    const { isActive, allGoods } = this.state;
 
     return (
       <>
@@ -37,8 +37,6 @@ class App extends React.Component {
           && (
           <GoodsList
             allGoods={allGoods}
-            sortBy={sortBy}
-            cleanGoods={cleanGoods}
           />
           )}
       </>

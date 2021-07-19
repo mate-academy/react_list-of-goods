@@ -8,6 +8,7 @@ class GoodsList extends React.PureComponent {
     sortBy: 'id',
     isReverse: false,
     maxGoodsLength: 1,
+    isCleanActive: false,
   }
 
   takeChildrenState = (steteResult) => {
@@ -30,6 +31,8 @@ class GoodsList extends React.PureComponent {
     this.setState({
       isReverse: false,
       sortBy: '',
+      maxGoodsLength: 1,
+      isCleanActive: true,
     });
   }
 
@@ -66,6 +69,8 @@ class GoodsList extends React.PureComponent {
         <Select
           maxGoodsLength={this.state.maxGoodsLength}
           takeChildrenState={this.takeChildrenState}
+          clearGoods={this.clearGoods}
+          isCleanActive={this.state.isCleanActive}
         />
       </>
     );
