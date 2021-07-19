@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { FuncType } from '../../types';
 
-export const Start = props => (
+export const Start = ({ start }) => (
   <button
     type="button"
     onClick={() => {
-      props.app.start();
+      start();
     }}
   >
     Start
@@ -13,5 +13,5 @@ export const Start = props => (
 );
 
 Start.propTypes = {
-  app: PropTypes.shape().isRequired,
+  start: FuncType.isRequired,
 };

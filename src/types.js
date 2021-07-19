@@ -1,3 +1,4 @@
 import PropTypes from 'prop-types';
 
-export const goodType = PropTypes.string;
+export const GoodType = PropTypes.string;
+export const FuncType = PropTypes.func;

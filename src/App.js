@@ -24,6 +24,7 @@ class App extends React.PureComponent {
     isReversed: false,
     sortBy: '',
     nameIsLongerThan: 1,
+    lengthOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   }
 
   start() {
@@ -38,10 +39,6 @@ class App extends React.PureComponent {
       sortBy: '',
       nameIsLongerThan: 1,
     });
-
-    const lengthSelector = document.querySelector('#lengthSelector');
-
-    lengthSelector.value = 1;
   }
 
   reverse() {
@@ -75,10 +72,33 @@ class App extends React.PureComponent {
           ? (
             <>
               <GoodsList {...this.state} />
-              <ListManipulator app={this} />
+              <ListManipulator
+                reset={() => {
+                  this.reset();
+                }}
+                reverse={() => {
+                  this.reverse();
+                }}
+                sortByName={() => {
+                  this.sortByName();
+                }}
+                sortByLength={() => {
+                  this.sortByLength();
+                }}
+                filterByLength={(length) => {
+                  this.filterByLength(length);
+                }}
+                lengthOptions={this.state.lengthOptions}
+                lengthFilterBy={this.state.nameIsLongerThan}
+              />
             </>
           )
-          : <Start app={this} start={this.start} />
+          : (
+            <Start start={() => {
+              this.start();
+            }}
+            />
+          )
         )}
       </div>
     );

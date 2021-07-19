@@ -1,10 +1,10 @@
 import React from 'react';
-import { goodType } from '../../types';
+import { GoodType } from '../../types';
 
-export const Good = props => (
-  <span>{props.good}</span>
+export const Good = ({ good }) => (
+  <span>{good}</span>
 );
 
 Good.propTypes = {
-  good: goodType.isRequired,
+  good: GoodType.isRequired,
 };

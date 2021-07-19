@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FuncType } from '../../types';
 
-export const ListManipulator = props => (
+export const ListManipulator = ({
+  reverse,
+  sortByName,
+  sortByLength,
+  reset,
+  filterByLength,
+  lengthOptions,
+  lengthFilterBy,
+}) => (
   <>
     <button
       type="button"
       onClick={() => {
-        props.app.reverse();
+        reverse();
       }}
     >
       Reverse
@@ -14,7 +23,7 @@ export const ListManipulator = props => (
     <button
       type="button"
       onClick={() => {
-        props.app.sortByName();
+        sortByName();
       }}
     >
       Sort by name
@@ -22,7 +31,7 @@ export const ListManipulator = props => (
     <button
       type="button"
       onClick={() => {
-        props.app.sortByLength();
+        sortByLength();
       }}
     >
       Sort by length
@@ -30,38 +39,31 @@ export const ListManipulator = props => (
     <button
       type="button"
       onClick={() => {
-        props.app.reset();
+        reset();
       }}
     >
       Reset
     </button>
     <select
       id="lengthSelector"
-      defaultValue="1"
-      onInput={({ target }) => {
-        props.app.filterByLength(+target.value);
+      value={lengthFilterBy}
+      onChange={({ target }) => {
+        filterByLength(+target.value);
       }}
     >
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
+      {lengthOptions.map(item => (
+        <option value={`${item}`} key={item}>{item}</option>
+      ))}
     </select>
   </>
 );
 
 ListManipulator.propTypes = {
-  app: PropTypes.shape({
-    reverse: PropTypes.func.isRequired,
-    sortByName: PropTypes.func.isRequired,
-    sortByLength: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired,
-    filterByLength: PropTypes.func.isRequired,
-  }).isRequired,
+  reverse: FuncType.isRequired,
+  sortByName: FuncType.isRequired,
+  sortByLength: FuncType.isRequired,
+  reset: FuncType.isRequired,
+  filterByLength: FuncType.isRequired,
+  lengthFilterBy: PropTypes.number.isRequired,
+  lengthOptions: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 };
