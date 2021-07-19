@@ -6,11 +6,7 @@ export const Select = ({
   onChange,
   maxNameLength,
 }) => {
-  const optionCount = [];
-
-  for (let length = 1; length <= 10; length++) {
-    optionCount.push(length);
-  }
+  const optionCount = Array.from({length: maxNameLength}, (_, i) => i + 1)
 
   return (
     <select
@@ -18,7 +14,12 @@ export const Select = ({
       onChange={onChange}
     >
       {optionCount.map(number => (
-        <option value={`${number}`}>{number}</option>
+        <option
+          value={`${number}`}
+          key={number}
+        >
+          {number}
+        </option>
       ))}
     </select>
   );

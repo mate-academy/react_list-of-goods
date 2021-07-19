@@ -3,6 +3,8 @@ import { OrderList } from './components/OrderList';
 import './App.css';
 import Button from './components/Button';
 
+import { Select } from './components/Select';
+
 const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -31,7 +33,7 @@ class App extends React.Component {
   }
   ));
 
-  listVisibility = () => this.setState(
+  changeListVisibility = () => this.setState(
     prevState => ({ listIsVisible: !prevState.listIsVisible }),
   );
 
@@ -59,22 +61,41 @@ class App extends React.Component {
       <>
         {this.state.listIsVisible
           ? (
-            <OrderList
-              allGoods={this.state.goodsList}
-              reverse={this.reverseList}
-              reset={this.resetList}
-              sortByName={this.sortByName}
-              sortByLength={this.sortByLength}
-              isReverse={this.state.isReverse}
-              sortBy={this.state.sortBy}
-              value={this.state.minWordLength}
-              filterByLength={this.filterByLength}
-              maxNameLength={this.state.maxNameLength}
-            />
+            <>
+              <OrderList
+                goods={this.state.goodsList}
+                isReverse={this.state.isReverse}
+                sortBy={this.state.sortBy}
+                maxNameLength={this.state.maxNameLength}
+                value={this.state.minWordLength}
+              />
+              <Button
+                onClick={this.reverseList}
+                text="reverse"
+              />
+              <Button
+                onClick={this.sortByName}
+                text="sort by Name"
+              />
+              <Button
+                onClick={this.resetList}
+                text="reset"
+              />
+              <Button
+                onClick={this.sortByLength}
+                text="sort by Length"
+              />
+              <Select
+                onChange={this.filterByLength}
+                value={this.state.minWordLength}
+                maxNameLength={this.state.maxNameLength}
+              />
+            </>
+
           )
           : (
             <Button
-              onClick={this.listVisibility}
+              onClick={this.changeListVisibility}
               text="start"
             />
           )

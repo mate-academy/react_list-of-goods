@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from './Button';
-import { Select } from './Select';
+
 
 export class OrderList extends React.Component {
-  goodsFilter = (copyGoods, sortBy) => copyGoods.sort((prev, next) => {
+  sortedGoods = (copyGoods, sortBy) => copyGoods.sort((prev, next) => {
     switch (sortBy) {
       case 'name':
         return prev.localeCompare(next);
@@ -18,22 +17,17 @@ export class OrderList extends React.Component {
   })
 
   render() {
+    
     const {
-      reverse,
-      sortByLength,
-      sortByName,
       isReverse,
-      reset,
-      allGoods,
+      goods,
       sortBy,
       value,
-      filterByLength,
-      maxNameLength,
     } = this.props;
 
-    const copyGoods = [...allGoods].filter(good => good.length >= value);
+    const copyGoods = [...goods].filter(good => good.length >= value);
 
-    this.goodsFilter(copyGoods, sortBy);
+    this.sortedGoods(copyGoods, sortBy);
 
     if (isReverse) {
       copyGoods.reverse();
@@ -48,27 +42,6 @@ export class OrderList extends React.Component {
             </li>
           ))}
         </ul>
-        <Button
-          onClick={reverse}
-          text="reverse"
-        />
-        <Button
-          onClick={sortByName}
-          text="sort by Name"
-        />
-        <Button
-          onClick={reset}
-          text="reset"
-        />
-        <Button
-          onClick={sortByLength}
-          text="sort by Length"
-        />
-        <Select
-          onChange={filterByLength}
-          value={value}
-          maxNameLength={maxNameLength}
-        />
       </>
     );
   }
@@ -77,13 +50,7 @@ export class OrderList extends React.Component {
 OrderList.propTypes = {
   sortBy: PropTypes.string.isRequired,
   isReverse: PropTypes.bool.isRequired,
-  reverse: PropTypes.func.isRequired,
-  sortByName: PropTypes.func.isRequired,
-  sortByLength: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  allGoods:
+  goods:
     PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   value: PropTypes.number.isRequired,
-  filterByLength: PropTypes.func.isRequired,
-  maxNameLength: PropTypes.number.isRequired,
 };
