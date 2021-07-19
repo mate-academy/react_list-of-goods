@@ -1,5 +1,7 @@
+
 import React from 'react';
 import './App.css';
+import GoodsList from './Components/GoodList/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +16,34 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.Component {
+  state = {
+    isActive: false,
+    allGoods: [...goodsFromServer],
+  }
+
+  showUI = () => {
+    this.setState(state => ({ isActive: !state.isActive }));
+  }
+
+  render() {
+    const { isActive, allGoods, sortBy, cleanGoods } = this.state;
+
+    return (
+      <>
+        {!isActive
+          && <button type="button" onClick={this.showUI}>Start</button>}
+        {isActive
+          && (
+          <GoodsList
+            allGoods={allGoods}
+            sortBy={sortBy}
+            cleanGoods={cleanGoods}
+          />
+          )}
+      </>
+    );
+  }
+}
 
 export default App;
