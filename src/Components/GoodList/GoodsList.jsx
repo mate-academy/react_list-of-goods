@@ -1,50 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Button/Button';
-import Select from '../Select/Select';
 
 class GoodsList extends React.Component {
-  state = {
-    sortBy: 'id',
-    isReverse: false,
-    maxGoodsLength: 1,
-    isCleanActive: false,
-  }
-
-  takeChildrenState = (steteResult) => {
-    this.setState({ maxGoodsLength: steteResult });
-  }
-
-  reverseGoods = () => {
-    this.setState(state => ({ isReverse: !state.isReverse }));
-  }
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
-  }
-
-  sortByABC = () => {
-    this.setState({ sortBy: 'ABC' });
-  }
-
-  clearGoods = () => {
-    this.setState({
-      isReverse: false,
-      sortBy: '',
-      maxGoodsLength: 1,
-      isCleanActive: true,
-    });
-  }
-
-  render() {
-    const { allGoods } = this.props;
-
-    const newArrayOfGoods = allGoods.filter(goods => (
-      goods.length > this.state.maxGoodsLength
+  preparationToRendering = () => {
+    const visibleGoods = this.props.goods.filter(goods => (
+      goods.length > this.props.minGoodsLength
     ));
 
-    newArrayOfGoods.sort((firsGoods, nextGoods) => {
-      switch (this.state.sortBy) {
+    visibleGoods.sort((firsGoods, nextGoods) => {
+      switch (this.props.sortBy) {
         case 'length':
           return firsGoods.length - nextGoods.length;
         case 'ABC':
@@ -53,32 +17,34 @@ class GoodsList extends React.Component {
       }
     });
 
-    if (this.state.isReverse) {
-      newArrayOfGoods.reverse();
+    if (this.props.isReverse) {
+      visibleGoods.reverse();
     }
 
+    return visibleGoods;
+  }
+
+  render() {
     return (
       <>
         <ul>
-          {newArrayOfGoods.map(good => <li key={good}>{good}</li>)}
+          {this.preparationToRendering().map(good => (
+            <li key={good}>
+              {good}
+            </li>
+          ))}
         </ul>
-        <Button action={this.sortByLength} text="Sort by length" />
-        <Button action={this.sortByABC} text="Sort by Name" />
-        <Button action={this.clearGoods} text="Clear" />
-        <Button action={this.reverseGoods} text="Reverse" />
-        <Select
-          maxGoodsLength={this.state.maxGoodsLength}
-          takeChildrenState={this.takeChildrenState}
-          clearGoods={this.clearGoods}
-          isCleanActive={this.state.isCleanActive}
-        />
+
       </>
     );
   }
 }
 
 GoodsList.propTypes = {
-  allGoods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  isReverse: PropTypes.bool.isRequired,
+  sortBy: PropTypes.string.isRequired,
+  minGoodsLength: PropTypes.number.isRequired,
 };
 
 export default GoodsList;

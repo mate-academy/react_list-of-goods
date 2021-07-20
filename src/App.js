@@ -2,6 +2,8 @@
 import React from 'react';
 import './App.css';
 import GoodsList from './Components/GoodList/GoodsList';
+import Select from './Components/Select/Select';
+import Button from './Components/Button/Button';
 
 const goodsFromServer = [
   'Dumplings',
@@ -19,25 +21,70 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     isActive: false,
-    allGoods: [...goodsFromServer],
+    goods: goodsFromServer,
+    isReverse: false,
+    sortBy: '',
+    minGoodsLength: 1,
   }
 
-  showUI = () => {
-    this.setState(state => ({ isActive: !state.isActive }));
+  takeChildrenValue = (event) => {
+    this.setState({ minGoodsLength: event });
+  }
+
+  reverseGoods = () => {
+    this.setState(prevState => ({ isReverse: !prevState.isReverse }));
+  }
+
+  sortByLength = () => {
+    this.setState({ sortBy: 'length' });
+  }
+
+  sortByABC = () => {
+    this.setState({ sortBy: 'ABC' });
+  }
+
+  clearGoods = () => {
+    this.setState({
+      isReverse: false,
+      sortBy: '',
+      minGoodsLength: 1,
+    });
+  }
+
+  showGoods = () => {
+    this.setState(prevState => ({ isActive: !prevState.isActive }));
   }
 
   render() {
-    const { isActive, allGoods } = this.state;
+    const { isActive, clearGoods, minGoodsLength } = this.state;
 
     return (
       <>
         {!isActive
-          && <button type="button" onClick={this.showUI}>Start</button>}
+          && (
+          <button
+            type="button"
+            onClick={this.showGoods}
+          >
+            Start
+          </button>
+          )}
         {isActive
           && (
-          <GoodsList
-            allGoods={allGoods}
-          />
+            <>
+              <GoodsList
+                {...this.state}
+              />
+              <Button action={this.sortByLength} text="Sort by length" />
+              <Button action={this.sortByABC} text="Sort by Name" />
+              <Button action={this.clearGoods} text="Clear" />
+              <Button action={this.reverseGoods} text="Reverse" />
+              <Select
+                minGoodsLength={minGoodsLength}
+                takeChildrenValue={this.takeChildrenValue}
+                clearGoods={clearGoods}
+              />
+            </>
           )}
       </>
     );

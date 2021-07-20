@@ -3,34 +3,19 @@ import PropTypes from 'prop-types';
 
 class Select extends React.PureComponent {
   state = {
-    maxGoodsLength: 1,
+    arrayOption: [...Array(10).keys()],
   }
 
   render() {
-    const maxOption = 10;
-    const arrayOption = [];
-
-    for (let i = 1; i <= maxOption; i += 1) {
-      arrayOption.push(i);
-    }
-
-    if (this.props.isCleanActive === true) {
-      this.setState({ maxGoodsLength: 1 });
-      this.props.takeChildrenState(this.state.maxGoodsLength);
-    }
-
     return (
       <select
         name="number"
-        value={this.state.maxGoodsLength}
-        onChange={(event) => {
-          this.setState({ maxGoodsLength: +event.target.value },
-            () => this.props.takeChildrenState(this.state.maxGoodsLength));
-        }}
+        value={this.props.minGoodsLength}
+        onChange={event => this.props.takeChildrenValue(+event.target.value)}
       >
-        {arrayOption.map((number, index) => (
+        {this.state.arrayOption.map((number, index) => (
           <option key={`${number} + index`} value={index + 1}>
-            {number}
+            {number + 1}
           </option>
         ))}
       </select>
@@ -39,8 +24,8 @@ class Select extends React.PureComponent {
 }
 
 Select.propTypes = {
-  takeChildrenState: PropTypes.func.isRequired,
-  isCleanActive: PropTypes.bool.isRequired,
+  takeChildrenValue: PropTypes.func.isRequired,
+  minGoodsLength: PropTypes.number.isRequired,
 };
 
 export default Select;
