@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Button } from './components/Button';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -62,13 +63,7 @@ export class App extends React.Component {
           isHidden={this.state.isListShown}
         />
         <div className={!this.state.isListShown && 'hiddenList'}>
-          <ul>
-            {this.state.goods.map(good => (
-              <li key="good">
-                {good}
-              </li>
-            ))}
-          </ul>
+          <GoodsList goods={this.state.goods} />
           <Button
             title="Reverse"
             onClick={this.reverseGoodsList}
