@@ -3,6 +3,7 @@ import PropTypes, { string } from 'prop-types';
 import './GoodsList.css';
 import { Button } from '../Button/Button';
 import { Select } from '../Select/Select';
+import { Good } from '../Good/Good';
 
 export class GoodsList extends React.Component {
   state = {
@@ -10,6 +11,7 @@ export class GoodsList extends React.Component {
     sortBy: null,
     goods: this.props.goods,
     minGoodLength: 1,
+    selectRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   }
 
   doReverse = () => {
@@ -38,13 +40,7 @@ export class GoodsList extends React.Component {
     this.setState({ minGoodLength: event.target.value });
   }
 
-  render() {
-    const {
-      shouldReverse,
-      goods,
-      sortBy,
-      minGoodLength,
-    } = this.state;
+  prepareGoods = (goods, minGoodLength, sortBy, shouldReverse) => {
     const goodsCopy = goods.filter(good => good.length >= minGoodLength);
 
     goodsCopy.sort((good1, good2) => {
@@ -62,15 +58,30 @@ export class GoodsList extends React.Component {
       goodsCopy.reverse();
     }
 
+    return goodsCopy;
+  }
+
+  render() {
+    const {
+      shouldReverse,
+      goods,
+      sortBy,
+      minGoodLength,
+      selectRange,
+    } = this.state;
+    const goodsToShow = this.prepareGoods(
+      goods, minGoodLength, sortBy, shouldReverse,
+    );
+
     return (
       <div className="goods-list">
         <ul className="list-group">
-          {goodsCopy.map(good => (
+          {goodsToShow.map(good => (
             <li
               className="list-group-item list-group-item-info"
               key={Math.random()}
             >
-              {good}
+              <Good good={good} />
             </li>
           ))}
         </ul>
@@ -92,7 +103,11 @@ export class GoodsList extends React.Component {
             action={this.sortByLength}
           />
         </div>
-        <Select value={minGoodLength} action={this.selectLength} />
+        <Select
+          value={minGoodLength}
+          action={this.selectLength}
+          range={selectRange}
+        />
       </div>
     );
   }
