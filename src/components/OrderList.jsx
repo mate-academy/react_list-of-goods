@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ListItem } from './ListItem';
 
 
 export class OrderList extends React.Component {
@@ -37,9 +38,10 @@ export class OrderList extends React.Component {
       <>
         <ul>
           {copyGoods.map(good => (
-            <li key={good}>
-              {good}
-            </li>
+            <ListItem
+              key={good}
+              text={good}
+            />
           ))}
         </ul>
       </>
