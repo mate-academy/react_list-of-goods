@@ -40,9 +40,11 @@ export class GoodsList extends React.Component {
     this.setState({ minGoodLength: event.target.value });
   }
 
-  prepareGoods = (goods, minGoodLength, sortBy, shouldReverse) => {
-    const goodsCopy = goods.filter(good => good.length >= minGoodLength);
+  filterGoods = (goods, minGoodLength) => (
+    goods.filter(good => good.length >= minGoodLength)
+  )
 
+  sortGoods = (goodsCopy, sortBy) => {
     goodsCopy.sort((good1, good2) => {
       switch (sortBy) {
         case 'alphabet':
@@ -53,12 +55,12 @@ export class GoodsList extends React.Component {
           return 0;
       }
     });
+  }
 
+  reverseGoods = (goodsCopy, shouldReverse) => {
     if (shouldReverse) {
       goodsCopy.reverse();
     }
-
-    return goodsCopy;
   }
 
   render() {
@@ -69,9 +71,10 @@ export class GoodsList extends React.Component {
       minGoodLength,
       selectRange,
     } = this.state;
-    const goodsToShow = this.prepareGoods(
-      goods, minGoodLength, sortBy, shouldReverse,
-    );
+    const goodsToShow = this.filterGoods(goods, minGoodLength);
+
+    this.sortGoods(goodsToShow, sortBy);
+    this.reverseGoods(goodsToShow, shouldReverse);
 
     return (
       <div className="goods-list">
