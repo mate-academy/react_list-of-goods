@@ -56,7 +56,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { isActive, clearGoods, minGoodsLength } = this.state;
+    const { isActive,
+      clearGoods,
+      minGoodsLength,
+      goods,
+      sortBy,
+      isReverse } = this.state;
 
     return (
       <>
@@ -73,12 +78,15 @@ class App extends React.Component {
           && (
             <>
               <GoodsList
-                {...this.state}
+                goods={goods}
+                isReverse={isReverse}
+                sortBy={sortBy}
+                minGoodsLength={minGoodsLength}
               />
-              <Button action={this.sortByLength} text="Sort by length" />
-              <Button action={this.sortByABC} text="Sort by Name" />
-              <Button action={this.clearGoods} text="Clear" />
-              <Button action={this.reverseGoods} text="Reverse" />
+              <Button onClick={this.sortByLength} text="Sort by length" />
+              <Button onClick={this.sortByABC} text="Sort by Name" />
+              <Button onClick={this.clearGoods} text="Clear" />
+              <Button onClick={this.reverseGoods} text="Reverse" />
               <Select
                 minGoodsLength={minGoodsLength}
                 takeChildrenValue={this.takeChildrenValue}
