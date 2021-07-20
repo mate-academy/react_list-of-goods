@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Button } from './components/Button';
 import './App.css';
+import { Select } from './components/Select';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -21,8 +24,6 @@ class App extends Component {
     sortBy: '',
     optionValue: 1,
   }
-
-  options = [...Array(10).keys()];
 
   start = () => this.setState({ isStarted: true });
 
@@ -66,43 +67,21 @@ class App extends Component {
         {this.state.isStarted ? (
           <>
             <h1>Goods:</h1>
-            <ul>
-              {visibleGoods.map(good => (
-                <li key={good}>{good}</li>
-              ))}
-            </ul>
-            <button
-              type="button"
-              onClick={this.reverse}
-            >
-              Reverse
-            </button>
-            <button
-              type="button"
-              onClick={this.sortAlphabetically}
-            >
-              Sort alphabetically
-            </button>
-            <button
-              type="button"
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
-            <button type="button" onClick={this.reset}>Reset</button>
-            <select value={this.state.optionValue} onChange={this.handleChange}>
-              {this.options.map(number => (
-                <option value={number + 1} key={number}>{number + 1}</option>
-              ))}
-            </select>
+            <GoodsList goods={visibleGoods} />
+            <Button buttonName="Reverse" handler={this.reverse} />
+            <Button
+              buttonName="Sort alphabetically"
+              handler={this.sortAlphabetically}
+            />
+            <Button buttonName="Sort by length" handler={this.sortByLength} />
+            <Button buttonName="Reset" handler={this.reset} />
+            <Select
+              value={this.state.optionValue}
+              handler={this.handleChange}
+            />
           </>
         ) : (
-          <button
-            type="button"
-            onClick={this.start}
-          >
-            Start
-          </button>
+          <Button buttonName="Start" handler={this.start} />
         )}
       </div>
     );
