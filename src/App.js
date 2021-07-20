@@ -20,61 +20,87 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    listIsVisible: false,
+    isListVisible: false,
     goodsList: goodsFromServer,
-    sortBy: 'null',
-    isReverse: false,
+    sortParameters: 'null',
     minWordLength: 1,
     maxNameLength: 10,
   }
 
   reverseList = () => this.setState(state => ({
-    isReverse: !state.isReverse,
-  }
-  ));
+    goodsList: [...state.goodsList].reverse(),
+  }));
 
   changeListVisibility = () => this.setState(
-    prevState => ({ listIsVisible: !prevState.listIsVisible }),
+    prevState => ({ isListVisible: !prevState.isListVisible }),
   );
 
   resetList = () => this.setState({
     goodsList: goodsFromServer,
-    isReverse: false,
-    sortBy: 'null',
+    sortParameters: 'null',
     minWordLength: 0,
   })
 
-  sortByName = () => this.setState({
-    sortBy: 'name',
-  })
+  changeSortParametersInString = () => {
+    this.setState({
+      sortParameters: 'string',
+    });
+    this.setState(state => ({
+      goodsList:
+        this.sortByParameters([...state.goodsList], state.sortParameters),
+    }));
+  }
 
-  sortByLength = () => this.setState({
-    sortBy: 'length',
-  })
+  changeSortParametersInNumber= () => {
+    this.setState({
+      sortParameters: 'number',
+    });
+
+    this.setState(state => ({
+      goodsList:
+        this.sortByParameters([...state.goodsList], state.sortParameters),
+    }));
+  }
+
+  sortByParameters =
+    (copyGoods, sortParameters) => copyGoods.sort((prev, next) => {
+      switch (sortParameters) {
+        case 'string':
+          return prev.localeCompare(next);
+
+        case 'number':
+          return prev.length - next.length;
+
+        default:
+          return 0;
+      }
+    })
 
   filterByLength = event => this.setState({
     minWordLength: +event.target.value,
+    goodsList:
+      goodsFromServer.filter(good => good.length >= +event.target.value),
   })
 
   render() {
+    const optionCount = Array.from(
+      { length: this.state.maxNameLength }, (_, i) => i + 1,
+    );
+
     return (
       <>
-        {this.state.listIsVisible
+        {this.state.isListVisible
           ? (
             <>
               <OrderList
                 goods={this.state.goodsList}
-                isReverse={this.state.isReverse}
-                sortBy={this.state.sortBy}
-                maxNameLength={this.state.maxNameLength}
-                value={this.state.minWordLength}
               />
               <Button
                 onClick={this.reverseList}
                 text="reverse"
               />
               <Button
-                onClick={this.sortByName}
+                onClick={this.changeSortParametersInString}
                 text="sort by Name"
               />
               <Button
@@ -82,13 +108,13 @@ class App extends React.Component {
                 text="reset"
               />
               <Button
-                onClick={this.sortByLength}
+                onClick={this.changeSortParametersInNumber}
                 text="sort by Length"
               />
               <Select
                 onChange={this.filterByLength}
                 value={this.state.minWordLength}
-                maxNameLength={this.state.maxNameLength}
+                optionCount={optionCount}
               />
             </>
 
