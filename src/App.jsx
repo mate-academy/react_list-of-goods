@@ -33,7 +33,7 @@ class App extends Component {
 
   reverse = () => this.setState(state => ({ isReversed: !state.isReversed }));
 
-  handleChange = event => this.setState({ optionValue: event.target.value });
+  handleChange = event => this.setState({ optionValue: event });
 
   reset = () => this.setState({
     goods: goodsFromServer,
@@ -42,21 +42,21 @@ class App extends Component {
     optionValue: 1,
   });
 
-  render() {
-    const visibleGoods = this.state.goods.filter(
-      good => good.length >= this.state.optionValue,
-    );
+  visibleGoods = () => this.state.goods.filter(
+    good => good.length >= this.state.optionValue,
+  ).sort((a, b) => {
+    switch (this.state.sortBy) {
+      case 'alphabet':
+        return a.localeCompare(b);
+      case 'length':
+        return a.length - b.length;
+      default:
+        return 0;
+    }
+  });
 
-    visibleGoods.sort((a, b) => {
-      switch (this.state.sortBy) {
-        case 'alphabet':
-          return a.localeCompare(b);
-        case 'length':
-          return a.length - b.length;
-        default:
-          return 0;
-      }
-    });
+  render() {
+    const visibleGoods = this.visibleGoods();
 
     if (this.state.isReversed) {
       visibleGoods.reverse();
@@ -68,20 +68,20 @@ class App extends Component {
           <>
             <h1>Goods:</h1>
             <GoodsList goods={visibleGoods} />
-            <Button buttonName="Reverse" handler={this.reverse} />
+            <Button name="Reverse" onClick={this.reverse} />
             <Button
-              buttonName="Sort alphabetically"
-              handler={this.sortAlphabetically}
+              name="Sort alphabetically"
+              onClick={this.sortAlphabetically}
             />
-            <Button buttonName="Sort by length" handler={this.sortByLength} />
-            <Button buttonName="Reset" handler={this.reset} />
+            <Button name="Sort by length" onClick={this.sortByLength} />
+            <Button name="Reset" onClick={this.reset} />
             <Select
               value={this.state.optionValue}
-              handler={this.handleChange}
+              onChange={this.handleChange}
             />
           </>
         ) : (
-          <Button buttonName="Start" handler={this.start} />
+          <Button name="Start" onClick={this.start} />
         )}
       </div>
     );

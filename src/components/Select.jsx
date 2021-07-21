@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const options = [...Array(10).keys()];
 
-export const Select = ({ value, handler }) => (
-  <select value={value} onChange={handler}>
+export const Select = ({ value, onChange }) => (
+  <select value={value} onChange={event => onChange(+event.target.value)}>
     {options.map(number => (
       <option value={number + 1} key={number}>{number + 1}</option>
     ))}
@@ -13,5 +13,5 @@ export const Select = ({ value, handler }) => (
 
 Select.propTypes = {
   value: PropTypes.number.isRequired,
-  handler: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
