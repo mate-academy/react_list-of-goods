@@ -7,7 +7,6 @@ import { Good } from '../Good/Good';
 
 export class GoodsList extends React.Component {
   state = {
-    shouldReverse: false,
     sortBy: null,
     goods: this.props.goods,
     minGoodLength: 1,
@@ -16,35 +15,11 @@ export class GoodsList extends React.Component {
 
   doReverse = () => {
     this.setState(prevState => ({
-      shouldReverse: !prevState.shouldReverse,
+      goods: [...prevState.goods].reverse(),
     }));
   }
 
-  sortByAlphabet = () => {
-    this.setState({ sortBy: 'alphabet' });
-  }
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
-  }
-
-  reset = () => {
-    this.setState({
-      shouldReverse: false,
-      sortBy: null,
-      minGoodLength: 1,
-    });
-  }
-
-  selectLength = (event) => {
-    this.setState({ minGoodLength: event.target.value });
-  }
-
-  filterGoods = (goods, minGoodLength) => (
-    goods.filter(good => good.length >= minGoodLength)
-  )
-
-  sortGoods = (goodsCopy, sortBy) => {
+  sortGoods = (goodsCopy, sortBy) => (
     goodsCopy.sort((good1, good2) => {
       switch (sortBy) {
         case 'alphabet':
@@ -54,32 +29,51 @@ export class GoodsList extends React.Component {
         default:
           return 0;
       }
+    })
+  )
+
+  sortByAlphabet = () => {
+    this.setState({ sortBy: 'alphabet' });
+    this.setState(prevState => ({
+      goods: this.sortGoods([...prevState.goods], prevState.sortBy),
+    }));
+  }
+
+  sortByLength = () => {
+    this.setState({ sortBy: 'length' });
+    this.setState(prevState => ({
+      goods: this.sortGoods([...prevState.goods], prevState.sortBy),
+    }));
+  }
+
+  reset = () => {
+    this.setState({
+      sortBy: null,
+      goods: this.props.goods,
+      minGoodLength: 1,
     });
   }
 
-  reverseGoods = (goodsCopy, shouldReverse) => {
-    if (shouldReverse) {
-      goodsCopy.reverse();
-    }
+  selectLength = (event) => {
+    const { goods } = this.props;
+
+    this.setState({
+      minGoodLength: event.target.value,
+      goods: goods.filter(good => good.length >= event.target.value),
+    });
   }
 
   render() {
     const {
-      shouldReverse,
       goods,
-      sortBy,
       minGoodLength,
       selectRange,
     } = this.state;
-    const goodsToShow = this.filterGoods(goods, minGoodLength);
-
-    this.sortGoods(goodsToShow, sortBy);
-    this.reverseGoods(goodsToShow, shouldReverse);
 
     return (
       <div className="goods-list">
         <ul className="list-group">
-          {goodsToShow.map(good => (
+          {goods.map(good => (
             <li
               className="list-group-item list-group-item-info"
               key={Math.random()}
