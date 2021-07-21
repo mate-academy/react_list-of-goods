@@ -1,0 +1,12 @@
+button {
+  width: max-content;
+  height: 40px;
+  background-color: rgb(97, 189, 44);
+  margin-right: 20px;
+  transition: all 0.3s;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.14);
+}
