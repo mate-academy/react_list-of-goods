@@ -3,6 +3,7 @@ import './App.css';
 import Buttons from './components/Buttons/Buttons';
 import Select from './components/Select/Select';
 import ImplementedList from './components/ImplementedList/ImplementedList';
+import AllButtons from './components/AllButtons/AllButtons';
 
 const goodsFromServer = [
   'Dumplings',
@@ -81,22 +82,12 @@ class App extends React.Component {
             ? (
               <div className="App">
                 <ImplementedList {...this.state} />
-                <div>
-                  <Buttons
-                    callback={this.isReversed}
-                    name="Reverse"
-                  />
-                  <Buttons
-                    callback={this.isSortedAlphabetically}
-                    name="Sort alphabetically"
-                  />
-                  <Buttons
-                    callback={this.isReset}
-                    name="Reset"
-                  />
-                  <Buttons
-                    callback={this.isSortedByLength}
-                    name="Sort by length"
+                <div className="App__container-button">
+                  <AllButtons
+                    isReset={this.isReset}
+                    isReversed={this.isReversed}
+                    isSortedAlphabetically={this.isSortedAlphabetically}
+                    isSortedByLength={this.isSortedByLength}
                   />
                   <Select list={list} callback={this.isSelectedLength} />
                 </div>
