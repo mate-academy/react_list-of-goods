@@ -73,16 +73,14 @@ class App extends React.Component {
     const { goods, reverse, sortBy } = this.state;
     const newGoodsList = [...goods];
 
-    switch (sortBy) {
-      case 'name':
+    if (sortBy !== null) {
+      if (sortBy === 'name') {
         newGoodsList.sort((cur, next) => cur.localeCompare(next));
-        break;
-      case 'length':
-        newGoodsList.sort((cur, next) => next - cur);
-        break;
+      }
 
-      default:
-        break;
+      if (sortBy === 'length') {
+        newGoodsList.sort((cur, next) => cur.length - next.length);
+      }
     }
 
     if (reverse) {
