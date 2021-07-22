@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from './Button';
 
 export const ButtonsControl = (
   {
+    listOfGoods,
     reverse,
     setSortByAlphabet,
     setSortByLength,
@@ -12,34 +14,26 @@ export const ButtonsControl = (
   },
 ) => (
   <>
-    <button
-      type="button"
-      className="button btn btn-outline-primary"
-      onClick={reverse}
-    >
-      Reverse
-    </button>
-    <button
-      type="button"
-      className="button btn btn-outline-primary"
-      onClick={setSortByAlphabet}
-    >
-      Sort alphabetically
-    </button>
-    <button
-      type="button"
-      className="button btn btn-outline-primary"
-      onClick={reset}
-    >
-      Reset
-    </button>
-    <button
-      type="button"
-      className="button btn btn-outline-primary"
-      onClick={setSortByLength}
-    >
-      Sort by length
-    </button>
+    <Button
+      onClickFunction={reverse}
+      type="primary"
+      text="Reverse"
+    />
+    <Button
+      onClickFunction={setSortByAlphabet}
+      type="primary"
+      text="Sort alphabetically"
+    />
+    <Button
+      onClickFunction={reset}
+      type="primary"
+      text="Reset"
+    />
+    <Button
+      onClickFunction={setSortByLength}
+      type="primary"
+      text="Sort by length"
+    />
     <select
       className="form-select"
       id="inputGroupSelect01"
@@ -50,21 +44,15 @@ export const ButtonsControl = (
         display: 'inline-block',
       }}
     >
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-      <option value="4">Four</option>
-      <option value="5">Five</option>
-      <option value="6">Six</option>
-      <option value="7">Seven</option>
-      <option value="8">Eight</option>
-      <option value="9">Nine</option>
-      <option value="10">Ten</option>
+      {listOfGoods.map((goods, index) => (
+        <option key={goods} value={index + 1}>{index + 1}</option>
+      ))}
     </select>
   </>
 );
 
 ButtonsControl.propTypes = {
+  listOfGoods: PropTypes.arrayOf(PropTypes.string).isRequired,
   reverse: PropTypes.func.isRequired,
   setSortByAlphabet: PropTypes.func.isRequired,
   setSortByLength: PropTypes.func.isRequired,

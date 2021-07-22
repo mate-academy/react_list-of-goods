@@ -35,9 +35,9 @@ export class RenderGoods extends React.Component {
     this.setState({ length: event.target.value });
   }
 
-  render() {
+  renderVisibleList = () => {
     const visibleList
-      = this.state.goodsList.filter(goods => goods.length >= this.state.length);
+    = this.state.goodsList.filter(goods => goods.length >= this.state.length);
 
     visibleList.sort((goods1, goods2) => {
       switch (this.state.sortBy) {
@@ -56,10 +56,15 @@ export class RenderGoods extends React.Component {
       visibleList.reverse();
     }
 
+    return visibleList;
+  }
+
+  render() {
     return (
       <div>
-        <GoodsList goodsList={visibleList} />
+        <GoodsList goodsList={this.renderVisibleList()} />
         <ButtonsControl
+          listOfGoods={this.state.goodsList}
           reverse={this.reverse}
           setSortByAlphabet={this.setSortByAlphabet}
           setSortByLength={this.setSortByLength}

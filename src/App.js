@@ -1,6 +1,6 @@
 import React from 'react';
 import { RenderGoods } from './RenderGoods';
-import { ButtonStart } from './ButtonStart';
+import { Button } from './Button';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -31,7 +31,16 @@ class App extends React.Component {
       <div className="App">
         {this.state.isStart
           ? <RenderGoods goodsFromServer={goodsFromServer} />
-          : <ButtonStart renderListOfGoods={this.renderListOfGoods} />}
+          : (
+            <div className="button-container">
+              <Button
+                onClickFunction={this.renderListOfGoods}
+                type="success"
+                text="Start"
+              />
+            </div>
+          )
+        }
       </div>
     );
   }
