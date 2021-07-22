@@ -26,6 +26,7 @@ class App extends React.Component {
     isSortedAlphabetically: false,
     isSortedByLength: false,
     SelectedLength: 0,
+    value: 1,
   }
 
   showOrHideList = () => {
@@ -54,6 +55,7 @@ class App extends React.Component {
   isReset = () => {
     this.setState(prevState => (
       {
+        value: 1,
         SelectedLength: 0,
         isReversed: false,
         isSortedByLength: false,
@@ -89,7 +91,11 @@ class App extends React.Component {
                     isSortedAlphabetically={this.isSortedAlphabetically}
                     isSortedByLength={this.isSortedByLength}
                   />
-                  <Select list={list} callback={this.isSelectedLength} />
+                  <Select
+                    list={list}
+                    callback={this.isSelectedLength}
+                    value={this.state.value}
+                  />
                 </div>
               </div>
             )

@@ -7,6 +7,7 @@ const Select = ({ callback, list }) => (
   >
     {list.map((item, index) => (
       <option
+        value={list}
         key={item}
       >
         {index + 1}
