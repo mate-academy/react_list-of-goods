@@ -94,7 +94,6 @@ class App extends React.Component {
                   <Select
                     list={list}
                     callback={this.isSelectedLength}
-                    value={this.state.value}
                   />
                 </div>
               </div>
