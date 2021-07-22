@@ -3,7 +3,7 @@ import './App.css';
 import Buttons from './components/Buttons/Buttons';
 import Select from './components/Select/Select';
 import ImplementedList from './components/ImplementedList/ImplementedList';
-import AllButtons from './components/AllButtons/AllButtons';
+import MainButtons from './components/MainButtons/MainButtons';
 
 const goodsFromServer = [
   'Dumplings',
@@ -83,7 +83,7 @@ class App extends React.Component {
               <div className="App">
                 <ImplementedList {...this.state} />
                 <div className="App__container-button">
-                  <AllButtons
+                  <MainButtons
                     isReset={this.isReset}
                     isReversed={this.isReversed}
                     isSortedAlphabetically={this.isSortedAlphabetically}

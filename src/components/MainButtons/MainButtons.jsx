@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Buttons from '../Buttons/Buttons';
 
-const AllButtons = (
+const MainButtons = (
   {
     isReset,
     isReversed,
@@ -30,11 +30,11 @@ const AllButtons = (
   </>
 );
 
-AllButtons.propTypes = {
+MainButtons.propTypes = {
   isSortedByLength: PropTypes.func.isRequired,
   isReversed: PropTypes.func.isRequired,
   isSortedAlphabetically: PropTypes.func.isRequired,
   isReset: PropTypes.func.isRequired,
 };
 
-export default AllButtons;
+export default MainButtons;
