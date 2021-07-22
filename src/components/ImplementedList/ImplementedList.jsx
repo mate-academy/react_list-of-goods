@@ -6,7 +6,7 @@ const ImplementedList = ({
   isReversed,
   isSortedAlphabetically,
   isSortedByLength,
-  SelectedLength,
+  value,
 }) => {
   let copyList = [...list];
 
@@ -22,8 +22,8 @@ const ImplementedList = ({
     copyList.sort((a, b) => b.length - a.length);
   }
 
-  if (Number(SelectedLength) > 0) {
-    copyList = copyList.filter(item => item.length >= SelectedLength);
+  if (Number(value) > 0) {
+    copyList = copyList.filter(item => item.length >= value);
   }
 
   return (

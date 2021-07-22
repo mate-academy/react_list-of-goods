@@ -25,7 +25,6 @@ class App extends React.Component {
     isReversed: false,
     isSortedAlphabetically: false,
     isSortedByLength: false,
-    SelectedLength: 0,
     value: 1,
   }
 
@@ -56,7 +55,6 @@ class App extends React.Component {
     this.setState(prevState => (
       {
         value: 1,
-        SelectedLength: 0,
         isReversed: false,
         isSortedByLength: false,
         isSortedAlphabetically: false,
@@ -71,8 +69,8 @@ class App extends React.Component {
     }));
   }
 
-  isSelectedLength = event => (
-    this.setState({ SelectedLength: event.target.value }));
+  isSelected = event => (
+    this.setState({ value: event.target.value }));
 
   render() {
     const { list, isVisible } = this.state;
@@ -93,7 +91,8 @@ class App extends React.Component {
                   />
                   <Select
                     list={list}
-                    callback={this.isSelectedLength}
+                    onChange={this.isSelected}
+                    value={this.state.value}
                   />
                 </div>
               </div>

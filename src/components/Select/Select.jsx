@@ -1,26 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import SelectPropTypes from './SelectPropTypes';
 
-const Select = ({ callback, list }) => (
+const Select = ({ onChange, list, value }) => (
   <select
-    onClick={callback}
+    value={value}
+    onChange={onChange}
   >
     {list.map((item, index) => (
       <option
-        value={list}
         key={item}
       >
-        {index + 1}
+        {(index + 1)}
       </option>
     ))}
   </select>
 );
 
-Select.propTypes = {
-  callback: PropTypes.func.isRequired,
-  list: PropTypes.arrayOf(
-    PropTypes.string,
-  ).isRequired,
-};
+Select.propTypes = SelectPropTypes;
 
 export default Select;
