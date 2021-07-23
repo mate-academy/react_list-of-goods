@@ -19,13 +19,14 @@ const goodsFromServer = [
 
 class App extends Component {
   state = {
-    goodsVisible: false,
+    isGoodsVisible: false,
     goodsData: goodsFromServer,
+    minProductLength: 1,
   }
 
   visibleGoods = () => {
     this.setState({
-      goodsVisible: true,
+      isGoodsVisible: true,
     });
   }
 
@@ -44,6 +45,7 @@ class App extends Component {
   resetListOfGoods = () => (
     this.setState({
       goodsData: goodsFromServer,
+      minProductLength: 1,
     })
   )
 
@@ -61,14 +63,14 @@ class App extends Component {
   );
 
   render() {
-    const dataAmountGoods
+    const optionsAmountGoods
       = Array(goodsFromServer.length).fill().map((_, index) => index + 1);
-    const { goodsVisible } = this.state;
+    const { isGoodsVisible, minProductLength } = this.state;
 
     return (
       <div className="App">
         {
-          goodsVisible
+          isGoodsVisible
             ? (
               <>
                 <GoodsList goods={this.state.goodsData} />
@@ -90,19 +92,16 @@ class App extends Component {
                 />
                 <Select
                   onChange={this.filterGoodsByLength}
-                  dataAmountGoods={dataAmountGoods}
+                  optionsAmountGoods={optionsAmountGoods}
                 />
               </>
             )
             : (
-              <>
-                <button
-                  onClick={this.visibleGoods}
-                  type="button"
-                >
-                  Start
-                </button>
-              </>
+              <Button
+                onClick={this.visibleGoods}
+                value={minProductLength}
+                text="Start"
+              />
             )
         }
       </div>

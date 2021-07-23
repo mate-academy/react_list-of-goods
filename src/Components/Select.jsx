@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Select = ({ dataAmountGoods, onChange }) => (
+export const Select = ({ optionsAmountGoods, minProductLength, onChange }) => (
   <select
     onChange={onChange}
+    value={minProductLength}
   >
-    {dataAmountGoods.map(number => (
+    {optionsAmountGoods.map(number => (
       <option
         value={number}
         key={number}
@@ -17,8 +18,9 @@ export const Select = ({ dataAmountGoods, onChange }) => (
 );
 
 Select.propTypes = {
-  dataAmountGoods: PropTypes.arrayOf(
+  optionsAmountGoods: PropTypes.arrayOf(
     PropTypes.number.isRequired,
   ).isRequired,
+  value: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
