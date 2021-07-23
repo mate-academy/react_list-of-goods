@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Buttons from './components/Buttons/Buttons';
+import Button from './components/Button/Button';
 import Select from './components/Select/Select';
 import ImplementedList from './components/ImplementedList/ImplementedList';
-import MainButtons from './components/MainButtons/MainButtons';
+import { Controls } from './components/Controls/Controls';
 
 const goodsFromServer = [
   'Dumplings',
@@ -35,7 +35,7 @@ class App extends React.Component {
       }));
   }
 
-  isReversed = () => {
+  reversList = () => {
     this.setState(prevState => (
       {
         isReversed: !prevState.isReversed,
@@ -43,7 +43,7 @@ class App extends React.Component {
     ));
   }
 
-  isSortedAlphabetically = () => {
+  sortAlphabeticallyList = () => {
     this.setState(prevState => (
       {
         isSortedAlphabetically: !prevState.isSortedAlphabetically,
@@ -51,7 +51,7 @@ class App extends React.Component {
     ));
   }
 
-  isReset = () => {
+  resetList = () => {
     this.setState(prevState => (
       {
         value: 1,
@@ -63,13 +63,13 @@ class App extends React.Component {
     ));
   }
 
-  isSortedByLength = () => {
+  sortByLengthList = () => {
     this.setState(prevState => ({
       isSortedByLength: !prevState.isSortedByLength,
     }));
   }
 
-  isSelected = event => (
+  selectList = event => (
     this.setState({ value: event.target.value }));
 
   render() {
@@ -81,17 +81,17 @@ class App extends React.Component {
           isVisible
             ? (
               <div className="App">
-                <ImplementedList {...this.state} />
+                <ImplementedList stateValue={this.state} />
                 <div className="App__container-button">
-                  <MainButtons
-                    isReset={this.isReset}
-                    isReversed={this.isReversed}
-                    isSortedAlphabetically={this.isSortedAlphabetically}
-                    isSortedByLength={this.isSortedByLength}
+                  <Controls
+                    resetList={this.resetList}
+                    reversList={this.reversList}
+                    sortAlphabeticallyList={this.sortAlphabeticallyList}
+                    sortByLengthList={this.sortByLengthList}
                   />
                   <Select
                     list={list}
-                    onChange={this.isSelected}
+                    onChange={this.selectList}
                     value={this.state.value}
                   />
                 </div>
@@ -99,8 +99,8 @@ class App extends React.Component {
             )
             : (
 
-              <Buttons
-                callback={this.showOrHideList}
+              <Button
+                onClick={this.showOrHideList}
                 name="Start"
               />
             )

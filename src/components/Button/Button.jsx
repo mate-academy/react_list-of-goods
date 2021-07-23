@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Buttons = ({ callback, name }) => (
+const Button = ({ onClick, name }) => (
   <button
-    onClick={callback}
+    onClick={onClick}
     type="submit"
   >
     {name}
   </button>
 );
 
-Buttons.propTypes = {
-  callback: PropTypes.func.isRequired,
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 };
 
-export default Buttons;
+export default Button;

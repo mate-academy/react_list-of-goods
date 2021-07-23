@@ -1,13 +1,15 @@
 import React from 'react';
 import listPropTypes from './listPropTypes';
 
-const ImplementedList = ({
-  list,
-  isReversed,
-  isSortedAlphabetically,
-  isSortedByLength,
-  value,
-}) => {
+const ImplementedList = ({ stateValue }) => {
+  const {
+    list,
+    isReversed,
+    isSortedAlphabetically,
+    isSortedByLength,
+    value,
+  } = stateValue;
+
   let copyList = [...list];
 
   if (isReversed) {
