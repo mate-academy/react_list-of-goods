@@ -45,7 +45,7 @@ class App extends Component {
   resetListOfGoods = () => (
     this.setState({
       goodsData: goodsFromServer,
-      minProductLength: 1,
+      minProductLength: 0,
     })
   )
 
@@ -93,6 +93,7 @@ class App extends Component {
                 <Select
                   onChange={this.filterGoodsByLength}
                   optionsAmountGoods={optionsAmountGoods}
+                  minProductLength={minProductLength}
                 />
               </>
             )
