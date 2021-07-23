@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes, { string } from 'prop-types';
 import './GoodsList.css';
-import { Button } from '../Button/Button';
-import { Select } from '../Select/Select';
-import { Good } from '../Good/Good';
+import { Button } from '../Button';
+import { Select } from '../Select';
+import { Good } from '../Good';
 
 export class GoodsList extends React.Component {
   state = {
-    sortBy: null,
+    sortedBy: null,
     goods: this.props.goods,
     minGoodLength: 1,
     selectRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -19,9 +19,9 @@ export class GoodsList extends React.Component {
     }));
   }
 
-  sortGoods = (goodsCopy, sortBy) => (
+  sortGoods = (goodsCopy, sortedBy) => (
     goodsCopy.sort((good1, good2) => {
-      switch (sortBy) {
+      switch (sortedBy) {
         case 'alphabet':
           return good1.localeCompare(good2);
         case 'length':
@@ -33,22 +33,22 @@ export class GoodsList extends React.Component {
   )
 
   sortByAlphabet = () => {
-    this.setState({ sortBy: 'alphabet' });
+    this.setState({ sortedBy: 'alphabet' });
     this.setState(prevState => ({
-      goods: this.sortGoods([...prevState.goods], prevState.sortBy),
+      goods: this.sortGoods([...prevState.goods], prevState.sortedBy),
     }));
   }
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sortedBy: 'length' });
     this.setState(prevState => ({
-      goods: this.sortGoods([...prevState.goods], prevState.sortBy),
+      goods: this.sortGoods([...prevState.goods], prevState.sortedBy),
     }));
   }
 
   reset = () => {
     this.setState({
-      sortBy: null,
+      sortedBy: null,
       goods: this.props.goods,
       minGoodLength: 1,
     });
