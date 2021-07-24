@@ -5,7 +5,7 @@ export const GoodsList = React.memo(
   ({ goods }) => (
     <ul>
       {goods.map(good => (
-        <li key="good">
+        <li key={good}>
           {good}
         </li>
       ))}

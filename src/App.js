@@ -57,11 +57,14 @@ export class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Button
-          title="Start"
-          onClick={this.showGoodsList}
-          isHidden={this.state.isListShown}
-        />
+        {!this.state.isListShown
+          && (
+          <Button
+            title="Start"
+            onClick={this.showGoodsList}
+          />
+          )
+        }
         <div className={!this.state.isListShown && 'hiddenList'}>
           <GoodsList goods={this.state.goods} />
           <Button
