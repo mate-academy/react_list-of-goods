@@ -1,0 +1,14 @@
+.App {
+  background-color: yellowgreen;
+  width: max-content;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.title {
+  text-align: center;
+  color: blue;
+}
