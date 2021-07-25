@@ -1,0 +1,36 @@
+html {
+  font-family: Roboto, sans-serif;
+  background-color: #eee;
+}
+
+button,
+select {
+  width: 120px;
+  height: 30px;
+  padding: 0 10px;
+  font-family: inherit;
+  color: #fff;
+  background-color: #34353a;
+  border: none;
+  border-radius: 16px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover,
+select:hover {
+  background-color: #adadad;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
