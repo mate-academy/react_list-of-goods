@@ -48,7 +48,7 @@ class App extends React.Component {
     });
   }
 
-  copyList = () => {
+  copyGoodsList = () => {
     const { goods, isRevers, sortBy } = this.state;
 
     const visibleGoods = [...goods];
@@ -72,7 +72,7 @@ class App extends React.Component {
   }
 
   render() {
-    const visibleGoods = this.copyList();
+    const visibleGoods = this.copyGoodsList();
 
     return (
       <div className="app">
