@@ -1,0 +1,36 @@
+@import "~bootstrap/scss/bootstrap";
+
+.button {
+  &__start-container {
+    font-size: 60px;
+    color: $orange;
+  }
+
+  &__reverse {
+    color: $warning;
+    border: 2px solid $warning;
+    background-color: $yellow-700;
+  }
+
+  &__sort-alphabetically {
+    color: $primary;
+    border: 2px solid $primary;
+    background-color: $blue-700;
+  }
+
+  &__sort-by-length {
+    color: $primary;
+    border: 2px solid $primary;
+    background-color: $blue-700;
+  }
+
+  &__reset {
+    color: $danger;
+    border: 2px solid $danger;
+    background-color: $red-700;
+  }
+}
+
+.app__buttons .btn:hover {
+  color: $gray-400;
+}

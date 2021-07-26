@@ -1,0 +1,28 @@
+@import "~bootstrap/scss/bootstrap";
+
+.start-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $gray-400;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $gray-400;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .form-select {
+    color: $teal-400;
+    background-color: $teal-700;
+  }
+}
