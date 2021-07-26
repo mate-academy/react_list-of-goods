@@ -33,15 +33,6 @@ class App extends React.Component {
     }));
   };
 
-  reverse = () => {
-    const { goods } = this.state;
-    const copyList = [...goods];
-
-    this.setState({
-      goods: copyList.reverse(),
-    });
-  };
-
   sortAlphabetically = () => {
     this.setState(state => ({
       goods: state.goods.sort((a, b) => a.localeCompare(b)),
