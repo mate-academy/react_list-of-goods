@@ -58,28 +58,16 @@ class App extends React.Component {
   };
 
   render() {
-    const { goods, sortBy, isReversed, isStarted } = this.state;
-    const newGoods = goods.sort((good1, good2) => {
-      switch (sortBy) {
-        case 'alphabet':
-          return good1.localeCompare(good2);
-        case 'length':
-          return good1.length - good2.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      newGoods.reverse();
-    }
-
     return (
       <div className="App">
-        {isStarted ? (
+        {this.state.isStarted ? (
           <>
             <h1 className="title">Goods</h1>
-            <GoodsList goods={goods} />
+            <GoodsList
+              goods={this.state.goods}
+              sortBy={this.state.sortBy}
+              isReversed={this.state.isReversed}
+            />
             <div className="buttons">
               <Button callback={this.reverse} text="Reverse" />
               <Button callback={this.sortByLength} text="Sort by length" />
