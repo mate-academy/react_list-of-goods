@@ -1,0 +1,36 @@
+.App {
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: lightsteelblue;
+  padding: 10px;
+  border-radius: 10px;
+
+}
+
+.App__btn {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.App__btn:hover {
+  opacity: 0.8;
+}
+
+.App__btn-list {
+  background-color: rgb(3, 61, 136);
+  color: white;
+  padding: 5px 15px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: none;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.App__btn-list:hover {
+  opacity: 0.8;
+}
