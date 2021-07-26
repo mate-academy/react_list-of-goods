@@ -17,9 +17,8 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goods: [...goodsFromServer],
+    goods: goodsFromServer,
     isVisible: false,
-    isReverse: false,
   };
 
   show = () => {
@@ -30,14 +29,22 @@ class App extends React.Component {
 
   reverse = () => {
     this.setState(state => ({
-      isReverse: !state.isReverse,
       goods: state.goods.reverse(),
     }));
   };
 
+  reverse = () => {
+    const { goods } = this.state;
+    const copyList = [...goods];
+
+    this.setState({
+      goods: copyList.reverse(),
+    });
+  };
+
   sortAlphabetically = () => {
     this.setState(state => ({
-      goods: state.goods.sort(),
+      goods: state.goods.sort((a, b) => a.localeCompare(b)),
     }));
   };
 
