@@ -1,0 +1,28 @@
+.btn--hidden {
+  display: none;
+}
+
+.btn--start {
+  position: absolute;
+  top: 260px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App__title {
+  text-align: center;
+  margin: 16px;
+}
+
+.App__content {
+  transform: translateY(0);
+  transition: transform 0.5s;
+}
+
+.App__content--hidden {
+  transform: translateY(-100%);
+}
