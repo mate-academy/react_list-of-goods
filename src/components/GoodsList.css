@@ -1,0 +1,6 @@
+.list {
+  display: block;
+  width: min-content;
+  margin: 80px auto 20px;
+  list-style: none;
+}
