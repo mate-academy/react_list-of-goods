@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import ButtonPanel from '../ButtonPanel/ButtonPanel';
 
 import { v4 as uuidv4 } from 'uuid';
 import { ListGroup, Button, ButtonGroup } from 'react-bootstrap';
