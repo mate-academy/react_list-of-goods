@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 
 export const Select = ({ onChange, id }) => {
   const minLength = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -7,7 +8,7 @@ export const Select = ({ onChange, id }) => {
   return (
     <select onChange={onChange} value={id}>
       {minLength.map(item => (
-        <option key={item}>
+        <option key={nanoid()}>
           {item}
         </option>
       ))}

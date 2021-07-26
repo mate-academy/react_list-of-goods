@@ -1,9 +1,8 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 import { Button } from './components/button/button';
 import { Select } from './components/select/select';
 import './App.css';
-
-// import { array } from 'prop-types';
 
 const goodsFromServer = [
   'Dumplings',
@@ -20,38 +19,45 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    myArr: [...goodsFromServer],
+    goodsData: [...goodsFromServer],
     id: 1,
+    isVisible: false,
   };
+
+  setGoodsVisible = () => {
+    this.setState({
+      isVisible: true,
+    });
+  }
 
   sortBy = () => {
     this.setState(state => ({
-      myArr: state.myArr.sort((a, b) => a.localeCompare(b)),
+      goodsData: state.goodsData.sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   reset = () => {
     this.setState({
-      myArr: [...goodsFromServer],
+      goodsData: [...goodsFromServer],
       id: 1,
     });
   }
 
   sortByLength = () => {
     this.setState(state => ({
-      myArr: state.myArr.sort((a, b) => a.length - b.length),
+      goodsData: state.goodsData.sort((a, b) => a.length - b.length),
     }));
   }
 
   filterLength = () => {
     this.setState(state => ({
-      myArr: [...goodsFromServer].filter(a => a.length >= state.id),
+      goodsData: [...goodsFromServer].filter(a => a.length >= state.id),
     }));
   }
 
   reverse = () => {
     this.setState(state => ({
-      myArr: state.myArr.reverse(),
+      goodsData: state.goodsData.reverse(),
     }));
   }
 
@@ -66,24 +72,33 @@ class App extends React.Component {
   }
 
   render() {
-    const { reverse, sortBy, reset, sortByLength, onChange } = this;
-    const { myArr, id } = this.state;
+    const { reverse, sortBy, reset,
+      sortByLength, onChange, setGoodsVisible } = this;
+    const { goodsData, id, isVisible } = this.state;
 
     return (
       <div className="app">
-        <h1>Goods</h1>
-        <div className="list">
-          { myArr.map(good => <p key={good}>{ good }</p>) }
-        </div>
+        { isVisible
+          ? (
+            <>
+              <h1>Goods</h1>
+              <div className="list">
+                { goodsData.map(good => <p key={nanoid()}>{ good }</p>) }
+              </div>
 
-        <div className="buttons">
-          <Button onClick={reverse} text="Reverse" />
-          <Button onClick={sortBy} text="Sort" />
-          <Button onClick={reset} text="Reset" />
-          <Button onClick={sortByLength} text="Sort by length" />
-          <Select onChange={onChange} id={id} />
-        </div>
-
+              <div className="buttons">
+                <Button onClick={reverse} text="Reverse" />
+                <Button onClick={sortBy} text="Sort" />
+                <Button onClick={reset} text="Reset" />
+                <Button onClick={sortByLength} text="Sort by length" />
+                <Select onChange={onChange} id={id} />
+              </div>
+            </>
+          )
+          : (
+            <Button onClick={setGoodsVisible} text="Start" />
+          )
+        }
       </div>
     );
   }
