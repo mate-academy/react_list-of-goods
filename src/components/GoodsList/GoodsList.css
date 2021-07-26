@@ -1,0 +1,15 @@
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list {
+  padding: 0;
+}
+
+.list__item {
+  font-family: monospace;
+  font-size: 24px;
+  list-style: square;
+}

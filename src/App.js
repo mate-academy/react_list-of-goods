@@ -1,4 +1,9 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+import { Button } from './components/Button';
+import { GoodsList } from './components/GoodsList';
+
 import './App.css';
 
 const goodsFromServer = [
@@ -12,13 +17,33 @@ const goodsFromServer = [
   'Honey',
   'Jam',
   'Garlic',
-];
+].map(good => ({
+  id: uuidv4(),
+  name: good,
+}));
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component {
+  state = {
+    isGoodsVisible: false,
+  };
 
-export default App;
+  toggleVisibility = () => {
+    this.setState(state => ({
+      isGoodsVisible: !state.isGoodsVisible,
+    }));
+  }
+
+  render() {
+    const { isGoodsVisible } = this.state;
+
+    return (
+      <div className="App">
+        { isGoodsVisible ? (
+          <GoodsList goods={goodsFromServer} />
+        ) : (
+          <Button onClick={this.toggleVisibility} name="Start" />
+        )}
+      </div>
+    );
+  }
+}

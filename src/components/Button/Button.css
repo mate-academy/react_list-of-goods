@@ -1,0 +1,17 @@
+.Button {
+  background-color: #fff;
+  border: 2px solid #000;
+  color: #000;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 22px;
+  margin: 15px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+}
+
+.Button:hover,
+.Button:focus {
+  border-style: dashed;
+  outline: none;
+}
