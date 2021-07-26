@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { GoodsList } from './components/GoodsList';
-import './App.css';
 import { Button } from './components/Button';
+import './App.css';
 
 const goodsFromServer = [
   'Dumplings',
