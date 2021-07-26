@@ -1,6 +1,10 @@
 html {
-  font-family: Roboto, sans-serif;
   background-color: #eee;
+  font-family: Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
 }
 
 button,
@@ -24,9 +28,16 @@ select:hover {
 }
 
 .app {
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
+}
+
+.list {
+  font-size: 1.5rem;
+  list-style: none;
 }
 
 .buttons {

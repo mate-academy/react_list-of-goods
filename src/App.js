@@ -1,7 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import { Button } from './components/button/button';
-import { Select } from './components/select/select';
+import { Button } from './components/Button/Button';
+import { Select } from './components/Select/Select';
 import './App.css';
 
 const goodsFromServer = [
@@ -19,45 +19,45 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    goodsData: [...goodsFromServer],
-    id: 1,
-    isVisible: false,
+    goods: [...goodsFromServer],
+    minLength: 1,
+    isGoodsListVisible: false,
   };
 
   setGoodsVisible = () => {
     this.setState({
-      isVisible: true,
+      isGoodsListVisible: true,
     });
   }
 
-  sortBy = () => {
+  sortByAlphabet = () => {
     this.setState(state => ({
-      goodsData: state.goodsData.sort((a, b) => a.localeCompare(b)),
+      goods: state.goods.sort((a, b) => a.localeCompare(b)),
     }));
   }
 
   reset = () => {
     this.setState({
-      goodsData: [...goodsFromServer],
-      id: 1,
+      goods: [...goodsFromServer],
+      minLength: 1,
     });
   }
 
   sortByLength = () => {
     this.setState(state => ({
-      goodsData: state.goodsData.sort((a, b) => a.length - b.length),
+      goods: state.goods.sort((a, b) => a.length - b.length),
     }));
   }
 
   filterLength = () => {
     this.setState(state => ({
-      goodsData: [...goodsFromServer].filter(a => a.length >= state.id),
+      goods: state.goods.filter(a => a.length >= state.minLength),
     }));
   }
 
   reverse = () => {
     this.setState(state => ({
-      goodsData: state.goodsData.reverse(),
+      goods: state.goods.reverse(),
     }));
   }
 
@@ -65,33 +65,32 @@ class App extends React.Component {
     const { value } = event.target;
 
     this.setState({
-      id: value,
+      minLength: value,
     });
 
     this.filterLength();
   }
 
   render() {
-    const { reverse, sortBy, reset,
+    const { reverse, sortByAlphabet, reset,
       sortByLength, onChange, setGoodsVisible } = this;
-    const { goodsData, id, isVisible } = this.state;
+    const { goods, minLength, isGoodsListVisible } = this.state;
 
     return (
       <div className="app">
-        { isVisible
+        { isGoodsListVisible
           ? (
             <>
               <h1>Goods</h1>
-              <div className="list">
-                { goodsData.map(good => <p key={nanoid()}>{ good }</p>) }
-              </div>
-
+              <ul className="list">
+                { goods.map(good => <li key={nanoid()}>{ good }</li>) }
+              </ul>
               <div className="buttons">
                 <Button onClick={reverse} text="Reverse" />
-                <Button onClick={sortBy} text="Sort" />
+                <Button onClick={sortByAlphabet} text="Sort alphabetically" />
                 <Button onClick={reset} text="Reset" />
                 <Button onClick={sortByLength} text="Sort by length" />
-                <Select onChange={onChange} id={id} />
+                <Select onChange={onChange} id={minLength} />
               </div>
             </>
           )
