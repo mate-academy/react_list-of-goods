@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { GoodsList } from './components/GoodsList';
 import './App.css';
+import { Button } from './components/Button';
 
 const goodsFromServer = [
   'Dumplings',
@@ -14,11 +16,40 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends PureComponent {
+  state = {
+    isVisible: true,
+  }
+
+  toStart = () => {
+    this.setState(preveState => ({
+      isVisible: !preveState.isVisible,
+    }));
+  }
+
+  render() {
+    const { isVisible } = this.state;
+
+    return (
+      <div className="App">
+        <h1 className="title">
+          List of goods
+        </h1>
+        {isVisible
+          ? (
+            <GoodsList goods={goodsFromServer} />
+          )
+          : (
+            <Button
+              text="Start"
+              onClick={() => this.toStart()}
+              className="button isCenter is-success"
+            />
+          )
+        }
+      </div>
+    );
+  }
+}
 
 export default App;
