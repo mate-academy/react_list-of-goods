@@ -18,7 +18,7 @@ const goodsFromServer = [
 
 class App extends PureComponent {
   state = {
-    isVisible: true,
+    isVisible: false,
   }
 
   toStart = () => {
