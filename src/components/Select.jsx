@@ -1,16 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const Select = () => (
-  <select name="select">
-    <option value="1" selected>Length 1</option>
-    <option value="2">Length 2</option>
-    <option value="3">Length 3</option>
-    <option value="4">Length 4</option>
-    <option value="5">Length 5</option>
-    <option value="6">Length 6</option>
-    <option value="7">Length 7</option>
-    <option value="8">Length 8</option>
-    <option value="9">Length 9</option>
-    <option value="10">Length 10</option>
+const arrLength = Array.from(Array(10).keys());
+
+export const Select = ({ onChange, value }) => (
+  <select name="select" onChange={onChange} value={value}>
+    {arrLength.map(length => (
+      <option key={length} value={length + 1}>
+        {`Length ${length + 1}`}
+      </option>
+    ))
+    }
   </select>
 );
+
+Select.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
