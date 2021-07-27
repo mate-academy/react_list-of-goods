@@ -1,0 +1,42 @@
+.button {
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.4s;
+  outline: none;
+}
+
+.button:hover,
+.button:focus {
+  transform: scale(1.1);
+}
+
+.show {
+  background-color: tomato;
+}
+
+.hide {
+  background-color: chartreuse;
+}
+
+.reset {
+  background-color: rebeccapurple;
+  color: antiquewhite;
+}
+
+.sort--ABC {
+  background-color: aqua;
+
+}
+
+.sort--length {
+  background-color: lightcoral;
+
+}
+
+.reverse {
+  background-color: royalblue;
+  color: antiquewhite;
+}
