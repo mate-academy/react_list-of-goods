@@ -1,24 +1,12 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
-
-const App = () => (
+export const App = () => (
   <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
+    <div className="App">
+      <h1>Goods</h1>
+      <GoodsList />
+    </div>
   </div>
 );
-
-export default App;
