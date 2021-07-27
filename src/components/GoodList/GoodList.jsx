@@ -12,7 +12,13 @@ class GoodList extends Component {
 
   reverseHandler = () => {
     this.setState(prevState => ({
-      goodsList: prevState.goodsList.reverse(),
+      goodsList: [...prevState.goodsList].reverse(),
+    }));
+  }
+
+  reset = () => {
+    this.setState(prevProps => ({
+      goodsList: [...this.props.goodsList],
     }));
   }
 
@@ -20,22 +26,16 @@ class GoodList extends Component {
     switch (arg) {
       case 'argLength':
         return (this.setState(prevState => ({
-          goodsList: prevState.goodsList
+          goodsList: [...prevState.goodsList]
             .sort((a, b) => a.length - b.length),
         })));
       case 'ABC':
         return (this.setState(prevState => ({
-          goodsList: prevState.goodsList
+          goodsList: [...prevState.goodsList]
             .sort((a, b) => a.localeCompare(b)),
         })));
       default: return 'Something wrong';
     }
-  }
-
-  reset() {
-    this.setState(prevProps => ({
-      goodsList: this.props.goodsList,
-    }));
   }
 
   render() {
@@ -77,7 +77,7 @@ class GoodList extends Component {
             Sort by length
           </Button>
           <Button
-            onClick={() => this.reset()}
+            onClick={this.reset}
             variant="danger"
             className="button__item"
           >

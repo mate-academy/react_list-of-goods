@@ -23,7 +23,7 @@ class App extends Component {
     isListGenerate: false,
   }
 
-  listGenerateHandler() {
+  listGenerateHandler = () => {
     this.setState({
       isListGenerate: true,
     });
@@ -35,7 +35,7 @@ class App extends Component {
         <h1 className="title">Goods</h1>
         { this.state.isListGenerate || (
           <Button
-            onClick={() => this.listGenerateHandler()}
+            onClick={this.listGenerateHandler}
           >
             Generate List
           </Button>
