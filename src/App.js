@@ -29,7 +29,7 @@ class App extends React.PureComponent {
   reverse = () => {
     this.setState(
       state => ({
-        goodsList: [...state.goodsList.reverse()],
+        goodsList: [...state.goodsList].reverse(),
       }),
     );
   }
@@ -37,7 +37,7 @@ class App extends React.PureComponent {
   sortAlphabet = () => {
     this.setState(
       state => ({
-        goodsList: [...state.goodsList.sort()],
+        goodsList: [...state.goodsList].sort(),
       }),
     );
   }
@@ -53,9 +53,9 @@ class App extends React.PureComponent {
   sortLength = () => {
     this.setState(
       state => ({
-        goodsList: [...state.goodsList.sort(
+        goodsList: [...state.goodsList].sort(
           (g1, g2) => (g1.length - g2.length),
-        )],
+        ),
       }),
     );
   }
@@ -87,22 +87,6 @@ class App extends React.PureComponent {
                 text="Sort by length"
                 action={this.sortLength}
               />
-              {/* <div
-                className="select is-danger is-medium is-rounded"
-              >
-                <select>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                  <option>9</option>
-                  <option>10</option>
-                </select>
-              </div> */}
             </div>
           </>
         ) : (
