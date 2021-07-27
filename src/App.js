@@ -17,32 +17,12 @@ const goodsFromServer = [
 
 class App extends React.Component {
   state = {
-    listOfGoods: [...goodsFromServer],
+    showGods: false,
   };
 
-  listReverse = () => {
-    this.setState(({ listOfGoods }) => ({
-      listOfGoods: listOfGoods.reverse(),
-    }));
-  }
-
-  listSortAlphabetically = () => {
-    this.setState(({ listOfGoods }) => ({
-      listOfGoods: listOfGoods.sort(),
-    }));
-  }
-
-  resetList = () => {
-    this.setState(({ listOfGoods }) => ({
-      listOfGoods: [...goodsFromServer],
-    }));
-  }
-
-  sortByLengthList = () => {
-    this.setState(({ listOfGoods }) => ({
-      listOfGoods: listOfGoods.sort(
-        (prevGood, nextGood) => prevGood.length - nextGood.length,
-      ),
+  showListOfGoods = () => {
+    this.setState(({ showGods }) => ({
+      showGods: !showGods,
     }));
   }
 
@@ -50,7 +30,18 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <ListOfGoods goodsFromServer={goodsFromServer} />
+        {
+          this.state.showGods
+            ? (<ListOfGoods goodsFromServer={goodsFromServer} />)
+            : (
+              <button
+                type="button"
+                onClick={() => this.showListOfGoods()}
+              >
+                Start
+              </button>
+            )
+        }
       </div>
     );
   }
