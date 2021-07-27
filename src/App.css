@@ -1,0 +1,23 @@
+.head {
+  color: rgb(255, 0, 115);
+}
+
+button {
+  background-color: rgb(255, 225, 0);
+  margin-left: 15px;
+  animation: spin 1s linear 1s;
+
+}
+
+button:hover {
+  background-color: beige;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
