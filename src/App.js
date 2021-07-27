@@ -44,8 +44,10 @@ class App extends React.Component {
   }
 
   sortByLength = () => {
+    const filtered = [...this.state.goods].sort((a, b) => a.length - b.length);
+
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.length - b.length),
+      goods: filtered,
     }));
   }
 
@@ -56,8 +58,10 @@ class App extends React.Component {
   }
 
   reverse = () => {
+    const reversed = [...this.state.goods].reverse();
+
     this.setState(state => ({
-      goods: state.goods.reverse(),
+      goods: reversed,
     }));
   }
 
@@ -78,12 +82,12 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        { isGoodsListVisible
+        {isGoodsListVisible
           ? (
             <>
               <h1>Goods</h1>
               <ul className="list">
-                { goods.map(good => <li key={nanoid()}>{ good }</li>) }
+                {goods.map(good => <li key={nanoid()}>{good}</li>)}
               </ul>
               <div className="buttons">
                 <Button onClick={reverse} text="Reverse" />
