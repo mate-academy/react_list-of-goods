@@ -42,7 +42,8 @@ export class App extends PureComponent {
 
   sortByLength = () => {
     this.setState(state => ({
-      goodsList: [...state.goodsList].sort((g1, g2) => g1.length - g2.length),
+      goodsList: [...state.goodsList]
+        .sort((good1, good2) => good1.length - good2.length),
     }));
   }
 
