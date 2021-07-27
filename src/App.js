@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
-import Button from './components/Buttons/Buttons';
-import GoodsList from './components/GoodsList/GoodsList';
+// eslint-disable-next-line import/no-useless-path-segments
+import Button from './components/Button/';
+// eslint-disable-next-line import/no-useless-path-segments
+import GoodsList from './components/GoodsList/';
 
 const goodsFromServer = [
   'Dumplings',
@@ -19,11 +21,11 @@ const goodsFromServer = [
 class App extends React.PureComponent {
   state = {
     goodsList: goodsFromServer,
-    openPage: false,
+    isListVisible: false,
   }
 
   openPage = () => {
-    this.setState({ openPage: true });
+    this.setState({ isListVisible: true });
   }
 
   reverseGoods = () => {
@@ -59,11 +61,11 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const { goodsList, openPage } = this.state;
+    const { goodsList, isListVisible } = this.state;
 
     return (
       <div>
-        {openPage ? (
+        {isListVisible ? (
           <>
             <GoodsList goodsList={goodsList} />
             <div>
