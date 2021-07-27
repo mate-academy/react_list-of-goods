@@ -105,7 +105,7 @@ class App extends React.Component {
               </button>
               <ul>
                 {goodsForList.map(good => (
-                  <li>
+                  <li key={good}>
                     {good}
                   </li>
                 ))}
