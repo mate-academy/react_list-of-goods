@@ -7,8 +7,12 @@
   font-size: 30px;
 }
 
-.button-start--hidden {
+.hidden {
   display: none;
+}
+
+.visible {
+  display: block;
 }
 
 .button-start--visible {

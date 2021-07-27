@@ -82,7 +82,7 @@ class App extends React.Component {
           onClick={this.ShowList}
           className={
             isVisible
-              ? 'button-start--hidden'
+              ? 'hidden'
               : 'button-start--visible'
           }
         >
@@ -91,7 +91,7 @@ class App extends React.Component {
 
         <GoodsList goodsList={visibleList} />
 
-        <div>
+        <div className={!isVisible ? 'hidden' : 'visible'}>
           <button
             type="button"
             onClick={this.Reverse}
@@ -120,7 +120,7 @@ class App extends React.Component {
         <button
           type="button"
           onClick={this.Reset}
-          className="App__button"
+          className={!isVisible ? 'hidden' : 'App__button visible'}
         >
           Reset
         </button>
