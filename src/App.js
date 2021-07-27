@@ -30,6 +30,7 @@ class App extends React.Component {
 
   render() {
     const { isStart, wait } = this.state;
+    const { startingApp } = this;
     const style = {
       transform: 'translateY(-100%)',
       transition: `transform ${wait}ms ease-out`,
@@ -50,7 +51,7 @@ class App extends React.Component {
           <button
             className="first-view__btn"
             type="button"
-            onClick={this.startingApp}
+            onClick={startingApp}
           >
             Start
           </button>
