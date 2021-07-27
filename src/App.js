@@ -31,8 +31,10 @@ class App extends React.Component {
   }
 
   sortByAlphabet = () => {
+    const sorted = [...this.state.goods].sort((a, b) => a.localeCompare(b));
+
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => a.localeCompare(b)),
+      goods: sorted,
     }));
   }
 
