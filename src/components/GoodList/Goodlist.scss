@@ -1,0 +1,135 @@
+.list-wrapper {
+  min-height: 100vh;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(45deg, #000428, #004e92);
+  background-size: 300% 300%;
+  animation: bg 10s ease infinite;
+}
+
+@keyframes bg {
+  0% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.todo-list {
+  margin: 30px auto 0;
+  min-width: 400px;
+  padding: 20px 30px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+
+  list-style: none;
+
+  color: whitesmoke;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  background-color: rgba(101, 144, 218, 0.4);
+
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.3em;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid whitesmoke;
+  }
+
+  &__content {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2em;
+  }
+}
+
+.list-btn {
+  margin-bottom: 30px;
+  max-width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: 20px;
+}
+
+.btn {
+  width: 180px;
+  height: 50px;
+  box-sizing: border-box;
+
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", Arial, sans-serif;
+  text-transform: uppercase;
+  color: cyan;
+
+  border: 2px solid cyan;
+  border-radius: 8px;
+
+  background-color: transparent;
+  cursor: pointer;
+
+  transition: box-shadow 0.3s cubic-bezier(0.48,1.97,0.87,-0.86),
+    background-color 0.3s cubic-bezier(0.48,1.97,0.87,-0.86),
+    color 0.3s cubic-bezier(0.48,1.97,0.87,-0.86);
+
+  &:hover {
+    color: #004e92;
+    background-color: cyan;
+    box-shadow: 1px 2px 10px cyan,
+      1px 2px 20px cyan;
+  }
+}
+
+.list-select-label {
+  color: whitesmoke;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1em;
+  margin: 0 0 8px 8px;
+}
+
+.list-select {
+  width: 380px;
+  height: 40px;
+  padding: 0 5px;
+
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", Arial, sans-serif;
+  text-transform: uppercase;
+  color: cyan;
+
+  border: 2px solid cyan;
+  border-radius: 8px;
+
+  background-color: transparent;
+  outline: none;
+
+  transition: box-shadow 0.3s cubic-bezier(0.48,1.97,0.87,-0.86),
+    background-color 0.3s cubic-bezier(0.48,1.97,0.87,-0.86),
+    color 0.3s cubic-bezier(0.48,1.97,0.87,-0.86);
+
+  &:hover {
+    color: #004e92;
+    background-color: cyan;
+    box-shadow: 1px 2px 10px cyan,
+      1px 2px 20px cyan;
+  }
+}
