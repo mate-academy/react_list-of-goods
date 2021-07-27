@@ -6,24 +6,21 @@ class Goods extends React.PureComponent {
     };
 
     reverse = () => {
-        let copyList = [...this.state.goods];
-        this.setState({
-            goods: copyList.reverse(),
-        })
+        this.setState(state => ({
+            goods: [...state.goods].reverse(),
+        }))
     };
 
     sortInAlphOrder = () => {
-        const copyList = [...this.state.goods]
-        this.setState({
-            goods: copyList.sort((a, b) => a.localeCompare(b)),
-        })
+        this.setState(state => ({
+            goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
+        }))
     };
 
     sortByWordLength = () => {
-        const copyList = [...this.state.goods]
-        this.setState({
-            goods: copyList.sort((a, b) => b.length - a.length),
-        })
+        this.setState(state => ({
+            goods: [...state.goods].sort((a, b) => b.length - a.length),
+        }))
     };
 
     reset = () => {
