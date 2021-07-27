@@ -18,18 +18,18 @@ const goodsFromServer = [
 class App extends React.Component {
   state = {
     goods: goodsFromServer,
-    isRevers: false,
-    isStart: false,
+    isReversed: false,
+    isVisible: false,
     sortBy: '',
   };
 
   start = () => {
-    this.setState({ isStart: true });
+    this.setState({ isVisible: true });
   }
 
   reverse = () => {
     this.setState(state => ({
-      isRevers: !state.isRevers,
+      isReversed: !state.isReversed,
     }));
   }
 
@@ -44,12 +44,12 @@ class App extends React.Component {
   reset = () => {
     this.setState({
       sortBy: '',
-      isRevers: false,
+      isReversed: false,
     });
   }
 
   copyGoodsList = () => {
-    const { goods, isRevers, sortBy } = this.state;
+    const { goods, isReversed, sortBy } = this.state;
 
     const visibleGoods = [...goods];
 
@@ -64,7 +64,7 @@ class App extends React.Component {
       }
     });
 
-    if (isRevers) {
+    if (isReversed) {
       visibleGoods.reverse();
     }
 
@@ -76,7 +76,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        {this.state.isStart ? (
+        {this.state.isVisible ? (
           <>
             <h1>Goods</h1>
             <GoodsList goods={visibleGoods} />
