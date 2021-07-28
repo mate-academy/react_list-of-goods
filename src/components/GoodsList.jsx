@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const GoodsList
   = (
-    { visibleGoods, sortAlphabetically, reverse, start, reset, sortByLength },
+    { visibleGoods, sortAlphabetically, reverse, reset, sortByLength },
   ) => (
     <>
       <ul>
@@ -28,7 +28,6 @@ export const GoodsList
 
 GoodsList.propTypes = {
   visibleGoods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  start: PropTypes.func.isRequired,
   reverse: PropTypes.func.isRequired,
   sortAlphabetically: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,

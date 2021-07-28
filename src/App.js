@@ -88,7 +88,7 @@ class App extends React.Component {
             />
           )
           : (
-            <button type="button" onClick={this.start}>
+            <button type="button" onClick={start}>
               Start
             </button>
           )
