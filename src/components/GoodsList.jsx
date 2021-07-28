@@ -6,11 +6,11 @@ export const GoodsList
     { visibleGoods, sortAlphabetically, reverse, start, reset, sortByLength },
   ) => (
     <>
-      <ol>
+      <ul>
         {visibleGoods.map(good => (
           <li key={good}>{good}</li>
         ))}
-      </ol>
+      </ul>
       <button type="button" onClick={reverse}>
         Reverse
       </button>
