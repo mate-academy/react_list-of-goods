@@ -1,0 +1,21 @@
+/* dfa */
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  margin-top: 40vh;
+  font-size: 100px;
+  padding: 30px;
+  border-radius: 240px;
+  background-color: chartreuse;
+  transform: translateY(-50%);
+}
+
+li {
+  font-size: 40px;
+  list-style: none;
+}
