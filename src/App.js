@@ -52,7 +52,7 @@ class App extends React.PureComponent {
     this.setState(
       state => ({
         goods: [...state.goods].sort(
-          (a, b) => a.length - b.length,
+          (good1, good2) => good1.length - good2.length,
         ),
       }),
     );
@@ -65,13 +65,16 @@ class App extends React.PureComponent {
   };
 
   render() {
+    const { goods } = this.state;
+    const { reset, sortByLength, sortAlphabetically, reverse, start } = this;
+
     return (
       <div className="App">
         {!this.state.isVisible && (
           <div
             className="start__button"
           >
-            <Button onclick={this.start} purpose="start" />
+            <Button onclick={start} purpose="start" />
           </div>
         )
         }
@@ -83,23 +86,23 @@ class App extends React.PureComponent {
               Goods
             </h1>
             <GoodsList
-              products={this.state.goods}
+              products={goods}
             />
             <div className="card-section">
               <Button
-                onclick={this.reverse}
+                onclick={reverse}
                 purpose="Reverse"
               />
               <Button
-                onclick={this.sortAlphabetically}
+                onclick={sortAlphabetically}
                 purpose="Sort alphabetically"
               />
               <Button
-                onclick={this.sortByLength}
+                onclick={sortByLength}
                 purpose="Sort by length"
               />
               <Button
-                onclick={this.reset}
+                onclick={reset}
                 purpose="Reset"
               />
             </div>
