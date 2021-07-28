@@ -71,9 +71,9 @@ class App extends React.PureComponent {
         <h1>Goods</h1>
         {showList || (
           <Button
-            className={showList ? 'show' : 'hide'}
+            className="show"
             onClick={start}
-            text={showList ? 'Hide me' : 'Show Me'}
+            text="Show Me"
           />
         )}
         {showList && (
