@@ -1,0 +1,41 @@
+.App {
+  display: flex;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  margin: auto;
+
+}
+
+.card-section {
+  padding: 16px;
+}
+
+.start__button {
+  margin: auto;
+  padding: 30px;
+  background-color: cornsilk;
+  border-radius: 20px;
+  border-color: lightgrey 1px solid;
+
+}
+
+.card-header-title {
+  font-size: 20px;
+  background-color: cornsilk;
+  width: 100%;
+}
+
+li {
+  padding: 6px;
+}
+
+li:hover {
+  color: burlywood;
+  font-weight: 600;
+}
