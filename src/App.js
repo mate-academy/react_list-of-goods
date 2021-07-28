@@ -18,7 +18,7 @@ const goodsFromServer = [
 
 class App extends React.PureComponent {
   state = {
-    showList: true,
+    showList: false,
     // initialGoods: goodsFromServer,
     isReversed: false,
     // eslint-disable-next-line react/no-unused-state
@@ -63,11 +63,13 @@ class App extends React.PureComponent {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <Button
-          className={this.state.showList ? 'show' : 'hide'}
-          onClick={this.start}
-          text={this.state.showList ? 'Hide me' : 'Show Me'}
-        />
+        {this.state.showList || (
+          <Button
+            className={this.state.showList ? 'show' : 'hide'}
+            onClick={this.start}
+            text={this.state.showList ? 'Hide me' : 'Show Me'}
+          />
+        )}
         {this.state.showList && (
           <>
             <List list={goodsFromServer} state={this.state} />
