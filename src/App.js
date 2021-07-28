@@ -3,7 +3,7 @@ import './App.css';
 import { ProductList } from './components/ProductList';
 import { Button } from './components/Button';
 
-const productFromServer = [
+const productsFromServer = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -18,7 +18,7 @@ const productFromServer = [
 
 class App extends React.PureComponent {
   state = {
-    productList: [...productFromServer],
+    productList: [...productsFromServer],
     isStarted: false,
   }
 
@@ -37,7 +37,9 @@ class App extends React.PureComponent {
   sortAlphabet = () => {
     this.setState(
       state => ({
-        productList: [...state.productList].sort(),
+        productList: [...state.productList].sort(
+          (product1, product2) => (product1).localeCompare(product2),
+        ),
       }),
     );
   }
@@ -45,7 +47,7 @@ class App extends React.PureComponent {
   reset = () => {
     this.setState(
       () => ({
-        productList: [...productFromServer],
+        productList: [...productsFromServer],
       }),
     );
   }
@@ -54,7 +56,7 @@ class App extends React.PureComponent {
     this.setState(
       state => ({
         productList: [...state.productList].sort(
-          (a, b) => (a.length - b.length),
+          (product1, product2) => (product1.length - product2.length),
         ),
       }),
     );
@@ -64,7 +66,7 @@ class App extends React.PureComponent {
     return (
       <div className="App">
         {this.state.isStarted ? (
-          <React.Fragment>
+          <div>
             <ProductList productList={this.state.productList} />
             <Button
               text="Reverse"
@@ -82,7 +84,7 @@ class App extends React.PureComponent {
               text="Sort by length"
               onClick={this.sortLength}
             />
-          </React.Fragment>
+          </div>
         ) : (
           <Button
             text="Start"
