@@ -6,9 +6,6 @@ export const GoodsList
     { visibleGoods, sortAlphabetically, reverse, start, reset, sortByLength },
   ) => (
     <>
-      <button type="button" onClick={start}>
-        End
-      </button>
       <ol>
         {visibleGoods.map(good => (
           <li key={good}>{good}</li>
