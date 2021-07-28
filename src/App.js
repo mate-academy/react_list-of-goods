@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { ListOfGoods } from './Components/ListOfGoods/ListOfGoods';
+import { ListOfGoods } from './Components/ListOfGoods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -29,14 +29,15 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Goods</h1>
+        <h1 className="App__header">Goods</h1>
         {
           this.state.showGods
             ? (<ListOfGoods goodsFromServer={goodsFromServer} />)
             : (
               <button
+                className="App__header-button"
                 type="button"
-                onClick={() => this.showListOfGoods()}
+                onClick={this.showListOfGoods}
               >
                 Start
               </button>

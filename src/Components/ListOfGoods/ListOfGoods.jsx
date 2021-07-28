@@ -34,40 +34,44 @@ export class ListOfGoods extends React.Component {
   }
 
   render() {
+    const { listOfGoods } = this.state;
+
     return (
       <>
-        <ul>
-          {this.state.listOfGoods.map(el => (
+        <ul className="App__items">
+          {listOfGoods.map(good => (
             <li key={Math.random()}>
-              {el}
+              {good}
             </li>
           ))}
         </ul>
-        <button
-          type="button"
-          onClick={() => this.listReverse()}
-        >
-          reverse
-        </button>
+        <div className="App__button">
+          <button
+            type="button"
+            onClick={() => this.listReverse()}
+          >
+            reverse
+          </button>
 
-        <button
-          type="button"
-          onClick={() => this.listSortAlphabetically()}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          type="button"
-          onClick={() => this.resetList()}
-        >
-          Reset
-        </button>
-        <button
-          type="button"
-          onClick={() => this.sortByLengthList()}
-        >
-          Sort by length
-        </button>
+          <button
+            type="button"
+            onClick={() => this.listSortAlphabetically()}
+          >
+            Sort alphabetically
+          </button>
+          <button
+            type="button"
+            onClick={() => this.resetList()}
+          >
+            Reset
+          </button>
+          <button
+            type="button"
+            onClick={() => this.sortByLengthList()}
+          >
+            Sort by length
+          </button>
+        </div>
       </>
     );
   }
