@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -51,7 +52,7 @@ class App extends React.Component {
 
   render() {
     const { isVisible, isReversed, goods, sortBy } = this.state;
-    const { start, reverse, sortAlphabetically, reset, sortByLength } = this;
+    const { reverse, start, reset, sortAlphabetically, sortByLength } = this;
     const visibleGoods = [...goods];
 
     visibleGoods.sort((good1, good2) => {
@@ -77,28 +78,14 @@ class App extends React.Component {
 
         {isVisible
           ? (
-            <>
-              <button type="button" onClick={start}>
-                End
-              </button>
-              <ol>
-                {visibleGoods.map(good => (
-                  <li key={good}>{good}</li>
-                ))}
-              </ol>
-              <button type="button" onClick={() => reverse()}>
-                Reverse
-              </button>
-              <button type="button" onClick={() => sortAlphabetically()}>
-                Sort alphabetically
-              </button>
-              <button type="button" onClick={() => reset()}>
-                Reset
-              </button>
-              <button type="button" onClick={() => sortByLength()}>
-                Sort by length
-              </button>
-            </>
+            <GoodsList
+              visibleGoods={visibleGoods}
+              sortAlphabetically={sortAlphabetically}
+              reverse={reverse}
+              start={start}
+              reset={reset}
+              sortByLength={sortByLength}
+            />
           )
           : (
             <button type="button" onClick={this.start}>
