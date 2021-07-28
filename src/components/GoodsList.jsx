@@ -14,16 +14,16 @@ export const GoodsList
           <li key={good}>{good}</li>
         ))}
       </ol>
-      <button type="button" onClick={() => reverse()}>
+      <button type="button" onClick={reverse}>
         Reverse
       </button>
-      <button type="button" onClick={() => sortAlphabetically()}>
+      <button type="button" onClick={sortAlphabetically}>
         Sort alphabetically
       </button>
-      <button type="button" onClick={() => reset()}>
+      <button type="button" onClick={reset}>
         Reset
       </button>
-      <button type="button" onClick={() => sortByLength()}>
+      <button type="button" onClick={sortByLength}>
         Sort by length
       </button>
     </>
