@@ -19,9 +19,7 @@ const goodsFromServer = [
 class App extends React.PureComponent {
   state = {
     showList: false,
-    // initialGoods: goodsFromServer,
     isReversed: false,
-    // eslint-disable-next-line react/no-unused-state
     sortBy: '',
   }
 
@@ -39,59 +37,74 @@ class App extends React.PureComponent {
 
   sortBYABC = () => {
     this.setState({
-      // eslint-disable-next-line react/no-unused-state
       sortBy: 'name',
     });
   }
 
   sortByLength = () => {
     this.setState({
-      // eslint-disable-next-line react/no-unused-state
       sortBy: 'length',
     });
   }
 
   resetGoods = () => {
     this.setState({
-      // eslint-disable-next-line react/no-unused-state
       sortBy: '',
       isReversed: false,
     });
   }
 
   render() {
+    const {
+      state,
+      start,
+      resetGoods,
+      sortBYABC,
+      sortByLength,
+      reverseGoods,
+    } = this;
+
+    const { showList, isReversed, sortBy } = state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
-        {this.state.showList || (
+        {showList || (
           <Button
-            className={this.state.showList ? 'show' : 'hide'}
-            onClick={this.start}
-            text={this.state.showList ? 'Hide me' : 'Show Me'}
+            className={showList ? 'show' : 'hide'}
+            onClick={start}
+            text={showList ? 'Hide me' : 'Show Me'}
           />
         )}
-        {this.state.showList && (
+        {showList && (
           <>
-            <List list={goodsFromServer} state={this.state} />
+            <List
+              list={goodsFromServer}
+              state={{
+                showList,
+                isReversed,
+                sortBy,
+              }}
+            />
             <div className="button-container">
               <Button
                 className="reset"
-                onClick={this.resetGoods}
+                onClick={resetGoods}
                 text="Reset Me"
               />
               <Button
                 className="sort--ABC"
-                onClick={this.sortBYABC}
+                onClick={sortBYABC}
                 text="Sort Me ABC"
               />
               <Button
                 className="sort--length"
-                onClick={this.sortByLength}
+                onClick={sortByLength}
                 text="Sort Me by My length"
               />
               <Button
                 className="reverse"
-                onClick={this.reverseGoods}
+                onClick={reverseGoods}
                 text="Reverse Me"
               />
             </div>

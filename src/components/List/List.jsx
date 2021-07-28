@@ -5,19 +5,24 @@ import './List.css';
 
 export const List = ({ list, state }) => {
   const copiedList = [...list];
+  const { sortBy, isReversed } = state;
 
-  switch (state.sortBy) {
+  switch (sortBy) {
     case 'name':
-      copiedList.sort((g1, g2) => g1.localeCompare(g2));
+      copiedList.sort(
+        (firstGood, secondGood) => firstGood.localeCompare(secondGood),
+      );
       break;
     case 'length':
-      copiedList.sort((g1, g2) => g1.length - g2.length);
+      copiedList.sort(
+        (firstGood, secondGood) => firstGood.length - secondGood.length,
+      );
       break;
     default:
       break;
   }
 
-  if (state.isReversed) {
+  if (isReversed) {
     copiedList.reverse();
   }
 
