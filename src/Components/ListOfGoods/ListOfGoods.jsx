@@ -34,7 +34,13 @@ export class ListOfGoods extends React.Component {
 
   render() {
     const { listOfGoods } = this.state;
-    const { goodsFromServer } = this.props.goodsFromServer;
+    const { goodsFromServer } = this.props;
+    const {
+      listReverse,
+      listSortAlphabetically,
+      resetList,
+      sortByLengthList,
+    } = this;
 
     return (
       <>
@@ -48,26 +54,26 @@ export class ListOfGoods extends React.Component {
         <div className="App__button">
           <button
             type="button"
-            onClick={this.listReverse}
+            onClick={listReverse}
           >
             reverse
           </button>
 
           <button
             type="button"
-            onClick={this.listSortAlphabetically}
+            onClick={listSortAlphabetically}
           >
             Sort alphabetically
           </button>
           <button
             type="button"
-            onClick={this.resetList}
+            onClick={resetList}
           >
             Reset
           </button>
           <button
             type="button"
-            onClick={this.sortByLengthList}
+            onClick={sortByLengthList}
           >
             Sort by length
           </button>
