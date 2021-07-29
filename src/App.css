@@ -1,0 +1,16 @@
+.App {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.App__button {
+  display: flex;
+  flex-direction: row;
+}
+
+.App__items {
+  list-style: none;
+}
