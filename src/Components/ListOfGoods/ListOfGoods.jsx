@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
 export class ListOfGoods extends React.Component {
   state = {
@@ -46,7 +47,7 @@ export class ListOfGoods extends React.Component {
       <>
         <ul className="App__items">
           {listOfGoods.map(good => (
-            <li key={Math.random()}>
+            <li key={uuidv4()}>
               {good}
             </li>
           ))}
