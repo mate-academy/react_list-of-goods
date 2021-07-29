@@ -7,6 +7,12 @@ export class GoodsList extends React.Component {
     sortBy: '',
   };
 
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  }
+
   render() {
     const { goods } = this.props;
     const { isReversed, sortBy } = this.state;
@@ -43,11 +49,7 @@ export class GoodsList extends React.Component {
 
         <button
           type="button"
-          onClick={() => {
-            this.setState(state => ({
-              isReversed: !state.isReversed,
-            }));
-          }}
+          onClick={this.reverse}
         >
           Reverse
         </button>
