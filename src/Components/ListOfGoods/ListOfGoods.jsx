@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class ListOfGoods extends React.Component {
   state = {
-    // eslint-disable-next-line react/prop-types
     listOfGoods: [...this.props.goodsFromServer],
   };
 
@@ -19,8 +19,7 @@ export class ListOfGoods extends React.Component {
   }
 
   resetList = () => {
-    this.setState(({ listOfGoods }) => ({
-      // eslint-disable-next-line react/prop-types
+    this.setState(() => ({
       listOfGoods: [...this.props.goodsFromServer],
     }));
   }
@@ -35,6 +34,7 @@ export class ListOfGoods extends React.Component {
 
   render() {
     const { listOfGoods } = this.state;
+    const { goodsFromServer } = this.props.goodsFromServer;
 
     return (
       <>
@@ -48,26 +48,26 @@ export class ListOfGoods extends React.Component {
         <div className="App__button">
           <button
             type="button"
-            onClick={() => this.listReverse()}
+            onClick={this.listReverse}
           >
             reverse
           </button>
 
           <button
             type="button"
-            onClick={() => this.listSortAlphabetically()}
+            onClick={this.listSortAlphabetically}
           >
             Sort alphabetically
           </button>
           <button
             type="button"
-            onClick={() => this.resetList()}
+            onClick={this.resetList}
           >
             Reset
           </button>
           <button
             type="button"
-            onClick={() => this.sortByLengthList()}
+            onClick={this.sortByLengthList}
           >
             Sort by length
           </button>
@@ -76,3 +76,7 @@ export class ListOfGoods extends React.Component {
     );
   }
 }
+
+ListOfGoods.propTypes = {
+  goodsFromServer: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
