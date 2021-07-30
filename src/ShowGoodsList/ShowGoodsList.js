@@ -19,13 +19,14 @@ export class ShowGoodsList extends Component {
 
       return (
         <>
-          <button
-            type="button"
-            onClick={this.showGoodsList}
-          >
-            {showList ? 'Close' : 'Start'}
-          </button>
-          {showList && <GoodsList goods={goods} />}
+          {!showList ? (
+            <button
+              type="button"
+              onClick={this.showGoodsList}
+            >
+              Start
+            </button>
+          ) : <GoodsList goods={goods} /> }
         </>
       );
     }
