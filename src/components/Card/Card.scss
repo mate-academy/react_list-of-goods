@@ -1,0 +1,29 @@
+.card {
+  background-color: white;
+  width: 260px;
+  height: 300px;
+  border: 3px solid rgb(22, 177, 8);
+  margin: auto;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgb(27, 26, 26);
+  text-align: center;
+  padding: 10px 0;
+  transition: 0.2s;
+
+  .goodImg {
+    // background-color: aqua;
+    width: 250px;
+    height: 250px;
+    transition: 0.2s;
+  }
+
+  &:hover {
+    width: 270px;
+    height: 310px;
+    box-shadow: 0 0 10px rgb(113, 112, 112);
+
+    .goodImg {
+      width: 260px;
+    }
+  }
+}
