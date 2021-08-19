@@ -1,6 +1,7 @@
 # React list of goods
 - Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/)
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
+- Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
 ## Tasks
 1. At first show a button `Start` on the page
@@ -13,5 +14,5 @@
 ## (*) Advanced tasks (require understanding of Forms in React)
 1. Add `<select>` with numbers from 1 to 10. (1 is default). All the previous buttons
   should now show only goods having length >= than the selected value. When you change the
-  value the items should be immediately rerendered accordingly.
+  value the items should be immediately re-rendered accordingly.
 1. `Reset` button should set the default value to the `<select>`
