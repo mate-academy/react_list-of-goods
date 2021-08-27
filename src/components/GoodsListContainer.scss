@@ -1,0 +1,27 @@
+.GoodsListContainer {
+  padding-top: 10px;
+
+  .wraperButtonStart {
+    height: 20px;
+    width: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .selectBox {
+    display: flex;
+    padding: 10px 0;
+  
+    .text {
+      margin: 0 5px 0 0;
+    }
+  
+    .select {
+      height: 20px;
+      width: 40px;
+    }
+  }
+  
+  .button {
+    margin-right: 10px;
+  }
+}
