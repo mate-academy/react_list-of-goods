@@ -8,16 +8,15 @@ import { Props } from '../types/goodsListContainer/Props';
 
 class GoodsListContainer extends React.Component<Props, State> {
   state = {
-    goods: this.props.goods,
-    isVisibel: false,
+    isVisible: false,
     isReversed: false,
     sortBy: '',
-    lengthLimit: '1',
+    lengthLimit: '10',
   };
 
   show = () => {
     this.setState(state => ({
-      isVisibel: !state.isVisibel,
+      isVisible: !state.isVisible,
     }));
   };
 
@@ -43,7 +42,7 @@ class GoodsListContainer extends React.Component<Props, State> {
     this.setState({
       isReversed: false,
       sortBy: '',
-      lengthLimit: '1',
+      lengthLimit: '10',
     });
   };
 
@@ -55,12 +54,13 @@ class GoodsListContainer extends React.Component<Props, State> {
 
   render() {
     const {
-      goods,
-      isVisibel,
+      isVisible,
       isReversed,
       sortBy,
       lengthLimit,
     } = this.state;
+
+    const { goods } = this.props;
 
     const visualizedGoods = goods.filter(
       good => good.length <= +lengthLimit,
@@ -86,7 +86,7 @@ class GoodsListContainer extends React.Component<Props, State> {
     return (
       <div className="GoodsListContainer">
         <div className="wraperButtonStart">
-          {!isVisibel && (
+          {!isVisible && (
             <button
               type="button"
               onClick={this.show}
@@ -150,7 +150,7 @@ class GoodsListContainer extends React.Component<Props, State> {
           Reset
         </button>
 
-        {isVisibel && (
+        {isVisible && (
           <GoodsList
             goods={visualizedGoods}
           />

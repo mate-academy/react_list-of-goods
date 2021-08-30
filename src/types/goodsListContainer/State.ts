@@ -1,6 +1,5 @@
 export type State = {
-  goods: string[],
-  isVisibel: boolean,
+  isVisible: boolean,
   isReversed: boolean,
   sortBy: string,
   lengthLimit: string,
