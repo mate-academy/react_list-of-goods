@@ -1,0 +1,11 @@
+.list {
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+}
