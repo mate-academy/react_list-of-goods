@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -37,13 +38,10 @@ class App extends React.Component<{}, State> {
         {isGoodsListVisible
           ? <GoodsList goods={goodsFromServer} />
           : (
-            <button
-              type="button"
-              className="btn btn-outline-success"
-              onClick={this.showGoodsList}
-            >
-              Start
-            </button>
+            <Button
+              name="Start"
+              action={this.showGoodsList}
+            />
           )}
       </div>
     );
