@@ -2,7 +2,6 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './App.scss';
 import { GoodsList } from './components/GoodsList';
-import { Good } from './types/Good';
 
 const goodsFromServer: string[] = [
   'Dumplings',
