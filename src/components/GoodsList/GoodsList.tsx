@@ -8,14 +8,14 @@ interface Props {
 interface State {
   isReversed: boolean;
   sortBy: string;
-  maxWordLength: string;
+  minWordLength: string;
 }
 
 export class GoodsList extends React.Component<Props, State> {
   state: State = {
     isReversed: false,
     sortBy: '',
-    maxWordLength: '10',
+    minWordLength: '1',
   };
 
   reverse = () => {
@@ -33,22 +33,22 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   changeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ maxWordLength: event.target.value });
+    this.setState({ minWordLength: event.target.value });
   };
 
   reset = () => {
     this.setState({
       sortBy: '',
       isReversed: false,
-      maxWordLength: '10',
+      minWordLength: '1',
     });
   };
 
   render() {
     const { goods } = this.props;
-    const { isReversed, sortBy, maxWordLength } = this.state;
+    const { isReversed, sortBy, minWordLength } = this.state;
     const filteredGoods = goods.filter(good => (
-      good.name.length <= +maxWordLength
+      good.name.length >= +minWordLength
     ));
 
     filteredGoods.sort(({ name: good1 }, { name: good2 }) => {
@@ -71,10 +71,10 @@ export class GoodsList extends React.Component<Props, State> {
     return (
       <div>
         <p>
-          Maximum length of the words in the list will be:
+          Minimum length of the words in the list will be:
         </p>
         <select
-          value={maxWordLength}
+          value={minWordLength}
           onChange={this.changeHandler}
         >
           <option value="1">1</option>
