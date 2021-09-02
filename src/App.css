@@ -1,0 +1,9 @@
+.App {
+  width: 50%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.App__title {
+  margin-bottom: 20px;
+}
