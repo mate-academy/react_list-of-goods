@@ -27,7 +27,7 @@ export class GoodsList extends React.Component<Props, State> {
     productLength: '1',
   };
 
-  changeIsReversed = () => {
+  reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -111,7 +111,7 @@ export class GoodsList extends React.Component<Props, State> {
         <div className="list-buttons">
           <Button
             name="Reverse"
-            action={this.changeIsReversed}
+            action={this.reverse}
           />
 
           <Button
