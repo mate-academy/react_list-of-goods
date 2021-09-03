@@ -90,7 +90,7 @@ export class GoodsList extends React.Component<Props, State> {
           onChange={this.handleChange}
         >
           {listOfLength.map((length) => (
-            <option value={length}>
+            <option key={length} value={length}>
               {length}
             </option>
           ))}
