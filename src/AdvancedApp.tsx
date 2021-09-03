@@ -8,7 +8,8 @@ class AdvancedApp extends React.Component<{}, AdvancedState> {
     isShown: false,
     isReversed: false,
     sortBy: 'index',
-    wordLength: 1,
+    wordLengths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    chosenLength: 1,
     defaultGoods: goodsFromServer,
     visibleGoods: [...goodsFromServer],
   };
@@ -17,6 +18,12 @@ class AdvancedApp extends React.Component<{}, AdvancedState> {
     this.setState(state => ({
       isShown: !state.isShown,
     }));
+  };
+
+  handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({
+      chosenLength: +event.target.value,
+    });
   };
 
   reverse = () => {
@@ -38,14 +45,14 @@ class AdvancedApp extends React.Component<{}, AdvancedState> {
     this.setState((state) => ({
       isReversed: false,
       sortBy: 'index',
-      wordLength: 1,
+      chosenLength: 1,
       visibleGoods: [...state.defaultGoods],
     }));
   };
 
   filterByLength = () => {
     this.setState((state) => ({
-      visibleGoods: state.defaultGoods.filter(good => good.length >= state.wordLength),
+      visibleGoods: state.defaultGoods.filter(good => good.length >= state.chosenLength),
     }));
   };
 
@@ -54,7 +61,8 @@ class AdvancedApp extends React.Component<{}, AdvancedState> {
       visibleGoods,
       isShown,
       sortBy,
-      wordLength,
+      wordLengths,
+      chosenLength,
     } = this.state;
 
     visibleGoods.sort((good1, good2) => {
@@ -63,6 +71,7 @@ class AdvancedApp extends React.Component<{}, AdvancedState> {
           return good1.localeCompare(good2);
         case 'length':
           return good1.length - good2.length;
+        case 'index':
         default:
           return 0;
       }
@@ -75,24 +84,15 @@ class AdvancedApp extends React.Component<{}, AdvancedState> {
             <form>
               <select
                 name="length"
-                value={wordLength}
-                onChange={(event) => {
-                  this.setState({
-                    wordLength: +event.target.value,
-                  });
-                }}
+                value={chosenLength}
+                onChange={this.handleChange}
                 onClick={this.filterByLength}
               >
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-                <option value={6}>6</option>
-                <option value={7}>7</option>
-                <option value={8}>8</option>
-                <option value={9}>9</option>
-                <option value={10}>10</option>
+                {wordLengths.map(number => (
+                  <option value={number}>
+                    {number}
+                  </option>
+                ))}
               </select>
             </form>
             <GoodsList goods={visibleGoods} />

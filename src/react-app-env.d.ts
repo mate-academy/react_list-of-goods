@@ -13,5 +13,6 @@ type AdvancedState = {
   isShown: boolean;
   isReversed: boolean;
   sortBy: 'index' | 'length' | 'alphabet';
-  wordLength: number;
+  wordLengths: number[];
+  chosenLength: number;
 };
