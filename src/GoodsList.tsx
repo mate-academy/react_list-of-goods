@@ -37,6 +37,7 @@ export class GoodsList extends React.Component<Props, State> {
     this.setState({
       goods: [...this.props.goodsFromServer],
       sortBy: 'initial',
+      goodLength: '1',
     });
   };
 
