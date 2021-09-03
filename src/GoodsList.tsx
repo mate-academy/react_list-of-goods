@@ -5,7 +5,7 @@ type Props = {
   list: string[],
 };
 
-const RenderList: React.FC<Props> = ({ list }) => {
+const GoodsList: React.FC<Props> = ({ list }) => {
   if (list.length > 0) {
     return (
       <>
@@ -27,4 +27,4 @@ const RenderList: React.FC<Props> = ({ list }) => {
   return null;
 };
 
-export default RenderList;
+export default GoodsList;

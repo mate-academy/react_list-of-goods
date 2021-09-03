@@ -1,6 +1,7 @@
 import React from 'react';
-import RenderList from './RenderList';
+import classNames from 'classnames';
 import './App.css';
+import GoodsList from './GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -32,7 +33,7 @@ class App extends React.Component<{}, State> {
 
   reverse = () => {
     this.setState(state => ({
-      list: state.list.reverse(),
+      list: [...state.list.reverse()],
       sortBy: '',
     }));
   };
@@ -51,8 +52,9 @@ class App extends React.Component<{}, State> {
 
   render() {
     const { list = [''], sortBy } = this.state;
+    const sortedGoods = [...list];
 
-    list.sort((g1, g2) => {
+    sortedGoods.sort((g1, g2) => {
       switch (sortBy) {
         case 'AZ':
           return g1.localeCompare(g2);
@@ -69,47 +71,42 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <button
           type="button"
-          className="button"
+          className={classNames('button', { showing: list.length > 0 })}
           onClick={this.showList}
-          style={{ display: (list.length > 0) ? 'none' : 'visible' }}
         >
           Start
         </button>
 
-        <RenderList list={this.state.list} />
+        <GoodsList list={sortedGoods} />
 
         <button
           type="button"
-          className="button"
+          className={classNames('button', { visible: list.length === 0 })}
           onClick={this.reverse}
-          style={{ visibility: (list.length > 0) ? 'visible' : 'hidden' }}
         >
           Reverse
         </button>
 
         <button
           type="button"
-          className="button"
+          className={classNames('button', { visible: list.length === 0 })}
           onClick={this.sortByAZ}
-          style={{ visibility: (list.length > 0) ? 'visible' : 'hidden' }}
         >
           Sort by A-Z
         </button>
 
         <button
           type="button"
-          className="button"
+          className={classNames('button', { visible: list.length === 0 })}
           onClick={this.sortByLength}
-          style={{ visibility: (list.length > 0) ? 'visible' : 'hidden' }}
         >
           Sort by length
         </button>
 
         <button
           type="button"
-          className="button"
+          className={classNames('button', { visible: list.length === 0 })}
           onClick={this.reset}
-          style={{ visibility: (list.length > 0) ? 'visible' : 'hidden' }}
         >
           Reset
         </button>
