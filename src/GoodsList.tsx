@@ -11,6 +11,7 @@ interface State {
   sortBy: string;
   listOfLength: string[];
   goodLength: string;
+  isReversed: boolean;
 }
 export class GoodsList extends React.Component<Props, State> {
   state = {
@@ -19,6 +20,7 @@ export class GoodsList extends React.Component<Props, State> {
     sortBy: 'initial',
     listOfLength: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     goodLength: '1',
+    isReversed: false,
   };
 
   sortByAbc = () => {
@@ -38,6 +40,7 @@ export class GoodsList extends React.Component<Props, State> {
       goods: [...this.props.goodsFromServer],
       sortBy: 'initial',
       goodLength: '1',
+      isReversed: false,
     });
   };
 
@@ -48,9 +51,9 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   reverse = () => {
-    this.setState((state) => ({
-      goods: state.goods.reverse(),
-    }));
+    this.setState({
+      isReversed: true,
+    });
   };
 
   render() {
@@ -59,6 +62,7 @@ export class GoodsList extends React.Component<Props, State> {
       sortBy,
       listOfLength,
       goodLength,
+      isReversed,
     } = this.state;
 
     goods.sort((g1, g2) => {
@@ -75,7 +79,10 @@ export class GoodsList extends React.Component<Props, State> {
       }
     });
 
-    goods.filter(good => good.length >= Number(goodLength));
+    if (isReversed) {
+      goods.reverse();
+      this.state.isReversed = false;
+    }
 
     return (
       <>
