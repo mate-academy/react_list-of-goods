@@ -1,0 +1,33 @@
+body {
+  background-color: rgb(251, 253, 253);
+}
+
+.button {
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  background-color: cadetblue;
+  margin: 5px;
+}
+
+.button:visited {
+  background-color: brown;
+}
+
+.goods {
+  padding: 10px 10px 10px 20px;
+  font-size: 20px;
+  color: rgb(54, 22, 83);
+  background-color: rgb(177, 196, 196);
+  border-radius: 20px;
+  margin: 3px;
+}
+
+.showing {
+  display: none;
+}
+
+.visible {
+  visibility: hidden;
+}
