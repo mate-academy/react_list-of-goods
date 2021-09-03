@@ -4,13 +4,14 @@ type State = {
   defaultGoods: string[];
   isShown: boolean;
   isReversed: boolean;
-  sortBy: string;
+  sortBy: 'index' | 'length' | 'alphabet';
 };
 
 type AdvancedState = {
+  defaultGoods: string[],
+  visibleGoods: string[],
   isShown: boolean;
   isReversed: boolean;
-  sortBy: string;
+  sortBy: 'index' | 'length' | 'alphabet';
   wordLength: number;
-  visibleGoods: string[];
 };

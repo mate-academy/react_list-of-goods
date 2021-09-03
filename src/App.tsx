@@ -69,26 +69,28 @@ class App extends React.Component<{}, State> {
         {isShown ? (
           <>
             <GoodsList goods={visibleGoods} />
-            <Button
-              action={this.reverse}
-              stylingClass="App__button--reverse"
-              text="Reverse"
-            />
-            <Button
-              action={this.sortAlphabetically}
-              stylingClass="App__button--sort-abc"
-              text="Sort alphabetically"
-            />
-            <Button
-              action={this.sortByLength}
-              stylingClass="App__button--sort-length"
-              text="Sort by length"
-            />
-            <Button
-              action={this.reset}
-              stylingClass="App__button--reset"
-              text="Reset"
-            />
+            <div className="App__buttons">
+              <Button
+                action={this.reverse}
+                stylingClass="App__button--reverse"
+                text="Reverse"
+              />
+              <Button
+                action={this.sortAlphabetically}
+                stylingClass="App__button--sort-abc"
+                text="Sort alphabetically"
+              />
+              <Button
+                action={this.sortByLength}
+                stylingClass="App__button--sort-length"
+                text="Sort by length"
+              />
+              <Button
+                action={this.reset}
+                stylingClass="App__button--reset"
+                text="Reset"
+              />
+            </div>
           </>
         ) : (
           <Button
