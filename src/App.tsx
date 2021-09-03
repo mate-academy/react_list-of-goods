@@ -1,20 +1,8 @@
 import React from 'react';
 import { Button } from './Button';
 import { GoodsList } from './GoodsList';
+import goodsFromServer from './api/goods.json';
 import './App.css';
-
-const goodsFromServer: string[] = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
 
 class App extends React.Component<{}, State> {
   state: State = {
