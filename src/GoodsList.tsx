@@ -73,7 +73,6 @@ export class GoodsList extends React.Component<Props, State> {
         case 'sortByLength':
           return g1.length - g2.length;
 
-        case 'initial':
         default:
           return 0;
       }
@@ -83,6 +82,10 @@ export class GoodsList extends React.Component<Props, State> {
       goods.reverse();
       this.state.isReversed = false;
     }
+    /* eslint-disable-next-line */
+    console.log(this.state.isReversed);
+    /* eslint-disable-next-line */
+    console.dir(goods);
 
     return (
       <>
