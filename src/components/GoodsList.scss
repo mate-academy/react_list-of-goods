@@ -1,0 +1,33 @@
+.select {
+  height: 50px;
+  width: 60px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.goods {
+  padding: 10px;
+  font-size: 24px;
+}
+
+li {
+  padding: 5px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.button {
+  width: 150px;
+  height: 80px;
+  cursor: pointer;
+  margin: 10px;
+
+  font-size: 18px;
+  color: #033;
+
+  background-color: #b2d8d8;
+  border-radius: 8%;
+  border: none;
+}
