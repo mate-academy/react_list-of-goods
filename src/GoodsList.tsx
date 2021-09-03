@@ -47,6 +47,12 @@ export class GoodsList extends React.Component<Props, State> {
     });
   };
 
+  reverse = () => {
+    this.setState((state) => ({
+      goods: state.goods.reverse(),
+    }));
+  };
+
   render() {
     const {
       goods,
@@ -111,6 +117,13 @@ export class GoodsList extends React.Component<Props, State> {
             onClick={this.resetSort}
           >
             Reset
+          </button>
+          <button
+            type="submit"
+            className="btn btn-warning"
+            onClick={this.reverse}
+          >
+            Reverse
           </button>
         </div>
         <ul>
