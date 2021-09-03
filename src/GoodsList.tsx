@@ -7,7 +7,6 @@ interface Props {
 }
 
 interface State {
-  goods: string[];
   sortBy: string;
   listOfLength: string[];
   goodLength: string;
@@ -15,8 +14,6 @@ interface State {
 }
 export class GoodsList extends React.Component<Props, State> {
   state = {
-    goods: [...this.props.goodsFromServer],
-    // isReversed: false,
     sortBy: 'initial',
     listOfLength: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     goodLength: '1',
@@ -37,7 +34,6 @@ export class GoodsList extends React.Component<Props, State> {
 
   resetSort = () => {
     this.setState({
-      goods: [...this.props.goodsFromServer],
       sortBy: 'initial',
       goodLength: '1',
       isReversed: false,
@@ -51,19 +47,21 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   reverse = () => {
-    this.setState({
-      isReversed: true,
-    });
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
   };
 
   render() {
+    const { goodsFromServer } = this.props;
     const {
-      goods,
       sortBy,
       listOfLength,
       goodLength,
       isReversed,
     } = this.state;
+
+    const goods = goodsFromServer.filter(good => good.length >= Number(goodLength));
 
     goods.sort((g1, g2) => {
       switch (sortBy) {
@@ -80,12 +78,7 @@ export class GoodsList extends React.Component<Props, State> {
 
     if (isReversed) {
       goods.reverse();
-      this.state.isReversed = false;
     }
-    /* eslint-disable-next-line */
-    console.log(this.state.isReversed);
-    /* eslint-disable-next-line */
-    console.dir(goods);
 
     return (
       <>
@@ -137,9 +130,7 @@ export class GoodsList extends React.Component<Props, State> {
           </button>
         </div>
         <ul>
-          {goods
-            .filter(good => good.length >= Number(goodLength))
-            .map(good => <li key={good}>{good}</li>)}
+          {goods.map(good => <li key={good}>{good}</li>)}
         </ul>
       </>
     );
