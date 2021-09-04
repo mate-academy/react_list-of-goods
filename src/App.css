@@ -1,0 +1,112 @@
+
+.goods {
+  font-family: "Parisienne", cursive;
+}
+
+.list {
+  width: 200px;
+  line-height: 0.5rem;
+  list-style: none;
+  align-items: stretch;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.list__item {
+  width: fit-content;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  border: 1px solid #012880;
+  background-image: linear-gradient(-180deg, #ff89d6 0%, #c01f9e 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22,75,195,0.5),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255,255,255, 0.4) inset,
+    0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+  margin-bottom: 2px;
+}
+ 
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+	
+  background-image: linear-gradient(135deg,
+  #0042d9 0%, #0093ff 60%, #0078ff 100%);
+}
+
+.button {
+  display: block;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  position: relative;
+  padding: 1.5rem 5.5rem;
+  border-radius: 3.75rem;
+  line-height: 2.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+	
+  border: 1px solid #012880;
+  background-image: linear-gradient(-180deg, #ff89d6 0%, #c01f9e 100%);
+  box-shadow: 0 1rem 1.25rem 0 rgba(22,75,195,0.5),
+    0 -0.25rem 1.5rem rgba(110, 15, 155, 1) inset,
+    0 0.75rem 0.5rem rgba(255,255,255, 0.4) inset,
+    0 0.25rem 0.5rem 0 rgba(180, 70, 207, 1) inset;
+}
+
+button span {
+  color: transparent;
+  background-image: linear-gradient(0deg, #ee82da 0%, #fefafd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 2px hsla(290, 100%, 20%, 1));
+}
+
+button::before {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+	
+  opacity: 0.7;
+  background-image: linear-gradient(-270deg, rgba(255,255,255,0) 0%,
+  #fff 20%, #fff 80%, rgba(255,255,255,0) 100%);
+}
+
+button::after {
+  content: "";
+  display: block;
+  height: 0.25rem;
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 7.5rem);
+  background: #fff;
+  border-radius: 100%;
+	
+  filter: blur(1px);
+  opacity: 0.05;
+  background-image: linear-gradient(-270deg, rgba(255,255,255,0) 0%,
+  #fff 20%, #fff 80%, rgba(255,255,255,0) 100%);
+}
+
+.buttons {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.App {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+}
