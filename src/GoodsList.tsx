@@ -7,19 +7,28 @@ type Props = {
 
 type State = {
   reverse: boolean;
-  sortBy: string;
+  sortBy: SortType | undefined;
+  lengthRange: number[];
   maxLength: number;
 };
 
-enum Order{
+enum SortType{
   alphabet = 'alphabet',
   length = 'length',
+  initial = '',
+}
+
+const wordsLengthRange: number[] = [];
+
+for (let i = 1; i <= 10; i += 1) {
+  wordsLengthRange.push(i);
 }
 
 export class GoodsList extends React.Component<Props, State> {
   state = {
     reverse: false,
-    sortBy: '',
+    sortBy: SortType.initial,
+    lengthRange: wordsLengthRange,
     maxLength: 10,
   };
 
@@ -29,12 +38,18 @@ export class GoodsList extends React.Component<Props, State> {
     });
   };
 
-  sortBy = (order: Order) => {
+  sortBy = (order: SortType) => {
     this.setState({ sortBy: order });
   };
 
   render() {
-    const { reverse, sortBy, maxLength } = this.state;
+    const {
+      reverse,
+      sortBy,
+      maxLength,
+      lengthRange,
+    } = this.state;
+
     const visibleGoods = [...this.props.goods].filter(item => item.length <= maxLength);
 
     visibleGoods.sort((item1, item2) => {
@@ -85,10 +100,10 @@ export class GoodsList extends React.Component<Props, State> {
           <button
             type="button"
             className={classNames('goods__button', {
-              'goods__button--active': sortBy === Order.alphabet,
+              'goods__button--active': sortBy === SortType.alphabet,
             })}
             onClick={() => {
-              this.sortBy(Order.alphabet);
+              this.sortBy(SortType.alphabet);
             }}
           >
             Alphabet
@@ -97,43 +112,29 @@ export class GoodsList extends React.Component<Props, State> {
           <button
             type="button"
             className={classNames('goods__button', {
-              'goods__button--active': sortBy === Order.length,
+              'goods__button--active': sortBy === SortType.length,
             })}
             onClick={() => {
-              this.sortBy(Order.length);
+              this.sortBy(SortType.length);
             }}
           >
             Length
           </button>
 
           <h2 className="goods__subtitle">Words length: </h2>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              this.forceUpdate();
-            }}
+          <select
+            name="max-length"
+            id="max-length"
+            value={maxLength}
+            onChange={(event) => this.setState({ maxLength: +event.target.value })}
+            className="goods__length-input"
           >
-            <select
-              name="max-length"
-              id="max-length"
-              value={maxLength}
-              onChange={(event) => this.setState({ maxLength: +event.target.value })}
-              className="goods__length-input"
-            >
-
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-
-            </select>
-          </form>
+            {lengthRange.map(number => (
+              <option value={number}>
+                {number}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     );
