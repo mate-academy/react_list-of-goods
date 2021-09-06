@@ -1,0 +1,20 @@
+.App {
+  margin: 0 auto;
+  width: 500px;
+}
+
+.form-select {
+  margin-bottom: 20px;
+}
+
+.list-group {
+  margin-bottom: 20px;
+}
+
+.btn {
+  margin-right: 23px;
+}
+
+.btn:last-child {
+  margin-right: 0;
+}
