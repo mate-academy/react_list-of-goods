@@ -44,7 +44,7 @@ export class GoodsList extends React.PureComponent<Props, State> {
     });
   };
 
-  handleChange = (event: any) => {
+  handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target;
 
     this.setState({ minLength: value });
