@@ -32,8 +32,9 @@ class App extends React.Component<{}, State> {
   };
 
   reverse = () => {
-    this.setState(prev => ({
-      listofGoods: [...prev.listofGoods].reverse(),
+    this.setState((prev) => ({
+      reset: false,
+      isReversed: !prev.isReversed,
     }));
   };
 
@@ -51,6 +52,34 @@ class App extends React.Component<{}, State> {
       });
 
       return { listofGoods: newList };
+    });
+  };
+
+  start = () => {
+    this.setState({
+      started: true,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortBy: 'length',
+      reset: false,
+    });
+  };
+
+  sortAlphabetically = () => {
+    this.setState({
+      sortBy: 'name',
+      reset: false,
+    });
+  };
+
+  reset = () => {
+    this.setState({
+      sortBy: '',
+      reset: true,
+      isReversed: false,
     });
   };
 
@@ -82,10 +111,13 @@ class App extends React.Component<{}, State> {
               List of goods:
             </h1>
             <ul className="list">
-              {newList.map(el => {
+              {newList.map((el, index) => {
                 return (
                   <>
-                    <li className="list__item">
+                    <li
+                      className="list__item"
+                      key={index}
+                    >
                       {el}
                     </li>
                     <br />
@@ -98,12 +130,7 @@ class App extends React.Component<{}, State> {
                 className="button button--reset"
                 type="button"
                 value="button"
-                onClick={() => {
-                  this.setState((prev) => ({
-                    reset: false,
-                    isReversed: !prev.isReversed,
-                  }));
-                }}
+                onClick={this.reverse}
               >
                 Reverse
               </button>
@@ -111,12 +138,7 @@ class App extends React.Component<{}, State> {
                 className="button button--sort"
                 type="button"
                 value="button"
-                onClick={() => {
-                  this.setState({
-                    sortBy: 'name',
-                    reset: false,
-                  });
-                }}
+                onClick={this.sortAlphabetically}
               >
                 Sort alphabetically
               </button>
@@ -124,12 +146,7 @@ class App extends React.Component<{}, State> {
                 className="button button--sort"
                 type="button"
                 value="button"
-                onClick={() => {
-                  this.setState({
-                    sortBy: 'length',
-                    reset: false,
-                  });
-                }}
+                onClick={this.sortByLength}
               >
                 Sort by length
               </button>
@@ -137,13 +154,7 @@ class App extends React.Component<{}, State> {
                 className="button button--sort"
                 type="button"
                 value="button"
-                onClick={() => {
-                  this.setState({
-                    sortBy: '',
-                    reset: true,
-                    isReversed: false,
-                  });
-                }}
+                onClick={this.reset}
               >
                 Reset
               </button>
@@ -155,11 +166,7 @@ class App extends React.Component<{}, State> {
             className="button button--start"
             type="button"
             value="button"
-            onClick={() => {
-              this.setState({
-                started: true,
-              });
-            }}
+            onClick={this.start}
           >
             Click to start
           </button>
