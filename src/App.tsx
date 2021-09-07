@@ -50,7 +50,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {isStarted && <GoodsList goods={goodsFromServer} />}
+        {isStarted && <GoodsList goodsList={goodsFromServer} />}
       </div>
     );
   }

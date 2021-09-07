@@ -2,20 +2,17 @@ import { PureComponent } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface State {
-  goodsList: string[];
   isReversed: boolean;
   sortBy: 'alphabet' | 'length' | null;
   isDefault: boolean;
-
 }
 
 interface Props {
-  goods: string[];
+  goodsList: string[];
 }
 
 export class GoodsList extends PureComponent<Props, State> {
   state: State = {
-    goodsList: this.props.goods,
     isReversed: false,
     sortBy: null,
     isDefault: true,
@@ -50,11 +47,12 @@ export class GoodsList extends PureComponent<Props, State> {
 
   render() {
     const {
-      goodsList,
       isReversed,
       sortBy,
       isDefault,
     } = this.state;
+
+    const { goodsList } = this.props;
 
     let visibleGoods = [...goodsList];
 
