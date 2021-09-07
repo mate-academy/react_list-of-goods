@@ -9,13 +9,15 @@ type Props = {
 type State = {
   isReversed: boolean;
   sortBy: string;
+  allLengths: string[];
   minLength: string;
 };
 
 export class GoodsList extends React.PureComponent<Props, State> {
   state: State = {
     isReversed: false,
-    sortBy: 'id',
+    sortBy: 'default',
+    allLengths: ['1', '2', '3', '5', '6', '7', '8', '9', '10'],
     minLength: '1',
   };
 
@@ -39,7 +41,7 @@ export class GoodsList extends React.PureComponent<Props, State> {
     }
 
     this.setState({
-      sortBy: 'id',
+      sortBy: 'default',
       minLength: '1',
     });
   };
@@ -52,7 +54,12 @@ export class GoodsList extends React.PureComponent<Props, State> {
 
   render() {
     const { goods } = this.props;
-    const { minLength, sortBy, isReversed } = this.state;
+    const {
+      minLength,
+      sortBy,
+      isReversed,
+      allLengths,
+    } = this.state;
     const newGoods = [...goods].filter(item => item.length >= +minLength);
 
     newGoods.sort((g1, g2) => {
@@ -133,7 +140,7 @@ export class GoodsList extends React.PureComponent<Props, State> {
 
         <Row className="justify-content-md-center">
           <Col md="auto">
-            <p>Max length of good</p>
+            <p>Min length of good</p>
           </Col>
 
           <Col md="auto">
@@ -144,16 +151,11 @@ export class GoodsList extends React.PureComponent<Props, State> {
               value={this.state.minLength}
               onChange={this.handleChange}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              {allLengths.map(item => (
+                <option value={item}>
+                  {item}
+                </option>
+              ))}
             </Form.Select>
           </Col>
         </Row>
