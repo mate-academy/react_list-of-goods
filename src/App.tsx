@@ -17,6 +17,8 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const possibleLength: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 enum SortType {
   default,
   alphabetically,
@@ -27,6 +29,7 @@ type State = {
   showMainBlock: boolean;
   isReversed: boolean;
   sortBy: SortType,
+  minLength: number,
 };
 
 class App extends React.Component<{}, State> {
@@ -34,11 +37,18 @@ class App extends React.Component<{}, State> {
     showMainBlock: false,
     isReversed: false,
     sortBy: SortType.default,
+    minLength: 1,
   };
 
   showContent = () => {
     this.setState({
       showMainBlock: true,
+    });
+  };
+
+  chooseMinLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({
+      minLength: +event.target.value,
     });
   };
 
@@ -64,12 +74,20 @@ class App extends React.Component<{}, State> {
     this.setState({
       isReversed: false,
       sortBy: SortType.default,
+      minLength: 1,
     });
   };
 
   render() {
-    const { showMainBlock, isReversed, sortBy } = this.state;
-    const visibleGoods = [...goodsFromServer].sort(
+    const {
+      showMainBlock,
+      isReversed,
+      sortBy,
+      minLength,
+    } = this.state;
+    const visibleGoods = goodsFromServer.filter(item => item.length > minLength);
+
+    visibleGoods.sort(
       (firstGood, secondGood) => {
         switch (sortBy) {
           case SortType.alphabetically:
@@ -92,6 +110,22 @@ class App extends React.Component<{}, State> {
         { !showMainBlock && <Button name="Start" action={this.showContent} active />}
         { showMainBlock && (
           <div className="main">
+            <select
+              name="min-length"
+              className="form-select"
+              aria-label="Default select example"
+              value={this.state.minLength}
+              onChange={this.chooseMinLength}
+            >
+              {possibleLength.map(
+                item => (
+                  <option value={item}>
+                    {item}
+                  </option>
+                ),
+              )}
+            </select>
+
             <ul className="main__list">
               {
                 visibleGoods.map(item => (
@@ -104,6 +138,7 @@ class App extends React.Component<{}, State> {
                 ))
               }
             </ul>
+
             <div className="main__buttons">
               <Button
                 name="Reverse"
@@ -123,7 +158,7 @@ class App extends React.Component<{}, State> {
               <Button
                 name="Reset"
                 action={this.reset}
-                active={sortBy === SortType.default}
+                active={false}
               />
             </div>
           </div>
