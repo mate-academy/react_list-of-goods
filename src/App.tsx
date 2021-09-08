@@ -53,13 +53,13 @@ class App extends React.Component<{}, State> {
 
   sortByAlphabet = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => b.localeCompare(a)),
+      goods: [...state.goods.sort((a, b) => b.localeCompare(a))],
     }));
   };
 
   sortByLength = () => {
     this.setState(state => ({
-      goods: state.goods.sort((a, b) => b.length - a.length),
+      goods: [...state.goods.sort((a, b) => b.length - a.length)],
     }));
   };
 
