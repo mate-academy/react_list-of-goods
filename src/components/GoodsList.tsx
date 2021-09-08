@@ -3,9 +3,9 @@ import React from 'react';
 import './GoodList.scss';
 
 enum TypeSort {
-  name = 'name',
-  length = 'nameLength',
-  default = 0,
+  Name = 'name',
+  Length = 'nameLength',
+  Default = '',
 }
 
 type Props = {
@@ -15,18 +15,22 @@ type Props = {
 type State = {
   isReversed: boolean;
   sortBy: TypeSort;
+  goodLength: number;
 };
 
 export class GoodsList extends React.Component<Props, State> {
   state = {
     isReversed: false,
-    sortBy: TypeSort.default,
+    sortBy: TypeSort.Default,
+    goodLength: 0,
   };
+
+  availLengthOfSelect = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   reset = () => {
     this.setState(() => ({
       isReversed: false,
-      sortBy: TypeSort.default,
+      sortBy: TypeSort.Default,
     }));
   };
 
@@ -36,23 +40,25 @@ export class GoodsList extends React.Component<Props, State> {
     }));
   };
 
-  sortByName = () => {
+  sortFunction = (sortBy: TypeSort) => {
     this.setState(() => ({
-      sortBy: TypeSort.name,
+      sortBy,
     }));
   };
 
-  sortByNameLength = () => {
-    this.setState(() => ({
-      sortBy: TypeSort.length,
-    }));
+  handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+
+    this.setState({
+      goodLength: +value,
+    });
   };
 
-  render() {
+  preparedGoodsList = () => {
     const { goods } = this.props;
-    const { isReversed, sortBy } = this.state;
+    const { isReversed, sortBy, goodLength } = this.state;
 
-    const visibleGoods = [...goods];
+    const visibleGoods = goods.filter(good => good.length > goodLength);
 
     visibleGoods.sort((g1, g2) => {
       switch (sortBy) {
@@ -71,8 +77,32 @@ export class GoodsList extends React.Component<Props, State> {
       visibleGoods.reverse();
     }
 
+    return visibleGoods;
+  };
+
+  render() {
+    const { goodLength } = this.state;
+    const visibleGoods = this.preparedGoodsList();
+
     return (
       <article className="goods">
+        <select
+          className="goods__select"
+          name="itemLength"
+          value={goodLength}
+          onChange={this.handleChange}
+        >
+          {
+            this.availLengthOfSelect.map(item => (
+              <option
+                key={item}
+                value={item}
+              >
+                {item ? `Good length more than: ${item}` : 'Choose good length'}
+              </option>
+            ))
+          }
+        </select>
         <ul className="goods__list">
           {visibleGoods.map(good => (
             <li
@@ -94,14 +124,14 @@ export class GoodsList extends React.Component<Props, State> {
           <button
             type="button"
             className="goods__buttons-item"
-            onClick={this.sortByName}
+            onClick={() => this.sortFunction(TypeSort.Name)}
           >
             Sort &lsquo;a-z&rsquo;
           </button>
           <button
             type="button"
             className="goods__buttons-item"
-            onClick={this.sortByNameLength}
+            onClick={() => this.sortFunction(TypeSort.Length)}
           >
             Sort by name length
           </button>

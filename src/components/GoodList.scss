@@ -5,6 +5,23 @@
   border: 1px solid rgb(223, 215, 215);
   border-radius: 5px;
 
+  &__select {
+    width: 600px;
+    height: 40px;
+    padding: 5px 0;
+    text-align: center;
+
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 1px solid rgb(223, 215, 215);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &__list {
     padding: 0;
     margin-bottom: 20px;
@@ -13,6 +30,7 @@
   }
 
   &__item {
+    height: 20px;
     padding: 5px 0;
 
     border-bottom: 1px solid rgb(223, 215, 215);
