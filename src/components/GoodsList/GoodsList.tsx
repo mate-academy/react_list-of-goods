@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../Button';
 import './GoodsList.scss';
 
 interface Props {
@@ -24,12 +25,8 @@ export class GoodsList extends React.Component<Props, State> {
     }));
   };
 
-  sortByAlphabet = () => {
-    this.setState({ sortBy: 'alphabet' });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+  sortByOption = (option: string) => {
+    this.setState({ sortBy: option });
   };
 
   changeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -44,29 +41,39 @@ export class GoodsList extends React.Component<Props, State> {
     });
   };
 
-  render() {
+  getFilteredGoods = () => {
     const { goods } = this.props;
     const { isReversed, sortBy, minWordLength } = this.state;
-    const filteredGoods = goods.filter(good => (
+    let filteredGoods = goods.filter(good => (
       good.name.length >= +minWordLength
     ));
 
-    filteredGoods.sort(({ name: good1 }, { name: good2 }) => {
-      switch (sortBy) {
-        case 'alphabet':
-          return good1.localeCompare(good2);
+    if (sortBy) {
+      filteredGoods = [...filteredGoods]
+        .sort(({ name: good1 }, { name: good2 }) => {
+          switch (sortBy) {
+            case 'alphabet':
+              return good1.localeCompare(good2);
 
-        case 'length':
-          return good1.length - good2.length;
+            case 'length':
+              return good1.length - good2.length;
 
-        default:
-          return 0;
-      }
-    });
+            default:
+              return 0;
+          }
+        });
+    }
 
     if (isReversed) {
-      filteredGoods.reverse();
+      filteredGoods = [...filteredGoods].reverse();
     }
+
+    return filteredGoods;
+  };
+
+  render() {
+    const { minWordLength } = this.state;
+    const filteredGoods = this.getFilteredGoods();
 
     return (
       <div>
@@ -95,34 +102,22 @@ export class GoodsList extends React.Component<Props, State> {
             </li>
           ))}
         </ul>
-        <button
-          className="button"
-          type="button"
+        <Button
+          name="Reverse"
           onClick={this.reverse}
-        >
-          Reverse
-        </button>
-        <button
-          className="button"
-          type="button"
-          onClick={this.sortByAlphabet}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          className="button"
-          type="button"
+        />
+        <Button
+          name="Sort alphabetically"
+          onClick={() => this.sortByOption('alphabet')}
+        />
+        <Button
+          name="Sort by length"
+          onClick={() => this.sortByOption('length')}
+        />
+        <Button
+          name="Reset"
           onClick={this.reset}
-        >
-          Reset
-        </button>
-        <button
-          className="button"
-          type="button"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
+        />
       </div>
     );
   }
