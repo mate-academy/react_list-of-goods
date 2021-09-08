@@ -12,7 +12,7 @@ type State = {
   minLength: string;
 };
 
-const allLengths = ['1', '2', '3', '5', '6', '7', '8', '9', '10'];
+const allLengths: string[] = ['1', '2', '3', '5', '6', '7', '8', '9', '10'];
 
 export class GoodsList extends React.PureComponent<Props, State> {
   state: State = {
