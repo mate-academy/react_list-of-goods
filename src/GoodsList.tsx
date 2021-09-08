@@ -11,6 +11,7 @@ interface State {
   listOfLength: string[];
   goodLength: string;
   isReversed: boolean;
+  goods: string[];
 }
 export class GoodsList extends React.Component<Props, State> {
   state = {
@@ -18,18 +19,14 @@ export class GoodsList extends React.Component<Props, State> {
     listOfLength: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     goodLength: '1',
     isReversed: false,
+    goods: [...this.props.goodsFromServer],
   };
 
-  sortByAbc = () => {
+  sortBy = (sortingMethod: 'alphabetically' | 'sortByLength') => {
     this.setState({
-      sortBy: 'alphabetically',
+      sortBy: sortingMethod,
     });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortBy: 'sortByLength',
-    });
+    this.getPrepearedList();
   };
 
   resetSort = () => {
@@ -38,32 +35,36 @@ export class GoodsList extends React.Component<Props, State> {
       goodLength: '1',
       isReversed: false,
     });
+    this.getPrepearedList();
   };
 
   handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       goodLength: event.target.value,
     });
+    this.getPrepearedList();
   };
 
   reverse = () => {
-    this.setState((state) => ({
-      isReversed: !state.isReversed,
+    this.setState((currentState) => ({
+      isReversed: !currentState.isReversed,
     }));
+    this.getPrepearedList();
   };
 
-  render() {
-    const { goodsFromServer } = this.props;
+  getPrepearedList = () => {
     const {
       sortBy,
-      listOfLength,
       goodLength,
       isReversed,
+      goods,
     } = this.state;
 
-    const goods = goodsFromServer.filter(good => good.length >= Number(goodLength));
+    let prepearedList = goods;
 
-    goods.sort((g1, g2) => {
+    prepearedList = prepearedList.filter(good => good.length >= Number(goodLength));
+
+    prepearedList = [...prepearedList].sort((g1, g2) => {
       switch (sortBy) {
         case 'alphabetically':
           return g1.localeCompare(g2);
@@ -77,8 +78,19 @@ export class GoodsList extends React.Component<Props, State> {
     });
 
     if (isReversed) {
-      goods.reverse();
+      prepearedList = [...prepearedList].reverse();
     }
+
+    return prepearedList;
+  };
+
+  render() {
+    const {
+      listOfLength,
+      goodLength,
+    } = this.state;
+
+    const goods = this.getPrepearedList();
 
     return (
       <>
@@ -103,14 +115,14 @@ export class GoodsList extends React.Component<Props, State> {
           <button
             type="submit"
             className="btn btn-success"
-            onClick={this.sortByAbc}
+            onClick={() => this.sortBy('alphabetically')}
           >
             Sort alphabetically
           </button>
           <button
             type="submit"
             className="btn btn-info"
-            onClick={this.sortByLength}
+            onClick={() => this.sortBy('sortByLength')}
           >
             Sort by length
           </button>
