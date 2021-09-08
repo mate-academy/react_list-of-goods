@@ -9,7 +9,7 @@ type State = {
   reverse: boolean;
   sortBy: SortType | undefined;
   lengthRange: number[];
-  maxLength: number;
+  minLength: number;
 };
 
 enum SortType{
@@ -25,16 +25,16 @@ for (let i = 1; i <= 10; i += 1) {
 }
 
 export class GoodsList extends React.Component<Props, State> {
-  state = {
+  state: State = {
     reverse: false,
     sortBy: SortType.initial,
     lengthRange: wordsLengthRange,
-    maxLength: 10,
+    minLength: 10,
   };
 
   changeOrder = () => {
-    this.setState(state => {
-      return { reverse: !state.reverse };
+    this.setState(currentState => {
+      return { reverse: !currentState.reverse };
     });
   };
 
@@ -42,15 +42,15 @@ export class GoodsList extends React.Component<Props, State> {
     this.setState({ sortBy: order });
   };
 
-  render() {
+  changeVisibleGoods = () => {
     const {
       reverse,
       sortBy,
-      maxLength,
-      lengthRange,
+      minLength,
     } = this.state;
 
-    const visibleGoods = [...this.props.goods].filter(item => item.length <= maxLength);
+    const visibleGoods = [...this.props.goods]
+      .filter(item => item.length >= minLength);
 
     visibleGoods.sort((item1, item2) => {
       switch (sortBy) {
@@ -68,6 +68,18 @@ export class GoodsList extends React.Component<Props, State> {
     if (reverse) {
       visibleGoods.reverse();
     }
+
+    return visibleGoods;
+  }
+
+  render() {
+    const visibleGoods = this.changeVisibleGoods();
+    const {
+      reverse,
+      sortBy,
+      minLength,
+      lengthRange,
+    } = this.state;
 
     return (
       <div className="goods">
@@ -125,12 +137,14 @@ export class GoodsList extends React.Component<Props, State> {
           <select
             name="max-length"
             id="max-length"
-            value={maxLength}
-            onChange={(event) => this.setState({ maxLength: +event.target.value })}
+            value={minLength}
+            onChange={(event) => {
+              this.setState({ minLength: +event.target.value })
+            }}
             className="goods__length-input"
           >
             {lengthRange.map(number => (
-              <option value={number}>
+              <option key={number} value={number}>
                 {number}
               </option>
             ))}

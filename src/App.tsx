@@ -33,7 +33,7 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="app">
-        <h1>GOODS</h1>
+        <h1 className="app__heading">Goods</h1>
         { !buttonPressed
           ? (
             <button
@@ -41,7 +41,7 @@ class App extends React.Component<{}, State> {
               onClick={this.pressButton}
               className="app__button"
             >
-              START
+              Start
             </button>
           )
           : <GoodsList goods={goodsFromServer} />}
