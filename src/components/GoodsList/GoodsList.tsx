@@ -27,12 +27,8 @@ export class GoodsList extends React.PureComponent<Props, State> {
     ));
   };
 
-  sortByAlphabet = () => {
-    this.setState({ sortBy: 'alphabet' });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+  sortByValue = (value: string) => {
+    this.setState({ sortBy: value });
   };
 
   defaultSort = () => {
@@ -52,14 +48,9 @@ export class GoodsList extends React.PureComponent<Props, State> {
     this.setState({ minLength: value });
   };
 
-  render() {
+  preparedGoods = () => {
+    const { sortBy, isReversed, minLength } = this.state;
     const { goods } = this.props;
-    const {
-      minLength,
-      sortBy,
-      isReversed,
-      allLengths,
-    } = this.state;
     const newGoods = [...goods].filter(item => item.length >= +minLength);
 
     newGoods.sort((g1, g2) => {
@@ -76,6 +67,13 @@ export class GoodsList extends React.PureComponent<Props, State> {
     if (isReversed) {
       newGoods.reverse();
     }
+
+    return newGoods;
+  };
+
+  render() {
+    const { allLengths } = this.state;
+    const newGoods = this.preparedGoods();
 
     return (
       <>
@@ -111,7 +109,7 @@ export class GoodsList extends React.PureComponent<Props, State> {
             <Button
               variant="primary"
               type="button"
-              onClick={this.sortByAlphabet}
+              onClick={() => this.sortByValue('alphabet')}
             >
               Sort alphabetically
             </Button>
@@ -131,7 +129,7 @@ export class GoodsList extends React.PureComponent<Props, State> {
             <Button
               variant="primary"
               type="button"
-              onClick={this.sortByLength}
+              onClick={() => this.sortByValue('length')}
             >
               Sort by length
             </Button>
