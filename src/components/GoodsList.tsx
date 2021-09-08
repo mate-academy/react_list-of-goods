@@ -46,7 +46,7 @@ export class GoodsList extends React.Component<Props, State> {
     this.setState({ minLength: event.target.value });
   };
 
-  render() {
+  getVisibleGoods = () => {
     const { goods } = this.props;
     const { isReversed, sortBy, minLength } = this.state;
     const visibleGoods = goods.filter(
@@ -68,12 +68,18 @@ export class GoodsList extends React.Component<Props, State> {
       visibleGoods.reverse();
     }
 
+    return visibleGoods;
+  };
+
+  render() {
+    const visibleGoods = this.getVisibleGoods();
+
     return (
       <>
         <select
           name="minLength"
           className="select"
-          value={minLength}
+          value={this.state.minLength}
           onChange={this.changeHandler}
         >
           <option value="">
@@ -86,7 +92,7 @@ export class GoodsList extends React.Component<Props, State> {
           ))}
         </select>
         <ul className="goods">
-          {visibleGoods.map(good => (
+          {visibleGoods.map((good) => (
             <li key={good}>{good}</li>
           ))}
         </ul>
