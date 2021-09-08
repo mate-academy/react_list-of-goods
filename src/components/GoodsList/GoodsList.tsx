@@ -76,7 +76,7 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   render() {
-    const { isHidden } = this.state;
+    const { isHidden, maxItemLength } = this.state;
     const listToRender = this.getList();
     const selectOptions = Array.from({ length: 10 }, (_, x) => x + 1);
 
@@ -129,9 +129,10 @@ export class GoodsList extends React.Component<Props, State> {
                 >
                   Reset
                 </button>
-
                 <select
                   className="GoodsList__btn"
+                  value={maxItemLength}
+                  form="selectLength"
                   onChange={(event) => this.filterByLength(event)}
                 >
                   {selectOptions.map(item => (
@@ -139,7 +140,7 @@ export class GoodsList extends React.Component<Props, State> {
                       key={item}
                       value={item}
                     >
-                      {item}
+                      {`Min word length: ${item}`}
                     </option>
                   ))}
                 </select>
