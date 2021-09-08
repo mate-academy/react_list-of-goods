@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+
+  &__title {
+    color: rgb(255, 97, 97);
+  }
+
+  &__button {
+    width: 80px;
+    height: 60px;
+
+    background-color: rgb(255, 97, 97);
+    color: #fff;
+    text-transform: uppercase;
+    border: transparent;
+    border-radius: 10px;
+  }
+}
