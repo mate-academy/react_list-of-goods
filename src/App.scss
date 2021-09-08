@@ -1,0 +1,35 @@
+body {
+  font-family: cursive;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color:rgb(112, 248, 180);
+}
+
+.App {
+  display: flex;
+  justify-content: space-between;
+  height: 300px;
+  width: 300px;
+  background-color:rgb(123, 181, 240);
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+
+  &__buttonsList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__button {
+    margin: 5px;
+    background-color:mediumseagreen;
+    border-radius: 10px;
+    height: 30px;
+    font-size: 15px;
+    font-family: cursive;
+  }
+}

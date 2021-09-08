@@ -1,5 +1,7 @@
 import React from 'react';
-import './App.css';
+import { GoodsList } from './Components/GoodsList';
+
+import './App.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +16,100 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+interface State {
+  isVisible: boolean;
+  sortCheck: boolean;
+  goodsArray: string[];
+}
 
-export default App;
+export class App extends React.Component<{}, State> {
+  state = {
+    isVisible: true,
+    sortCheck: true,
+    goodsArray: [...goodsFromServer],
+  };
+
+  getShow = () => {
+    this.setState((currentState) => ({
+      isVisible: !currentState.isVisible,
+    }));
+  };
+
+  getRevers = () => {
+    this.setState((currentState) => ({
+      goodsArray: [...currentState.goodsArray].reverse(),
+    }));
+  };
+
+  getAlphabetSort = () => {
+    this.setState((currentState) => ({
+      sortCheck: !currentState.sortCheck,
+      goodsArray: [...currentState.goodsArray]
+        .sort((a, b) => (
+          currentState.sortCheck
+            ? a.localeCompare(b)
+            : b.localeCompare(a)
+        )),
+    }));
+  };
+
+  getReset = () => {
+    this.setState({
+      goodsArray: [...goodsFromServer],
+    });
+  };
+
+  getLengthSort = () => {
+    this.setState((currentState) => ({
+      goodsArray: [...currentState.goodsArray]
+        .sort((a, b) => a.length - b.length),
+    }));
+  };
+
+  render() {
+    const { goodsArray } = this.state;
+
+    return (
+      <div className="App">
+        <div className="App__buttonsList">
+          <button
+            className="App__button"
+            type="button"
+            onClick={this.getShow}
+          >
+            Start
+          </button>
+          <button
+            className="App__button"
+            type="button"
+            onClick={this.getRevers}
+          >
+            Revers
+          </button>
+          <button
+            className="App__button"
+            type="button"
+            onClick={this.getAlphabetSort}
+          >
+            Sort alphabetically
+          </button>
+          <button
+            className="App__button"
+            type="button"
+            onClick={this.getReset}
+          >
+            Reset
+          </button>
+          <button
+            className="App__button"
+            type="button"
+            onClick={this.getLengthSort}
+          >
+            Sort by length
+          </button>
+        </div>
+        {this.state.isVisible && <GoodsList goodsList={goodsArray} />}
+      </div>
+    );
+  }
+}
