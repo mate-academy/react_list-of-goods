@@ -45,7 +45,7 @@ export class GoodsList extends PureComponent<Props, State> {
     });
   };
 
-  render() {
+  getVisibleGoods = () => {
     const {
       isReversed,
       sortBy,
@@ -76,6 +76,12 @@ export class GoodsList extends PureComponent<Props, State> {
     if (isDefault) {
       visibleGoods = [...goodsList];
     }
+
+    return visibleGoods;
+  };
+
+  render() {
+    const visibleGoods = this.getVisibleGoods();
 
     return (
       <div className="d-flex w-50 justify-content-center">
