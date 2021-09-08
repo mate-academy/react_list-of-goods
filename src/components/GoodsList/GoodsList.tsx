@@ -9,15 +9,15 @@ type Props = {
 type State = {
   isReversed: boolean;
   sortBy: string;
-  allLengths: string[];
   minLength: string;
 };
+
+const allLengths = ['1', '2', '3', '5', '6', '7', '8', '9', '10'];
 
 export class GoodsList extends React.PureComponent<Props, State> {
   state: State = {
     isReversed: false,
     sortBy: 'default',
-    allLengths: ['1', '2', '3', '5', '6', '7', '8', '9', '10'],
     minLength: '1',
   };
 
@@ -72,7 +72,6 @@ export class GoodsList extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { allLengths } = this.state;
     const newGoods = this.preparedGoods();
 
     return (
