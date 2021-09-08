@@ -30,6 +30,10 @@ export class GoodsList extends React.Component<Props, State> {
     this.setState((prevState) => ({ isReversed: !prevState.isReversed }));
   };
 
+  setSort = (field: SortBy) => {
+    this.setState({ sortBy: field });
+  };
+
   filterByLength = (event: React.SyntheticEvent) => {
     const { value } = event.target as HTMLSelectElement;
 
@@ -37,11 +41,11 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   reset = () => {
-    this.setState({ sortBy: null, isReversed: false });
-  };
-
-  setSort = (field: SortBy) => {
-    this.setState({ sortBy: field });
+    this.setState({
+      sortBy: null,
+      isReversed: false,
+      maxItemLength: 1,
+    });
   };
 
   getList = () => {
@@ -74,6 +78,7 @@ export class GoodsList extends React.Component<Props, State> {
   render() {
     const { isHidden } = this.state;
     const listToRender = this.getList();
+    const selectOptions = Array.from({ length: 10 }, (_, x) => x + 1);
 
     return (
       <article className="GoodsList">
@@ -125,8 +130,11 @@ export class GoodsList extends React.Component<Props, State> {
                   Reset
                 </button>
 
-                <select className="GoodsList__btn" onChange={(event) => this.filterByLength(event)}>
-                  {Array.from({ length: 10 }, (_, x) => x + 1).map(item => (
+                <select
+                  className="GoodsList__btn"
+                  onChange={(event) => this.filterByLength(event)}
+                >
+                  {selectOptions.map(item => (
                     <option
                       key={item}
                       value={item}
