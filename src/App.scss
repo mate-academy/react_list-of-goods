@@ -8,6 +8,13 @@ body {
   background-color:rgb(112, 248, 180);
 }
 
+.start {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .App {
   display: flex;
   justify-content: space-between;
