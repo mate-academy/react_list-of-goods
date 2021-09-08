@@ -61,8 +61,13 @@ export class App extends React.Component<{}, State> {
 
   getLengthSort = () => {
     this.setState((currentState) => ({
+      sortCheck: !currentState.sortCheck,
       goodsArray: [...currentState.goodsArray]
-        .sort((a, b) => a.length - b.length),
+        .sort((a, b) => (
+          currentState.sortCheck
+            ? a.length - b.length
+            : b.length - a.length
+        )),
     }));
   };
 
