@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
-import { Start } from './components/Start';
+import { StartButton } from './components/StartButton';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -81,39 +81,43 @@ class App extends React.Component<{}, State> {
     }
 
     return (
-      <div className="App">
-        <div className="container">
+      <div className="App d-flex justify-content-center align-items-center">
+        <div>
           <h1>Goods</h1>
-          {!isListVisible && <Start method={this.renderedList} />}
+          {!isListVisible && <StartButton method={this.renderedList} />}
 
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={this.reverse}
-          >
-            Reverse
-          </button>
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={this.sortAlphabetically}
-          >
-            Sort Alphabetically
-          </button>
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
-          <button
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={this.sortByLength}
-          >
-            Sort by length
-          </button>
+          {isListVisible && (
+            <span>
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={this.sortAlphabetically}
+              >
+                Sort Alphabetically
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+            </span>
+          )}
 
           {isListVisible && <GoodsList goods={visibleGoods} />}
         </div>
