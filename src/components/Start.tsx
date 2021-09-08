@@ -10,7 +10,7 @@ export const Start: React.FC<Props> = (props) => {
   return (
     <button
       type="button"
-      className="btn btn-outline-secondary"
+      className="btn btn-outline-primary"
       onClick={method}
     >
       Start
