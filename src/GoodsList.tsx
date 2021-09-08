@@ -13,7 +13,7 @@ export const GoodsList: React.FC<Props> = (props) => {
       {goods.map(good => (
         <li
           key={good}
-          className="border border-success rounded p-1 m-1"
+          className="border border-success rounded p-1 m-1 text-center"
         >
           {good}
         </li>
