@@ -1,0 +1,31 @@
+.App {
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    padding: 50px;
+  }
+
+  &__start {
+    position: relative;
+    transform: translate(0, 50%);
+    width: 300px;
+    height: 300px;
+
+    border-radius: 100%;
+
+    &--font {
+      font-size: 40px;
+    }
+  }
+}
+
+.card {
+  width: 20rem;
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
