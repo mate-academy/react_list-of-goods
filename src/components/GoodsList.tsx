@@ -4,8 +4,9 @@ type Props = {
   goods: string[];
 };
 
-export const GoodsList: React.FC<Props> = (props) => {
-  const { goods } = props;
+const GoodsList: React.FC<Props> = ({ goods }) => {
+  // eslint-disable-next-line no-console
+  console.log('List of goods');
 
   return (
     <ul className="list-group">
@@ -17,3 +18,5 @@ export const GoodsList: React.FC<Props> = (props) => {
     </ul>
   );
 };
+
+export default React.memo(GoodsList);

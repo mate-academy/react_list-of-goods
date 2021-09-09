@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { GoodsList } from './components/GoodsList';
+import GoodsList from './components/GoodsList';
 import { StartButton } from './components/StartButton';
 
 const goodsFromServer: string[] = [
@@ -21,14 +21,16 @@ type State = {
   isReversed: boolean;
   sortBy: string;
   isListVisible: boolean;
+  limitedLength: number;
 };
 
-class App extends React.Component<{}, State> {
+class App extends React.PureComponent<{}, State> {
   state = {
     goods: goodsFromServer,
     isReversed: false,
-    sortBy: 'id',
+    sortBy: '',
     isListVisible: false,
+    limitedLength: 1,
   };
 
   reverse = () => {
@@ -42,7 +44,12 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ sortBy: 'id' });
+    this.setState({
+      sortBy: '',
+      isReversed: false,
+      goods: goodsFromServer,
+      isListVisible: true,
+    });
   };
 
   sortByLength = () => {
@@ -53,20 +60,41 @@ class App extends React.Component<{}, State> {
     this.setState(state => ({ isListVisible: !state.isListVisible }));
   };
 
+  viewLimitedList = () => {
+    this.setState(state => (
+      {
+        limitedLength: state.limitedLength,
+      }
+    ));
+  };
+
+  changeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const target = event.target.value;
+
+    // eslint-disable-next-line no-console
+    console.log(target);
+
+    this.setState({ limitedLength: +target });
+  };
+
   render() {
     const {
       goods,
       isReversed,
       sortBy,
       isListVisible,
+      limitedLength,
     } = this.state;
 
-    const visibleGoods = [...goods];
+    // eslint-disable-next-line no-console
+    console.log('App');
+
+    const visibleGoods = [...goods].filter(good => (
+      good.length >= limitedLength
+    ));
 
     visibleGoods.sort((g1, g2) => {
       switch (sortBy) {
-        case 'id':
-          return goods.indexOf(g1) - goods.indexOf(g2);
         case 'length':
           return g1.length - g2.length;
         case 'alphabet':
@@ -102,13 +130,7 @@ class App extends React.Component<{}, State> {
               >
                 Sort Alphabetically
               </button>
-              <button
-                type="button"
-                className="btn btn-outline-secondary"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
+
               <button
                 type="button"
                 className="btn btn-outline-secondary"
@@ -116,10 +138,34 @@ class App extends React.Component<{}, State> {
               >
                 Sort by length
               </button>
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
             </span>
           )}
 
           {isListVisible && <GoodsList goods={visibleGoods} />}
+
+          {isListVisible && (
+            <select
+              name="goodsLength"
+              className="btn btn-outline-secondary btn-block col-12"
+              onChange={this.changeHandler}
+            >
+              {goods.map(item => (
+                <option
+                  value={goods.indexOf(item) + 1}
+                  key={item}
+                >
+                  {goods.indexOf(item) + 1}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
       </div>
     );
