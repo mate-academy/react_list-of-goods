@@ -1,9 +1,9 @@
 import React from 'react';
 
 type Props = {
-  action: () => void,
-  stylingClass: string,
-  text: string,
+  action: () => void;
+  stylingClass: string;
+  text: string;
 };
 
 export const Button: React.FC<Props> = (props) => {

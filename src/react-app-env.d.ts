@@ -1,15 +1,12 @@
 /// <reference types="react-scripts" />
 
-type BasicState = {
+interface BasicState {
   goods: string[];
   isReversed: boolean;
   sortBy: '' | 'abc' | 'length';
-};
+}
 
-type AdvancedState = {
-  visibleGoods: string[],
-  isReversed: boolean;
+interface AdvancedState extends BasicState {
   wordLengths: number[];
   chosenLength: number;
-  sortBy: '' | 'abc' | 'length';
-};
+}

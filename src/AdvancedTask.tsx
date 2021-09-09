@@ -10,7 +10,7 @@ class AdvancedTask extends React.Component<{}, AdvancedState> {
     wordLengths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     chosenLength: 1,
     sortBy: '',
-    visibleGoods: [...goodsFromServer],
+    goods: [...goodsFromServer],
   };
 
   handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -34,20 +34,20 @@ class AdvancedTask extends React.Component<{}, AdvancedState> {
       isReversed: false,
       sortBy: '',
       chosenLength: 1,
-      visibleGoods: [...goodsFromServer],
+      goods: [...goodsFromServer],
     });
   };
 
   filterByLength = () => {
     const {
-      visibleGoods,
+      goods,
       chosenLength,
       isReversed,
       sortBy,
     } = this.state;
-    let filteredGoods = visibleGoods;
+    let filteredGoods = goods;
 
-    filteredGoods = visibleGoods.filter(good => good.length >= chosenLength);
+    filteredGoods = goods.filter(good => good.length >= chosenLength);
 
     if (sortBy) {
       filteredGoods = [...filteredGoods].sort((good1, good2) => {
