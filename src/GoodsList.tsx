@@ -12,18 +12,15 @@ interface Props {
 
 interface State {
   visibleGoods: string[];
-  isReversed: boolean;
 }
 
 export class GoodsList extends React.Component<Props, State> {
   state = {
     visibleGoods: [...this.props.goodsFromServer],
-    isReversed: false,
   };
 
   reverseList = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
       visibleGoods: [...state.visibleGoods.reverse()],
     }));
   };
@@ -31,7 +28,6 @@ export class GoodsList extends React.Component<Props, State> {
   reset = () => {
     this.setState({
       visibleGoods: [...this.props.goodsFromServer],
-      isReversed: false,
     });
   };
 
