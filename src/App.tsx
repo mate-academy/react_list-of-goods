@@ -55,6 +55,7 @@ export class App extends React.Component<{}, State> {
     this.setState({
       isReversed: false,
       isSortByAlph: false,
+      isSortByLength: false,
     });
   };
 
@@ -69,16 +70,16 @@ export class App extends React.Component<{}, State> {
 
     const showList = [...goodsList];
 
-    if (isReversed) {
-      showList.reverse();
-    }
-
     if (isSortByAlph) {
       showList.sort((good1, good2) => good1.localeCompare(good2));
     }
 
     if (isSortByLength) {
       showList.sort((good1, good2) => good1.length - good2.length);
+    }
+
+    if (isReversed) {
+      showList.reverse();
     }
 
     return (
