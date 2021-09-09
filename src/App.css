@@ -27,6 +27,10 @@ li {
   line-height: 180%;
 }
 
+.App__item {
+  border-bottom: 2px solid #c3c8cc;
+}
+
 .App__buttons {
   display: flex;
   flex-direction: column;

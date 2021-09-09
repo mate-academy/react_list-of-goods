@@ -46,11 +46,7 @@ class App extends React.Component<{}, State> {
       showLength,
     } = this.state;
 
-    let visibleGoods = goods.filter(good => good.length > showLength);
-
-    if (isReversed) {
-      visibleGoods = [...visibleGoods].reverse();
-    }
+    let visibleGoods = goods.filter(good => good.length >= showLength);
 
     if (sortByAlphabet) {
       visibleGoods = [...visibleGoods]
@@ -62,6 +58,10 @@ class App extends React.Component<{}, State> {
     if (sortByLength) {
       visibleGoods = [...visibleGoods]
         .sort((a, b) => a.length - b.length);
+    }
+
+    if (isReversed) {
+      visibleGoods = [...visibleGoods].reverse();
     }
 
     return visibleGoods;

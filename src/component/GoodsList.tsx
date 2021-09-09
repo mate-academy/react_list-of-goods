@@ -33,6 +33,16 @@ export const GoodsList: React.FC<Props> = (props) => {
       </ul>
 
       <div className="App__buttons">
+
+        <Button
+          className="App__btn"
+          variant="outline-secondary"
+          type="button"
+          onClick={reset}
+        >
+          Reset
+        </Button>
+
         <Button
           className="App__btn"
           variant="outline-secondary"
@@ -59,15 +69,6 @@ export const GoodsList: React.FC<Props> = (props) => {
           onClick={() => sortBy('length')}
         >
           Sort by length
-        </Button>
-
-        <Button
-          className="App__btn"
-          variant="outline-secondary"
-          type="button"
-          onClick={reset}
-        >
-          Reset
         </Button>
 
         <select
