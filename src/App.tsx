@@ -17,31 +17,28 @@ const goodsFromServer: string[] = [
 ];
 
 interface State {
-  isVisibleStart: boolean;
-  isVisibleList: boolean,
+  isVisible: boolean,
   goodsArray: string[];
 }
 
 export class App extends React.Component<{}, State> {
   state = {
-    isVisibleList: false,
-    isVisibleStart: true,
+    isVisible: false,
     goodsArray: [...goodsFromServer],
   };
 
   getStart = () => {
     this.setState((currentState) => ({
-      isVisibleStart: !currentState.isVisibleStart,
-      isVisibleList: !currentState.isVisibleList,
+      isVisible: !currentState.isVisible,
     }));
   };
 
   render() {
-    const { goodsArray, isVisibleStart } = this.state;
+    const { goodsArray, isVisible } = this.state;
 
     return (
       <div className="App">
-        {isVisibleStart && (
+        {!isVisible && (
           <div className="start">
             <h1>List of goods</h1>
             <button
@@ -53,7 +50,7 @@ export class App extends React.Component<{}, State> {
             </button>
           </div>
         )}
-        {this.state.isVisibleList && <GoodsList goods={goodsArray} />}
+        {this.state.isVisible && <GoodsList goods={goodsArray} />}
       </div>
     );
   }
