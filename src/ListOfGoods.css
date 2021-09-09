@@ -1,0 +1,12 @@
+.goods__buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.goods__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  list-style: none;
+}

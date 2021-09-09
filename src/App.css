@@ -1,0 +1,20 @@
+.App {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  width: max-content;
+}
+
+.App__title {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
+}
+
+.button {
+  background-color: bisque;
+  border: 1px solid brown;
+  border-radius: 5px;
+  width: 90px;
+  height: 60px;
+}
