@@ -1,0 +1,51 @@
+ul,
+li {
+  list-style: none;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App__title {
+  margin: 50px 0;
+}
+
+.App__content {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  height: 350px;
+}
+
+.App__list {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 180%;
+}
+
+.App__item {
+  border-bottom: 2px solid #c3c8cc;
+}
+
+.App__buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.App__btn {
+  width: 250px;
+}
+
+.App__select {
+  color: #6c757d;
+  font-size: 18px;
+  text-align: center;
+  border-color: #6c757d;
+  border-radius: 0.25rem;
+  height: 38px;
+}
