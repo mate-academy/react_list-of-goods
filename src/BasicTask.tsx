@@ -8,7 +8,7 @@ class BasicTask extends React.Component<{}, BasicState> {
   state: BasicState = {
     goods: [...goodsFromServer],
     isReversed: false,
-    sortBy: '',
+    sortBy: 'index' as SortingParams,
   };
 
   reverse = () => {
@@ -17,7 +17,7 @@ class BasicTask extends React.Component<{}, BasicState> {
     }));
   };
 
-  sort = (parameter: 'abc' | 'length') => {
+  sort = (parameter: SortingParams) => {
     this.setState({ sortBy: parameter });
   };
 
@@ -27,10 +27,11 @@ class BasicTask extends React.Component<{}, BasicState> {
 
     displayedGoods.sort((good1, good2) => {
       switch (sortBy) {
-        case 'abc':
+        case 'abc' as SortingParams.abc:
           return good1.localeCompare(good2);
-        case 'length':
+        case 'length' as SortingParams.length:
           return good1.length - good2.length;
+        case 'index' as SortingParams.index:
         default:
           return 0;
       }
@@ -46,7 +47,7 @@ class BasicTask extends React.Component<{}, BasicState> {
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: '',
+      sortBy: 'index' as SortingParams.index,
       goods: [...goodsFromServer],
     });
   };
@@ -64,12 +65,12 @@ class BasicTask extends React.Component<{}, BasicState> {
             text="Reverse"
           />
           <Button
-            action={() => this.sort('abc')}
+            action={() => this.sort('abc' as SortingParams.abc)}
             stylingClass="App__button--sort-abc"
             text="Sort alphabetically"
           />
           <Button
-            action={() => this.sort('length')}
+            action={() => this.sort('length' as SortingParams.length)}
             stylingClass="App__button--sort-length"
             text="Sort by length"
           />

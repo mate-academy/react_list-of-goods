@@ -1,9 +1,15 @@
 /// <reference types="react-scripts" />
 
+enum SortingParams {
+  index = 'index',
+  abc = 'abc',
+  length = 'length',
+}
+
 interface BasicState {
   goods: string[];
   isReversed: boolean;
-  sortBy: '' | 'abc' | 'length';
+  sortBy: SortingParams;
 }
 
 interface AdvancedState extends BasicState {

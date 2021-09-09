@@ -9,7 +9,7 @@ class AdvancedTask extends React.Component<{}, AdvancedState> {
     isReversed: false,
     wordLengths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     chosenLength: 1,
-    sortBy: '',
+    sortBy: 'index' as SortingParams,
     goods: [...goodsFromServer],
   };
 
@@ -25,14 +25,14 @@ class AdvancedTask extends React.Component<{}, AdvancedState> {
     }));
   };
 
-  sort = (parameter: 'abc' | 'length') => {
+  sort = (parameter: SortingParams) => {
     this.setState({ sortBy: parameter });
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: '',
+      sortBy: 'index' as SortingParams.index,
       chosenLength: 1,
       goods: [...goodsFromServer],
     });
@@ -52,10 +52,11 @@ class AdvancedTask extends React.Component<{}, AdvancedState> {
     if (sortBy) {
       filteredGoods = [...filteredGoods].sort((good1, good2) => {
         switch (sortBy) {
-          case 'abc':
+          case 'abc' as SortingParams.abc:
             return good1.localeCompare(good2);
-          case 'length':
+          case 'length' as SortingParams.length:
             return good1.length - good2.length;
+          case 'index' as SortingParams.index:
           default:
             return 0;
         }
@@ -93,12 +94,12 @@ class AdvancedTask extends React.Component<{}, AdvancedState> {
               text="Reverse"
             />
             <Button
-              action={() => this.sort('abc')}
+              action={() => this.sort('abc' as SortingParams.abc)}
               stylingClass="App__button--reverse"
               text="Sort by alphabet"
             />
             <Button
-              action={() => this.sort('length')}
+              action={() => this.sort('length' as SortingParams.length)}
               stylingClass="App__button--reverse"
               text="Sort by length"
             />
