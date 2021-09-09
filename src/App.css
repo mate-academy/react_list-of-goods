@@ -38,3 +38,7 @@ li {
   display: flex;
   gap: 10px;
 }
+
+.App__button--start {
+  position: absolute;
+}

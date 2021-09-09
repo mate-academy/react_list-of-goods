@@ -1,18 +1,15 @@
 /// <reference types="react-scripts" />
 
-type State = {
-  defaultGoods: string[];
-  isShown: boolean;
+type BasicState = {
+  goods: string[];
   isReversed: boolean;
-  sortBy: 'index' | 'length' | 'alphabet';
+  sortBy: '' | 'abc' | 'length';
 };
 
 type AdvancedState = {
-  defaultGoods: string[],
   visibleGoods: string[],
-  isShown: boolean;
   isReversed: boolean;
-  sortBy: 'index' | 'length' | 'alphabet';
   wordLengths: number[];
   chosenLength: number;
+  sortBy: '' | 'abc' | 'length';
 };

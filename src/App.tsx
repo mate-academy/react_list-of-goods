@@ -1,96 +1,32 @@
 import React from 'react';
+import AppBasic from './BasicTask';
+import AdvancedApp from './AdvancedTask';
 import { Button } from './Button';
-import { GoodsList } from './GoodsList';
-import goodsFromServer from './api/goods.json';
-import './App.css';
 
-class App extends React.Component<{}, State> {
-  state: State = {
-    defaultGoods: goodsFromServer,
-    isShown: false,
-    isReversed: false,
-    sortBy: 'index',
+interface State {
+  isContentShown: boolean;
+}
+
+export class App extends React.Component<{}, State> {
+  state = {
+    isContentShown: false,
   };
 
   showList = () => {
     this.setState(state => ({
-      isShown: !state.isShown,
+      isContentShown: !state.isContentShown,
     }));
-  };
-
-  reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
-  };
-
-  sortAlphabetically = () => {
-    this.setState({ sortBy: 'alphabet' });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
-  };
-
-  reset = () => {
-    this.setState({
-      isReversed: false,
-      sortBy: 'index',
-    });
   };
 
   render() {
-    const {
-      defaultGoods,
-      isShown,
-      isReversed,
-      sortBy,
-    } = this.state;
-
-    const visibleGoods = [...defaultGoods];
-
-    visibleGoods.sort((good1, good2) => {
-      switch (sortBy) {
-        case 'alphabet':
-          return good1.localeCompare(good2);
-        case 'length':
-          return good1.length - good2.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const { isContentShown } = this.state;
 
     return (
-      <div className="App">
-        {isShown ? (
+      <>
+        {isContentShown ? (
           <>
-            <GoodsList goods={visibleGoods} />
-            <div className="App__buttons">
-              <Button
-                action={this.reverse}
-                stylingClass="App__button--reverse"
-                text="Reverse"
-              />
-              <Button
-                action={this.sortAlphabetically}
-                stylingClass="App__button--sort-abc"
-                text="Sort alphabetically"
-              />
-              <Button
-                action={this.sortByLength}
-                stylingClass="App__button--sort-length"
-                text="Sort by length"
-              />
-              <Button
-                action={this.reset}
-                stylingClass="App__button--reset"
-                text="Reset"
-              />
-            </div>
+            <AppBasic />
+            <AdvancedApp />
           </>
         ) : (
           <Button
@@ -99,9 +35,7 @@ class App extends React.Component<{}, State> {
             text="Start"
           />
         )}
-      </div>
+      </>
     );
   }
 }
-
-export default App;
