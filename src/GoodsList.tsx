@@ -11,25 +11,26 @@ interface Props {
 }
 
 interface State {
-  goods: string[];
+  visibleGoods: string[];
   isReversed: boolean;
 }
 
 export class GoodsList extends React.Component<Props, State> {
   state = {
-    goods: [...this.props.goodsFromServer],
+    visibleGoods: [...this.props.goodsFromServer],
     isReversed: false,
   };
 
   reverseList = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
+      visibleGoods: [...state.visibleGoods.reverse()],
     }));
   };
 
   reset = () => {
     this.setState({
-      goods: [...this.props.goodsFromServer],
+      visibleGoods: [...this.props.goodsFromServer],
       isReversed: false,
     });
   };
@@ -37,27 +38,27 @@ export class GoodsList extends React.Component<Props, State> {
   sortByParam = (sortBy: SortType) => {
     switch (sortBy) {
       case SortType.alphabet:
-        return this.setState(state => ({
-          goods: [...state.goods.sort((a, b) => a.localeCompare(b))],
+        this.setState(state => ({
+          visibleGoods: [...state.visibleGoods.sort((a, b) => a.localeCompare(b))],
         }));
+
+        break;
 
       case SortType.length:
-        return this.setState(state => ({
-          goods: [...state.goods.sort((a, b) => b.length - a.length)],
+        this.setState(state => ({
+          visibleGoods: [...state.visibleGoods.sort((a, b) => b.length - a.length)],
         }));
 
+        break;
+
       default:
-        return 0;
+        break;
     }
   };
 
   getVisible = () => {
-    const { isReversed, goods } = this.state;
-    let modifiedGoods = goods;
-
-    if (isReversed) {
-      modifiedGoods = [...modifiedGoods].reverse();
-    }
+    const { visibleGoods } = this.state;
+    const modifiedGoods = visibleGoods;
 
     return modifiedGoods;
   };
