@@ -23,15 +23,41 @@ export class GoodsList extends React.Component<Props, State> {
     }));
   };
 
-  sortByAlphabet = () => {
-    this.setState({
-      sortBy: 'alphabet',
-    });
+  getVisiblePeople = () => {
+    const {
+      sortBy,
+      isReverse,
+      lengthLimit,
+    } = this.state;
+
+    const { goods } = this.props;
+    const visibleGoods = goods.filter(good => (
+      good.length >= lengthLimit
+    ));
+
+    if (sortBy) {
+      visibleGoods.sort((g1, g2) => {
+        switch (sortBy) {
+          case 'length':
+            return g1.length - g2.length;
+          case 'alphabet':
+            return g1.localeCompare(g2);
+          default:
+            return 0;
+        }
+      });
+    }
+
+    if (isReverse) {
+      visibleGoods.reverse();
+    }
+
+    return visibleGoods;
   };
 
-  sortByLength = () => {
+  sortByField = (field: string) => {
     this.setState({
-      sortBy: 'length',
+      sortBy: field,
     });
   };
 
@@ -50,34 +76,15 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   render() {
-    const { goods } = this.props;
-    const { isReverse, lengthLimit, sortBy } = this.state;
+    const visibleGoods = this.getVisiblePeople();
+    const lengthArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const { lengthLimit } = this.state;
     const {
       reverse,
-      sortByAlphabet,
-      sortByLength,
+      sortByField,
       reset,
       changeHandler,
     } = this;
-
-    const visibleGoods = goods.filter(good => (
-      good.length >= lengthLimit
-    ));
-
-    visibleGoods.sort((g1, g2) => {
-      switch (sortBy) {
-        case 'length':
-          return g1.length - g2.length;
-        case 'alphabet':
-          return g1.localeCompare(g2);
-        default:
-          return 0;
-      }
-    });
-
-    if (isReverse) {
-      visibleGoods.reverse();
-    }
 
     return (
       <>
@@ -86,16 +93,9 @@ export class GoodsList extends React.Component<Props, State> {
           onChange={changeHandler}
           value={lengthLimit}
         >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+          {lengthArr.map(number => (
+            <option value={number}>{number}</option>
+          ))}
         </select>
         <ul className="list-group">
           {visibleGoods.map(good => (
@@ -112,14 +112,18 @@ export class GoodsList extends React.Component<Props, State> {
         <button
           className="btn btn-primary"
           type="button"
-          onClick={sortByAlphabet}
+          onClick={() => {
+            sortByField('alphabet');
+          }}
         >
           Sort alphabetically
         </button>
         <button
           className="btn btn-primary"
           type="button"
-          onClick={sortByLength}
+          onClick={() => {
+            sortByField('length');
+          }}
         >
           Sort by length
         </button>
