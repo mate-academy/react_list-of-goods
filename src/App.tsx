@@ -42,14 +42,6 @@ export class App extends React.Component<{}, State> {
     this.setState(state => ({ reversed: !state.reversed }));
   };
 
-  sortByName = () => {
-    this.setState({ sortBy: 'name' });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
-  };
-
   reset = () => {
     this.setState({
       reversed: false,
@@ -57,17 +49,24 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  sortByMethod = (sortArgument: 'length' | 'name'): void => {
+    if (sortArgument === 'length') {
+      this.setState({ sortBy: 'length' });
+    } else {
+      this.setState({ sortBy: 'name' });
+    }
+  };
+
+  visibleGoods = () => {
     const {
       goods,
-      start,
       reversed,
       sortBy,
     } = this.state;
 
-    const visibleGoods = [...goods];
+    const copyOfGoods = [...goods];
 
-    visibleGoods.sort((a, b) => {
+    copyOfGoods.sort((a, b) => {
       switch (sortBy) {
         case 'name':
           return a.localeCompare(b);
@@ -79,8 +78,14 @@ export class App extends React.Component<{}, State> {
     });
 
     if (reversed) {
-      visibleGoods.reverse();
+      copyOfGoods.reverse();
     }
+
+    return copyOfGoods;
+  };
+
+  render() {
+    const { start } = this.state;
 
     return (
       <div className="App">
@@ -93,7 +98,7 @@ export class App extends React.Component<{}, State> {
         ) : (
           <>
             <ul className="App__list">
-              {visibleGoods.map(good => (
+              {this.visibleGoods().map(good => (
                 <li key={good} className="App__list-item">
                   {good}
                 </li>
@@ -102,8 +107,8 @@ export class App extends React.Component<{}, State> {
 
             <Button callback={this.reverse} name="Reverse" />
             <Button callback={this.reset} name="Reset" />
-            <Button callback={this.sortByName} name="Sort by name" />
-            <Button callback={this.sortByLength} name="Sort by length" />
+            <Button callback={() => this.sortByMethod('name')} name="Sort by name" />
+            <Button callback={() => this.sortByMethod('length')} name="Sort by length" />
             <Button callback={this.end} name="End" />
           </>
         )}
