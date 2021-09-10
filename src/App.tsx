@@ -34,13 +34,32 @@ class App extends React.PureComponent<{}, State> {
   };
 
   reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
+    this.setState(currentState => ({
+      isReversed: !currentState.isReversed,
     }));
   };
 
-  sortAlphabetically = () => {
-    this.setState({ sortBy: 'alphabet' });
+  getSortedBy = (name: string) => {
+    this.setState({ sortBy: name });
+  };
+
+  sorted = (g1 :string, g2: string) => {
+    const { sortBy } = this.state;
+
+    switch (sortBy) {
+      case 'length':
+        return g1.length - g2.length;
+      case 'alphabet':
+        return g1.localeCompare(g2);
+      default:
+        return 0;
+    }
+  };
+
+  filtered = (good: string) => {
+    const { limitedLength } = this.state;
+
+    return good.length >= limitedLength;
   };
 
   reset = () => {
@@ -49,21 +68,18 @@ class App extends React.PureComponent<{}, State> {
       isReversed: false,
       goods: goodsFromServer,
       isListVisible: true,
+      limitedLength: 1,
     });
   };
 
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
-  };
-
   renderedList = () => {
-    this.setState(state => ({ isListVisible: !state.isListVisible }));
+    this.setState(currentState => ({ isListVisible: !currentState.isListVisible }));
   };
 
   viewLimitedList = () => {
-    this.setState(state => (
+    this.setState(currentState => (
       {
-        limitedLength: state.limitedLength,
+        limitedLength: currentState.limitedLength,
       }
     ));
   };
@@ -81,28 +97,15 @@ class App extends React.PureComponent<{}, State> {
     const {
       goods,
       isReversed,
-      sortBy,
       isListVisible,
-      limitedLength,
     } = this.state;
 
     // eslint-disable-next-line no-console
     console.log('App');
 
-    const visibleGoods = [...goods].filter(good => (
-      good.length >= limitedLength
-    ));
+    const visibleGoods = [...goods].filter(this.filtered);
 
-    visibleGoods.sort((g1, g2) => {
-      switch (sortBy) {
-        case 'length':
-          return g1.length - g2.length;
-        case 'alphabet':
-          return g1.localeCompare(g2);
-        default:
-          return 0;
-      }
-    });
+    visibleGoods.sort(this.sorted);
 
     if (isReversed) {
       visibleGoods.reverse();
@@ -126,7 +129,7 @@ class App extends React.PureComponent<{}, State> {
               <button
                 type="button"
                 className="btn btn-outline-secondary"
-                onClick={this.sortAlphabetically}
+                onClick={() => (this.getSortedBy('alphabet'))}
               >
                 Sort Alphabetically
               </button>
@@ -134,7 +137,7 @@ class App extends React.PureComponent<{}, State> {
               <button
                 type="button"
                 className="btn btn-outline-secondary"
-                onClick={this.sortByLength}
+                onClick={() => (this.getSortedBy('length'))}
               >
                 Sort by length
               </button>
@@ -155,6 +158,7 @@ class App extends React.PureComponent<{}, State> {
               name="goodsLength"
               className="btn btn-outline-secondary btn-block col-12"
               onChange={this.changeHandler}
+              defaultValue="1"
             >
               {goods.map(item => (
                 <option
