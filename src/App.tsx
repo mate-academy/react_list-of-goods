@@ -16,7 +16,7 @@ const goodsFromServer: string[] = [
 
 const App: React.FC = () => (
   <div className="App">
-    <h1>Goods selector cancel</h1>
+    <h1>Goods selector cancel commit</h1>
     {goodsFromServer.length}
   </div>
 );
