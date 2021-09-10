@@ -1,1 +1,4 @@
-/// <reference types="react-scripts" />
+interface PreparedGoods {
+  name: string,
+  id: number,
+}
