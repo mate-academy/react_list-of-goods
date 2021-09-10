@@ -1,0 +1,37 @@
+.goods-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__list {
+    width: 100%;
+    margin-top: 15px;
+    padding: 0;
+  }
+
+  &__item {
+    width: 100%;
+    margin-top: 20px;
+    padding: 5px 0;
+    background-color: #0d6efd;
+    border-radius: 6px;
+    box-shadow: 2px 2px 8px #000;
+    text-align: center;
+    list-style: none;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin-top: 15px;
+  }
+}
+
+.form-select {
+  box-shadow: 2px 2px 8px #0006;
+  border: 2px solid #0d6efd;
+  border-radius: 6px;
+  cursor: pointer;
+}
