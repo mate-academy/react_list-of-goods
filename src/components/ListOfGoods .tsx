@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from './Button';
 
 type State = {
   isReversed: boolean;
@@ -36,10 +37,10 @@ export class ListOfGoods extends React.Component<Props, State> {
     const { goods } = this.props;
     const { isReversed, sortBy } = this.state;
 
-    let visibleList = goods;
+    const visibleList = [...goods];
 
     if (sortBy) {
-      visibleList = [...visibleList]
+      visibleList
         .sort((goodA, goodB) => {
           switch (sortBy) {
             case 'alphabet':
@@ -53,7 +54,7 @@ export class ListOfGoods extends React.Component<Props, State> {
     }
 
     if (isReversed) {
-      visibleList = [...visibleList].reverse();
+      visibleList.reverse();
     }
 
     return visibleList;
@@ -76,37 +77,10 @@ export class ListOfGoods extends React.Component<Props, State> {
         </ul>
 
         <div className="d-flex p-2 bd-highlight justify-content-evenly">
-          <button
-            className="btn btn-dark"
-            type="button"
-            onClick={this.reverse}
-          >
-            reverse
-          </button>
-
-          <button
-            className="btn btn-dark"
-            type="button"
-            onClick={this.sortByAlphabet}
-          >
-            Sort alphabetically
-          </button>
-
-          <button
-            className="btn btn-dark"
-            type="button"
-            onClick={this.sortByLength}
-          >
-            Sort by length
-          </button>
-
-          <button
-            className="btn btn-dark"
-            type="button"
-            onClick={this.reset}
-          >
-            reset
-          </button>
+          <Button callback={this.reverse} name="reverse" />
+          <Button callback={this.sortByAlphabet} name="Sort alphabetically" />
+          <Button callback={this.sortByLength} name="Sort by length" />
+          <Button callback={this.reset} name="reset" />
         </div>
       </div>
 

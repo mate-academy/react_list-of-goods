@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { ListOfGoods } from './components/ListOfGoods ';
+import { Button } from './components/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const goodsFromServer: string[] = [
@@ -39,13 +40,7 @@ class App extends React.Component<{}, State> {
         {this.state.isVisibleList
           ? <ListOfGoods goods={goodsFromServer} />
           : (
-            <button
-              className="btn btn-success"
-              type="button"
-              onClick={this.showList}
-            >
-              start
-            </button>
+            <Button callback={this.showList} name="start" />
           )}
       </div>
     );
