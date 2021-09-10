@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  width: 200px;
+  background-color: rgb(250, 227, 184);
+  border: 1px solid salmon;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 0 auto;
+
+  &__title {
+    margin: 0 auto 15px;
+    text-align: center;
+  }
+
+  &__list {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    background-color: #fff;
+    width: min-content;
+    margin: 0 auto 7px;
+    border: 1px solid salmon;
+    border-radius: 8px;
+    padding: 15px;
+  }
+
+  &__list-item {
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+
+  &__button {
+    margin: 0 auto;
+    display: block;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: salmon;
+    min-width: 110px;
+    margin-bottom: 7px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
