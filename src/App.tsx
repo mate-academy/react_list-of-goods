@@ -42,12 +42,14 @@ export class App extends React.Component<{}, State> {
   sortByAlph = () => {
     this.setState(state => ({
       isSortByAlph: !state.isSortByAlph,
+      isSortByLength: false,
     }));
   };
 
   sortByLength = () => {
     this.setState(state => ({
       isSortByLength: !state.isSortByLength,
+      isSortByAlph: false,
     }));
   };
 
@@ -84,45 +86,64 @@ export class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1>Goods</h1>
+        <h1 className="title">Goods</h1>
 
-        <button
-          type="button"
-          onClick={this.start}
-        >
-          Start
-        </button>
+        {!getStart && (
+          <button
+            type="button"
+            className="button-start"
+            onClick={this.start}
+          >
+            Let&apos;s start!
+          </button>
+        )}
 
-        <button
-          type="button"
-          onClick={this.reverse}
-        >
-          Reverse
-        </button>
+        <div className="content">
 
-        <button
-          type="button"
-          onClick={this.sortByAlph}
-        >
-          Sort by alphabeticall
-        </button>
+          <div className="goods">
+            {getStart && (<GoodsList list={showList} />)}
+          </div>
 
-        <button
-          type="button"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
+          {getStart && (
+            <div className="buttons">
+              <div className="buttons__group">
+                <button
+                  type="button"
+                  className="button-sort"
+                  onClick={this.sortByAlph}
+                >
+                  Sort by alphabeticall
+                </button>
 
-        <button
-          type="button"
-          className="btn btn-start"
-          onClick={this.reset}
-        >
-          Reset
-        </button>
+                <button
+                  type="button"
+                  className="button-sort"
+                  onClick={this.sortByLength}
+                >
+                  Sort by length
+                </button>
+              </div>
 
-        {getStart && (<GoodsList list={showList} />)}
+              <div className="buttons__group">
+                <button
+                  type="button"
+                  className="button-reverse"
+                  onClick={this.reverse}
+                >
+                  Reverse
+                </button>
+
+                <button
+                  type="button"
+                  className="button-reset"
+                  onClick={this.reset}
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
 
       </div>
     );
