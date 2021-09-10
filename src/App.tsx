@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { Button } from './Button';
+import { List } from './List';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -22,6 +23,11 @@ type State = {
   sortBy: string;
 };
 
+enum SortBy {
+  Length = 'length',
+  Name = 'name',
+}
+
 export class App extends React.Component<{}, State> {
   state = {
     goods: goodsFromServer,
@@ -31,11 +37,7 @@ export class App extends React.Component<{}, State> {
   };
 
   start = () => {
-    this.setState(state => ({ start: !state.start }));
-  };
-
-  end = () => {
-    this.setState({ start: false });
+    this.setState({ start: true });
   };
 
   reverse = () => {
@@ -49,11 +51,11 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  sortByMethod = (sortArgument: 'length' | 'name'): void => {
-    if (sortArgument === 'length') {
-      this.setState({ sortBy: 'length' });
+  sortByMethod = (sortArgument: SortBy): void => {
+    if (sortArgument === SortBy.Length) {
+      this.setState({ sortBy: SortBy.Length });
     } else {
-      this.setState({ sortBy: 'name' });
+      this.setState({ sortBy: SortBy.Name });
     }
   };
 
@@ -93,24 +95,17 @@ export class App extends React.Component<{}, State> {
           Goods
         </h1>
 
-        {!start ? (
-          <Button callback={this.start} name="Start" />
-        ) : (
+        {start ? (
           <>
-            <ul className="App__list">
-              {this.visibleGoods().map(good => (
-                <li key={good} className="App__list-item">
-                  {good}
-                </li>
-              ))}
-            </ul>
+            <List goods={this.visibleGoods()} />
 
             <Button callback={this.reverse} name="Reverse" />
             <Button callback={this.reset} name="Reset" />
-            <Button callback={() => this.sortByMethod('name')} name="Sort by name" />
-            <Button callback={() => this.sortByMethod('length')} name="Sort by length" />
-            <Button callback={this.end} name="End" />
+            <Button callback={() => this.sortByMethod(SortBy.Name)} name="Sort by name" />
+            <Button callback={() => this.sortByMethod(SortBy.Length)} name="Sort by length" />
           </>
+        ) : (
+          <Button callback={this.start} name="Start" />
         )}
       </div>
     );
