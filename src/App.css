@@ -1,0 +1,31 @@
+.button__start {
+  height: 80px;
+  width: 200px;
+  margin: 20% 0 0 40%;
+}
+
+.goods {
+  display: flex;
+  justify-content: space-around;
+  margin: 100px auto 0;
+  padding: 20px;
+  width: 500px;
+  border: 2px solid rgb(50, 54, 71);
+  border-radius: 8px;
+  font-size: 24px;
+}
+
+.goods__buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.goods__list {
+  list-style-type: none;
+}
+
+.goods__button {
+  height: 50px;
+  margin-top: 16px;
+}
