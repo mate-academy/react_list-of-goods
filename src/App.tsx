@@ -43,18 +43,24 @@ export class App extends React.PureComponent<{}, State> {
         case 'Sort by length':
           return {
             ...currentState,
+            sortGoodsByLength: !currentState.sortGoodsByLength,
+            reset: true,
+            sortGoodsByLetter: true,
+            reverseGoods: true,
             changedGoods: [...currentState.changedGoods].sort(
               (a, b) => a.length - b.length,
             ),
-            sortGoodsByLength: !currentState.sortGoodsByLength,
           };
         case 'Sort alphabetically':
           return {
             ...currentState,
+            sortGoodsByLetter: !currentState.sortGoodsByLetter,
+            sortGoodsByLength: true,
+            reset: true,
+            reverseGoods: true,
             changedGoods: [...currentState.changedGoods].sort(
               (a, b) => a.localeCompare(b),
             ),
-            sortGoodsByLetter: !currentState.sortGoodsByLetter,
           };
         default:
           return {
@@ -73,6 +79,9 @@ export class App extends React.PureComponent<{}, State> {
       return {
         changedGoods: [...currentState.initialGoods],
         reset: !currentState.reset,
+        sortGoodsByLetter: true,
+        sortGoodsByLength: true,
+        reverseGoods: true,
       };
     });
   };
@@ -82,6 +91,9 @@ export class App extends React.PureComponent<{}, State> {
       return {
         changedGoods: [...currentState.changedGoods].reverse(),
         reverseGoods: !currentState.reverseGoods,
+        reset: true,
+        sortGoodsByLetter: true,
+        sortGoodsByLength: true,
       };
     });
   };
