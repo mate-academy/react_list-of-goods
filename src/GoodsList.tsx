@@ -6,42 +6,44 @@ type Props = {
 };
 
 type State = {
-  copy: string[];
+  visibleGoods: string[];
 };
 
 export class GoodsList extends React.Component<Props, State> {
   state: State = {
-    copy: [...this.props.goods],
+    visibleGoods: [...this.props.goods],
   };
 
   reverse = () => {
-    this.setState((state) => {
+    this.setState((currentState) => {
+      const newCopy = [...currentState.visibleGoods];
+
       return {
-        copy: state.copy.reverse(),
+        visibleGoods: newCopy.reverse(),
       };
     });
   };
 
   sortAlphabetically = () => {
-    this.setState((state) => {
-      const newCopy = state.copy.sort((a, b) => a.localeCompare(b));
+    this.setState((currentState) => {
+      const newCopy = currentState.visibleGoods.sort((a, b) => a.localeCompare(b));
 
       return {
-        copy: newCopy,
+        visibleGoods: newCopy,
       };
     });
   };
 
   reset = () => {
-    this.setState({ copy: [...this.props.goods] });
+    this.setState({ visibleGoods: [...this.props.goods] });
   };
 
   sortByLength = () => {
-    this.setState((state) => {
-      const newCopy = state.copy.sort((a, b) => a.length - b.length);
+    this.setState((currentState) => {
+      const newCopy = currentState.visibleGoods.sort((a, b) => a.length - b.length);
 
       return {
-        copy: newCopy,
+        visibleGoods: newCopy,
       };
     });
   };
@@ -79,7 +81,7 @@ export class GoodsList extends React.Component<Props, State> {
         </button>
         <table className="table">
           <tbody>
-            {this.state.copy.map(good => <tr><td key={good}>{good}</td></tr>)}
+            {this.state.visibleGoods.map(good => <tr><td key={good}>{good}</td></tr>)}
           </tbody>
         </table>
       </div>
