@@ -8,21 +8,19 @@ type Props = {
   buttonChoose: boolean,
 };
 
-export class Button extends React.PureComponent<Props> {
-  render() {
-    const { buttonType, buttonChoose } = this.props;
+export const Button: React.FC<Props> = (props) => {
+  const { buttonType, buttonChoose } = props;
 
-    return (
-      <>
-        <button
-          type="button"
-          className={classNames('button', { 'is-success': buttonChoose, 'is-warning': !buttonChoose })}
-          onClick={this.props.callback}
-        >
-          {buttonType}
-        </button>
-        {' '}
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <button
+        type="button"
+        className={classNames('button', { 'is-success': buttonChoose, 'is-warning': !buttonChoose })}
+        onClick={props.callback}
+      >
+        {buttonType}
+      </button>
+      {' '}
+    </>
+  );
+};
