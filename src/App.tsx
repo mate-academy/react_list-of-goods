@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Button } from './button/button';
+import { Button } from './button/Button';
+import { Select } from './select/Select';
 import './App.scss';
 
 const goodsFromServer: string[] = [
@@ -16,6 +17,8 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const wordsLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 type State = {
   showGoods: boolean,
   initialGoods: string[],
@@ -24,6 +27,7 @@ type State = {
   sortGoodsByLength: boolean,
   reset: boolean,
   reverseGoods: boolean,
+  maxWordLength: string,
 };
 
 export class App extends React.PureComponent<{}, State> {
@@ -35,6 +39,7 @@ export class App extends React.PureComponent<{}, State> {
     showGoods: true,
     reset: true,
     reverseGoods: true,
+    maxWordLength: 'Word length',
   };
 
   sortGoods = (sortType: string) => {
@@ -82,6 +87,7 @@ export class App extends React.PureComponent<{}, State> {
         sortGoodsByLetter: true,
         sortGoodsByLength: true,
         reverseGoods: true,
+        maxWordLength: 'Word length',
       };
     });
   };
@@ -106,7 +112,14 @@ export class App extends React.PureComponent<{}, State> {
       showGoods,
       reset,
       reverseGoods,
+      maxWordLength,
     } = this.state;
+
+    let filterGoods = changedGoods;
+
+    if (+maxWordLength >= 0) {
+      filterGoods = changedGoods.filter(good => good.length <= +maxWordLength);
+    }
 
     return (
       <div className="App">
@@ -114,7 +127,7 @@ export class App extends React.PureComponent<{}, State> {
         {showGoods || (
           <>
             <ul>
-              {changedGoods.map(good => {
+              {filterGoods.map(good => {
                 return (
                   <li key={good}>
                     {good}
@@ -142,6 +155,17 @@ export class App extends React.PureComponent<{}, State> {
               callback={() => this.sortGoods('Sort by length')}
               buttonChoose={sortGoodsByLength}
             />
+            <div className="select is-success">
+              <select
+                className="is-hovered"
+                name="wordLength"
+                id=""
+                value={maxWordLength}
+                onChange={(event) => this.setState({ maxWordLength: event.target.value })}
+              >
+                <Select wordsLength={wordsLength} />
+              </select>
+            </div>
           </>
         )}
         {this.state.showGoods && (
