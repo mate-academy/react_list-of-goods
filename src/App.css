@@ -1,0 +1,12 @@
+.App {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-height: 400px;
+  height: 100%;
+  flex-direction: column;
+}
+
+.button-section .btn:not(:last-child) {
+  margin-right: 10px;
+}
