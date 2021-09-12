@@ -1,0 +1,17 @@
+.App {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+  font-size: 30px;
+}
+
+.app__button {
+  font-size: 30px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.app__button-active {
+  background-color: rgb(0, 214, 36);
+}
