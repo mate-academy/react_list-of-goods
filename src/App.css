@@ -1,0 +1,23 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  margin: 30px;
+  color: black;
+  background-color: greenyellow;
+  border: 2px solid orange;
+  border-radius: 8px;
+  transition: transform 0.4s;
+}
+
+.button:hover {
+  background-color: green;
+  transform: scale(1.1);
+}
+
+.list-group-item {
+  border: 2px solid grey;
+}
