@@ -18,7 +18,6 @@ const goodsFromServer: string[] = [
 
 interface State {
   visibility: boolean;
-  goods: string[];
   sortBy: string,
   isReversed: boolean;
 }
@@ -26,7 +25,6 @@ interface State {
 class App extends React.Component<{}, State> {
   state: State = {
     visibility: false,
-    goods: [...goodsFromServer],
     sortBy: '',
     isReversed: false,
   };
@@ -62,9 +60,9 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  listOfGoods = (goods: string[]) => {
     const {
-      goods, isReversed, sortBy,
+      isReversed, sortBy,
     } = this.state;
 
     let goodsCopy = [...goods];
@@ -86,6 +84,10 @@ class App extends React.Component<{}, State> {
       goodsCopy.reverse();
     }
 
+    return goodsCopy;
+  };
+
+  render() {
     return (
       <div className="App">
         <button
@@ -102,7 +104,7 @@ class App extends React.Component<{}, State> {
             <button type="button" onClick={this.sortByLeng}>Sort by length</button>
             <button className="reset" type="button" onClick={this.reset}>Reset</button>
           </div>
-          <GoodsList goods={goodsCopy} />
+          <GoodsList goods={this.listOfGoods(goodsFromServer)} />
         </section>
       </div>
     );
