@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import List from './List';
+import ListOfGoods from './ListOfGoods';
 
 import './App.scss';
 
@@ -23,8 +23,16 @@ class App extends Component {
     const { isReady } = this.state;
 
     return (isReady
-      ? <button type="button" className="button btn btn btn-outline-primary" onClick={this.start}>Start</button>
-      : <List />
+      ? (
+        <button
+          type="button"
+          className="button btn btn btn-outline-primary"
+          onClick={this.start}
+        >
+          Start
+        </button>
+      )
+      : <ListOfGoods />
     );
   }
 }

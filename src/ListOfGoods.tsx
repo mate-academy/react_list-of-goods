@@ -2,8 +2,6 @@ import React from 'react';
 
 import './App.scss';
 
-import GoodsList from './GoodsList';
-
 const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
@@ -21,7 +19,7 @@ type State = {
   goods: string[];
 };
 
-class Body extends React.Component<{}, State> {
+class ListOfGoods extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
   };
@@ -66,7 +64,13 @@ class Body extends React.Component<{}, State> {
     return (
       <>
         <div className="App">
-          {this.state.goods.map(item => <GoodsList item={item} />)}
+          <ul className="list-group list">
+            {this.state.goods.map(item => (
+              <li className="list-group-item list-item" key={item}>
+                {item}
+              </li>
+            ))}
+          </ul>
           <div className="btns">
             <button type="button" className="btn btn-outline-success" onClick={this.reverseGoods}>Reverse</button>
             <button type="button" className="btn btn-outline-danger" onClick={this.sortGoods}>Sort</button>
@@ -79,4 +83,4 @@ class Body extends React.Component<{}, State> {
   }
 }
 
-export default Body;
+export default ListOfGoods;
