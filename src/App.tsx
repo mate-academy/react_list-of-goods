@@ -20,8 +20,7 @@ interface State {
   goodsList: string[];
   getStart: boolean;
   isReversed: boolean;
-  isSortByAlph: boolean;
-  isSortByLength: boolean;
+  sortBy: string;
 }
 
 export class App extends React.Component<{}, State> {
@@ -29,8 +28,7 @@ export class App extends React.Component<{}, State> {
     goodsList: goodsFromServer,
     isReversed: false,
     getStart: false,
-    isSortByAlph: false,
-    isSortByLength: false,
+    sortBy: '',
   };
 
   reverse = () => {
@@ -39,26 +37,32 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  sortByAlph = () => {
-    this.setState(state => ({
-      isSortByAlph: !state.isSortByAlph,
-      isSortByLength: false,
-    }));
-  };
-
-  sortByLength = () => {
-    this.setState(state => ({
-      isSortByLength: !state.isSortByLength,
-      isSortByAlph: false,
-    }));
-  };
-
   reset = () => {
     this.setState({
       isReversed: false,
-      isSortByAlph: false,
-      isSortByLength: false,
+      sortBy: '',
     });
+  };
+
+  checkStatus = (list: string[]) => {
+    if (this.state.sortBy) {
+      list.sort((first, second) => {
+        switch (this.state.sortBy) {
+          case 'alphabetically':
+            return first.localeCompare(second);
+
+          case 'sortByLength':
+            return first.length - second.length;
+
+          default:
+            return 0;
+        }
+      });
+    }
+
+    if (this.state.isReversed) {
+      list.reverse();
+    }
   };
 
   start = () => {
@@ -66,23 +70,11 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const {
-      goodsList, getStart, isReversed, isSortByAlph, isSortByLength,
-    } = this.state;
+    const { goodsList, getStart } = this.state;
 
     const showList = [...goodsList];
 
-    if (isSortByAlph) {
-      showList.sort((good1, good2) => good1.localeCompare(good2));
-    }
-
-    if (isSortByLength) {
-      showList.sort((good1, good2) => good1.length - good2.length);
-    }
-
-    if (isReversed) {
-      showList.reverse();
-    }
+    this.checkStatus(showList);
 
     return (
       <div className="App">
@@ -110,7 +102,9 @@ export class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   className="button-sort"
-                  onClick={this.sortByAlph}
+                  onClick={() => (this.setState({
+                    sortBy: 'alphabetically',
+                  }))}
                 >
                   Sort by alphabeticall
                 </button>
@@ -118,7 +112,9 @@ export class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   className="button-sort"
-                  onClick={this.sortByLength}
+                  onClick={() => (this.setState({
+                    sortBy: 'sortByLength',
+                  }))}
                 >
                   Sort by length
                 </button>
