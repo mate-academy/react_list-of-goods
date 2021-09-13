@@ -99,52 +99,53 @@ class App extends React.Component<{}, State> {
     return (
       <div className="wrapper">
         <div className="App">
-          {(isVisible) && (
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.showGoods}
-            >
-              Start
-            </button>
-          )}
-          {(!isVisible) && (
-            <div>
-              <div className="d-grid gap-2 col-6 mx-auto">
-                <button
-                  className="btn btn-primary"
-                  type="button"
-                  onClick={this.reverse}
-                >
-                  Reverse
-                </button>
-                <button
-                  className="btn btn-primary"
-                  type="button"
-                  onClick={this.sortByAlphabetically}
-                >
-                  Sort alphabetically
-                </button>
-                <button
-                  className="btn btn-primary"
-                  type="button"
-                  onClick={this.reset}
-                >
-                  Reset
-                </button>
-                <button
-                  className="btn btn-primary"
-                  type="button"
-                  onClick={this.sortByLength}
-                >
-                  Sort by length
-                </button>
+          {(isVisible)
+            ? (
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this.showGoods}
+              >
+                Start
+              </button>
+            )
+            : (
+              <div>
+                <div className="d-grid gap-2 col-6 mx-auto">
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={this.reverse}
+                  >
+                    Reverse
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={this.sortByAlphabetically}
+                  >
+                    Sort alphabetically
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={this.reset}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={this.sortByLength}
+                  >
+                    Sort by length
+                  </button>
+                </div>
+                {visibleGoods.length !== 0 && (
+                  <GoodsList goods={visibleGoods} />
+                )}
               </div>
-              {visibleGoods.length !== 0 && (
-                <GoodsList goods={visibleGoods} />
-              )}
-            </div>
-          )}
+            )}
         </div>
       </div>
     );
