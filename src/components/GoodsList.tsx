@@ -5,29 +5,22 @@ interface Props {
   goods: string[];
 }
 
-interface State extends Props {
+interface State {
   reverse: boolean;
   sortBy: string;
-  selectValue: string;
+  selectValue: number;
 }
 
 export class GoodsList extends React.Component<Props, State> {
   state = {
-    goods: this.props.goods,
     reverse: false,
     sortBy: '',
-    selectValue: '1',
+    selectValue: 1,
   };
 
-  sortAlphabetical = () => {
+  sortGoods = (sortBy: string) => {
     this.setState({
-      sortBy: 'alphabetical',
-    });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
+      sortBy,
     });
   };
 
@@ -43,7 +36,7 @@ export class GoodsList extends React.Component<Props, State> {
     this.setState({
       reverse: false,
       sortBy: '',
-      selectValue: '1',
+      selectValue: 1,
     });
   };
 
@@ -51,22 +44,26 @@ export class GoodsList extends React.Component<Props, State> {
     const { value } = event.target;
 
     this.setState({
-      selectValue: value,
+      selectValue: +value,
+    });
+  };
+
+  sortArray = (array: string[], sortBy: string) => {
+    array.sort((good1, good2) => {
+      if (sortBy === 'alphabetical') {
+        return good1.localeCompare(good2);
+      }
+
+      return good1.length - good2.length;
     });
   };
 
   render() {
     const { reverse, sortBy, selectValue } = this.state;
-    const visibleGoods = this.state.goods.filter(good => good.length >= +selectValue);
+    const visibleGoods = this.props.goods.filter(good => good.length >= selectValue);
 
     if (sortBy) {
-      visibleGoods.sort((good1, good2) => {
-        if (sortBy === 'alphabetical') {
-          return good1.localeCompare(good2);
-        }
-
-        return good1.length - good2.length;
-      });
+      this.sortArray(visibleGoods, sortBy);
     }
 
     if (reverse) {
@@ -86,11 +83,13 @@ export class GoodsList extends React.Component<Props, State> {
                 mb-3
                 mt-3"
             >
-              {visibleGoods.length > 0 ? (visibleGoods.map(good => {
-                return (
-                  <li key={good} className="list-group-item">{good}</li>
-                );
-              })) : <p className="GoodsList__error">No goods for your request</p> }
+              {visibleGoods.length > 0
+                ? (
+                  visibleGoods.map(good => (
+                    <li key={good} className="list-group-item">{good}</li>
+                  ))
+                )
+                : <p className="GoodsList__error">No goods for your request</p>}
             </ul>
           </div>
           <div className="row d-flex justify-content-center">
@@ -101,7 +100,7 @@ export class GoodsList extends React.Component<Props, State> {
                 btn
                 btn-primary"
               type="button"
-              onClick={this.sortAlphabetical}
+              onClick={() => this.sortGoods('alphabetical')}
             >
               sort list alphabetical
             </button>
@@ -112,7 +111,7 @@ export class GoodsList extends React.Component<Props, State> {
                 btn
                 btn-secondary"
               type="button"
-              onClick={this.sortByLength}
+              onClick={() => this.sortGoods('length')}
             >
               sort list by length
             </button>
@@ -145,17 +144,13 @@ export class GoodsList extends React.Component<Props, State> {
               onChange={this.selectChange}
               className="col-lg-2"
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
+              {this.props.goods.map(good => {
+                const optionValue = this.props.goods.indexOf(good) + 1;
+
+                return (
+                  <option key={`${optionValue}`}>{optionValue}</option>
+                );
+              })}
             </select>
           </div>
         </div>

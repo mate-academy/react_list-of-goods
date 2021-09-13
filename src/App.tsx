@@ -3,7 +3,7 @@ import { GoodsList } from './components';
 import './App.scss';
 
 const goodsFromServer: string[] = [
-  'Dumplings ',
+  'Dumplings',
   'Carrot',
   'Eggs',
   'Ice cream',
@@ -16,22 +16,22 @@ const goodsFromServer: string[] = [
 ];
 
 interface State {
-  start: boolean;
+  isStarted: boolean;
 }
 
 class App extends React.Component<{}, State> {
-  state = {
-    start: false,
+  state: State = {
+    isStarted: false,
   };
 
   startingApp = () => {
     this.setState({
-      start: true,
+      isStarted: true,
     });
   };
 
   render() {
-    const { start } = this.state;
+    const { isStarted } = this.state;
 
     return (
       <div className="App">
@@ -44,8 +44,17 @@ class App extends React.Component<{}, State> {
               justify-content-center
               align-items-center"
           >
-            {!start && <button type="button" onClick={this.startingApp} className="btn btn-danger col-lg-3">Start</button>}
-            {start && <GoodsList goods={goodsFromServer} />}
+            {!isStarted ? (
+              <button
+                type="button"
+                onClick={this.startingApp}
+                className="btn btn-danger col-lg-3"
+              >
+                Start
+              </button>
+            ) : (
+              <GoodsList goods={goodsFromServer} />
+            )}
           </div>
         </div>
       </div>
