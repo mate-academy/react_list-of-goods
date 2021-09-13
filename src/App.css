@@ -1,0 +1,30 @@
+.hidden {
+  display: none;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start {
+  height: 100px;
+  width: 200px;
+  font-size: 30px;
+  background-color: red;
+}
+
+.start:focus {
+  background-color: green;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.reset {
+  background-color: red;
+}
