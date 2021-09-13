@@ -1,0 +1,11 @@
+.GoodsList {
+  &__list {
+    max-width: 600px;
+  }
+
+  &__error {
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+  }
+}
