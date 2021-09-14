@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodList';
@@ -17,22 +16,14 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  goods: string[],
+  visibleGoods: string[],
   isVisible: boolean,
-  isReverse: boolean,
-  sortByAlphabet: boolean,
-  sortByLength: boolean,
-  isReset: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
+    visibleGoods: [...goodsFromServer],
     isVisible: false,
-    isReverse: false,
-    sortByAlphabet: false,
-    sortByLength: false,
-    isReset: false,
   };
 
   visible = () => {
@@ -44,58 +35,33 @@ class App extends React.Component<{}, State> {
 
   reverse = () => {
     this.setState(state => ({
-      isReverse: !state.isReverse,
-      isReset: false,
+      visibleGoods: state.visibleGoods.reverse(),
     }));
   };
 
   sortByAlphabet = () => {
     this.setState(state => ({
-      sortByAlphabet: !state.sortByAlphabet,
-      isReset: false,
+      visibleGoods: state.visibleGoods.sort((a, b) => a.localeCompare(b)),
     }));
   };
 
   sortByLength = () => {
     this.setState(state => ({
-      sortByLength: !state.sortByLength,
-      isReset: false,
+      visibleGoods: state.visibleGoods.sort((a, b) => a.length - b.length),
     }));
   };
 
   reset = () => {
-    this.setState(state => ({
-      isReset: !state.isReset,
+    this.setState(() => ({
+      visibleGoods: [...goodsFromServer],
     }));
   };
 
   render() {
     const {
       isVisible,
-      isReverse,
-      goods,
-      sortByAlphabet,
-      sortByLength,
-      isReset,
+      visibleGoods,
     } = this.state;
-
-    let visibleGoods = goods;
-
-    if (sortByAlphabet) {
-      visibleGoods = [...visibleGoods].sort((a, b) => a.localeCompare(b));
-    }
-
-    if (sortByLength) {
-      visibleGoods = [...visibleGoods].sort((a, b) => a.length - b.length);
-    }
-
-    if (isReverse) {
-      visibleGoods = [...visibleGoods].reverse();
-    }
-
-    if (isReset) {
-      visibleGoods = [...goods];
-    }
 
     return (
       <div className="App">
@@ -114,12 +80,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               onClick={this.reverse}
-              className={classNames(
-                'app__button',
-                {
-                  'app__button-active': isReverse && !isReset,
-                },
-              )}
+              className="app__button"
             >
               Reverse
             </button>
@@ -127,12 +88,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               onClick={this.sortByAlphabet}
-              className={classNames(
-                'app__button',
-                {
-                  'app__button-active': sortByAlphabet && !isReset,
-                },
-              )}
+              className="app__button"
             >
               Sort alphabetically
             </button>
@@ -140,12 +96,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               onClick={this.sortByLength}
-              className={classNames(
-                'app__button',
-                {
-                  'app__button-active': sortByLength && !isReset,
-                },
-              )}
+              className="app__button"
             >
               Sort by length
             </button>
