@@ -4,36 +4,43 @@ import './App.css';
 
 type State = {
   isStarted: boolean;
+  isHidden: boolean;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     isStarted: true,
+    isHidden: false,
+
   };
 
   startEndPage = () => {
     this.setState((prevState) => ({
       isStarted: !prevState.isStarted,
+      isHidden: true,
     }));
   };
 
   render() {
-    const { isStarted: start } = this.state;
+    const { isStarted, isHidden } = this.state;
 
     return (
       <div className="App">
         <div className="content">
           <div className="card">
             <h1 className="card-title">Goods</h1>
-            <button
-              type="button"
-              className="card-button"
-              onClick={this.startEndPage}
-            >
-              Start
-            </button>
+            {!isHidden && (
+              <button
+                type="button"
+                className="button card-button"
+                onClick={this.startEndPage}
+              >
+                Start
+              </button>
+            )}
           </div>
-          {!start && (
+
+          {!isStarted && (
             <GoodsList />
           )}
         </div>
