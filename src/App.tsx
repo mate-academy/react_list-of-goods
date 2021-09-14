@@ -3,22 +3,22 @@ import { GoodsList } from './components/GoodsList';
 import './App.css';
 
 type State = {
-  start: boolean;
+  isStarted: boolean;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
-    start: true,
+    isStarted: true,
   };
 
   startEndPage = () => {
     this.setState((prevState) => ({
-      start: !prevState.start,
+      isStarted: !prevState.isStarted,
     }));
   };
 
   render() {
-    const { start } = this.state;
+    const { isStarted: start } = this.state;
 
     return (
       <div className="App">
@@ -33,7 +33,7 @@ class App extends React.Component<{}, State> {
               Start
             </button>
           </div>
-          {start && (
+          {!start && (
             <GoodsList />
           )}
         </div>
