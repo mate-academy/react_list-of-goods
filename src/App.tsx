@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ListOfGoods } from './components/ListOfGoods/ListOfGoods';
-import './App.css';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -18,13 +17,17 @@ const goodsFromServer: string[] = [
 
 type State = {
   isStartButton: boolean;
-  listOfGoods: string[]
+  listOfGoods: string[];
+  sortBy: string;
+  isReversed: boolean;
 };
 
 class App extends React.Component<{}, State> {
   state = {
     isStartButton: false,
     listOfGoods: [...goodsFromServer],
+    sortBy: '',
+    isReversed: false,
   };
 
   start = () => {
@@ -33,57 +36,80 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortAlphabetically = () => {
-    this.setState(({ listOfGoods }) => ({
-      listOfGoods: listOfGoods.sort(),
+  sortByOption = (option: string) => {
+    this.setState({ sortBy: option });
+  };
+
+  reverse = () => {
+    this.setState((prevState) => ({
+      isReversed: !prevState.isReversed,
     }));
   };
 
-  reverseGoods = () => {
-    this.setState(({ listOfGoods }) => ({
-      listOfGoods: listOfGoods.reverse(),
-    }));
-  };
+  getSortedGoods = () => {
+    const { listOfGoods, sortBy, isReversed } = this.state;
 
-  sortByLength = () => {
-    this.setState(({ listOfGoods }) => ({
-      listOfGoods: listOfGoods.sort((a, b) => a.length - b.length),
-    }));
+    let sortedGoods = [...listOfGoods];
+
+    if (sortBy) {
+      sortedGoods = [...sortedGoods].sort((a, b) => {
+        switch (sortBy) {
+          case 'alphabet':
+            return a.localeCompare(b);
+
+          case 'length':
+            return a.length - b.length;
+
+          default:
+            return 0;
+        }
+      });
+    }
+
+    if (isReversed) {
+      sortedGoods = [...sortedGoods].reverse();
+    }
+
+    return sortedGoods;
   };
 
   reset = () => {
-    this.setState(() => ({
-      listOfGoods: [...goodsFromServer],
-    }));
+    this.setState({
+      sortBy: '',
+      isReversed: false,
+    });
   };
 
   render() {
-    const { listOfGoods } = this.state;
+    const sortedGoods = this.getSortedGoods();
 
     return (
       <div className="App">
-        {
-          this.state.isStartButton ? (
-            <div className="App__list">
-              <h1>Goods-list:</h1>
-              <ListOfGoods
-                reverseGoods={this.reverseGoods}
-                sortAlphabetically={this.sortAlphabetically}
-                sortByLength={this.sortByLength}
-                reset={this.reset}
-                goods={listOfGoods}
-              />
+        {this.state.isStartButton ? (
+          <div className="">
+            <h1>Goods-list:</h1>
+            <ListOfGoods
+              reverseGoods={this.reverse}
+              sortByOption={this.sortByOption}
+              reset={this.reset}
+              goods={sortedGoods}
+            />
+          </div>
+        ) : (
+          <div className="container">
+            <div className="row h-100">
+              <div className="col-sm-12 my-auto">
+                <button
+                  type="button"
+                  className="btn btn-info text-center"
+                  onClick={this.start}
+                >
+                  <span>Start</span>
+                </button>
+              </div>
             </div>
-          ) : (
-            <button
-              type="button"
-              className="App__start btn btn-success"
-              onClick={this.start}
-            >
-              <span className="App__start--font">Start</span>
-            </button>
-          )
-        }
+          </div>
+        )}
       </div>
     );
   }

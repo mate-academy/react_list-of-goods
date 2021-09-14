@@ -2,55 +2,45 @@ import React from 'react';
 
 type Props = {
   reverseGoods: () => void;
-  sortAlphabetically: () => void;
-  sortByLength: () => void;
+  sortByOption: (option: string) => void;
   reset: () => void;
   goods: string[];
 };
 
 export const ListOfGoods: React.FC<Props> = ({
   reverseGoods,
-  sortAlphabetically,
-  sortByLength,
   reset,
   goods,
+  sortByOption,
 }) => (
   <>
-    <button
-      type="button"
-      className="btn btn-primary"
-      onClick={reverseGoods}
-    >
+    <button type="button" className="btn btn-secondary" onClick={reverseGoods}>
       Reverse
     </button>
     <button
       type="button"
-      className="btn btn-primary"
-      onClick={sortAlphabetically}
+      className="btn btn-secondary"
+      onClick={() => sortByOption('alphabet')}
     >
       Sort alphabetically
     </button>
     <button
       type="button"
-      className="btn btn-primary"
-      onClick={sortByLength}
+      className="btn btn-secondary"
+      onClick={() => sortByOption('length')}
     >
       Sort by length
     </button>
     <div className="card">
       <ul className="list-group list-group-flush">
-        {goods.map(item => (
+        {goods.map((item) => (
           <li className="list-group-item" key={item}>
             {item}
           </li>
         ))}
       </ul>
     </div>
-    <button
-      type="button"
-      className="btn btn-danger"
-      onClick={reset}
-    >
+    <button type="button" className="btn btn-success" onClick={reset}>
       Reset
     </button>
   </>
