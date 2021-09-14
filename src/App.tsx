@@ -22,7 +22,7 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     isShowContent: false,
   };
 
@@ -34,19 +34,19 @@ class App extends React.Component<{}, State> {
 
   reverse = () => {
     this.setState((currentState) => ({
-      goods: [...currentState.goods].reverse(),
+      goods: currentState.goods.reverse(),
     }));
   };
 
   sort = () => {
     this.setState((currentState) => ({
-      goods: [...currentState.goods].sort(),
+      goods: currentState.goods.sort(),
     }));
   };
 
   sortByLength = () => {
     this.setState((currentState) => ({
-      goods: [...currentState.goods].sort((a, b) => a.length - b.length),
+      goods: currentState.goods.sort((a, b) => a.length - b.length),
     }));
   };
 
@@ -71,37 +71,13 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="goods">
-        <GoodsList goods={this.state.goods} />
-        <div className="goods__buttons">
-          <button
-            type="button"
-            onClick={this.reverse}
-            className="btn btn-secondary goods__button"
-          >
-            Reverse
-          </button>
-          <button
-            type="button"
-            onClick={this.sort}
-            className="btn btn-secondary goods__button"
-          >
-            Sort
-          </button>
-          <button
-            type="button"
-            onClick={this.reset}
-            className="btn btn-secondary goods__button"
-          >
-            Reset
-          </button>
-          <button
-            type="button"
-            onClick={this.sortByLength}
-            className="btn btn-secondary goods__button"
-          >
-            SortByLength
-          </button>
-        </div>
+        <GoodsList
+          goods={this.state.goods}
+          reverse={this.reverse}
+          sort={this.sort}
+          sortByLength={this.sortByLength}
+          reset={this.reset}
+        />
       </div>
     );
   }
