@@ -18,18 +18,11 @@ class GoodsList extends React.Component<Props, State> {
     goods: this.props.goods,
   };
 
-  reverse = () => {
-    this.setState(currentState => ({
-      isReversed: !currentState.isReversed,
-    }));
-  };
-
   onReverse = () => {
     this.setState((currentState) => ({
       goods: [...currentState.goods].reverse(),
+      isReversed: !currentState.isReversed,
     }));
-
-    return this.reverse;
   };
 
   onSort = (event: React.MouseEvent<HTMLButtonElement>) => {
