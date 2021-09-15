@@ -12,13 +12,11 @@ export const Select: React.FC<Props> = React.memo((props) => {
       <option value="Word length" disabled>
         Word length
       </option>
-      {wordsLength.map(wordLength => {
-        return (
-          <option key={wordLength} value={wordLength}>
-            {wordLength}
-          </option>
-        );
-      })}
+      {wordsLength.map(wordLength => (
+        <option key={wordLength} value={wordLength}>
+          {wordLength}
+        </option>
+      ))}
     </>
   );
 });

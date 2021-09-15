@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { Button } from './button/Button';
 import { Select } from './select/Select';
@@ -104,6 +103,12 @@ export class App extends React.PureComponent<{}, State> {
     });
   };
 
+  filterGoods = (changedGoods: string[], maxWordLength: number) => {
+    const filterGoods = changedGoods.filter(good => good.length <= maxWordLength);
+
+    return maxWordLength ? filterGoods : changedGoods;
+  };
+
   render = () => {
     const {
       changedGoods,
@@ -115,11 +120,7 @@ export class App extends React.PureComponent<{}, State> {
       maxWordLength,
     } = this.state;
 
-    let filterGoods = changedGoods;
-
-    if (+maxWordLength >= 0) {
-      filterGoods = changedGoods.filter(good => good.length <= +maxWordLength);
-    }
+    const filterGoods = this.filterGoods(changedGoods, Number(maxWordLength));
 
     return (
       <div className="App">
