@@ -7,9 +7,6 @@ type Props = {
 export const StartButton: React.FC<Props> = (props) => {
   const { method } = props;
 
-  // eslint-disable-next-line no-console
-  console.log('Start Button');
-
   return (
     <button
       type="button"
