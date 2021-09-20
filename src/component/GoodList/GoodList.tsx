@@ -35,6 +35,13 @@ export class GoodList extends React.Component<Props, State> {
     });
   };
 
+  reset = () => {
+    this.setState({
+      isReverse: false,
+      sortBy: SortType.default,
+    });
+  };
+
   changeVisibleGoods = () => {
     const {
       isReverse,
@@ -67,7 +74,6 @@ export class GoodList extends React.Component<Props, State> {
 
   render() {
     const visibleGoods = this.changeVisibleGoods();
-    const { isReverse } = this.state;
 
     return (
       <div className="goods">
@@ -90,7 +96,7 @@ export class GoodList extends React.Component<Props, State> {
             onClick={this.reverse}
             className="goods__reverse"
           >
-            {isReverse ? 'reset' : 'reverse'}
+            reverse
           </button>
 
           <button
@@ -111,6 +117,14 @@ export class GoodList extends React.Component<Props, State> {
             className="goods__sortBy"
           >
             sort by length
+          </button>
+
+          <button
+            type="button"
+            onClick={this.reset}
+            className="goods__reverse"
+          >
+            reset
           </button>
         </div>
       </div>
