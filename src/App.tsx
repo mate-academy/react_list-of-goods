@@ -33,18 +33,16 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { goods, goodsIsVisible } = this.state;
+    const { goods, goodsIsVisible: areGoodsVisible } = this.state;
 
     return (
       <div className="App">
         <div className="title">
           Goods
         </div>
-        <button type="button" className={goodsIsVisible ? 'startButton' : 'startButton startButton--notStarted'} onClick={this.showGoods}>{goodsIsVisible ? 'stop' : 'start'}</button>
+        <button type="button" className={areGoodsVisible ? 'startButton' : 'startButton startButton--notStarted'} onClick={this.showGoods}>{areGoodsVisible ? 'stop' : 'start'}</button>
 
-        {goodsIsVisible
-          ? <ListOfGoods list={goods} />
-          : ''}
+        {areGoodsVisible && <ListOfGoods list={goods} />}
       </div>
     );
   }

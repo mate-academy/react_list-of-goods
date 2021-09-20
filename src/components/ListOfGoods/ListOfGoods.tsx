@@ -24,11 +24,11 @@ class ListOfGoods extends React.Component<Props, State> {
   };
 
   sortListByName = () => {
-    if (this.state.isSortedBy === 'name') {
-      this.setState({ isSortedBy: 'none' });
-    } else {
-      this.setState({ isSortedBy: 'name' });
-    }
+    this.setState((currentState) => ({
+      isSortedBy: currentState.isSortedBy === 'name'
+        ? 'none'
+        : 'name',
+    }));
   };
 
   resetList = () => {
@@ -38,11 +38,36 @@ class ListOfGoods extends React.Component<Props, State> {
   };
 
   sortByLengthList = () => {
-    if (this.state.isSortedBy === 'length') {
-      this.setState({ isSortedBy: 'none' });
-    } else {
-      this.setState({ isSortedBy: 'length' });
+    this.setState((currentState) => ({
+      isSortedBy: currentState.isSortedBy === 'length'
+        ? 'none'
+        : 'length',
+    }));
+  };
+
+  sorting = (newList: string[]) => {
+    switch (this.state.isSortedBy) {
+      case 'name':
+        newList.sort((firsGood, secondGood) => firsGood.localeCompare(secondGood));
+        break;
+
+      case 'length':
+        newList.sort((firsGood, secondGood) => firsGood.length - secondGood.length);
+        break;
+
+      default:
+        break;
     }
+  };
+
+  reversing = (newList: string[]) => {
+    newList.reverse();
+  };
+
+  resetting = () => {
+    this.state.reset = false;
+    this.state.isSortedBy = 'none';
+    this.state.isReversed = false;
   };
 
   render() {
@@ -50,29 +75,16 @@ class ListOfGoods extends React.Component<Props, State> {
     let newList = [...list];
 
     if (this.state.isSortedBy !== 'none') {
-      switch (this.state.isSortedBy) {
-        case 'name':
-          newList.sort((firsGood, secondGood) => firsGood.localeCompare(secondGood));
-          break;
-
-        case 'length':
-          newList.sort((firsGood, secondGood) => firsGood.length - secondGood.length);
-          break;
-
-        default:
-          break;
-      }
+      this.sorting(newList);
     }
 
     if (this.state.isReversed) {
-      newList = [...newList].reverse();
+      this.reversing(newList);
     }
 
     if (this.state.reset) {
       newList = [...list];
-      this.state.reset = false;
-      this.state.isSortedBy = 'none';
-      this.state.isReversed = false;
+      this.resetting();
     }
 
     return (
