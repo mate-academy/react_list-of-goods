@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './Component/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -43,7 +44,7 @@ class App extends React.Component<{}, State> {
     this.setState({ sortBy: 'length' });
   };
 
-  revers = () => {
+  reverse = () => {
     this.setState(prevState => ({
       isReversed: !prevState.isReversed,
     }));
@@ -93,42 +94,13 @@ class App extends React.Component<{}, State> {
           </button>
         )}
         {showList && (
-          <>
-            <ul className="list">
-              {visibleGoods.map((item) => (
-                <li key={item} className="list-item">{item}</li>
-              ))}
-            </ul>
-
-            <button
-              type="button"
-              className="button"
-              onClick={this.revers}
-            >
-              Reverse
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClick={this.sortAbc}
-            >
-              Sort alphabetically
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClick={this.sortLength}
-            >
-              Sort by length
-            </button>
-            <button
-              type="button"
-              className="button"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
-          </>
+          <GoodsList
+            listGoods={visibleGoods}
+            onSortAbc={this.sortAbc}
+            onSortLength={this.sortLength}
+            onReverse={this.reverse}
+            onReset={this.reset}
+          />
         )}
       </div>
     );
