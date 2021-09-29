@@ -14,6 +14,12 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const selectOptions: number[] = [];
+
+for (let i = 1; i <= 10; i += 1) {
+  selectOptions.push(i);
+}
+
 enum SortOrder {
   Reverse = 'REVERSE',
   Alpabetically = 'ALPH',
@@ -73,11 +79,6 @@ class App extends React.Component<{}, State> {
   render() {
     const { isStarted, sortOrder } = this.state;
     const organizedGoods = this.organizeGoods();
-    const selectOptions = [];
-
-    for (let i = 1; i <= 10; i += 1) {
-      selectOptions.push(i);
-    }
 
     return (
       <div className="App">
@@ -141,7 +142,7 @@ class App extends React.Component<{}, State> {
               {' '}
               <select onChange={this.setFilter}>
                 {selectOptions.map(option => (
-                  <option value={option}>
+                  <option key={option} value={option}>
                     {`${option}`}
                   </option>
                 ))}
