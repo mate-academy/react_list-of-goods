@@ -1,0 +1,35 @@
+.App {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.list {
+  width: 200px;
+  text-align: center;
+  margin: 0 auto;
+
+  &-item {
+    color: rgb(133, 133, 133);
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  
+  margin-top: 20px;
+
+  gap: 20px;
+}
+
+.button {
+  display: block;
+  position: absolute;
+  width: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

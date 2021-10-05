@@ -1,24 +1,40 @@
-import React from 'react';
-import './App.css';
+import { Component } from 'react';
 
-const goodsFromServer: string[] = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import ListOfGoods from './ListOfGoods';
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+import './App.scss';
+
+type State = {
+  isReady: boolean;
+};
+
+class App extends Component {
+  state: State = {
+    isReady: true,
+  };
+
+  start = () => {
+    this.setState({
+      isReady: false,
+    });
+  };
+
+  render() {
+    const { isReady } = this.state;
+
+    return (isReady
+      ? (
+        <button
+          type="button"
+          className="button btn btn btn-outline-primary"
+          onClick={this.start}
+        >
+          Start
+        </button>
+      )
+      : <ListOfGoods />
+    );
+  }
+}
 
 export default App;
