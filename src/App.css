@@ -1,0 +1,28 @@
+.App {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.button {
+  padding: 5px;
+  margin: 5px;
+  background-color: lavender;
+}
+
+.button:last-of-type {
+  background-color: brown;
+  color: aliceblue;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list-item {
+  border: 1px solid lightskyblue;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
