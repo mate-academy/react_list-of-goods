@@ -1,0 +1,89 @@
+.App {
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 36px;
+  margin-bottom: 50px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-start {
+  height: 100px;
+  width: 100px;
+  font-size: 16px;
+  border-radius: 50%;
+  background-color: greenyellow;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.button-start:hover {
+  box-shadow: 0 0 8px grey;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px;
+  margin: 0 auto 50px;
+}
+
+.buttons__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-sort {
+  margin: 0 auto 10px;
+  width: 150px;
+  height: 35px;
+  background-color: lightblue;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.button-sort:hover {
+  transform: scale(0.95);
+  transition: 50ms;
+}
+
+.button-reverse {
+  font-weight: bold;
+  margin: 0 auto 10px;
+  width: 80px;
+  height: 35px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.button-reverse:hover {
+  background-color: white;
+  color: black;
+}
+
+.button-reset {
+  font-weight: bold;
+  margin: 0 auto 10px;
+  width: 80px;
+  height: 35px;
+  background-color: red;
+  color: azure;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.button-reset:hover {
+  background-color: azure;
+  color: red;
+  border: 1px solid red;
+}
