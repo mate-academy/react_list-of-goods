@@ -1,0 +1,43 @@
+.GoodsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__main-content {
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: 48px;
+    margin-top: 36px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    list-style: none;
+  }
+
+  &__list-item {
+    padding: 12px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #ffca3a;
+    border: 1px solid #000;
+    border-radius: 12px;
+  }
+
+  &__btn {
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #000;
+    background-color: #8ac926;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &__buttons {
+    display: flex;
+    column-gap: 12px;
+  }
+}
