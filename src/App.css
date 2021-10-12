@@ -1,0 +1,44 @@
+.App {
+  padding-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  justify-content: space-between;
+}
+
+.card {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.card-title {
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.list-container {
+  width: 480px;
+}
+
+.list-group {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-button {
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.card-button:hover {
+  background-color: coral;
+  transition: 0.4s ease;
+}
