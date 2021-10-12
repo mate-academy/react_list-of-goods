@@ -9,19 +9,21 @@ interface Props {
 interface State {
   isReverse: boolean;
   sortBy: SortBy | null;
+  selectedValue: number;
 }
 
 export class GoodsList extends React.Component<Props, State> {
   state: State = {
     isReverse: false,
     sortBy: null,
+    selectedValue: 1,
   };
 
-  reverseList = (): void => {
+  reverseList = () => {
     this.setState(({ isReverse }) => ({ isReverse: !isReverse }));
   };
 
-  sortList = (option: SortBy): void => {
+  sortList = (option: SortBy) => {
     this.setState({ sortBy: option });
   };
 
@@ -29,14 +31,26 @@ export class GoodsList extends React.Component<Props, State> {
     this.setState({
       isReverse: false,
       sortBy: null,
+      selectedValue: 1,
     });
   };
 
-  render() {
-    const { goods } = this.props;
-    const { isReverse, sortBy } = this.state;
+  filterList = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ selectedValue: +e.target.value });
+  };
 
-    const visibleGoods = [...goods];
+  render() {
+    const {
+      isReverse,
+      sortBy,
+      selectedValue,
+    } = this.state;
+
+    const { goods } = this.props;
+
+    const visibleGoods = goods.filter(
+      item => item.length >= selectedValue,
+    );
 
     if (sortBy) {
       visibleGoods.sort((a, b) => {
@@ -58,7 +72,7 @@ export class GoodsList extends React.Component<Props, State> {
     }
 
     return (
-      <>
+      <div>
         <button
           type="button"
           name="reverse"
@@ -83,6 +97,13 @@ export class GoodsList extends React.Component<Props, State> {
           Sort by length
         </button>
 
+        <select value={selectedValue} onChange={this.filterList}>
+          {Array.from({ length: 10 }, (_, i) => i + 1)
+            .map((num) => (
+              <option key={num} value={num}>{num}</option>
+            ))}
+        </select>
+
         <button
           type="button"
           name="reset"
@@ -93,7 +114,7 @@ export class GoodsList extends React.Component<Props, State> {
         <ul>
           {visibleGoods.map(item => (<li key={item}>{item}</li>))}
         </ul>
-      </>
+      </div>
     );
   }
 }
