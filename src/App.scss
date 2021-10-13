@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #249607;
+}
+
+.App {
+  margin: 100px auto 0;
+  max-width: 400px;
+  height: 310px;
+  border: 10px solid #9c3100;
+  border-radius: 10px;
+  background-color: #ffae00;
+  text-align: center;
+
+  &__button {
+    margin: 0 5px 10px;
+    border: 3px solid #9c3100;
+    background-color: #ff0;
+    border-radius: 10px;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(110%);
+    }
+  }
+
+  &__list {
+    margin: 0 auto;
+    padding: 0;
+    width: 100px;
+    border: 3px solid #9c3100;
+    border-radius: 10px;
+    background-color: #fff;
+    list-style: none;
+  }
+
+  &__item {
+    transition: transform 0.1s;
+
+    &:hover {
+      transform: scale(105%);
+      color: #9c3100;
+    }
+  }
+}
