@@ -76,35 +76,35 @@ export class Goods extends React.Component<{}, State> {
 
     return (
       <div>
+        <h2 className="">
+          {'Sort by '}
+          {this.state.sortBy}
+          {(isReverse) && ' and reversed'}
+        </h2>
         <div className="buttons">
-          <h2 className="buttons__title">
-            {'Sort by '}
-            {this.state.sortBy}
-            {(isReverse) && 'and reversed'}
-          </h2>
           <button
-            className="buttons__alpha"
+            className="buttons__item"
             type="button"
             onClick={this.sortByAlphabet}
           >
             Alphabetically
           </button>
           <button
-            className="buttons__by-length"
+            className="buttons__item"
             type="button"
             onClick={this.sortByLength}
           >
             Length of goods
           </button>
           <button
-            className="buttons__reverse"
+            className="buttons__item"
             type="button"
             onClick={this.reverse}
           >
             Reverse
           </button>
           <button
-            className="buttons__reset"
+            className="buttons__item"
             type="button"
             onClick={() => {
               this.setState({ sortBy: 'origin', isReverse: false, lengthLimit: 1 });
@@ -121,15 +121,15 @@ export class Goods extends React.Component<{}, State> {
                 this.setState({ lengthLimit: +event.target.value });
               }}
             >
-              {availableLengthToSort.map(item => (
-                <option key={item} value={item}>{item}</option>
+              {availableLengthToSort.map(x => (
+                <option key={x} value={x}>{x}</option>
               ))}
             </select>
           </div>
         </div>
-        <ul className="goods-list">
+        <ul className="goodsList">
           {visibleGoods.map(good => (
-            <li key={good}>
+            <li key={good} className="goodsItem">
               {good}
             </li>
           ))}
