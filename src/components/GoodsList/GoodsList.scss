@@ -1,0 +1,34 @@
+.GoodsList {
+
+  &-Buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+  }
+
+  &-Button {
+    padding: 10px 20px;
+    border: 1px solid #0004;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 4px 2px 2px #0004;
+    transition-duration: 0.3s;
+    background-color: #0001;
+
+    &:hover {
+      box-shadow: 8px 4px 4px #0004;
+      transform: translateY(-5px);
+    }
+  }
+
+  &-List {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  &-Item {
+    font-size: 32px;
+  }
+}
