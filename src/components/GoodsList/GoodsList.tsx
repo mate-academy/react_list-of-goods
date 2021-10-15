@@ -41,7 +41,7 @@ export class GoodsList extends React.PureComponent<Props, State> {
 
   render() {
     const { sortBy, isReversed, length } = this.state;
-    const goods = [...this.props.goods].filter(el => el.length > length);
+    const goods = this.props.goods.filter(el => el.length > length);
 
     goods.sort((el1, el2) => {
       switch (sortBy) {
