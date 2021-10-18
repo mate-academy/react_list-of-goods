@@ -1,0 +1,17 @@
+.list {
+  display: none;
+  
+  &__visible {
+    display: block;
+  }
+}
+
+.button {
+  display: inline;
+  visibility: visible;
+  margin: 5px;
+
+  &__visible {
+    visibility: hidden;
+  }
+}
