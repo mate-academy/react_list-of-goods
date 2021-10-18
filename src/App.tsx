@@ -16,49 +16,81 @@ const goodsFromServer: string[] = [
 
 type State = {
   goods: string[],
-  goodsForWork: string[],
   isVisible: boolean,
+  isReverse: boolean,
+  sortBy: string,
+  goodsLength: number,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: [...goodsFromServer],
-    goodsForWork: [...goodsFromServer],
     isVisible: true,
+    isReverse: false,
+    sortBy: '',
+    goodsLength: 1,
   };
 
   printGoods = () => {
     this.setState(state => ({ isVisible: !state.isVisible }));
   };
 
-  reverse = () => {
-    this.setState(state => ({
-      goodsForWork: (state.goodsForWork).reverse(),
-    }));
+  reverseGoods = () => {
+    this.setState(state => ({ isReverse: !state.isReverse }));
   };
 
   sortAlphabet = () => {
-    this.setState(state => ({
-      goodsForWork: (state.goodsForWork).sort((g1, g2) => (
-        g1.localeCompare(g2)
-      )),
+    this.setState(() => ({
+      sortBy: 'alph',
+      isReverse: false,
     }));
   };
 
-  sortByLength = () => {
-    this.setState(state => ({
-      goodsForWork: (state.goodsForWork).sort((g1, g2) => (
-        g1.length - g2.length
-      )),
+  sortLength = () => {
+    this.setState(() => ({
+      sortBy: 'length',
+      isReverse: false,
     }));
   };
 
   reset = () => {
-    this.setState(state => ({ goodsForWork: [...state.goods] }));
+    this.setState(({
+      sortBy: '',
+      isReverse: false,
+      goodsLength: 1,
+    }));
+  };
+
+  lengthGetting = (value: number) => {
+    this.setState({ goodsLength: value });
   };
 
   render() {
-    const { goodsForWork, isVisible } = this.state;
+    const {
+      goods,
+      isVisible,
+      isReverse,
+      sortBy,
+      goodsLength,
+    } = this.state;
+
+    let goodsForWork: string[] = [];
+
+    if (!isVisible) {
+      goodsForWork = [...goods].filter(good => (good.length >= goodsLength));
+    }
+
+    if (sortBy !== '') {
+      goodsForWork = goodsForWork.sort((g1, g2) => (
+        (sortBy === 'alph')
+          ? g1.localeCompare(g2)
+          : g1.length - g2.length
+      ));
+    }
+
+    if (isReverse) {
+      goodsForWork.reverse();
+    }
 
     return (
       <div className="App">
@@ -77,7 +109,7 @@ class App extends React.Component<{}, State> {
         <button
           className="button"
           type="button"
-          onClick={this.reverse}
+          onClick={this.reverseGoods}
         >
           Reverse
         </button>
@@ -91,7 +123,7 @@ class App extends React.Component<{}, State> {
         <button
           className="button"
           type="button"
-          onClick={this.sortByLength}
+          onClick={this.sortLength}
         >
           Sort by Length
         </button>
@@ -103,12 +135,26 @@ class App extends React.Component<{}, State> {
           Reset
         </button>
 
-        <ul
-          className={`
-            list
-            ${!isVisible && 'list__visible'}
-          `}
-        >
+        <div>
+          Selecting good length
+          <select
+            id="selector"
+            onChange={(event) => this.lengthGetting(Number(event.target.value))}
+          >
+            <option selected={goodsLength === 1}>{goodsLength}</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+
+        <ul>
           {goodsForWork.map(good => (
             <li key={good}>{good}</li>
           ))}
