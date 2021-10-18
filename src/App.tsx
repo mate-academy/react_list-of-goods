@@ -53,7 +53,7 @@ class App extends React.Component<{}, State> {
     const {
       goods, isVisible, isReverse, sortType,
     } = this.state;
-    const goodsCopy = [...goods].reverse();
+    const goodsCopy = [...goods];
 
     goodsCopy.sort((el1, el2) => {
       switch (sortType) {
