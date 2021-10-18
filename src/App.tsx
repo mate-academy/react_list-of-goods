@@ -15,14 +15,16 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 type SortBy = 'alphabet' | 'length';
 
 interface State {
   goods: string[],
   isListVisible: boolean,
   isReverse: boolean,
-  sortBy: SortBy | null
-  filterValue: number
+  sortBy: SortBy | string
+  filterValue: string
 }
 
 class App extends React.Component<{}, State> {
@@ -30,8 +32,8 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isListVisible: false,
     isReverse: false,
-    sortBy: null,
-    filterValue: 1,
+    sortBy: '',
+    filterValue: '1',
   };
 
   reverse = () => {
@@ -44,8 +46,8 @@ class App extends React.Component<{}, State> {
     this.setState({
       goods: goodsFromServer,
       isReverse: false,
-      sortBy: null,
-      filterValue: 1,
+      sortBy: '',
+      filterValue: '1',
     });
   };
 
@@ -57,8 +59,8 @@ class App extends React.Component<{}, State> {
     this.setState({ sortBy: 'length' });
   };
 
-  filter = (event: any) => {
-    this.setState({ filterValue: event.target.value });
+  filter = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ filterValue: event.currentTarget.value });
   };
 
   render() {
@@ -66,7 +68,7 @@ class App extends React.Component<{}, State> {
       goods, isListVisible, isReverse, sortBy, filterValue,
     } = this.state;
     const nameButton = isListVisible ? 'Hide' : 'Show';
-    const goodsToSend = goods.filter(good => good.length >= filterValue);
+    const goodsToSend = goods.filter(good => good.length >= +filterValue);
 
     if (sortBy) {
       goodsToSend.sort((word1, word2) => {
@@ -98,20 +100,35 @@ class App extends React.Component<{}, State> {
         </button>
         {isListVisible && (
           <div>
-            <button type="button" onClick={this.reverse}>Reverse</button>
-            <button type="button" onClick={this.sortByAlphabet}>Sort Alphabety</button>
-            <button type="button" onClick={this.sortByLength}>Sort by length</button>
-            <select name="select" id="selectNumber" onChange={this.filter}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+            <button
+              type="button"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+            <button
+              type="button"
+              onClick={this.sortByAlphabet}
+            >
+              Sort Alphabety
+            </button>
+            <button
+              type="button"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+
+            </button>
+            <select
+              name="select"
+              id="selectNumber"
+              onChange={this.filter}
+            >
+              {numbers.map(number => {
+                return (
+                  <option value={number}>{number}</option>
+                );
+              })}
             </select>
             <button type="button" onClick={this.reset}>Reset</button>
             <RenderList goods={goodsToSend} />
