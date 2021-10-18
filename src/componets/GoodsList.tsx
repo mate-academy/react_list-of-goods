@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from './Button';
 
 interface Props {
   goodsList: string[];
@@ -6,13 +7,32 @@ interface Props {
 
 interface State {
   isReversed: boolean;
-  sortBy: string | null;
+  sortBy: string;
 }
 
 export class GoodsList extends React.Component<Props, State> {
   state = {
     isReversed: false,
-    sortBy: null,
+    sortBy: '',
+  };
+
+  reverse = () => {
+    this.setState(state => ({ isReversed: !state.isReversed }));
+  };
+
+  sortByAlphabetically = () => {
+    this.setState({ sortBy: 'alphabetically' });
+  };
+
+  sortByLength = () => {
+    this.setState({ sortBy: 'length' });
+  };
+
+  reset = () => {
+    this.setState({
+      sortBy: '',
+      isReversed: false,
+    });
   };
 
   render() {
@@ -42,44 +62,10 @@ export class GoodsList extends React.Component<Props, State> {
 
     return (
       <>
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ isReversed: !isReversed });
-          }}
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ sortBy: 'alphabetically' });
-          }}
-        >
-          Sort by alphabetically
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ sortBy: 'length' });
-          }}
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({
-              sortBy: null,
-              isReversed: false,
-            });
-          }}
-        >
-          Reset
-        </button>
+        <Button name="Reverse" clickHandler={this.reverse}/>
+        <Button name="Sort by alphabetically" clickHandler={this.sortByAlphabetically}/>
+        <Button name="Sort by length" clickHandler={this.sortByLength}/>
+        <Button name="Reset" clickHandler={this.reset}/>
 
         <ul>
           {visibleGoodsList.map(item => (
