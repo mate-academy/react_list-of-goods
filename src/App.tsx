@@ -19,7 +19,7 @@ type State = {
 };
 
 class App extends Component<{}, State> {
-  state = {
+  state: State = {
     isStarted: false,
   };
 

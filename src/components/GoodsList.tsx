@@ -11,7 +11,7 @@ type State = {
 };
 
 export class GoodsList extends Component<Props, State> {
-  state = {
+  state: State = {
     isReversed: false,
     sortBy: '',
   };
