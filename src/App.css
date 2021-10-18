@@ -1,5 +1,57 @@
 .goodsList {
   display: none;
+  padding: 0;
+  max-width: 300px;
+}
+
+body {
+  background: url(https://html5book.ru/wp-content/uploads/2015/07/background39.png);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.headding {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.button {
+  text-decoration: none;
+  display: inline-block;
+  width: 140px;
+  height: 45px;
+  line-height: 12px;
+  border-radius: 45px;
+  margin: 10px 20px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #524f4e;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.button:hover {
+  background: #2ee59d;
+  box-shadow: 0 15px 20px rgba(46, 229, 157, 0.4);
+  color: white;
+  transform: translateY(-7px);
 }
 
 .visible {
@@ -8,4 +60,28 @@
 
 .hidden {
   display: none;
+}
+
+li {
+  counter-increment: index;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+
+li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+  text-align: right;
+  font-weight: bold;
+  min-width: 50px;
+  padding-right: 12px;
+  font-variant-numeric: tabular-nums;
+  align-self: flex-start;
+  background-image: linear-gradient(to bottom, aquamarine, rgb(9, 139, 27));
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

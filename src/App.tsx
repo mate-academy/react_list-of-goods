@@ -64,44 +64,49 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
+        <div className="buttons-container">
+          <button
+            type="button"
+            onClick={this.showGoods}
+            className={classNames('button', { hidden: goodListVisible })}
+          >
+            Start
+          </button>
 
-        <button
-          type="button"
-          onClick={this.showGoods}
-          className={classNames({ hidden: goodListVisible })}
-        >
-          Start
-        </button>
+          <button
+            type="button"
+            className="button"
+            onClick={this.reverseGoods}
+          >
+            Reverse
+          </button>
 
-        <button
-          type="button"
-          onClick={this.reverseGoods}
-        >
-          Reverse
-        </button>
+          <button
+            type="button"
+            onClick={this.sortByName}
+            className="button"
+          >
+            Sort alphabetically
+          </button>
 
-        <button
-          type="button"
-          onClick={this.sortByName}
-        >
-          Sort alphabetically
-        </button>
+          <button
+            type="button"
+            className="button"
+            onClick={this.reset}
+          >
+            Reset
+          </button>
 
-        <button
-          type="button"
-          onClick={this.reset}
-        >
-          Reset
-        </button>
+          <button
+            type="button"
+            className="button"
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+        </div>
 
-        <button
-          type="button"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
-
-        <h1>Goods</h1>
+        <h1 className="headding">Goods</h1>
         <ul className={classNames('goodsList', { visible: goodListVisible })}>
           {this.state.filteredGoods.map(good => <li key={good}>{good}</li>)}
         </ul>
