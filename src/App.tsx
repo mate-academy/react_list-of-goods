@@ -61,8 +61,8 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  lengthGetting = (value: number) => {
-    this.setState({ goodsLength: value });
+  lengthGetting = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ goodsLength: Number(event.currentTarget.value) });
   };
 
   render() {
@@ -139,7 +139,7 @@ class App extends React.Component<{}, State> {
           Selecting good length
           <select
             id="selector"
-            onChange={(event) => this.lengthGetting(Number(event.target.value))}
+            onChange={this.lengthGetting}
           >
             <option selected={goodsLength === 1}>{goodsLength}</option>
             <option>2</option>
