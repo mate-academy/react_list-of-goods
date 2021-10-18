@@ -24,7 +24,7 @@ type State = {
 class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
-    isVisible: true,
+    isVisible: false,
     isReverse: false,
     sortType: 'none',
   };
