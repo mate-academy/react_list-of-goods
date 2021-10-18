@@ -45,8 +45,9 @@ class App extends React.Component<{}, State> {
     this.setState({ sortType: 'length' });
   };
 
-  clearSort = () => {
+  clearAll = () => {
     this.setState({ sortType: 'none' });
+    this.setState({ isReverse: false });
   };
 
   render() {
@@ -113,9 +114,9 @@ class App extends React.Component<{}, State> {
 
                 <button
                   type="button"
-                  onClick={this.clearSort}
+                  onClick={this.clearAll}
                 >
-                  none
+                  reset all
                 </button>
               </div>
 
