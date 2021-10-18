@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -15,7 +15,6 @@ const goodsFromServer: string[] = [
 ];
 
 interface State {
-  originGoods: string[],
   goods: string[],
   isVisible: boolean,
   isReverse: boolean,
@@ -25,7 +24,6 @@ interface State {
 
 export default class App extends React.Component<{}, State> {
   state:State = {
-    originGoods: [...goodsFromServer],
     goods: goodsFromServer,
     isVisible: false,
     isReverse: false,
@@ -35,34 +33,36 @@ export default class App extends React.Component<{}, State> {
 
   toggleVisible = () => this.setState(({ isVisible }) => ({ isVisible: !isVisible }));
 
-  toggleReverse = () => this.setState(({ isReverse }) => ({
-    isReverse: !isReverse,
-    goods: goodsFromServer.reverse(),
+  toggleReverse = () => this.setState(prevState => ({
+    isReverse: !prevState.isReverse,
+    goods: [...prevState.goods].reverse(),
   }));
 
   sortByAlphabet = () => {
-    this.setState(({ isSortByAlphabet }) => ({
-      isSortByAlphabet: !isSortByAlphabet,
-      goods: goodsFromServer.sort((f:string, s:string) => f.localeCompare(s)),
+    this.setState(prevState => ({
+      isSortByAlphabet: !prevState.isSortByAlphabet,
+      goods: [...prevState.goods].sort((f:string, s:string) => f.localeCompare(s)),
     }));
   };
 
-  sortByLength = () => this.setState(({ isSortByLength }) => ({
-    isSortByLength: !isSortByLength,
-    goods: goodsFromServer.sort((a:string, b:string) => a.length - b.length),
+  sortByLength = () => this.setState(prevState => ({
+    isSortByLength: !prevState.isSortByLength,
+    goods: [...prevState.goods].sort((f:string, s:string) => f.length - s.length),
   }));
 
-  reset = () => this.setState(({ originGoods }) => ({
-    goods: originGoods,
-    isVisible: true,
-    isReverse: false,
-    isSortByAlphabet: false,
-    isSortByLength: false,
-  }));
+  reset = () => {
+    this.setState(() => ({
+      goods: goodsFromServer,
+      isVisible: true,
+      isReverse: false,
+      isSortByAlphabet: false,
+      isSortByLength: false,
+    }));
+  };
 
-  filter = (event:any) => {
+  filter = (event: any) => {
     this.setState({
-      goods: goodsFromServer.filter(good => good.length >= event.target.value),
+      goods: goodsFromServer.filter(good => good.length >= event.currentTarget.value),
     });
   };
 
@@ -85,11 +85,7 @@ export default class App extends React.Component<{}, State> {
               sortByLength
             </button>
 
-            <button type="button" className="button button__reset" onClick={this.reset}>
-              reset
-            </button>
-
-            <select name="select-values" id="" onChange={this.filter}>
+            <select name="select-values" className="button" id="select-values" onChange={this.filter}>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -102,9 +98,13 @@ export default class App extends React.Component<{}, State> {
               <option value="10">10</option>
             </select>
 
-            <ul>
+            <button type="button" className="button button__reset" onClick={this.reset}>
+              reset
+            </button>
+
+            <ul className="goods-list">
               {goods.map(good => (
-                <li key={good}>
+                <li key={good} className="goods-list__item">
                   {good}
                 </li>
               ))}
@@ -112,12 +112,11 @@ export default class App extends React.Component<{}, State> {
           </>
         )
           : (
-            <button type="button" className="button button__reverse" onClick={this.toggleVisible}>
-              toggleVisible
+            <button type="button" className="start" onClick={this.toggleVisible}>
+              Start
             </button>
           )}
       </>
-
     );
   }
 }
