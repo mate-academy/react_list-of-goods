@@ -1,24 +1,39 @@
 import React from 'react';
-import './App.css';
+import { GoodsList } from './components/Goods';
+import './App.scss';
 
-const goodsFromServer: string[] = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+interface State {
+  isStarted: boolean;
+}
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component<{}, State> {
+  state = {
+    isStarted: false,
+  };
 
-export default App;
+  startSort = () => {
+    this.setState({ isStarted: true });
+  };
+
+  render() {
+    const { isStarted } = this.state;
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        {!isStarted && (
+          <button
+            onClick={this.startSort}
+            type="button"
+          >
+            Start!
+          </button>
+        )}
+
+        {isStarted && (
+          <GoodsList />
+        )}
+      </div>
+    );
+  }
+}
