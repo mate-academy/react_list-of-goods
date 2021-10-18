@@ -36,7 +36,6 @@ class App extends React.Component<{}, State> {
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      isReset: false,
     }));
   };
 
@@ -64,7 +63,7 @@ class App extends React.Component<{}, State> {
       goodsLength,
     } = this.state;
 
-    const visibleGoods = [...goods].filter(good => good.length >= goodsLength);
+    let visibleGoods = [...goods].filter(good => good.length >= goodsLength);
 
     if (!isReset) {
       visibleGoods.sort((g1, g2) => {
@@ -79,10 +78,10 @@ class App extends React.Component<{}, State> {
             return 0;
         }
       });
+    }
 
-      if (isReversed) {
-        visibleGoods.reverse();
-      }
+    if (isReversed) {
+      visibleGoods = visibleGoods.reverse();
     }
 
     return (
