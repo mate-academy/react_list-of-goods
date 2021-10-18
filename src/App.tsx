@@ -22,10 +22,6 @@ class App extends React.PureComponent {
     sortBy: 'standart',
   };
 
-  sortAlphabetically = (goodsCopy: string[]) => {
-    return goodsCopy.sort((g1, g2) => g1.localeCompare(g2));
-  };
-
   render() {
     const {
       goods,
