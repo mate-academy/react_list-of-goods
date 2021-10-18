@@ -63,7 +63,7 @@ export class GoodsList extends React.Component<{}, State> {
     if (sortBy) {
       visibleGoods.sort((a, b) => {
         switch (sortBy) {
-          case 'alphabetically':
+          case 'alphabet':
             return a.localeCompare(b);
 
           case 'length':
