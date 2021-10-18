@@ -33,7 +33,7 @@ export class GoodsList extends React.Component<{}, State> {
   };
 
   sortAlphabetically = () => {
-    this.setState({ sortBy: 'alphabet' });
+    this.setState({ sortBy: 'alphabetically' });
   };
 
   sortByLength = () => {
@@ -63,7 +63,7 @@ export class GoodsList extends React.Component<{}, State> {
     if (sortBy) {
       visibleGoods.sort((a, b) => {
         switch (sortBy) {
-          case 'alphabet':
+          case 'alphabetically':
             return a.localeCompare(b);
 
           case 'length':
