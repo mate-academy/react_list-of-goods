@@ -1,0 +1,41 @@
+.list {
+  display: flex;
+  gap: 40px;
+}
+
+.buttons-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  &__title {
+    font-size: 40px;
+    margin: 0 0 10px;
+  }
+
+  &__button {
+    width: 200px;
+    border-radius: 16px;
+  }
+
+  &__select {
+    width: 50px;
+    border-radius: 16px;
+    padding: 5px;
+  }
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.goods-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+}
