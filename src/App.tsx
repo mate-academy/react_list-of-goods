@@ -23,7 +23,7 @@ interface State {
 
 class App extends React.Component<{}, State> {
   state: State = {
-    allGoods: goodsFromServer,
+    allGoods: [...goodsFromServer],
     isReversed: false,
     start: false,
     sortBy: '',
@@ -47,8 +47,8 @@ class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState({
-      allGoods: [...goodsFromServer],
-      isReversed: true,
+      isReversed: false,
+      sortBy: '',
     });
   };
 
