@@ -1,5 +1,5 @@
 import React from 'react';
-import './GoodsList.scss'
+import './GoodsList.scss';
 
 type Props = {
   goodsList: string[];
@@ -12,7 +12,7 @@ type State = {
 };
 
 export class GoodsList extends React.Component<Props, State> {
-  state = {
+  state: State = {
     isReversed: false,
     sortBy: 'init',
     length: 1,
@@ -20,7 +20,7 @@ export class GoodsList extends React.Component<Props, State> {
 
   render() {
     const { isReversed, sortBy, length } = this.state;
-    const selectArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const selectOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const visibleGoodsList = this.props.goodsList.filter(good => good.length >= length);
 
@@ -89,7 +89,7 @@ export class GoodsList extends React.Component<Props, State> {
                 this.setState({ length: +event.target.value });
               }}
             >
-              {selectArr.map(item => (
+              {selectOptions .map(item => (
                 <option key={item} value={item}>{item}</option>
               ))}
             </select>

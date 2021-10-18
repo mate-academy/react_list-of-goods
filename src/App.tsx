@@ -20,7 +20,7 @@ type State = {
 };
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     isVisible: false,
   };
 
