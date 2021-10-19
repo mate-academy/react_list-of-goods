@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isStartButton: true,
     isReversed: false,
-    sortBy: null,
+    sortBy: '',
   };
 
   startButton = () => {
