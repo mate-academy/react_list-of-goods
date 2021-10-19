@@ -1,0 +1,21 @@
+@import "bulma/css/bulma.css";
+
+body {
+  margin: unset;
+}
+
+h1 {
+  text-align: center;
+}
+
+.buttons__container {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  background-color: #00d1b2;
+  margin: 0 auto 30px;
+}
+
+.is-active {
+  background-color: #00c4a7;
+}
