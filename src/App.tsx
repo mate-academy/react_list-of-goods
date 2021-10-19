@@ -41,8 +41,8 @@ class App extends React.Component<{}, State> {
   };
 
   sortByName = () => {
-    this.setState((state) => ({
-      filteredGoods: state.filteredGoods.sort(),
+    this.setState(() => ({
+      filteredGoods: [...goodsFromServer].sort(),
       goodsAreReversed: false,
     }));
   };
@@ -54,8 +54,8 @@ class App extends React.Component<{}, State> {
   };
 
   sortByLength = () => {
-    this.setState((state) => ({
-      filteredGoods: state.filteredGoods.sort((a, b) => a.length - b.length),
+    this.setState(() => ({
+      filteredGoods: [...goodsFromServer].sort((a, b) => a.length - b.length),
     }));
   };
 
