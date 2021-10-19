@@ -1,0 +1,7 @@
+.hide {
+  visibility: hidden;
+}
+
+.visible {
+  color: black;
+}
