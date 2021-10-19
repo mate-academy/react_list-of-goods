@@ -20,15 +20,21 @@ type State = {
   isReverse: boolean;
   isSortedByAlph: boolean;
   isSortedByLeng: boolean;
+  showList: boolean;
   selectNumber: number;
 };
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     isReverse: false,
     isSortedByAlph: false,
     isSortedByLeng: false,
+    showList: false,
     selectNumber: 1,
+  };
+
+  handleStart = () => {
+    this.setState({ showList: true });
   };
 
   handleButtonReverse = () => {
@@ -65,6 +71,7 @@ class App extends React.Component<{}, State> {
       isReverse,
       isSortedByAlph,
       isSortedByLeng,
+      showList,
       selectNumber,
     } = this.state;
     const goods = [...goodsFromServer].filter(
@@ -73,10 +80,8 @@ class App extends React.Component<{}, State> {
     const arrForSelect = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const buttonClass = 'button is-primary';
 
-    goods.filter(item => item.length >= selectNumber);
-
     if (isSortedByAlph) {
-      goods.sort((g1, g2) => g1.localeCompare(g2));
+      goods.sort();
     }
 
     if (isSortedByLeng) {
@@ -138,7 +143,19 @@ class App extends React.Component<{}, State> {
           </select>
         </div>
 
-        <GoodList goods={goods} />
+        {showList ? (
+          <GoodList goods={goods} />
+        ) : (
+          <div className="button__container">
+            <button
+              type="button"
+              className="button-start"
+              onClick={this.handleStart}
+            >
+              Start
+            </button>
+          </div>
+        )}
       </div>
     );
   }
