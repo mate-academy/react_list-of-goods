@@ -70,7 +70,7 @@ export class GoodsList extends React.Component<Props, State> {
             className="button"
             type="button"
             onClick={() => {
-              this.setState({ isReversed: !isReversed });
+              this.sortReverse();
             }}
           >
             Reverse
@@ -80,7 +80,7 @@ export class GoodsList extends React.Component<Props, State> {
             className="button"
             type="button"
             onClick={() => {
-              this.setState({ sortBy: 'alphabet' });
+              this.sortByAlphabet();
             }}
           >
             Alphabet
@@ -90,7 +90,7 @@ export class GoodsList extends React.Component<Props, State> {
             className="button"
             type="button"
             onClick={() => {
-              this.setState({ sortBy: 'length' });
+              this.sortByLength();
             }}
           >
             Length
@@ -100,10 +100,7 @@ export class GoodsList extends React.Component<Props, State> {
             className="button button--reset"
             type="button"
             onClick={() => {
-              this.setState({
-                sortBy: '',
-                isReversed: false,
-              });
+              this.reset();
             }}
           >
             Reset
