@@ -18,7 +18,7 @@ type State = {
   goods: string[],
   isVisible: boolean,
   isReversed: boolean,
-  sortBy: 'alphabet' | 'length' | null,
+  sortBy: string,
 };
 
 class App extends React.Component<{}, State> {
@@ -26,7 +26,13 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isVisible: false,
     isReversed: false,
-    sortBy: null,
+    sortBy: '',
+  };
+
+  makeVisible = () => {
+    this.setState((state) => ({
+      isVisible: !state.isVisible,
+    }));
   };
 
   reverse = () => {
@@ -47,7 +53,7 @@ class App extends React.Component<{}, State> {
     this.setState({
       goods: [...goodsFromServer],
       isReversed: false,
-      sortBy: null,
+      sortBy: '',
     });
   };
 
@@ -80,18 +86,16 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        { !isVisible && (
+        {!isVisible && (
           <button
             type="button"
-            onClick={() => {
-              this.setState({ isVisible: !isVisible });
-            }}
+            onClick={this.makeVisible}
           >
             Start
           </button>
         )}
 
-        { isVisible && (
+        {isVisible && (
           <>
             <ul className="list">
               {visibleGoods.map(item => (
