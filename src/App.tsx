@@ -26,7 +26,7 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     isStartButton: true,
     isReversed: false,
     sortBy: '',
