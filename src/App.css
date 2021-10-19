@@ -1,0 +1,9 @@
+button {
+  border-radius: 4px;
+  border: 1px solid black;
+  margin: 0 4px;
+}
+
+.app {
+  font-size: 18px;
+}
