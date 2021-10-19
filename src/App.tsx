@@ -27,7 +27,7 @@ interface State {
   goods: Good[];
   isStarted: boolean;
   isReversed: boolean;
-  sortBy: 'name' | 'price' | null;
+  sortBy: string;
   maxPrice: number;
 }
 
@@ -36,7 +36,7 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isStarted: false,
     isReversed: false,
-    sortBy: null,
+    sortBy: '',
     maxPrice: largestPrice,
   };
 
@@ -63,8 +63,8 @@ class App extends React.Component<{}, State> {
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: null,
-      maxPrice: 20,
+      sortBy: '',
+      maxPrice: largestPrice,
     });
   };
 
