@@ -18,21 +18,22 @@ const goodsFromServer: Good[] = [
 
 type State = {
   isVisible: boolean;
-}
+};
 
 class App extends React.Component<{}, State> {
   state: State = {
-    isVisible: false
-  }
+    isVisible: false,
+  };
 
   showList = () => {
     this.setState({
-      isVisible: true
-    })
-  }
+      isVisible: true,
+    });
+  };
 
   render() {
     const { isVisible } = this.state;
+
     return (
       <>
         {!isVisible && (

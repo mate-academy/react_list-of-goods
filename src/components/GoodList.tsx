@@ -1,5 +1,5 @@
-import React from "react";
-import { Good } from "./Good";
+import React from 'react';
+import { Good } from './Good';
 
 interface Props {
   goods: Good[];
@@ -8,61 +8,51 @@ interface Props {
 type State = {
   isReversed: boolean,
   sortBy: string,
-  length: number
-}
+};
 
 export class GoodList extends React.Component<Props, State> {
-  
   state: State = {
     isReversed: false,
     sortBy: '',
-    length: 1
-  }
+  };
 
   reverse = () => {
-    this.setState({ isReversed: true });
-  }
+    this.setState((state) => ({ isReversed: !state.isReversed }));
+  };
 
   sortAlphabetically = () => {
-    this.setState({sortBy: 'alphabetically'});
-  }
+    this.setState({ sortBy: 'alphabetically' });
+  };
 
   sortByLength = () => {
-    this.setState({sortBy: 'length'});
-  }
+    this.setState({ sortBy: 'length' });
+  };
 
   reset = () => {
     this.setState({
       sortBy: '',
-      length: 1
-    })
-  }
-
-  changeFiltrLength = (value: number) => {
-    this.setState({
-      length: value
-    })
-  }
+    });
+  };
 
   render() {
-    const { isReversed, length, sortBy } = this.state;
+    const { isReversed, sortBy } = this.state;
 
-    const goods = this.props.goods.filter(el => el.length > length);
+    const { goods } = this.props;
 
     goods.sort((g1, g2) => {
       switch (sortBy) {
         case 'alphabetically':
           return g1.localeCompare(g2);
-        
-        case 'length': 
-         return g1.length - g2.length;
-        
-         default:
+
+        case 'length':
+          return g1.length - g2.length;
+
+        default:
           return 0;
       }
-    })
+    });
 
-    if(isReversed) {
+    if (isReversed) {
       goods.reverse();
     }
 
