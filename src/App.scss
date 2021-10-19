@@ -1,0 +1,55 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+  width: 45%;
+
+  &__title {
+    margin: 0 auto;
+  }
+
+  &__list {
+    text-align: center;
+    font-weight: bold;
+
+    &--none {
+      display: none;
+    }
+  }
+
+  &__start-reset {
+    display: block;
+    width: 30%;
+    height: 35px;
+    font-size: 25px;
+    line-height: 35px;
+    margin: 15px auto;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  &__btn {
+    margin: 10px;
+  }
+
+  &__item {
+    width: 75%;
+    height: 35px;
+    margin: 10px;
+    padding-left: 10px;
+    font-size: 25px;
+    line-height: 35px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
