@@ -37,7 +37,7 @@ export class GoodList extends React.Component<Props, State> {
   render() {
     const { isReversed, sortBy } = this.state;
 
-    const { goods } = this.props;
+    const goods = [...this.props.goods];
 
     goods.sort((g1, g2) => {
       switch (sortBy) {
