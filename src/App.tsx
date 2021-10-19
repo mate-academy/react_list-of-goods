@@ -16,16 +16,16 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  goods: string[],
   goodListVisible: boolean,
-  filteredGoods: string[]
+  filteredGoods: string[],
+  goodsAreReversed: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
-    goods: [...goodsFromServer],
     goodListVisible: false,
     filteredGoods: [...goodsFromServer],
+    goodsAreReversed: false,
   };
 
   showGoods = () => {
@@ -36,21 +36,21 @@ class App extends React.Component<{}, State> {
 
   reverseGoods = () => {
     this.setState((state) => ({
-      filteredGoods: state.filteredGoods.reverse(),
+      goodsAreReversed: !state.goodsAreReversed,
     }));
   };
 
   sortByName = () => {
     this.setState((state) => ({
       filteredGoods: state.filteredGoods.sort(),
+      goodsAreReversed: false,
     }));
   };
 
   reset = () => {
-    this.setState((state) => ({
-      filteredGoods: [...state.goods],
+    this.setState(() => ({
+      filteredGoods: [...goodsFromServer],
     }));
-    this.forceUpdate();
   };
 
   sortByLength = () => {
@@ -60,7 +60,12 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { goodListVisible } = this.state;
+    const { goodListVisible, goodsAreReversed } = this.state;
+    const goods = [...this.state.filteredGoods];
+
+    if (goodsAreReversed) {
+      goods.reverse();
+    }
 
     return (
       <div className="App">
@@ -108,7 +113,9 @@ class App extends React.Component<{}, State> {
 
         <h1 className="headding">Goods</h1>
         <ul className={classNames('goodsList', { visible: goodListVisible })}>
-          {this.state.filteredGoods.map(good => <li key={good}>{good}</li>)}
+          {goods.map(good => (
+            <li key={good}>{good}</li>
+          ))}
         </ul>
       </div>
     );
