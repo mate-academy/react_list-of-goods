@@ -13,18 +13,16 @@ const GoodsList:React.FC<Props> = ({
 }) => {
   const goodsCopy = [...goods];
 
-  if (sortBy !== null) {
-    goodsCopy.sort((a, b) => {
-      switch (sortBy) {
-        case 'name':
-          return a.localeCompare(b);
-        case 'length':
-          return a.length - b.length;
-        default:
-          return 0;
-      }
-    });
-  }
+  goodsCopy.sort((a, b) => {
+    switch (sortBy) {
+      case 'name':
+        return a.localeCompare(b);
+      case 'length':
+        return a.length - b.length;
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
     goodsCopy.reverse();
@@ -35,6 +33,7 @@ const GoodsList:React.FC<Props> = ({
       {goodsCopy.map(good => (
         <li
           className="Goods__item"
+          key={good}
         >
           {good}
         </li>
