@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { GoodsList } from './GoodsList';
 
 const goodsFromServer: string[] = [
@@ -31,6 +31,7 @@ class App extends React.Component<{}, State> {
 
         {!this.state.isStarted && (
           <button
+            className="button button--start"
             type="button"
             onClick={() => {
               this.setState({ isStarted: true });

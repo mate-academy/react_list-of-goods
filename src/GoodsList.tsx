@@ -65,48 +65,50 @@ export class GoodsList extends React.Component<Props, State> {
 
     return (
       <>
-        <button
-          className="button"
-          type="button"
-          onClick={() => {
-            this.setState({ isReversed: !isReversed });
-          }}
-        >
-          Reverse
-        </button>
+        <div className="buttons-container">
+          <button
+            className="button"
+            type="button"
+            onClick={() => {
+              this.setState({ isReversed: !isReversed });
+            }}
+          >
+            Reverse
+          </button>
 
-        <button
-          className="button"
-          type="button"
-          onClick={() => {
-            this.setState({ sortBy: 'alphabet' });
-          }}
-        >
-          Alphabet
-        </button>
+          <button
+            className="button"
+            type="button"
+            onClick={() => {
+              this.setState({ sortBy: 'alphabet' });
+            }}
+          >
+            Alphabet
+          </button>
 
-        <button
-          className="button"
-          type="button"
-          onClick={() => {
-            this.setState({ sortBy: 'length' });
-          }}
-        >
-          Length
-        </button>
+          <button
+            className="button"
+            type="button"
+            onClick={() => {
+              this.setState({ sortBy: 'length' });
+            }}
+          >
+            Length
+          </button>
 
-        <button
-          className="button--reset"
-          type="button"
-          onClick={() => {
-            this.setState({
-              sortBy: '',
-              isReversed: false,
-            });
-          }}
-        >
-          Reset
-        </button>
+          <button
+            className="button button--reset"
+            type="button"
+            onClick={() => {
+              this.setState({
+                sortBy: '',
+                isReversed: false,
+              });
+            }}
+          >
+            Reset
+          </button>
+        </div>
         <ul className="list">
           {visibleGoods.map(good => (
             <li key={good} className="list__item">
