@@ -27,32 +27,26 @@ class App extends React.Component<{}, State> {
 
   reverse = () => {
     this.setState(state => ({
-      goodsList: [
-        ...state.goodsList.reverse(),
-      ],
+      goodsList: [...state.goodsList].reverse(),
     }));
   };
 
   sort = () => {
     this.setState(state => ({
-      goodsList: [
-        ...state.goodsList.sort(),
-      ],
+      goodsList: [...state.goodsList].sort(),
     }));
   };
 
   sortByLength = () => {
     this.setState(state => ({
-      goodsList: [
-        ...state.goodsList.sort((a, b) => a.length - b.length),
-      ],
+      goodsList: [...state.goodsList].sort((a, b) => a.length - b.length),
     }));
   };
 
   reset = () => {
-    this.setState(({
-      goodsList: goodsFromServer,
-    }));
+    this.setState({
+      goodsList: [...goodsFromServer],
+    });
   };
 
   render() {
@@ -72,13 +66,37 @@ class App extends React.Component<{}, State> {
         >
           start
         </button>
-        <button type="button" onClick={this.reverse}>Reverse</button>
-        <button type="button" onClick={this.sort}>Sort alphabetically</button>
-        <button type="button" onClick={this.sortByLength}>Sort by lengthy</button>
-        <button type="button" onClick={this.reset}>Reset</button>
+        <button
+          type="button"
+          onClick={this.reverse}
+        >
+          Reverse
+        </button>
+
+        <button
+          type="button"
+          onClick={this.sort}
+        >
+          Sort alphabetically
+        </button>
+
+        <button
+          type="button"
+          onClick={this.sortByLength}
+        >
+          Sort by lengthy
+        </button>
+
+        <button
+          type="button"
+          onClick={this.reset}
+        >
+          Reset
+        </button>
+
         <ul>
-          {isVisibleButton
-            || goodsList.map(good => (
+          {!isVisibleButton
+            && goodsList.map(good => (
               <li key={good}>
                 {good}
               </li>
