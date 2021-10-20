@@ -1,0 +1,40 @@
+.goods {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  
+  color: rgb(250, 0, 0);
+
+  &__list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  &__item {
+    align-items: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  &__button {
+    width: 160px;
+    height: 40px;
+    margin: 10px;
+
+    background-color: rgb(253, 80, 80);
+    border: transparent;
+    border-radius: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #fff;
+      border: 1px solid rgb(253, 80, 80);
+      border-radius: 10px;
+      color: rgb(253, 80, 80);
+      text-transform: uppercase;
+    }
+  }
+}
