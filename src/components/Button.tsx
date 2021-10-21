@@ -8,9 +8,7 @@ type Props = {
 export const Button: FC<Props> = ({ name, clickHandler }) => (
   <button
     type="button"
-    onClick={() => {
-      clickHandler();
-    }}
+    onClick={clickHandler}
   >
     {name}
   </button>
