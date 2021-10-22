@@ -18,7 +18,7 @@ interface State {
   goodsList: string[],
 }
 
-class GoodsList extends React.Component<{}, State> {
+export class GoodsList extends React.Component<{}, State> {
   state = {
     goodsList: goodsFromServer,
   };
@@ -99,5 +99,3 @@ class GoodsList extends React.Component<{}, State> {
     );
   }
 }
-
-export default GoodsList;

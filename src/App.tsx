@@ -1,28 +1,13 @@
 import React from 'react';
 import './App.css';
-import GoodsList from './GoodsList';
-
-const goodsFromServer: string[] = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import { GoodsList } from './GoodsList';
 
 interface State {
-  goodsList: string[],
   isListVisible: boolean,
 }
 
 class App extends React.Component<{}, State> {
   state = {
-    goodsList: goodsFromServer,
     isListVisible: false,
   };
 
@@ -33,11 +18,11 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { isListVisible, goodsList } = this.state;
+    const { isListVisible } = this.state;
 
     if (isListVisible) {
       return (
-        <GoodsList {...goodsList} />
+        <GoodsList />
       );
     }
 
