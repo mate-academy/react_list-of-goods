@@ -22,7 +22,7 @@ type State = {
 class App extends React.Component<{}, State> {
   state = {
     goods: [...goodsFromServer],
-    visibility: true,
+    visibility: false,
   };
 
   start = () => {
