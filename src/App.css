@@ -1,0 +1,37 @@
+body {
+  height: 100vh;
+  background-color: #171a1f;
+  font-family: sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+button {
+  padding: 10px;
+  background-color: #171a1f;
+  border: 1px solid #fff;
+  font-weight: bold;
+  text-align: center;
+  min-width: 200px;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.GoodsList {
+  list-style-type: none;
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.GoodsList__Item {
+  padding: 8px 0;
+}
+
+.buttons__top {
+  margin-bottom: 10px;
+}
