@@ -16,7 +16,7 @@ class GoodsList extends React.Component<Props, {}> {
       sortBy,
     } = this.props;
 
-    const visibleList = goods;
+    const visibleList = [...goods];
 
     visibleList.sort((a, b) => {
       switch (sortBy) {

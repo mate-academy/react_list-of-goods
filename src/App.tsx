@@ -30,11 +30,6 @@ class App extends React.Component<{}, State> {
     sortBy: '',
   };
 
-  componentDidUpdate() {
-    // eslint-disable-next-line no-console
-    console.log(this.state);
-  }
-
   loadContent = () => {
     this.setState(state => ({
       start: !state.start,
