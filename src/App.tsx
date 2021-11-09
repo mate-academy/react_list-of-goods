@@ -1,5 +1,7 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import { Button } from './Button';
+import { List } from './List';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +16,34 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+type State = {
+  start: boolean;
+};
 
-export default App;
+export class App extends React.Component<{}, State> {
+  state = {
+    start: false,
+  };
+
+  start = () => {
+    this.setState({ start: true });
+  };
+
+  render() {
+    const { start } = this.state;
+
+    return (
+      <div className="App">
+        <h1 className="App__title">
+          Goods
+        </h1>
+
+        {start ? (
+          <List goods={goodsFromServer} />
+        ) : (
+          <Button callback={this.start} name="Start" />
+        )}
+      </div>
+    );
+  }
+}
