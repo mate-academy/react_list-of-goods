@@ -1,0 +1,66 @@
+:root {
+  background-color: rgb(155, 255, 55);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 20px;
+
+    margin-bottom: 20px;
+    margin-top: 40px;
+  }
+
+  &__button {
+    width: 150px;
+    height: 50px;
+
+    border-radius: 10px;
+
+    background-color:rgb(255, 191, 73);
+
+    &:hover {
+      cursor: pointer;
+  
+      transform: scale(1.1);
+    }
+
+    &--reset {
+      background-color:rgb(240, 84, 84);
+    }
+  }
+}
+
+.startButton {
+  width: 200px;
+  height: 100px;
+
+  border-radius: 30px;
+
+  margin-top: 30vh;
+
+  font-size: large;
+  color: white;
+
+  background-color: rgb(235, 57, 57);
+
+  transition: transform 0.5s;
+
+  &:hover {
+    cursor: pointer;
+
+    transform: scale(1.1);
+  }
+}

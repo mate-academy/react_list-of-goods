@@ -1,5 +1,6 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +15,139 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+interface State {
+  isStarted: boolean,
+  isReversed: boolean,
+  isReseted: boolean,
+  sortMethod: string,
+}
+
+class App extends React.Component<{}, State> {
+  state = {
+    isStarted: false,
+    isReversed: false,
+    isReseted: false,
+    sortMethod: '',
+  };
+
+  start = () => {
+    this.setState(
+      {
+        isStarted: true,
+      },
+    );
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+      isReseted: false,
+    }));
+  };
+
+  sortAlphabetically = () => {
+    this.setState(
+      {
+        sortMethod: 'alphabetically',
+        isReseted: false,
+      },
+    );
+  };
+
+  sortByLength = () => {
+    this.setState(
+      {
+        sortMethod: 'length',
+        isReseted: false,
+      },
+    );
+  };
+
+  reset = () => {
+    this.setState(
+      {
+        isReseted: true,
+      },
+    );
+  };
+
+  render() {
+    const { isReversed, isReseted, sortMethod } = this.state;
+    let visualGoods = [...goodsFromServer];
+
+    switch (sortMethod) {
+      case 'alphabetically':
+        visualGoods.sort();
+        break;
+      case 'length':
+        visualGoods.sort((good1, good2) => good1.length - good2.length);
+        break;
+      default:
+    }
+
+    if (isReversed) {
+      visualGoods.reverse();
+    }
+
+    if (isReseted) {
+      visualGoods = [...goodsFromServer];
+    }
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+
+        {!this.state.isStarted && (
+          <button
+            type="button"
+            className="startButton"
+            onClick={this.start}
+          >
+            Start
+          </button>
+        )}
+
+        {this.state.isStarted && (
+          <div className="App__container">
+            <GoodsList goodsFromServer={visualGoods} />
+            <div className="App__buttons">
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.sortAlphabetically}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+            </div>
+
+            <button
+              type="button"
+              className="App__button App__button--reset"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
 
 export default App;
