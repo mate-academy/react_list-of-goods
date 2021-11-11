@@ -1,0 +1,91 @@
+body {
+  background: url("./grocery.jpg");
+  background-color: #101820ff;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.App__button {
+  position: absolute;
+  left: 725px;
+  top: 355px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: none;
+  font-family: "Indie Flower", cursive;
+  font-size: 32px;
+  background-color: #101820ff;
+  color: #fee715ff;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.App__button:hover {
+  transform: scale(1.1);
+}
+
+.App__container {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.goods-list {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.goods-list__item {
+  font-family: "Indie Flower", cursive;
+  font-size: 16px;
+  color: #101820ff;
+  user-select: none;
+}
+
+.goods-list__button-wrapper {
+  display: flex;
+  width: 360px;
+  justify-content: space-between;
+  padding-right: 15px;
+  order: -1;
+}
+
+.goods-list__button {
+  font-family: "Kalam", cursive;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  user-select: none;
+}
+
+.goods-list__select {
+  font-family: "Kalam", cursive;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: transparent;
+  outline: none;
+}
+
+.goods-list__option {
+  background-color: #101820ff;
+  color: antiquewhite;
+  text-align: center;
+}
