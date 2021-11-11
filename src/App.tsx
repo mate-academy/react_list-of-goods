@@ -15,7 +15,6 @@ const goodsFromServer: string[] = [
 ];
 
 interface State {
-  goods: string[],
   howToSort: string,
   isVisible: boolean,
   reverse: boolean,
@@ -24,7 +23,6 @@ interface State {
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
     howToSort: 'dont sort',
     isVisible: false,
     reverse: false,
@@ -67,13 +65,24 @@ class App extends React.Component<{}, State> {
   };
 
   sortingVisibleGoods = () => {
+    let preparedGoods = [...goodsFromServer]
     const {
       howToSort,
-      goods,
       reverse,
       reset,
     } = this.state;
-    let preparedGoods = [...goods].sort((product1, product2) => {
+
+    if (reset) {
+      preparedGoods = [...goodsFromServer];
+
+      return preparedGoods;
+    }
+
+    if (reverse) {
+      return preparedGoods.reverse();
+    }
+
+    preparedGoods = [...goodsFromServer].sort((product1, product2) => {
       switch (howToSort) {
         case 'alphabetical':
           return product1.localeCompare(product2);
@@ -83,16 +92,6 @@ class App extends React.Component<{}, State> {
           return 0;
       }
     });
-
-    if (reset) {
-      preparedGoods = [...goods];
-
-      return preparedGoods;
-    }
-
-    if (reverse) {
-      return preparedGoods.reverse();
-    }
 
     return preparedGoods;
   };
