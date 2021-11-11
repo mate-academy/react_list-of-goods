@@ -72,17 +72,17 @@ class App extends React.Component<{}, State> {
       reset,
     } = this.state;
 
+    if (reverse) {
+      return preparedGoods.reverse();
+    }
+
     if (reset) {
       preparedGoods = [...goodsFromServer];
 
       return preparedGoods;
     }
 
-    if (reverse) {
-      return preparedGoods.reverse();
-    }
-
-    preparedGoods = [...goodsFromServer].sort((product1, product2) => {
+    preparedGoods.sort((product1, product2) => {
       switch (howToSort) {
         case 'alphabetical':
           return product1.localeCompare(product2);
