@@ -24,7 +24,7 @@ interface State {
 class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
-    goodsVisible: true,
+    goodsVisible: false,
     isSorted: false,
     isSortLength: false,
   };
