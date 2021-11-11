@@ -71,28 +71,34 @@ class App extends React.Component<{}, State> {
     );
   };
 
-  render() {
+  howToDisplayGoods = () => {
     const { isReversed, isReseted, sortMethod } = this.state;
-    let visualGoods = [...goodsFromServer];
+    const visualGoods = [...goodsFromServer];
 
-    switch (sortMethod) {
-      case 'alphabetically':
-        visualGoods.sort();
-        break;
-      case 'length':
-        visualGoods.sort((good1, good2) => good1.length - good2.length);
-        break;
-      default:
+    if (isReseted) {
+      return visualGoods;
+    }
+
+    if (sortMethod) {
+      switch (sortMethod) {
+        case 'alphabetically':
+          visualGoods.sort();
+          break;
+        case 'length':
+          visualGoods.sort((good1, good2) => good1.length - good2.length);
+          break;
+        default:
+      }
     }
 
     if (isReversed) {
-      visualGoods.reverse();
+      return visualGoods.reverse();
     }
 
-    if (isReseted) {
-      visualGoods = [...goodsFromServer];
-    }
+    return visualGoods;
+  };
 
+  render() {
     return (
       <div className="App">
         <h1>Goods</h1>
@@ -109,7 +115,7 @@ class App extends React.Component<{}, State> {
 
         {this.state.isStarted && (
           <div className="App__container">
-            <GoodsList goodsFromServer={visualGoods} />
+            <GoodsList goodsFromServer={this.howToDisplayGoods()} />
             <div className="App__buttons">
               <button
                 type="button"
