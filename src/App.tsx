@@ -31,12 +31,12 @@ export class App extends React.Component<Props, State> {
 
   sortGoodsLength = () => (
     this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
     })));
 
   sortGoodsByAlphabet = () => (
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     })));
 
   reverseGoods = () => (
