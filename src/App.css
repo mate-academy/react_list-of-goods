@@ -46,14 +46,14 @@ body {
   list-style: none;
   flex-direction: column;
   align-items: center;
-  padding: 0;
+  padding: 25px 0 0;
   margin: 0;
 }
 
 .goods-list__item {
   font-family: "Indie Flower", cursive;
-  font-size: 16px;
-  color: #101820ff;
+  font-size: 20px;
+  color: #3c4a85;
   user-select: none;
 }
 
@@ -79,7 +79,7 @@ body {
 .goods-list__select {
   font-family: "Kalam", cursive;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: transparent;
   outline: none;
 }
