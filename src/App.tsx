@@ -82,7 +82,16 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isVisible && <button className="button" type="button" onClick={this.areNeedtoShow}>Start</button>}
+        {isVisible
+          && (
+            <button
+              className="button"
+              type="button"
+              onClick={this.areNeedtoShow}
+            >
+              Start
+            </button>
+          )}
         {!isVisible
           && (
             <>
@@ -95,8 +104,22 @@ class App extends React.Component<{}, State> {
                 Reverse
               </button>
 
-              <button className={`button ${isSotrByAlphabet && 'active'}`} type="button" onClick={this.sotrByAlphabet}>Sort alphabetically</button>
-              <button className={`button ${isSotrByLength && 'active'}`} type="button" onClick={this.sotrByLength}>Sort by length</button>
+              <button
+                className={`button ${isSotrByAlphabet && 'active'}`}
+                type="button"
+                onClick={this.sotrByAlphabet}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                className={`button ${isSotrByLength && 'active'}`}
+                type="button"
+                onClick={this.sotrByLength}
+              >
+                Sort by length
+              </button>
+
               <button className="button" type="button" onClick={this.reset}>Reset</button>
             </>
           )}
