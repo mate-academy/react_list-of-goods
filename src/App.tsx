@@ -27,13 +27,11 @@ export class App extends React.Component<Props, State> {
     visible: true,
   };
 
-  opener = () => (
-    this.setState({ visible: false })
-  );
+  opener = () => this.setState({ visible: false });
 
   sortGoodsLength = () => (
     this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.length - b.length),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     })));
 
   sortGoodsByAlphabet = () => (
