@@ -1,0 +1,26 @@
+.goods {
+  &__config {
+    display: flex;
+    margin-bottom: 0.5em;
+  }
+
+  &__button {
+    font-family: inherit;
+    font-size: 0.75rem;
+
+    height: 3em;
+    width: 8em;
+    border-radius: 1em;
+  }
+
+  &__list {
+    font-size: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    list-style: none;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+}
