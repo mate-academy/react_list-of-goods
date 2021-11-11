@@ -65,21 +65,15 @@ class App extends React.Component<{}, State> {
   };
 
   sortingVisibleGoods = () => {
-    let preparedGoods = [...goodsFromServer]
+    let preparedGoods = [...goodsFromServer];
     const {
       howToSort,
       reverse,
       reset,
     } = this.state;
 
-    if (reverse) {
-      return preparedGoods.reverse();
-    }
-
     if (reset) {
-      preparedGoods = [...goodsFromServer];
-
-      return preparedGoods;
+      return [...goodsFromServer];
     }
 
     preparedGoods.sort((product1, product2) => {
@@ -92,6 +86,10 @@ class App extends React.Component<{}, State> {
           return 0;
       }
     });
+
+    if (reverse) {
+      return preparedGoods.reverse();
+    }
 
     return preparedGoods;
   };
