@@ -1,0 +1,19 @@
+.button {
+  padding: 10px;
+  height: 40px;
+  min-width: 120px;
+  background-color: rgb(195, 240, 250);
+  border: 2px solid rgb(195, 240, 250);
+  border-radius: 25px;
+  margin: 0 10px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    background-color: transparent;
+    box-shadow: 5px 5px 3px 0 rgba(0, 255, 255, 0.1);
+  }
+}
+
+.active {
+  background-color: rgb(195, 240, 180);
+}
