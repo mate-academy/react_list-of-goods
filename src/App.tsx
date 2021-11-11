@@ -37,6 +37,12 @@ const App: React.FC = () => {
         setGoods(prevState => [...prevState.sort((a, b) => (a.name > b.name ? 1 : -1))]);
         break;
 
+      case 'sortLength':
+        setGoods(prevState => [...prevState.sort((a, b) => (
+          a.name.length > b.name.length ? 1 : -1))]);
+
+        break;
+
       case 'reset':
         setCheckedGoods(0);
         setGoods(goodsFromServer);
@@ -113,6 +119,15 @@ const App: React.FC = () => {
         }}
       >
         Sort alphabetically
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          changeGoods('sortLength');
+        }}
+      >
+        Sort by length
       </button>
 
       {goods.length > 0
