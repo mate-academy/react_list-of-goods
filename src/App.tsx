@@ -102,7 +102,7 @@ class App extends React.Component<{}, State> {
                   );
                 })}
               </ul>
-              {/*  */}
+
               <div className="App__wrap-btns">
                 <button
                   type="button"
