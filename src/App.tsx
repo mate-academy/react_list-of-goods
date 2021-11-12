@@ -23,7 +23,7 @@ const goodsFromServer: Good[] = [
 interface State {
   isStarted: boolean,
   isReversed: boolean,
-  isDafaultOrder: boolean,
+  isDefaultOrder: boolean,
   sortMethod: string,
 }
 
@@ -31,7 +31,7 @@ export class App extends React.Component<{}, State> {
   state = {
     isStarted: false,
     isReversed: false,
-    isDafaultOrder: false,
+    isDefaultOrder: false,
     sortMethod: '',
   };
 
@@ -46,7 +46,7 @@ export class App extends React.Component<{}, State> {
     this.setState(
       {
         sortMethod: 'alphabetically',
-        isDafaultOrder: false,
+        isDefaultOrder: false,
       },
     );
   };
@@ -55,7 +55,7 @@ export class App extends React.Component<{}, State> {
     this.setState(
       {
         sortMethod: 'length',
-        isDafaultOrder: false,
+        isDefaultOrder: false,
       },
     );
   };
@@ -79,7 +79,7 @@ export class App extends React.Component<{}, State> {
 
   getVisiableGoods = () => {
     const visibleGoods = [...goodsFromServer];
-    const { isReversed, sortMethod, isDafaultOrder } = this.state;
+    const { isReversed, sortMethod, isDefaultOrder: isDafaultOrder } = this.state;
 
     if (isDafaultOrder) {
       return visibleGoods;
