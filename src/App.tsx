@@ -84,7 +84,7 @@ class App extends React.Component<{}, State> {
         <h1 className="App__title">Goods</h1>
         {
           isStarted && (
-            <div className="App__wrap">
+            <>
               <ul className="App__list">
                 {copyGoods.map(good => {
                   return (
@@ -132,7 +132,7 @@ class App extends React.Component<{}, State> {
                   Reset
                 </button>
               </div>
-            </div>
+            </>
           )
         }
         {!isStarted && (
