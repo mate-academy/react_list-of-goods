@@ -1,7 +1,13 @@
 import React from 'react';
+import { uuid } from 'uuidv4';
 import './App.css';
 
-const goodsFromServer: string[] = [
+interface Good {
+  key: string,
+  value: string
+}
+
+const goodsFromServer: Good[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -12,13 +18,22 @@ const goodsFromServer: string[] = [
   'Honey',
   'Jam',
   'Garlic',
-];
+].map(good => ({
+  key: uuid(),
+  value: good,
+}));
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component {
+  state = {
 
-export default App;
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        {goodsFromServer.length}
+      </div>
+    );
+  }
+}
