@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  background-color: aqua;
 }
 
 .App {
@@ -13,7 +12,6 @@ body {
   &__title {
     margin: 0;
     font-size: 70px;
-    color: crimson;
   }
 
   &__wrap {
@@ -38,7 +36,6 @@ body {
     color: coral;
     text-align: center;
     border-radius: 10px;
-    background-color: lawngreen;
   }
 
   &__wrap-btns {
@@ -54,7 +51,6 @@ body {
     padding: 10px 20px;
     border: 2px solid yellow;
     border-radius: 15px;
-    background-color: magenta;
     cursor: pointer;
     transition: border 0.3s, background-color 0.3s;
 
@@ -62,5 +58,13 @@ body {
       border: 2px solid rgb(187, 187, 25);
       background-color: rgb(179, 25, 179);
     }
+
+    &--color--red {
+      background-color: red;
+    }
   }
+}
+
+.active {
+  background-color: green;
 }

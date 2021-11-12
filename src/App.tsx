@@ -17,80 +17,67 @@ const goodsFromServer: string[] = [
 interface State {
   goods: string[],
   isStarted: boolean,
-  isReverse: boolean,
-  isAlphabetically: boolean,
-  isSortByLength: boolean,
+  isReversed: boolean,
+  sortBy: string,
 }
 
 class App extends React.Component<{}, State> {
   state = {
     goods: goodsFromServer,
     isStarted: false,
-    isReverse: false,
-    isAlphabetically: false,
-    isSortByLength: false,
+    isReversed: false,
+    sortBy: '',
   };
 
   started = () => {
-    this.setState({
-      isStarted: true,
-    });
-  };
-
-  reverseGoodsList = () => {
-    this.setState(prevState => ({
-      isReverse: !prevState.isReverse,
-      isAlphabetically: false,
-      isSortByLength: false,
+    this.setState((prevState) => ({
+      isStarted: !prevState.isStarted,
     }));
   };
 
-  alphabeticallySortGoodsList = () => {
+  reverseGoods = () => {
     this.setState(prevState => ({
-      isReverse: false,
-      isAlphabetically: !prevState.isAlphabetically,
-      isSortByLength: false,
+      isReversed: !prevState.isReversed,
     }));
+  };
+
+  setSortByAlphabetically = () => {
+    this.setState({ sortBy: 'alphabetically' });
   };
 
   defaultGoodsList = () => {
     this.setState({
-      isReverse: false,
-      isAlphabetically: false,
-      isSortByLength: false,
+      isReversed: false,
+      sortBy: '',
     });
   };
 
-  goodsListSortedBylength = () => {
-    this.setState(prevState => ({
-      isReverse: false,
-      isAlphabetically: false,
-      isSortByLength: !prevState.isSortByLength,
-    }));
-  };
-
-  getGoodsList = () => {
-    if (this.state.isReverse) {
-      return [...this.state.goods].reverse();
-    }
-
-    if (this.state.isAlphabetically) {
-      return [...this.state.goods].sort((goodOne, goodTwo) => (
-        goodOne.localeCompare(goodTwo)
-      ));
-    }
-
-    if (this.state.isSortByLength) {
-      return [...this.state.goods].sort((goodOne, goodTwo) => (
-        goodOne.length - goodTwo.length
-      ));
-    }
-
-    return this.state.goods;
+  setSortByLength = () => {
+    this.setState({ sortBy: 'length' });
   };
 
   render() {
-    const { isStarted } = this.state;
+    const {
+      isStarted, goods, isReversed, sortBy,
+    } = this.state;
+    const copyGoods = [...goods];
+
+    copyGoods.sort((good1, good2) => {
+      switch (sortBy) {
+        case 'alphabetically':
+          return good1.localeCompare(good2);
+
+        case 'length':
+          return good1.length - good2.length;
+
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      copyGoods.reverse();
+    }
 
     return (
       <div className="App">
@@ -99,7 +86,7 @@ class App extends React.Component<{}, State> {
           isStarted && (
             <div className="App__wrap">
               <ul className="App__list">
-                {this.getGoodsList().map(good => {
+                {copyGoods.map(good => {
                   return (
                     <li key={good} className="App__item">
                       {good}
@@ -112,33 +99,37 @@ class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   className="App__btn"
-                  onClick={this.reverseGoodsList}
+                  onClick={this.reverseGoods}
                 >
                   Reverse
                 </button>
 
                 <button
                   type="button"
-                  className="App__btn"
-                  onClick={this.alphabeticallySortGoodsList}
+                  className={sortBy === 'alphabetically'
+                    ? 'App__btn active'
+                    : 'App__btn'}
+                  onClick={this.setSortByAlphabetically}
                 >
                   Sort alphabetically
                 </button>
 
                 <button
                   type="button"
-                  className="App__btn"
-                  onClick={this.defaultGoodsList}
+                  className={sortBy === 'length'
+                    ? 'App__btn active'
+                    : 'App__btn'}
+                  onClick={this.setSortByLength}
                 >
-                  Reset
+                  Sort by length
                 </button>
 
                 <button
                   type="button"
-                  className="App__btn"
-                  onClick={this.goodsListSortedBylength}
+                  className="App__btn App__btn--color--red"
+                  onClick={this.defaultGoodsList}
                 >
-                  Sort by length
+                  Reset
                 </button>
               </div>
             </div>
