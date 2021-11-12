@@ -40,27 +40,24 @@ class App extends React.Component<{}, State> {
   };
 
   sortAlph = () => (this.setState(state => (
-    state.isSorted
-      ? {
-        goods: [...state.goods].sort((a, b) => b.localeCompare(a)),
-        isSorted: !state.isSorted,
-      }
-      : {
-        goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
-        isSorted: !state.isSorted,
-      }
+    {
+      goods: [...state.goods]
+        .sort((a, b) => (state.isSorted
+          ? b.localeCompare(a)
+          : a.localeCompare(b))),
+      isSorted: !state.isSorted,
+    }
   )));
 
   sortLength = () => (this.setState(state => (
-    state.isSortLength
-      ? {
-        goods: [...state.goods].sort((a, b) => b.length - a.length),
-        isSortLength: !state.isSortLength,
-      }
-      : {
-        goods: [...state.goods].sort((a, b) => a.length - b.length),
-        isSortLength: !state.isSortLength,
-      }
+    {
+      goods: ([...state.goods]
+        .sort((a, b) => (state.isSortLength
+          ? b.length - a.length
+          : a.length - b.length))),
+      isSortLength: !state.isSortLength,
+    }
+
   )));
 
   reset = () => (this.setState({
