@@ -22,7 +22,7 @@ interface State {
 }
 
 export class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     goods: goodsFromServer,
     isRendered: false,
     isReversed: false,
