@@ -38,17 +38,25 @@ export class App extends React.Component<{}, State> {
   };
 
   reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
+    this.setState(prevstate => ({
+      isReversed: !prevstate.isReversed,
     }));
   };
 
   sortAlphabetically = () => {
-    this.setState({ sortBy: 'alphabet' });
+    if (this.state.sortBy === 'alphabet') {
+      this.setState({ sortBy: '' });
+    } else {
+      this.setState({ sortBy: 'alphabet' });
+    }
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    if (this.state.sortBy === 'length') {
+      this.setState({ sortBy: '' });
+    } else {
+      this.setState({ sortBy: 'length' });
+    }
   };
 
   reset = () => {
