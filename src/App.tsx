@@ -74,16 +74,16 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  getList = () => {
     const {
-      goods,
-      isShown,
-      isReversed,
-      sortBy,
-      length,
+      isReversed, sortBy, goods, length,
     } = this.state;
 
     const products = [...goods].filter(good => good.length >= length);
+
+    if (isReversed) {
+      return products.reverse();
+    }
 
     if (sortBy) {
       products.sort((product1, product2) => {
@@ -98,9 +98,12 @@ export class App extends React.Component<{}, State> {
       });
     }
 
-    if (isReversed) {
-      products.reverse();
-    }
+    return products;
+  };
+
+  render() {
+    const { isShown } = this.state;
+    const products = this.getList();
 
     return (
       <div className="App">
