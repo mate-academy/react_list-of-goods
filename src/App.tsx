@@ -57,10 +57,9 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  getAllMethods = () => {
     const {
       goods,
-      isRendered,
       isReversed,
       sortBy,
     } = this.state;
@@ -82,6 +81,13 @@ export class App extends React.Component<{}, State> {
     if (isReversed) {
       copyGoods.reverse();
     }
+
+    return copyGoods;
+  };
+
+  render() {
+    const { isRendered } = this.state;
+    const copyGoods = this.getAllMethods();
 
     return (
       <div className="App">
