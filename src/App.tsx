@@ -64,11 +64,8 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
-    const {
-      isStarted, goods, isReversed, sortBy,
-    } = this.state;
-    const copyGoods = [...goods];
+  getGoodsList = (isReversed: boolean, sortBy: string) => {
+    const copyGoods = [...this.state.goods];
 
     copyGoods.sort((good1, good2) => {
       switch (sortBy) {
@@ -87,6 +84,14 @@ class App extends React.Component<{}, State> {
       copyGoods.reverse();
     }
 
+    return copyGoods;
+  };
+
+  render() {
+    const {
+      isStarted, isReversed, sortBy,
+    } = this.state;
+
     return (
       <div className="App">
         <h1 className="App__title">Goods</h1>
@@ -94,7 +99,7 @@ class App extends React.Component<{}, State> {
           isStarted && (
             <>
               <ul className="App__list">
-                {copyGoods.map(good => {
+                {this.getGoodsList(isReversed, sortBy).map(good => {
                   return (
                     <li key={good} className="App__item">
                       {good}
