@@ -111,4 +111,4 @@ export class GoodsList extends React.Component<Props, State> {
       </div>
     );
   }
-};
+}
