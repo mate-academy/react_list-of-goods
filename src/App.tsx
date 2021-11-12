@@ -71,6 +71,7 @@ export class App extends React.Component<{}, State> {
   resetToDafaultOrder = () => {
     this.setState(state => ({
       ...state,
+      isReversed: false,
       isDafaultOrder: true,
       sortMethod: '',
     }));
