@@ -44,11 +44,17 @@ export class App extends React.Component<{}, State> {
   };
 
   sortAlphabetically = () => {
-    this.setState({ sortBy: 'alphabet' });
+    this.setState({
+      sortBy: 'alphabet',
+      isReversed: false,
+    });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({
+      sortBy: 'length',
+      isReversed: false,
+    });
   };
 
   reset = () => {
@@ -78,7 +84,6 @@ export class App extends React.Component<{}, State> {
     } = this.state;
 
     const products = [...goods].filter(good => good.length >= length);
-
 
     if (sortBy) {
       products.sort((product1, product2) => {
