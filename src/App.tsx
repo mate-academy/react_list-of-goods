@@ -1,6 +1,6 @@
 import React from 'react';
 import { uuid } from 'uuidv4';
-import './App.css';
+import './App.scss';
 import { GoodList } from './componets/GoodsList';
 import { Good } from './componets/types/typesdef';
 
@@ -113,6 +113,7 @@ export class App extends React.Component<{}, State> {
 
         {!isStarted && (
           <button
+            className="btn"
             type="button"
             onClick={this.handleStart}
           >
@@ -125,6 +126,7 @@ export class App extends React.Component<{}, State> {
             <GoodList goods={this.getVisiableGoods()} />
 
             <button
+              className="btn"
               type="button"
               onClick={this.reverseGoodsOrder}
             >
@@ -132,6 +134,7 @@ export class App extends React.Component<{}, State> {
             </button>
 
             <button
+              className="btn"
               type="button"
               onClick={this.sortAlphabetically}
             >
@@ -139,6 +142,7 @@ export class App extends React.Component<{}, State> {
             </button>
 
             <button
+              className="btn"
               type="button"
               onClick={this.sortByLength}
             >
@@ -146,6 +150,7 @@ export class App extends React.Component<{}, State> {
             </button>
 
             <button
+              className="btn"
               type="button"
               onClick={this.resetToDafaultOrder}
             >
