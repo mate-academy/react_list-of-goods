@@ -1,0 +1,21 @@
+.App {
+  display: grid;
+  justify-content: center;
+  text-align: center;
+}
+
+.item {
+  list-style-type: none;
+  border: solid 1px black;
+  margin-top: 10px;
+}
+
+.button {
+  background-color: #fff;
+}
+
+.buttons {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+}
