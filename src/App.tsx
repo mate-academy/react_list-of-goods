@@ -58,7 +58,7 @@ class App extends React.Component<{}, State> {
   render() {
     return (
       <div className="App">
-        <h1 className="App__title">Goods</h1>
+        <h1 className="App__title">List of Goods</h1>
         {this.state.isVisible
           ? (
             <section className="Goods">
