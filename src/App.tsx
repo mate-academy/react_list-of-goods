@@ -42,19 +42,15 @@ class App extends React.Component<{}, State> {
   };
 
   setSortByAlphabetically = () => {
-    if (this.state.sortBy === 'alphabetically') {
-      this.setState({ sortBy: '' });
-    } else {
-      this.setState({ sortBy: 'alphabetically' });
-    }
+    const isSortByAlphabetical = this.state.sortBy === 'alphabetically';
+
+    this.setState({ sortBy: isSortByAlphabetical ? '' : 'alphabetically' });
   };
 
   setSortByLength = () => {
-    if (this.state.sortBy === 'length') {
-      this.setState({ sortBy: '' });
-    } else {
-      this.setState({ sortBy: 'length' });
-    }
+    const isSortByLength = this.state.sortBy === 'length';
+
+    this.setState({ sortBy: isSortByLength ? '' : 'length' });
   };
 
   defaultGoodsList = () => {
