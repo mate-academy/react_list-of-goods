@@ -59,31 +59,26 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>App</h1>
-        {this.state.isShowed && <GoodsList goods={goods} />}
-        {!this.state.isShowed && (
-          <button type="button" onClick={this.showGoods}>
-            Start
-          </button>
-        )}
-
-        { this.state.isShowed && <button type="button" onClick={this.revers}>
-            Reverse
-          </button>
-        }
-
-        { this.state.isShowed && <button type="button" onClick={this.sortAlplabetically}>
-            Sort alphabetically
-          </button>
-        }
-        
-        { this.state.isShowed && <button type="button" onClick={this.reset}>
-            Reset
-          </button>
-        }
-
-        { this.state.isShowed && <button type="button" onClick={this.sortByLength}>
-            Sort by length
-          </button>
+        {
+          this.state.isShowed
+            ? <>
+                <GoodsList goods={goods} />
+                  <button type="button" onClick={this.revers}>
+                    Reverse
+                  </button>
+                  <button type="button" onClick={this.sortAlplabetically}>
+                    Sort alphabetically
+                  </button>
+                  <button type="button" onClick={this.reset}>
+                    Reset
+                  </button>
+                  <button type="button" onClick={this.sortByLength}>
+                    Sort by length
+                  </button>
+                </>
+            : <button type="button" onClick={this.showGoods}>
+                Start
+              </button>
         }
       </div>
     );
