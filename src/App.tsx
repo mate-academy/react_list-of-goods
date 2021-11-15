@@ -28,14 +28,12 @@ type Props = {};
 interface State {
   isStarted: boolean,
   goods: Product[],
-  originalGoods: Product[],
 }
 
 class App extends React.Component<Props, State> {
   state: State = {
     isStarted: false,
     goods: goodsFromServer,
-    originalGoods: goodsFromServer,
   };
 
   start = () => {
@@ -68,7 +66,7 @@ class App extends React.Component<Props, State> {
 
   reset = () => {
     this.setState(state => ({
-      goods: [...state.originalGoods],
+      goods: [...state.goods],
     }));
   };
 
@@ -77,52 +75,53 @@ class App extends React.Component<Props, State> {
 
     return (
       <div className="App">
-        {isStarted ? (
-          <>
-            <h1 className="app__title">Goods</h1>
-            <div className="buttons app__buttons">
-              <button
-                type="button"
-                onClick={this.reverse}
-                className="button buttons__button"
-              >
-                Reverse
-              </button>
+        {isStarted
+          ? (
+            <>
+              <h1 className="app__title">Goods</h1>
+              <div className="buttons app__buttons">
+                <button
+                  type="button"
+                  onClick={this.reverse}
+                  className="button buttons__button"
+                >
+                  Reverse
+                </button>
 
-              <button
-                type="button"
-                onClick={this.sortAlphabetically}
-                className="button buttons__button"
-              >
-                Sort alphabetically
-              </button>
+                <button
+                  type="button"
+                  onClick={this.sortAlphabetically}
+                  className="button buttons__button"
+                >
+                  Sort alphabetically
+                </button>
 
-              <button
-                type="button"
-                onClick={this.sortByLength}
-                className="button buttons__button"
-              >
-                Sort by length
-              </button>
+                <button
+                  type="button"
+                  onClick={this.sortByLength}
+                  className="button buttons__button"
+                >
+                  Sort by length
+                </button>
 
-              <button
-                type="button"
-                onClick={this.reset}
-                className="button buttons__button"
-              >
-                Reset
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={this.reset}
+                  className="button buttons__button"
+                >
+                  Reset
+                </button>
+              </div>
 
-            <ul className="list app__list">
-              {goods.map(good => (
-                <li key={good.id} className="list__item">
-                  {good.value}
-                </li>
-              ))}
-            </ul>
-          </>
-        )
+              <ul className="list app__list">
+                {goods.map(good => (
+                  <li key={good.id} className="list__item">
+                    {good.value}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
           : (
             <button
               type="button"
