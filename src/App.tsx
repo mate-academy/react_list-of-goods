@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoodsList } from './components/GoodsList/GoodsList';
 import './App.scss';
 
 const goodsFromServer: string[] = [
@@ -47,7 +48,7 @@ export class App extends React.Component<Props, State> {
 
   reset = () => {
     this.setState({
-      goods: [...goodsFromServer],
+      goods: goodsFromServer,
     });
   };
 
@@ -58,19 +59,15 @@ export class App extends React.Component<Props, State> {
   };
 
   render() {
+    const { goods } = this.state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
         {this.state.isVisible
           ? (
             <div>
-              <ul className="App--list">
-                {this.state.goods.map(good => (
-                  <li key={good}>
-                    {good}
-                  </li>
-                ))}
-              </ul>
+              <GoodsList goods={goods} />
 
               <button
                 type="button"
