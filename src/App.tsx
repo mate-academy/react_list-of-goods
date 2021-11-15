@@ -134,7 +134,7 @@ export class App extends React.Component<{}, State> {
                 </button>
               </div>
 
-              <GoodsList items={items}/>
+              <GoodsList items={items} />
             </>
           )}
         </div>
