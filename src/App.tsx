@@ -65,18 +65,26 @@ class App extends React.Component {
             Start
           </button>
         )}
-        <button type="button" onClick={this.revers}>
-          Reverse
-        </button>
-        <button type="button" onClick={this.sortAlplabetically}>
-          Sort alphabetically
-        </button>
-        <button type="button" onClick={this.reset}>
-          Reset
-        </button>
-        <button type="button" onClick={this.sortByLength}>
-          Sort by length
-        </button>
+
+        { this.state.isShowed && <button type="button" onClick={this.revers}>
+            Reverse
+          </button>
+        }
+
+        { this.state.isShowed && <button type="button" onClick={this.sortAlplabetically}>
+            Sort alphabetically
+          </button>
+        }
+        
+        { this.state.isShowed && <button type="button" onClick={this.reset}>
+            Reset
+          </button>
+        }
+
+        { this.state.isShowed && <button type="button" onClick={this.sortByLength}>
+            Sort by length
+          </button>
+        }
       </div>
     );
   }
