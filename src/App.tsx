@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import { GoodsList } from './GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -20,7 +21,6 @@ interface State {
   goods: string[];
   isVisible: boolean;
 }
-
 export class App extends React.Component<Props, State> {
   state: State = {
     goods: goodsFromServer,
@@ -87,11 +87,7 @@ export class App extends React.Component<Props, State> {
         >
           Sort by length
         </button>
-        <ul>
-          {this.state.goods.map((good) => (
-            <li key={good}>{good}</li>
-          ))}
-        </ul>
+        <GoodsList goods={this.state.goods} />
       </div>
     ) : (
       <button
