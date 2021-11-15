@@ -1,0 +1,19 @@
+.App {
+  font-family: sans-serif;
+  padding-left: 50px;
+
+  &--list {
+    padding: 0;
+    list-style: none;
+    font-size: 25px;
+  }
+
+  &--button {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: rgb(233, 233, 233);
+    border: 2px solid black;
+  }
+}
