@@ -32,6 +32,34 @@ class App extends React.Component<{}, State> {
     }));
   };
 
+  reverseGoods = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].reverse(),
+    }));
+  };
+
+  setSortByAlphabetically = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((a, b) => {
+        return a.localeCompare(b);
+      }),
+    }));
+  };
+
+  setSortByLength = () => {
+    this.setState(prevState => ({
+      goods: [...prevState.goods].sort((a, b) => {
+        return a.length - b.length;
+      }),
+    }));
+  };
+
+  resetGoodsList = () => {
+    this.setState({
+      goods: goodsFromServer,
+    });
+  };
+
   render() {
     const { isStarted, goods } = this.state;
 
@@ -40,7 +68,43 @@ class App extends React.Component<{}, State> {
         <h1 className="App__title">Goods</h1>
         {
           isStarted && (
-            <GoodsList goods={goods} />
+            <>
+              <GoodsList goods={goods} />
+
+              <div className="App__wrap-btns">
+                <button
+                  type="button"
+                  className="App__btn"
+                  onClick={this.reverseGoods}
+                >
+                  Reverse
+                </button>
+
+                <button
+                  type="button"
+                  className="App__btn"
+                  onClick={this.setSortByAlphabetically}
+                >
+                  Sort alphabetically
+                </button>
+
+                <button
+                  type="button"
+                  className="App__btn"
+                  onClick={this.setSortByLength}
+                >
+                  Sort by length
+                </button>
+
+                <button
+                  type="button"
+                  className="App__btn App__btn--color--red"
+                  onClick={this.resetGoodsList}
+                >
+                  Reset
+                </button>
+              </div>
+            </>
           )
         }
         {!isStarted && (
