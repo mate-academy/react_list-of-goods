@@ -11,15 +11,13 @@ export class GoodsList extends React.Component<Props, {}> {
     const { goods } = this.props;
 
     return (
-      <>
-        <ul className="App__list">
-          {goods.map(good => (
-            <li key={good} className="App__item">
-              {good}
-            </li>
-          ))}
-        </ul>
-      </>
+      <ul className="App__list">
+        {goods.map(good => (
+          <li key={good} className="App__item">
+            {good}
+          </li>
+        ))}
+      </ul>
     );
   }
 }

@@ -107,15 +107,19 @@ class App extends React.Component<{}, State> {
             </>
           )
         }
-        {!isStarted && (
-          <button
-            type="button"
-            className="App__btn"
-            onClick={this.start}
-          >
-            Start
-          </button>
-        )}
+        {
+          isStarted
+            ? ''
+            : (
+              <button
+                type="button"
+                className="App__btn"
+                onClick={this.start}
+              >
+                Start
+              </button>
+            )
+        }
       </div>
     );
   }
