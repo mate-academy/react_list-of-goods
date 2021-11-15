@@ -1,11 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './App.scss';
-
-interface Product {
-  id: string;
-  value: string;
-}
+import { GoodsList, Product } from './components/GoodsList';
 
 const goodsFromServer: Product[] = [
   'Dumplings',
@@ -65,9 +61,9 @@ class App extends React.Component<Props, State> {
   };
 
   reset = () => {
-    this.setState(state => ({
-      goods: [...state.goods],
-    }));
+    this.setState({
+      goods: [...goodsFromServer],
+    });
   };
 
   render() {
@@ -113,13 +109,7 @@ class App extends React.Component<Props, State> {
                 </button>
               </div>
 
-              <ul className="list app__list">
-                {goods.map(good => (
-                  <li key={good.id} className="list__item">
-                    {good.value}
-                  </li>
-                ))}
-              </ul>
+              <GoodsList goods={goods} />
             </>
           )
           : (
