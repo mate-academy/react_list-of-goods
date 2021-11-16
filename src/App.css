@@ -1,0 +1,14 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide-btn {
+  display: none;
+}
+
+.show-btn {
+  display: block;
+}
