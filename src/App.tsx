@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoodsList } from './components/GoodsList';
 import './App.css';
 
 const goodsFromServer: string[] = [
@@ -62,17 +63,11 @@ class App extends React.Component<{}, State> {
         {this.state.isVisible
           ? (
             <section className="Goods">
-              <ul className="Goods__list">
-                {this.state.goods.map(good => (
-                  <li key="good" className="Goods__item">
-                    {good}
-                  </li>
-                ))}
-              </ul>
+              <GoodsList goods={this.state.goods} />
 
-              <div className="Goods__buttonList">
+              <div>
                 <button
-                  className="Goods__button Goods__button--reverse"
+                  className="Goods__button"
                   type="button"
                   onClick={this.reverse}
                 >
@@ -80,7 +75,7 @@ class App extends React.Component<{}, State> {
                 </button>
 
                 <button
-                  className="Goods__button Goods__button--sortname"
+                  className="Goods__button"
                   type="button"
                   onClick={this.sortByAplhabet}
                 >
@@ -88,14 +83,14 @@ class App extends React.Component<{}, State> {
                 </button>
 
                 <button
-                  className="Goods__button Goods__button--sortlength"
+                  className="Goods__button"
                   type="button"
                   onClick={this.sortByLength}
                 >
                   Sort by words length
                 </button>
                 <button
-                  className="Goods__button Goods__button--reset"
+                  className="Goods__button"
                   type="button"
                   onClick={this.reset}
                 >
@@ -105,9 +100,9 @@ class App extends React.Component<{}, State> {
             </section>
           )
           : (
-            <div className="Goods__buttonList">
+            <div>
               <button
-                className="Goods__button Goods__button--show"
+                className="Goods__button"
                 type="button"
                 onClick={this.showGoods}
               >
