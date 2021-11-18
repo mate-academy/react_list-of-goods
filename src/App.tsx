@@ -17,7 +17,7 @@ const goodsFromServer: string[] = [
 
 class App extends React.Component {
   state = {
-    goods: [...goodsFromServer],
+    goods: goodsFromServer,
     isShowed: false,
   };
 
@@ -28,14 +28,18 @@ class App extends React.Component {
   };
 
   revers = () => {
+    const { goods } = this.state;
+
     this.setState({
-      goods: [...goodsFromServer].reverse(),
+      goods: goods.reverse(),
     });
   };
 
   sortAlplabetically = () => {
+    const { goods } = this.state;
+
     this.setState({
-      goods: [...goodsFromServer].sort((a, b) => a.localeCompare(b)),
+      goods: goods.sort((a, b) => a.localeCompare(b)),
     });
   };
 
@@ -46,8 +50,10 @@ class App extends React.Component {
   };
 
   sortByLength = () => {
+    const { goods } = this.state;
+
     this.setState({
-      goods: [...goodsFromServer].sort((a, b) => (
+      goods: goods.sort((a, b) => (
         a.length - b.length
       )),
     });
@@ -61,24 +67,28 @@ class App extends React.Component {
         <h1>App</h1>
         {
           this.state.isShowed
-            ? <>
+            ? (
+              <>
                 <GoodsList goods={goods} />
-                  <button type="button" onClick={this.revers}>
-                    Reverse
-                  </button>
-                  <button type="button" onClick={this.sortAlplabetically}>
-                    Sort alphabetically
-                  </button>
-                  <button type="button" onClick={this.reset}>
-                    Reset
-                  </button>
-                  <button type="button" onClick={this.sortByLength}>
-                    Sort by length
-                  </button>
-                </>
-            : <button type="button" onClick={this.showGoods}>
+                <button type="button" onClick={this.revers}>
+                  Reverse
+                </button>
+                <button type="button" onClick={this.sortAlplabetically}>
+                  Sort alphabetically
+                </button>
+                <button type="button" onClick={this.reset}>
+                  Reset
+                </button>
+                <button type="button" onClick={this.sortByLength}>
+                  Sort by length
+                </button>
+              </>
+            )
+            : (
+              <button type="button" onClick={this.showGoods}>
                 Start
               </button>
+            )
         }
       </div>
     );
