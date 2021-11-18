@@ -15,8 +15,13 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-class App extends React.Component {
-  state = {
+interface State {
+  goods: string[],
+  isShowed: boolean
+}
+
+class App extends React.Component<{}, State> {
+  state: State = {
     goods: goodsFromServer,
     isShowed: false,
   };
@@ -28,35 +33,30 @@ class App extends React.Component {
   };
 
   revers = () => {
-    const { goods } = this.state;
-
-    this.setState({
-      goods: goods.reverse(),
-    });
+    this.setState(state => ({
+      goods: [...state.goods].reverse(),
+    }));
   };
 
   sortAlplabetically = () => {
-    const { goods } = this.state;
-
-    this.setState({
-      goods: goods.sort((a, b) => a.localeCompare(b)),
-    });
-  };
-
-  reset = () => {
-    this.setState({
-      goods: [...goodsFromServer],
-    });
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
+    }));
   };
 
   sortByLength = () => {
-    const { goods } = this.state;
-
-    this.setState({
-      goods: goods.sort((a, b) => (
+    this.setState(state => ({
+      goods: [...state.goods].sort((a, b) => (
         a.length - b.length
       )),
-    });
+    }));
+  };
+
+  reset = () => {
+    this.setState(() => ({
+      goods: goodsFromServer,
+      isShowed: true
+    }))
   };
 
   render() {
@@ -76,11 +76,11 @@ class App extends React.Component {
                 <button type="button" onClick={this.sortAlplabetically}>
                   Sort alphabetically
                 </button>
-                <button type="button" onClick={this.reset}>
-                  Reset
-                </button>
                 <button type="button" onClick={this.sortByLength}>
                   Sort by length
+                </button>
+                <button type="button" onClick={this.reset}>
+                  Reset
                 </button>
               </>
             )
