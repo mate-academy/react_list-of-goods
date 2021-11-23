@@ -15,14 +15,16 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const selectOptions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 interface State {
-  goods: string[],
+  goodLength: number,
   isShowList: boolean;
 }
 
 class App extends React.Component<{}, State> {
   state: State = {
-    goods: goodsFromServer,
+    goodLength: 1,
     isShowList: false,
   };
 
@@ -30,41 +32,40 @@ class App extends React.Component<{}, State> {
     this.setState({ isShowList: true });
   };
 
-  reverseList = () => {
-    this.setState(state => ({
-      goods: [...state.goods].reverse(),
-    }));
-  };
+  handleControl = (event: any) => {
+    const { value } = event.target;
 
-  sortListByAlphabetically = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort(),
-    }));
-  };
-
-  sortListByLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods]
-        .sort((prevGood, nextGood) => prevGood.length - nextGood.length),
-    }));
-  };
-
-  reset = () => {
     this.setState({
-      goods: [...goodsFromServer],
+      goodLength: value,
     });
   };
 
   render() {
-    const { goods, isShowList } = this.state;
+    const { isShowList, goodLength } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
 
+        <select
+          value={goodLength}
+          name="goodLength"
+          id="goodLength"
+          onChange={this.handleControl}
+        >
+          {selectOptions.map(option => (
+            <option
+              key={option}
+              value={option}
+            >
+              {option}
+            </option>
+          ))}
+        </select>
+
         {isShowList
           ? (
-            <GoodsList goods={goods} />
+            <GoodsList goods={goodsFromServer} goodsLength={goodLength} />
           )
           : (
             <button
@@ -73,39 +74,6 @@ class App extends React.Component<{}, State> {
             >
               Start
             </button>
-          )}
-
-        {isShowList
-          && (
-            <div>
-              <button
-                onClick={this.reverseList}
-                type="button"
-              >
-                Reverse list
-              </button>
-
-              <button
-                onClick={this.sortListByAlphabetically}
-                type="button"
-              >
-                Sort alphabetically
-              </button>
-
-              <button
-                onClick={this.sortListByLength}
-                type="button"
-              >
-                Sort by length
-              </button>
-
-              <button
-                onClick={this.reset}
-                type="button"
-              >
-                Reset
-              </button>
-            </div>
           )}
       </div>
     );
