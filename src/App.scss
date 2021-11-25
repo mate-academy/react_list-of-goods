@@ -47,6 +47,8 @@ button {
   background-color: #fff;
 
   &__goods {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,6 +60,16 @@ button {
     margin-bottom: 16px;
 
     background-color: #377c5c;
+  }
+
+  &__length-limit {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+
+    color: #a2b5ac;
+
+    font-size: 14px;
   }
 }
 
@@ -78,6 +90,7 @@ button {
 .buttons {
   display: flex;
   gap: 10px;
+  margin-bottom: 24px;
 }
 
 .ActionButton {

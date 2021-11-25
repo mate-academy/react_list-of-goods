@@ -3,6 +3,8 @@ import './App.scss';
 
 import { GoodsList } from './components/GoodsList';
 
+const INITIAL_LIMIT = 1;
+
 const goodsFromServer: string[] = [
   'Dumplings 🥟',
   'Carrot 🥕',
@@ -19,12 +21,14 @@ const goodsFromServer: string[] = [
 type State = {
   goods: string[];
   showGoods: boolean;
+  lengthLimit: number;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
     showGoods: false,
+    lengthLimit: INITIAL_LIMIT,
   };
 
   reverse = () => {
@@ -43,9 +47,10 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  resetOrder = () => {
+  reset = () => {
     this.setState({
       goods: [...goodsFromServer],
+      lengthLimit: INITIAL_LIMIT,
     });
   };
 
@@ -63,8 +68,19 @@ class App extends React.Component<{}, State> {
     });
   };
 
+  handleFilterByLength = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      lengthLimit: +event.target.value,
+    });
+  };
+
   render() {
-    const { goods, showGoods } = this.state;
+    const { goods, showGoods, lengthLimit } = this.state;
+
+    const validGoods = goods.filter(
+      // eslint-disable-next-line @typescript-eslint/comma-dangle
+      (good) => (good.match(/\w/g) || []).length >= lengthLimit
+    );
 
     return (
       <div className="App">
@@ -79,8 +95,10 @@ class App extends React.Component<{}, State> {
                 Show Goods
               </button>
             ) : (
-              <GoodsList goods={goods} />
+              <GoodsList goods={validGoods} />
             )}
+
+            <div className="GoodsAutomat__length-limit">{`Current length: ${lengthLimit}`}</div>
           </div>
 
           <div className="buttons">
@@ -112,11 +130,20 @@ class App extends React.Component<{}, State> {
               className="ActionButton"
               type="button"
               disabled={!showGoods}
-              onClick={this.resetOrder}
+              onClick={this.reset}
             >
               Reset
             </button>
           </div>
+
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value={lengthLimit}
+            disabled={!showGoods}
+            onChange={this.handleFilterByLength}
+          />
         </div>
       </div>
     );
