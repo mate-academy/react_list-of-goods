@@ -1,0 +1,62 @@
+body {
+  background-color: antiquewhite;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  align-items: center;
+  margin: 30px auto;
+  border: 1px dotted black;
+  border-radius: 20px;
+}
+
+.Show_Goods {
+  margin: 30px;
+  background-color: darkorange;
+  width: 150px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 16px;
+
+  &:hover {
+    background-color: rgb(255, 81, 0);
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
+.Buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > button {
+    background-color: darkorange;
+    margin: 0 10px;
+    width: 120px;
+    height: 50px;
+    border-radius: 20px;
+    
+    &:hover {
+      background-color: rgb(255, 81, 0);
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+}
+
+select {
+  position: fixed;
+  top: 30px;
+  right: 350px;
+  height: 30px;
+  width: 60px;
+  border-radius: 20px;
+  padding: 0 10px;
+  background-color: darkorange;
+}
