@@ -1,0 +1,56 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+h1 {
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+  padding: 0;
+
+  list-style: none;
+}
+
+body {
+  background-color: #d6ffe4;
+}
+
+button {
+  padding: 10px;
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+
+  background-color: #fff;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #158d8d;
+    color: #fff;
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100w;
+  height: 100vh;
+}
+
+.Goods {
+  padding: 60px;
+  border-radius: 6px;
+
+  background-color: #fff;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
