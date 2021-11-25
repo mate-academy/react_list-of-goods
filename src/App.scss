@@ -11,6 +11,7 @@ h1 {
 
 ul {
   padding: 0;
+  margin: 0;
 
   list-style: none;
 }
@@ -20,17 +21,13 @@ body {
 }
 
 button {
-  padding: 10px;
-  border: 1px solid #e4e4e4;
-  border-radius: 5px;
-
-  background-color: #fff;
-
   cursor: pointer;
 
-  &:hover {
-    background-color: #158d8d;
-    color: #fff;
+  &:disabled {
+    &:hover {
+      background-color: #fff;
+      color: rgb(116, 116, 116);
+    }
   }
 }
 
@@ -43,14 +40,55 @@ button {
   height: 100vh;
 }
 
-.Goods {
+.GoodsAutomat {
   padding: 60px;
   border-radius: 6px;
 
   background-color: #fff;
+
+  &__goods {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 4px;
+    height: 350px;
+    padding: 0 40px;
+    margin-bottom: 16px;
+
+    background-color: #377c5c;
+  }
+}
+
+.ShowButton {
+  height: 100px;
+  width: 100px;
+  border: 0;
+  border-radius: 50%;
+
+  background-color: #c0c0c0;
+  color: #f3f3f3;
+
+  &:hover {
+    background-color: #d8d8d8;
+  }
 }
 
 .buttons {
   display: flex;
   gap: 10px;
+}
+
+.ActionButton {
+  padding: 10px;
+  border: 1px solid #e4e4e4;
+  border-radius: 5px;
+
+  background-color: #fff;
+
+  &:hover {
+    background-color: #158d8d;
+    color: #fff;
+  }
 }

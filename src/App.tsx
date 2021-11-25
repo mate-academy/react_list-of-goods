@@ -18,11 +18,13 @@ const goodsFromServer: string[] = [
 
 type State = {
   goods: string[];
+  showGoods: boolean;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
+    showGoods: false,
   };
 
   reverse = () => {
@@ -55,24 +57,63 @@ class App extends React.Component<{}, State> {
     });
   };
 
+  showGoods = () => {
+    this.setState({
+      showGoods: true,
+    });
+  };
+
   render() {
-    const { goods } = this.state;
+    const { goods, showGoods } = this.state;
 
     return (
       <div className="App">
-        <div className="Goods">
-          <GoodsList goods={goods} />
+        <div className="GoodsAutomat">
+          <div className="GoodsAutomat__goods">
+            {!showGoods ? (
+              <button
+                className="ShowButton"
+                type="button"
+                onClick={this.showGoods}
+              >
+                Show Goods
+              </button>
+            ) : (
+              <GoodsList goods={goods} />
+            )}
+          </div>
+
           <div className="buttons">
-            <button type="button" onClick={this.reverse}>
+            <button
+              className="ActionButton"
+              type="button"
+              disabled={!showGoods}
+              onClick={this.reverse}
+            >
               Reverse
             </button>
-            <button type="button" onClick={this.sortAlphabetically}>
+            <button
+              className="ActionButton"
+              type="button"
+              disabled={!showGoods}
+              onClick={this.sortAlphabetically}
+            >
               Sort alphabetically
             </button>
-            <button type="button" onClick={this.sortByLength}>
+            <button
+              className="ActionButton"
+              type="button"
+              disabled={!showGoods}
+              onClick={this.sortByLength}
+            >
               Sort by length
             </button>
-            <button type="button" onClick={this.resetOrder}>
+            <button
+              className="ActionButton"
+              type="button"
+              disabled={!showGoods}
+              onClick={this.resetOrder}
+            >
               Reset
             </button>
           </div>
