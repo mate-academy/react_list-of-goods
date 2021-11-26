@@ -23,11 +23,17 @@ interface State {
   lengthLimit: number,
 }
 
+enum SortTypes {
+  Alphabetically = 'Alphabetically',
+  Length = 'Length',
+  Default = 'Default',
+}
+
 class App extends React.Component<{}, State> {
   state: State = {
     buttonStatus: true,
     isReversed: false,
-    sortBy: '',
+    sortBy: SortTypes.Default,
     goods: goodsFromServer,
     lengthLimit: 1,
   };
@@ -39,23 +45,19 @@ class App extends React.Component<{}, State> {
   };
 
   sortAlph = () => {
-    this.setState({ sortBy: 'alphabetically' });
+    this.setState({ sortBy: SortTypes.Alphabetically });
   };
 
   sortLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sortBy: SortTypes.Length });
   };
 
   reset = () => {
-    this.setState({ sortBy: 'default' });
+    this.setState({ sortBy: SortTypes.Default });
   };
 
-  limit = () => {
-    const selectValue = (document.getElementById('input_length') as HTMLInputElement).value;
-
-    if (selectValue) {
-      this.setState({ lengthLimit: parseInt(selectValue, 10) });
-    }
+  limit = (event: any) => {
+    this.setState({ lengthLimit: event.target.value });
   };
 
   render() {
@@ -66,15 +68,13 @@ class App extends React.Component<{}, State> {
       lengthLimit,
       goods,
     } = this.state;
-    const gooodsList = [...goods];
-
-    gooodsList.sort((f1, f2) => {
+    const gooodsList = [...goods].sort((g1, g2) => {
       switch (sortBy) {
-        case 'alphabetically':
-          return f1.localeCompare(f2);
+        case SortTypes.Alphabetically:
+          return g1.localeCompare(g2);
 
-        case 'length':
-          return f1.length - f2.length;
+        case SortTypes.Length:
+          return g1.length - g2.length;
 
         default:
           return 0;
@@ -88,23 +88,20 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <button
-          className="button start"
-          type="button"
-          id="start"
-          onClick={() => {
-            const startButton = document.getElementById('start');
-
-            if (startButton) {
-              startButton.hidden = true;
-            }
-
-            this.setState({ buttonStatus: false });
-          }}
-        >
-          Start
-        </button>
-        {buttonStatus === false
+        {buttonStatus === true
+          && (
+            <button
+              className="button start"
+              type="button"
+              id="start"
+              onClick={() => {
+                this.setState({ buttonStatus: false });
+              }}
+            >
+              Start
+            </button>
+          )}
+        {!buttonStatus
           && (
             <>
               <button
@@ -139,7 +136,7 @@ class App extends React.Component<{}, State> {
                 className="input_length"
                 id="input_length"
                 type="number"
-                defaultValue={1}
+                value={this.state.lengthLimit}
                 min="1"
                 max="10"
                 onChange={this.limit}
@@ -147,7 +144,7 @@ class App extends React.Component<{}, State> {
             </>
           )}
         {
-          (buttonStatus === false)
+          (!buttonStatus)
           && <ListGoods goods={gooodsList.filter(good => good.length >= lengthLimit)} />
         }
       </div>
