@@ -17,14 +17,14 @@ const goodsFromServer: string[] = [
 
 interface State {
   goodsCopy: string[],
-  showGoods: boolean,
+  shouldGoodsBeShown: boolean,
   selectedValue: number,
 }
 
 export class App extends React.Component<{}, State> {
   state = {
     goodsCopy: [...goodsFromServer],
-    showGoods: false,
+    shouldGoodsBeShown: false,
     selectedValue: 1,
   };
 
@@ -33,7 +33,7 @@ export class App extends React.Component<{}, State> {
   toggleLength = false;
 
   showGoods = () => {
-    this.setState({ showGoods: true });
+    this.setState({ shouldGoodsBeShown: true });
   };
 
   reverseOrder = () => {
@@ -77,7 +77,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const {
-      showGoods,
+      shouldGoodsBeShown,
       goodsCopy,
       selectedValue,
     } = this.state;
@@ -90,15 +90,15 @@ export class App extends React.Component<{}, State> {
             className="Show_Goods"
             type="button"
             onClick={this.showGoods}
-            hidden={showGoods}
+            hidden={shouldGoodsBeShown}
           >
             Show Goods
           </button>
-          {showGoods ? <GoodsList goods={goodsCopy} selectValue={selectedValue} /> : null}
+          {shouldGoodsBeShown && <GoodsList goods={goodsCopy} selectValue={selectedValue} />}
         </div>
         <div
-          className={showGoods ? 'Buttons' : ''}
-          hidden={!showGoods}
+          className={shouldGoodsBeShown ? 'Buttons' : ''}
+          hidden={!shouldGoodsBeShown}
         >
           <button
             type="button"
@@ -124,29 +124,29 @@ export class App extends React.Component<{}, State> {
           >
             Sort By Length
           </button>
-        </div>
-        <label
-          htmlFor="selectLength"
-        >
-          <select
-            name="lengthSelector"
-            id="selectLength"
-            value={this.state.selectedValue}
-            hidden={!showGoods}
-            onChange={this.changeLength}
+          <label
+            htmlFor="selectLength"
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </label>
+            <select
+              name="lengthSelector"
+              id="selectLength"
+              value={this.state.selectedValue}
+              hidden={!shouldGoodsBeShown}
+              onChange={this.changeLength}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </label>
+        </div>
       </>
     );
   }
