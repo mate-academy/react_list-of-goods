@@ -1,0 +1,8 @@
+.Goods__List {
+  list-style-type: circle;
+  margin: 0 auto 20px;
+
+  &--item {
+    padding-bottom: 5px;
+  }
+}
