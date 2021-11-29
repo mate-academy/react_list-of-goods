@@ -17,7 +17,7 @@ const goodsFromServer: string[] = [
 interface State {
   goodsCopy: string[],
   showList: boolean,
-  reverse: number,
+  reverse: boolean,
   sortBy: string,
 }
 
@@ -25,7 +25,7 @@ class App extends React.Component <{}, State> {
   state = {
     goodsCopy: [...goodsFromServer],
     showList: false,
-    reverse: 0,
+    reverse: false,
     sortBy: 'none',
   };
 
@@ -34,9 +34,12 @@ class App extends React.Component <{}, State> {
   };
 
   reverseList = () => {
-    this.setState((state) => ({
-      reverse: state.reverse + 1,
-    }));
+    this.state.goodsCopy.reverse();
+    this.setState((state) => {
+      return {
+        reverse: !state.reverse,
+      };
+    });
   };
 
   sortByA_Z = () => {
@@ -50,7 +53,7 @@ class App extends React.Component <{}, State> {
   reset = () => {
     this.setState({
       sortBy: 'none',
-      reverse: 0,
+      reverse: false,
       goodsCopy: [...goodsFromServer],
     });
   };
@@ -71,10 +74,6 @@ class App extends React.Component <{}, State> {
       }
     });
 
-    if (reverse % 2 !== 0) {
-      goodsCopy.reverse();
-    }
-
     return (
       <>
         <div className="App">
@@ -83,7 +82,7 @@ class App extends React.Component <{}, State> {
           <button
             type="button"
             className={
-              reverse % 2 === 0
+              reverse === false
                 ? 'App__button'
                 : 'App__button App__button--pressed'
             }
