@@ -1,3 +1,5 @@
+@import './utils/variables.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -17,7 +19,7 @@ ul {
 }
 
 body {
-  background-color: #d6ffe4;
+  background-color: $c-light-green-bg;
 }
 
 button {
@@ -25,8 +27,8 @@ button {
 
   &:disabled {
     &:hover {
-      background-color: #fff;
-      color: rgb(116, 116, 116);
+      background-color: $c-white;
+      color: $c-disabled-grey;
     }
   }
 }
@@ -44,7 +46,7 @@ button {
   padding: 60px;
   border-radius: 6px;
 
-  background-color: #fff;
+  background-color: $c-white;
 
   &__goods {
     position: relative;
@@ -59,7 +61,7 @@ button {
     padding: 0 40px;
     margin-bottom: 16px;
 
-    background-color: #377c5c;
+    background-color: $c-green;
   }
 
   &__length-limit {
@@ -67,7 +69,7 @@ button {
     right: 25px;
     bottom: 25px;
 
-    color: #a2b5ac;
+    color: $c-green-opaque;
 
     font-size: 14px;
   }
@@ -79,11 +81,11 @@ button {
   border: 0;
   border-radius: 50%;
 
-  background-color: #c0c0c0;
-  color: #f3f3f3;
+  background-color: $c-button-grey;
+  color: $c-grayish-white;
 
   &:hover {
-    background-color: #d8d8d8;
+    background-color: $c-light-gray;
   }
 }
 
@@ -95,13 +97,13 @@ button {
 
 .ActionButton {
   padding: 10px;
-  border: 1px solid #e4e4e4;
+  border: 1px solid $c-border-gray;
   border-radius: 5px;
 
-  background-color: #fff;
+  background-color: $c-white;
 
   &:hover {
-    background-color: #158d8d;
-    color: #fff;
+    background-color: $c-light-green;
+    color: $c-white;
   }
 }

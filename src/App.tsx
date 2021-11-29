@@ -32,19 +32,15 @@ class App extends React.Component<{}, State> {
   };
 
   reverse = () => {
-    this.setState((state) => {
-      return {
-        goods: state.goods.reverse(),
-      };
-    });
+    this.setState((state) => ({
+      goods: state.goods.reverse(),
+    }));
   };
 
   sortAlphabetically = () => {
-    this.setState((state) => {
-      return {
-        goods: state.goods.sort((goodA, goodB) => goodA.localeCompare(goodB)),
-      };
-    });
+    this.setState((state) => ({
+      goods: state.goods.sort((goodA, goodB) => goodA.localeCompare(goodB)),
+    }));
   };
 
   reset = () => {
@@ -55,11 +51,9 @@ class App extends React.Component<{}, State> {
   };
 
   sortByLength = () => {
-    this.setState((state) => {
-      return {
-        goods: state.goods.sort((goodA, goodB) => goodA.length - goodB.length),
-      };
-    });
+    this.setState((state) => ({
+      goods: state.goods.sort((goodA, goodB) => goodA.length - goodB.length),
+    }));
   };
 
   showGoods = () => {
