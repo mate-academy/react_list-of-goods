@@ -7,8 +7,6 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => {
-  // eslint-disable-next-line no-console
-
   return (
     <ul className="GoodsList">
       {goods.map((good) => (
