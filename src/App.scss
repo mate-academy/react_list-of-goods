@@ -1,0 +1,109 @@
+@import './utils/variables.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+h1 {
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+body {
+  background-color: $c-light-green-bg;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    &:hover {
+      background-color: $c-white;
+      color: $c-disabled-grey;
+    }
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100w;
+  height: 100vh;
+}
+
+.GoodsAutomat {
+  padding: 60px;
+  border-radius: 6px;
+
+  background-color: $c-white;
+
+  &__goods {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 4px;
+    height: 350px;
+    padding: 0 40px;
+    margin-bottom: 16px;
+
+    background-color: $c-green;
+  }
+
+  &__length-limit {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+
+    color: $c-green-opaque;
+
+    font-size: 14px;
+  }
+}
+
+.ShowButton {
+  height: 100px;
+  width: 100px;
+  border: 0;
+  border-radius: 50%;
+
+  background-color: $c-button-grey;
+  color: $c-grayish-white;
+
+  &:hover {
+    background-color: $c-light-gray;
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.ActionButton {
+  padding: 10px;
+  border: 1px solid $c-border-gray;
+  border-radius: 5px;
+
+  background-color: $c-white;
+
+  &:hover {
+    background-color: $c-light-green;
+    color: $c-white;
+  }
+}
