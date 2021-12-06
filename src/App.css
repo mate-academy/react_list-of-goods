@@ -1,0 +1,16 @@
+.btn {
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.btn--hide {
+  display: none;
+}
+
+.select {
+  text-transform: uppercase;
+}
+
+.select--hide {
+  display: none;
+}
