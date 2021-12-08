@@ -80,9 +80,7 @@ class App extends React.Component {
           id="1"
           value={selected}
           onChange={({ target }) => {
-            const value = Number(target.value) + 1;
-
-            this.setState({ selected: value });
+            this.setState({ selected: Number(target.value) });
           }}
         >
           {options.map((option: number) => (
