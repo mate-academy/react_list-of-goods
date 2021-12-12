@@ -87,70 +87,72 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1 className="App__title">Goods</h1>
-        <div className="App__info">
-          {count === 1 && (
-            <ul className="App__goods">
-              {visibleGoods.map(good => (
-                <li className="App__good" key={good}>
-                  {good}
-                </li>
-              ))}
-            </ul>
-          )}
-          <button
-            className={count === 1 ? 'disabled' : 'App__open'}
-            type="button"
-            onClick={this.showList}
-          >
-            Click here
-          </button>
-          <div className="App__sort">
+        <div className="App__container">
+          <h1 className="App__title">Goods</h1>
+          <div className="App__info">
+            {count === 1 && (
+              <ul className="App__goods">
+                {visibleGoods.map(good => (
+                  <li className="App__good" key={good}>
+                    {good}
+                  </li>
+                ))}
+              </ul>
+            )}
             <button
-              className={count === 1 ? 'App__button' : 'disabled'}
+              className={count === 1 ? 'disabled' : 'App__open'}
               type="button"
-              onClick={this.reverseList}
+              onClick={this.showList}
             >
-              Reverse
+              Click here
             </button>
-            <button
-              className={count === 1 ? 'App__button' : 'disabled'}
-              type="button"
-              onClick={this.sortAlphabetically}
-            >
-              Sort alphabetically
-            </button>
-            <button
-              className={count === 1 ? 'App__button' : 'disabled'}
-              type="button"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
-            <button
-              className={count === 1 ? 'App__button' : 'disabled'}
-              type="button"
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
+            <div className="App__sort">
+              <button
+                className={count === 1 ? 'App__button' : 'disabled'}
+                type="button"
+                onClick={this.reverseList}
+              >
+                Reverse
+              </button>
+              <button
+                className={count === 1 ? 'App__button' : 'disabled'}
+                type="button"
+                onClick={this.sortAlphabetically}
+              >
+                Sort alphabetically
+              </button>
+              <button
+                className={count === 1 ? 'App__button' : 'disabled'}
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+              <button
+                className={count === 1 ? 'App__button' : 'disabled'}
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+            </div>
           </div>
+          <select
+            className={count === 1 ? 'App__select' : 'disabled'}
+            id="selectLength"
+            onChange={(event) => (
+              this.changeLength(event)
+            )}
+          >
+            {lengths.map(length => (
+              <option
+                value={length}
+              >
+                {length}
+              </option>
+            ))}
+          </select>
         </div>
-        <select
-          className={count === 1 ? 'App__select' : 'disabled'}
-          id="selectLength"
-          onChange={(event) => (
-            this.changeLength(event)
-          )}
-        >
-          {lengths.map(length => (
-            <option
-              value={length}
-            >
-              {length}
-            </option>
-          ))}
-        </select>
       </div>
     );
   }
