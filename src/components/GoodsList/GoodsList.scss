@@ -1,0 +1,17 @@
+@import "../../utils/_variables";
+
+.GoodsList {
+  &__heading {
+    padding-bottom: 15px;
+    text-transform: $text-uppercase;
+  }
+
+  &__list {
+    height: 450px;
+    padding-left: 20px;
+  }
+
+  &__element {
+    padding-bottom: 25px;
+  }
+}
