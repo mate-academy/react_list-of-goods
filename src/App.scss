@@ -1,0 +1,38 @@
+@import "./utils/_variables";
+@import "./utils/_reset";
+
+.App {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  margin: 100px;
+  height: 500px;
+  font-size: 20px;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__button {
+    width: 150px;
+    height: $height;
+    text-align: center;
+    text-transform: $text-uppercase;
+    transition: all $transition-duration;
+    background-color: $c-white;
+    color: $c-black;
+
+    &:not(:disabled):hover {
+      transform: scale(1.2);
+      font-weight: 500;
+      background-color: $c-black;
+      color: $c-white;
+    }
+  }
+
+  &__list {
+    width: 250px;
+  }
+}
