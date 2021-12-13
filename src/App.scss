@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: antiquewhite;
+  list-style: none;
+}
+
+.goods {
+  text-align: center;
+  padding: 30px;
+  min-width: 300px;
+  min-height: 300px;
+}
+
+.good {
+  padding: 10px;
+  list-style: none;
+
+  &__list {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+}
+
+.bottons {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  background-color: rgb(206, 203, 67);
+  border: none;
+  padding: 15px;
+  margin: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+
+  &:hover {
+    background-color: rgb(179, 79, 79);
+  }
+
+  &__start {
+    font-size: 25px;
+    padding: 15px;
+  }
+}
