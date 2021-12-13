@@ -17,14 +17,12 @@ const goodsFromServer: string[] = [
 type State = {
   isVisible: boolean,
   goodsDisplayList: string[],
-  initialList: string[],
 };
 
 class App extends React.Component<{}, State> {
   state = {
     isVisible: false,
     goodsDisplayList: [...goodsFromServer],
-    initialList: [...goodsFromServer],
   };
 
   hideStartButton = () => {
@@ -54,9 +52,7 @@ class App extends React.Component<{}, State> {
   };
 
   resetGoodsToInitialState = () => {
-    this.setState(state => ({
-      goodsDisplayList: [...state.initialList],
-    }));
+    this.setState({ goodsDisplayList: goodsFromServer });
   };
 
   render() {
