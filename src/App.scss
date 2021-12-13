@@ -2,7 +2,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .App {
@@ -15,13 +15,13 @@ body {
     color: red;
     display: inline-block;
     margin: 5px;
-      }
+  }
 
   &__button:hover {
     text-decoration: none;
-    color: #000000;
-    background-color: #33B5E5;
-    }
+    color: #000;
+    background-color: #33b5e5;
+  }
 
   &__button-start {
     text-decoration: none;
@@ -34,8 +34,8 @@ body {
 
   &__button-start:hover {
     text-decoration: none;
-    color: #000000;
-    background-color: #33B5E5;
+    color: #000;
+    background-color: #33b5e5;
 
     transform: scale(1.2) rotate(360deg);
   }
