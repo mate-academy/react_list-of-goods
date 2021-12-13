@@ -1,5 +1,7 @@
-import React from 'react';
-import './App.css';
+import { Component } from 'react';
+import { GoodsList } from './components/GoodsList';
+
+import './App.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +16,34 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+type State = {
+  isStarted: boolean;
+};
+
+class App extends Component<{}, State> {
+  state: State = {
+    isStarted: false,
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1 className="App__title">List of Goods</h1>
+        {!this.state.isStarted && (
+          <button
+            type="button"
+            onClick={() => {
+              this.setState({ isStarted: true });
+            }}
+            className="App__button-start"
+          >
+            Start a program!
+          </button>
+        )}
+        {this.state.isStarted && <GoodsList goodsList={goodsFromServer} />}
+      </div>
+    );
+  }
+}
 
 export default App;
