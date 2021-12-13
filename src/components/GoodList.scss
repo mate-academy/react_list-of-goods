@@ -1,0 +1,32 @@
+.goods {
+  &__list {
+    list-style: none;
+    align-self: flex-start;
+    padding: 0;
+  }
+
+  &__item:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  &__item::before {
+    content: '- ';
+  }
+
+  &__item {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid
+  }
+}
+
+[name="goodLength"] {
+  &:hover {
+    cursor: pointer;
+  }
+
+  padding: 5px 10px;
+  border-color: red;
+  border-radius: 10px;
+  background-color: #eee;
+}
