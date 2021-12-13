@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Barlow+Condensed:ital,wght@0,400;0,600;1,500&family=Fredoka+One&family=Josefin+Sans:wght@400;600&display=swap");
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  background-image: url(./image/19cee151760829.58f8de0923707.jpg);
+  backdrop-filter: blur(5px);
+  font-family: "Fredoka One", cursive;
+  color: rgb(53, 52, 52);
+
+  &__container {
+    justify-content: center;
+    border-radius: 8px;
+    background-color: rgb(190, 235, 250);
+  }
+}
+
+.button {
+  margin: 32px 16px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px salmon solid;
+  font-family: "Fredoka One", cursive;
+  color: crimson;
+
+  &:hover {
+    background-color: crimson;
+    color: whitesmoke;
+  }
+}
