@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { GoodList } from './components/GoodList';
+import { ControlButtons } from './components/ControlButtons';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -32,7 +33,7 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  SortByLength = () => {
+  sortByLength = () => {
     this.setState((state) => ({
       goods: [...state.goods].sort((goodA, goodB) => goodA.length - goodB.length),
     }));
@@ -55,41 +56,17 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <div className="goods">
           {isShown
-          && (
-            <>
-              <GoodList goods={goods} />
-              <div className="btn-wrap">
-                <button
-                  type="button"
-                  className="btn-reverse btn"
-                  onClick={this.reverse}
-                >
-                  Reverse
-                </button>
-                <button
-                  type="button"
-                  className="btn-sortAlpha btn"
-                  onClick={this.sortAlphabetically}
-                >
-                  Sort alphabetically
-                </button>
-                <button
-                  type="button"
-                  className="btn-reset btn"
-                  onClick={this.reset}
-                >
-                  Reset
-                </button>
-                <button
-                  type="button"
-                  className="btn-sortByLen btn"
-                  onClick={this.SortByLength}
-                >
-                  Sort by length
-                </button>
-              </div>
-            </>
-          )}
+            && (
+              <>
+                <GoodList goods={goods} />
+                <ControlButtons
+                  reverse={this.reverse}
+                  sortAlphabetically={this.sortAlphabetically}
+                  reset={this.reset}
+                  sortByLength={this.sortByLength}
+                />
+              </>
+            )}
           {!isShown && (
             <button
               type="button"
