@@ -15,123 +15,52 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-interface State {
+type State = {
   goods: string[],
-  sortBy: string,
   start: boolean,
-  isReversed: boolean,
-}
+};
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     goods: [...goodsFromServer],
-    sortBy: '',
     start: false,
-    isReversed: false,
   };
 
-  showList = () => (
+  showList = () => {
     this.setState({
       start: true,
-    })
-  );
+    });
+  };
 
-  reverseList = () => (
+  reverseList = () => {
     this.setState((state) => ({
-      isReversed: !state.isReversed,
-    }))
-  );
+      goods: [...state.goods].reverse(),
+    }));
+  };
 
-  sortByAlphabet = () => (
-    this.setState({
-      sortBy: 'alphabet',
-    })
-  );
+  sortByAlphabet = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort(),
+    }));
+  };
 
-  sortByLength = () => (
-    this.setState({
-      sortBy: 'length',
-    })
-  );
+  sortByLength = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
+    }));
+  };
 
-  reset = () => (
-    this.setState({
-      sortBy: '',
-      isReversed: false,
-    })
-  );
+  reset = () => {
+    this.setState(() => ({
+      goods: [...goodsFromServer],
+    }));
+  };
 
   render() {
-    const {
-      goods,
-      sortBy,
-      start,
-      isReversed,
-    } = this.state;
-
-    let currentGoods = [...goods];
-
-    if (sortBy) {
-      currentGoods = [...currentGoods].sort((a, b) => {
-        switch (sortBy) {
-          case 'alphabet':
-            return a.localeCompare(b);
-
-          case 'length':
-            return a.length - b.length;
-
-          default:
-            return 0;
-        }
-      });
-    }
-
-    if (isReversed) {
-      currentGoods.reverse();
-    }
+    const { start } = this.state;
 
     return (
       <div className="App">
-        <h1 className="App__title">
-          Goods
-        </h1>
-
-        {start && (
-          <div className="App__buttons">
-            <button
-              type="button"
-              className="App__button"
-              onClick={this.reverseList}
-            >
-              Reverse
-            </button>
-
-            <button
-              type="button"
-              className="App__button"
-              onClick={this.sortByAlphabet}
-            >
-              Sort by alphabet
-            </button>
-
-            <button
-              type="button"
-              className="App__button"
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
-
-            <button
-              type="button"
-              className="App__button"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
-          </div>
-        )}
-
         {!start ? (
           <button
             type="button"
@@ -141,7 +70,46 @@ class App extends React.Component<{}, State> {
             Start
           </button>
         ) : (
-          <GoodsList goods={[...currentGoods]} />
+          <div className="App__good">
+            <h1 className="App__title">
+              Goods
+            </h1>
+
+            <div className="App__buttons">
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.reverseList}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.sortByAlphabet}
+              >
+                Sort by alphabet
+              </button>
+
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                type="button"
+                className="App__button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
+            <GoodsList goods={[...goodsFromServer]} />
+          </div>
         )}
       </div>
     );
