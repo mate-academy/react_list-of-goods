@@ -66,7 +66,7 @@ class App extends React.Component<{}, State> {
       count, goods, isReversed, sortBy, lengths, selectedNumb,
     } = this.state;
 
-    const visibleGoods = goods.filter(good => good.length >= selectedNumb);
+    const visibleGoods = goods.filter(good => good.replace(' ', '').length >= selectedNumb);
 
     visibleGoods.sort((a, b) => {
       switch (sortBy) {
