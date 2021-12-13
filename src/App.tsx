@@ -16,13 +16,13 @@ const goodsFromServer: string[] = [
 
 type State = {
   isVisible: boolean,
-  goodsDisplayList: string[],
+  visibleGoods: string[],
 };
 
 class App extends React.Component<{}, State> {
   state = {
     isVisible: false,
-    goodsDisplayList: [...goodsFromServer],
+    visibleGoods: [...goodsFromServer],
   };
 
   hideStartButton = () => {
@@ -31,13 +31,13 @@ class App extends React.Component<{}, State> {
 
   reverseGoods = () => {
     this.setState(state => ({
-      goodsDisplayList: [...state.goodsDisplayList].reverse(),
+      visibleGoods: [...state.visibleGoods].reverse(),
     }));
   };
 
   sortGoodsAlplabetically = () => {
     this.setState(state => ({
-      goodsDisplayList: [...state.goodsDisplayList].sort((good1, good2) => {
+      visibleGoods: [...state.visibleGoods].sort((good1, good2) => {
         return good1.localeCompare(good2);
       }),
     }));
@@ -45,18 +45,18 @@ class App extends React.Component<{}, State> {
 
   sortGoodsByLength = () => {
     this.setState(state => ({
-      goodsDisplayList: [...state.goodsDisplayList].sort((good1, good2) => {
+      visibleGoods: [...state.visibleGoods].sort((good1, good2) => {
         return good1.length - good2.length;
       }),
     }));
   };
 
   resetGoodsToInitialState = () => {
-    this.setState({ goodsDisplayList: goodsFromServer });
+    this.setState({ visibleGoods: [...goodsFromServer] });
   };
 
   render() {
-    const { isVisible, goodsDisplayList } = this.state;
+    const { isVisible, visibleGoods } = this.state;
 
     return (
       <div className="App">
@@ -101,7 +101,7 @@ class App extends React.Component<{}, State> {
             Reset
           </button>
           <ul className={isVisible ? 'App__list' : 'App__list App__list--hidden'}>
-            {goodsDisplayList.map((good) => {
+            {visibleGoods.map((good) => {
               return (
                 <li key={good}>
                   {good}
