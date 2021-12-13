@@ -74,7 +74,7 @@ class App extends React.Component<{}, State> {
           return a.localeCompare(b);
 
         case 'length':
-          return a.length - b.length;
+          return a.replace(' ', '').length - b.replace(' ', '').length;
 
         default:
           return 0;
