@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Readex+Pro&family=Roboto:wght@400;700&display=swap");
+@import "./normalized.scss";
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 80px auto;
+    padding: 20px;
+    width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    padding: 8px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-weight: bold;
+    background-color: #fff;
+    color: #0d6b6f;
+    box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.1);
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    &--go {
+      margin: 200px auto;
+    }
+
+    &:not(:last-child):hover {
+      background-color: #839d83;
+      color: #fff;
+    }
+
+    &:last-child:hover {
+      background-color: #cf3f34;
+      color: #fff;
+    }
+  }
+}
