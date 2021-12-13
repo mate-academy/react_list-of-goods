@@ -125,7 +125,8 @@ class App extends React.Component<{}, State> {
               <Accordion.Header>{el}</Accordion.Header>
               <Accordion.Body>
                 Finest high-quality
-                {` ${el}`}
+                {` ${el}.`}
+                <br />
                 Organic foods can often be hard to find, however with the vegan movement that
                 has happened in recent years people are having an increasing concern for the
                 environment and are constantly looking for new ways in which they can help the
