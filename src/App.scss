@@ -1,0 +1,36 @@
+body {
+  background-color: #2d2c3e;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+
+  &__title {
+    color: #fff;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+  }
+
+  &__button {
+    padding: 15px;
+    min-width: 70px;
+    border-style: solid;
+    border-radius: 2px;
+    background-color: #2d2c3e;
+    border-color: #16a085;
+    color: #fff;
+
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: #16a085;
+      border-color: #16a085;
+      color: #fff;
+
+    }
+  }
+}
