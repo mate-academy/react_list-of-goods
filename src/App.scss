@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+li,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+ul,
+p,
+h1,
+h2,
+h3,
+body {
+  margin: 0;
+}
+
+html {
+  font-size: 32px;
+  font-family: Helvetica, sans-serif;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fef5ed;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px 40px;
+
+    border-radius: 30px;
+    background-color: #adc2a9;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__button {
+    transition: background-color 0.3s;
+
+    padding: 16px 32px;
+
+    border: 0;
+
+    font-size: 16px;
+
+    background-color: #99a799;
+    color: #fef5ed;
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: #d3e4cd;
+    }
+  }
+}
+
+.goods-list {
+  text-align: center;
+
+  &--item {
+    color: #fef5ed;
+    margin-bottom: 12px;
+  }
+}
