@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: rgb(233, 240, 195);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+  &__buttons {
+    height: 40px;
+  }
+
+  &__button {
+    margin: 5px;
+    height: 30px;
+    cursor: pointer;
+
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(230, 151, 99);
+    font-size: 16px;
+
+    &:hover {
+      color: rgb(243, 240, 240);
+      background-color: rgb(226, 113, 37);
+      box-shadow: 0px 5px 10px rgb(92, 40, 6);
+    }
+
+    &--start {
+      width: 100px;
+      transition: transform 0.3s ease;
+      box-shadow: 0px 5px 10px rgb(92, 40, 6);
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
