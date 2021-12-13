@@ -1,0 +1,73 @@
+@import './styles/_normilize.css';
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #aed6dc;
+
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #4a536b;
+
+  &__goods {
+    padding: 20px;
+    width: 400px;
+
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  &__title {
+    margin-bottom: 32px;
+
+    text-align: center;
+  }
+
+  &__list {
+    margin-bottom: 32px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    padding: 8px 12px;
+    width: 80px;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: #eee;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: border-color ease 0.3s;
+
+    &:hover {
+      border-color: rgb(214, 146, 160);
+    }
+  }
+
+  &__button--start {
+    padding: 12px 16px;
+    width: 100px;
+
+    text-transform: uppercase;
+
+    animation: scaling 0.3s alternate infinite;
+  }
+
+  @keyframes scaling {
+    from{ transform: scale(1); }
+    to { transform: scale(1.1); }
+  }
+}
