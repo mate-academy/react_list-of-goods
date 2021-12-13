@@ -111,9 +111,27 @@ body {
     color: #fff;
   }
 
+  &:disabled {
+    color: inherit;
+    background-color: rgb(221, 221, 221);
+    cursor: unset;
+  }
+  
   &--spinner {
     padding: 10px;
     min-width: 58px;
+  }
+
+  &--disabled {
+    color: inherit;
+    background-color: rgb(221, 221, 221);
+    cursor: unset;
+
+    &:hover {
+      color: inherit;
+      background-color: rgb(221, 221, 221);
+      cursor: unset;
+    }
   }
 }
 

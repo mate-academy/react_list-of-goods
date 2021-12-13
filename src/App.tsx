@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import './App.scss';
 
@@ -21,19 +22,19 @@ interface Good {
 
 type State = {
   goods: Good[],
-  goodsShowed: boolean,
+  isGoodsShowed: boolean,
   lengthFrom: number,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: goodsFromServer.map(good => ({ good, visible: true })),
-    goodsShowed: false,
+    isGoodsShowed: false,
     lengthFrom: 1,
   };
 
   showList = () => {
-    this.setState({ goodsShowed: true });
+    this.setState({ isGoodsShowed: true });
   };
 
   setReversedList = () => {
@@ -92,13 +93,13 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { goods, goodsShowed, lengthFrom } = this.state;
+    const { goods, isGoodsShowed, lengthFrom } = this.state;
 
     return (
       <div className="App">
         <div className="screen-field">
           <h1 className="screen-field__title">Goods</h1>
-          {goodsShowed ? (
+          {isGoodsShowed ? (
             <ul className="screen-field__list">
               {goods.map(goodObj => (
                 goodObj.visible && (
@@ -121,6 +122,7 @@ class App extends React.Component<{}, State> {
         <div className="buttons-first-line">
           <button
             type="button"
+            disabled={!isGoodsShowed}
             onClick={this.setReversedList}
             className="button"
           >
@@ -128,6 +130,7 @@ class App extends React.Component<{}, State> {
           </button>
           <button
             type="button"
+            disabled={!isGoodsShowed}
             onClick={this.setSortedAlphList}
             className="button"
           >
@@ -135,6 +138,7 @@ class App extends React.Component<{}, State> {
           </button>
           <button
             type="button"
+            disabled={!isGoodsShowed}
             onClick={this.setSortedLngthList}
             className="button"
           >
@@ -144,14 +148,21 @@ class App extends React.Component<{}, State> {
         <div className="buttons-second-line">
           <button
             type="button"
+            disabled={!isGoodsShowed}
             onClick={this.resetState}
             className="button"
           >
             Reset
           </button>
-          <div className="button button--spinner input-spinner">
+          <div className={classNames(
+            'button button--spinner',
+            'input-spinner',
+            { 'button--disabled': !isGoodsShowed },
+          )}
+          >
             <button
               type="button"
+              disabled={!isGoodsShowed}
               onClick={this.setPrevLengthFrom}
               className="input-spinner__button"
             >
@@ -160,6 +171,7 @@ class App extends React.Component<{}, State> {
             <span>{lengthFrom}</span>
             <button
               type="button"
+              disabled={!isGoodsShowed}
               onClick={this.setNextLengthFrom}
               className="input-spinner__button"
             >
