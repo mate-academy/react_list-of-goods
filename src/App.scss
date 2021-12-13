@@ -1,0 +1,79 @@
+.App {
+  
+  &__container {
+    width: 200px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 2px solid rgb(230, 163, 236);
+    border-radius: 2em;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+      rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+      rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
+      rgba(0, 0, 0, 0.06) 0px 2px 1px,
+      rgba(0, 0, 0, 0.09) 0px 4px 2px,
+      rgba(0, 0, 0, 0.09) 0px 8px 4px,
+      rgba(0, 0, 0, 0.09) 0px 16px 8px,
+      rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  }
+
+  &__start-button--hidden {
+    display: none;
+  }
+
+  &__start-button {
+    padding: 7px;
+    border: none;
+    border-radius: 2em;
+    font-size: large;
+    color: whitesmoke;
+    transition: background-color 0.5s;
+    text-shadow: 10px 10px 25px rgb(230, 127, 216),
+      -10px 10px 25px rgb(222, 134, 230),
+      -10px -10px 25px rgb(156, 18, 158),
+      10px -10px 25px rgb(251, 191, 253);
+  }
+
+  &__start-button:hover {
+    cursor: pointer;
+    background-color: #f3a2e8;
+  }
+
+  &__list--hidden {
+    display: none;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    text-shadow: 3px 3px 20px #f32b78,
+      -2px 1px 30px #f13fd9;
+  }
+
+  &__reverse-button,
+  &__sortalph-button,
+  &__sortlength-button,
+  &__reset-button {
+    padding: 3px;
+    border-radius: 2em;
+
+    background-color: rgb(235, 148, 184);
+    color: rgb(243, 238, 231);
+  }
+
+  &__reverse-button,
+  &__sortalph-button,
+  &__sortlength-button,
+  &__reset-button:hover {
+    cursor: pointer;
+    transition: background-color 0.5s;
+  }
+
+  &__list {
+    text-shadow: 2px 7px 5px rgba(0,0,0,0.3),
+      0px -4px 10px rgba(255,255,255,0.3);
+  }
+}
