@@ -1,0 +1,12 @@
+.listOfGoods {
+  padding: 20px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__item {
+    color: rgb(37, 37, 37);
+  }
+}
