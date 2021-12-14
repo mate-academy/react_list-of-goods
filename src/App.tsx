@@ -34,7 +34,6 @@ class App extends React.Component<{}, State> {
 
   reverse = () => {
     this.setState((state) => ({
-      // goods: [...state.goods].reverse(),
       goods: state.goods.reverse(),
     }));
   };
