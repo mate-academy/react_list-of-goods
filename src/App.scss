@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #fff5e7;
+}
+
+.App {
+  width: 500px;
+  margin: 60px auto 0;
+  padding: 30px 50px;
+  background-color: #d1cba3;
+}
+
+.goods {
+  &__title {
+    margin: 0 0 16px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
+.button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: inline-block;
+  padding: 8px 20px;
+  border: none;
+  color: #fff5e7;
+  background-color: #96845f;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #796948;
+  }
+}
