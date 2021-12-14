@@ -36,7 +36,7 @@ class App extends React.Component<{}, State> {
 
   sortAlphabet = () => {
     this.setState((state) => ({
-      goods: [...state.goods].sort((goodA, goodB) => goodA.localeCompare(goodB)),
+      goods: [...state.goods].sort(),
     }));
   };
 
@@ -57,18 +57,17 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1 className="App__title">Products</h1>
         <div className="goods">
-          {visible
-            && (
-              <>
-                <GoodsList goods={goods} />
-                <Buttons
-                  reverse={this.reverse}
-                  sortAlphabet={this.sortAlphabet}
-                  reset={this.reset}
-                  sortByLength={this.sortByLength}
-                />
-              </>
-            )}
+          {visible && (
+            <>
+              <GoodsList goods={goods} />
+              <Buttons
+                reverse={this.reverse}
+                sortAlphabet={this.sortAlphabet}
+                reset={this.reset}
+                sortByLength={this.sortByLength}
+              />
+            </>
+          )}
           {!visible && (
             <button
               type="button"
