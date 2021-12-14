@@ -24,9 +24,13 @@ class App extends React.PureComponent<{}, State> {
   };
 
   reverseList = () => {
-    this.setState(state => ({
-      goods: state.goods.reverse(),
-    }));
+    this.setState(state => {
+      const reversedGoods = [...state.goods].reverse();
+
+      return {
+        goods: reversedGoods,
+      };
+    });
     // eslint-disable-next-line no-console
     console.log('reversed');
   };
