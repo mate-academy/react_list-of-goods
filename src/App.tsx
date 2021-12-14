@@ -15,21 +15,24 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-interface Good {
-  good: string,
-  visible: boolean,
+enum ShowedBy {
+  Reversed = 'reversed',
+  SortedAlph = 'sortedByAlph',
+  SortedLngth = 'sortedByLen',
 }
 
 type State = {
-  goods: Good[],
+  goods: string[],
   isGoodsShowed: boolean,
+  lastChange: null | ShowedBy,
   lengthFrom: number,
 };
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer.map(good => ({ good, visible: true })),
+    goods: [...goodsFromServer],
     isGoodsShowed: false,
+    lastChange: null,
     lengthFrom: 1,
   };
 
@@ -37,24 +40,32 @@ class App extends React.Component<{}, State> {
     this.setState({ isGoodsShowed: true });
   };
 
-  setReversedList = () => {
-    this.setState(prevState => ({ goods: prevState.goods.reverse() }));
-  };
+  setGoodsBy = (showedBy: ShowedBy) => {
+    this.setState(state => {
+      switch (showedBy) {
+        case ShowedBy.Reversed:
+          return { goods: state.goods.reverse(), lastChange: ShowedBy.Reversed };
 
-  setSortedAlphList = () => {
-    this.setState(prevState => (
-      { goods: prevState.goods.sort((prev, cur) => prev.good.localeCompare(cur.good)) }
-    ));
+        case ShowedBy.SortedAlph:
+          return {
+            goods: state.goods.sort((prev, cur) => prev.localeCompare(cur)),
+            lastChange: ShowedBy.SortedAlph,
+          };
+
+        case ShowedBy.SortedLngth:
+          return {
+            goods: state.goods.sort((prev, cur) => prev.length - cur.length),
+            lastChange: ShowedBy.SortedLngth,
+          };
+
+        default:
+          return { ...state };
+      }
+    });
   };
 
   resetState = () => {
-    this.setState({ goods: goodsFromServer.map(good => ({ good, visible: true })), lengthFrom: 1 });
-  };
-
-  setSortedLngthList = () => {
-    this.setState(prevState => (
-      { goods: prevState.goods.sort((prev, cur) => prev.good.length - cur.good.length) }
-    ));
+    this.setState({ goods: [...goodsFromServer] });
   };
 
   setPrevLengthFrom = () => {
@@ -63,8 +74,6 @@ class App extends React.Component<{}, State> {
         ? { lengthFrom: 10 }
         : { lengthFrom: prevState.lengthFrom - 1 };
     });
-
-    this.setSuitableList();
   };
 
   setNextLengthFrom = () => {
@@ -73,27 +82,12 @@ class App extends React.Component<{}, State> {
         ? { lengthFrom: 1 }
         : { lengthFrom: prevState.lengthFrom + 1 };
     });
-
-    this.setSuitableList();
-  };
-
-  setSuitableList = () => {
-    this.setState(prevState => {
-      const { lengthFrom: len, goods: prGoods } = prevState;
-      const newGoodsList = prGoods.map(goodObj => {
-        const { good } = goodObj;
-
-        return goodObj.good.length < len
-          ? { good, visible: false }
-          : { good, visible: true };
-      });
-
-      return ({ goods: newGoodsList });
-    });
   };
 
   render() {
     const { goods, isGoodsShowed, lengthFrom } = this.state;
+    const { setGoodsBy, setPrevLengthFrom, setNextLengthFrom } = this;
+    const goodsByLength = goods.filter(good => good.length >= lengthFrom);
 
     return (
       <div className="App">
@@ -101,12 +95,11 @@ class App extends React.Component<{}, State> {
           <h1 className="screen-field__title">Goods</h1>
           {isGoodsShowed ? (
             <ul className="screen-field__list">
-              {goods.map(goodObj => (
-                goodObj.visible && (
-                  <li key={goodObj.good} className="screen-field__item">
-                    {goodObj.good}
-                  </li>
-                )))}
+              {goodsByLength.map(good => (
+                <li key={good} className="screen-field__item">
+                  {good}
+                </li>
+              ))}
             </ul>
           ) : (
             <button
@@ -123,7 +116,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             disabled={!isGoodsShowed}
-            onClick={this.setReversedList}
+            onClick={() => (setGoodsBy(ShowedBy.Reversed))}
             className="button"
           >
             Reverse
@@ -131,7 +124,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             disabled={!isGoodsShowed}
-            onClick={this.setSortedAlphList}
+            onClick={() => (setGoodsBy(ShowedBy.SortedAlph))}
             className="button"
           >
             Alphabet sort
@@ -139,7 +132,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             disabled={!isGoodsShowed}
-            onClick={this.setSortedLngthList}
+            onClick={() => (setGoodsBy(ShowedBy.SortedLngth))}
             className="button"
           >
             Length sort
@@ -163,7 +156,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               disabled={!isGoodsShowed}
-              onClick={this.setPrevLengthFrom}
+              onClick={setPrevLengthFrom}
               className="input-spinner__button"
             >
               {'<'}
@@ -172,7 +165,7 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               disabled={!isGoodsShowed}
-              onClick={this.setNextLengthFrom}
+              onClick={setNextLengthFrom}
               className="input-spinner__button"
             >
               {'>'}
