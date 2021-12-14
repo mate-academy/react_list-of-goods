@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 
 type State = {
-  goods: string[]
+  goods: string[],
+  onStart: boolean,
 };
 
 const goodsFromServer: string[] = [
@@ -21,11 +22,18 @@ const goodsFromServer: string[] = [
 class App extends React.PureComponent<{}, State> {
   state = {
     goods: [...goodsFromServer],
+    onStart: true,
   };
 
   reset = () => {
     this.setState(() => ({
       goods: [...goodsFromServer],
+    }));
+  };
+
+  getStarted = () => {
+    this.setState(() => ({
+      onStart: false,
     }));
   };
 
@@ -54,46 +62,60 @@ class App extends React.PureComponent<{}, State> {
   };
 
   render() {
-    const { goods } = this.state;
+    const { goods, onStart } = this.state;
 
     return (
       <div className="App">
         <h1 className="App__title">Goods</h1>
-        <button
-          type="button"
-          onClick={this.reverseList}
-        >
-          Reverse
-        </button>
-        <button
-          type="button"
-          onClick={this.reverseList}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          type="button"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
-        <button
-          type="button"
-          onClick={this.sort}
-        >
-          Reset
-        </button>
-
-        <ul className="GoodsList">
-          {goods.map((good) => (
-            <li
-              key={good}
-              className="GoodsList__item"
-            >
-              <span>{good}</span>
-            </li>
-          ))}
-        </ul>
+        {onStart
+          ? (
+            <>
+              <button
+                type="button"
+                onClick={this.getStarted}
+              >
+                START
+              </button>
+            </>
+          )
+          : (
+            <>
+              <button
+                type="button"
+                onClick={this.reverseList}
+              >
+                Reverse
+              </button>
+              <button
+                type="button"
+                onClick={this.reverseList}
+              >
+                Sort alphabetically
+              </button>
+              <button
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+              <button
+                type="button"
+                onClick={this.sort}
+              >
+                Reset
+              </button>
+              <ul className="GoodsList">
+                {goods.map((good) => (
+                  <li
+                    key={good}
+                    className="GoodsList__item"
+                  >
+                    <span>{good}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
       </div>
     );
   }
