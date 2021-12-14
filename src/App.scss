@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  margin: 40px auto;
+  width: 400px;
+  border: 5px solid #492d09;
+  padding: 20px;
+  background-color: #795220;
+
+  &__show-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #795220;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #9d886b;
+    }
+  }
+
+  &__list {
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #9d886b;
+    background-color: #d3c2ab;
+  }
+}
+
+.Control {
+  &__btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+
+  &__btn {
+    height: 30px;
+    flex-basis: 50%;
+    background-color: #9d886b;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+}
