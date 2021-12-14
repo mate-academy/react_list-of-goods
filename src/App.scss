@@ -46,6 +46,11 @@
     height: 30px;
     flex-basis: 50%;
     background-color: #9d886b;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #7c613b;
+    }
   }
 
   &__label {
