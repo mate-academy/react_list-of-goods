@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 type State = {
   goods: string[],
@@ -66,11 +66,11 @@ class App extends React.PureComponent<{}, State> {
 
     return (
       <div className="App">
-        <h1 className="App__title">Goods</h1>
         {onStart
           ? (
             <>
               <button
+                className="App__button--start"
                 type="button"
                 onClick={this.getStarted}
               >
@@ -80,30 +80,37 @@ class App extends React.PureComponent<{}, State> {
           )
           : (
             <>
-              <button
-                type="button"
-                onClick={this.reverseList}
-              >
-                Reverse
-              </button>
-              <button
-                type="button"
-                onClick={this.reverseList}
-              >
-                Sort alphabetically
-              </button>
-              <button
-                type="button"
-                onClick={this.sortByLength}
-              >
-                Sort by length
-              </button>
-              <button
-                type="button"
-                onClick={this.sort}
-              >
-                Reset
-              </button>
+              <h1 className="App__title">Goods</h1>
+              <div className="App__buttons">
+                <button
+                  className="App__button--reverse"
+                  type="button"
+                  onClick={this.reverseList}
+                >
+                  Reverse
+                </button>
+                <button
+                  className="App__button--sortAlpha"
+                  type="button"
+                  onClick={this.reverseList}
+                >
+                  Sort alphabetically
+                </button>
+                <button
+                  className="App__button--sortLength"
+                  type="button"
+                  onClick={this.sortByLength}
+                >
+                  Sort by length
+                </button>
+                <button
+                  className="App__button--reset"
+                  type="button"
+                  onClick={this.sort}
+                >
+                  Reset
+                </button>
+              </div>
               <ul className="GoodsList">
                 {goods.map((good) => (
                   <li
