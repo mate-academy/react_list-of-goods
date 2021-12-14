@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow&display=swap");
+
+li,
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+body,
+h1 {
+  margin: 0;
+}
+
+body {
+  font-family: "Barlow", sans-serif;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(to left, #4b79a1, #283e51);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.App {
+  box-sizing: border-box;
+  min-width: 300px;
+
+  margin: 10px auto;
+  padding: 20px;
+
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  background: white;
+
+  transition: transform 0.3s;
+}
+
+.screen-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  border: 2px solid #0d3f81;
+  border-radius: 5px;
+  height: 270px;
+
+  padding: 10px;
+  margin-bottom: 10px;
+
+  &__list {
+    margin: 0;
+    text-align: center;
+  }
+
+  &__item {
+    font-size: 18px;
+  }
+
+  &__button {
+    margin-top: 80px;
+  }
+}
+
+.input-spinner {
+  display: inline-grid;
+  grid-template-columns: 1fr 14px 1fr;
+  gap: 10px;
+
+  border: 1px solid #3b70b6;
+
+  &__button {
+    all: unset;
+    font-size: 22px;
+    margin-bottom: 3px;
+    user-select: none;
+
+    transition: color 0.2s;
+
+    &:hover {
+      color: #39566e;
+    }
+  }
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  background: #fff;
+  border: 1px solid #3b70b6;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  font-family: "Barlow", sans-serif;
+
+  min-width: 80px;
+  height: 20px;
+  padding: 20px;
+
+  cursor: pointer;
+  transition: color, background-color 0.15s;
+
+  &:hover {
+    background-color: #428cce;
+    color: #fff;
+  }
+
+  &:disabled {
+    color: inherit;
+    background-color: rgb(221, 221, 221);
+    cursor: unset;
+  }
+  
+  &--spinner {
+    padding: 10px;
+    min-width: 58px;
+  }
+
+  &--disabled {
+    color: inherit;
+    background-color: rgb(221, 221, 221);
+    cursor: unset;
+
+    &:hover {
+      color: inherit;
+      background-color: rgb(221, 221, 221);
+      cursor: unset;
+    }
+  }
+}
+
+.buttons-first-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  
+  margin-bottom: 10px;
+}
+
+.buttons-second-line {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
