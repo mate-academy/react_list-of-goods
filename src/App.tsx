@@ -54,7 +54,10 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
-      goods, isVisible, isReversed, sortBy,
+      goods,
+      isVisible,
+      isReversed,
+      sortBy,
     } = this.state;
     const sortedGoods = [...goods];
 
