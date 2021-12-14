@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+}
+
+h1,
+body {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  height: 100vh;
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+  background-color: #b7b1d0;
+
+  &__content {
+    margin: 0 auto;
+    padding: 40px;
+    width: 300px;
+    background-color: #384f93;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0 30px 60px -30px;
+    color: #eee;
+  }
+
+  &__title {
+    margin-bottom: 24px;
+    color: #d8b2ca;
+
+    font-size: 48px;
+  }
+
+  &__buttons {
+    margin-bottom: 24px;
+  }
+
+  &__button {
+    margin-right: 8px;
+    margin-bottom: 8px;
+    padding: 10px 14px;
+    border: none;
+    background-color: #b7b1d0;
+
+    color: #5f549e;
+    text-transform: uppercase;
+    font-size: 10px;
+
+    transition: background-color 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #d7b2ca;
+    }
+  }
+}
