@@ -67,9 +67,7 @@ class App extends React.Component <{}, State> {
       value,
     } = this.state;
 
-    const goods = [...goodsServer];
-
-    goods.length = value;
+    const goods = [...goodsServer].filter(product => product.length <= value);
 
     if (isSorted) {
       goods.sort((product1, product2) => {
