@@ -1,10 +1,10 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 
 type Props = {
-  reverse: MouseEventHandler<HTMLButtonElement>;
-  reset: MouseEventHandler<HTMLButtonElement>;
-  sortAlphabetically: MouseEventHandler<HTMLButtonElement>;
-  sortByLength: MouseEventHandler<HTMLButtonElement>;
+  reverse: () => void;
+  reset: () => void;
+  sortAlphabetically: () => void;
+  sortByLength: () => void;
 };
 
 export const ControlButtons: React.FC<Props> = ({

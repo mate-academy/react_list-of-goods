@@ -56,7 +56,7 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <div className="goods">
           {isShown
-            && (
+            ? (
               <>
                 <GoodList goods={goods} />
                 <ControlButtons
@@ -66,16 +66,16 @@ class App extends React.Component<{}, State> {
                   sortByLength={this.sortByLength}
                 />
               </>
+            )
+            : (
+              <button
+                type="button"
+                className="btn-start btn"
+                onClick={() => this.setState({ isShown: true })}
+              >
+                Start your groccery journey
+              </button>
             )}
-          {!isShown && (
-            <button
-              type="button"
-              className="btn-start btn"
-              onClick={() => this.setState({ isShown: true })}
-            >
-              Start your groccery journey
-            </button>
-          )}
         </div>
       </div>
     );
