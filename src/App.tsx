@@ -14,26 +14,17 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-enum ColumnTypes {
-  alpha = 'alpha',
-  length = 'length',
-}
-
 interface State {
-  listOrigin: string[];
-  listModified: string[]
+  list: string[];
+  goodsList: string[];
   isClicked: boolean;
-  sortBy: ColumnTypes | '';
-  reverse: boolean;
 }
 
 class App extends Component<{}, State> {
   state: State = {
-    listOrigin: goodsFromServer,
-    listModified: goodsFromServer,
+    list: [...goodsFromServer],
+    goodsList: [...goodsFromServer],
     isClicked: false,
-    sortBy: '',
-    reverse: false,
   };
 
   displayList = () => {
@@ -44,43 +35,30 @@ class App extends Component<{}, State> {
 
   reverseHandler = () => (
     this.setState(state => ({
-      reverse: !state.reverse,
+      goodsList: state.goodsList.reverse(),
     }))
   );
 
-  sortHandler = (type: ColumnTypes) => (
-    this.setState({
-      sortBy: type,
-    })
+  sortByAlpha = () => (
+    this.setState(state => ({
+      goodsList: state.goodsList.sort((a, b) => a.localeCompare(b)),
+    }))
+  );
+
+  sortByLength = () => (
+    this.setState(state => ({
+      goodsList: state.goodsList.sort((a, b) => a.length - b.length),
+    }))
   );
 
   resetHandler = () => (
     this.setState(state => ({
-      listModified: state.listOrigin,
+      goodsList: [...state.list],
     }))
   );
 
   render() {
-    const {
-      isClicked, listModified, reverse, sortBy,
-    } = this.state;
-
-    if (reverse) {
-      listModified.reverse();
-    }
-
-    if (sortBy) {
-      listModified.sort((a, b) => {
-        switch (sortBy) {
-          case ColumnTypes.alpha:
-            return a.localeCompare(b);
-          case ColumnTypes.length:
-            return a.length - b.length;
-          default:
-            return 0;
-        }
-      });
-    }
+    const { isClicked, goodsList } = this.state;
 
     return (
       <div className="App">
@@ -102,7 +80,7 @@ class App extends Component<{}, State> {
         <button
           type="button"
           className={`App__btn ${!isClicked && 'App__hiden'}`}
-          onClick={() => this.sortHandler(ColumnTypes.alpha)}
+          onClick={this.sortByAlpha}
         >
           Sort alphabetically
         </button>
@@ -116,12 +94,12 @@ class App extends Component<{}, State> {
         <button
           type="button"
           className={`App__btn ${!isClicked && 'App__hiden'}`}
-          onClick={() => this.sortHandler(ColumnTypes.length)}
+          onClick={this.sortByLength}
         >
           Sort by length
         </button>
         <ul className="App__list">
-          {isClicked && listModified.map(good => (
+          {isClicked && goodsList.map(good => (
             <li
               key={good}
               className="App__item"
