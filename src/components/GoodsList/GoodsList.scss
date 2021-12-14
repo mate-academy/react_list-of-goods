@@ -1,0 +1,31 @@
+.goods-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 200px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0 auto;
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  &__list-item {
+    width: max-content;
+    text-align: left;
+    font-size: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    margin-bottom: 15px;
+  }
+}
