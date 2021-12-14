@@ -1,5 +1,4 @@
 import React from 'react';
-import { GoodsList } from './components/GoodsList/GoodsList';
 import './App.scss';
 
 const goodsFromServer: string[] = [
@@ -32,13 +31,13 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  reverseList = () => {
+  reverse = () => {
     this.setState((state) => ({
       goods: [...state.goods].reverse(),
     }));
   };
 
-  sortByAlphabet = () => {
+  sort = () => {
     this.setState((state) => ({
       goods: [...state.goods].sort(),
     }));
@@ -46,7 +45,9 @@ class App extends React.Component<{}, State> {
 
   sortByLength = () => {
     this.setState((state) => ({
-      goods: [...state.goods].sort((a, b) => a.length - b.length),
+      goods: [...state.goods].sort(
+        (a, b) => a.length - b.length,
+      ),
     }));
   };
 
@@ -57,7 +58,7 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { start } = this.state;
+    const { goods, start } = this.state;
 
     return (
       <div className="App">
@@ -79,7 +80,7 @@ class App extends React.Component<{}, State> {
               <button
                 type="button"
                 className="App__button"
-                onClick={this.reverseList}
+                onClick={this.reverse}
               >
                 Reverse
               </button>
@@ -87,7 +88,7 @@ class App extends React.Component<{}, State> {
               <button
                 type="button"
                 className="App__button"
-                onClick={this.sortByAlphabet}
+                onClick={this.sort}
               >
                 Sort by alphabet
               </button>
@@ -108,7 +109,16 @@ class App extends React.Component<{}, State> {
                 Reset
               </button>
             </div>
-            <GoodsList goods={[...goodsFromServer]} />
+
+            <ul className="GoodsList__item">
+              {
+                goods.map(good => (
+                  <li key={good} className="GoodsList__list">
+                    {good}
+                  </li>
+                ))
+              }
+            </ul>
           </div>
         )}
       </div>
