@@ -23,6 +23,18 @@ class App extends React.PureComponent<{}, State> {
     goods: [...goodsFromServer],
   };
 
+  reset = () => {
+    this.setState(() => ({
+      goods: [...goodsFromServer],
+    }));
+  };
+
+  sort = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort(),
+    }));
+  };
+
   reverseList = () => {
     this.setState(state => {
       const reversedGoods = [...state.goods].reverse();
@@ -31,8 +43,14 @@ class App extends React.PureComponent<{}, State> {
         goods: reversedGoods,
       };
     });
-    // eslint-disable-next-line no-console
-    console.log('reversed');
+  };
+
+  sortByLength = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort(
+        (a, b) => a.length - b.length,
+      ),
+    }));
   };
 
   render() {
@@ -47,11 +65,30 @@ class App extends React.PureComponent<{}, State> {
         >
           Reverse
         </button>
-        <ul className="goodList">
+        <button
+          type="button"
+          onClick={this.reverseList}
+        >
+          Sort alphabetically
+        </button>
+        <button
+          type="button"
+          onClick={this.sortByLength}
+        >
+          Sort by length
+        </button>
+        <button
+          type="button"
+          onClick={this.sort}
+        >
+          Reset
+        </button>
+
+        <ul className="GoodsList">
           {goods.map((good) => (
             <li
               key={good}
-              className="goodList__item"
+              className="GoodsList__item"
             >
               <span>{good}</span>
             </li>
