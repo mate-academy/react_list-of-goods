@@ -39,7 +39,7 @@ class App extends React.PureComponent<{}, State> {
 
   sort = () => {
     this.setState((state) => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((prev, cur) => prev.localeCompare(cur)),
     }));
   };
 
@@ -92,7 +92,7 @@ class App extends React.PureComponent<{}, State> {
                 <button
                   className="App__button--sortAlpha"
                   type="button"
-                  onClick={this.reverseList}
+                  onClick={this.sort}
                 >
                   Sort alphabetically
                 </button>
@@ -106,7 +106,7 @@ class App extends React.PureComponent<{}, State> {
                 <button
                   className="App__button--reset"
                   type="button"
-                  onClick={this.sort}
+                  onClick={this.reset}
                 >
                   Reset
                 </button>
