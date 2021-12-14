@@ -18,58 +18,64 @@ const goodsFromServer: string[] = [
 interface State {
   goods: string[],
   goodsVisible: boolean,
-  isSorted: boolean,
-  isSortLength: boolean,
+  reversed: boolean,
+  sortBy: string,
 }
 
 export class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
     goodsVisible: false,
-    isSorted: false,
-    isSortLength: false,
+    reversed: false,
+    sortBy: '',
   };
 
   toggleGoods = () => (this.setState(state => ({
     goodsVisible: !state.goodsVisible,
   })));
 
-  reverse = () => {
+  reverseList = () => {
     this.setState(state => ({
-      goods: [...state.goods].reverse(),
+      reversed: !state.reversed,
     }));
   };
 
-  sortAlph = () => (this.setState(state => (
-    {
-      goods: [...state.goods]
-        .sort((a, b) => (state.isSorted
-          ? b.localeCompare(a)
-          : a.localeCompare(b))),
-      isSorted: !state.isSorted,
-    }
-  )));
+  sortAlphabetically = () => {
+    this.setState({ sortBy: 'alphabet' });
+  };
 
-  sortLength = () => (this.setState(state => (
-    {
-      goods: ([...state.goods]
-        .sort((a, b) => (state.isSortLength
-          ? b.length - a.length
-          : a.length - b.length))),
-      isSortLength: !state.isSortLength,
-    }
-
-  )));
+  sortByLength = () => {
+    this.setState({ sortBy: 'length' });
+  };
 
   reset = () => (this.setState({
     goods: goodsFromServer,
-    isSorted: false,
-    isSortLength: false,
+    sortBy: '',
   }));
 
   render() {
-    const { goods, goodsVisible } = this.state;
-    const goodsProp = [...goods];
+    const {
+      goods,
+      goodsVisible,
+      reversed,
+      sortBy,
+    } = this.state;
+    const sortedGoods = [...goods];
+
+    switch (sortBy) {
+      case 'alphabet':
+        sortedGoods.sort();
+        break;
+      case 'length':
+        sortedGoods.sort((good1, good2) => good1.length - good2.length);
+        break;
+      default:
+        break;
+    }
+
+    if (reversed) {
+      sortedGoods.reverse();
+    }
 
     return (
       <div className="App">
@@ -81,45 +87,43 @@ export class App extends React.Component<{}, State> {
         >
           {goodsVisible ? 'Hide Goods' : 'Show Goods'}
         </button>
-        {goodsVisible
-          && (
-            <div className="App__list">
-              <GoodsList
-                goods={goodsProp}
-              />
-              <button
-                type="button"
-                onClick={this.reverse}
-                className="App__list--button"
-              >
-                Reverse
-              </button>
+        {goodsVisible && (
+          <div className="App__list">
+            <button
+              type="button"
+              onClick={this.reverseList}
+              className="App__list--button"
+            >
+              Reverse
+            </button>
 
-              <button
-                type="button"
-                onClick={this.sortAlph}
-                className="App__list--button"
-              >
-                Sort
-              </button>
+            <button
+              type="button"
+              onClick={this.sortAlphabetically}
+              className="App__list--button"
+            >
+              Sort
+            </button>
 
-              <button
-                type="button"
-                onClick={this.reset}
-                className="App__list--button"
-              >
-                Reset
-              </button>
+            <button
+              type="button"
+              onClick={this.reset}
+              className="App__list--button"
+            >
+              Reset
+            </button>
 
-              <button
-                type="button"
-                onClick={this.sortLength}
-                className="App__list--button"
-              >
-                Sort by length
-              </button>
-            </div>
-          )}
+            <button
+              type="button"
+              onClick={this.sortByLength}
+              className="App__list--button"
+            >
+              Sort by length
+            </button>
+
+            <GoodsList goods={sortedGoods} />
+          </div>
+        )}
       </div>
     );
   }
