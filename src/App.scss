@@ -48,7 +48,6 @@ body {
 }
 
 .button {
-  font-weight: 700;
   border: none;
   margin: 0 5px;
 
@@ -60,7 +59,6 @@ body {
   text-transform: uppercase;
   transition: 1s ease;
   background-color: #fff;
-
   cursor: pointer;
 
   &:hover {
@@ -74,6 +72,7 @@ button[disabled]{
   border: none;
   background-color: #ccc;
   cursor:not-allowed;
+
   &:hover {
     box-shadow: none;
     color: #666;
@@ -92,7 +91,7 @@ button[disabled]{
 .button-container {
   display: flex;
   justify-content:space-around;
-  margin: 30px 0;
+  margin: 30px 10px;
 }
 
 select {
