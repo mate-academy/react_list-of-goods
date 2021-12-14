@@ -7,9 +7,9 @@ interface Props {
 
 export const GoodsList: React.FC<Props> = ({ props }) => {
   return (
-    <div className="App">
+    <div className="product__list">
       {props.map((product: string) => (
-        <div className="product__item">
+        <div className="product__item" key={product}>
           {product}
         </div>
       ))}
