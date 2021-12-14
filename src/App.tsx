@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer: string[] = [
@@ -60,81 +60,94 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1>Goods</h1>
-        {!showList
-          ? (
+        <div className="card">
+          <h1 className="card__title">Goods</h1>
+          <div className="list__conteiner">
+            {!showList
+              ? (
+                <button
+                  className="button button-start"
+                  type="button"
+                  onClick={() => {
+                    this.setState((state: State) => ({ showList: !state.showList }));
+                  }}
+                >
+                  Start
+                </button>
+              )
+              : (
+                <GoodsList
+                  props={goods.filter((_item, i) => i < +this.state.value)}
+                />
+              )}
+          </div>
+
+          <div className="select">
+            <select
+              value={this.state.value}
+              onChange={(e) => this.setState({ value: e.currentTarget.value })}
+            >
+              {goodsFromServer.map((_item, i) => {
+                return (
+                  <option
+                    value={i + 1}
+                  >
+                    {i + 1}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+          <div className="button-container">
             <button
+              className="button"
               type="button"
+              disabled={!showList}
               onClick={() => {
-                this.setState((state: State) => ({ showList: !state.showList }));
+                this.reverseMetod();
               }}
             >
-              Start
+              Reverse
             </button>
-          )
-          : (
-            <GoodsList
-              props={goods.filter((_item, i) => i < +this.state.value)}
-            />
-          )}
-        <button
-          type="button"
-          disabled={!showList}
-          onClick={() => {
-            this.reverseMetod();
-          }}
-        >
-          Reverse
-        </button>
 
-        <button
-          type="button"
-          disabled={!showList}
-          onClick={() => {
-            this.sortAlphabetically();
-          }}
-        >
-          Sort alphabetically
-        </button>
+            <button
+              className="button button-sortAlphabetically"
+              type="button"
+              disabled={!showList}
+              onClick={() => {
+                this.sortAlphabetically();
+              }}
+            >
+              Sort alphabetically
+            </button>
 
-        <button
-          type="button"
-          disabled={!showList}
-          onClick={() => {
-            this.sortByLength();
-          }}
-        >
-          Sort by length
-        </button>
+            <button
+              className="button button-sortByLength"
+              type="button"
+              disabled={!showList}
+              onClick={() => {
+                this.sortByLength();
+              }}
+            >
+              Sort by length
+            </button>
 
-        <button
-          type="button"
-          disabled={!showList}
-          onClick={() => {
-            this.setState({
-              goods: [...goodsFromServer],
-              value: `${goodsFromServer.length}`,
-            });
-          }}
-        >
-          Reset
-        </button>
-
-        <select
-          value={this.state.value}
-          onChange={(e) => this.setState({ value: e.currentTarget.value })}
-        >
-          {goodsFromServer.map((_item, i) => {
-            return (
-              <option
-                value={i + 1}
-              >
-                {i + 1}
-              </option>
-            );
-          })}
-        </select>
-
+            <button
+              className="button button-reset"
+              type="button"
+              disabled={!showList}
+              onClick={() => {
+                this.setState({
+                  goods: [...goodsFromServer],
+                  value: `${goodsFromServer.length}`,
+                });
+              }}
+            >
+              Reset
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
