@@ -1,0 +1,11 @@
+.Goods {
+  list-style: none;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  &__item {
+    font-size: 25px;
+  }
+}
