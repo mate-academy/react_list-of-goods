@@ -20,7 +20,6 @@ type State = {
   sortBy: string,
   isRendered: boolean,
   isReversed: boolean,
-  selectedLength: number,
 };
 
 class App extends React.PureComponent<{}, State> {
@@ -29,7 +28,6 @@ class App extends React.PureComponent<{}, State> {
     isRendered: false,
     isReversed: false,
     sortBy: '',
-    selectedLength: 1,
   };
 
   showList = () => (
@@ -53,20 +51,19 @@ class App extends React.PureComponent<{}, State> {
   resetGoods = () => (
     this.setState({
       isReversed: false,
-      selectedLength: 1,
       sortBy: '',
     })
   );
 
   render() {
     const {
-      goods, isRendered, isReversed, sortBy, selectedLength: itemLength,
+      goods, isRendered, isReversed, sortBy,
     } = this.state;
 
-    let copyGoods = [...goods].filter((good) => good.replace(' ', '').length >= itemLength);
+    const copyGoods = [...goods].filter((good) => good.replace(' ', '').length >= good.length);
 
     if (sortBy) {
-      copyGoods = [...copyGoods].sort((goodA, goodB) => {
+      copyGoods.sort((goodA, goodB) => {
         switch (sortBy) {
           case 'name':
             return goodA.localeCompare(goodB);
