@@ -29,16 +29,29 @@ type State = {
 };
 
 class App extends React.Component<{}, State> {
-  state:State = {
+  state: State = {
     goodsList: [...goodsFromServer],
     visible: false,
   };
+
+  toMakeVisible = () => this.setState(currentState => ({ visible: !currentState.visible }));
+
+  reverse = () => this.setState(currentState => (
+    { goodsList: [...currentState.goodsList].reverse() }));
+
+  sortAlphabetically = () => this.setState(currentState => (
+    { goodsList: [...currentState.goodsList].sort((a, b) => a.localeCompare(b)) }));
+
+  sortByLength = () => this.setState(currentState => (
+    { goodsList: [...currentState.goodsList].sort((a, b) => a.length - b.length) }));
+
+  resetSorting = () => this.setState({ goodsList: [...goodsFromServer] });
 
   render() {
     return (
       <div className="App">
         <h1 className="title">Hey, check out our goods!</h1>
-        {this.state.visible === false && (
+        {!this.state.visible && (
           <OverlayTrigger
             placement="bottom"
             overlay={<Tooltip id="button-tooltip-2">Just push and here we gooo...</Tooltip>}
@@ -49,9 +62,7 @@ class App extends React.Component<{}, State> {
                 {...triggerHandler}
                 size="lg"
                 type="button"
-                onClick={() => {
-                  this.setState(currentState => ({ visible: !currentState.visible }));
-                }}
+                onClick={this.toMakeVisible}
               >
                 Start
               </Button>
@@ -59,17 +70,14 @@ class App extends React.Component<{}, State> {
           </OverlayTrigger>
         )}
 
-        {this.state.visible === true && (
+        {this.state.visible && (
           <ToggleButtonGroup type="radio" name="options">
             <ToggleButton
               id="tbg-radio-1"
               className="button"
               variant="info"
               value={1}
-              onClick={() => {
-                this.setState(currentState => (
-                  { goodsList: [...currentState.goodsList].reverse() }));
-              }}
+              onClick={this.reverse}
             >
               Reverse
             </ToggleButton>
@@ -79,10 +87,7 @@ class App extends React.Component<{}, State> {
               className="button"
               variant="info"
               value={2}
-              onClick={() => {
-                this.setState(currentState => (
-                  { goodsList: [...currentState.goodsList].sort((a, b) => a.localeCompare(b)) }));
-              }}
+              onClick={this.sortAlphabetically}
             >
               Sort alphabetically
             </ToggleButton>
@@ -92,10 +97,7 @@ class App extends React.Component<{}, State> {
               className="button"
               variant="info"
               value={3}
-              onClick={() => {
-                this.setState(currentState => (
-                  { goodsList: [...currentState.goodsList].sort((a, b) => a.length - b.length) }));
-              }}
+              onClick={this.sortByLength}
             >
               Sort by length
             </ToggleButton>
@@ -105,9 +107,7 @@ class App extends React.Component<{}, State> {
               className="button"
               variant="warning"
               value={4}
-              onClick={() => {
-                this.setState({ goodsList: [...goodsFromServer] });
-              }}
+              onClick={this.resetSorting}
             >
               Reset
             </ToggleButton>
@@ -117,8 +117,8 @@ class App extends React.Component<{}, State> {
 
         <Accordion
           className={classNames('productList',
-            { 'productList--active': this.state.visible === true },
-            { 'productList--disabled': this.state.visible === false })}
+            { 'productList--active': this.state.visible },
+            { 'productList--disabled': !this.state.visible })}
         >
           {this.state.goodsList.map((el, i) => (
             <Accordion.Item eventKey={String(i)}>
