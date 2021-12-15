@@ -1,0 +1,43 @@
+$color-border: rgb(14, 136, 130);
+$color-bgd: rgb(233, 245, 243);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.App {
+  width: 400px;
+
+  &__title {
+    text-align: center;
+    color: $color-border;
+  }
+
+  &__hiden {
+    opacity: 0;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    border: 1px solid $color-border;
+    margin-top: -1px;
+    padding: 12px;
+    font-size: 18px;
+  }
+
+  &__btn {
+    padding: 4px;
+    border: 1px solid $color-border;
+    background-color: $color-bgd;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
