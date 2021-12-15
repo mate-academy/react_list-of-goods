@@ -42,7 +42,7 @@ class App extends React.Component <{}, State> {
   };
 
   reset = () => {
-    this.setState({ isReversed: false, isSorted: false });
+    this.setState({ isReversed: false, isSorted: false, value: 1 });
   };
 
   sortByName = () => {
