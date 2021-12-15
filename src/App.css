@@ -1,0 +1,17 @@
+.app {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.app__buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.app__button {
+  height: 30px;
+  border-radius: 10px;
+}
