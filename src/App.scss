@@ -1,0 +1,41 @@
+@import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
+
+.App {
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.title {
+  font-family: 'Oxygen', sans-serif;;
+  margin-bottom: 20px;
+}
+.productList {
+  margin: 0 auto;
+
+  &--disabled {
+    display: none;
+  }
+
+  &--active {
+    display: block;
+    max-width: 50%;
+    padding-top: 15px;
+  }
+}
+
+.button {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 20px;
+}
+
+.listLength {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.range {
+  display: block;
+  margin: 0 auto 10px;
+}
