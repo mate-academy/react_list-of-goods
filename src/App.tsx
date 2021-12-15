@@ -26,12 +26,14 @@ const goodsFromServer: string[] = [
 type State = {
   goodsList: string[];
   visible: boolean;
+  listLength: number;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goodsList: [...goodsFromServer],
     visible: false,
+    listLength: 1,
   };
 
   toMakeVisible = () => this.setState(currentState => ({ visible: !currentState.visible }));
@@ -45,7 +47,17 @@ class App extends React.Component<{}, State> {
   sortByLength = () => this.setState(currentState => (
     { goodsList: [...currentState.goodsList].sort((a, b) => a.length - b.length) }));
 
-  resetSorting = () => this.setState({ goodsList: [...goodsFromServer] });
+  resetSorting = () => this.setState({
+    goodsList: [...goodsFromServer],
+    listLength: 1,
+  });
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => this.setState(
+    {
+      listLength: Number(event.target.value),
+      goodsList: [...goodsFromServer].filter(el => el.length >= Number(event.target.value)),
+    },
+  );
 
   render() {
     return (
@@ -71,48 +83,63 @@ class App extends React.Component<{}, State> {
         )}
 
         {this.state.visible && (
-          <ToggleButtonGroup type="radio" name="options">
-            <ToggleButton
-              id="tbg-radio-1"
-              className="button"
-              variant="info"
-              value={1}
-              onClick={this.reverse}
-            >
-              Reverse
-            </ToggleButton>
+          <>
+            <ToggleButtonGroup type="radio" name="options">
+              <ToggleButton
+                id="tbg-radio-1"
+                className="button"
+                variant="info"
+                value={1}
+                onClick={this.reverse}
+              >
+                Reverse
+              </ToggleButton>
 
-            <ToggleButton
-              id="tbg-radio-2"
-              className="button"
-              variant="info"
-              value={2}
-              onClick={this.sortAlphabetically}
-            >
-              Sort alphabetically
-            </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-2"
+                className="button"
+                variant="info"
+                value={2}
+                onClick={this.sortAlphabetically}
+              >
+                Sort alphabetically
+              </ToggleButton>
 
-            <ToggleButton
-              id="tbg-radio-3"
-              className="button"
-              variant="info"
-              value={3}
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-3"
+                className="button"
+                variant="info"
+                value={3}
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </ToggleButton>
 
-            <ToggleButton
-              id="tbg-radio-4"
-              className="button"
-              variant="warning"
-              value={4}
-              onClick={this.resetSorting}
-            >
-              Reset
-            </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-4"
+                className="button"
+                variant="warning"
+                value={4}
+                onClick={this.resetSorting}
+              >
+                Reset
+              </ToggleButton>
+            </ToggleButtonGroup>
 
-          </ToggleButtonGroup>
+            <input
+              type="range"
+              name="length"
+              className="range"
+              min="1"
+              max="10"
+              value={this.state.listLength}
+              onChange={this.handleChange}
+            />
+
+            <span className="listLength">
+              {`length: ${this.state.listLength}`}
+            </span>
+          </>
         )}
 
         <Accordion
