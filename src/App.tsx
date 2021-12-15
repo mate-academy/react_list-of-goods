@@ -19,14 +19,14 @@ const goodsFromServer: string[] = [
 interface State {
   goods: string[];
   showList: boolean;
-  value: string;
+  value: number;
 }
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
     showList: false,
-    value: `${goodsFromServer.length}`,
+    value: 1,
   };
 
   reverse = () => {
@@ -37,9 +37,7 @@ class App extends React.Component<{}, State> {
 
   sortAlphabetically = () => {
     this.setState((state: State) => ({
-      goods: state.goods.sort((a: string, b: string) => {
-        return a.localeCompare(b);
-      }),
+      goods: [...state.goods].sort(),
     }));
   };
 
@@ -75,7 +73,7 @@ class App extends React.Component<{}, State> {
               )
               : (
                 <GoodsList
-                  props={goods.filter((_item, i) => i < +this.state.value)}
+                  props={goods.filter((item) => item.length >= this.state.value)}
                 />
               )}
           </div>
@@ -83,9 +81,9 @@ class App extends React.Component<{}, State> {
           <div className="select">
             <select
               value={this.state.value}
-              onChange={(e) => this.setState({ value: e.currentTarget.value })}
+              onChange={(e) => this.setState({ value: Number(e.currentTarget.value) })}
             >
-              {goodsFromServer.map((_item, i) => {
+              {goods.map((_item, i) => {
                 return (
                   <option
                     value={i + 1}
@@ -138,7 +136,7 @@ class App extends React.Component<{}, State> {
               onClick={() => {
                 this.setState({
                   goods: [...goodsFromServer],
-                  value: `${goodsFromServer.length}`,
+                  value: 1,
                 });
               }}
             >
