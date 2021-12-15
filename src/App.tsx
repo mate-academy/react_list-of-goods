@@ -29,20 +29,18 @@ export class App extends React.Component {
 
   render(): React.ReactNode {
     return (
-      <>
-        {this.state.showStartButton
-          ? (
-            <button
-              type="button"
-              onClick={this.changeButtShowStatus}
-              className="button"
-            >
-              Start
-            </button>
-          ) : (
-            <GoodsList goods={goodsFromServer} />
-          )}
-      </>
+      this.state.showStartButton
+        ? (
+          <button
+            type="button"
+            onClick={this.changeButtShowStatus}
+            className="button"
+          >
+            Start
+          </button>
+        ) : (
+          <GoodsList goods={goodsFromServer} />
+        )
     );
   }
 }

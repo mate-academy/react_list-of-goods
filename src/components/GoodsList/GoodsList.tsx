@@ -2,16 +2,12 @@ import React from 'react';
 import './GoodsList.scss';
 import '../../styles/button.scss';
 
-interface Props {
-  goods: string[],
-}
-
 interface State {
   goods: string[],
-  sortBy: string,
+  sortBy?: string,
 }
 
-export class GoodsList extends React.Component<Props> {
+export class GoodsList extends React.Component<State> {
   state = {
     goods: [...this.props.goods],
     sortBy: 'alphab',
@@ -23,7 +19,7 @@ export class GoodsList extends React.Component<Props> {
     }))
   );
 
-  sortAlphab = () => {
+  sortByAlphab = () => {
     this.setState({
       sortBy: 'alphab',
     });
@@ -31,7 +27,7 @@ export class GoodsList extends React.Component<Props> {
     this.sort();
   };
 
-  length = () => {
+  sortByLength = () => {
     this.setState({
       sortBy: 'length',
     });
@@ -88,7 +84,7 @@ export class GoodsList extends React.Component<Props> {
           <button
             type="button"
             className="goods-list__button button"
-            onClick={this.sortAlphab}
+            onClick={this.sortByAlphab}
           >
             Sort alphabetically
           </button>
@@ -104,7 +100,7 @@ export class GoodsList extends React.Component<Props> {
           <button
             type="button"
             className="goods-list__button button"
-            onClick={this.length}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
