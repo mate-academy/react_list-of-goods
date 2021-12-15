@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     value: `${goodsFromServer.length}`,
   };
 
-  reverseMetod = () => {
+  reverse = () => {
     this.setState((state: State) => ({
       goods: [...state.goods].reverse(),
     }));
@@ -55,8 +55,6 @@ class App extends React.Component<{}, State> {
     const {
       goods, showList,
     } = this.state;
-
-    console.log(this.state.value);
 
     return (
       <div className="App">
@@ -105,7 +103,7 @@ class App extends React.Component<{}, State> {
               type="button"
               disabled={!showList}
               onClick={() => {
-                this.reverseMetod();
+                this.reverse();
               }}
             >
               Reverse
