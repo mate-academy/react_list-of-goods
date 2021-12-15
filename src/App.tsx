@@ -67,7 +67,7 @@ class App extends React.Component <{}, State> {
       value,
     } = this.state;
 
-    const goods = [...goodsServer].filter(product => product.length <= value);
+    const goods = [...goodsServer].filter(product => product.length >= value);
 
     if (isSorted) {
       goods.sort((product1, product2) => {
@@ -94,7 +94,15 @@ class App extends React.Component <{}, State> {
         {isStarted && (
           <>
             <div>
-              <ul>{goods.map(product => <li key={product}>{product}</li>)}</ul>
+              <ul>
+                {
+                  goods.map(product => (
+                    <li key={product}>
+                      {product}
+                    </li>
+                  ))
+                }
+              </ul>
             </div>
 
             <div className="app__buttons">
