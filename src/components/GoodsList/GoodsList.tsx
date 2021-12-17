@@ -107,10 +107,10 @@ export class GoodsList extends React.Component<State> {
         </div>
 
         <ul className="goods-list__list">
-          {goods.map((product, index) => (
+          {goods.map((product) => (
             <li
               className="goods-list__list-item"
-              key={`${product} ${index * Math.random()}`}
+              key={product}
             >
               {product}
             </li>
