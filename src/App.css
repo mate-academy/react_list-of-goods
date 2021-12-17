@@ -1,0 +1,89 @@
+.App {
+  width: 600px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Roboto, sans-serif;
+  color: #692e41;
+  text-transform: uppercase;
+}
+
+.App__title {
+  text-align: center;
+}
+
+.App__buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.App__button--disabled {
+  width: 140px;
+  height: 46px;
+  border-radius: 4px;
+  border: none;
+  background-color: #929292;
+  color: #f5dae2;
+  text-transform: uppercase;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.App__button {
+  background-color: #dc6087;
+}
+
+.App__button:hover {
+  background-color: #b85474;
+}
+
+.App__selectTitle {
+  margin-bottom: 8px;
+}
+
+.goods {
+  width: 400px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #dc6087;
+  background-color: #f5dae2;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.goods__startButton {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  text-transform: uppercase;
+  border: none;
+  background-color: #dc6087;
+  color: #f5dae2;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.goods__startButton:hover {
+  background-color: #b85474;
+}
+
+.goods__list {
+  margin: 0;
+  padding: 0;
+}
+
+.goods__item {
+  list-style: none;
+  text-align: center;
+  text-transform: none;
+}
+
+.goods__item:not(:last-child) {
+  margin-bottom: 6px;
+}
