@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList';
+import './styles/button.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +16,31 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component {
+  state = {
+    showStartButton: true,
+  };
 
-export default App;
+  changeButtShowStatus = () => (
+    this.setState({
+      showStartButton: false,
+    })
+  );
+
+  render(): React.ReactNode {
+    return (
+      this.state.showStartButton
+        ? (
+          <button
+            type="button"
+            onClick={this.changeButtShowStatus}
+            className="button"
+          >
+            Start
+          </button>
+        ) : (
+          <GoodsList goods={goodsFromServer} />
+        )
+    );
+  }
+}
