@@ -14,10 +14,11 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const lengthList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 type State = {
   isVisible: boolean;
   lengthGoods: number;
-  goodsList: string[];
   filterGoods: string[];
 };
 
@@ -25,15 +26,12 @@ class App extends React.Component<{}, State> {
   state = {
     isVisible: false,
     lengthGoods: 1,
-    goodsList: [...goodsFromServer],
     filterGoods: [...goodsFromServer],
   };
 
-  lengthList: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  toggleGoodsVisibility(visible: boolean) {
+  toggleGoodsVisibility() {
     this.setState({
-      isVisible: visible,
+      isVisible: true,
     });
   }
 
@@ -63,12 +61,12 @@ class App extends React.Component<{}, State> {
   }
 
   selectChange(event: ChangeEvent<HTMLSelectElement>) {
-    this.setState(prevState => {
+    this.setState(() => {
       const length = Number(event.target.value);
 
       return {
         lengthGoods: length,
-        filterGoods: [...prevState.goodsList.filter(item => item.length >= length)],
+        filterGoods: [...goodsFromServer.filter(item => item.length >= length)],
       };
     });
   }
@@ -83,7 +81,7 @@ class App extends React.Component<{}, State> {
           {!isVisible && (
             <button
               type="button"
-              onClick={() => this.toggleGoodsVisibility(true)}
+              onClick={() => this.toggleGoodsVisibility()}
               className="goods__startButton"
             >
               Start
@@ -137,7 +135,7 @@ class App extends React.Component<{}, State> {
         </div>
         <span className="App__selectTitle">Select a length of goods</span>
         <select value={lengthGoods} onChange={(event) => this.selectChange(event)}>
-          {this.lengthList.map((item) => (
+          {lengthList.map((item) => (
             <option value={item} key={item}>{item}</option>
           ))}
         </select>
