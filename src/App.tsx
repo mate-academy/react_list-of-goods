@@ -2,6 +2,20 @@
 import React from 'react';
 import './App.css';
 
+type OrderBy = '' | 'alphabet' | 'length';
+
+const compareGoods = (good1: string, good2: string, orderBy: OrderBy) => {
+  switch (orderBy) {
+    case 'alphabet':
+      return good1.localeCompare(good2);
+    case 'length':
+      return good1.length - good2.length;
+
+    default:
+      return 0;
+  }
+};
+
 const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
@@ -18,9 +32,10 @@ const goodsFromServer: string[] = [
 type State = {
   clicked: boolean,
   reversed: boolean,
-  sortBy: string,
+  sortBy: OrderBy,
   selected: number,
 };
+
 class App extends React.Component<{}, State> {
   state: State = {
     clicked: false,
@@ -37,12 +52,8 @@ class App extends React.Component<{}, State> {
     this.setState(prevState => ({ reversed: !prevState.reversed }));
   };
 
-  handlerSortByAlphabet = () => {
-    this.setState({ sortBy: 'alphabet' });
-  };
-
-  handlerSortByLength = () => {
-    this.setState({ sortBy: 'length' });
+  handlerSortBy = (orderBy: OrderBy) => {
+    this.setState({ sortBy: orderBy });
   };
 
   handlerReset = () => {
@@ -53,32 +64,22 @@ class App extends React.Component<{}, State> {
     this.setState({ selected: Number(event.target.value) });
   };
 
-  render() {
-    const {
-      clicked, reversed, sortBy, selected,
-    } = this.state;
-
-    const compareGoods = (good1: string, good2: string, condition: string) => {
-      switch (condition) {
-        case 'alphabet':
-          return good1.localeCompare(good2);
-        case 'length':
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    };
+  getGoods = () => {
+    const { reversed, sortBy, selected } = this.state;
 
     const filteredByLength = goodsFromServer.filter(good => good.length < selected);
-
     const sorted = sortBy !== ''
       ? [...filteredByLength].sort((a, b) => compareGoods(a, b, sortBy))
       : filteredByLength;
 
-    const showGoods = reversed
+    return reversed
       ? sorted.reverse()
       : sorted;
+  };
+
+  render() {
+    const { clicked, selected } = this.state;
+    const showGoods = this.getGoods();
 
     return (
       <div className="App">
@@ -96,6 +97,7 @@ class App extends React.Component<{}, State> {
             <div>
               <label htmlFor="length">
                 Pick good length to not show:
+                {' '}
                 <select
                   id="length"
                   value={selected}
@@ -127,13 +129,13 @@ class App extends React.Component<{}, State> {
               </button>
               <button
                 type="button"
-                onClick={this.handlerSortByAlphabet}
+                onClick={() => this.handlerSortBy('alphabet')}
               >
                 Sort alphabetically
               </button>
               <button
                 type="button"
-                onClick={this.handlerSortByLength}
+                onClick={() => this.handlerSortBy('length')}
               >
                 Sort by length
               </button>
@@ -143,10 +145,8 @@ class App extends React.Component<{}, State> {
               >
                 Reset
               </button>
-
             </div>
           )}
-
       </div>
     );
   }
