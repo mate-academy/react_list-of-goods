@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './Components/GoodsList/GoodsList';
 
-const goodsFromServer: string[] = [
+const goodsFromServer:string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -14,11 +15,12 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+const App:React.FC = () => {
+  return (
+    <div className="App">
+      <GoodsList goodsFromServer={goodsFromServer} />
+    </div>
+  );
+};
 
 export default App;
