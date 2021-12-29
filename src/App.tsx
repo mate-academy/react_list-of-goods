@@ -1,5 +1,6 @@
 import React from 'react';
-import './App.css';
+import { GoodsList } from './components/GoodsList';
+import './App.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +15,10 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
-
-export default App;
+export const App: React.FC = () => {
+  return (
+    <div className="App">
+      <GoodsList goodsFromServer={goodsFromServer} />
+    </div>
+  );
+};
