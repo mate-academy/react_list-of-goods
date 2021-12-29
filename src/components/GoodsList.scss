@@ -1,0 +1,49 @@
+$primary-color: #d77fa1;
+$secondary-color: #baabda;
+$bkg-color: #d6e5fa;
+$text-color: rgb(53, 53, 53);
+
+.goods {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 32px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  background-color: $bkg-color;
+  color: $text-color;
+
+  &__title {
+    text-align: center;
+    margin: 0 0 16px;
+    color: $primary-color;
+  }
+
+  &__select {
+    background-color: $secondary-color;
+    color: $text-color;
+  }
+
+  &__list-item {
+    margin-bottom: 8px;
+  }
+
+  &__button {
+    margin-bottom: 8px;
+    padding: 4px 0;
+    background-color: $secondary-color;
+    color: $text-color;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $bkg-color;
+      transform: scale(1.1);
+    }
+  }
+}
