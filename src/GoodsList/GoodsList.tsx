@@ -5,6 +5,8 @@ type Props = {
   goodsFromServer: string[],
 };
 
+type SortStyle = '' | 'name' | 'length';
+
 type State = {
   showGoods: boolean,
   isReversed: boolean,
@@ -32,16 +34,8 @@ export class GoodsList extends React.Component<Props, State> {
     }));
   };
 
-  sortByName = () => {
-    this.setState(() => ({
-      sortBy: 'name',
-    }));
-  };
-
-  sortByLength = () => {
-    this.setState(() => ({
-      sortBy: 'length',
-    }));
+  handlerSorter = (sortStyle: SortStyle) => {
+    this.setState({ sortBy: sortStyle });
   };
 
   reset = () => {
@@ -127,11 +121,11 @@ export class GoodsList extends React.Component<Props, State> {
                 Reverse
               </button>
 
-              <button type="button" className="btn" onClick={this.sortByName}>
+              <button type="button" className="btn" onClick={() => this.handlerSorter('name')}>
                 Sort by name
               </button>
 
-              <button type="button" className="btn" onClick={this.sortByLength}>
+              <button type="button" className="btn" onClick={() => this.handlerSorter('length')}>
                 Sort by length
               </button>
 
