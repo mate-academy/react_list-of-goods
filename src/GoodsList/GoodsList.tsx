@@ -5,7 +5,7 @@ type Props = {
   goodsFromServer: string[],
 };
 
-type SortStyle = '' | 'name' | 'length';
+type SortStyle = 'none' | 'name' | 'length';
 
 type State = {
   showGoods: boolean,
@@ -113,7 +113,13 @@ export class GoodsList extends React.Component<Props, State> {
             </label>
             <ul className="list">
               {visibleGoods.map(good => (
-                <li className="list__item" key={good} title={good}>{good}</li>
+                <li
+                  className="list__item"
+                  key={good}
+                  title={good}
+                >
+                  {good}
+                </li>
               ))}
             </ul>
             <div className="btns">
