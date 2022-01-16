@@ -1,0 +1,16 @@
+.App {
+  max-width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.App__title {
+  text-align: center;
+}
+
+.App__start-button {
+  font-size: 20px;
+}

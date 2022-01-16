@@ -1,0 +1,5 @@
+.GoodsList__controls,
+.GoodsList__length-control {
+  display: flex;
+  gap: 15px;
+}
