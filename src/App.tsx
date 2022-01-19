@@ -29,15 +29,6 @@ class App extends React.Component<{}, State> {
     inputValue: 1,
   };
 
-  removeStartButton = () => {
-    const button = document.querySelector('.button__start');
-
-    button?.remove();
-    this.setState({
-      listIsVisible: false,
-    });
-  };
-
   reverseList = () => {
     this.setState(prevState => ({
       goods: [...prevState.goods].reverse(),
@@ -63,6 +54,7 @@ class App extends React.Component<{}, State> {
     this.setState({
       goods: goodsFromServer,
       inputValue: 1,
+      lastFunction: '',
     });
   };
 
