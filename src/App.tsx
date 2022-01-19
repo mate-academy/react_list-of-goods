@@ -18,6 +18,7 @@ interface State {
   goods: string[],
   listIsVisible: boolean,
   lastFunction: string,
+  inputValue: number,
 }
 
 class App extends React.Component<{}, State> {
@@ -25,6 +26,7 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     listIsVisible: true,
     lastFunction: '',
+    inputValue: 1,
   };
 
   removeStartButton = () => {
@@ -60,8 +62,8 @@ class App extends React.Component<{}, State> {
   resetList = () => {
     this.setState({
       goods: goodsFromServer,
+      inputValue: 1,
     });
-    document.getElementsByTagName('input')[0].value = '1';
   };
 
   repeatLastFunction = (name: string) => {
@@ -96,9 +98,11 @@ class App extends React.Component<{}, State> {
         <button
           className="button__start"
           type="button"
-          hidden={false}
+          hidden={!this.state.listIsVisible}
           onClick={() => {
-            this.removeStartButton();
+            this.setState({
+              listIsVisible: false,
+            });
           }}
         >
           START
@@ -157,31 +161,32 @@ class App extends React.Component<{}, State> {
             >
               Sort by length
             </button>
+            <div
+              className="word-length__container"
+              hidden={listIsVisible}
+            >
+              <div className="word-length__title">
+                min letters:
+              </div>
+              <input
+                className="word-length__input"
+                type="number"
+                min={1}
+                max={10}
+                value={this.state.inputValue}
+                hidden={listIsVisible}
+                onChange={(event) => {
+                  this.setState({
+                    goods: goodsFromServer.filter(item => item.length >= +event.target.value),
+                    inputValue: +event.target.value,
+                  });
+                  this.repeatLastFunction(this.state.lastFunction);
+                }}
+              />
+            </div>
           </div>
         </div>
 
-        <div
-          className="word-length__container"
-          hidden={listIsVisible}
-        >
-          <div className="word-length__title">
-            Length of word
-          </div>
-          <input
-            className="word-length__input"
-            type="number"
-            min={1}
-            max={10}
-            defaultValue={1}
-            hidden={listIsVisible}
-            onChange={(event) => {
-              this.setState({
-                goods: goodsFromServer.filter(item => item.length >= +event.target.value),
-              });
-              this.repeatLastFunction(this.state.lastFunction);
-            }}
-          />
-        </div>
       </div>
     );
   }

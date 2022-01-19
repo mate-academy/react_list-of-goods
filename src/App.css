@@ -25,7 +25,6 @@ body {
 }
 
 .main__title {
-  flex-grow: 1;
   margin: 0;
   text-align: center;
   padding: 10px;
@@ -81,25 +80,22 @@ body {
 }
 
 .word-length__container {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
   background-color: rgb(104, 103, 103);
 }
 
 .word-length__title {
-  height: max-content;
-  margin-right: 20px;
+  display: inline-block;
+  height: 50px;
+  margin: 10px 8px 0 0;
   font-size: 18px;
   color: black;
-  margin-bottom: 20px;
 }
 
 .word-length__input {
+  display: inline-block;
   margin-bottom: 20px;
   width: 50px;
   font-size: 18px;
-  height: max-content;
 }
 
 @media (max-width: 500px) {
