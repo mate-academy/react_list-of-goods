@@ -1,0 +1,124 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-style: italic;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main__container {
+  flex-grow: 1;
+  margin: 0;
+  background-color: rgb(104, 103, 103);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 30% 30% 1fr;
+  gap: 20px;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.main__title {
+  flex-grow: 1;
+  margin: 0;
+  text-align: center;
+  padding: 10px;
+  background-color: rgb(104, 103, 103);
+  font-size: 40px;
+  font-style: italic;
+  color: whitesmoke;
+}
+
+.button__container {
+  grid-column: 3 / 4;
+  padding: 10px;
+  height: max-content;
+}
+
+.list__container {
+  grid-column: 2 / 3;
+  height: max-content;
+  padding: 10px;
+}
+
+.list__item {
+  color: whitesmoke;
+  font-size: 40px;
+}
+
+.button__start {
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  width: 200px;
+  font-size: 36px;
+  color: bisque;
+  background-color: rgb(40, 40, 40);
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px bisque;
+}
+
+.button {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(104, 103, 103);
+  display: block;
+  margin-bottom: 10px;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px rgb(53, 53, 53);
+}
+
+.word-length__container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(104, 103, 103);
+}
+
+.word-length__title {
+  height: max-content;
+  margin-right: 20px;
+  font-size: 18px;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.word-length__input {
+  margin-bottom: 20px;
+  width: 50px;
+  font-size: 18px;
+  height: max-content;
+}
+
+@media (max-width: 500px) {
+  .main__container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .button {
+    font-size: 14px;
+    width: 120px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 500px) {
+  .list__item {
+    font-size: 30px;
+  }
+}
