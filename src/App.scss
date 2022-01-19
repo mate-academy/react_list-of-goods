@@ -1,0 +1,48 @@
+.goods {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  margin: 30px auto;
+
+  &__title {
+    font-family: sans-serif;
+    text-align: center;
+  }
+
+  &__buttons {
+    display: flex;
+  }
+  &__start,
+  &__reverse,
+  &__sortBy {
+    display: flex;
+    margin-right: 10px;
+    padding: 10px 20px;
+    border: 1px solid #A9A9A9;
+    transition: box-shadow 0.3s, background-color 0.3s, color 0.3s;
+
+    &:hover {
+      box-shadow: 0px 0px 16px -2px rgba(34, 60, 80, 0.2);
+    }
+
+    &:focus {
+      background-color: #FFA500;
+      color: #fff;
+    }
+  }
+
+  &__start {
+      margin: 0 auto;
+  }
+
+  &__list {
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+}
