@@ -15,68 +15,54 @@ const goodsFromServer: string[] = [
 ];
 
 interface State {
+  initialList: string[],
   goods: string[],
   listIsVisible: boolean,
-  lastFunction: string,
   inputValue: number,
 }
 
 class App extends React.Component<{}, State> {
   state = {
+    initialList: [...goodsFromServer],
     goods: goodsFromServer,
     listIsVisible: true,
-    lastFunction: '',
     inputValue: 1,
   };
 
+  getGoodsToRender = () => {
+    const { goods, inputValue } = this.state;
+
+    return goods.filter(item => item.length >= inputValue);
+  };
+
   reverseList = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].reverse(),
-      lastFunction: 'reverse',
-    }));
-  };
-
-  sortAlphabetically = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].sort((a, b) => a.localeCompare(b)),
-      lastFunction: 'sortAlpha',
-    }));
-  };
-
-  sortByLength = () => {
-    this.setState(prevState => ({
-      goods: [...prevState.goods].sort((a, b) => a.length - b.length),
-      lastFunction: 'sortByLength',
-    }));
-  };
-
-  resetList = () => {
     this.setState({
-      goods: goodsFromServer,
-      inputValue: 1,
-      lastFunction: '',
+      goods: goodsFromServer.reverse(),
     });
   };
 
-  repeatLastFunction = (name: string) => {
-    switch (name) {
-      case 'reverse':
-        this.reverseList();
-        break;
-      case 'sortAlpha':
-        this.sortAlphabetically();
-        break;
-      case 'sortByLength':
-        this.sortByLength();
-        break;
+  sortAlphabetically = () => {
+    this.setState({
+      goods: goodsFromServer.sort((a, b) => a.localeCompare(b)),
+    });
+  };
 
-      default:
-        break;
-    }
+  sortByLength = () => {
+    this.setState({
+      goods: goodsFromServer.sort((a, b) => a.length - b.length),
+    });
+  };
+
+  resetList = () => {
+    this.setState(prevState => ({
+      goods: prevState.initialList,
+      inputValue: 1,
+    }));
   };
 
   render() {
-    const { goods, listIsVisible } = this.state;
+    const goodsToRender: string[] = this.getGoodsToRender();
+    const { listIsVisible } = this.state;
 
     return (
       <div className="App">
@@ -108,7 +94,7 @@ class App extends React.Component<{}, State> {
             <ul
               className="goods__list"
             >
-              {goods.map(item => {
+              {goodsToRender.map(item => {
                 return (
                   <li
                     key={item}
@@ -172,7 +158,6 @@ class App extends React.Component<{}, State> {
                     goods: goodsFromServer.filter(item => item.length >= +event.target.value),
                     inputValue: +event.target.value,
                   });
-                  this.repeatLastFunction(this.state.lastFunction);
                 }}
               />
             </div>
