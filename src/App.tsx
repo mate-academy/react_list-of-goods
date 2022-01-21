@@ -1,24 +1,41 @@
 import React from 'react';
-import './App.css';
+import AppBasic from './BasicTask';
+import AdvancedApp from './AdvancedTask';
+import { Button } from './Button';
 
-const goodsFromServer: string[] = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+interface State {
+  isContentShown: boolean;
+}
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+export class App extends React.Component<{}, State> {
+  state = {
+    isContentShown: false,
+  };
 
-export default App;
+  showList = () => {
+    this.setState(state => ({
+      isContentShown: !state.isContentShown,
+    }));
+  };
+
+  render() {
+    const { isContentShown } = this.state;
+
+    return (
+      <>
+        {isContentShown ? (
+          <>
+            <AppBasic />
+            <AdvancedApp />
+          </>
+        ) : (
+          <Button
+            action={this.showList}
+            stylingClass="App__button--start"
+            text="Start"
+          />
+        )}
+      </>
+    );
+  }
+}
