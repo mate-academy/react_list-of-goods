@@ -19,8 +19,8 @@ type State = {
   goodsToShow: string[],
   hiddenStart: boolean,
   reversed: boolean,
-  sortAlph: boolean,
-  sortLeng: boolean,
+  sortAlphabet: boolean,
+  sortLength: boolean,
 };
 
 class App extends React.Component<{}, State> {
@@ -28,8 +28,8 @@ class App extends React.Component<{}, State> {
     goodsToShow: [],
     hiddenStart: false,
     reversed: false,
-    sortAlph: false,
-    sortLeng: false,
+    sortAlphabet: false,
+    sortLength: false,
   };
 
   start = () => {
@@ -47,38 +47,36 @@ class App extends React.Component<{}, State> {
 
   sortAlph = () => {
     this.setState({
-      sortAlph: true,
-      sortLeng: false,
+      sortAlphabet: true,
+      sortLength: false,
     });
   };
 
   reset = () => {
     this.setState({
-      goodsToShow: [],
-      hiddenStart: false,
       reversed: false,
-      sortAlph: false,
-      sortLeng: false,
+      sortAlphabet: false,
+      sortLength: false,
     });
   };
 
   sortLeng = () => {
     this.setState({
-      sortAlph: false,
-      sortLeng: true,
+      sortAlphabet: false,
+      sortLength: true,
     });
   };
 
   render() {
     const {
-      goodsToShow, reversed, sortAlph, sortLeng,
+      goodsToShow, reversed, sortAlphabet, sortLength,
     } = this.state;
 
     const filteredGoods = [...goodsToShow];
 
-    if (sortAlph) {
+    if (sortAlphabet) {
       filteredGoods.sort();
-    } else if (sortLeng) {
+    } else if (sortLength) {
       filteredGoods.sort((a:string, b:string) => a.length - b.length);
     }
 
