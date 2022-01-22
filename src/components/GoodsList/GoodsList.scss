@@ -1,0 +1,15 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  gap: 20px;
+
+  &__item {
+    background-color: rgb(54, 199, 54);
+    width: 30vw;
+    border: 2px solid brown;
+    border-radius: 10px;
+    text-align: center;
+  }
+}
