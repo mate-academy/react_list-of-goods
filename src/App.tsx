@@ -63,7 +63,6 @@ class App extends React.Component<{}, State> {
     this.setState({
       isReversed: false,
       sortBy: '',
-      initialArray: goodsFromServer,
     });
   };
 
