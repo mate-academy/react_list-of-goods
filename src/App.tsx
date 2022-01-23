@@ -16,7 +16,7 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  startButton: boolean,
+  startApp: boolean,
   isReversed: boolean,
   sortBy: string,
   initialArray: string[],
@@ -24,7 +24,7 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state: State = {
-    startButton: true,
+    startApp: true,
     isReversed: false,
     sortBy: '',
     initialArray: goodsFromServer,
@@ -32,7 +32,7 @@ class App extends React.Component<{}, State> {
 
   start = () => {
     this.setState(state => ({
-      startButton: !state.startButton,
+      startApp: !state.startApp,
     }));
   };
 
@@ -42,17 +42,25 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortByName = () => {
-    this.setState({ sortBy: 'name' });
+  sortBy = (value: string) => {
+    this.setState({ sortBy: value });
   };
 
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+  sortCallback = (a: string, b: string) => {
+    switch (this.state.sortBy) {
+      case 'name':
+        return a.localeCompare(b);
+
+      case 'length':
+        return a.length - b.length;
+
+      default:
+        return 0;
+    }
   };
 
   reset = () => {
     this.setState({
-      startButton: false,
       isReversed: false,
       sortBy: '',
       initialArray: goodsFromServer,
@@ -60,34 +68,24 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const filteredGoods = [...this.state.initialArray];
+    const { startApp, isReversed, initialArray } = this.state;
+    const filteredGoods = [...initialArray];
 
-    filteredGoods.sort((a, b) => {
-      switch (this.state.sortBy) {
-        case 'name':
-          return a.localeCompare(b);
+    filteredGoods.sort(this.sortCallback);
 
-        case 'length':
-          return a.length - b.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (this.state.isReversed) {
+    if (isReversed) {
       filteredGoods.reverse();
     }
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {this.state.startButton ? <button type="button" onClick={this.start}>Start</button>
+        {startApp ? <button type="button" onClick={this.start}>Start</button>
           : (
             <>
               <button type="button" onClick={this.reverse}>Reverse</button>
-              <button type="button" onClick={this.sortByName}>Sort alphabetically</button>
-              <button type="button" onClick={this.sortByLength}>Sort by length</button>
+              <button type="button" onClick={() => (this.sortBy('name'))}>Sort alphabetically</button>
+              <button type="button" onClick={() => (this.sortBy('length'))}>Sort by length</button>
               <button type="button" onClick={this.reset}>Reset</button>
               <ListOfGoods filteredList={filteredGoods} />
             </>
