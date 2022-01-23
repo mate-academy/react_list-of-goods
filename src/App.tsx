@@ -20,7 +20,7 @@ interface State {
   goods: string[];
   isVisible: boolean,
 }
-export default class App extends React.Component<{}, State> {
+export default class App extends React.PureComponent<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
     isVisible: false,
@@ -32,7 +32,7 @@ export default class App extends React.Component<{}, State> {
 
   revers = () => {
     this.setState((state) => ({
-      goods: state.goods.reverse(),
+      goods: [...state.goods.reverse()],
     }));
   };
 
@@ -42,13 +42,13 @@ export default class App extends React.Component<{}, State> {
 
   sortByAlphabet = () => {
     this.setState((state) => ({
-      goods: state.goods.sort((a, b) => a.localeCompare(b)),
+      goods: [...state.goods.sort((a, b) => a.localeCompare(b))],
     }));
   };
 
   sortByLength = () => {
     this.setState((state) => ({
-      goods: state.goods.sort((a, b) => a.length - b.length),
+      goods: [...state.goods.sort((a, b) => a.length - b.length)],
     }));
   };
 
