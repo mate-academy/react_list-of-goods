@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import { GoodsList } from './Components/GoodsList';
 
 export const goodsFromServer: string[] = [
   'Dumplings',
@@ -15,96 +14,81 @@ export const goodsFromServer: string[] = [
   'Garlic',
 ];
 type State = {
+  goods: string[],
   isVisible: boolean,
   isReversed: boolean,
   isSortedBy: string,
-  byDefault: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
+    goods: goodsFromServer,
     isVisible: false,
     isReversed: false,
     isSortedBy: '',
-    byDefault: true,
   };
 
   start = () => {
-    this.setState((state) => ({
-      ...state,
+    this.setState({
       isVisible: true,
-    }));
+    });
   };
 
   reverse = () => {
     this.setState((state) => ({
-      ...state,
       isReversed: !state.isReversed,
-      byDefault: false,
     }));
   };
 
   sortByAlphabet = () => {
-    this.setState((state) => ({
-      ...state,
+    this.setState({
       isSortedBy: 'alphabetically',
-      byDefault: false,
-    }));
+    });
   };
 
   sortByLength = () => {
-    this.setState((state) => ({
-      ...state,
+    this.setState({
       isSortedBy: 'length',
-      byDefault: false,
-    }));
+    });
   };
 
   reset = () => {
     this.setState(
       {
-        isVisible: true,
         isReversed: false,
         isSortedBy: '',
-        byDefault: true,
       },
     );
   };
 
-  preparedListOfGoods = () => {
-    const preparedListOfGoods = [...goodsFromServer];
-    const { isReversed, isSortedBy, byDefault } = this.state;
+  prepareGoods = () => {
+    const { goods, isSortedBy, isReversed } = this.state;
+    const goodsCopy = [...goods];
 
-    if (byDefault) {
-      return preparedListOfGoods;
-    }
-
+    goodsCopy.sort((g1, g2) => {
+      switch (isSortedBy) {
+        case 'alphabetically':
+          return g1.localeCompare(g2);
+        case 'length':
+          return g1.length - g2.length;
+        default:
+          return 0;
+      }
+    });
     if (isReversed) {
-      return preparedListOfGoods.reverse();
+      goodsCopy.reverse();
     }
 
-    if (isSortedBy) {
-      preparedListOfGoods.sort((g1, g2) => {
-        switch (isSortedBy) {
-          case 'alphabetically':
-            return g1.localeCompare(g2);
-            break;
-          case 'length':
-            return g1.length - g2.length;
-            break;
-          default:
-            return 0;
-        }
-      });
-    }
-
-    return preparedListOfGoods;
+    return goodsCopy;
   };
 
   render() {
+    const { isVisible } = this.state;
+    const preparedGoods = this.prepareGoods();
+
     return (
       <div className="App">
-        {!this.state.isVisible && (
+        {!isVisible && (
           <button
             type="button"
             className="ui inverted green button"
@@ -113,9 +97,18 @@ class App extends React.Component<{}, State> {
             Start
           </button>
         )}
-        {this.state.isVisible && (
+        {isVisible && (
           <>
-            <GoodsList preparedListOfGoods={this.preparedListOfGoods()} />
+            <ul className="list">
+              {preparedGoods.map(good => (
+                <li
+                  key={good}
+                  className="list__item"
+                >
+                  {good}
+                </li>
+              ))}
+            </ul>
 
             <button
               type="button"
