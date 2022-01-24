@@ -44,22 +44,34 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  goodsToShow = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  setGoodsLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       goodsLength: +event.target.value,
     });
+  };
+
+  goodsToShow = () => {
+    const {
+      goods,
+      isReversed,
+      goodsLength,
+    } = this.state;
+
+    const copiedGoods = goods.filter(good => good.length >= goodsLength);
+
+    copiedGoods.sort(this.sortType);
+
+    if (isReversed) {
+      copiedGoods.reverse();
+    }
+
+    return copiedGoods;
   };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
-  };
-
-  changeSortType = (event: React.MouseEvent<HTMLButtonElement>) => {
-    this.setState({
-      sortBy: event.currentTarget.name as SortTypes,
-    });
   };
 
   sortType = (good1: string, good2: string) => {
@@ -75,6 +87,13 @@ class App extends React.Component<{}, State> {
     }
   };
 
+  changeSortType = (event: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({
+      sortBy: event.currentTarget.name as SortTypes,
+      isReversed: false,
+    });
+  };
+
   reset = () => {
     this.setState({
       sortBy: SortTypes.Default,
@@ -84,21 +103,6 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const {
-      goods,
-      isReversed,
-      goodsLength,
-      isVisible,
-    } = this.state;
-
-    const copiedGoods = goods.filter(good => good.length >= goodsLength);
-
-    copiedGoods.sort(this.sortType);
-
-    if (isReversed) {
-      copiedGoods.reverse();
-    }
-
     return (
       <div className="App">
         <h1>Goods</h1>
@@ -110,7 +114,7 @@ class App extends React.Component<{}, State> {
           Start
         </button>
 
-        {isVisible && (
+        {this.state.isVisible && (
           <>
             <button
               type="button"
@@ -149,8 +153,8 @@ class App extends React.Component<{}, State> {
               {'Choose goods length: '}
               <select
                 name="numberOfGoods"
-                value={goodsLength}
-                onChange={this.goodsToShow}
+                value={this.state.goodsLength}
+                onChange={this.setGoodsLength}
               >
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -165,7 +169,7 @@ class App extends React.Component<{}, State> {
               </select>
             </div>
 
-            <GoodsList copiedGoods={copiedGoods} />
+            <GoodsList copiedGoods={this.goodsToShow()} />
           </>
         )}
       </div>
