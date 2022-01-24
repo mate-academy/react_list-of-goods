@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import classNames from 'classnames';
 import { GoodsList } from './GoodsList';
 import './App.css';
@@ -25,7 +25,7 @@ type State = {
   goods: string[];
   isStarted: boolean;
   isReversed: boolean;
-  goodLength: number;
+  goodLength: string;
   sortBy: string;
 };
 
@@ -34,7 +34,7 @@ export class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isStarted: false,
     isReversed: false,
-    goodLength: 1,
+    goodLength: '1',
     sortBy: '',
   };
 
@@ -59,12 +59,11 @@ export class App extends React.Component<{}, State> {
   resetList = () => {
     this.setState({ goods: goodsFromServer });
     this.setState({ sortBy: '' });
-    this.setState({ goodLength: 1 });
+    this.setState({ goodLength: '1' });
   };
 
-  // eslint-disable-next-line
-  handleChange = (event: any) => {
-    this.setState({ goodLength: event.target.value });
+  handleChange = (event: SelectChangeEvent) => {
+    this.setState({ goodLength: String(event.target.value) });
   };
 
   render() {
@@ -77,7 +76,7 @@ export class App extends React.Component<{}, State> {
     } = this.state;
 
     const visibleGoods = goods.filter(
-      good => good.length > goodLength,
+      good => good.length >= +goodLength,
     );
 
     visibleGoods.sort((good1, good2) => {
@@ -126,7 +125,7 @@ export class App extends React.Component<{}, State> {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={this.state.goodLength}
+                value={goodLength}
                 label="Filter by length"
                 onChange={this.handleChange}
               >
