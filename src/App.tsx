@@ -17,12 +17,12 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-interface State {
+type State = {
   isStarted: boolean;
   isReversed: boolean;
   isDefault: boolean;
   sortMethod: string;
-}
+};
 
 export class App extends React.Component<{}, State> {
   state: State = {
@@ -33,12 +33,11 @@ export class App extends React.Component<{}, State> {
   };
 
   start = () => {
-    this.setState((state) => ({ ...state, isStarted: true }));
+    this.setState({ isStarted: true });
   };
 
   reverse = () => {
     this.setState((state) => ({
-      ...state,
       isReversed: !state.isReversed,
       isDefault: false,
     }));
