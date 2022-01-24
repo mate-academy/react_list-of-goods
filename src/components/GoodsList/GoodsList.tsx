@@ -57,6 +57,7 @@ export class GoodsList extends React.Component<Props, State> {
   sortAlphabeticallyHandler = () => {
     this.setState({
       sortBy: SortBy.name,
+      isReversed: false,
     });
   };
 
@@ -72,6 +73,7 @@ export class GoodsList extends React.Component<Props, State> {
   sortByLengthHandler = () => {
     this.setState({
       sortBy: SortBy.length,
+      isReversed: false,
     });
   };
 
@@ -88,18 +90,13 @@ export class GoodsList extends React.Component<Props, State> {
 
     const copyGoods = [...goods].filter(item => item.length >= visibleLength);
 
-    copyGoods.sort((a, b) => {
-      switch (sortBy) {
-        case SortBy.name:
-          return a.localeCompare(b);
+    if (sortBy === SortBy.name) {
+      copyGoods.sort((a, b) => a.localeCompare(b));
+    }
 
-        case SortBy.length:
-          return a.length - b.length;
-
-        default:
-          return 0;
-      }
-    });
+    if (sortBy === SortBy.length) {
+      copyGoods.sort((a, b) => a.length - b.length);
+    }
 
     if (isReversed) {
       copyGoods.reverse();
