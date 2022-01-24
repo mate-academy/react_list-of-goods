@@ -55,10 +55,10 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   sortAlphabeticallyHandler = () => {
-    this.setState({
+    this.setState(prevState => ({
       sortBy: SortBy.name,
-      isReversed: false,
-    });
+      isReversed: !prevState.isReversed,
+    }));
   };
 
   resetHandler = () => {
@@ -71,10 +71,10 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   sortByLengthHandler = () => {
-    this.setState({
+    this.setState(prevState => ({
       sortBy: SortBy.length,
-      isReversed: false,
-    });
+      isReversed: !prevState.isReversed,
+    }));
   };
 
   selectChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
