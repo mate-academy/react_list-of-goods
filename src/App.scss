@@ -20,6 +20,7 @@ li {
 	padding: 20px;
 	transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 	margin: 1em;
+  cursor: pointer;
 
 	&--blue {
 		box-shadow: inset 0 0 1em rgba(0, 170, 170, 0.5), 0 0 1em rgba(0, 170, 170, 0.5);
