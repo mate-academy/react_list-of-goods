@@ -51,16 +51,16 @@ class App extends React.Component<Props, State> {
     }));
   };
 
-  reset = () => {
-    this.setState((state) => ({
-      goods: state.initialGoods,
-    }));
-  };
-
   sortByLength = () => {
     this.setState((state) => ({
       goods: [...state.goods].sort((a, b) => a.length - b.length),
     }));
+  };
+
+  reset = () => {
+    this.setState(() => {
+      this.start();
+    });
   };
 
   render() {
