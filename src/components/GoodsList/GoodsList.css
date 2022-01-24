@@ -1,0 +1,22 @@
+.list {
+  padding: 0;
+  list-style: none;
+  width: max-content;
+  text-align: center;
+  margin-left: 130px;
+}
+
+.list__item {
+  margin-bottom: 10px;
+  background-color: rgb(224, 242, 255);
+  font-size: 16px;
+  padding: 15px;
+  border-bottom: 2px solid lightseagreen;
+  border-top: 2px solid lightseagreen;
+  border-left: 3px solid rgba(0, 0, 255, 0.8);
+  border-right: 3px solid rgba(0, 0, 255, 0.8);
+  border-radius: 70%;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: rgb(29, 95, 97);
+}
