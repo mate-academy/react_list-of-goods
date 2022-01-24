@@ -15,24 +15,38 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortTypes {
+  Alphabet = 'alphabet',
+  Length = 'length',
+  Default = '',
+}
+
 type State = {
-  goodsFromServer: string[];
+  goods: string[];
   isReversed: boolean;
-  sortBy: string;
+  sortBy: SortTypes;
   isVisible: boolean;
+  goodsLength: number;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
-    goodsFromServer,
+    goods: goodsFromServer,
     isReversed: false,
-    sortBy: '',
+    sortBy: SortTypes.Default,
     isVisible: false,
+    goodsLength: 1,
   };
 
   showGoodsList = () => {
     this.setState({
       isVisible: true,
+    });
+  };
+
+  goodsToShow = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({
+      goodsLength: +event.target.value,
     });
   };
 
@@ -42,28 +56,49 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortAlphabetically = () => {
+  changeSortType = (event: React.MouseEvent<HTMLButtonElement>) => {
     this.setState({
-      sortBy: 'alphabet',
-      isReversed: false,
+      sortBy: event.currentTarget.name as SortTypes,
     });
   };
 
-  sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-      isReversed: false,
-    });
+  sortType = (good1: string, good2: string) => {
+    switch (this.state.sortBy) {
+      case SortTypes.Length:
+        return good1.length - good2.length;
+
+      case SortTypes.Alphabet:
+        return good1.localeCompare(good2);
+
+      default:
+        return 0;
+    }
   };
 
   reset = () => {
     this.setState({
-      sortBy: '',
+      sortBy: SortTypes.Default,
       isReversed: false,
+      goodsLength: 1,
     });
   };
 
   render() {
+    const {
+      goods,
+      isReversed,
+      goodsLength,
+      isVisible,
+    } = this.state;
+
+    const copiedGoods = goods.filter(good => good.length >= goodsLength);
+
+    copiedGoods.sort(this.sortType);
+
+    if (isReversed) {
+      copiedGoods.reverse();
+    }
+
     return (
       <div className="App">
         <h1>Goods</h1>
@@ -75,39 +110,64 @@ class App extends React.Component<{}, State> {
           Start
         </button>
 
-        <button
-          type="button"
-          onClick={this.reverse}
-          className="btn btn-warning"
-        >
-          Reverse
-        </button>
+        {isVisible && (
+          <>
+            <button
+              type="button"
+              onClick={this.reverse}
+              className="btn btn-warning"
+            >
+              Reverse
+            </button>
 
-        <button
-          type="button"
-          onClick={this.sortAlphabetically}
-          className="btn btn-warning"
-        >
-          Sort alphabetically
-        </button>
+            <button
+              type="button"
+              name={SortTypes.Alphabet}
+              onClick={this.changeSortType}
+              className="btn btn-warning"
+            >
+              Sort alphabetically
+            </button>
 
-        <button
-          type="button"
-          onClick={this.sortByLength}
-          className="btn btn-warning"
-        >
-          Sort by length
-        </button>
+            <button
+              type="button"
+              name={SortTypes.Length}
+              onClick={this.changeSortType}
+              className="btn btn-warning"
+            >
+              Sort by length
+            </button>
 
-        <button
-          type="button"
-          onClick={this.reset}
-          className="btn btn-danger"
-        >
-          Reset
-        </button>
+            <button
+              type="button"
+              onClick={this.reset}
+              className="btn btn-danger"
+            >
+              Reset
+            </button>
+            <div>
+              {'Choose goods length: '}
+              <select
+                name="numberOfGoods"
+                value={goodsLength}
+                onChange={this.goodsToShow}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
 
-        {this.state.isVisible && (<GoodsList {...this.state} />)}
+            <GoodsList copiedGoods={copiedGoods} />
+          </>
+        )}
       </div>
     );
   }
