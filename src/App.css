@@ -1,0 +1,12 @@
+body {
+  margin: 16px;
+}
+
+.title {
+  font-size: x-large;
+}
+
+.button {
+  margin: 5px 5px 5px 0;
+  height: 34px;
+}
