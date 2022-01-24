@@ -1,0 +1,27 @@
+.app {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: rgb(230, 228, 255);
+  width: max-content;
+  text-align: center;
+  margin: 0 auto;
+  border: 3px solid lightseagreen;
+  border-radius: 40px;
+  color: blue;
+}
+
+.app__button {
+  padding: 5px;
+  margin-bottom: 20px;
+  background-color: lightseagreen;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.app__button:hover {
+  background-color: rgba(30, 168, 161, 0.6);
+}
+
+.app__select {
+  font-weight: bold;
+}
