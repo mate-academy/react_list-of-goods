@@ -34,7 +34,7 @@ interface State {
 class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
-    isStart: false,
+    isStart: true,
     isReverse: false,
     isAlphabetically: false,
     isLength: false,
@@ -134,7 +134,7 @@ class App extends React.Component<{}, State> {
         {
           !isStart
           && (
-            <div className="functional">
+            <>
               <ul className="list">
                 {
                   visibleGoods.map((item) => (
@@ -207,7 +207,7 @@ class App extends React.Component<{}, State> {
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-            </div>
+            </>
           )
         }
       </div>
