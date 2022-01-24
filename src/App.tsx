@@ -54,13 +54,8 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
-    const {
-      goods,
-      listVisibility,
-      isReversed,
-      sortBy,
-    } = this.state;
+  prepareGoods = () => {
+    const { goods, sortBy, isReversed } = this.state;
     const goodsCopy = [...goods];
 
     goodsCopy.sort((g1, g2) => {
@@ -80,6 +75,13 @@ export class App extends React.Component<{}, State> {
       goodsCopy.reverse();
     }
 
+    return goodsCopy;
+  };
+
+  render() {
+    const { listVisibility } = this.state;
+    const preparedGoods = this.prepareGoods();
+
     return (
       <div className="App">
         {!listVisibility && (
@@ -97,7 +99,7 @@ export class App extends React.Component<{}, State> {
             <h1 className="title">Goods</h1>
 
             <ul>
-              {goodsCopy.map(good => (
+              {preparedGoods.map(good => (
                 <li key={good}>{good}</li>
               ))}
             </ul>
