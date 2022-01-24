@@ -1,0 +1,24 @@
+.App {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(245, 222, 179);
+  border: 5px solid black;
+  border-radius: 32px;
+}
+
+.App__container {
+  width: 100%;
+}
+
+.App__button {
+  background-color: rgb(222, 184, 135);
+  height: 30px;
+}
+
+.App__buttons {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(245, 201, 143);
+  border: 5px solid black;
+  border-radius: 32px;
+}
