@@ -1,0 +1,52 @@
+// styles go here
+@import "bulma/sass/utilities/_all.sass";
+@import "bulma/sass/form/_all.sass";
+@import "bulma/sass/elements/button.sass";
+
+body {
+  box-sizing: border-box;
+}
+
+.App {
+  max-width: 600px;
+  border: 2px solid blue;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.buttons {
+  height: 40px;
+  padding: 10px 20px;
+  border: 2px solid #bbb;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #ddd;
+
+  & .button {
+    margin-bottom: 0;
+  }
+}
+
+.select-wraper {
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  &-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-item {
+    padding: 5px 20px;
+    border: 2px solid #bbb;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    box-shadow: 2px 2px 2px #ddd;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
