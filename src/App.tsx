@@ -18,6 +18,7 @@ type State = {
   isVisible: boolean,
   isReversed: boolean,
   isSortedBy: string,
+  byDefault: boolean,
 };
 
 class App extends React.Component<{}, State> {
@@ -25,6 +26,7 @@ class App extends React.Component<{}, State> {
     isVisible: false,
     isReversed: false,
     isSortedBy: '',
+    byDefault: true,
   };
 
   start = () => {
@@ -37,7 +39,8 @@ class App extends React.Component<{}, State> {
   reverse = () => {
     this.setState((state) => ({
       ...state,
-      isReversed: true,
+      isReversed: !state.isReversed,
+      byDefault: false,
     }));
   };
 
@@ -45,6 +48,7 @@ class App extends React.Component<{}, State> {
     this.setState((state) => ({
       ...state,
       isSortedBy: 'alphabetically',
+      byDefault: false,
     }));
   };
 
@@ -52,20 +56,28 @@ class App extends React.Component<{}, State> {
     this.setState((state) => ({
       ...state,
       isSortedBy: 'length',
+      byDefault: false,
     }));
   };
 
   reset = () => {
-    this.setState({
-      isVisible: false,
-      isReversed: false,
-      isSortedBy: '',
-    });
+    this.setState(
+      {
+        isVisible: true,
+        isReversed: false,
+        isSortedBy: '',
+        byDefault: true,
+      },
+    );
   };
 
   preparedListOfGoods = () => {
     const preparedListOfGoods = [...goodsFromServer];
-    const { isReversed, isSortedBy } = this.state;
+    const { isReversed, isSortedBy, byDefault } = this.state;
+
+    if (byDefault) {
+      return preparedListOfGoods;
+    }
 
     if (isReversed) {
       return preparedListOfGoods.reverse();
@@ -95,6 +107,7 @@ class App extends React.Component<{}, State> {
         {!this.state.isVisible && (
           <button
             type="button"
+            className="ui inverted green button"
             onClick={this.start}
           >
             Start
@@ -106,6 +119,7 @@ class App extends React.Component<{}, State> {
 
             <button
               type="button"
+              className="ui primary basic button"
               onClick={this.reverse}
             >
               Reverse
@@ -113,6 +127,7 @@ class App extends React.Component<{}, State> {
 
             <button
               type="button"
+              className="ui secondary basic button"
               onClick={this.sortByAlphabet}
             >
               Sort alphabetically
@@ -120,6 +135,7 @@ class App extends React.Component<{}, State> {
 
             <button
               type="button"
+              className="ui positive basic button"
               onClick={this.sortByLength}
             >
               Sort by length
@@ -127,6 +143,7 @@ class App extends React.Component<{}, State> {
 
             <button
               type="button"
+              className="ui negative basic button"
               onClick={this.reset}
             >
               Reset
