@@ -1,0 +1,30 @@
+@import "bulma/css/bulma.css";
+
+.App {
+  color: #fff;
+  width: 500px;
+  margin: 50px;
+  padding: 30px;
+  border: 2px solid #ab4;
+  background-color: #736;
+}
+
+.button {
+  margin: 15px;
+  width: 200px;
+}
+
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  color: #fff;
+  text-align: center;
+}
