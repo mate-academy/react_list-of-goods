@@ -30,21 +30,31 @@ class App extends React.Component<{}, State> {
   };
 
   sortByName = () => {
-    this.setState({ sortBy: 'name' });
+    this.setState({
+      sortBy: 'name',
+    });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({
+      sortBy: 'length',
+    });
   };
 
   reverse = () => {
-    this.setState(state => ({ reverse: !state.reverse }));
+    this.setState(state => ({
+      reverse: !state.reverse,
+    }));
+  };
+
+  reset = () => {
+    this.setState({ goods: [...goodsFromServer], sortBy: '' });
   };
 
   render() {
     const { goods, sortBy, reverse } = this.state;
 
-    const sortedGoods = goods.sort((g1, g2) => {
+    const sortedGoods = [...goods].sort((g1, g2) => {
       switch (sortBy) {
         case 'name':
           return g1.localeCompare(g2);
@@ -71,17 +81,42 @@ class App extends React.Component<{}, State> {
                 ))}
               </ul>
               <div className="buttons has-addons is-centered">
-                <button type="button" className="button is-rounded is-outlined is-info" onClick={this.sortByName}>Sort alphabetically</button>
+                <button
+                  type="button"
+                  className="button is-rounded is-outlined is-info"
+                  onClick={this.sortByName}
+                >
+                  Sort alphabetically
+                </button>
 
-                <button type="button" className="button is-rounded is-outlined is-info" onClick={this.sortByLength}>Sort by length</button>
+                <button
+                  type="button"
+                  className="button is-rounded is-outlined is-info"
+                  onClick={this.sortByLength}
+                >
+                  Sort by length
+                </button>
               </div>
               <div className="buttons has-addons is-centered">
-                <button type="button" className="button is-rounded is-outlined is-info" onClick={this.reverse}>Reverse</button>
-                <button type="button" className="button is-rounded is-outlined is-info" onClick={() => this.setState({ goods: [...goodsFromServer], sortBy: '' })}>Reset</button>
+                <button
+                  type="button"
+                  className="button is-rounded is-outlined is-info"
+                  onClick={this.reverse}
+                >
+                  Reverse
+                </button>
+
+                <button
+                  type="button"
+                  className="button is-rounded is-outlined is-info"
+                  onClick={this.reset}
+                >
+                  Reset
+                </button>
               </div>
             </div>
           )
-          : <button type="button" className="button is-rounded is-outlined is-info" onClick={() => this.setState({ started: true })}>Start</button>}
+          : <button type="button" className="button is-rounded is-outlined is-info start" onClick={() => this.setState({ started: true })}>Start</button>}
       </div>
     );
   }
