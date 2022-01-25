@@ -134,7 +134,7 @@ class App extends React.Component<{}, State> {
               </button>
 
               <select value={length} onChange={this.handleChange}>
-                <option value="1" selected>1</option>
+                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
