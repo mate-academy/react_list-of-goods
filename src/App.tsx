@@ -78,7 +78,7 @@ class App extends React.PureComponent<Props, State> {
         <h1>Goods</h1>
         {!this.state.isVisible && (
           <button
-            className="button button-start"
+            className="app__button app__button-start"
             type="button"
             onClick={this.startClick}
           >
@@ -93,7 +93,7 @@ class App extends React.PureComponent<Props, State> {
               ))}
             </ul>
             <button
-              className="button button-action"
+              className="app__button app__button-action"
               type="button"
               onClick={this.reverse}
             >
@@ -101,7 +101,7 @@ class App extends React.PureComponent<Props, State> {
             </button>
 
             <button
-              className="button button-action"
+              className="app__button app__button-action"
               type="button"
               onClick={() => this.sortBy('alphabet')}
             >
@@ -109,7 +109,7 @@ class App extends React.PureComponent<Props, State> {
             </button>
 
             <button
-              className="button button-action"
+              className="app__button app__button-action"
               type="button"
               onClick={() => this.sortBy('length')}
             >
@@ -117,7 +117,7 @@ class App extends React.PureComponent<Props, State> {
             </button>
 
             <button
-              className="button button-reset"
+              className="app__button app__button-reset"
               type="button"
               onClick={() => this.reset()}
             >
