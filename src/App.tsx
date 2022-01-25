@@ -40,33 +40,33 @@ class App extends React.Component<Props, State> {
     sortBy: '',
   };
 
-  start = () => {
+  startHandler = () => {
     this.setState((state) => ({
       buttonVisible: !state.buttonVisible,
     }));
   };
 
-  reverse = () => {
+  reverseHandler = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  sort = () => {
+  sortByNameHandler = () => {
     this.setState(() => ({
       sortBy: Sortby.Name,
       isReversed: false,
     }));
   };
 
-  sortByLength = () => {
+  sortByLengthHandler = () => {
     this.setState(() => ({
       sortBy: Sortby.Length,
       isReversed: false,
     }));
   };
 
-  reset = () => {
+  resetHandler = () => {
     this.setState(() => ({
       isReversed: false,
       sortBy: '',
@@ -99,7 +99,7 @@ class App extends React.Component<Props, State> {
           className={classNames('button', { buttonVisible: !buttonVisible })}
           type="button"
           onClick={() => {
-            this.setState(this.start);
+            this.setState(this.startHandler);
           }}
         >
           Start
@@ -108,28 +108,28 @@ class App extends React.Component<Props, State> {
         <button
           className={classNames('button button--blue', isButtonVisible)}
           type="button"
-          onClick={this.reverse}
+          onClick={this.reverseHandler}
         >
           Reverse
         </button>
         <button
           className={classNames('button button--green', isButtonVisible)}
           type="button"
-          onClick={this.sort}
+          onClick={this.sortByNameHandler}
         >
           Sort alphabetically
         </button>
         <button
           className={classNames('button button--purple', isButtonVisible)}
           type="button"
-          onClick={this.sortByLength}
+          onClick={this.sortByLengthHandler}
         >
           Sort by length
         </button>
         <button
           className={classNames('button button--red', isButtonVisible)}
           type="button"
-          onClick={this.reset}
+          onClick={this.resetHandler}
         >
           Reset
         </button>
