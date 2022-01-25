@@ -66,9 +66,8 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
+  getVisibleGoods = (): string[] => {
     const {
-      goodsIsShowed,
       goods,
       isReversed,
       sortBy,
@@ -92,6 +91,17 @@ class App extends React.Component<{}, State> {
     if (isReversed) {
       visibleGoods.reverse();
     }
+
+    return visibleGoods;
+  };
+
+  render() {
+    const {
+      goodsIsShowed,
+      length,
+    } = this.state;
+
+    const visibleGoods = this.getVisibleGoods();
 
     return (
       <div className="App">
