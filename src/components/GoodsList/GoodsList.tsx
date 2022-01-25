@@ -42,6 +42,30 @@ export class GoodsList extends React.Component<Props, State> {
     visibleLength: Length.One,
   };
 
+  getVisibleGoods(goods: string[]) {
+    const {
+      isReversed, sortBy, visibleLength,
+    } = this.state;
+
+    const copyGoods = [...goods].filter(item => item.length >= visibleLength);
+
+    copyGoods.filter(item => item.length >= visibleLength);
+
+    if (sortBy === SortBy.name) {
+      copyGoods.sort((a, b) => a.localeCompare(b));
+    }
+
+    if (sortBy === SortBy.length) {
+      copyGoods.sort((a, b) => a.length - b.length);
+    }
+
+    if (isReversed) {
+      copyGoods.reverse();
+    }
+
+    return copyGoods;
+  }
+
   toggleListVisibleHandler = () => {
     this.setState(prevState => ({
       isListVisible: !prevState.isListVisible,
@@ -85,22 +109,9 @@ export class GoodsList extends React.Component<Props, State> {
 
   render() {
     const {
-      isListVisible, goods, isReversed, sortBy, visibleLength,
+      isListVisible, goods,
     } = this.state;
-
-    const copyGoods = [...goods].filter(item => item.length >= visibleLength);
-
-    if (sortBy === SortBy.name) {
-      copyGoods.sort((a, b) => a.localeCompare(b));
-    }
-
-    if (sortBy === SortBy.length) {
-      copyGoods.sort((a, b) => a.length - b.length);
-    }
-
-    if (isReversed) {
-      copyGoods.reverse();
-    }
+    const copyGoods = this.getVisibleGoods(goods);
 
     return (
       <>
@@ -196,7 +207,6 @@ export class GoodsList extends React.Component<Props, State> {
                   </select>
                 </div>
               </div>
-
               <ul className="list-group">
                 {copyGoods.map(good => (
                   <li className="list-item" key={good}>
