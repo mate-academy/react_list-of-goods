@@ -1,0 +1,35 @@
+.app {
+  font-family: Arial, Helvetica, sans-serif;
+
+  &__button {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    border-color: initial;
+
+    &-action {
+      margin-right: 10px;
+      background-color: rgb(37, 143, 192);
+
+      &:hover {
+        background-color: rgb(52, 191, 255);;
+      }
+    }
+
+    &-start {
+      background-color: rgb(80, 211, 40);
+
+      &:hover {
+        background-color: rgb(100, 255, 53);;
+      }
+    }
+
+    &-reset {
+      background-color: rgb(211, 80, 80);
+
+      &:hover {
+        background-color: rgb(255, 108, 108);;
+      }
+    }
+  }
+}
