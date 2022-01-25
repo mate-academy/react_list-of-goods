@@ -1,0 +1,11 @@
+.goods-list {
+  border: 2px solid #000;
+  padding: 10px;
+  list-style: none;
+  border-radius: 10px;
+
+  &__item {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+}
