@@ -19,66 +19,68 @@ type Props = {};
 
 type State = {
   goods: string[],
+  visibleGoods: string[],
   visibilityOfGoods: boolean,
-  isReversed: boolean,
-  sortBy: string,
+  length: string,
 };
 
 export class App extends React.Component<Props, State> {
   state: State = {
     goods: [...goodsFromServer],
+    visibleGoods: [...goodsFromServer],
     visibilityOfGoods: false,
-    isReversed: false,
-    sortBy: '',
+    length: '1',
   };
 
-  start = () => {
+  handleStart = () => {
     this.setState(() => ({
       visibilityOfGoods: true,
     }));
   };
 
-  reverse = () => (
+  reverseGoodsList = () => (
     this.setState((state) => ({
-      isReversed: !state.isReversed,
+      visibleGoods: [...state.visibleGoods].reverse(),
     }))
   );
 
   sortGoods = (sortBy: string) => (
-    this.setState(() => ({
-      sortBy,
-    }))
-  );
+    this.setState(state => {
+      switch (sortBy) {
+        case 'by length':
+          return {
+            visibleGoods: [...state.visibleGoods].sort((a, b) => a.length - b.length),
+          };
 
-  reset = () => {
+        case 'alphabetically':
+          return {
+            visibleGoods: [...state.visibleGoods].sort((a, b) => a.localeCompare(b)),
+          };
+
+        default:
+          return {
+            visibleGoods: [...state.visibleGoods],
+          };
+      }
+    }));
+
+  handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState((state) => ({
+      length: event.target.value,
+      visibleGoods: state.goods.filter(product => product.length >= +event.target.value),
+    }));
+  };
+
+  returnInitialOrderOfGoods = () => {
     this.setState(() => ({
-      sortBy: '',
-      isReversed: false,
+      visibleGoods: [...goodsFromServer],
+      length: '1',
     }));
   };
 
   render(): React.ReactNode {
-    const { visibilityOfGoods, isReversed, sortBy } = this.state;
-    const goods = [...this.state.goods];
-
-    if (sortBy.length !== 0) {
-      switch (sortBy) {
-        case 'by length':
-          goods.sort((a, b) => a.length - b.length);
-          break;
-
-        case 'alphabetically':
-          goods.sort((a, b) => a.localeCompare(b));
-          break;
-
-        default:
-          return 0;
-      }
-    }
-
-    if (isReversed) {
-      goods.reverse();
-    }
+    const { visibilityOfGoods } = this.state;
+    const goods = [...this.state.visibleGoods];
 
     return (
       <div className="App">
@@ -90,7 +92,7 @@ export class App extends React.Component<Props, State> {
             <div className="buttons">
               <button
                 type="button"
-                onClick={this.reverse}
+                onClick={this.reverseGoodsList}
                 className="button is-link is-light"
               >
                 Reverse
@@ -119,10 +121,48 @@ export class App extends React.Component<Props, State> {
               <button
                 type="button"
                 className="button is-primary is-light"
-                onClick={this.reset}
+                onClick={this.returnInitialOrderOfGoods}
               >
                 Reset
               </button>
+              <select
+                className="select is-link"
+                name="goods"
+                id=""
+                value={this.state.length}
+                onChange={this.handleChange}
+              >
+                <option value="1">
+                  1
+                </option>
+                <option value="2">
+                  2
+                </option>
+                <option value="3">
+                  3
+                </option>
+                <option value="4">
+                  4
+                </option>
+                <option value="5">
+                  5
+                </option>
+                <option value="6">
+                  6
+                </option>
+                <option value="7">
+                  7
+                </option>
+                <option value="8">
+                  8
+                </option>
+                <option value="9">
+                  9
+                </option>
+                <option value="10">
+                  10
+                </option>
+              </select>
             </div>
           </div>
         )}
@@ -130,7 +170,7 @@ export class App extends React.Component<Props, State> {
         {visibilityOfGoods || (
           <button
             type="button"
-            onClick={this.start}
+            onClick={this.handleStart}
             className="button is-link is-light"
           >
             Start
