@@ -14,11 +14,18 @@ const goodsFromServer: Good[] = [
   'Garlic',
 ];
 
+enum SortBy {
+  Default = '',
+  Length = 'length',
+  Alphabetically = 'alphabetically',
+}
+
 type State = {
   goods: Good[],
   showList: boolean,
   isReversed: boolean,
-  sortBy: string,
+  sortBy: SortBy,
+  goodsLength: number,
 };
 
 class App extends React.Component<{}, State> {
@@ -26,13 +33,14 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     showList: false,
     isReversed: false,
-    sortBy: '',
+    sortBy: SortBy.Default,
+    goodsLength: 1,
   };
 
   showGoods = () => {
-    this.setState(state => ({
-      showList: !state.showList,
-    }));
+    this.setState({
+      showList: true,
+    });
   };
 
   reverse = () => {
@@ -41,31 +49,49 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortAlphabetically = () => {
-    this.setState({ sortBy: 'alphabet' });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+  changeSortBy = (event: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({
+      sortBy: event.currentTarget.name as SortBy,
+    });
   };
 
   reset = () => {
     this.setState({
+      goods: goodsFromServer,
       isReversed: false,
-      sortBy: '',
+      sortBy: SortBy.Default,
     });
   };
 
-  render(): React.ReactNode {
+  goodsToShow = () => {
     const {
       goods,
-      showList,
       isReversed,
-      sortBy,
+      goodsLength,
     } = this.state;
-    const goodsToShow = [...goods];
 
-    if (!showList) {
+    const filteredGoods = goods.filter(good => good.length >= goodsLength);
+
+    filteredGoods.sort((good1: Good, good2: Good) => {
+      switch (this.state.sortBy) {
+        case SortBy.Alphabetically:
+          return good1.localeCompare(good2);
+        case SortBy.Length:
+          return good1.length - good2.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (!isReversed) {
+      filteredGoods.reverse();
+    }
+
+    return filteredGoods;
+  };
+
+  render(): React.ReactNode {
+    if (!this.state.showList) {
       return (
         <button
           type="button"
@@ -76,20 +102,7 @@ class App extends React.Component<{}, State> {
       );
     }
 
-    goodsToShow.sort((good1, good2) => {
-      switch (sortBy) {
-        case 'alphabet':
-          return good1.localeCompare(good2);
-        case 'length':
-          return good1.length - good2.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      goodsToShow.reverse();
-    }
+    const goods = this.goodsToShow();
 
     return (
       <div className="App box">
@@ -101,7 +114,6 @@ class App extends React.Component<{}, State> {
         >
           Reverse
         </button>
-        <br />
         <button
           type="button"
           onClick={this.reset}
@@ -110,25 +122,26 @@ class App extends React.Component<{}, State> {
         </button>
 
         <div>
-          <span className="title is-4">Sort:</span>
           <button
+            name={SortBy.Alphabetically}
             type="button"
-            onClick={this.sortAlphabetically}
+            onClick={this.changeSortBy}
           >
-            Alphabetically
+            Sort alphabetically
           </button>
 
           <button
+            name={SortBy.Length}
             type="button"
-            onClick={this.sortByLength}
+            onClick={this.changeSortBy}
           >
-            By length
+            Sort by length
           </button>
         </div>
 
-        {goodsToShow.length !== 0 && (
+        {goods.length !== 0 && (
           <ul>
-            {goodsToShow.map(good => (
+            {goods.map(good => (
               <li key={good} className="listItem">{good}</li>
             ))}
           </ul>
