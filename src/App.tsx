@@ -77,7 +77,7 @@ class App extends React.Component<{}, State> {
 
     switch (sortBy) {
       case SortBy.Alphabetically:
-        goodsCopy.sort();
+        goodsCopy.sort((good1, good2) => good1.localeCompare(good2));
         break;
       case SortBy.Length:
         goodsCopy.sort((good1, good2) => good1.length - good2.length);
