@@ -1,0 +1,73 @@
+html {
+  background-color: #fdc262;
+}
+
+.list {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  visibility: hidden;
+}
+
+.list li {
+  width: 200px;
+  padding: 7px 20px;
+  margin-bottom: 10px;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: rgb(43, 43, 43);
+  background-color: antiquewhite;
+  border-radius: 5px;
+  border-left: 10px solid #1ccfc9;
+  box-shadow: 2px -2px 5px 0 rgba(0,0,0,1);
+  font-size: 20px;
+  letter-spacing: 2px;
+  transition: 0.3s all linear;
+
+  &:hover {
+    border-left: 10px solid transparent;
+    color: rgb(105, 105, 105);
+    background-color: white;
+    border-right: 10px solid #1ccfc9;
+  }
+}
+
+.list-visible {
+  visibility: visible;
+}
+
+.buttons-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.button {
+  margin: 10px;
+  font-size: 20px;
+  height: 40px;
+  width: 100px;
+  background-color: white;
+  color: rgb(105, 105, 105);
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #1ccfc9;
+    color: rgb(56, 56, 56);
+  }
+}
+
+.button-hidden {
+  visibility: collapse;
+}
+
+.button-alphabet {
+  width: 200px;
+}
+
+.button-by-length {
+  width: 160px;
+}
