@@ -21,7 +21,7 @@ type State = {
 };
 
 export class App extends React.PureComponent<{}, State> {
-  state = {
+  state: State = {
     goods: goodsFromServer,
     isListVisible: false,
     maxLength: 1,
