@@ -68,7 +68,7 @@ class App extends React.Component<{}, State> {
           className={
             classNames(
               'button',
-              { 'button-hidden': isVisible === true },
+              { 'button-hidden': isVisible },
             )
           }
         >
