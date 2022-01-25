@@ -1,0 +1,24 @@
+.App {
+  display: flex;
+  margin-top: 50px;
+}
+
+/* .start {
+  margin: auto;
+} */
+
+.sorter {
+  margin: auto;
+}
+
+.ui.segments:first-child {
+  margin-top: 50px;
+}
+
+.ui.header {
+  text-align: center;
+}
+
+.ui.buttons {
+  margin-top: 10px;
+}
