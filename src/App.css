@@ -1,0 +1,18 @@
+.card {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.btn {
+  width: 155px;
+  height: 40px;
+  margin: 20px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+
+  /* padding-left: 50px; */
+}
