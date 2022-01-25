@@ -1,0 +1,14 @@
+.start-button {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%,0);
+  margin-top: 50px;
+  width: 100px;
+}
+
+.list {
+  width: 300px;
+  float: left;
+}
+
+@import "~bootstrap/scss/bootstrap";
