@@ -1,0 +1,14 @@
+.list {
+  list-style: none;
+  background-color: green;
+  text-align: center;
+  margin: 10px;
+  border-radius: 20px;
+
+  &__item {
+    font-size: 24px;
+    color: rgb(242, 195, 9);
+    display: block;
+    padding: 10px 0;
+  }
+}
