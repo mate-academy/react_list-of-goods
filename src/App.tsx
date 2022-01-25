@@ -55,6 +55,12 @@ class App extends React.Component<{}, State> {
     });
   };
 
+  setGoodsLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({
+      goodsLength: +event.target.value,
+    });
+  };
+
   reset = () => {
     this.setState({
       goods: goodsFromServer,
@@ -120,23 +126,41 @@ class App extends React.Component<{}, State> {
         >
           Reset
         </button>
+        <br />
+        <button
+          name={SortBy.Alphabetically}
+          type="button"
+          onClick={this.changeSortBy}
+        >
+          Sort alphabetically
+        </button>
+
+        <button
+          name={SortBy.Length}
+          type="button"
+          onClick={this.changeSortBy}
+        >
+          Sort by length
+        </button>
 
         <div>
-          <button
-            name={SortBy.Alphabetically}
-            type="button"
-            onClick={this.changeSortBy}
+          <h4 className="title is-5">Choose goods length:</h4>
+          <select
+            name="lengthOfGoods"
+            value={this.state.goodsLength}
+            onChange={this.setGoodsLength}
           >
-            Sort alphabetically
-          </button>
-
-          <button
-            name={SortBy.Length}
-            type="button"
-            onClick={this.changeSortBy}
-          >
-            Sort by length
-          </button>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
         </div>
 
         {goods.length !== 0 && (
