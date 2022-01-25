@@ -13,6 +13,7 @@ export const goodsFromServer: string[] = [
   'Jam',
   'Garlic',
 ];
+
 type State = {
   goods: string[],
   isVisible: boolean,
@@ -42,7 +43,7 @@ class App extends React.Component<{}, State> {
 
   sortByAlphabet = () => {
     this.setState({
-      isSortedBy: 'alphabetically',
+      isSortedBy: 'alphabet',
     });
   };
 
@@ -65,16 +66,17 @@ class App extends React.Component<{}, State> {
     const { goods, isSortedBy, isReversed } = this.state;
     const goodsCopy = [...goods];
 
-    goodsCopy.sort((g1, g2) => {
+    goodsCopy.sort((good1, good2) => {
       switch (isSortedBy) {
-        case 'alphabetically':
-          return g1.localeCompare(g2);
+        case 'alphabet':
+          return good1.localeCompare(good2);
         case 'length':
-          return g1.length - g2.length;
+          return good1.length - good2.length;
         default:
           return 0;
       }
     });
+
     if (isReversed) {
       goodsCopy.reverse();
     }
