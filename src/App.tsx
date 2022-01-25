@@ -55,7 +55,7 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  reset = () => {
+  resetDefaults = () => {
     this.setState({
       visibleGoods: goodsFromServer,
       lengths: '1',
@@ -113,7 +113,7 @@ class App extends React.Component<{}, State> {
               </button>
               <button
                 type="button"
-                onClick={this.reset}
+                onClick={this.resetDefaults}
                 className="button m-2 ml-6 is-danger"
 
               >
