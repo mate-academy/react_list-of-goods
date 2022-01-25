@@ -16,37 +16,37 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  startApp: boolean,
+  isStartApp: boolean,
   initialArray: string[],
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
-    startApp: true,
+    isStartApp: true,
     initialArray: [...goodsFromServer],
   };
 
   handleStart = () => {
     this.setState(state => ({
-      startApp: !state.startApp,
+      isStartApp: !state.isStartApp,
     }));
   };
 
   reverseGoods = () => {
     this.setState(state => ({
-      initialArray: state.initialArray.reverse(),
+      initialArray: [...state.initialArray].reverse(),
     }));
   };
 
   sortByName = () => {
     this.setState((state) => ({
-      initialArray: state.initialArray.sort((a, b) => a.localeCompare(b)),
+      initialArray: [...state.initialArray].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
   sortByLength = () => {
     this.setState((state) => ({
-      initialArray: state.initialArray.sort((a, b) => a.length - b.length),
+      initialArray: [...state.initialArray].sort((a, b) => a.length - b.length),
     }));
   };
 
@@ -57,12 +57,12 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { startApp, initialArray } = this.state;
+    const { isStartApp, initialArray } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {startApp ? <button type="button" onClick={this.handleStart}>Start</button>
+        {isStartApp ? <button type="button" onClick={this.handleStart}>Start</button>
           : (
             <div>
               <button type="button" onClick={this.reverseGoods}>Reverse</button>
