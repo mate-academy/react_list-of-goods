@@ -29,6 +29,10 @@ export class App extends React.PureComponent<{}, State> {
 
   showHideListHandler = () => {
     this.setState(state => ({ isListVisible: !state.isListVisible }));
+
+    if (!this.state.isListVisible) {
+      this.resetHandler();
+    }
   };
 
   reverseListHandler = () => {
