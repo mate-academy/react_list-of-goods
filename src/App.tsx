@@ -20,61 +20,86 @@ const goodsFromServer = [
 
 type State = {
   goods: string[];
-  initialGoods: string[];
   buttonVisible: boolean;
+  isReversed: boolean;
+  sortBy: string;
 };
 
 type Props = {};
 
+enum Sortby {
+  Name = 'name',
+  Length = 'length',
+}
+
 class App extends React.Component<Props, State> {
   state: State = {
-    goods: goodsFromServer,
-    initialGoods: goodsFromServer,
+    goods: [...goodsFromServer],
     buttonVisible: true,
+    isReversed: false,
+    sortBy: '',
   };
 
   start = () => {
     this.setState((state) => ({
-      goods: state.initialGoods,
+      buttonVisible: !state.buttonVisible,
     }));
   };
 
   reverse = () => {
     this.setState((state) => ({
-      goods: [...state.goods].reverse(),
+      isReversed: !state.isReversed,
     }));
   };
 
   sort = () => {
-    this.setState((state) => ({
-      goods: [...state.goods].sort(),
+    this.setState(() => ({
+      sortBy: Sortby.Name,
+      isReversed: false,
     }));
   };
 
   sortByLength = () => {
-    this.setState((state) => ({
-      goods: [...state.goods].sort((a, b) => a.length - b.length),
+    this.setState(() => ({
+      sortBy: Sortby.Length,
+      isReversed: false,
     }));
   };
 
   reset = () => {
-    this.setState(() => {
-      this.start();
-    });
+    this.setState(() => ({
+      isReversed: false,
+      sortBy: '',
+    }));
   };
 
   render() {
-    const { buttonVisible, goods } = this.state;
+    const {
+      buttonVisible, goods, isReversed, sortBy,
+    } = this.state;
     const isButtonVisible = { buttonVisible: buttonVisible === true };
+    const initialGoods = [...goods];
+
+    if (sortBy === Sortby.Name) {
+      initialGoods.sort((a, b) => a.localeCompare(b));
+    }
+
+    if (sortBy === Sortby.Length) {
+      initialGoods.sort((a, b) => a.length - b.length);
+    }
+
+    if (isReversed) {
+      initialGoods.reverse();
+    }
 
     return (
       <div className="App">
         <h1>Goods</h1>
         <button
-          className={classNames('button', { buttonVisible: buttonVisible === false })}
+          className={classNames('button', { buttonVisible: !buttonVisible })}
           type="button"
           onClick={() => {
-            this.setState({ buttonVisible: false });
+            this.setState(this.start);
           }}
         >
           Start
@@ -108,7 +133,7 @@ class App extends React.Component<Props, State> {
         >
           Reset
         </button>
-        {buttonVisible ? '' : <GoodsList props={goods} />}
+        {buttonVisible ? '' : <GoodsList props={initialGoods} />}
       </div>
     );
   }
