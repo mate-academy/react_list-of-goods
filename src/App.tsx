@@ -42,6 +42,12 @@ class App extends React.Component<{}, State> {
     minLength: 1,
   };
 
+  start = () => {
+    this.setState((state) => ({
+      isStart: !state.isStart,
+    }));
+  };
+
   selected = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const length = Number(event.currentTarget.value);
 
@@ -115,11 +121,7 @@ class App extends React.Component<{}, State> {
               <button
                 type="button"
                 className="button"
-                onClick={() => (
-                  this.setState((state) => ({
-                    isStart: !state.isStart,
-                  }))
-                )}
+                onClick={this.start}
               >
                 Start
               </button>
