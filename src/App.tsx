@@ -89,7 +89,7 @@ class App extends React.Component<{}, State> {
       }
     });
 
-    if (!isReversed) {
+    if (isReversed) {
       filteredGoods.reverse();
     }
 
