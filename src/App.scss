@@ -1,5 +1,6 @@
 $c-light:rgb(187, 115, 235);
 $c-dark:rgb(105, 0, 105);
+$c-hover:rgb(52, 46, 136);
 
 .App {
   height: 100vh;
@@ -63,7 +64,7 @@ $c-dark:rgb(105, 0, 105);
 
     &:hover {
       color: $c-light;
-      background-color: $c-dark;
+      background-color: $c-hover;
     }
   }
 
@@ -76,7 +77,7 @@ $c-dark:rgb(105, 0, 105);
 
       &:hover {
         color: $c-dark;
-        background-color: $c-light;
+        background-color: $c-hover;
       }
     }
   }
@@ -91,6 +92,6 @@ $c-dark:rgb(105, 0, 105);
 
   &:hover {
     color: $c-light;
-    background-color: $c-dark;
+    background-color: $c-hover;
   }
 }
