@@ -26,25 +26,25 @@ class App extends React.PureComponent<{}, State> {
     listOfGoods: goodsFromServer,
   };
 
-  reverseList = () => {
+  reverseHandler = () => {
     this.setState(state => ({
       listOfGoods: [...state.listOfGoods].reverse(),
     }));
   };
 
-  sortAlphabetically = () => {
+  alphabeticalSortHandler = () => {
     this.setState(state => ({
       listOfGoods: [...state.listOfGoods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
-  sortbyLength = () => {
+  sortByLengthHandler = () => {
     this.setState(state => ({
       listOfGoods: [...state.listOfGoods].sort((a, b) => a.length - b.length),
     }));
   };
 
-  reset = () => {
+  resetHandler = () => {
     this.setState({
       listOfGoods: [...goodsFromServer],
     });
@@ -59,7 +59,7 @@ class App extends React.PureComponent<{}, State> {
           className={
             classNames(
               'list',
-              { 'list-visible': isListVisible === true },
+              { 'list-visible': isListVisible },
             )
           }
         >
@@ -76,7 +76,7 @@ class App extends React.PureComponent<{}, State> {
             className={
               classNames(
                 'button',
-                { 'button-hidden': isListVisible === true },
+                { 'button-hidden': isListVisible },
               )
             }
             onClick={() => {
@@ -91,7 +91,7 @@ class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             className="button"
-            onClick={this.reverseList}
+            onClick={this.reverseHandler}
           >
             Reverse
           </button>
@@ -99,7 +99,7 @@ class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             className="button button-alphabet"
-            onClick={this.sortAlphabetically}
+            onClick={this.alphabeticalSortHandler}
           >
             Sort alphabetically
           </button>
@@ -107,7 +107,7 @@ class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             className="button button-by-length"
-            onClick={this.sortbyLength}
+            onClick={this.sortByLengthHandler}
           >
             Sort by length
           </button>
@@ -115,7 +115,7 @@ class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             className="button"
-            onClick={this.reset}
+            onClick={this.resetHandler}
           >
             Reset
           </button>
