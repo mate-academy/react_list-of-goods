@@ -101,7 +101,7 @@ class App extends React.Component<{}, State> {
       length,
     } = this.state;
 
-    const visibleGoods = this.getVisibleGoods();
+    const visibleGoods: string[] = this.getVisibleGoods();
 
     return (
       <div className="App">
