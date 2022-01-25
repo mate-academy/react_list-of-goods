@@ -20,7 +20,7 @@ type State = {
   goodsIsShowed: boolean;
   isReversed: boolean;
   sortBy: string;
-  length: string;
+  lengthOfGoods: string;
 };
 
 class App extends React.Component<{}, State> {
@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
     goodsIsShowed: false,
     isReversed: false,
     sortBy: 'default',
-    length: '1',
+    lengthOfGoods: '1',
   };
 
   showGoods = () => {
@@ -38,7 +38,7 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  reverse = () => {
+  reverseGoods = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
@@ -52,17 +52,17 @@ class App extends React.Component<{}, State> {
     this.setState({ sortBy: 'length' });
   };
 
-  reset = () => {
+  resetState = () => {
     this.setState({
       sortBy: 'default',
-      length: '1',
+      lengthOfGoods: '1',
       isReversed: false,
     });
   };
 
   handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
-      length: e.currentTarget.value,
+      lengthOfGoods: e.currentTarget.value,
     });
   };
 
@@ -71,10 +71,10 @@ class App extends React.Component<{}, State> {
       goods,
       isReversed,
       sortBy,
-      length,
+      lengthOfGoods,
     } = this.state;
 
-    const visibleGoods = goods.filter(good => good.length >= +length);
+    const visibleGoods = goods.filter(good => good.length >= +lengthOfGoods);
 
     visibleGoods.sort((good1, good2) => {
       switch (sortBy) {
@@ -98,10 +98,8 @@ class App extends React.Component<{}, State> {
   render() {
     const {
       goodsIsShowed,
-      length,
+      lengthOfGoods,
     } = this.state;
-
-    const visibleGoods: string[] = this.getVisibleGoods();
 
     return (
       <div className="App">
@@ -117,10 +115,10 @@ class App extends React.Component<{}, State> {
           )
           : (
             <div>
-              <GoodsList goods={visibleGoods} />
+              <GoodsList goods={this.getVisibleGoods()} />
               <button
                 type="button"
-                onClick={this.reverse}
+                onClick={this.reverseGoods}
               >
                 Reverse
               </button>
@@ -138,12 +136,12 @@ class App extends React.Component<{}, State> {
               </button>
               <button
                 type="button"
-                onClick={this.reset}
+                onClick={this.resetState}
               >
                 Reset
               </button>
 
-              <select value={length} onChange={this.handleChange}>
+              <select value={lengthOfGoods} onChange={this.handleChange}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
