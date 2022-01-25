@@ -15,24 +15,53 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-type Props = {};
 type State = {
   isGoodsVisible: boolean,
-  goods: string[],
   isReversed: boolean,
   isSortedAlphabet: boolean,
   visibleGoods: string[],
   isSortedLength: boolean,
 };
 
-class App extends React.Component<Props, State> {
+class App extends React.Component<{}, State> {
   state: State = {
     isGoodsVisible: false,
-    goods: [...goodsFromServer],
     isReversed: false,
     isSortedAlphabet: false,
     visibleGoods: [...goodsFromServer],
     isSortedLength: false,
+  };
+
+  reverseGoods = () => {
+    this.setState({
+      isReversed: true,
+      isSortedAlphabet: false,
+      isSortedLength: false,
+    });
+  };
+
+  sortAlphabet = () => {
+    this.setState({
+      isReversed: false,
+      isSortedAlphabet: true,
+      isSortedLength: false,
+    });
+  };
+
+  resetGoods = () => {
+    this.setState({
+      isReversed: false,
+      isSortedAlphabet: false,
+      isSortedLength: false,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      isReversed: false,
+      isSortedAlphabet: false,
+      isSortedLength: true,
+    });
   };
 
   render() {
@@ -55,58 +84,34 @@ class App extends React.Component<Props, State> {
               goods={this.state.visibleGoods}
               isReversed={this.state.isReversed}
               isSortedAlphabet={this.state.isSortedAlphabet}
-              defaultGoods={this.state.goods}
+              defaultGoods={goodsFromServer}
               isSortedLength={this.state.isSortedLength}
             />
             <div className="App__buttons">
               <button
                 type="button"
-                onClick={() => {
-                  this.setState({
-                    isReversed: true,
-                    isSortedAlphabet: false,
-                    isSortedLength: false,
-                  });
-                }}
+                onClick={this.reverseGoods}
                 className="App__button"
               >
                 Reverse
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  this.setState({
-                    isReversed: false,
-                    isSortedAlphabet: true,
-                    isSortedLength: false,
-                  });
-                }}
+                onClick={this.sortAlphabet}
                 className="App__button"
               >
                 Sort alphabetically
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  this.setState({
-                    isReversed: false,
-                    isSortedAlphabet: false,
-                    isSortedLength: false,
-                  });
-                }}
+                onClick={this.resetGoods}
                 className="App__button"
               >
                 Reset
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  this.setState({
-                    isReversed: false,
-                    isSortedAlphabet: false,
-                    isSortedLength: true,
-                  });
-                }}
+                onClick={this.sortByLength}
                 className="App__button"
               >
                 Sort by length
