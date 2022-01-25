@@ -1,0 +1,21 @@
+* {
+  margin: 0 auto;
+}
+
+.card {
+  width: 500px;
+}
+
+.btn {
+  width: 155px;
+  height: 40px;
+  margin: 20px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+
+  /* padding-left: 50px; */
+}
