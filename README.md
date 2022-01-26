@@ -1,5 +1,5 @@
 # React list of goods
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/)
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://ErnestoFernandezUA.github.io/react_list-of-goods/)
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
 - Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
@@ -16,3 +16,17 @@
   should now show only goods having length >= than the selected value. When you change the
   value the items should be immediately re-rendered accordingly.
 1. `Reset` button should set the default value to the `<select>`
+
+
+{
+
+
+      // showHide: {
+      //     prevStatelistOfGoods: true,
+      //     buttonFinish: true,
+      //     buttonReset: true,
+      //     buttonRevers: true,
+      //     buttonSortAZ: true,
+      //     formSelect: true,
+      //   },
+    }
