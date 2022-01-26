@@ -30,11 +30,11 @@ export class App extends React.Component<{}, State> {
     sortMethod: '',
   };
 
-  start = () => {
+  handleStart = () => {
     this.setState({ isStarted: true });
   };
 
-  reverse = () => {
+  reverseGoodsList = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
       isDefault: false,
@@ -46,6 +46,7 @@ export class App extends React.Component<{}, State> {
       {
         sortMethod: 'byLength',
         isDefault: false,
+        isReversed: false,
       },
     );
   };
@@ -55,11 +56,12 @@ export class App extends React.Component<{}, State> {
       {
         sortMethod: 'byAlphabet',
         isDefault: false,
+        isReversed: false,
       },
     );
   };
 
-  reset = () => {
+  resetGoodsList = () => {
     this.setState(
       {
         isStarted: true,
@@ -109,7 +111,7 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button"
-              onClick={this.start}
+              onClick={this.handleStart}
             >
               <div className="blob">
                 <svg
@@ -146,7 +148,7 @@ export class App extends React.Component<{}, State> {
                   },
                 )}
                 type="button"
-                onClick={this.reverse}
+                onClick={this.reverseGoodsList}
               >
                 Reverse
               </button>
@@ -170,7 +172,7 @@ export class App extends React.Component<{}, State> {
               <button
                 className="slide"
                 type="button"
-                onClick={this.reset}
+                onClick={this.resetGoodsList}
               >
                 <div>
                   Reset
