@@ -34,19 +34,19 @@ class App extends React.Component<{}, State> {
 
   reverseList = () => {
     this.setState((state) => ({
-      goods: state.goods.map(item => item).reverse(),
+      goods: [...state.goods].reverse(),
     }));
   };
 
   sortAlphavet = () => {
     this.setState((state) => ({
-      goods: state.goods.map(item => item).sort((a, b) => a.localeCompare(b)),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
   sortByLength = () => {
     this.setState((state) => ({
-      goods: state.goods.map(item => item).sort((a, b) => a.length - b.length),
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
     }));
   };
 
