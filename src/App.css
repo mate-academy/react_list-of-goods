@@ -1,0 +1,55 @@
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.App__start-button {
+  height: 80px;
+  width: 240px;
+}
+
+.App__goods-list {
+  margin: 0;
+}
+
+.container.visible {
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  width: 400px;
+  height: 400px;
+}
+
+.goods-list {
+  list-style: none;
+  padding: 12px;
+  border: 1px solid #2e7d32;
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+.goods-list__item {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.goods-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.goods-list__button-container {
+  display: none;
+}
+
+.goods-list__button-container.visible {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
