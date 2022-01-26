@@ -83,6 +83,7 @@ class App extends React.Component<{}, State> {
   resetList = () => {
     this.setState(() => (
       {
+        value: 1,
         visibleListOfGoods: [...goodsFromServer],
       }
     ));
@@ -146,6 +147,7 @@ class App extends React.Component<{}, State> {
               Reset
             </button>
             <select
+              value={this.state.value}
               onChange={(event) => (
                 this.setState({
                   value: +event.target.value,
