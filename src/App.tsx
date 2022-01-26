@@ -16,11 +16,17 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortBy {
+  None,
+  Alphabet,
+  Length,
+}
+
 type State = {
   goods: string[],
   isListVisible: boolean,
   isReversed: boolean
-  sortBy: string,
+  sortBy: SortBy,
 };
 
 class App extends React.Component<{}, State> {
@@ -28,14 +34,14 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isListVisible: false,
     isReversed: false,
-    sortBy: '',
+    sortBy: SortBy.None,
   };
 
   showGoodsList = () => {
     this.setState({ isListVisible: true });
   };
 
-  reverse = () => {
+  reverseGoodsList = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -43,33 +49,38 @@ class App extends React.Component<{}, State> {
 
   sortByAlph = () => {
     this.setState({
-      sortBy: 'alphabet',
+      sortBy: SortBy.Length,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortBy: 'length',
+      sortBy: SortBy.Alphabet,
     });
   };
 
-  reset = () => {
+  resetGoodsList = () => {
     this.setState({
-      sortBy: '',
+      sortBy: SortBy.None,
     });
   };
 
   render() {
-    const { goods, isReversed, sortBy } = this.state;
+    const {
+      goods,
+      isReversed,
+      isListVisible,
+      sortBy,
+    } = this.state;
 
     const sortedGoods = [...goods];
 
     sortedGoods.sort((item1, item2) => {
       switch (sortBy) {
-        case 'length':
+        case SortBy.Length:
           return item1.length - item2.length;
 
-        case 'alphabet':
+        case SortBy.Alphabet:
           return item1.localeCompare(item2);
 
         default:
@@ -84,7 +95,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <div className="sorter">
-          {this.state.isListVisible || (
+          {isListVisible || (
             <button
               className="ui big green button"
               type="button"
@@ -93,7 +104,7 @@ class App extends React.Component<{}, State> {
               Start
             </button>
           )}
-          {this.state.isListVisible && (
+          {isListVisible && (
             <div className="ui segments">
               <div className="ui segment">
                 <div className="ui huge header">
@@ -124,7 +135,7 @@ class App extends React.Component<{}, State> {
                   <button
                     className="ui button"
                     type="button"
-                    onClick={this.reverse}
+                    onClick={this.reverseGoodsList}
                   >
                     Reverse
                   </button>
@@ -132,7 +143,7 @@ class App extends React.Component<{}, State> {
                   <button
                     className="ui button"
                     type="button"
-                    onClick={this.reset}
+                    onClick={this.resetGoodsList}
                   >
                     Reset
                   </button>
