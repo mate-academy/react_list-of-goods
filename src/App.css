@@ -1,0 +1,14 @@
+.start {
+  padding: 40px;
+}
+
+.goods {
+  padding: 40px;
+  width: 600px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  padding-top: 20px;
+}
