@@ -48,6 +48,12 @@ class App extends React.Component<{}, State> {
     }));
   };
 
+  showList = () => {
+    this.setState({
+      isListDisplayed: true,
+    });
+  };
+
   render() {
     const { goods, isListDisplayed } = this.state;
 
@@ -57,11 +63,7 @@ class App extends React.Component<{}, State> {
           <button
             className="button is-primary"
             type="button"
-            onClick={() => {
-              this.setState({
-                isListDisplayed: true,
-              });
-            }}
+            onClick={this.showList}
           >
             Start
           </button>
