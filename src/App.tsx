@@ -40,6 +40,25 @@ class App extends React.Component<Props, State> {
     sortBy: '',
   };
 
+  getVisibleGoods(goods: string[]) {
+    const { sortBy, isReversed } = this.state;
+    const initialGoods = [...goods];
+
+    if (sortBy === Sortby.Name) {
+      initialGoods.sort((a, b) => a.localeCompare(b));
+    }
+
+    if (sortBy === Sortby.Length) {
+      initialGoods.sort((a, b) => a.length - b.length);
+    }
+
+    if (isReversed) {
+      initialGoods.reverse();
+    }
+
+    return initialGoods;
+  }
+
   startHandler = () => {
     this.setState((state) => ({
       buttonVisible: !state.buttonVisible,
@@ -74,23 +93,9 @@ class App extends React.Component<Props, State> {
   };
 
   render() {
-    const {
-      buttonVisible, goods, isReversed, sortBy,
-    } = this.state;
+    const { buttonVisible, goods } = this.state;
     const isButtonVisible = { buttonVisible: buttonVisible === true };
-    const initialGoods = [...goods];
-
-    if (sortBy === Sortby.Name) {
-      initialGoods.sort((a, b) => a.localeCompare(b));
-    }
-
-    if (sortBy === Sortby.Length) {
-      initialGoods.sort((a, b) => a.length - b.length);
-    }
-
-    if (isReversed) {
-      initialGoods.reverse();
-    }
+    const changedGoodsList = this.getVisibleGoods(goods);
 
     return (
       <div className="App">
@@ -133,7 +138,7 @@ class App extends React.Component<Props, State> {
         >
           Reset
         </button>
-        {buttonVisible ? '' : <GoodsList props={initialGoods} />}
+        {buttonVisible ? '' : <GoodsList props={changedGoodsList} />}
       </div>
     );
   }
