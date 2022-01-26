@@ -1,0 +1,12 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  margin: 100px auto;
+  text-align: center;
+  width: 500px;
+  gap: 10px;
+}
+
+.list-group {
+  color: red;
+}
