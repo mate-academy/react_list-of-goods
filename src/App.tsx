@@ -19,17 +19,23 @@ type State = {
   goodsToShow: string[],
   hiddenStart: boolean,
   reversed: boolean,
-  sortAlphabet: boolean,
-  sortLength: boolean,
+  filteredGoods: string[],
+  sortBy: SortBy,
 };
+
+enum SortBy {
+  Alphabet,
+  Length,
+  None,
+}
 
 class App extends React.Component<{}, State> {
   state = {
     goodsToShow: [],
     hiddenStart: false,
     reversed: false,
-    sortAlphabet: false,
-    sortLength: false,
+    filteredGoods: [],
+    sortBy: SortBy.None,
   };
 
   start = () => {
@@ -45,54 +51,56 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortAlph = () => {
-    this.setState({
-      sortAlphabet: true,
-      sortLength: false,
-    });
-  };
-
   reset = () => {
     this.setState({
       reversed: false,
-      sortAlphabet: false,
-      sortLength: false,
+      sortBy: SortBy.None,
     });
   };
 
-  sortLeng = () => {
-    this.setState({
-      sortAlphabet: false,
-      sortLength: true,
-    });
+  sortByParameter = (parameter: SortBy) => {
+    this.state.sortBy = parameter;
+    this.forceUpdate();
   };
 
-  render() {
+  sortAlphabeticalyHandler = () => {
+    this.sortByParameter(SortBy.Alphabet);
+  };
+
+  sortByLengthHandler = () => {
+    this.sortByParameter(SortBy.Length);
+  };
+
+  showCorrectGoods = () => {
     const {
-      goodsToShow, reversed, sortAlphabet, sortLength,
+      goodsToShow, reversed, sortBy,
     } = this.state;
 
-    const filteredGoods = [...goodsToShow];
+    this.state.filteredGoods = [...goodsToShow];
 
-    if (sortAlphabet) {
-      filteredGoods.sort();
-    } else if (sortLength) {
-      filteredGoods.sort((a:string, b:string) => a.length - b.length);
+    if (sortBy === SortBy.Alphabet) {
+      this.state.filteredGoods.sort();
+    } else if (sortBy === SortBy.Length) {
+      this.state.filteredGoods.sort((a:string, b:string) => a.length - b.length);
     }
 
     if (reversed) {
-      filteredGoods.reverse();
+      this.state.filteredGoods.reverse();
     }
+  };
+
+  render() {
+    this.showCorrectGoods();
 
     return (
       <div className="App">
         <h1>Goods</h1>
         <button type="button" onClick={this.start} hidden={this.state.hiddenStart}>Start</button>
         <button type="button" onClick={this.reverse}>Reverse</button>
-        <button type="button" onClick={this.sortAlph}>Sort alphabetically</button>
+        <button type="button" onClick={this.sortAlphabeticalyHandler}>Sort alphabetically</button>
+        <button type="button" onClick={this.sortByLengthHandler}>Sort by length</button>
         <button type="button" onClick={this.reset}>Reset</button>
-        <button type="button" onClick={this.sortLeng}>Sort by length</button>
-        <GoodsList goods={filteredGoods} />
+        <GoodsList goods={this.state.filteredGoods} />
       </div>
     );
   }
