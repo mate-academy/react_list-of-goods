@@ -14,10 +14,16 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+export enum SortBy {
+  default = '',
+  name = 'name',
+  length = 'length',
+}
+
 type State = {
   started: boolean,
   goods: string[],
-  sortBy: string,
+  sortBy: SortBy,
   reverse: boolean,
 };
 
@@ -25,19 +31,19 @@ class App extends React.Component<{}, State> {
   state: State = {
     started: false,
     goods: [...goodsFromServer],
-    sortBy: '',
+    sortBy: SortBy.default,
     reverse: false,
   };
 
   sortByName = () => {
     this.setState({
-      sortBy: 'name',
+      sortBy: SortBy.name,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortBy: 'length',
+      sortBy: SortBy.length,
     });
   };
 
@@ -48,7 +54,7 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ goods: [...goodsFromServer], sortBy: '' });
+    this.setState({ goods: [...goodsFromServer], sortBy: SortBy.default });
   };
 
   render() {
@@ -116,7 +122,15 @@ class App extends React.Component<{}, State> {
               </div>
             </div>
           )
-          : <button type="button" className="button is-rounded is-outlined is-info start" onClick={() => this.setState({ started: true })}>Start</button>}
+          : (
+            <button
+              type="button"
+              className="button is-rounded is-outlined is-info start"
+              onClick={() => this.setState({ started: true })}
+            >
+              Start
+            </button>
+          )}
       </div>
     );
   }
