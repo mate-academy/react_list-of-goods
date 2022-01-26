@@ -21,12 +21,20 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortBy {
+  NoSort,
+  Alphpabetical,
+  Length,
+}
+
 type State = {
   goods: string[];
   isStarted: boolean;
   isReversed: boolean;
-  goodLength: string;
-  sortBy: string;
+  goodLength: number;
+  sort: SortBy;
+  selectOptions: number[];
+
 };
 
 export class App extends React.Component<{}, State> {
@@ -34,8 +42,9 @@ export class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isStarted: false,
     isReversed: false,
-    goodLength: '1',
-    sortBy: '',
+    goodLength: 1,
+    sort: SortBy.NoSort,
+    selectOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   };
 
   startApp = () => {
@@ -49,21 +58,23 @@ export class App extends React.Component<{}, State> {
   };
 
   sortAlphabetical = () => {
-    this.setState({ sortBy: 'alphabet' });
+    this.setState({ sort: SortBy.Alphpabetical });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sort: SortBy.Length });
   };
 
   resetList = () => {
-    this.setState({ goods: goodsFromServer });
-    this.setState({ sortBy: '' });
-    this.setState({ goodLength: '1' });
+    this.setState({
+      goods: goodsFromServer,
+      sort: SortBy.NoSort,
+      goodLength: 1,
+    });
   };
 
   handleChange = (event: SelectChangeEvent) => {
-    this.setState({ goodLength: String(event.target.value) });
+    this.setState({ goodLength: +String(event.target.value) });
   };
 
   render() {
@@ -72,19 +83,20 @@ export class App extends React.Component<{}, State> {
       isStarted,
       isReversed,
       goodLength,
-      sortBy,
+      sort,
+      selectOptions,
     } = this.state;
 
     const visibleGoods = goods.filter(
-      good => good.length >= +goodLength,
+      good => good.length >= goodLength,
     );
 
     visibleGoods.sort((good1, good2) => {
-      switch (sortBy) {
-        case 'alphabet':
+      switch (sort) {
+        case SortBy.Alphpabetical:
           return good1.localeCompare(good2);
 
-        case 'length':
+        case SortBy.Length:
           return good1.length - good2.length;
 
         default:
@@ -125,21 +137,14 @@ export class App extends React.Component<{}, State> {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={goodLength}
+                value={String(goodLength)}
                 label="Filter by length"
                 onChange={this.handleChange}
               >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
+                {selectOptions.map(option => (
+                  <MenuItem key={option} value={option}>{option}</MenuItem>
 
+                ))}
               </Select>
             </FormControl>
             <Button
