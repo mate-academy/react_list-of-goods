@@ -1,0 +1,13 @@
+.list {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.list__item {
+  list-style: none;
+  font-family: "Righteous", cursive;
+  font-size: larger;
+}
