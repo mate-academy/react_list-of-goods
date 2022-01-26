@@ -17,16 +17,3 @@
   value the items should be immediately re-rendered accordingly.
 1. `Reset` button should set the default value to the `<select>`
 
-
-{
-
-
-      // showHide: {
-      //     prevStatelistOfGoods: true,
-      //     buttonFinish: true,
-      //     buttonReset: true,
-      //     buttonRevers: true,
-      //     buttonSortAZ: true,
-      //     formSelect: true,
-      //   },
-    }
