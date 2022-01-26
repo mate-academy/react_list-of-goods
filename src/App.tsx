@@ -22,7 +22,7 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state: State = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     isVisible: true,
   };
 
@@ -52,7 +52,7 @@ class App extends React.Component<{}, State> {
 
   resetGoods = () => {
     this.setState({
-      goods: [...goodsFromServer],
+      goods: goodsFromServer,
     });
   };
 
