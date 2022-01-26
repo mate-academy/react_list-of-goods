@@ -17,44 +17,77 @@ const goodsFromServer: string[] = [
 
 type State = {
   listOfGoods: string[];
-  showList: boolean;
+  isShowed: boolean;
+  isReverse: boolean;
+  sortBy: string;
 };
 
 class App extends React.Component<{}, State> {
   state = {
     listOfGoods: [...goodsFromServer],
-    showList: false,
+    isShowed: false,
+    isReverse: false,
+    sortBy: '',
   };
 
   showItems = () => {
     this.setState((state) => ({
-      showList: !state.showList,
+      isShowed: !state.isShowed,
     }));
   };
 
   reverse = () => {
     this.setState((state) => ({
-      listOfGoods: [...state.listOfGoods.reverse()],
+      isReverse: !state.isReverse,
     }));
   };
 
   sortByAlphabet = () => {
-    this.setState((state) => ({
-      listOfGoods: [...state.listOfGoods.sort((item1, item2) => (item1.localeCompare(item2)))],
-    }));
+    this.setState({ sortBy: 'alphabet' });
   };
 
   sortByLength = () => {
-    this.setState((state) => ({
-      listOfGoods: [...state.listOfGoods.sort((item1, item2) => (item1.length - item2.length))],
-    }));
+    this.setState({ sortBy: 'length' });
+  };
+
+  typeOfSort = (item1: string, item2: string) => {
+    switch (this.state.sortBy) {
+      case 'alphabet':
+        return item1.localeCompare(item2);
+
+      case 'length':
+        return item1.length - item2.length;
+
+      default:
+        return 0;
+    }
   };
 
   reset = () => {
-    this.setState({ listOfGoods: [...goodsFromServer] });
+    this.setState({
+      isReverse: false,
+      sortBy: '',
+    });
   };
 
   render() {
+    const {
+      listOfGoods,
+      isReverse,
+      isShowed,
+      sortBy,
+    } = this.state;
+
+    const goodsCopy = [...listOfGoods];
+
+    if (sortBy !== '') {
+      goodsCopy.sort(this.typeOfSort);
+    }
+
+    if (isReverse) {
+      goodsCopy.reverse();
+    }
+
     return (
       <div className="box">
         <h1 className="title">Goods</h1>
@@ -100,8 +133,8 @@ class App extends React.Component<{}, State> {
           </button>
         </div>
 
-        {this.state.showList && (
-          <GoodsList goods={this.state.listOfGoods} />
+        {isShowed && (
+          <GoodsList goods={goodsCopy} />
         )}
       </div>
     );
