@@ -21,12 +21,14 @@ type State = {
     buttonStart: boolean,
     listOfGoods: boolean,
     buttonFinish: boolean;
-    buttonReset: boolean;
     buttonRevers: boolean;
     buttonSortAZ: boolean;
+    buttonReset: boolean;
+    buttonSortByLength: boolean;
     formSelect: boolean;
   },
   maxLength: number;
+  sortedAZ: boolean;
 };
 
 class App extends React.Component<{}, State> {
@@ -37,12 +39,14 @@ class App extends React.Component<{}, State> {
       buttonStart: true,
       listOfGoods: false,
       buttonFinish: false,
-      buttonReset: false,
       buttonRevers: false,
       buttonSortAZ: false,
+      buttonReset: false,
+      buttonSortByLength: false,
       formSelect: false,
     },
     maxLength: 1,
+    sortedAZ: false,
   };
 
   startHandler = () => {
@@ -52,9 +56,10 @@ class App extends React.Component<{}, State> {
         buttonStart: false,
         listOfGoods: true,
         buttonFinish: true,
-        buttonReset: true,
         buttonRevers: true,
         buttonSortAZ: true,
+        buttonReset: true,
+        buttonSortByLength: true,
         formSelect: true,
       },
     }));
@@ -67,18 +72,27 @@ class App extends React.Component<{}, State> {
         buttonStart: true,
         listOfGoods: false,
         buttonFinish: false,
-        buttonReset: false,
         buttonRevers: false,
         buttonSortAZ: false,
+        buttonReset: false,
+        buttonSortByLength: false,
         formSelect: false,
       },
     }));
   };
 
   sortByAlphabetHandler = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((firstGood, secondGood) => firstGood.localeCompare(secondGood)),
-    }));
+    if (!this.state.sortedAZ) {
+      this.setState(prevState => ({
+        goods: [...prevState.goods.sort((a: string, b: string) => a.localeCompare(b))],
+        sortedAZ: true,
+      }));
+    } else {
+      this.setState(prevState => ({
+        goods: [...prevState.goods.sort((a: string, b: string) => b.localeCompare(a))],
+        sortedAZ: false,
+      }));
+    }
   };
 
   reverseListHandler = () => {
@@ -92,8 +106,10 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortAlphabeticallyHandler = () => {
-    this.setState((prevState) => ({ goods: [...prevState.goods.sort()] }));
+  sortByLengthHandler = () => {
+    this.setState((prevState) => ({
+      goods: [...prevState.goods.sort((a, b) => a.length - b.length)],
+    }));
   };
 
   filterByLengthHandler = (value: string) => {
@@ -105,15 +121,17 @@ class App extends React.Component<{}, State> {
       goods,
       showHide,
       maxLength,
+      sortedAZ,
     } = this.state;
 
     const {
       buttonStart,
       buttonFinish,
       listOfGoods,
-      buttonReset,
       buttonRevers,
       buttonSortAZ,
+      buttonReset,
+      buttonSortByLength,
       formSelect,
     } = showHide;
 
@@ -172,10 +190,23 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={() => {
-              this.sortAlphabeticallyHandler();
+              this.sortByAlphabetHandler();
             }}
           >
-            Sort alphabetically
+            {!sortedAZ
+              ? ('Sort A-Z')
+              : ('Sort Z-A')}
+          </button>
+        )}
+
+        {buttonSortByLength && (
+          <button
+            type="button"
+            onClick={() => {
+              this.sortByLengthHandler();
+            }}
+          >
+            Sort by length
           </button>
         )}
 
