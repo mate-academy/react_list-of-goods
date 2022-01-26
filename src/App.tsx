@@ -1,5 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+
+import GoodsList from './GoodsList';
+
 import './App.scss';
 
 const goodsFromServer: string[] = [
@@ -20,6 +23,7 @@ type State = {
   isVisible: boolean;
   listOfGoods: string[];
   visibleListOfGoods: string[];
+  value: number;
 };
 
 class App extends React.Component<{}, State> {
@@ -28,6 +32,7 @@ class App extends React.Component<{}, State> {
     isVisible: false,
     listOfGoods: [...goodsFromServer],
     visibleListOfGoods: [...goodsFromServer],
+    value: 0,
   };
 
   startButtonHandler = (): void => (
@@ -48,9 +53,6 @@ class App extends React.Component<{}, State> {
   alfabetSortList = () => (
     this.setState(state => (
       {
-        visibleListOfGoods: state.visibleListOfGoods.sort((a, b) => (
-          a.localeCompare(b)
-        )),
         listOfGoods: state.visibleListOfGoods.sort((a, b) => (
           a.localeCompare(b)
         )),
@@ -61,9 +63,6 @@ class App extends React.Component<{}, State> {
   sortListByLength = () => (
     this.setState(state => (
       {
-        visibleListOfGoods: state.visibleListOfGoods.sort((a, b) => (
-          a.length - b.length
-        )),
         listOfGoods: state.visibleListOfGoods.sort((a, b) => (
           a.length - b.length
         )),
@@ -71,15 +70,16 @@ class App extends React.Component<{}, State> {
     ))
   );
 
-  filterLength = (event: any) => {
+  filterLength = () => {
     this.setState(state => (
       {
         // eslint-disable-next-line max-len
-        visibleListOfGoods: [...state.listOfGoods].filter(good => good.length >= event.target.value),
+        visibleListOfGoods: [...state.listOfGoods].filter(good => good.length >= state.value),
       }
     ));
   };
 
+  // event.target.value
   resetList = () => {
     this.setState(() => (
       {
@@ -89,7 +89,11 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { isStart, isVisible, visibleListOfGoods } = this.state;
+    const {
+      isStart,
+      isVisible,
+      visibleListOfGoods,
+    } = this.state;
 
     return (
       <>
@@ -141,7 +145,13 @@ class App extends React.Component<{}, State> {
             >
               Reset
             </button>
-            <select onChange={(e) => this.filterLength(e)}>
+            <select
+              onChange={(event) => (
+                this.setState({
+                  value: +event.target.value,
+                })
+              )}
+            >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -155,11 +165,7 @@ class App extends React.Component<{}, State> {
             </select>
           </div>
           <ul className="listOfGoods">
-            {visibleListOfGoods.map(good => (
-              <li className="good" key={good}>
-                {good}
-              </li>
-            ))}
+            <GoodsList goods={visibleListOfGoods.filter(good => good.length >= this.state.value)} />
           </ul>
         </div>
       </>
