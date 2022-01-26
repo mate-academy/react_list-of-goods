@@ -22,7 +22,7 @@ class App extends React.Component<{}, State> {
     isReversed: false,
   };
 
-  reverse = () => {
+  reverseList = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
@@ -40,7 +40,7 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  reset = () => {
+  resetList = () => {
     this.setState(
       {
         isReversed: false,
@@ -118,14 +118,14 @@ class App extends React.Component<{}, State> {
               </button>
               <button
                 type="button"
-                onClick={this.reverse}
+                onClick={this.reverseList}
                 className="btn btn-dark sort-btn"
               >
                 Revers
               </button>
               <button
                 type="button"
-                onClick={this.reset}
+                onClick={this.resetList}
                 className="btn btn-dark"
               >
                 Reset
