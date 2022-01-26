@@ -52,7 +52,7 @@ class App extends React.Component<{}, State> {
 
   resetGoods = () => {
     this.setState({
-      goods: goodsFromServer,
+      goods: [...goodsFromServer],
     });
   };
 
@@ -67,7 +67,7 @@ class App extends React.Component<{}, State> {
             Start
           </button>
         ) : (
-          <>
+          <div>
             <button type="button" onClick={this.reverseGoods}>
               Reverse
             </button>
@@ -81,7 +81,7 @@ class App extends React.Component<{}, State> {
               Sort by length
             </button>
             <GoodsList goodsList={goods} />
-          </>
+          </div>
         )}
       </div>
     );
