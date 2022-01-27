@@ -1,0 +1,28 @@
+.list-group {
+  display: flex;
+  flex-direction: column;
+
+  width: 20vw;
+  padding: 10px;
+
+  list-style: none;
+}
+
+.bttn {
+  background-color: #00bc52;
+  border-color: transparent;
+  color: white;
+  font-weight: normal;
+  font-size: 20px;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+
+  &-reverse {
+    background-color: #00acdc;
+  }
+
+  &-reset {
+    background-color: red;
+  }
+}
