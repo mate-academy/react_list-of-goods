@@ -113,11 +113,7 @@ class App extends React.Component<{}, State> {
   };
 
   filterByLengthHandler = (value: string) => {
-    // eslint-disable-next-line no-console
-    console.log(this.state.maxLength);
     this.setState(() => ({ maxLength: +value }));
-    // eslint-disable-next-line no-console
-    console.log(this.state.maxLength);
   };
 
   render(): React.ReactNode {
