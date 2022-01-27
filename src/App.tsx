@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  reset = () => {
+  resetListOrder = () => {
     this.setState(({
       goods: [...goodsFromServer],
     }));
@@ -106,7 +106,7 @@ class App extends React.Component<{}, State> {
             <button
               className="button is-danger"
               type="button"
-              onClick={this.reset}
+              onClick={this.resetListOrder}
             >
               Reset
             </button>

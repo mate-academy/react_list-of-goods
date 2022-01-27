@@ -10,7 +10,7 @@
   width: 490px;
 
   cursor: pointer;
-  transition: background-color, transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 
   &:hover {
     background-color: lightblue;
