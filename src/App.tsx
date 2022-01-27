@@ -18,14 +18,14 @@ type State = {
   initialGoods: string[],
   goods: string[],
   showHide: {
-    buttonStart: boolean,
-    listOfGoods: boolean,
-    buttonFinish: boolean;
-    buttonRevers: boolean;
-    buttonSortAZ: boolean;
-    buttonReset: boolean;
-    buttonSortByLength: boolean;
-    formSelect: boolean;
+    isVisibleButtonStart: boolean,
+    isVisibleListOfGoods: boolean,
+    isVisibleButtonFinish: boolean;
+    isVisibleButtonRevers: boolean;
+    isVisibleButtonSortAZ: boolean;
+    isVisibleButtonReset: boolean;
+    isVisibleButtonSortByLength: boolean;
+    isVisibleFormSelect: boolean;
   },
   maxLength: number;
   sortedAZ: boolean;
@@ -36,14 +36,14 @@ class App extends React.Component<{}, State> {
     initialGoods: [...goodsFromServer],
     goods: [...goodsFromServer],
     showHide: {
-      buttonStart: true,
-      listOfGoods: false,
-      buttonFinish: false,
-      buttonRevers: false,
-      buttonSortAZ: false,
-      buttonReset: false,
-      buttonSortByLength: false,
-      formSelect: false,
+      isVisibleButtonStart: true,
+      isVisibleListOfGoods: false,
+      isVisibleButtonFinish: false,
+      isVisibleButtonRevers: false,
+      isVisibleButtonSortAZ: false,
+      isVisibleButtonReset: false,
+      isVisibleButtonSortByLength: false,
+      isVisibleFormSelect: false,
     },
     maxLength: 1,
     sortedAZ: false,
@@ -53,14 +53,14 @@ class App extends React.Component<{}, State> {
     this.setState(prevState => ({
       showHide: {
         ...prevState.showHide,
-        buttonStart: false,
-        listOfGoods: true,
-        buttonFinish: true,
-        buttonRevers: true,
-        buttonSortAZ: true,
-        buttonReset: true,
-        buttonSortByLength: true,
-        formSelect: true,
+        isVisibleButtonStart: false,
+        isVisibleListOfGoods: true,
+        isVisibleButtonFinish: true,
+        isVisibleButtonRevers: true,
+        isVisibleButtonSortAZ: true,
+        isVisibleButtonReset: true,
+        isVisibleButtonSortByLength: true,
+        isVisibleFormSelect: true,
       },
     }));
   };
@@ -69,14 +69,14 @@ class App extends React.Component<{}, State> {
     this.setState(prevState => ({
       showHide: {
         ...prevState.showHide,
-        buttonStart: true,
-        listOfGoods: false,
-        buttonFinish: false,
-        buttonRevers: false,
-        buttonSortAZ: false,
-        buttonReset: false,
-        buttonSortByLength: false,
-        formSelect: false,
+        isVisibleButtonStart: true,
+        isVisibleListOfGoods: false,
+        isVisibleButtonFinish: false,
+        isVisibleButtonRevers: false,
+        isVisibleButtonSortAZ: false,
+        isVisibleButtonReset: false,
+        isVisibleButtonSortByLength: false,
+        isVisibleFormSelect: false,
       },
     }));
   };
@@ -113,7 +113,11 @@ class App extends React.Component<{}, State> {
   };
 
   filterByLengthHandler = (value: string) => {
+    // eslint-disable-next-line no-console
+    console.log(this.state.maxLength);
     this.setState(() => ({ maxLength: +value }));
+    // eslint-disable-next-line no-console
+    console.log(this.state.maxLength);
   };
 
   render(): React.ReactNode {
@@ -125,14 +129,14 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     const {
-      buttonStart,
-      buttonFinish,
-      listOfGoods,
-      buttonRevers,
-      buttonSortAZ,
-      buttonReset,
-      buttonSortByLength,
-      formSelect,
+      isVisibleButtonStart,
+      isVisibleButtonFinish,
+      isVisibleListOfGoods,
+      isVisibleButtonRevers,
+      isVisibleButtonSortAZ,
+      isVisibleButtonReset,
+      isVisibleButtonSortByLength,
+      isVisibleFormSelect,
     } = showHide;
 
     const preparedGoods = goods.filter(good => good.length >= maxLength);
@@ -140,9 +144,9 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <p>{goodsFromServer.length}</p>
+        <p>{goods.length}</p>
 
-        {buttonStart && (
+        {isVisibleButtonStart && (
           <button
             type="button"
             onClick={() => {
@@ -153,7 +157,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {buttonFinish && (
+        {isVisibleButtonFinish && (
           <button
             type="button"
             onClick={() => {
@@ -164,7 +168,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {buttonReset && (
+        {isVisibleButtonReset && (
           <button
             type="button"
             onClick={() => {
@@ -175,7 +179,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {buttonRevers && (
+        {isVisibleButtonRevers && (
           <button
             type="button"
             onClick={() => {
@@ -186,7 +190,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {buttonSortAZ && (
+        {isVisibleButtonSortAZ && (
           <button
             type="button"
             onClick={() => {
@@ -199,7 +203,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {buttonSortByLength && (
+        {isVisibleButtonSortByLength && (
           <button
             type="button"
             onClick={() => {
@@ -210,27 +214,32 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {formSelect && (
-          <select
-            name="select"
-            id="select"
-            value={this.state.maxLength}
-            onChange={(event) => this.filterByLengthHandler(event.target.value)}
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
+        {isVisibleFormSelect && (
+          <>
+            <p>
+              <span>Filter by length </span>
+              <select
+                name="select"
+                id="select"
+                value={this.state.maxLength}
+                onChange={(event) => this.filterByLengthHandler(event.target.value)}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </p>
+          </>
         )}
 
-        {listOfGoods && (
+        {isVisibleListOfGoods && (
           <ul>
             {
               preparedGoods.map(good => (
