@@ -15,9 +15,9 @@ const goodsFromServer: string[] = [
 ];
 
 export enum SortBy {
-  default = '',
-  name = 'name',
-  length = 'length',
+  Default = '',
+  Name = 'name',
+  Length = 'length',
 }
 
 type State = {
@@ -31,19 +31,19 @@ class App extends React.Component<{}, State> {
   state: State = {
     started: false,
     goods: [...goodsFromServer],
-    sortBy: SortBy.default,
+    sortBy: SortBy.Default,
     reverse: false,
   };
 
   sortByName = () => {
     this.setState({
-      sortBy: SortBy.name,
+      sortBy: SortBy.Name,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortBy: SortBy.length,
+      sortBy: SortBy.Length,
     });
   };
 
@@ -54,14 +54,12 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ goods: [...goodsFromServer], sortBy: SortBy.default });
+    this.setState({ goods: [...goodsFromServer], sortBy: SortBy.Default });
   };
 
-  render() {
-    const { goods, sortBy, reverse } = this.state;
-
-    const sortedGoods = [...goods].sort((g1, g2) => {
-      switch (sortBy) {
+  getSortedGoods = () => {
+    return [...this.state.goods].sort((g1, g2) => {
+      switch (this.state.sortBy) {
         case 'name':
           return g1.localeCompare(g2);
         case 'length':
@@ -70,6 +68,12 @@ class App extends React.Component<{}, State> {
           return 0;
       }
     });
+  };
+
+  render() {
+    const { reverse } = this.state;
+
+    const sortedGoods = this.getSortedGoods();
 
     if (reverse) {
       sortedGoods.reverse();
