@@ -52,46 +52,46 @@ export class App extends React.Component<Props, State> {
   };
 
   resetGoods = () => {
-    this.setState(() => ({
-      isReversed: false,
-      sortBy: '',
-    }));
+    this.setState({ isReversed: false, sortBy: '' });
   };
 
   sortGoodsByLength = () => {
     this.setState({ sortBy: 'Length' });
   };
 
-  render(): React.ReactNode {
-    const {
-      isVisibleStartButton,
-      goods,
-      isVisibleOtherButtons,
-      sortBy,
-      isReversed,
-
-    } = this.state;
-
+  sortGoods = () => {
+    const { goods, sortBy, isReversed } = this.state;
     const copyGoods = [...goods];
 
     if (sortBy === 'Name') {
-      copyGoods.sort((a, b) => a.localeCompare(b));
+      return copyGoods.sort((a, b) => a.localeCompare(b));
     }
 
     if (sortBy === 'Length') {
-      copyGoods.sort((a, b) => a.length - b.length);
+      return copyGoods.sort((a, b) => a.length - b.length);
     }
 
     if (isReversed) {
-      copyGoods.reverse();
+      return copyGoods.reverse();
     }
+
+    return copyGoods;
+  };
+
+  render(): React.ReactNode {
+    const {
+      isVisibleStartButton,
+      isVisibleOtherButtons,
+    } = this.state;
+
+    const sortGoods = this.sortGoods();
 
     return (
       <div className="App">
         <h1>Goods</h1>
 
         <ul>
-          {copyGoods.map(good => (
+          {sortGoods.map(good => (
             <li key={good}>{good}</li>
           ))}
         </ul>
