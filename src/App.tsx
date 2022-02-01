@@ -17,30 +17,30 @@ const goodsFromServer: string[] = [
 
 type State = {
   goods: string[],
-  isGoodsVisible: boolean,
+  showGoods: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
-    isGoodsVisible: false,
+    showGoods: false,
   };
 
   changeButtonState = () => {
-    this.setState((prevState) => ({
-      isGoodsVisible: !prevState.isGoodsVisible,
-    }));
+    this.setState({
+      showGoods: true,
+    });
   };
 
   reverseGoods = () => {
     this.setState((prevState) => ({
-      goods: prevState.goods.reverse(),
+      goods: { ...prevState }.goods.reverse(),
     }));
   };
 
   sortByAlphabet = () => {
     this.setState((prevState) => ({
-      goods: prevState.goods.sort((a, b) => {
+      goods: { ...prevState }.goods.sort((a, b) => {
         return a.localeCompare(b);
       }),
     }));
@@ -48,7 +48,7 @@ class App extends React.Component<{}, State> {
 
   sortByLength = () => {
     this.setState((prevState) => ({
-      goods: prevState.goods.sort((a, b) => {
+      goods: { ...prevState }.goods.sort((a, b) => {
         return a.length - b.length;
       }),
     }));
@@ -64,47 +64,48 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {!this.state.isGoodsVisible ? (
-          <button
-            type="button"
-            onClick={this.changeButtonState}
-          >
-            Start
-          </button>
-        ) : (
-          <>
+        {!this.state.showGoods
+          ? (
             <button
               type="button"
-              onClick={this.reverseGoods}
+              onClick={this.changeButtonState}
             >
-              Reverse
+              Start
             </button>
+          )
+          : (
+            <>
+              <button
+                type="button"
+                onClick={this.reverseGoods}
+              >
+                Reverse
+              </button>
 
-            <button
-              type="button"
-              onClick={this.sortByAlphabet}
-            >
-              Sort alphabetically
-            </button>
+              <button
+                type="button"
+                onClick={this.sortByAlphabet}
+              >
+                Sort alphabetically
+              </button>
 
-            <button
-              type="button"
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
+              <button
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
 
-            <button
-              type="button"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
+              <button
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
 
-            <GoodsList goods={this.state.goods} />
-          </>
-
-        )}
+              <GoodsList goods={this.state.goods} />
+            </>
+          )}
       </div>
     );
   }
