@@ -10,6 +10,7 @@ type State = {
   isVisible: boolean,
   isReversed: boolean,
   sortBy: string,
+  lengthWord: number,
 };
 
 export class GoodsList extends React.Component<Props, State> {
@@ -18,6 +19,7 @@ export class GoodsList extends React.Component<Props, State> {
     isVisible: false,
     isReversed: false,
     sortBy: '',
+    lengthWord: 1,
   };
 
   start = () => {
@@ -31,23 +33,23 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   sortByAbc = () => {
-    this.setState({ sortBy: 'abc' });
+    this.setState({ sortBy: 'abc', isReversed: false });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sortBy: 'length', isReversed: false });
   };
 
   reset = () => {
-    this.setState({ sortBy: '', isReversed: false });
+    this.setState({ sortBy: '', isReversed: false, lengthWord: 1 });
   };
 
   render() {
     const {
-      isVisible, goods, isReversed, sortBy,
+      isVisible, goods, isReversed, sortBy, lengthWord,
     } = this.state;
 
-    const goodList = [...goods];
+    const goodList = goods.filter(good => good.length >= lengthWord);
 
     goodList.sort((goodPrev, goodNext) => {
       switch (sortBy) {
@@ -95,6 +97,21 @@ export class GoodsList extends React.Component<Props, State> {
           {
             isVisible && (
               <>
+                <div className="Goods__select__wrapper">
+                  <p>Words length:</p>
+                  <select
+                    className="Goods__select"
+                    name="length"
+                    value={this.state.lengthWord}
+                    onChange={(event) => {
+                      this.setState({ lengthWord: +event.target.value });
+                    }}
+                  >
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+                      item => <option key={item}>{item}</option>,
+                    )}
+                  </select>
+                </div>
                 <button
                   type="button"
                   className="Button"
@@ -112,16 +129,16 @@ export class GoodsList extends React.Component<Props, State> {
                 <button
                   type="button"
                   className="Button"
-                  onClick={this.reset}
+                  onClick={this.sortByLength}
                 >
-                  Reset
+                  Sort by length
                 </button>
                 <button
                   type="button"
                   className="Button"
-                  onClick={this.sortByLength}
+                  onClick={this.reset}
                 >
-                  Sort by length
+                  Reset
                 </button>
               </>
             )
