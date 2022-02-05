@@ -65,18 +65,22 @@ export class GoodsList extends React.Component<Props, State> {
     }
 
     return (
-      <div className="GoodsList">
-        {
-          isVisible
-          && (
-            <ul>
-              {goodList.map(
-                good => <li key={Math.floor(Math.random() * 10000000)}>{good}</li>,
-              )}
-            </ul>
-          )
-        }
-        <div className="Buttons">
+      <div className="Goods">
+
+        <div className="Goods__list">
+          {
+            isVisible
+            && (
+              <ul className="Goods__list__items">
+                {goodList.map(
+                  good => <li className="Goods__list__item" key={Math.floor(Math.random() * 10000000)}>{good}</li>,
+                )}
+              </ul>
+            )
+          }
+        </div>
+
+        <div className="Goods__buttons">
           {
             !isVisible && (
               <button

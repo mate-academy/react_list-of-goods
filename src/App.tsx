@@ -17,7 +17,7 @@ const goodsFromServer: string[] = [
 
 const App: React.FC = () => (
   <div className="App">
-    <h1>Goods</h1>
+    <h1 className="App__title">Goods</h1>
     <GoodsList goods={goodsFromServer} />
   </div>
 );
