@@ -26,6 +26,10 @@ export class GoodsList extends React.Component<Props, State> {
     this.setState({ isVisible: true });
   };
 
+  selectLengthElement = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ lengthWord: +event.target.value });
+  };
+
   reverseElements = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
@@ -103,9 +107,7 @@ export class GoodsList extends React.Component<Props, State> {
                     className="Goods__select"
                     name="length"
                     value={this.state.lengthWord}
-                    onChange={(event) => {
-                      this.setState({ lengthWord: +event.target.value });
-                    }}
+                    onChange={this.selectLengthElement}
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
                       item => <option key={item}>{item}</option>,
