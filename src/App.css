@@ -1,0 +1,14 @@
+html {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.App {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.App__title {
+  text-align: center;
+  text-shadow: 3px 3px 3px rgb(187, 187, 187);
+  letter-spacing: 3px;
+}
