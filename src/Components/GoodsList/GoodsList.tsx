@@ -102,7 +102,7 @@ export class GoodsList extends React.Component<Props, State> {
             isVisible && (
               <>
                 <div className="Goods__select__wrapper">
-                  <p>Words length:</p>
+                  <p>Words are longer:</p>
                   <select
                     className="Goods__select"
                     name="length"
