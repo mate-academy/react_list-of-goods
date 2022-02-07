@@ -1,0 +1,17 @@
+.goods {
+  &__list {
+    list-style: none;
+    width: 470px;
+    padding: 20px 0;
+    background-color: #f0f8ff;
+    border: 3px solid rgb(123, 123, 123);
+  }
+
+  &__item {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: rgb(41, 41, 41);
+  }
+}
