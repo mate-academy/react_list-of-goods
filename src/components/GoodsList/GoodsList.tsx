@@ -5,6 +5,7 @@ type Props = {
   reversed: boolean,
   sorted: boolean,
   sortBy: string,
+  lengthLimit: number,
 };
 
 export const GoodsList: React.FC<Props> = ({
@@ -12,8 +13,9 @@ export const GoodsList: React.FC<Props> = ({
   reversed,
   sorted,
   sortBy,
+  lengthLimit,
 }) => {
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods].filter(g => g.length >= lengthLimit);
 
   if (sorted) {
     visibleGoods.sort((a, b) => {
