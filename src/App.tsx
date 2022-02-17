@@ -69,9 +69,9 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  onLengthChange = (limit: string) => {
+  onLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
-      lengthLimit: +limit,
+      lengthLimit: +event.target.value,
     });
   };
 
@@ -127,9 +127,7 @@ class App extends React.Component<{}, State> {
                 name="length"
                 id="length"
                 value={lengthLimit}
-                onChange={(event) => {
-                  this.onLengthChange(event.target.value);
-                }}
+                onChange={this.onLengthChange}
               >
                 <option value="1">1</option>
                 <option value="2">2</option>
