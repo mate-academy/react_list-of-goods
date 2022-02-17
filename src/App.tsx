@@ -20,7 +20,6 @@ type State = {
   goods: string[],
   started: boolean,
   reversed: boolean,
-  sorted: boolean,
   sortBy: string,
   lengthLimit: number,
 };
@@ -30,8 +29,7 @@ class App extends React.Component<{}, State> {
     goods: [...goodsFromServer],
     started: false,
     reversed: false,
-    sorted: false,
-    sortBy: 'alpha',
+    sortBy: 'default',
     lengthLimit: 1,
   };
 
@@ -44,7 +42,7 @@ class App extends React.Component<{}, State> {
   reset = () => {
     this.setState({
       reversed: false,
-      sorted: false,
+      sortBy: 'default',
       lengthLimit: 1,
     });
   };
@@ -57,14 +55,12 @@ class App extends React.Component<{}, State> {
 
   sortByAlpha = () => {
     this.setState({
-      sorted: true,
       sortBy: 'alpha',
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sorted: true,
       sortBy: 'length',
     });
   };
@@ -80,26 +76,23 @@ class App extends React.Component<{}, State> {
       goods,
       started,
       reversed,
-      sorted,
       sortBy,
       lengthLimit,
     } = this.state;
 
     const visibleGoods = goods.filter(g => g.length >= lengthLimit);
 
-    if (sorted) {
-      visibleGoods.sort((a, b) => {
-        switch (sortBy) {
-          case 'length':
-            return a.length - b.length;
+    switch (sortBy) {
+      case 'alpha':
+        visibleGoods.sort((a, b) => a.localeCompare(b));
+        break;
 
-          case 'alpha':
-            return a.localeCompare(b);
+      case 'length':
+        visibleGoods.sort((a, b) => a.length - b.length);
+        break;
 
-          default:
-            return 0;
-        }
-      });
+      default:
+        break;
     }
 
     if (reversed) {
@@ -129,16 +122,9 @@ class App extends React.Component<{}, State> {
                 value={lengthLimit}
                 onChange={this.onLengthChange}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                {Object.keys(Array(10).fill(0)).map(key => (
+                  <option value={+key + 1}>{+key + 1}</option>
+                ))}
               </select>
             </>
           )}
