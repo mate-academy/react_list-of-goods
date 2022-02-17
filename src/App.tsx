@@ -21,6 +21,7 @@ type State = {
   isReversed: boolean,
   isSortedByLength: boolean,
   isSortedByAlphabet: boolean,
+  minWordsLength: number,
 };
 
 class App extends React.Component<{}, State> {
@@ -30,12 +31,13 @@ class App extends React.Component<{}, State> {
     isReversed: false,
     isSortedByLength: false,
     isSortedByAlphabet: false,
+    minWordsLength: 1,
   };
 
   listOpener = () => {
-    this.setState(() => ({
+    this.setState({
       isListOpened: true,
-    }));
+    });
   };
 
   reverse = () => {
@@ -45,27 +47,32 @@ class App extends React.Component<{}, State> {
   };
 
   sortByAphabet = () => {
-    this.setState(() => ({
+    this.setState({
       isSortedByAlphabet: true,
       isReversed: false,
       isSortedByLength: false,
-    }));
+    });
   };
 
   sortByLength = () => {
-    this.setState(() => ({
+    this.setState({
       isSortedByLength: true,
       isSortedByAlphabet: false,
       isReversed: false,
-    }));
+    });
   };
 
   reset = () => {
-    this.setState(() => ({
+    this.setState({
       isReversed: false,
       isSortedByLength: false,
       isSortedByAlphabet: false,
-    }));
+      minWordsLength: 1,
+    });
+  };
+
+  setLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ minWordsLength: Number(event.target.value) });
   };
 
   render() {
@@ -75,9 +82,10 @@ class App extends React.Component<{}, State> {
       isReversed,
       isSortedByLength,
       isSortedByAlphabet,
+      minWordsLength,
     } = this.state;
 
-    const searchedGoods = [...goods];
+    const searchedGoods = [...goods].filter(good => good.length >= minWordsLength);
 
     if (isSortedByLength) {
       searchedGoods.sort((good1, good2) => good1.length - good2.length);
@@ -138,6 +146,21 @@ class App extends React.Component<{}, State> {
             />
           </>
         )}
+
+        <select
+          name="select"
+          onChange={this.setLength}
+          value={minWordsLength}
+        >
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+            <option
+              value={num}
+              key={num}
+            >
+              {num}
+            </option>
+          ))}
+        </select>
       </div>
     );
   }
