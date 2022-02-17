@@ -2,16 +2,14 @@ import React from 'react';
 
 type Props = {
   reverse: boolean;
-  sortAlphabetically: boolean;
-  sortByLength: boolean;
+  sortBy: string,
   goods: string[];
   minLength: number;
 };
 
 export const GoodsList: React.FC<Props> = ({
   reverse,
-  sortAlphabetically,
-  sortByLength,
+  sortBy,
   goods,
   minLength,
 }) => {
@@ -19,17 +17,22 @@ export const GoodsList: React.FC<Props> = ({
     good => good.length >= minLength,
   );
 
-  if (sortAlphabetically) {
-    visibleGoods.sort();
-  }
+  switch (sortBy) {
+    case 'alphabet':
+      visibleGoods.sort();
+      break;
 
-  if (sortByLength) {
-    visibleGoods.sort((a, b) => {
-      const firstLength = a.length;
-      const secondLength = b.length;
+    case 'length':
+      visibleGoods.sort((a, b) => {
+        const firstLength = a.length;
+        const secondLength = b.length;
 
-      return firstLength - secondLength;
-    });
+        return firstLength - secondLength;
+      });
+      break;
+
+    default:
+      break;
   }
 
   if (reverse) {

@@ -18,9 +18,8 @@ const goodsFromServer: string[] = [
 type State = {
   isStarted: boolean,
   reverse: boolean,
-  sortAlphabetically: boolean,
   reset: boolean,
-  sortByLength: boolean,
+  sortBy: string,
   goods: string[],
   minLength: number,
 };
@@ -29,9 +28,8 @@ class App extends React.Component<{}, State> {
   state = {
     isStarted: false,
     reverse: false,
-    sortAlphabetically: false,
     reset: false,
-    sortByLength: false,
+    sortBy: '',
     goods: goodsFromServer,
     minLength: 1,
   };
@@ -50,27 +48,24 @@ class App extends React.Component<{}, State> {
 
   sortAlphabetically = () => {
     this.setState({
-      sortAlphabetically: true,
+      sortBy: 'alphabet',
       reverse: false,
-      sortByLength: false,
     });
   };
 
   reset = () => {
     this.setState({
       reverse: false,
-      sortAlphabetically: false,
-      sortByLength: false,
+      sortBy: '',
       minLength: 1,
     });
   };
 
   sortByLength = () => {
-    this.setState(state => ({
-      sortByLength: !state.sortByLength,
-      sortAlphabetically: false,
+    this.setState({
+      sortBy: 'length',
       reverse: false,
-    }));
+    });
   };
 
   setMinLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -92,6 +87,7 @@ class App extends React.Component<{}, State> {
       setMinLength,
     } = this;
     const { isStarted, minLength } = state;
+    const options = Array.from(Array(10).keys());
 
     return (
       <div className="App">
@@ -140,16 +136,14 @@ class App extends React.Component<{}, State> {
               onChange={setMinLength}
               value={minLength}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              {options.map((option) => (
+                <option
+                  key={option}
+                  value={option + 1}
+                >
+                  {option + 1}
+                </option>
+              ))}
             </select>
           </>
         )}
