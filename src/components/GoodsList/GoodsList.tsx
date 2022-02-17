@@ -1,44 +1,13 @@
 import React from 'react';
 
 type Props = {
-  goods: string[],
-  reversed: boolean,
-  sorted: boolean,
-  sortBy: string,
-  lengthLimit: number,
+  goods: string[]
 };
 
-export const GoodsList: React.FC<Props> = ({
-  goods,
-  reversed,
-  sorted,
-  sortBy,
-  lengthLimit,
-}) => {
-  const visibleGoods = [...goods].filter(g => g.length >= lengthLimit);
-
-  if (sorted) {
-    visibleGoods.sort((a, b) => {
-      switch (sortBy) {
-        case 'length':
-          return a.length - b.length;
-
-        case 'alpha':
-          return a.localeCompare(b);
-
-        default:
-          return 0;
-      }
-    });
-  }
-
-  if (reversed) {
-    visibleGoods.reverse();
-  }
-
+export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <ul className="goods">
-      {visibleGoods.map(good => (
+      {goods.map(good => (
         <li key={good}>
           {good}
         </li>

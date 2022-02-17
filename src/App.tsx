@@ -17,6 +17,7 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
+  goods: string[],
   started: boolean,
   reversed: boolean,
   sorted: boolean,
@@ -26,6 +27,7 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state = {
+    goods: [...goodsFromServer],
     started: false,
     reversed: false,
     sorted: false,
@@ -34,9 +36,9 @@ class App extends React.Component<{}, State> {
   };
 
   startApp = () => {
-    this.setState(state => ({
-      started: !state.started,
-    }));
+    this.setState({
+      started: true,
+    });
   };
 
   reset = () => {
@@ -53,21 +55,21 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortAlpha = () => {
+  sortByAlpha = () => {
     this.setState({
       sorted: true,
       sortBy: 'alpha',
     });
   };
 
-  sortLength = () => {
+  sortByLength = () => {
     this.setState({
       sorted: true,
       sortBy: 'length',
     });
   };
 
-  setLengthLimit = (limit: string) => {
+  onLengthChange = (limit: string) => {
     this.setState({
       lengthLimit: +limit,
     });
@@ -75,12 +77,34 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
+      goods,
       started,
       reversed,
       sorted,
       sortBy,
       lengthLimit,
     } = this.state;
+
+    const visibleGoods = goods.filter(g => g.length >= lengthLimit);
+
+    if (sorted) {
+      visibleGoods.sort((a, b) => {
+        switch (sortBy) {
+          case 'length':
+            return a.length - b.length;
+
+          case 'alpha':
+            return a.localeCompare(b);
+
+          default:
+            return 0;
+        }
+      });
+    }
+
+    if (reversed) {
+      visibleGoods.reverse();
+    }
 
     return (
       <div className="App">
@@ -91,24 +115,20 @@ class App extends React.Component<{}, State> {
           : (
             <>
               <GoodsList
-                goods={goodsFromServer}
-                reversed={reversed}
-                sorted={sorted}
-                sortBy={sortBy}
-                lengthLimit={lengthLimit}
+                goods={visibleGoods}
               />
 
               <button type="button" onClick={this.reset}>Reset</button>
               <button type="button" onClick={this.reverse}>Reverse</button>
-              <button type="button" onClick={this.sortAlpha}>Sort alphabetically</button>
-              <button type="button" onClick={this.sortLength}>Sort by length</button>
+              <button type="button" onClick={this.sortByAlpha}>Sort alphabetically</button>
+              <button type="button" onClick={this.sortByLength}>Sort by length</button>
 
               <select
                 name="length"
                 id="length"
                 value={lengthLimit}
                 onChange={(event) => {
-                  this.setLengthLimit(event.target.value);
+                  this.onLengthChange(event.target.value);
                 }}
               >
                 <option value="1">1</option>
