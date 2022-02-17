@@ -22,6 +22,7 @@ type State = {
   reversed: boolean,
   sortBy: string,
   lengthLimit: number,
+  lengthOptions: string[];
 };
 
 class App extends React.Component<{}, State> {
@@ -31,6 +32,7 @@ class App extends React.Component<{}, State> {
     reversed: false,
     sortBy: 'default',
     lengthLimit: 1,
+    lengthOptions: Object.keys(Array(10).fill(0)),
   };
 
   startApp = () => {
@@ -78,6 +80,7 @@ class App extends React.Component<{}, State> {
       reversed,
       sortBy,
       lengthLimit,
+      lengthOptions,
     } = this.state;
 
     const visibleGoods = goods.filter(g => g.length >= lengthLimit);
@@ -122,7 +125,7 @@ class App extends React.Component<{}, State> {
                 value={lengthLimit}
                 onChange={this.onLengthChange}
               >
-                {Object.keys(Array(10).fill(0)).map(key => (
+                {lengthOptions.map(key => (
                   <option value={+key + 1}>{+key + 1}</option>
                 ))}
               </select>
