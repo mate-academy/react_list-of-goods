@@ -75,6 +75,7 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
+      started,
       reversed,
       sorted,
       sortBy,
@@ -85,7 +86,7 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1>Goods</h1>
 
-        {!this.state.started
+        {!started
           ? <button type="button" onClick={this.startApp}>Start</button>
           : (
             <>
@@ -105,6 +106,7 @@ class App extends React.Component<{}, State> {
               <select
                 name="length"
                 id="length"
+                value={lengthLimit}
                 onChange={(event) => {
                   this.setLengthLimit(event.target.value);
                 }}
