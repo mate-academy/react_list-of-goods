@@ -1,0 +1,53 @@
+.App {
+  box-sizing: border-box;
+  margin: 32px;
+  padding: 6px;
+  width: 288px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Arial Arial, Helvetica, sans-serif;
+  
+  background-color: #ddd;
+  border: 2px solid black;
+  border-radius: 12px;
+}
+
+h1 {
+  margin: 8px;
+}
+
+button {
+  margin-bottom: 6px;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: bold;
+  background-color: #eee;
+}
+
+.startButton {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  font-size: 1.2em;
+  font-weight: bold;
+
+  background-color: rgb(8, 202, 50);
+
+}
+
+.finButton {
+  margin-top: 12px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  font-size: 1.2em;
+  font-weight: bold;
+
+  background-color: rgb(209, 49, 49);
+}
