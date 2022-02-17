@@ -85,7 +85,7 @@ class App extends React.Component<{}, State> {
       minWordsLength,
     } = this.state;
 
-    const searchedGoods = [...goods].filter(good => good.length >= minWordsLength);
+    const searchedGoods = goods.filter(good => good.length >= minWordsLength);
 
     if (isSortedByLength) {
       searchedGoods.sort((good1, good2) => good1.length - good2.length);
