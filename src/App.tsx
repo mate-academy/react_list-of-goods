@@ -16,13 +16,14 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const lengthOptions = Object.keys(Array(10).fill(0));
+
 type State = {
   goods: string[],
   started: boolean,
   reversed: boolean,
   sortBy: string,
   lengthLimit: number,
-  lengthOptions: string[];
 };
 
 class App extends React.Component<{}, State> {
@@ -32,7 +33,6 @@ class App extends React.Component<{}, State> {
     reversed: false,
     sortBy: 'default',
     lengthLimit: 1,
-    lengthOptions: Object.keys(Array(10).fill(0)),
   };
 
   startApp = () => {
@@ -80,7 +80,6 @@ class App extends React.Component<{}, State> {
       reversed,
       sortBy,
       lengthLimit,
-      lengthOptions,
     } = this.state;
 
     const visibleGoods = goods.filter(g => g.length >= lengthLimit);
