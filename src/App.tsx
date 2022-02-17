@@ -144,23 +144,22 @@ class App extends React.Component<{}, State> {
             <GoodsList
               goodsList={searchedGoods}
             />
+            <select
+              name="select"
+              onChange={this.setLength}
+              value={minWordsLength}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                <option
+                  value={num}
+                  key={num}
+                >
+                  {num}
+                </option>
+              ))}
+            </select>
           </>
         )}
-
-        <select
-          name="select"
-          onChange={this.setLength}
-          value={minWordsLength}
-        >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-            <option
-              value={num}
-              key={num}
-            >
-              {num}
-            </option>
-          ))}
-        </select>
       </div>
     );
   }
