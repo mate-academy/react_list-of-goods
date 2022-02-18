@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -102,16 +103,7 @@ class App extends React.Component<{}, State> {
 
         {isVisible && (
           <>
-            <ul className="list">
-              {preparedGoods.map(good => (
-                <li
-                  key={good}
-                  className="list__item"
-                >
-                  {good}
-                </li>
-              ))}
-            </ul>
+            <GoodsList goodslist={preparedGoods} />
 
             <button
               type="button"
