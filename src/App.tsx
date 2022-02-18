@@ -69,6 +69,10 @@ class App extends React.Component<{}, State> {
     });
   };
 
+  selectGoodsLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ goodsLength: Number(event.target.value) });
+  };
+
   render() {
     const {
       goods,
@@ -118,6 +122,22 @@ class App extends React.Component<{}, State> {
             >
               Sort by length
             </button>
+            <select
+              id="length"
+              onChange={this.selectGoodsLength}
+              value={goodsLength}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
             <button
               type="button"
               onClick={this.reset}

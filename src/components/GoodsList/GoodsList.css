@@ -1,7 +1,8 @@
 ul {
   margin-top: 0;
-  padding: 6px;
+  padding: 12px;
   list-style-type: none;
+  width: 162px;
 
   border: 1px solid black;
   border-radius: 12px;
@@ -10,5 +11,5 @@ ul {
 }
 
 li {
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
