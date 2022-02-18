@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -13,6 +14,8 @@ const goodsFromServer: string[] = [
   'Jam',
   'Garlic',
 ];
+
+const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function getVisibleProduct(
   basket: string[],
@@ -54,6 +57,47 @@ class App extends React.Component<{}, State> {
     selectValue: '1',
   };
 
+  setSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    this.setState({
+      selectValue: event.currentTarget.value,
+    });
+  }
+
+  initialBasket() {
+    this.setState({
+      basket: [...goodsFromServer],
+    });
+  }
+
+  reverseBasket() {
+    this.setState(state => ({
+      reversed: !state.reversed,
+    }));
+  }
+
+  sortByAlphbet() {
+    this.setState({
+      sortBy: 'alphabetically',
+      reversed: false,
+    });
+  }
+
+  sortByLength() {
+    this.setState({
+      sortBy: 'length',
+      reversed: false,
+    });
+  }
+
+  resetToInitialState() {
+    this.setState({
+      sortBy: '',
+      reversed: false,
+      selectValue: '1',
+      basket: [...goodsFromServer],
+    });
+  }
+
   render() {
     const {
       basket,
@@ -73,9 +117,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.setState({
-              basket: [...goodsFromServer],
-            });
+            this.initialBasket();
           }}
         >
           Start
@@ -83,9 +125,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.setState(state => ({
-              reversed: !state.reversed,
-            }));
+            this.reverseBasket();
           }}
         >
           Reverse
@@ -93,10 +133,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.setState({
-              sortBy: 'alphabetically',
-              reversed: false,
-            });
+            this.sortByAlphbet();
           }}
         >
           Sort by alphabetically
@@ -104,12 +141,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.setState({
-              sortBy: '',
-              reversed: false,
-              selectValue: '1',
-              basket: [...goodsFromServer],
-            });
+            this.resetToInitialState();
           }}
         >
           Reset
@@ -117,10 +149,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.setState({
-              sortBy: 'length',
-              reversed: false,
-            });
+            this.sortByLength();
           }}
         >
           Sort by length
@@ -128,31 +157,14 @@ class App extends React.Component<{}, State> {
         <select
           value={this.state.selectValue}
           onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-            this.setState({
-              selectValue: event.currentTarget.value,
-            });
+            this.setSelectedValue(event);
           }}
         >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <ul className="products">
-          {visibleProduct.map((product) => (
-            <li
-              key={product}
-            >
-              {product}
-            </li>
+          {options.map(el => (
+            <option value={`${el}`}>{el}</option>
           ))}
-        </ul>
+        </select>
+        <GoodsList products={visibleProduct} />
       </div>
     );
   }
