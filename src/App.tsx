@@ -47,17 +47,19 @@ class App extends React.Component<{}, State> {
   };
 
   sortAlphabet = () => {
-    this.setState(state => ({
-      sortedAlphabet: !state.sortedAlphabet,
+    this.setState({
+      sortedAlphabet: true,
       sortedByLength: false,
-    }));
+      isReversed: false,
+    });
   };
 
   sortByLength = () => {
-    this.setState(state => ({
-      sortedByLength: !state.sortedByLength,
+    this.setState({
+      sortedByLength: true,
       sortedAlphabet: false,
-    }));
+      isReversed: false,
+    });
   };
 
   reset = () => {
