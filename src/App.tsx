@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import React from 'react';
 import './App.css';
 
+// eslint-disable-next-line import/no-cycle
 import GoodsList from './GoodsList';
 
 const goodsFromServer: string[] = [
@@ -20,8 +22,7 @@ type State = {
   goods: string[],
   isVisible: boolean;
   isReversed: boolean;
-  isAlphabeticallySorted: boolean;
-  isByLengthSorted: boolean;
+  sortBy: string;
 };
 
 class App extends React.Component<{}, State> {
@@ -29,8 +30,7 @@ class App extends React.Component<{}, State> {
     goods: goodsFromServer,
     isVisible: false,
     isReversed: false,
-    isAlphabeticallySorted: false,
-    isByLengthSorted: false,
+    sortBy: '',
   };
 
   start = () => {
@@ -39,49 +39,53 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  reverse = () => {
+  reversed = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
   sortAlphabetically = () => {
-    this.setState(state => ({
-      isAlphabeticallySorted: !state.isAlphabeticallySorted,
-    }));
+    this.setState({
+      sortBy: 'alphabet',
+    });
   };
 
   sortByLength = () => {
-    this.setState(state => ({
-      isByLengthSorted: !state.isByLengthSorted,
-    }));
+    this.setState({
+      sortBy: 'length',
+    });
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      isAlphabeticallySorted: false,
-      isByLengthSorted: false,
+      sortBy: '',
     });
   };
 
   render() {
     const {
-      goods, isVisible, isReversed, isAlphabeticallySorted, isByLengthSorted,
+      goods, isVisible, isReversed, sortBy,
     } = this.state;
 
-    const visebleGoods = goods.slice(0);
+    const visebleGoods = [...goods];
+
+    switch (sortBy) {
+      case 'alphabet':
+        visebleGoods.sort((g1, g2) => g1.localeCompare(g2));
+        break;
+
+      case 'length':
+        visebleGoods.sort((g1, g2) => g1.length - g2.length);
+        break;
+
+      default:
+        break;
+    }
 
     if (isReversed) {
       visebleGoods.reverse();
-    }
-
-    if (isAlphabeticallySorted) {
-      visebleGoods.sort();
-    }
-
-    if (isByLengthSorted) {
-      visebleGoods.sort((g1, g2) => g1.length - g2.length);
     }
 
     return (
@@ -99,7 +103,7 @@ class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            onClick={this.reverse}
+            onClick={this.reversed}
           >
             Reverse
           </button>
