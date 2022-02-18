@@ -1,4 +1,5 @@
 import React from 'react';
+import { ProductsList } from './ProductsList';
 import './App.css';
 
 const goodsFromServer: string[] = [
@@ -95,13 +96,7 @@ class App extends React.Component<{}, State> {
         )}
         {visible && (
           <>
-            <ul>
-              { preparedProducts.map(product => (
-                <li key={product}>
-                  {product}
-                </li>
-              ))}
-            </ul>
+            <ProductsList products={preparedProducts} />
             <button
               type="button"
               onClick={this.revers}
