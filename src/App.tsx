@@ -26,7 +26,7 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     started: false,
     isReversed: false,
     sortedAlphabet: false,
@@ -38,7 +38,7 @@ class App extends React.Component<{}, State> {
     this.setState({ started: true });
   };
 
-  finest = () => {
+  closer = () => {
     this.setState({ started: false });
   };
 
@@ -85,6 +85,20 @@ class App extends React.Component<{}, State> {
       goodsLength,
     } = this.state;
 
+    const visibleGoods = goods.filter(good => good.length >= goodsLength);
+
+    if (sortedAlphabet) {
+      visibleGoods.sort();
+    }
+
+    if (sortedByLength) {
+      visibleGoods.sort((g1, g2) => g1.length - g2.length);
+    }
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
     return (
       <div className="App">
         <h1>Goods list</h1>
@@ -100,11 +114,7 @@ class App extends React.Component<{}, State> {
         {started && (
           <>
             <GoodsList
-              goods={goods}
-              isReversed={isReversed}
-              sortedAlphabet={sortedAlphabet}
-              sortedByLength={sortedByLength}
-              goodsLength={goodsLength}
+              goods={visibleGoods}
             />
             <button
               type="button"
@@ -149,7 +159,7 @@ class App extends React.Component<{}, State> {
             <button
               className="finButton"
               type="button"
-              onClick={this.finest}
+              onClick={this.closer}
             >
               FIN
             </button>
