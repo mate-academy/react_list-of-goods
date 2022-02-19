@@ -116,9 +116,7 @@ class App extends React.Component<{}, State> {
         </div>
         <button
           type="button"
-          onClick={() => {
-            this.initialBasket();
-          }}
+          onClick={this.initialBasket}
         >
           Start
         </button>
