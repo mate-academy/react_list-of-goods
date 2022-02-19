@@ -5,7 +5,6 @@ import GoodsList from './components/GoodsList';
 interface State {
   goods: string[],
   isGoodsVisible: boolean,
-  display: string,
 }
 
 class App extends React.Component<{}, State> {
@@ -23,29 +22,29 @@ class App extends React.Component<{}, State> {
       'Garlic',
     ],
     isGoodsVisible: false,
-    display: 'block',
   };
 
   getHide = () => {
     this.setState({
       isGoodsVisible: true,
-      display: 'none',
     });
   };
 
   render() {
-    const { goods, isGoodsVisible, display } = this.state;
+    const { goods, isGoodsVisible } = this.state;
 
     return (
       <div>
         <h1>Goods</h1>
-        <button
-          type="submit"
-          onClick={this.getHide}
-          style={{ display: `${display}` }}
-        >
-          Show
-        </button>
+        {!isGoodsVisible
+          && (
+            <button
+              type="submit"
+              onClick={this.getHide}
+            >
+              Show
+            </button>
+          )}
         {isGoodsVisible && <GoodsList goods={goods} />}
       </div>
     );
