@@ -1,5 +1,4 @@
 import React from 'react';
-// import { render } from 'react-dom';
 import { GoodsList } from './Components/GoodsList/GoodsList';
 import './App.css';
 
@@ -44,9 +43,9 @@ class App extends React.Component<{}, State> {
     );
 
     const reverse = () => (
-      this.setState(state => (
-        { isReversed: !state.isReversed }
-      ))
+      this.setState(state => ({
+        isReversed: !state.isReversed,
+      }))
     );
 
     const sortAlphabet = () => (
@@ -61,6 +60,7 @@ class App extends React.Component<{}, State> {
       this.setState({
         goods: [...goodsFromServer],
         sortBy: 'default',
+        isReversed: false,
       })
     );
 
