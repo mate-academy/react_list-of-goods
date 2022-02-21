@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './Goodlist';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -61,26 +62,9 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isStarted && (
-          <ul>
-            {actualOrder.map(good => (
-              <li key={good}>
-                {good}
-              </li>
-            ))}
-          </ul>
-        )}
-        {!isStarted && (
-          <button
-            type="button"
-            className="button"
-            onClick={this.start}
-          >
-            Start
-          </button>
-        )}
-        {isStarted && (
+        {(isStarted) ? (
           <div>
+            <GoodsList actualOrder={actualOrder} />
             <button
               type="button"
               className="button"
@@ -110,7 +94,16 @@ class App extends React.Component<{}, State> {
               Sort by length
             </button>
           </div>
-        )}
+        )
+          : (
+            <button
+              type="button"
+              className="button"
+              onClick={this.start}
+            >
+              Start
+            </button>
+          )}
       </div>
     );
   }
