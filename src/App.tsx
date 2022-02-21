@@ -67,6 +67,7 @@ class App extends React.Component<{}, State> {
       isReversed: false,
       sortedAlphabetically: false,
       sortedByLength: false,
+      sortBy: '',
     }));
   };
 
