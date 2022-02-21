@@ -17,39 +17,33 @@ const goodsFromServer = [
 
 type State = {
   goods: string[],
-  visibleGoods: boolean,
+  isVisibleGoods: boolean,
   isReversed: boolean,
-  sortedAlphabetically: boolean,
-  sortedByLength: boolean,
   sortBy: string,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
-    visibleGoods: false,
+    isVisibleGoods: false,
     isReversed: false,
-    sortedAlphabetically: false,
-    sortedByLength: false,
     sortBy: '',
   };
 
   visibleList = () => {
     this.setState((state) => ({
-      visibleGoods: !state.visibleGoods,
+      isVisibleGoods: !state.isVisibleGoods,
     }));
   };
 
   sortLetter = () => {
-    this.setState((state) => ({
-      sortedAlphabetically: !state.sortedAlphabetically,
+    this.setState(() => ({
       sortBy: 'alphabet',
     }));
   };
 
   sortLengthGood = () => {
-    this.setState((state) => ({
-      sortedByLength: !state.sortedByLength,
+    this.setState(() => ({
       sortBy: 'length',
     }));
   };
@@ -57,16 +51,12 @@ class App extends React.Component<{}, State> {
   reverseGoods = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
-      goods: [...goodsFromServer],
     }));
   };
 
   resetGoods = () => {
     this.setState(() => ({
-      goods: [...goodsFromServer],
       isReversed: false,
-      sortedAlphabetically: false,
-      sortedByLength: false,
       sortBy: '',
     }));
   };
@@ -74,12 +64,14 @@ class App extends React.Component<{}, State> {
   render() {
     const {
       goods,
-      visibleGoods,
+      isVisibleGoods,
       isReversed,
       sortBy,
     } = this.state;
 
-    goods.sort((a, b) => {
+    const goodsCopy = [...goods];
+
+    goodsCopy.sort((a, b) => {
       switch (sortBy) {
         case 'length':
           return (a.length - b.length);
@@ -92,7 +84,7 @@ class App extends React.Component<{}, State> {
     });
 
     if (isReversed) {
-      goods.reverse();
+      goodsCopy.reverse();
     }
 
     return (
@@ -102,7 +94,7 @@ class App extends React.Component<{}, State> {
         >
           Goods List
         </h1>
-        {visibleGoods
+        {isVisibleGoods
           ? (
             <div className="container__button">
               <button
@@ -135,7 +127,7 @@ class App extends React.Component<{}, State> {
               </button>
               <div>
                 <GoodList
-                  goods={goods}
+                  goods={goodsCopy}
                 />
               </div>
             </div>
