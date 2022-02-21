@@ -23,8 +23,12 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state: State = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     showList: false,
+  };
+
+  isVisible = () => {
+    this.setState(() => ({ showList: true }));
   };
 
   reverseList = () => {
@@ -32,7 +36,8 @@ class App extends React.Component<{}, State> {
   };
 
   sortAlphabet = () => {
-    this.setState(state => ({ goods: [...state.goods].sort() }));
+    this.setState(state => ({ goods: [...state.goods].sort((a, b) => a.localeCompare(b)) }));
+    // this.setState(state => ({ goods: [...state.goods].sort() }));
   };
 
   resetList = () => {
@@ -84,7 +89,7 @@ class App extends React.Component<{}, State> {
           : (
             <button
               type="button"
-              onClick={() => (this.setState(() => ({ showList: true })))}
+              onClick={this.isVisible}
             >
               Start
             </button>
