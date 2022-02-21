@@ -1,6 +1,5 @@
 import React from 'react';
 import { List } from './Components/List';
-import './App.css';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -17,28 +16,28 @@ const goodsFromServer: string[] = [
 
 type State = {
   goods: string[],
-  visible: boolean,
+  isVisible: boolean,
   sortBy: string,
-  revers: boolean,
+  isReversed: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: goodsFromServer,
-    visible: false,
+    isVisible: false,
     sortBy: '',
-    revers: false,
+    isReversed: false,
   };
 
   start = () => {
     this.setState({
-      visible: true,
+      isVisible: true,
     });
   };
 
   reverseGoods = () => {
     this.setState(state => ({
-      revers: !state.revers,
+      isReversed: !state.isReversed,
     }));
   };
 
@@ -57,12 +56,12 @@ class App extends React.Component<{}, State> {
   reset = () => {
     this.setState({
       sortBy: '',
-      revers: false,
+      isReversed: false,
     });
   };
 
-  preperGoods = () => {
-    const { goods, sortBy, revers } = this.state;
+  prepareGoods = () => {
+    const { goods, sortBy, isReversed } = this.state;
     const copyListOfGoods = [...goods];
 
     copyListOfGoods.sort((firstGood, secondGood) => {
@@ -77,7 +76,7 @@ class App extends React.Component<{}, State> {
       }
     });
 
-    if (revers) {
+    if (isReversed) {
       copyListOfGoods.reverse();
     }
 
@@ -85,12 +84,12 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { visible } = this.state;
-    const preperedGoods = this.preperGoods();
+    const { isVisible } = this.state;
+    const preparedGoods = this.prepareGoods();
 
     return (
       <div className="App">
-        {!visible && (
+        {!isVisible && (
           <button
             type="button"
             onClick={this.start}
@@ -99,7 +98,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {visible && (
+        {isVisible && (
           <>
             <div>
               <button
@@ -130,7 +129,7 @@ class App extends React.Component<{}, State> {
                 Reset
               </button>
             </div>
-            <List goodsList={preperedGoods} />
+            <List goodsList={preparedGoods} />
 
           </>
 
