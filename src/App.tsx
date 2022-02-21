@@ -64,20 +64,17 @@ class App extends React.Component<{}, State> {
       isVisible,
     } = this.state;
     const goods = [...goodsFromServer];
-    const buttonClass = 'button is-primary';
 
-    switch (sortBy) {
-      case 'alphabet':
-        goods.sort((g1, g2) => g1.localeCompare(g2));
-        break;
-
-      case 'length':
-        goods.sort((g1, g2) => g1.length - g2.length);
-        break;
-
-      default:
-        break;
-    }
+    goods.sort((good1, good2) => {
+      switch (sortBy) {
+        case 'alphabet':
+          return good1.localeCompare(good2);
+        case 'length':
+          return good1.length - good2.length;
+        default:
+          return 0;
+      }
+    });
 
     if (isReverse) {
       goods.reverse();
@@ -90,34 +87,28 @@ class App extends React.Component<{}, State> {
         <div className="buttons__container">
           <button
             type="button"
-            className={this.state.isReverse
-              ? `${buttonClass} is-active`
-              : `${buttonClass}`}
+            className="button"
             onClick={this.reverse}
           >
             Reverse
           </button>
           <button
             type="button"
-            className="button is-primary"
+            className="button"
             onClick={this.reset}
           >
             Reset
           </button>
           <button
             type="button"
-            className={this.state.sortBy
-              ? `${buttonClass} is-active`
-              : `${buttonClass}`}
+            className="button"
             onClick={this.sortByAlpha}
           >
             Sort alphabetically
           </button>
           <button
             type="button"
-            className={this.state.sortBy
-              ? `${buttonClass} is-active`
-              : `${buttonClass}`}
+            className="button"
             onClick={this.sortByLength}
           >
             Sort by length

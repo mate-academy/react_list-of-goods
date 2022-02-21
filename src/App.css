@@ -19,6 +19,10 @@ h1 {
   margin: 0 auto 30px;
 }
 
-.is-active {
+.button {
   background-color: #35e2d4;
+  border: 1px solid #35e2d4;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
 }
