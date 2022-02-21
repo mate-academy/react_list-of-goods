@@ -14,11 +14,142 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+type State = {
+  goods: string[],
+  visible: boolean,
+  sortBy: string,
+  revers: boolean,
+};
+
+class App extends React.Component<{}, State> {
+  state = {
+    goods: goodsFromServer,
+    visible: false,
+    sortBy: '',
+    revers: false,
+  };
+
+  start = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  reverseGoods = () => {
+    this.setState(state => ({
+      revers: !state.revers,
+    }));
+  };
+
+  sortAbc = () => {
+    this.setState({
+      sortBy: 'abc',
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortBy: 'length',
+    });
+  };
+
+  reset = () => {
+    this.setState({
+      sortBy: '',
+      revers: false,
+    });
+  };
+
+  preperGoods = () => {
+    const { goods, sortBy, revers } = this.state;
+    const copyListOfGoods = [...goods];
+
+    copyListOfGoods.sort((firstGood, secondGood) => {
+      switch (sortBy) {
+        case 'abc':
+          return firstGood.localeCompare(secondGood);
+        case 'length':
+          return firstGood.length - secondGood.length;
+
+        default:
+          return 0;
+      }
+    });
+
+    if (revers) {
+      copyListOfGoods.reverse();
+    }
+
+    return copyListOfGoods;
+  };
+
+  render() {
+    const { visible } = this.state;
+    const preperedGoods = this.preperGoods();
+
+    return (
+      <div className="App">
+        {!visible && (
+          <button
+            className="button"
+            type="button"
+            onClick={this.start}
+          >
+            Start
+          </button>
+        )}
+
+        {visible && (
+          <>
+            <ul className="list">
+              {preperedGoods.map(preperGood => (
+                <li
+                  className="list-item"
+                  key={preperGood}
+                >
+                  {preperGood}
+                </li>
+              ))}
+            </ul>
+
+            <div className="buttons">
+              <button
+                className="button"
+                type="button"
+                onClick={this.reverseGoods}
+              >
+                Reverse
+              </button>
+
+              <button
+                className="button"
+                type="button"
+                onClick={this.sortAbc}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                className="button"
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                className="button"
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+}
 
 export default App;
