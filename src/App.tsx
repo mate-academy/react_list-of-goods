@@ -30,11 +30,11 @@ export class App extends React.Component<{}, State> {
     items: goodsFromServer,
   };
 
-  Start = () => {
+  start = () => {
     this.setState({ isVisible: true });
   };
 
-  Reverse = () => {
+  reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -44,7 +44,7 @@ export class App extends React.Component<{}, State> {
     this.setState({ sortBy: 'alphabet' });
   };
 
-  Reset = () => {
+  reset = () => {
     this.setState(
       {
         isReversed: false,
@@ -68,10 +68,6 @@ export class App extends React.Component<{}, State> {
     } = this.state;
     const copyOfGoods = [...items];
 
-    if (!isReversed) {
-      copyOfGoods.reverse();
-    }
-
     copyOfGoods.sort((g1, g2) => {
       switch (sortBy) {
         case 'length':
@@ -84,26 +80,21 @@ export class App extends React.Component<{}, State> {
       }
     });
 
+    if (!isReversed) {
+      copyOfGoods.reverse();
+    }
+
     return (
       <div className="App">
-        {!isVisible && (
-          <button
-            type="button"
-            className="start-button"
-            onClick={this.Start}
-          >
-            Start
-          </button>
-        )}
 
-        {isVisible && (
+        {isVisible ? (
           <>
             <GoodsList listOfGoods={copyOfGoods} />
 
             <button
               type="button"
               className="reverse-button"
-              onClick={this.Reverse}
+              onClick={this.reverse}
             >
               Reverse
             </button>
@@ -127,11 +118,19 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="reset-button"
-              onClick={this.Reset}
+              onClick={this.reset}
             >
               Reset
             </button>
           </>
+        ) : (
+          <button
+            type="button"
+            className="start-button"
+            onClick={this.start}
+          >
+            Start
+          </button>
         )}
       </div>
     );
