@@ -87,28 +87,28 @@ class App extends React.Component<{}, State> {
         <div className="buttons__container">
           <button
             type="button"
-            className="button"
+            className="button is-primary"
             onClick={this.reverse}
           >
             Reverse
           </button>
           <button
             type="button"
-            className="button"
+            className="button is-primary"
             onClick={this.reset}
           >
             Reset
           </button>
           <button
             type="button"
-            className="button"
+            className="button is-primary"
             onClick={this.sortByAlpha}
           >
             Sort alphabetically
           </button>
           <button
             type="button"
-            className="button"
+            className="button is-primary"
             onClick={this.sortByLength}
           >
             Sort by length
