@@ -106,6 +106,14 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="alphabetSortingButton"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+
+            <button
+              type="button"
+              className="alphabetSortingButton"
               onClick={this.sortedByAlphabet}
             >
               Sort by alphabet
