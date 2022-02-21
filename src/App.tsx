@@ -18,18 +18,20 @@ const goodsFromServer = [
 type State = {
   goods: string[],
   visibleGoods: boolean,
-  sortReverse: boolean,
-  sortAlpha: boolean,
-  sortLength: boolean,
+  isReversed: boolean,
+  sortedAlphabetically: boolean,
+  sortedByLength: boolean,
+  sortBy: string,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
     visibleGoods: false,
-    sortReverse: false,
-    sortAlpha: false,
-    sortLength: false,
+    isReversed: false,
+    sortedAlphabetically: false,
+    sortedByLength: false,
+    sortBy: '',
   };
 
   visibleList = () => {
@@ -38,31 +40,33 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  reverseGoods = () => {
-    this.setState((state) => ({
-      sortReverse: !state.sortReverse,
-      goods: [...goodsFromServer].reverse(),
-    }));
-  };
-
   sortLetter = () => {
     this.setState((state) => ({
-      sortAlpha: !state.sortAlpha,
+      sortedAlphabetically: !state.sortedAlphabetically,
+      sortBy: 'alphabet',
     }));
   };
 
   sortLengthGood = () => {
     this.setState((state) => ({
-      sortLength: !state.sortLength,
+      sortedByLength: !state.sortedByLength,
+      sortBy: 'length',
+    }));
+  };
+
+  reverseGoods = () => {
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+      goods: [...goodsFromServer],
     }));
   };
 
   resetGoods = () => {
     this.setState(() => ({
       goods: [...goodsFromServer],
-      sortReverse: false,
-      sortAlpha: false,
-      sortLength: false,
+      isReversed: false,
+      sortedAlphabetically: false,
+      sortedByLength: false,
     }));
   };
 
@@ -70,21 +74,24 @@ class App extends React.Component<{}, State> {
     const {
       goods,
       visibleGoods,
-      sortReverse,
-      sortAlpha,
-      sortLength,
+      isReversed,
+      sortBy,
     } = this.state;
 
-    if (sortReverse) {
+    goods.sort((a, b) => {
+      switch (sortBy) {
+        case 'length':
+          return (a.length - b.length);
+        case 'alphabet':
+          return a.localeCompare(b);
+
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
       goods.reverse();
-    }
-
-    if (sortAlpha) {
-      goods.sort((a, b) => a.localeCompare(b));
-    }
-
-    if (sortLength) {
-      goods.sort((a, b) => (a.length - b.length));
     }
 
     return (
