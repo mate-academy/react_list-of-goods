@@ -14,6 +14,8 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 type State = {
   goods: string[],
   isGoodsVisible: boolean,
@@ -27,7 +29,7 @@ export class App extends React.PureComponent<{}, State> {
     maxLength: 1,
   };
 
-  showGoods = () => {
+  toogleVisibility = () => {
     this.setState(state => ({ isGoodsVisible: !state.isGoodsVisible }));
 
     if (!this.state.isGoodsVisible) {
@@ -41,19 +43,25 @@ export class App extends React.PureComponent<{}, State> {
 
   sortAlphaBetically = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort((firstGood, secondGood) => firstGood.localeCompare(secondGood)),
+      goods: [...state.goods].sort((
+        firstGood,
+        secondGood,
+      ) => firstGood.localeCompare(secondGood)),
     }));
   };
 
   sortByLength = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort((firstGood, secondGood) => firstGood.length - secondGood.length),
+      goods: [...state.goods].sort((
+        firstGood,
+        secondGood,
+      ) => firstGood.length - secondGood.length),
     }));
   };
 
   resetGoods = () => {
     this.setState({
-      goods: goodsFromServer,
+      goods: [...goodsFromServer],
       maxLength: 1,
     });
   };
@@ -72,7 +80,7 @@ export class App extends React.PureComponent<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <button type="button" onClick={this.showGoods}>
+        <button type="button" onClick={this.toogleVisibility}>
           {isGoodsVisible ? 'Hide goods' : 'Start'}
         </button>
         {isGoodsVisible && (
@@ -87,16 +95,9 @@ export class App extends React.PureComponent<{}, State> {
               value={this.state.maxLength}
               onChange={(event) => this.selectGoods(event.target.value)}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              {options.map(el => (
+                <option value={`${el}`}>{el}</option>
+              ))}
             </select>
             {preparedGoods.map(good => (
               <li key={good}>{good}</li>
