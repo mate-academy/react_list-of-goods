@@ -14,8 +14,6 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 type State = {
   goods: string[],
   isGoodsVisible: boolean,
@@ -95,8 +93,8 @@ export class App extends React.PureComponent<{}, State> {
               value={this.state.maxLength}
               onChange={(event) => this.selectGoods(event.target.value)}
             >
-              {options.map(el => (
-                <option value={`${el}`}>{el}</option>
+              {goods.map(el => (
+                <option value={`${goods.indexOf(el) + 1}`}>{goods.indexOf(el) + 1}</option>
               ))}
             </select>
             {preparedGoods.map(good => (
