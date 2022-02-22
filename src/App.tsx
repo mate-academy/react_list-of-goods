@@ -79,7 +79,7 @@ class App extends React.Component<{}, State> {
 
           {visibility && (
             <div className="App__control">
-              <div className="App__list-wrap" style={{ height: `${10 * 38}px` }}>
+              <div className="App__list-wrap">
                 <GoodsList data={{
                   dataServer,
                   isReverse,

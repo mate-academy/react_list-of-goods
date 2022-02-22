@@ -6,7 +6,7 @@
   overflow: hidden;
 
   &__item {
-    height: 30px;
+    height: fit-content;
     width: max-content;
     line-height: 30px;
     transition: transform 0.5s;

@@ -21,7 +21,7 @@ export const GoodsList: React.FC<State> = ({ data }) => {
     sizeFild,
   } = data;
 
-  const newVisibleGoods = [...dataServer];
+  let newVisibleGoods = [...dataServer];
 
   if (sortType !== 'none') {
     newVisibleGoods.sort((prev, next) => {
@@ -39,8 +39,10 @@ export const GoodsList: React.FC<State> = ({ data }) => {
     newVisibleGoods.reverse();
   }
 
+  newVisibleGoods = newVisibleGoods.slice(0, sizeFild);
+
   return (
-    <ul className="GoodsList" style={{ height: `${sizeFild * 38}px` }}>
+    <ul className="GoodsList">
       {newVisibleGoods.map(good => (
         <li key={good} className="GoodsList__item">
           {good}
