@@ -62,74 +62,57 @@ class App extends React.Component<{}, State> {
   render(): React.ReactNode {
     const { goods, isVisible } = this.state;
 
-    // eslint-disable-next-line no-console
-    console.log(goodsFromServer, 'prikol');
-
     const visibleGoods = [...goods];
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {!isVisible ? (
-          <button
-            type="button"
-            onClick={() => {
-              this.start();
-            }}
-          >
-            Start
-          </button>
+        {isVisible ? (
+          <div>
 
-        ) : (
-          <button
-            type="button"
-            onClick={() => {
-              this.stop();
-            }}
-          >
-            Stop
-          </button>
-        )}
-        {isVisible
-          && (
+            <button
+              type="button"
+              onClick={this.stop}
+            >
+              Stop
+            </button>
             <div>
               <button
                 type="button"
-                onClick={() => {
-                  this.reverse();
-                }}
+                onClick={this.reverse}
               >
                 reverse
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  this.sortAlphabet();
-                }}
+                onClick={this.sortAlphabet}
               >
-                Sort in AlphaBet
+                Sort alphabetically
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  this.sortByLength();
-                }}
+                onClick={this.sortByLength}
               >
                 sort by length
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  this.reset();
-                }}
+                onClick={this.reset}
               >
                 Reset
               </button>
 
               <GoodsList goodsList={visibleGoods} />
             </div>
-          )}
-
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={this.start}
+          >
+            Start
+          </button>
+        )}
       </div>
     );
   }
