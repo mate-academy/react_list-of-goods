@@ -61,7 +61,8 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <button type="button" onClick={this.getIsVisible} hidden={isVisible}>Start</button>
+        {!isVisible
+          && <button type="button" onClick={this.getIsVisible}>Start</button>}
         {isVisible
           && (
             <div>
