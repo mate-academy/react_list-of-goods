@@ -1,0 +1,23 @@
+.GoodsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  &__item {
+    height: fit-content;
+    width: max-content;
+    line-height: 30px;
+    transition: transform 0.5s;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+
+    &:hover {
+      transform: translateX(5px);
+      text-shadow: 2px 2px 4px greynp;
+    }
+  }
+}
