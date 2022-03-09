@@ -46,6 +46,7 @@ class App extends React.Component<{}, State> {
   sort = () => {
     this.setState({
       sortBy: 'abc',
+      isReversed: false,
     });
   };
 
@@ -59,6 +60,7 @@ class App extends React.Component<{}, State> {
     this.setState({
       sortBy: '',
       isReversed: false,
+      selectedNumber: 1,
     });
   };
 
@@ -66,9 +68,9 @@ class App extends React.Component<{}, State> {
     this.setState(() => ({ selectedNumber: +e }));
   };
 
-  render() {
+  preparedList = () => {
     const {
-      goods, isVisible, isReversed, sortBy, selectedNumber,
+      goods, isReversed, sortBy, selectedNumber,
     } = this.state;
 
     const copyList = [...goods].filter(item => item.length >= selectedNumber);
@@ -90,6 +92,14 @@ class App extends React.Component<{}, State> {
       copyList.reverse();
     }
 
+    return copyList;
+  };
+
+  render() {
+    const { isVisible, selectedNumber } = this.state;
+
+    const preparedGoods = this.preparedList();
+
     return (
       <div className="App">
         <h1>Goods</h1>
@@ -106,7 +116,7 @@ class App extends React.Component<{}, State> {
         {isVisible && (
           <>
             <ul className="list">
-              {copyList.map(good => (
+              {preparedGoods.map(good => (
                 <li key={good} className="item">
                   {good}
                 </li>
