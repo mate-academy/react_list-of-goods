@@ -1,0 +1,6 @@
+.item-list {
+  display: flex;
+  justify-content: center;
+  color: rgb(100, 8, 31);
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
