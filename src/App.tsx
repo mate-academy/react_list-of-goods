@@ -18,72 +18,57 @@ const goodsFromServer: string[] = [
 type Props = {
   goods: string[],
   confirmBtn: boolean,
-  isReversed: boolean,
-  sortBy: string,
   selectedOption: number,
 };
 
-class App extends React.PureComponent<{}, Props> {
+class App extends React.Component<{}, Props> {
   state = {
-    goods: goodsFromServer,
     confirmBtn: true,
-    isReversed: false,
-    sortBy: '',
     selectedOption: 1,
+    goods: [...goodsFromServer],
   };
 
   reversed = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
+    this.setState((state) => ({ goods: state.goods.reverse() }));
   };
 
   sortAlphabetically = () => {
-    this.setState({ sortBy: 'alpha' });
-  };
+    this.setState((state) => {
+      const sort = state.goods.sort((a, b) => a.localeCompare(b));
 
-  reset = () => {
-    this.setState({
-      selectedOption: 1,
-      isReversed: false,
-      sortBy: '',
+      return {
+        goods: sort,
+      };
     });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState((state) => {
+      const sort = state.goods.sort((a, b) => a.length - b.length);
+
+      return {
+        goods: sort,
+      };
+    });
   };
 
   handleChange = (e: string) => {
     this.setState(() => ({ selectedOption: +e }));
   };
 
+  reset = () => {
+    this.setState({
+      selectedOption: 1,
+      goods: goodsFromServer,
+    });
+  };
+
   render() {
     const {
       goods,
       confirmBtn,
-      isReversed,
-      sortBy,
       selectedOption,
     } = this.state;
-
-    const copyListOfGoods
-      = [...goods].filter(item => item.length >= selectedOption);
-
-    copyListOfGoods.sort((g1, g2) => {
-      switch (sortBy) {
-        case 'alpha':
-          return g1.localeCompare(g2);
-        case 'length':
-          return g1.length - g2.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      copyListOfGoods.reverse();
-    }
 
     return (
       <div className="App">
@@ -147,7 +132,7 @@ class App extends React.PureComponent<{}, Props> {
             <option value="10">10</option>
           </select>
         </div>
-        {!confirmBtn && <ListOfGoods goods={copyListOfGoods} />}
+        {!confirmBtn && <ListOfGoods goods={goods} select={selectedOption} />}
       </div>
     );
   }
