@@ -54,6 +54,12 @@ class App extends React.Component<{}, State> {
     });
   };
 
+  onSelectChanger = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({
+      goods: goodsFromServer.filter(good => (good.length >= Number(event.target.value))),
+    });
+  };
+
   render() {
     const { goods, isVisible } = this.state;
 
@@ -105,6 +111,24 @@ class App extends React.Component<{}, State> {
                 >
                   Reset
                 </button>
+              </div>
+
+              <div className="App__select">
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                <label className="App__select-label" htmlFor="goods">Good name length:</label>
+                {' '}
+                <select className="App__select-list" name="goods" id="goods" onChange={this.onSelectChanger}>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
               </div>
 
               <GoodsList goods={goods} />

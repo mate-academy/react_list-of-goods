@@ -11,7 +11,6 @@ body {
 
 .App {
   height: 100vh;
-  padding: 20px;
   font-family: "Montserrat", sans-serif;
   background-color: rgb(218, 143, 92);
 
@@ -19,6 +18,7 @@ body {
     margin: 0 auto;
     padding: 40px;
     width: 360px;
+    border-radius: 10px;
     background-color: #384f93;
     box-shadow: rgba(50, 50, 93, 0.25) 0 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0 30px 60px -30px;
@@ -64,5 +64,21 @@ body {
     &:active {
       transform: scale(0.99);
     }
+  }
+
+  &__select {
+    padding-left: 23%;
+    margin-bottom: 25px;
+  }
+
+  &__select-label {
+    font-size: 18px;
+    color: rgb(218, 143, 92);
+  }
+
+  &__select-list {
+    color: rgb(218, 143, 92);
+    outline: none;
+    border-radius: 5px;
   }
 }
