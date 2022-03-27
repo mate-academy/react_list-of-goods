@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const GoodsList: React.FC<Products> = ({ products }) => {
+const GoodsList: React.FC<Products> = ({ products }) => {
   return (
     <ul>
       {products.map(product => (
@@ -11,3 +11,5 @@ export const GoodsList: React.FC<Products> = ({ products }) => {
     </ul>
   );
 };
+
+export default React.memo(GoodsList);

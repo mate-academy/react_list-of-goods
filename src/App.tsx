@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
