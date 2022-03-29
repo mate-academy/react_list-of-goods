@@ -17,16 +17,14 @@ const goodsFromServer: string[] = [
 interface State {
   isGoodsVisible: boolean,
   isReversed: boolean,
-  isSortedAlphabetically: boolean,
-  isSortedByLength: boolean
+  sortBy: string
 }
 
 class App extends React.Component<{}, State> {
   state = {
     isGoodsVisible: false,
     isReversed: false,
-    isSortedAlphabetically: false,
-    isSortedByLength: false,
+    sortBy: '',
   };
 
   setGoodsVisible = () => this.setState({
@@ -38,34 +36,32 @@ class App extends React.Component<{}, State> {
   }));
 
   sortAlphabetically = () => this.setState({
-    isSortedAlphabetically: true,
-    isSortedByLength: false,
+    sortBy: 'name',
   });
 
   sortByLength = () => this.setState({
-    isSortedByLength: true,
-    isSortedAlphabetically: false,
+    sortBy: 'length',
   });
 
   reset = () => this.setState({
-    isSortedAlphabetically: false,
-    isSortedByLength: false,
+    sortBy: '',
     isReversed: false,
   });
 
   render() {
-    const {
-      isGoodsVisible, isReversed, isSortedAlphabetically, isSortedByLength,
-    } = this.state;
+    const { isGoodsVisible, isReversed, sortBy } = this.state;
     const renderedGoods = [...goodsFromServer];
 
-    if (isSortedAlphabetically) {
-      renderedGoods.sort((good1, good2) => good1.localeCompare(good2));
-    }
-
-    if (isSortedByLength) {
-      renderedGoods.sort((good1, good2) => good1.length - good2.length);
-    }
+    renderedGoods.sort((good1, good2) => {
+      switch (sortBy) {
+        case 'name':
+          return good1.localeCompare(good2);
+        case 'length':
+          return good1.length - good2.length;
+        default:
+          return 0;
+      }
+    });
 
     if (isReversed) {
       renderedGoods.reverse();
