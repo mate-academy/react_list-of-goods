@@ -19,7 +19,6 @@ class App extends React.Component<{}, Props> {
   state = {
     products: goodsFromServer,
     isClicked: false,
-    initialOrder: goodsFromServer,
   };
 
   showGoodsList = () => {
@@ -35,24 +34,12 @@ class App extends React.Component<{}, Props> {
   };
 
   sortGoodsAZ = () => {
-    // const { products } = this.state;
-
     this.setState(state => ({
       products: [...state.products].sort(),
     }));
-
-    // this.setState({ products: [...products].sort() });
   };
 
   sortByLength = () => {
-    // const { products } = this.state;
-
-    // this.setState({
-    //   products: [...products].sort((a, b) => {
-    //     return a.length - b.length;
-    //   }),
-    // });
-
     this.setState(state => ({
       products: [...state.products].sort((a, b) => {
         return a.length - b.length;
@@ -61,9 +48,7 @@ class App extends React.Component<{}, Props> {
   };
 
   resetToInitial = () => {
-    const { initialOrder } = this.state;
-
-    this.setState({ products: initialOrder });
+    this.setState({ products: goodsFromServer });
   };
 
   render() {

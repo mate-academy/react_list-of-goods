@@ -3,7 +3,6 @@
 type Props = {
   products: string[];
   isClicked: boolean;
-  initialOrder: string[];
 };
 
 interface Products {
