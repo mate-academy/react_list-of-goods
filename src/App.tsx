@@ -29,9 +29,9 @@ class App extends React.Component<{}, State> {
     isSortedByLength: false,
   };
 
-  setGoodsVisible = () => this.setState(state => ({
-    isGoodsVisible: !state.isGoodsVisible,
-  }));
+  setGoodsVisible = () => this.setState({
+    isGoodsVisible: true,
+  });
 
   reverseGoods = () => this.setState(state => ({
     isReversed: !state.isReversed,
