@@ -23,17 +23,4 @@ body {
 
     margin-bottom: 50px;
   }
-
-  &__goods-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    list-style: none;
-  }
-
-  &__goods-item {
-    font-size: 24px;
-  }
 }

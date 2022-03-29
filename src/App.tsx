@@ -2,6 +2,7 @@ import React from 'react';
 
 import './App.scss';
 import './additional_styles/button.css';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -68,7 +69,12 @@ class App extends React.Component<Props, State> {
 
   render() {
     const { isStarted, visibleGoods } = this.state;
-    const { reverse, sortBy, reset } = this;
+    const {
+      openList,
+      reverse,
+      sortBy,
+      reset,
+    } = this;
 
     return (
       <div className="App">
@@ -77,7 +83,7 @@ class App extends React.Component<Props, State> {
             <div className="App__start">
               <button
                 type="button"
-                onClick={this.openList}
+                onClick={openList}
                 className="button"
               >
                 Start
@@ -112,13 +118,7 @@ class App extends React.Component<Props, State> {
                 </button>
               </div>
 
-              <ul className="App__goods-list">
-                {visibleGoods.map(good => (
-                  <li key={good} className="App__goods-item">
-                    {good}
-                  </li>
-                ))}
-              </ul>
+              <GoodsList goods={visibleGoods} />
             </>
           )}
       </div>
