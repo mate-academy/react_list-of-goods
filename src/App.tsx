@@ -50,6 +50,7 @@ class App extends React.Component<{}, State> {
   reset = () => this.setState({
     isSortedAlphabetically: false,
     isSortedByLength: false,
+    isReversed: false,
   });
 
   render() {
