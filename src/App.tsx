@@ -19,7 +19,6 @@ const goodsFromServer: string[] = [
 
 type State = {
   isStarted: boolean,
-  goodsList: string[],
   visibleGoods: string[],
   isReversed: boolean,
 };
@@ -27,7 +26,6 @@ type State = {
 class App extends React.Component<{}, State> {
   state = {
     isStarted: false,
-    goodsList: goodsFromServer,
     visibleGoods: goodsFromServer,
     isReversed: false,
   };
@@ -39,15 +37,15 @@ class App extends React.Component<{}, State> {
   reverse = () => {
     this.setState(state => ({
       visibleGoods: !state.isReversed
-        ? [...state.goodsList].reverse()
-        : state.goodsList,
+        ? [...goodsFromServer].reverse()
+        : goodsFromServer,
       isReversed: !state.isReversed,
     }));
   };
 
   sortBy = (sortType: 'alphabet' | 'length') => {
-    this.setState(state => ({
-      visibleGoods: [...state.goodsList].sort((a, b) => {
+    this.setState(() => ({
+      visibleGoods: [...goodsFromServer].sort((a, b) => {
         switch (sortType) {
           case 'alphabet':
             return a.localeCompare(b);
@@ -61,8 +59,8 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState(state => ({
-      visibleGoods: state.goodsList,
+    this.setState(() => ({
+      visibleGoods: goodsFromServer,
     }));
   };
 
