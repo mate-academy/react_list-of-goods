@@ -27,7 +27,7 @@ export class App extends Component<{}, State> {
 
   handleStartClick = () => {
     this.setState({
-      isButtonVisible: true,
+      isButtonVisible: false,
     });
   };
 
@@ -36,7 +36,7 @@ export class App extends Component<{}, State> {
 
     return (
       <div className="App">
-        {!isButtonVisible // todo reverse condition
+        {isButtonVisible
           ? (
             <Button
               className="App__startButton"

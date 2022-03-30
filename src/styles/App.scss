@@ -2,16 +2,29 @@
 @import "../components/GoodsList/GoodsList";
 
 .App {
-  height: 100vh;
+  display: flex;
+  justify-content: center;
   padding: 30px;
+  height: 100vh;
+
   background-color: $c-custom-gray;
 
   &__goodsList {
     width: max-content;
+    height: max-content;
 
     background-color: white;
     border: 1px solid lightgrey;
     border-radius: 10px;
     @extend %bsh-primary;
+  }
+
+  &__startButton {
+    margin: auto 0;
+    padding: 5px 60px;
+    height: max-content;
+
+    font-size: 24px;
+    font-weight: 600;
   }
 }
