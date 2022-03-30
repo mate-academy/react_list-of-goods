@@ -17,7 +17,6 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-type Props = {};
 type State = {
   isStarted: boolean,
   goodsList: string[],
@@ -25,7 +24,7 @@ type State = {
   isReversed: boolean,
 };
 
-class App extends React.Component<Props, State> {
+class App extends React.Component<{}, State> {
   state = {
     isStarted: false,
     goodsList: goodsFromServer,
