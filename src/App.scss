@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  min-height: 100vh;
+  height: 100%;
+  padding: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e2ded5;
+  color: #3a3837;
+  font-family: "Courier New", "Courier", monospace;
+}
+
+.goods {
+  padding: 25px;
+  background-color: #cac4b4;
+  border-radius: 15px;
+
+  &__control-buttons {
+    display: flex;
+    margin: 0 -10px 30px 0;
+
+    & > * {
+      margin: 0 10px 0 0;
+    }
+  }
+
+  &__list {
+    margin: 0 0 -15px;
+  }
+}
+
+.wrapper {
+  position: relative;
+  background-color: #ddd7c9;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: #807575;
+    color: #ddd7c9;
+  }
+
+  &__button {
+    font-size: 20px;
+    font-family: "Arial", "Helvetica", sans-serif;
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    background-color: inherit;
+    width: 20px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--plus {
+      height: 16px;
+      top: 9px;
+      z-index: 2;
+    }
+
+    &--minus {
+      bottom: 11px;
+      z-index: 1;
+      font-size: 22px;
+    }
+
+  }
+}
+
+.button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #5e5454;
+  border: 1px solid #afaa9e;
+  border-radius: 10px;
+  background-color: #ddd7c9;
+  padding: 10px 15px;
+  outline: none;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: #807575;
+    color: #ddd7c9;
+  }
+
+  &--start {
+    width: 200px;
+    height: 100px;
+    font-size: 30px;
+    letter-spacing: 3px;
+    border: 3px solid #7e7272;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+      font-size: 32px;
+      letter-spacing: 5px;
+      box-shadow: 0 0 5px #807575;
+    }
+  }
+
+  &--number {
+    caret-color: transparent;
+  }
+}
+
+.list {
+  list-style: none;
+
+  &__item {
+    font-size: 24px;
+    font-weight: 600;
+    color: #5e5454;
+    margin: 0 0 20px ;
+    padding: 0 0 10px 50px;
+    border-bottom: 1px solid #887c7c;
+    position: relative;
+
+    &:last-child {
+      border: none;
+      padding-bottom: 0;
+    }
+
+    &::before {
+      position: absolute;
+      left: 15px;
+      top: 7px;
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #7e7272;
+    }
+  }
+}
