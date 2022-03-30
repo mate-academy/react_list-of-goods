@@ -26,9 +26,7 @@ export class App extends Component<{}, State> {
   };
 
   handleStartClick = () => {
-    this.setState({
-      isButtonVisible: false,
-    });
+    this.setState({ isButtonVisible: false });
   };
 
   render() {

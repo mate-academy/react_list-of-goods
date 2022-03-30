@@ -48,28 +48,13 @@ export class GoodsList extends Component<Props, State> {
 
   handleSelectorChange = (value: string) => {
     this.setState({
-      selectedLength: +value,
+      selectedLength: Number(value),
     });
   };
 
-  render() {
+  getVisibleGoodsList = () => {
     const { goods } = this.props;
-    const {
-      isReversed,
-      sortBy,
-      minLength,
-      maxLength,
-      selectedLength,
-    } = this.state;
-    const {
-      handleSortByLengthClick,
-      handleSortAlphabeticallyClick,
-      handleReverseClick,
-      handleResetClick,
-      handleSelectorChange,
-    } = this;
-
-    const availableOptions = range(minLength, maxLength + 1);
+    const { isReversed, sortBy, selectedLength } = this.state;
 
     const visibleGoodsList = goods.filter(
       item => item.length >= selectedLength,
@@ -97,6 +82,35 @@ export class GoodsList extends Component<Props, State> {
       visibleGoodsList.reverse();
     }
 
+    return visibleGoodsList;
+  };
+
+  render() {
+    const {
+      isReversed,
+      sortBy,
+      minLength,
+      maxLength,
+      selectedLength,
+    } = this.state;
+    const {
+      handleSortByLengthClick,
+      handleSortAlphabeticallyClick,
+      handleReverseClick,
+      handleResetClick,
+      handleSelectorChange,
+      getVisibleGoodsList,
+    } = this;
+
+    const ifNothingToReset = (
+      selectedLength === minLength
+      && sortBy === SortType.Default
+      && !isReversed
+    );
+
+    const availableOptions: number[]
+      = range(minLength, maxLength + 1);
+
     return (
       <div className="GoodsList">
         <div className="GoodsList__controllers">
@@ -119,9 +133,7 @@ export class GoodsList extends Component<Props, State> {
           <Button
             className="GoodsList__button"
             onClick={handleResetClick}
-            disabled={selectedLength === minLength
-              && sortBy === SortType.Default
-              && !isReversed}
+            disabled={ifNothingToReset}
           >
             Reset
           </Button>
@@ -160,7 +172,7 @@ export class GoodsList extends Component<Props, State> {
         </div>
 
         <ul className="GoodsList__list">
-          {visibleGoodsList.map(item => (
+          {getVisibleGoodsList().map(item => (
             <li
               className="GoodsList__list-item"
               key={item}
