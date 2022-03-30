@@ -1,4 +1,5 @@
 import React from 'react';
+import { SortBy } from '../../enums/SortBy';
 
 const goodsFromServer = [
   'Dumplings',
@@ -13,14 +14,14 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-const options: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const options: number[] = Array.from({ length: 10 }, (_, i) => i + 1);
 
 type Props = {};
 
 interface State {
   goods: string[];
   isReversed: boolean;
-  sortBy: string;
+  sortBy: SortBy;
   wordMinLength: number;
 }
 
@@ -28,7 +29,7 @@ export class GoodsList extends React.Component<Props, State> {
   state = {
     goods: goodsFromServer,
     isReversed: false,
-    sortBy: 'none',
+    sortBy: SortBy.none,
     wordMinLength: 1,
   };
 
@@ -38,15 +39,9 @@ export class GoodsList extends React.Component<Props, State> {
     }));
   };
 
-  sortByAlph = () => {
+  setSortBy = (sortType: SortBy) => {
     this.setState({
-      sortBy: 'alph',
-    });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
+      sortBy: sortType,
     });
   };
 
@@ -59,12 +54,12 @@ export class GoodsList extends React.Component<Props, State> {
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: 'none',
+      sortBy: SortBy.none,
       wordMinLength: 1,
     });
   };
 
-  render() {
+  createCurrentGoods = () => {
     const {
       goods,
       isReversed,
@@ -72,21 +67,13 @@ export class GoodsList extends React.Component<Props, State> {
       wordMinLength,
     } = this.state;
 
-    const {
-      reverse,
-      sortByAlph,
-      sortByLength,
-      setLength,
-      reset,
-    } = this;
-
     const currentGoods = goods.filter(good => good.length >= wordMinLength);
 
     currentGoods.sort((a, b) => {
       switch (sortBy) {
-        case 'alph':
+        case SortBy.alph:
           return a.localeCompare(b);
-        case 'length':
+        case SortBy.length:
           return a.length - b.length;
         default:
           return 0;
@@ -96,6 +83,22 @@ export class GoodsList extends React.Component<Props, State> {
     if (isReversed) {
       currentGoods.reverse();
     }
+
+    return currentGoods;
+  };
+
+  render() {
+    const {
+      reverse,
+      setSortBy,
+      setLength,
+      reset,
+      createCurrentGoods,
+    } = this;
+
+    const { wordMinLength } = this.state;
+
+    const currentGoods = createCurrentGoods();
 
     return (
       <div className="goods-list">
@@ -111,7 +114,9 @@ export class GoodsList extends React.Component<Props, State> {
           <button
             className="button"
             type="button"
-            onClick={sortByAlph}
+            onClick={() => {
+              setSortBy(SortBy.none);
+            }}
           >
             Sort alphabetically
           </button>
@@ -119,7 +124,9 @@ export class GoodsList extends React.Component<Props, State> {
           <button
             className="button"
             type="button"
-            onClick={sortByLength}
+            onClick={() => {
+              setSortBy(SortBy.length);
+            }}
           >
             Sort by length
           </button>
@@ -129,7 +136,7 @@ export class GoodsList extends React.Component<Props, State> {
             id="select-length"
             value={wordMinLength}
             onChange={({ target }) => {
-              setLength(+target.value);
+              setLength(Number(target.value));
             }}
           >
             {options.map(option => (
