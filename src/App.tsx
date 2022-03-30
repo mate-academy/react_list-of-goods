@@ -72,11 +72,41 @@ class App extends React.Component<{}, State> {
         <h1>Goods</h1>
         {isGoodsVisible
           ? (
-            <ul>
-              {renderedGoods.map(good => (
-                <li key={good}>{good}</li>
-              ))}
-            </ul>
+            <>
+              <ul>
+                {renderedGoods.map(good => (
+                  <li key={good}>{good}</li>
+                ))}
+              </ul>
+
+              <button
+                type="button"
+                onClick={this.reverseGoods}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                onClick={this.sortAlphabetically}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </>
           )
           : (
             <button
@@ -86,34 +116,6 @@ class App extends React.Component<{}, State> {
               Start
             </button>
           )}
-
-        <button
-          type="button"
-          onClick={this.reverseGoods}
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          onClick={this.sortAlphabetically}
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          onClick={this.reset}
-        >
-          Reset
-        </button>
       </div>
     );
   }
