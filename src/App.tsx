@@ -21,7 +21,7 @@ type Props = {};
 type State = {
   goodsList: string[];
   isVisible: boolean;
-  isRevers: boolean;
+  isReverse: boolean;
   sortBy: string;
   length: number;
 };
@@ -30,7 +30,7 @@ export class App extends React.Component<Props, State> {
   state = {
     goodsList: goodsFromServer,
     isVisible: false,
-    isRevers: false,
+    isReverse: false,
     sortBy: '',
     length: 1,
   };
@@ -41,7 +41,7 @@ export class App extends React.Component<Props, State> {
 
   reversList = () => {
     this.setState(state => ({
-      isRevers: !state.isRevers,
+      isReverse: !state.isReverse,
     }));
   };
 
@@ -55,7 +55,7 @@ export class App extends React.Component<Props, State> {
 
   reset = () => {
     this.setState({
-      isRevers: false,
+      isReverse: false,
       sortBy: '',
       length: 1,
     });
@@ -69,7 +69,7 @@ export class App extends React.Component<Props, State> {
     const {
       goodsList,
       isVisible,
-      isRevers,
+      isReverse,
       sortBy,
       length,
     } = this.state;
@@ -87,7 +87,7 @@ export class App extends React.Component<Props, State> {
         break;
     }
 
-    if (isRevers) {
+    if (isReverse) {
       visibleGoodsList.reverse();
     }
 
