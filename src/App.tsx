@@ -1,5 +1,6 @@
-import React from 'react';
-import './App.css';
+import './App.scss';
+import { Component } from 'react';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +15,41 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+interface State {
+  isButtonVisible: boolean;
+}
 
-export default App;
+export class App extends Component<{}, State> {
+  state = {
+    isButtonVisible: true,
+  };
+
+  handleStartClick = () => {
+    this.setState({
+      isButtonVisible: false,
+    });
+  };
+
+  render() {
+    const { isButtonVisible } = this.state;
+
+    return (
+      <div className="App">
+        {isButtonVisible
+          ? (
+            <button
+              className="App__startButton"
+              type="button"
+              onClick={this.handleStartClick}
+            >
+              Start
+            </button>
+          ) : (
+            <div className="App__goodsList">
+              <GoodsList goods={goodsFromServer} />
+            </div>
+          )}
+      </div>
+    );
+  }
+}
