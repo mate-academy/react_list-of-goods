@@ -1,3 +1,9 @@
 .GoodsList {
+  &__list {
+    transition-duration: 300ms;
+  }
 
+  &__item {
+    transition-duration: 300ms;
+  }
 }

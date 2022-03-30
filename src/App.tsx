@@ -1,4 +1,5 @@
 import './App.scss';
+import { Button } from 'react-bootstrap';
 import { Component } from 'react';
 import { GoodsList } from './components/GoodsList';
 
@@ -37,13 +38,12 @@ export class App extends Component<{}, State> {
       <div className="App">
         {isButtonVisible
           ? (
-            <button
+            <Button
               className="App__startButton"
-              type="button"
               onClick={this.handleStartClick}
             >
               Start
-            </button>
+            </Button>
           ) : (
             <div className="App__goodsList">
               <GoodsList goods={goodsFromServer} />

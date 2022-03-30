@@ -1,24 +1,27 @@
-import { Component } from 'react';
+import { range } from 'lodash';
+import { Button, ListGroup } from 'react-bootstrap';
+import { Component, SyntheticEvent } from 'react';
+import { SortType } from '../../enums/SortType';
 
 interface Props {
   goods: string[];
 }
 
-enum SortType {
-  Default,
-  ByLength,
-  Alphabetical,
-}
-
 interface State {
   isReversed: boolean;
   sortBy: SortType;
+  minLength: number,
+  maxLength: number,
+  selectedLength: number,
 }
 
 export class GoodsList extends Component<Props, State> {
   state = {
     isReversed: false,
     sortBy: SortType.Default,
+    minLength: 1,
+    maxLength: 10,
+    selectedLength: 1,
   };
 
   handleReverseClick = () => {
@@ -42,14 +45,29 @@ export class GoodsList extends Component<Props, State> {
     });
   };
 
+  handleSelectorChange = (event: SyntheticEvent) => {
+    this.setState({
+      selectedLength: +(event.target as HTMLInputElement).value,
+    });
+  };
+
   render() {
     const { goods } = this.props;
     const {
       isReversed,
       sortBy,
+      minLength,
+      maxLength,
+      selectedLength,
     } = this.state;
 
-    const visibleGoodsList = [...goods].sort(
+    const availableOptions = range(minLength, maxLength + 1);
+
+    const visibleGoodsList = goods.filter(
+      item => item.length >= selectedLength,
+    );
+
+    visibleGoodsList.sort(
       (itemA, itemB) => {
         switch (sortBy) {
           case SortType.ByLength:
@@ -73,41 +91,70 @@ export class GoodsList extends Component<Props, State> {
 
     return (
       <div className="GoodsList">
-        <ul className="GoodsList__list">
-          {visibleGoodsList.map(
-            item => (<li key={item}>{item}</li>),
-          )}
-        </ul>
-
-        <div className="GoodsList__controlPanel">
-          <button
-            type="button"
+        <div className="GoodsList__controllers">
+          <Button
+            className="GoodsList__button"
             onClick={this.handleReverseClick}
           >
             Reverse
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            className="GoodsList__button"
             onClick={this.handleSortByLengthClick}
           >
             Sort by length
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            className="GoodsList__button"
             onClick={this.handleSortAlphabeticallyClick}
           >
             Sort alphabetically
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            className="GoodsList__button"
             onClick={this.handleResetClick}
           >
             Reset
-          </button>
+          </Button>
+
+          <label
+            className="GoodsList__selector"
+            htmlFor="selector"
+          >
+            <span className="GoodsList__selector-label">
+              Length
+            </span>
+
+            <select
+              id="selector"
+              defaultValue={availableOptions[0]}
+              onChange={this.handleSelectorChange}
+            >
+              {availableOptions.map(item => (
+                <option
+                  key={`length-${item}`}
+                  value={item}
+                >
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
+
+        <ListGroup className="GoodsList__list">
+          {visibleGoodsList.map(item => (
+            <ListGroup.Item
+              className="GoodsList__list-item"
+              key={item}
+            >
+              {item}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
       </div>
     );
   }
