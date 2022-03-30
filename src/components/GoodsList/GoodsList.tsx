@@ -1,6 +1,6 @@
 import { range } from 'lodash';
-import { Button, ListGroup } from 'react-bootstrap';
-import { Component, SyntheticEvent } from 'react';
+import { Button } from 'react-bootstrap';
+import { Component } from 'react';
 import { SortType } from '../../enums/SortType';
 
 interface Props {
@@ -25,9 +25,7 @@ export class GoodsList extends Component<Props, State> {
   };
 
   handleReverseClick = () => {
-    this.setState((state) => ({
-      isReversed: !state.isReversed,
-    }));
+    this.setState({ isReversed: true });
   };
 
   handleSortByLengthClick = () => {
@@ -39,15 +37,18 @@ export class GoodsList extends Component<Props, State> {
   };
 
   handleResetClick = () => {
+    const { minLength } = this.state;
+
     this.setState({
       isReversed: false,
       sortBy: SortType.Default,
+      selectedLength: minLength,
     });
   };
 
-  handleSelectorChange = (event: SyntheticEvent) => {
+  handleSelectorChange = (value: string) => {
     this.setState({
-      selectedLength: +(event.target as HTMLInputElement).value,
+      selectedLength: +value,
     });
   };
 
@@ -60,6 +61,13 @@ export class GoodsList extends Component<Props, State> {
       maxLength,
       selectedLength,
     } = this.state;
+    const {
+      handleSortByLengthClick,
+      handleSortAlphabeticallyClick,
+      handleReverseClick,
+      handleResetClick,
+      handleSelectorChange,
+    } = this;
 
     const availableOptions = range(minLength, maxLength + 1);
 
@@ -94,47 +102,53 @@ export class GoodsList extends Component<Props, State> {
         <div className="GoodsList__controllers">
           <Button
             className="GoodsList__button"
-            onClick={this.handleReverseClick}
-          >
-            Reverse
-          </Button>
-
-          <Button
-            className="GoodsList__button"
-            onClick={this.handleSortByLengthClick}
+            onClick={handleSortByLengthClick}
+            disabled={sortBy === SortType.ByLength}
           >
             Sort by length
           </Button>
 
           <Button
             className="GoodsList__button"
-            onClick={this.handleSortAlphabeticallyClick}
+            onClick={handleSortAlphabeticallyClick}
+            disabled={sortBy === SortType.Alphabetical}
           >
             Sort alphabetically
           </Button>
 
           <Button
             className="GoodsList__button"
-            onClick={this.handleResetClick}
+            onClick={handleResetClick}
+            disabled={selectedLength === minLength
+              && sortBy === SortType.Default
+              && !isReversed}
           >
             Reset
           </Button>
 
-          <label
-            className="GoodsList__selector"
-            htmlFor="selector"
+          <Button
+            className="GoodsList__button"
+            onClick={handleReverseClick}
+            disabled={isReversed}
           >
+            Reverse
+          </Button>
+
+          <div className="GoodsList__selector">
             <span className="GoodsList__selector-label">
               Length
             </span>
 
             <select
-              id="selector"
-              defaultValue={availableOptions[0]}
-              onChange={this.handleSelectorChange}
+              className="GoodsList__selector-select"
+              value={selectedLength}
+              onChange={({ target }) => {
+                handleSelectorChange(target.value);
+              }}
             >
               {availableOptions.map(item => (
                 <option
+                  className="GoodsList__selector-item"
                   key={`length-${item}`}
                   value={item}
                 >
@@ -142,19 +156,19 @@ export class GoodsList extends Component<Props, State> {
                 </option>
               ))}
             </select>
-          </label>
+          </div>
         </div>
 
-        <ListGroup className="GoodsList__list">
+        <ul className="GoodsList__list">
           {visibleGoodsList.map(item => (
-            <ListGroup.Item
+            <li
               className="GoodsList__list-item"
               key={item}
             >
               {item}
-            </ListGroup.Item>
+            </li>
           ))}
-        </ListGroup>
+        </ul>
       </div>
     );
   }

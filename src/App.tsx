@@ -1,4 +1,4 @@
-import './App.scss';
+import './styles/App.scss';
 import { Button } from 'react-bootstrap';
 import { Component } from 'react';
 import { GoodsList } from './components/GoodsList';
@@ -27,7 +27,7 @@ export class App extends Component<{}, State> {
 
   handleStartClick = () => {
     this.setState({
-      isButtonVisible: false,
+      isButtonVisible: true,
     });
   };
 
@@ -36,7 +36,7 @@ export class App extends Component<{}, State> {
 
     return (
       <div className="App">
-        {isButtonVisible
+        {!isButtonVisible // todo reverse condition
           ? (
             <Button
               className="App__startButton"

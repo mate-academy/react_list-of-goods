@@ -1,0 +1,17 @@
+@import "./utils";
+@import "../components/GoodsList/GoodsList";
+
+.App {
+  height: 100vh;
+  padding: 30px;
+  background-color: $c-custom-gray;
+
+  &__goodsList {
+    width: max-content;
+
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    @extend %bsh-primary;
+  }
+}
