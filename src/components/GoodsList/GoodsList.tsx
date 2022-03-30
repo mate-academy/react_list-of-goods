@@ -50,11 +50,9 @@ export class GoodsList extends React.Component<Props, State> {
     });
   };
 
-  setLength = (event: React.SyntheticEvent) => {
-    const target = event.target as HTMLInputElement;
-
+  setLength = (value: number) => {
     this.setState({
-      wordMinLength: +target.value,
+      wordMinLength: value,
     });
   };
 
@@ -130,7 +128,9 @@ export class GoodsList extends React.Component<Props, State> {
             name="select-length"
             id="select-length"
             value={wordMinLength}
-            onChange={setLength}
+            onChange={({ target }) => {
+              setLength(+target.value);
+            }}
           >
             {options.map(option => (
               <option key={option} value={option}>
