@@ -48,11 +48,8 @@ class App extends React.Component<{}, State> {
     isReversed: false,
   });
 
-  render() {
-    const { isGoodsVisible, isReversed, sortBy } = this.state;
-    const renderedGoods = [...goodsFromServer];
-
-    renderedGoods.sort((good1, good2) => {
+  sort = (goods: string[], sortBy: string) => {
+    return goods.sort((good1, good2) => {
       switch (sortBy) {
         case 'name':
           return good1.localeCompare(good2);
@@ -62,6 +59,13 @@ class App extends React.Component<{}, State> {
           return 0;
       }
     });
+  };
+
+  render() {
+    const { isGoodsVisible, isReversed, sortBy } = this.state;
+    const renderedGoods = [...goodsFromServer];
+
+    this.sort(renderedGoods, sortBy);
 
     if (isReversed) {
       renderedGoods.reverse();
