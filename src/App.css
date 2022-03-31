@@ -1,0 +1,11 @@
+.visible {
+  display: none;
+}
+
+.app {
+  text-align: center;
+}
+
+.list {
+  list-style: none;
+}
