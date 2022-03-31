@@ -56,18 +56,8 @@ class App extends React.Component<Props, State> {
     this.setState({ sortBy: 'length' });
   };
 
-  resetTheGoods = () => {
-    this.setState({
-      sortBy: '',
-      isReversed: false,
-    });
-  };
-
-  render() {
-    const { showGoods, isReversed, sortBy } = this.state;
-    const copyGoods = [...goodsFromServer];
-
-    copyGoods.sort((good1, good2) => {
+  sortByCase = (goods: Good[], sortBy:string) => {
+    return goods.sort((good1, good2) => {
       switch (sortBy) {
         case 'alphabet':
           return good1.name.localeCompare(good2.name);
@@ -77,10 +67,28 @@ class App extends React.Component<Props, State> {
           return 0;
       }
     });
+  };
 
-    if (isReversed) {
-      copyGoods.reverse();
+  resetTheGoods = () => {
+    this.setState({
+      sortBy: '',
+      isReversed: false,
+    });
+  };
+
+  reversGoods = (reversed: boolean, goods: Good[]) => {
+    if (reversed) {
+      goods.reverse();
     }
+  };
+
+  render() {
+    const { showGoods, isReversed, sortBy } = this.state;
+    const copyGoods = [...goodsFromServer];
+
+    this.sortByCase(copyGoods, sortBy);
+
+    this.reversGoods(isReversed, copyGoods);
 
     return (
       <div className="App">
