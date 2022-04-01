@@ -24,7 +24,6 @@ const goodsFromServer: Good[] = [
 }));
 
 interface State {
-  goods: Good[],
   isReversed: boolean,
   sortBy: string,
   isVisible: boolean,
@@ -32,7 +31,6 @@ interface State {
 
 export class App extends React.Component<{}, State> {
   state: State = {
-    goods: goodsFromServer,
     isReversed: false,
     sortBy: 'none',
     isVisible: false,
@@ -41,6 +39,32 @@ export class App extends React.Component<{}, State> {
   visibilityApp = () => (
     this.setState({ isVisible: true })
   );
+
+  creater = () => {
+    const {
+      isReversed,
+      sortBy,
+    } = this.state;
+
+    const copyGoods = [...goodsFromServer];
+
+    const preperedCreater = copyGoods.sort((firstGood, secondGood) => {
+      switch (sortBy) {
+        case 'name':
+          return firstGood[sortBy].localeCompare(secondGood[sortBy]);
+        case 'length':
+          return firstGood.name.length - secondGood.name.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      copyGoods.reverse();
+    }
+
+    return preperedCreater;
+  };
 
   reversed = () => {
     this.setState(state => ({
@@ -66,27 +90,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const {
       isVisible,
-      goods,
-      isReversed,
-      sortBy,
     } = this.state;
-
-    const copyGoods = [...goods];
-
-    copyGoods.sort((firstGood, secondGood) => {
-      switch (sortBy) {
-        case 'name':
-          return firstGood[sortBy].localeCompare(secondGood[sortBy]);
-        case 'length':
-          return firstGood.name.length - secondGood.name.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      copyGoods.reverse();
-    }
 
     return (!isVisible
       ? (
@@ -101,13 +105,14 @@ export class App extends React.Component<{}, State> {
         <>
           <h1>List of Goods</h1>
           <ul>
-            {copyGoods.map(good => {
-              return (
-                <li key={good.id}>
-                  {good.name}
-                </li>
-              );
-            })}
+            {this.creater()
+              .map(good => {
+                return (
+                  <li key={good.id}>
+                    {good.name}
+                  </li>
+                );
+              })}
           </ul>
 
           <button
