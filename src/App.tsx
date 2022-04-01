@@ -63,9 +63,8 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
-    const { isVisible, isReversed, sortBy } = this.state;
-    const visibleGoods = [...goodsFromServer];
+  sortGoods = (visibleGoods: Good[]) => {
+    const { sortBy } = this.state;
 
     visibleGoods.sort((g1, g2) => {
       switch (sortBy) {
@@ -77,6 +76,13 @@ class App extends React.Component<{}, State> {
           return 0;
       }
     });
+  };
+
+  render() {
+    const { isVisible, isReversed } = this.state;
+    const visibleGoods = [...goodsFromServer];
+
+    this.sortGoods(visibleGoods);
 
     if (isReversed) {
       visibleGoods.reverse();
