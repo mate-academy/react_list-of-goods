@@ -12,7 +12,7 @@ export const GoodsList: React.FC<Props> = ({ goods }) => {
         {goods.map(good => (
           <li
             key={good}
-            className="goods__list-item button is-light"
+            className="goods__list-item"
           >
             {good}
           </li>

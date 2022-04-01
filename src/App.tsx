@@ -92,11 +92,10 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1 className="title">Goods</h1>
-        <div className="buttons__container">
+        <div>
           {!isVisible && (
             <button
               type="button"
-              className="button-start"
               onClick={this.start}
             >
               Start
@@ -109,7 +108,6 @@ class App extends React.Component<{}, State> {
 
               <button
                 type="button"
-                className="button is-primary"
                 onClick={this.reverse}
               >
                 Reverse
@@ -117,7 +115,6 @@ class App extends React.Component<{}, State> {
 
               <button
                 type="button"
-                className="button is-primary"
                 onClick={this.sortedByAlphabet}
               >
                 Sort alphabetically
@@ -125,7 +122,6 @@ class App extends React.Component<{}, State> {
 
               <button
                 type="button"
-                className="button is-primary"
                 onClick={this.sortedByLength}
               >
                 Sort by length
@@ -133,7 +129,6 @@ class App extends React.Component<{}, State> {
 
               <button
                 type="button"
-                className="button is-primary"
                 onClick={this.reset}
               >
                 Reset
