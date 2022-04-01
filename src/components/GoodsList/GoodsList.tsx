@@ -1,18 +1,18 @@
 import React from 'react';
-import './GoodList.scss';
+import './GoodsList.scss';
 
 type Props = {
-  goods: string[];
+  goods: string[],
 };
 
-export const GoodList: React.FC<Props> = ({ goods }) => {
+export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <div className="goods">
-      <ul className="list">
+      <ul className="goods__list">
         {goods.map(good => (
           <li
             key={good}
-            className="goods__list-item"
+            className="goods__list-item button is-light"
           >
             {good}
           </li>

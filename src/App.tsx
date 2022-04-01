@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { GoodList } from './components/GoodList/GoodList';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -16,57 +16,59 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  isReverse: boolean,
-  sortBy: string;
+  goods: string[],
   isVisible: boolean,
+  isReversed: boolean,
+  sortedBy: string,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
-    isReverse: false,
-    sortBy: '',
+    goods: goodsFromServer,
     isVisible: false,
+    isReversed: false,
+    sortedBy: '',
   };
 
   start = () => {
-    this.setState({ isVisible: true });
+    this.setState({
+      isVisible: true,
+    });
   };
 
   reverse = () => {
     this.setState(state => ({
-      isReverse: !state.isReverse,
+      isReversed: !state.isReversed,
     }));
   };
 
+  sortedByAlphabet = () => {
+    this.setState({
+      sortedBy: 'alphabet',
+    });
+  };
+
+  sortedByLength = () => {
+    this.setState({
+      sortedBy: 'length',
+    });
+  };
+
   reset = () => {
-    this.setState({
-      isReverse: false,
-      sortBy: '',
-    });
+    this.setState(
+      {
+        isReversed: false,
+        sortedBy: '',
+      },
+    );
   };
 
-  sortByAlpha = () => {
-    this.setState({
-      sortBy: 'alphabet',
-    });
-  };
+  prepareGoods = () => {
+    const { goods, isReversed, sortedBy } = this.state;
+    const copyGoods = [...goods];
 
-  sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-    });
-  };
-
-  render() {
-    const {
-      isReverse,
-      sortBy,
-      isVisible,
-    } = this.state;
-    const goods = [...goodsFromServer];
-
-    goods.sort((good1, good2) => {
-      switch (sortBy) {
+    copyGoods.sort((good1, good2) => {
+      switch (sortedBy) {
         case 'alphabet':
           return good1.localeCompare(good2);
         case 'length':
@@ -76,49 +78,22 @@ class App extends React.Component<{}, State> {
       }
     });
 
-    if (isReverse) {
-      goods.reverse();
+    if (isReversed) {
+      copyGoods.reverse();
     }
+
+    return copyGoods;
+  };
+
+  render() {
+    const { isVisible } = this.state;
+    const preparedGoods = this.prepareGoods();
 
     return (
       <div className="App">
         <h1 className="title">Goods</h1>
-
         <div className="buttons__container">
-          <button
-            type="button"
-            className="button is-primary"
-            onClick={this.reverse}
-          >
-            Reverse
-          </button>
-          <button
-            type="button"
-            className="button is-primary"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
-          <button
-            type="button"
-            className="button is-primary"
-            onClick={this.sortByAlpha}
-          >
-            Sort alphabetically
-          </button>
-          <button
-            type="button"
-            className="button is-primary"
-            onClick={this.sortByLength}
-          >
-            Sort by length
-          </button>
-        </div>
-
-        {isVisible ? (
-          <GoodList goods={goods} />
-        ) : (
-          <div className="button__container">
+          {!isVisible && (
             <button
               type="button"
               className="button-start"
@@ -126,8 +101,46 @@ class App extends React.Component<{}, State> {
             >
               Start
             </button>
-          </div>
-        )}
+          )}
+
+          {isVisible && (
+            <>
+              <GoodsList goods={preparedGoods} />
+
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={this.sortedByAlphabet}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={this.sortedByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </>
+          )}
+        </div>
       </div>
     );
   }

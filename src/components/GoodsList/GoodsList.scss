@@ -1,17 +1,12 @@
 .goods {
-  display: flex;
-  margin: 0, auto;
-
   &__list {
-    font-weight: bold;
-    text-transform: uppercase;
     list-style: none;
     display: flex;
     flex-direction: column;
 
     &-item {
       padding-bottom: 10px;
-      margin-left: 300px;
+      margin-left: 50px;
     }
   }
 }
@@ -32,9 +27,8 @@
   height: 60px;
   text-align: center;
   line-height: 60px;
-  color: white;
+  color: #fff;
   font-size: 24px;
-  font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
   font-family: sans-serif;
@@ -58,7 +52,7 @@
     }
   }
 
-   &:before {
+  &:before {
     content: "";
     position: absolute;
     top: -5px;
