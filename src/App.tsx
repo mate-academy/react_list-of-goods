@@ -54,10 +54,9 @@ export class App extends React.Component<{}, State> {
     });
 
     return (
-      this.setState(state => ({
-        ...state,
-        goods: newGoods,
-      }))
+      this.setState({
+        goods: [...newGoods],
+      })
     );
   };
 
@@ -73,15 +72,16 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="app">
         <h1>List of Goods</h1>
-        <button
-          type="button"
-          className={isVisible ? 'visible' : ''}
-          onClick={this.showList}
-        >
-          Start
-        </button>
-        {
-          isVisible && (
+        { !isVisible
+          ? (
+            <button
+              type="button"
+              onClick={this.showList}
+            >
+              Start
+            </button>
+          )
+          : (
             <>
               <button
                 type="button"
@@ -118,8 +118,7 @@ export class App extends React.Component<{}, State> {
                 ))}
               </ul>
             </>
-          )
-        }
+          )}
       </div>
     );
   }
