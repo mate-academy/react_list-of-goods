@@ -40,7 +40,7 @@ export class App extends React.Component<{}, State> {
     this.setState({ isVisible: true })
   );
 
-  creater = () => {
+  createrOfGoods = () => {
     const {
       isReversed,
       sortBy,
@@ -66,7 +66,7 @@ export class App extends React.Component<{}, State> {
     return preperedCreater;
   };
 
-  reversed = () => {
+  reverseOfGoods = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -80,7 +80,7 @@ export class App extends React.Component<{}, State> {
     this.setState({ sortBy: 'length' })
   );
 
-  reset = () => (
+  resetOfGoods = () => (
     this.setState({
       isReversed: false,
       sortBy: 'none',
@@ -105,7 +105,7 @@ export class App extends React.Component<{}, State> {
         <>
           <h1>List of Goods</h1>
           <ul>
-            {this.creater()
+            {this.createrOfGoods()
               .map(good => {
                 return (
                   <li key={good.id}>
@@ -117,7 +117,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            onClick={this.reversed}
+            onClick={this.reverseOfGoods}
           >
             Reverse
           </button>
@@ -137,7 +137,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           <button
-            onClick={this.reset}
+            onClick={this.resetOfGoods}
             type="button"
           >
             Reset
