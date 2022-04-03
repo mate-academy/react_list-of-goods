@@ -55,27 +55,31 @@ export class GoodsList extends React.PureComponent<{}, State> {
     });
   };
 
-  render() {
+  sortGoods(goodsArray: string[]) {
     const {
-      goods,
       isReversed,
       isAlphabetSort,
       isLengthSort,
     } = this.state;
 
-    const goodsCopy = [...goods];
-
     if (isReversed) {
-      goodsCopy.reverse();
+      goodsArray.reverse();
     }
 
     if (isAlphabetSort) {
-      goodsCopy.sort((a, b) => a.localeCompare(b));
+      goodsArray.sort((a, b) => a.localeCompare(b));
     }
 
     if (isLengthSort) {
-      goodsCopy.sort((a, b) => a.length - b.length);
+      goodsArray.sort((a, b) => a.length - b.length);
     }
+  }
+
+  render() {
+    const { goods } = this.state;
+    const goodsCopy = [...goods];
+
+    this.sortGoods(goodsCopy);
 
     return (
       <div className="goodsMenu">

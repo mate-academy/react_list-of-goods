@@ -22,14 +22,16 @@
     background-color: yellowgreen;
     border-color: yellowgreen;
 
-    transition: all, ease-in-out, 0.4s;
     cursor: pointer;
+
+    transition: border, border-radius, transform, font-weight,
+      ease-in-out 0.4s;
 
     &:hover {
       border: 2px solid #000;
       border-radius: 0;
       transform: scale(1.05);
-      font-weight: 700;
+      font-size: 700;
     }
   }
 }

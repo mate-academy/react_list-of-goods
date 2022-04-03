@@ -27,17 +27,8 @@
     background-color: cornsilk;
     border-color: cornsilk;
 
-    transition: all, ease-in-out, 0.4s;
-    cursor: pointer;
-
-    // &--reverseSort {
-    // }
-
-    // &--alphabetSort {
-    // }
-
-    // &--lengthSort {
-    // }
+    transition: border, border-radius, transform, font-weight,
+      ease-in-out 0.4s;
 
     &--resetSort {
       background-color: crimson;
