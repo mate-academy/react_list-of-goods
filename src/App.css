@@ -1,0 +1,18 @@
+li {
+  list-style: none;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.button {
+  height: 30px;
+}
