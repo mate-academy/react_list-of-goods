@@ -1,24 +1,44 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import { GoodsList } from './components/GoodsList.tsx/GoodsList';
 
-const goodsFromServer: string[] = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+interface State {
+  showedGoods: boolean;
+}
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+class App extends React.PureComponent<{}, State> {
+  state = {
+    showedGoods: false,
+  };
+
+  showGoods = () => {
+    this.setState({
+      showedGoods: true,
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1 className="App__title">Goods</h1>
+        {
+          this.state.showedGoods
+            ? (
+              <GoodsList />
+            )
+            : (
+              <button
+                type="button"
+                onClick={this.showGoods}
+                className="App__button"
+              >
+                Start
+              </button>
+            )
+        }
+      </div>
+    );
+  }
+}
 
 export default App;
