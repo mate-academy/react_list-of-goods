@@ -1,11 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { Good, SortBy, State } from './types';
 import './App.css';
-
-interface Good {
-  name: string;
-  id:string;
-}
 
 const goodsFromServer: Good[] = [
   'Dumplings',
@@ -23,35 +19,38 @@ const goodsFromServer: Good[] = [
   id: uuidv4(),
 }));
 
-type State = {
-  goods: Good[];
-  isListVisible: boolean;
-  isReversed: boolean;
-};
-
 class App extends React.Component<{}, State> {
   state = {
-    goods: [...goodsFromServer],
     isListVisible: false,
     isReversed: false,
+    sortBy: SortBy.none,
+  };
+
+  sortedGoods = (goods: Good[]) => {
+    const { sortBy } = this.state;
+
+    goods.sort((a, b) => {
+      switch (sortBy) {
+        case SortBy.alphabet:
+          return a.name.localeCompare(b.name);
+        case SortBy.length:
+          return a.name.length - b.name.length;
+        default:
+          return 0;
+      }
+    });
   };
 
   sortedByLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.name.length - b.name.length),
-    }));
+    this.setState({ sortBy: SortBy.length });
   };
 
   sortedByAlphbet = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((a, b) => a.name.localeCompare(b.name)),
-    }));
+    this.setState({ sortBy: SortBy.alphabet });
   };
 
   showList = () => {
-    this.setState(state => ({
-      isListVisible: !state.isListVisible,
-    }));
+    this.setState({ isListVisible: true });
   };
 
   reverse = () => {
@@ -62,17 +61,19 @@ class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState({
-      goods: [...goodsFromServer],
+      isReversed: false,
+      sortBy: SortBy.none,
     });
   };
 
   render() {
-    const { goods, isListVisible } = this.state;
+    const { isListVisible, isReversed } = this.state;
+    const goods = [...goodsFromServer];
 
-    const copyGood = [...goods];
+    this.sortedGoods(goods);
 
-    if (this.state.isReversed) {
-      copyGood.reverse();
+    if (isReversed) {
+      goods.reverse();
     }
 
     return (
@@ -84,47 +85,43 @@ class App extends React.Component<{}, State> {
           Start
         </button>
 
-        {isListVisible
-       && (
-         <>
-           <button
-             type="button"
-             onClick={this.reverse}
-           >
-             Reverse
-           </button>
+        {isListVisible && (
+          <>
+            <button
+              type="button"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
 
-           <button
-             type="button"
-             onClick={this.sortedByAlphbet}
-           >
-             Sort By Alphabet
-           </button>
+            <button
+              type="button"
+              onClick={this.sortedByAlphbet}
+            >
+              Sort By Alphabet
+            </button>
 
-           <button
-             type="button"
-             onClick={this.sortedByLength}
-           >
-             Sort By Length
-           </button>
+            <button
+              type="button"
+              onClick={this.sortedByLength}
+            >
+              Sort By Length
+            </button>
 
-           <button
-             type="button"
-             onClick={this.reset}
-           >
-             reset
-           </button>
+            <button
+              type="button"
+              onClick={this.reset}
+            >
+              reset
+            </button>
 
-           {isListVisible
-          && (
             <ul>
-              {copyGood.map(good => (
+              {goods.map(good => (
                 <li key={good.id}>{good.name}</li>
               ))}
             </ul>
-          )}
-         </>
-       )}
+          </>
+        )}
       </div>
     );
   }
