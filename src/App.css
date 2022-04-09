@@ -1,1 +1,61 @@
-/* not empty */
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  border-radius: 10px;
+  max-width: 200px;
+}
+
+.button:hover {
+  background-color: rgb(242, 247, 178);
+  cursor: pointer;
+}
+
+.start-button {
+  margin: 10px auto;
+  width: 100px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: aquamarine;
+}
+
+.actions-buttons-block,
+.sort-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin: 10px;
+}
+
+.select,
+.reverse,
+.reset {
+  width: 90px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.select {
+  border-radius: 7px;
+  text-align: center;
+}
+
+.reverse {
+  background-color: bisque;
+}
+
+.reset {
+  background-color: rgb(249, 136, 158);
+}
+
+.albSort,
+.lengthSort {
+  width: 140px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: beige;
+}
