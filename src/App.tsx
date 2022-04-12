@@ -2,79 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import './App.css';
 import { GoodList } from './component/GoodsList';
-
-type Options = {
-  value: number,
-  label: string,
-};
-
-const goodsFromServer: string[] = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
-
-const options: Options[] = [
-  {
-    value: 1,
-    label: '1',
-  },
-  {
-    value: 2,
-    label: '2',
-  },
-  {
-    value: 3,
-    label: '3',
-  },
-  {
-    value: 4,
-    label: '4',
-  },
-  {
-    value: 5,
-    label: '5',
-  },
-  {
-    value: 6,
-    label: '6',
-  },
-  {
-    value: 7,
-    label: '7',
-  },
-  {
-    value: 8,
-    label: '8',
-  },
-  {
-    value: 9,
-    label: '9',
-  },
-  {
-    value: 10,
-    label: '10',
-  },
-];
-
-type State = {
-  goodList: string[] | [];
-  isReversed: boolean;
-  sort: boolean;
-  sortByLength: boolean;
-  choosedLength: number;
-  hidden: boolean,
-};
+import { State } from './types/type';
+import { goodsFromServer, options } from './constants';
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     goodList: [],
     isReversed: false,
     sort: false,
@@ -90,9 +22,8 @@ class App extends React.Component<{}, State> {
   startHandle = () => {
     this.setState(state => ({
       goodList: [...state.goodList, ...goodsFromServer],
+      hidden: false,
     }));
-
-    this.setState({ hidden: false });
   };
 
   reverse = () => {
@@ -102,19 +33,25 @@ class App extends React.Component<{}, State> {
   };
 
   sort = () => {
-    this.setState({ sort: true });
-    this.setState({ sortByLength: false });
+    this.setState({
+      sort: true,
+      sortByLength: false,
+    });
   };
 
   sortByLength = () => {
-    this.setState({ sortByLength: true });
-    this.setState({ sort: false });
+    this.setState({
+      sortByLength: true,
+      sort: false,
+    });
   };
 
   reset = () => {
-    this.setState({ sort: false });
-    this.setState({ sortByLength: false });
-    this.setState({ choosedLength: 1 });
+    this.setState({
+      sort: false,
+      sortByLength: false,
+      choosedLength: 1,
+    });
   };
 
   render() {
