@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
 import { SelectOptions } from './components/SelectOptions';
@@ -88,39 +89,57 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <div className="buttons">
-          <button className="button" type="button" onClick={this.reverseList}>
-            Reverse list
-          </button>
-
-          <button className="button" type="button" onClick={this.sortAlphabet}>
-            Sort by alphabet
-          </button>
-
-          <button className="button" type="button" onClick={this.sortLength}>
-            Sort by length
-          </button>
-
-          <button className="button" type="button" onClick={this.resetList}>
-            Reset
-          </button>
-
-          <button className="button" type="button">
-            <label htmlFor="selectList">
-              {'Select: '}
-
-              <select
-                id="selectList"
-                onChange={this.selectChange}
-              >
-                <SelectOptions />
-              </select>
-            </label>
-
-          </button>
-
+        <div className="App__container">
+          <div className="buttons">
+            <button
+              className={classNames('button', { active: isReversed })}
+              type="button"
+              onClick={this.reverseList}
+            >
+              Reverse list
+            </button>
+            <button
+              className={classNames(
+                'button',
+                sortBy === 'alphabet' ? 'active' : '',
+              )}
+              type="button"
+              onClick={this.sortAlphabet}
+            >
+              Sort by name
+            </button>
+            <button
+              className={classNames(
+                'button',
+                sortBy === 'length' ? 'active' : '',
+              )}
+              type="button"
+              onClick={this.sortLength}
+            >
+              Sort by length
+            </button>
+            <button
+              className="button reset"
+              type="button"
+              onClick={this.resetList}
+            >
+              Reset
+            </button>
+            <button className="button" type="button">
+              <label htmlFor="selectList">
+                {'Select: '}
+                <select
+                  id="selectList"
+                  onChange={this.selectChange}
+                  value={selectValue}
+                >
+                  <SelectOptions />
+                </select>
+              </label>
+            </button>
+          </div>
+          <GoodsList goods={visibleGoods} />
         </div>
-        <GoodsList goods={visibleGoods} />
       </div>
     );
   }
