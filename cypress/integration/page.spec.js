@@ -1,10 +1,35 @@
-const buttons = {
-  start: 'Start',
-  reverse: 'Reverse',
-  sortAlph: 'Sort alphabetically',
-  reset: 'Reset',
-  sortByLength: 'Sort by length',
-}
+const page = {
+  visit() {
+    cy.visit('/');
+  },
+
+  startBtn() {
+    return cy.contains('button', 'Start');
+  },
+
+  reverseBtn() {
+    return cy.contains('button', 'Reverse');
+  },
+
+  sortAlphBtn() {
+    return cy.contains('button', 'Sort alphabetically');
+  },
+
+  resetBtn() {
+    return cy.contains('button', 'Reset');
+  },
+
+  sortByLengthBtn() {
+    return cy.contains('button', 'Sort by length');
+  },
+
+  checkGoodsList(items) {
+    cy.get('li').each((li, index) => {
+      cy.wrap(li)
+        .should('contain', items[index]);
+    });
+  }
+};
 
 const goodsFromServer = [
   'Dumplings',
@@ -19,30 +44,19 @@ const goodsFromServer = [
   'Garlic'
 ];
 
-Cypress.Commands.add('getButton', (text) => {
-  cy.contains('button', text);
-});
-
-Cypress.Commands.add('checkGoodsList', (items) => {
-  cy.get('li').each((li, index) => {
-    cy.wrap(li)
-      .should('contain', items[index]);
-  });
-});
-
 describe('Page', () => {
   beforeEach(() => {
-    cy.visit('/');
+    page.visit();
 
-    cy.getButton(buttons.start).click();
+    page.startBtn.click();
   });
   
   it(`should hide 'Start' button after start`, () => {
-    cy.getButton(buttons.start).should('not.exist');
+    page.startBtn.should('not.exist');
   });
 
   it(`should show the goods in the initial order after clicking on 'Start'`, () => {
-    cy.get('li').should('have.length', goodsFromServer.length);
+    page.checkGoodsList(goodsFromServer);
   });
 
   it(`should show reversed goods after clicking on 'Reverse'`, () => {
@@ -59,9 +73,9 @@ describe('Page', () => {
       'Dumplings'
     ];
 
-    cy.getButton(buttons.reverse).click();
+    page.reverseBtn.click();
 
-    cy.checkGoodsList(reverseListOfGoods);
+    page.checkGoodsList(reverseListOfGoods);
   });
 
   it(`should show the goods sorted alphabetically after clicking on 'Sort alphabetically'`, () => {
@@ -78,9 +92,9 @@ describe('Page', () => {
       'Jam'
     ];
 
-    cy.getButton(buttons.sortAlph).click();
+    page.sortAlphBtn.click();
 
-    cy.checkGoodsList(sortedAlphabeticallyGoods);
+    page.checkGoodsList(sortedAlphabeticallyGoods);
   });
 
   it(`should show the goods sorted by length after clicking on 'Sort by length'`, () => {
@@ -97,18 +111,18 @@ describe('Page', () => {
       'Ice cream'
     ];
 
-    cy.getButton(buttons.sortByLength).click();
+    page.sortByLengthBtn.click();
 
-    cy.checkGoodsList(sortedByLengthGoods);
+    page.checkGoodsList(sortedByLengthGoods);
   });
 
   it(`should show the goods in the initial order after clicking on 'Reset'`, () => {
-    cy.getButton(buttons.sortByLength).click();
+    page.sortByLengthBtn.click();
 
-    cy.getButton(buttons.sortAlph).click();
+    page.sortAlphBtn.click();
 
-    cy.getButton(buttons.reset).click();
+    page.resetBtn.click();
 
-    cy.checkGoodsList(goodsFromServer);
+    page.checkGoodsList(goodsFromServer);
   });
 });
