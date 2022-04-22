@@ -3,23 +3,23 @@ const page = {
     cy.visit('/');
   },
 
-  startBtn() {
+  get startBtn() {
     return cy.contains('button', 'Start');
   },
 
-  reverseBtn() {
+  get reverseBtn() {
     return cy.contains('button', 'Reverse');
   },
 
-  sortAlphBtn() {
+  get sortAlphBtn() {
     return cy.contains('button', 'Sort alphabetically');
   },
 
-  resetBtn() {
+  get resetBtn() {
     return cy.contains('button', 'Reset');
   },
 
-  sortByLengthBtn() {
+  get sortByLengthBtn() {
     return cy.contains('button', 'Sort by length');
   },
 
