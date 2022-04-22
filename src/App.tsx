@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import './App.css';
 import { Goods } from './components/Goods';
 import SelectedList from './components/SelectList';
@@ -105,7 +107,7 @@ class App extends React.Component<{}, State> {
         <h1>Goods</h1>
         <button
           type="button"
-          className={start ? 'button__hidden' : 'button'}
+          className={classNames('button', { button__hidden: start })}
           onClick={this.start}
         >
           Start
@@ -113,15 +115,15 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          className={!start ? 'button__hidden' : 'button'}
+          className={classNames('button', { button__hidden: !start })}
           onClick={this.reverse}
         >
-          Revers
+          Reverse
         </button>
 
         <button
           type="button"
-          className={!start ? 'button__hidden' : 'button'}
+          className={classNames('button', { button__hidden: !start })}
           onClick={this.sortAlphabet}
         >
           Sort alphabet
@@ -129,7 +131,7 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          className={!start ? 'button__hidden' : 'button'}
+          className={classNames('button', { button__hidden: !start })}
           onClick={this.sortLength}
         >
           Sort length
@@ -137,13 +139,16 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          className={!start ? 'button__hidden' : 'button'}
+          className={classNames('button', { button__hidden: !start })}
           onClick={this.reset}
         >
           Reset
         </button>
 
-        <button type="button" className={start ? 'button' : 'button__hidden'}>
+        <button
+          type="button"
+          className={classNames('button', { button__hidden: !start })}
+        >
           <label>
             {'Select '}
             <select
