@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
     isListHidden: true,
     isButtonHidden: false,
     isActionsActive: false,
-    selectedLength: 1,
+    selectedLength: 10,
   };
 
   handleStartButtonClick = () => {
@@ -47,7 +47,7 @@ class App extends React.Component<{}, State> {
 
   handleReverseButtonClick = () => {
     this.setState(state => ({
-      visibleGoodsArray: [...state.goodsArray].reverse(),
+      visibleGoodsArray: [...state.visibleGoodsArray].reverse(),
     }));
   };
 
@@ -61,7 +61,7 @@ class App extends React.Component<{}, State> {
   handleResetButtonClick = () => {
     this.setState(state => ({
       visibleGoodsArray: state.goodsArray,
-      selectedLength: 1,
+      selectedLength: 10,
     }));
   };
 
@@ -98,7 +98,7 @@ class App extends React.Component<{}, State> {
         <h1>Goods</h1>
 
         <h2>
-          Total amouns of goods is:
+          Total amount of goods is:
           {` ${goodsFromServer.length}`}
         </h2>
 
@@ -114,7 +114,7 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          disabled={!this.state.isActionsActive}
+          hidden={!this.state.isActionsActive}
           className="Actions ReverseButton"
           onClick={this.handleReverseButtonClick}
         >
@@ -123,7 +123,7 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          disabled={!this.state.isActionsActive}
+          hidden={!this.state.isActionsActive}
           className="Actions SortButton"
           onClick={this.handleSortButtonClick}
         >
@@ -132,7 +132,7 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          disabled={!this.state.isActionsActive}
+          hidden={!this.state.isActionsActive}
           className="Actions ResetButton"
           onClick={this.handleResetButtonClick}
         >
@@ -141,7 +141,7 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          disabled={!this.state.isActionsActive}
+          hidden={!this.state.isActionsActive}
           className="Actions SortByLengthButton"
           onClick={this.handleSortByLengthButtonClick}
         >
