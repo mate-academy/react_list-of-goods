@@ -28,7 +28,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     goodsArray: goodsFromServer,
     visibleGoodsArray: goodsFromServer,
     isListHidden: true,
@@ -72,10 +72,9 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleSelection = (event: { target: { value: any; }; }) => {
+  handleSelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
-      selectedLength: event.target.value,
+      selectedLength: +event.target.value,
     });
   };
 
