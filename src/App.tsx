@@ -1,4 +1,6 @@
 import React from 'react';
+import { SortableList } from './components/SortableList/SortableList';
+
 import './App.css';
 
 const goodsFromServer: string[] = [
@@ -16,8 +18,7 @@ const goodsFromServer: string[] = [
 
 const App: React.FC = () => (
   <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
+    <SortableList goods={goodsFromServer} />
   </div>
 );
 
