@@ -102,61 +102,67 @@ class App extends React.Component<{}, State> {
     }
 
     return (
-      <div className="large-header" id="large-header">
-        <canvas id="demo-canvas" />
-        <div className="App">
-          <h1 className="App__title main-title">Goods</h1>
-          <div className="App__wrapper">
-            {!isShowGoods && (
-              <button
-                className="App__start-button"
-                type="button"
-                onClick={this.listOpener}
-              >
-                Start
-              </button>
-            )}
+      <div className="App">
+        <h1 className="App__title">Goods</h1>
+        <div className="App__start-container">
+          {!isShowGoods && (
+            <button
+              className="App__start-button"
+              type="button"
+              onClick={this.listOpener}
+            >
+              Start
+            </button>
+          )}
+        </div>
 
-            {isShowGoods && (
-              <>
-                <button
-                  onClick={this.reverse}
-                  type="button"
-                >
-                  reverse
-                </button>
+        {isShowGoods && (
+          <>
+            <button
+              className="App__button"
+              onClick={this.reverse}
+              type="button"
+            >
+              Reverse
+            </button>
 
-                <button
-                  onClick={this.sortByLength}
-                  type="button"
-                >
-                  Sort by length
-                </button>
+            <button
+              className="App__button"
+              onClick={this.sortByLength}
+              type="button"
+            >
+              Sort by length
+            </button>
 
-                <button
-                  onClick={this.sortByAlphabet}
-                  type="button"
-                >
-                  Sort by alphabet
-                </button>
+            <button
+              className="App__button"
+              onClick={this.sortByAlphabet}
+              type="button"
+            >
+              Sort by alphabet
+            </button>
 
-                <button
-                  onClick={this.reset}
-                  type="button"
-                >
-                  Reset
-                </button>
-
-                <GoodsList
-                  goods={searchedGoods}
-                />
+            <button
+              className="App__button App__button--reset"
+              onClick={this.reset}
+              type="button"
+            >
+              Reset
+            </button>
+            <div className="App__wrapper">
+              <GoodsList
+                goods={searchedGoods}
+              />
+              <label className="App__goods">
                 <select
+                  className="App__goods-select"
                   name="select"
                   onChange={this.setLength}
                   value={minWordsLength}
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
                     <option
+                      className="App__option"
                       value={num}
                       key={num}
                     >
@@ -164,10 +170,10 @@ class App extends React.Component<{}, State> {
                     </option>
                   ))}
                 </select>
-              </>
-            )}
-          </div>
-        </div>
+              </label>
+            </div>
+          </>
+        )}
       </div>
     );
   }
