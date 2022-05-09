@@ -1,1 +1,4 @@
-/* not empty */
+.App {
+  display: grid;
+  place-content: center;
+}
