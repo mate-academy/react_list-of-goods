@@ -16,12 +16,12 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  goods: string[],
-  visibleList: boolean,
-  isReversed: boolean,
-  sortByAlphabet: boolean,
-  sortByLength: boolean,
-  limit: number,
+  goods: string[];
+  visibleList: boolean;
+  isReversed: boolean;
+  sortByAlphabet: boolean;
+  sortByLength: boolean;
+  limit: number;
 };
 
 export class App extends React.Component<{}, State> {
@@ -89,7 +89,7 @@ export class App extends React.Component<{}, State> {
       sortByLength,
       limit,
     } = this.state;
-    const visibleGoods = goods.filter(good => good.length >= limit);
+    const visibleGoods = goods.filter((good) => good.length >= limit);
 
     if (sortByAlphabet) {
       visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
@@ -116,68 +116,64 @@ export class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {visibleList && <GoodsList goods={visibleGoods} />}
+        {visibleList && (
+          <>
+            <GoodsList goods={visibleGoods} />
+            <div className="App__buttons">
+              <button
+                type="button"
+                onClick={this.reverseList}
+                className="App__button"
+              >
+                Reverse
+              </button>
 
-        <div className="App__buttons">
-          <button
-            type="button"
-            onClick={this.reverseList}
-            className="App__button"
-          >
-            Reverse
-          </button>
+              <button
+                type="button"
+                onClick={this.sortList}
+                className="App__button"
+              >
+                Sort alphabetically
+              </button>
 
-          <button
-            type="button"
-            onClick={this.sortList}
-            className="App__button"
-          >
-            Sort alphabetically
-          </button>
+              <button
+                type="button"
+                onClick={this.sortByLength}
+                className="App__button"
+              >
+                Sort by length
+              </button>
 
-          <button
-            type="button"
-            onClick={this.sortByLength}
-            className="App__button"
-          >
-            Sort by length
-          </button>
+              <button
+                type="button"
+                onClick={this.reset}
+                className="App__button Button__reset"
+              >
+                Reset
+              </button>
+            </div>
 
-          <button
-            type="button"
-            onClick={this.reset}
-            className="App__button Button__reset"
-          >
-            Reset
-          </button>
-        </div>
+            <form className="App__form">
+              <select
+                value={limit}
+                onChange={this.changeLimit}
+                className="App__select"
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <option value={num}>{num}</option>
+                ))}
+              </select>
 
-        <form className="App__form">
-          <select
-            value={limit}
-            onChange={this.changeLimit}
-            className="App__select"
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-
-          <button
-            type="button"
-            onClick={this.selectReset}
-            className="App__button Button__reset"
-          >
-            Reset select
-          </button>
-        </form>
+              <button
+                type="button"
+                onClick={this.selectReset}
+                className="App__button Button__reset"
+              >
+                Reset select
+              </button>
+            </form>
+          </>
+        )}
       </div>
     );
   }
