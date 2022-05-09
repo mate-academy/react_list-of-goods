@@ -6,10 +6,10 @@ type Props = {
 
 export const Goods: React.FC<Props> = ({ goods }) => {
   return (
-    <ul className='goods__list'>
+    <ul className="goods__list">
       {
         goods.map(good => (
-          <li key={good} className='goods__item'>
+          <li key={good} className="goods__item">
             {good}
           </li>
         ))

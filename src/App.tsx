@@ -17,13 +17,15 @@ const goodsFromServer: string[] = [
 
 type State = {
   visible: boolean;
-  goodsAll: string[];
+  goods: string[];
+  minWordsLength: number;
 };
 
 class App extends React.Component<{}, State> {
   state = {
-    goodsAll: goodsFromServer,
+    goods: goodsFromServer,
     visible: true,
+    minWordsLength: 0,
   };
 
   notVisible = () => {
@@ -34,36 +36,34 @@ class App extends React.Component<{}, State> {
 
   reverseGood = () => {
     this.setState(state => ({
-      goodsAll: [...state.goodsAll].reverse(),
+      goods: [...state.goods].reverse(),
     }));
   };
 
-  sortedByAbc = () => {
+  sortedByAlphabetic = () => {
     this.setState(state => ({
-      goodsAll: [...state.goodsAll].sort((a, b) => a.localeCompare(b)),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
-  sortedByNumber = () => {
+  sortedByLength = () => {
     this.setState(state => ({
-      goodsAll: [...state.goodsAll].sort((a, b) => a.length - b.length),
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
     }));
   };
 
   reset = () => {
     this.setState({
-      goodsAll: goodsFromServer,
+      goods: goodsFromServer,
     });
   };
 
-  removeNumber = () => {
-    this.setState(state => ({
-      goodsAll: state.goodsAll.slice(),
-    }));
-  };
-
   render() {
-    const { visible } = this.state;
+    const { visible, goods, minWordsLength } = this.state;
+
+    const renderList = goods.filter((good: string) => {
+      return good.length >= minWordsLength;
+    });
 
     return (
       <div className="App">
@@ -77,23 +77,34 @@ class App extends React.Component<{}, State> {
             Start
           </button>
         )}
-        <div className='App__block'>
+        <div className="App__block">
           {
             !visible && (
               <>
                 <button onClick={this.reverseGood} type="button">
                   Reverse
                 </button>
-                <button onClick={this.sortedByAbc} type="button">
+                <button onClick={this.sortedByAlphabetic} type="button">
                   Sort alphabetically
                 </button>
-                <button onClick={this.sortedByNumber} type="button">
+                <button onClick={this.sortedByLength} type="button">
                   Sort by length
                 </button>
                 <button onClick={this.reset} type="button">
                   Reset
                 </button>
-                <Goods goods={this.state.goodsAll} />
+                <select onChange={(event) => (
+                  this.setState({ minWordsLength: +event.target.value }))}
+                >
+                  {
+                    Array.from({ length: 10 }, (_, i) => i + 1).map(good => (
+                      <option value={good} key={good}>
+                        {good}
+                      </option>
+                    ))
+                  }
+                </select>
+                <Goods goods={renderList} />
               </>
             )
           }
