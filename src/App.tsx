@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { Goods } from './Goods';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +15,92 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+type State = {
+  visible: boolean;
+  goodsAll: string[];
+}
+
+class App extends React.Component<{},State> {
+  state = {
+    goodsAll: goodsFromServer,
+    visible: true,
+  }
+
+  notVisible = () => {
+    this.setState({
+      visible: false,
+    })
+  }
+
+  reverseGood = () => {
+    this.setState( state => ({
+      goodsAll: [...state.goodsAll].reverse(),
+    }))
+  };
+
+  sortedByAbc = () => {
+    this.setState( state => ({
+      goodsAll: [...state.goodsAll].sort((a, b) => a.localeCompare(b)),
+    }))
+  };
+
+  sortedByNumber = () => {
+    this.setState( state => ({
+      goodsAll: [...state.goodsAll].sort((a, b) => a.length - b.length),
+    }))
+  };
+
+  reset = () => {
+    this.setState({
+      goodsAll: goodsFromServer,
+    })
+  }
+
+  removeNumber = () => {
+    this.setState( state => ({
+      goodsAll: state.goodsAll.slice()
+    }))
+  }
+
+  render() {
+    const { visible } = this.state;
+
+    return (
+      <div className="App">
+        <h1 className='App__title'>Goods</h1>
+        {visible && (
+          <button
+            className='App__button'
+            type='button'
+            onClick={this.notVisible}
+          >
+          Start
+        </button>
+        )}
+        <div>
+          {
+            !visible && (
+              <>
+                <button onClick={this.reverseGood}>
+                  Reverse
+                </button>
+                <button onClick={this.sortedByAbc}>
+                  Sort alphabetically
+                </button>
+                <button onClick={this.sortedByNumber}>
+                  Sort by length
+                </button>
+                <button onClick={this.reset}>
+                  Reset
+                </button>
+                <Goods goods={this.state.goodsAll}/>
+              </>
+            )
+          }
+        </div>
+      </div>
+    )
+  }
+}
 
 export default App;
