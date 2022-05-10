@@ -1,6 +1,8 @@
 import React from 'react';
 import { GoodsList } from '../GoodsList';
 
+import './SortableList.scss';
+
 type Props = {
   goods: string[];
 };
@@ -82,7 +84,7 @@ export class SortableList extends React.Component<Props, State> {
         <div className="SortableList">
           <button
             type="button"
-            className="Button"
+            className="SortableList__button"
             onClick={this.show}
           >
             Start
@@ -128,59 +130,72 @@ export class SortableList extends React.Component<Props, State> {
 
     return (
       <div className="SortableList">
-        <button
-          type="button"
-          className="Button"
-          onClick={this.reverse}
-        >
-          Reverse
-        </button>
+        <div className="SortableList__buttonsSection">
+          <input
+            className="SortableList__checkbox"
+            type="checkbox"
+            id="reverseToggler"
+            checked={isReversed}
+            onChange={this.reverse}
+          />
 
-        <button
-          type="button"
-          className="Button"
-          onClick={() => this.sortBy(SortOrder.alphabetic)}
-        >
-          Sort alphabetically
-        </button>
+          <label
+            className="SortableList__button SortableList__toggler"
+            htmlFor="reverseToggler"
+          >
+            Reverse
+          </label>
 
-        <button
-          type="button"
-          className="Button"
-          onClick={() => this.sortBy(SortOrder.length)}
-        >
-          Sort by length
-        </button>
+          <button
+            className="SortableList__button"
+            type="button"
+            onClick={() => this.sortBy(SortOrder.alphabetic)}
+          >
+            Sort alphabetically
+          </button>
 
-        <select onChange={
-          (e) => this.setMinLen(Number(e.target.value))
-        }
-        >
-          {
-            (new Array(10))
-              .fill(null)
-              .map((_, index) => (
-                <option
-                  value={index + 1}
-                  // eslint-disable-next-line
-                  key={index + 1}
-                  selected={index + 1 === minLen}
-                >
-                  {`${index + 1}+ letters`}
-                </option>
-              ))
-          }
-        </select>
+          <button
+            className="SortableList__button"
+            type="button"
+            onClick={() => this.sortBy(SortOrder.length)}
+          >
+            Sort by length
+          </button>
 
-        <button
-          type="button"
-          className="Button"
-          onClick={this.reset}
-        >
-          Reset
-        </button>
+          <select
+            className="SortableList__dropdown"
+            onChange={
+              (e) => this.setMinLen(Number(e.target.value))
+            }
+          >
+            {
+              (new Array(10))
+                .fill(null)
+                .map((_, index) => (
+                  <option
+                    value={index + 1}
+                    // eslint-disable-next-line
+                    key={index + 1}
+                    selected={index + 1 === minLen}
+                  >
+                    {`${index + 1}+ letters`}
+                  </option>
+                ))
+            }
+          </select>
 
-        <GoodsList goods={preparedList} />
+          <button
+            className="SortableList__button"
+            type="button"
+            onClick={this.reset}
+          >
+            Reset
+          </button>
+        </div>
+
+        <div className="SortableList__goodsList">
+          <GoodsList goods={preparedList} />
+        </div>
       </div>
     );
   }

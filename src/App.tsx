@@ -1,7 +1,7 @@
 import React from 'react';
 import { SortableList } from './components/SortableList/SortableList';
 
-import './App.css';
+import './App.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
