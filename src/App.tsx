@@ -18,19 +18,13 @@ const goodsFromServer: string[] = [
 type State = {
   goods: string[];
   visibleList: boolean;
-  isReversed: boolean;
-  sortByAlphabet: boolean;
-  sortByLength: boolean;
   limit: number;
 };
 
 export class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     visibleList: false,
-    isReversed: false,
-    sortByAlphabet: false,
-    sortByLength: false,
     limit: 1,
   };
 
@@ -42,29 +36,25 @@ export class App extends React.Component<{}, State> {
 
   reverseList = () => {
     this.setState((state) => ({
-      isReversed: !state.isReversed,
+      goods: [...state.goods].reverse(),
     }));
   };
 
-  sortList = () => {
-    this.setState({
-      sortByAlphabet: true,
-      sortByLength: false,
-    });
+  sortByAlphabet = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort((g1, g2) => g1.localeCompare(g2)),
+    }));
   };
 
   sortByLength = () => {
-    this.setState({
-      sortByLength: true,
-      sortByAlphabet: false,
-    });
+    this.setState((state) => ({
+      goods: [...state.goods].sort((g1, g2) => g1.length - g2.length),
+    }));
   };
 
   reset = () => {
     this.setState({
-      isReversed: false,
-      sortByAlphabet: false,
-      sortByLength: false,
+      goods: [...goodsFromServer],
     });
   };
 
@@ -84,24 +74,9 @@ export class App extends React.Component<{}, State> {
     const {
       goods,
       visibleList,
-      isReversed,
-      sortByAlphabet,
-      sortByLength,
       limit,
     } = this.state;
     const visibleGoods = goods.filter((good) => good.length >= limit);
-
-    if (sortByAlphabet) {
-      visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
-    }
-
-    if (sortByLength) {
-      visibleGoods.sort((g1, g2) => g1.length - g2.length);
-    }
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div className="App">
@@ -130,7 +105,7 @@ export class App extends React.Component<{}, State> {
 
               <button
                 type="button"
-                onClick={this.sortList}
+                onClick={this.sortByAlphabet}
                 className="App__button"
               >
                 Sort alphabetically
