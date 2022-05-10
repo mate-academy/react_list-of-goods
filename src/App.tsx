@@ -18,7 +18,6 @@ const goodsFromServer: string[] = [
 type State = {
   visibleGoods: string[];
   isStartVisible: boolean;
-  isReversed: boolean;
   minLength: number;
 };
 
@@ -26,7 +25,6 @@ class App extends React.PureComponent<{}, State> {
   state = {
     visibleGoods: [],
     isStartVisible: true,
-    isReversed: false,
     minLength: 1,
   };
 
@@ -42,20 +40,17 @@ class App extends React.PureComponent<{}, State> {
   reverseList = () => {
     this.setState(state => {
       return ({
-        isReversed: !state.isReversed,
         visibleGoods: [...state.visibleGoods].reverse(),
       });
     });
   };
 
   sortList = () => {
-    this.setState(state => {
-      return ({
-        visibleGoods: [...state.visibleGoods].sort((a, b) => {
-          return a.localeCompare(b);
-        }),
-      });
-    });
+    this.setState(state => ({
+      visibleGoods: [...state.visibleGoods].sort((a, b) => {
+        return a.localeCompare(b);
+      }),
+    }));
   };
 
   resetList = () => {
