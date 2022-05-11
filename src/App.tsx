@@ -49,7 +49,7 @@ class App extends React.Component<{}, State> {
   sortByLength = () => {
     this.setState((state) => {
       return {
-        goods: [...state.goods].sort((a, b) => b.length - a.length),
+        goods: [...state.goods].sort((a, b) => a.length - b.length),
       };
     });
   };
