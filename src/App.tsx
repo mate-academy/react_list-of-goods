@@ -29,13 +29,11 @@ class App extends Component<{}, State> {
   };
 
   filterList = () => {
-    const { minLength } = this.state;
-
-    this.setState(() => ({
+    this.setState((state) => ({
       visibleGoods: goodsFromServer.filter(
-        good => good.length >= minLength,
-      )}),
-    );
+        good => good.length >= state.minLength,
+      ),
+    }));
   };
 
   updateVisibleList = () => {
@@ -81,29 +79,27 @@ class App extends Component<{}, State> {
     });
   };
 
-  changeLength = () => {
-    const selectValue = document.querySelector('select')?.value || 0;
-
-    console.log(selectValue);
-
-    this.setState(() => ({
-      minLength: +selectValue,
-    }));
+  changeLength = (value: number) => {
+    this.setState(() => ({ minLength: value }));
     this.filterList();
-
-    console.log(this.state.visibleGoods);
   };
 
   render() {
     const {
       visibleGoods,
       isVisibleList,
+      minLength,
     } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        <select onChange={this.changeLength}>
+        <select
+          onChange={
+            (event) => this.changeLength(+event.target.value)
+          }
+          value={minLength}
+        >
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
