@@ -18,19 +18,23 @@ const goodsFromServer: Good[] = [
   'Garlic',
 ].map(good => ({ name: good, id: uuidv4() }));
 
+enum SortBy {
+  none,
+  alphabet,
+  length,
+}
+
 type State = {
-  goods: Good[];
   isVisibleList: boolean;
   isReversedList: boolean;
-  sortBy: string;
+  sortBy: SortBy;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
-    goods: goodsFromServer,
     isVisibleList: false,
     isReversedList: false,
-    sortBy: '',
+    sortBy: SortBy.none,
   };
 
   start = () => {
@@ -45,34 +49,28 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortByAbc = () => {
+  sortBy = (newSortBy: SortBy) => {
     this.setState({
-      sortBy: 'abc',
-    });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
+      sortBy: newSortBy,
     });
   };
 
   resetOfList = () => {
     this.setState({
-      sortBy: '',
+      sortBy: SortBy.none,
       isReversedList: false,
     });
   };
 
-  prepareGoodsList = () => {
-    const { goods, sortBy, isReversedList } = this.state;
-    const copyOfList = [...goods];
+  render() {
+    const { isVisibleList, sortBy, isReversedList } = this.state;
+    const preparedGoods = [...goodsFromServer];
 
-    copyOfList.sort((firstGood, secondGood) => {
+    preparedGoods.sort((firstGood, secondGood) => {
       switch (sortBy) {
-        case 'abc':
+        case SortBy.alphabet:
           return firstGood.name.localeCompare(secondGood.name);
-        case 'length':
+        case SortBy.length:
           return firstGood.name.length - secondGood.name.length;
         default:
           return 0;
@@ -80,15 +78,8 @@ class App extends React.Component<{}, State> {
     });
 
     if (isReversedList) {
-      copyOfList.reverse();
+      preparedGoods.reverse();
     }
-
-    return copyOfList;
-  };
-
-  render() {
-    const { isVisibleList } = this.state;
-    const preparedList = this.prepareGoodsList();
 
     return (
       <div className="App">
@@ -113,20 +104,23 @@ class App extends React.Component<{}, State> {
               >
                 Reverse
               </button>
+
               <button
                 className="manipulation buttons__button"
                 type="button"
-                onClick={this.sortByAbc}
+                onClick={() => this.sortBy(SortBy.alphabet)}
               >
                 Sort alphabetically
               </button>
+
               <button
                 className="manipulation buttons__button"
                 type="button"
-                onClick={this.sortByLength}
+                onClick={() => this.sortBy(SortBy.length)}
               >
                 Sort by length
               </button>
+
               <button
                 className="manipulation buttons__button"
                 type="button"
@@ -135,7 +129,10 @@ class App extends React.Component<{}, State> {
                 Reset
               </button>
             </div>
-            <ListOfGoods goodsList={preparedList} />
+
+            {isVisibleList && (
+              <ListOfGoods goods={preparedGoods} />
+            )}
           </>
         )}
       </div>
