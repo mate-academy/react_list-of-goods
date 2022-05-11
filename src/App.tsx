@@ -19,12 +19,14 @@ const numbers: number[] = Array.from(Array(10).keys());
 type State = {
   goods: string[];
   goodLength: string;
+  isVisible: boolean
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
     goodLength: '1',
+    isVisible: false,
   };
 
   reversedGoods = () => {
@@ -63,37 +65,57 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  render() {
-    const { goods, goodLength } = this.state;
+  showGoods = () => {
+    this.setState({ isVisible: true });
+  };
 
-    return (
-      <div className="App">
-        <h1 className="products-title">
-          Goods
-        </h1>
-        <ul>
-          {goods.map((good) => (
-            <li key={good}>
-              {good}
-            </li>
-          ))}
-        </ul>
-        <button type="button" onClick={this.reversedGoods}>Reverse</button>
-        <button type="button" onClick={this.sortedGoods}>Sorted by Name</button>
-        <button type="button" onClick={this.resetGoods}>Reset</button>
-        <button type="button" onClick={this.sortByLengthGoods}>
-          Sorted by Length
-        </button>
-        <label>
-          Choose good length:
-          <select value={goodLength} onChange={this.changeLength}>
-            {numbers.map(elem => (
-              <option key={elem} value={elem + 1}>{elem + 1}</option>
+  hideGoods = () => {
+    this.setState({ isVisible: false });
+  };
+
+  render() {
+    const { goods, goodLength, isVisible } = this.state;
+
+    return isVisible
+      ? (
+        <div className="App">
+          <h1 className="products-title">
+            Goods
+          </h1>
+          <ul>
+            {goods.map((good) => (
+              <li key={good}>
+                {good}
+              </li>
             ))}
-          </select>
-        </label>
-      </div>
-    );
+          </ul>
+          <button type="button" onClick={this.reversedGoods}>Reverse</button>
+          <button
+            type="button"
+            onClick={this.sortedGoods}
+          >
+            Sorted by Name
+          </button>
+          <button type="button" onClick={this.resetGoods}>Reset</button>
+          <button type="button" onClick={this.sortByLengthGoods}>
+            Sorted by Length
+          </button>
+          <label>
+            Choose good length:
+            <select value={goodLength} onChange={this.changeLength}>
+              {numbers.map(elem => (
+                <option key={elem} value={elem + 1}>{elem + 1}</option>
+              ))}
+            </select>
+          </label>
+          <button type="button" onClick={this.hideGoods}>Go to Start</button>
+        </div>
+      )
+      : (
+        <button type="button" onClick={this.showGoods}>
+          Start
+        </button>
+      );
   }
 }
 
