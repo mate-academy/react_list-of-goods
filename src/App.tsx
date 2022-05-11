@@ -16,16 +16,18 @@ const goodsFromServer: string[] = [
 
 const numbers: number[] = Array.from(Array(10).keys());
 
+const goodLengthStart = '1';
+
 type State = {
   goods: string[];
   goodLength: string;
   isVisible: boolean
 };
 
-export class App extends React.Component<{}, State> {
+class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
-    goodLength: '1',
+    goodLength: goodLengthStart,
     isVisible: false,
   };
 
@@ -44,7 +46,7 @@ export class App extends React.Component<{}, State> {
   resetGoods = () => {
     this.setState({
       goods: [...goodsFromServer],
-      goodLength: '1',
+      goodLength: goodLengthStart,
     });
   };
 
@@ -67,10 +69,6 @@ export class App extends React.Component<{}, State> {
 
   showGoods = () => {
     this.setState({ isVisible: true });
-  };
-
-  hideGoods = () => {
-    this.setState({ isVisible: false });
   };
 
   render() {
@@ -129,7 +127,6 @@ export class App extends React.Component<{}, State> {
               ))}
             </select>
           </label>
-          <button type="button" onClick={this.hideGoods}>Go to Start</button>
         </div>
       )
       : (
