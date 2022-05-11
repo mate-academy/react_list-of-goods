@@ -7,16 +7,16 @@ type Props = {
   goods: string[];
 };
 
-enum SortOrder {
-  none = 0,
-  alphabetic = 1,
-  length = 2,
+enum SortBy {
+  none,
+  alphabetic,
+  length,
 }
 
 type State = {
   isShown: boolean;
   isReversed: boolean;
-  sortOrder: SortOrder;
+  sortOrder: SortBy;
   minLen: number;
 };
 
@@ -25,7 +25,7 @@ export class SortableList extends React.Component<Props, State> {
   state = {
     isShown: false,
     isReversed: false,
-    sortOrder: SortOrder.none,
+    sortOrder: SortBy.none,
     minLen: 1,
   };
 
@@ -45,7 +45,7 @@ export class SortableList extends React.Component<Props, State> {
     ));
   };
 
-  sortBy = (parameter: SortOrder) => {
+  sortBy = (parameter: SortBy) => {
     this.setState(
       {
         sortOrder: parameter,
@@ -57,19 +57,13 @@ export class SortableList extends React.Component<Props, State> {
     this.setState(
       {
         isReversed: false,
-        sortOrder: SortOrder.none,
+        sortOrder: SortBy.none,
         minLen: 1,
       },
     );
   };
 
-  setMinLen = (minLen: number) => {
-    this.setState(
-      {
-        minLen,
-      },
-    );
-  };
+  setMinLen = (minLen: number) => this.setState({ minLen });
 
   render() {
     const {
@@ -97,13 +91,10 @@ export class SortableList extends React.Component<Props, State> {
       goods,
     } = this.props;
 
-    let preparedList: string[] = [];
-
-    preparedList = goods.slice()
-      .filter((good) => good.length >= minLen);
+    const preparedList = goods.filter((good) => good.length >= minLen);
 
     switch (sortOrder) {
-      case SortOrder.alphabetic: {
+      case SortBy.alphabetic: {
         preparedList.sort(
           (good1, good2) => good1.localeCompare(good2),
         );
@@ -111,7 +102,7 @@ export class SortableList extends React.Component<Props, State> {
         break;
       }
 
-      case SortOrder.length: {
+      case SortBy.length: {
         preparedList.sort(
           (good1, good2) => good1.length - good2.length,
         );
@@ -149,7 +140,7 @@ export class SortableList extends React.Component<Props, State> {
           <button
             className="SortableList__button"
             type="button"
-            onClick={() => this.sortBy(SortOrder.alphabetic)}
+            onClick={() => this.sortBy(SortBy.alphabetic)}
           >
             Sort alphabetically
           </button>
@@ -157,7 +148,7 @@ export class SortableList extends React.Component<Props, State> {
           <button
             className="SortableList__button"
             type="button"
-            onClick={() => this.sortBy(SortOrder.length)}
+            onClick={() => this.sortBy(SortBy.length)}
           >
             Sort by length
           </button>

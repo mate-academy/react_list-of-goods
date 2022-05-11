@@ -6,7 +6,6 @@ type Props = {
   goods: string[],
 };
 
-// eslint-disable-next-line
 export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <ul className="GoodsList">
