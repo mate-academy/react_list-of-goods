@@ -28,7 +28,7 @@ class App extends React.Component<Props, State> {
   state = {
     goods: goodsFromServer,
     sortGoodsBy: '',
-    listVisible: true,
+    listVisible: false,
     minLength: 1,
     isReversed: false,
   };
