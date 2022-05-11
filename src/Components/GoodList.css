@@ -1,0 +1,11 @@
+.good-list {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  list-style-type: none;
+}
+
+.good-list__item {
+  color: rgb(255, 149, 255);
+  font-size: 20px;
+}
