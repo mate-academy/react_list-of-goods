@@ -31,27 +31,21 @@ class App extends React.Component<{}, State> {
   };
 
   reverseGoods = () => {
-    this.setState((state) => {
-      return {
-        goods: [...state.goods].reverse(),
-      };
-    });
+    this.setState((state) => ({
+      goods: [...state.goods].reverse(),
+    }));
   };
 
   sortAlphabetical = () => {
-    this.setState((state) => {
-      return {
-        goods: [...state.goods].sort(),
-      };
-    });
+    this.setState((state) => ({
+      goods: [...state.goods].sort(),
+    }));
   };
 
   sortByLength = () => {
-    this.setState((state) => {
-      return {
-        goods: [...state.goods].sort((a, b) => a.length - b.length),
-      };
-    });
+    this.setState((state) => ({
+      goods: [...state.goods].sort((a, b) => a.length - b.length),
+    }));
   };
 
   reset = () => {
@@ -61,24 +55,26 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
+    const { isGoodsVisible, goods } = this.state;
+
     return (
       <div className="App">
         <h1>Goods</h1>
 
-        <button
-          type="button"
-          className="btn btn--start"
-          onClick={this.showGoodsList}
-          disabled={this.state.isGoodsVisible}
-        >
-          Start
-        </button>
-
-        {this.state.isGoodsVisible
-          && (
+        {!isGoodsVisible
+          ? (
+            <button
+              type="button"
+              className="btn btn--start"
+              onClick={this.showGoodsList}
+            >
+              Start
+            </button>
+          )
+          : (
             <>
               <GoodsList
-                goods={this.state.goods}
+                goods={goods}
               />
 
               <button
