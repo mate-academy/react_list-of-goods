@@ -41,11 +41,11 @@ class App extends React.Component<{}, State> {
   };
 
   reverse = () => {
-    this.setState({
-      isSortedByAlphabet: false,
-      isReversed: true,
-      isSortedByLength: false,
-    });
+    this.setState((prevState) => (
+      {
+        isReversed: !prevState.isReversed,
+      }
+    ));
   };
 
   sortByLength = () => {
