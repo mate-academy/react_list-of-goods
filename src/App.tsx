@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -79,28 +79,49 @@ export class App extends React.Component<{}, State> {
     return isVisible
       ? (
         <div className="App">
-          <h1 className="products-title">
-            Goods
-          </h1>
-          <ul>
-            {goods.map((good) => (
-              <li key={good}>
-                {good}
-              </li>
-            ))}
-          </ul>
-          <button type="button" onClick={this.reversedGoods}>Reverse</button>
-          <button
-            type="button"
-            onClick={this.sortedGoods}
-          >
-            Sorted by Name
-          </button>
-          <button type="button" onClick={this.resetGoods}>Reset</button>
-          <button type="button" onClick={this.sortByLengthGoods}>
-            Sorted by Length
-          </button>
-          <label>
+          <div className="products">
+            <h1 className="products__title">
+              Goods
+            </h1>
+            <ul className="products__list">
+              {goods.map((good) => (
+                <li key={good}>
+                  {good}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="button">
+            <button
+              className="button__choose"
+              type="button"
+              onClick={this.reversedGoods}
+            >
+              Reverse
+            </button>
+            <button
+              className="button__choose"
+              type="button"
+              onClick={this.sortedGoods}
+            >
+              Sorted by Name
+            </button>
+            <button
+              className="button__choose"
+              type="button"
+              onClick={this.resetGoods}
+            >
+              Reset
+            </button>
+            <button
+              className="button__choose"
+              type="button"
+              onClick={this.sortByLengthGoods}
+            >
+              Sorted by Length
+            </button>
+          </div>
+          <label className="label">
             Choose good length:
             <select value={goodLength} onChange={this.changeLength}>
               {numbers.map(elem => (
@@ -112,7 +133,11 @@ export class App extends React.Component<{}, State> {
         </div>
       )
       : (
-        <button type="button" onClick={this.showGoods}>
+        <button
+          className="initial-button"
+          type="button"
+          onClick={this.showGoods}
+        >
           Start
         </button>
       );
