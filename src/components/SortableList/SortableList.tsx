@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import './SortableList.scss';
 import { ListOfGoods } from '../ListOfGoods';
 
@@ -130,7 +129,7 @@ export class SortableList extends React.Component<Props, State> {
                   {
                     amountOfOptions.fill('option').map((_option, index) => (
                       <option
-                        key={uuidv4()}
+                        key={String(index + 1)}
                         value={index + 1}
                       >
                         {`Length > ${index + 1}`}

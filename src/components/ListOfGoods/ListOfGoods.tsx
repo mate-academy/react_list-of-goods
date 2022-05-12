@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import './ListOfGoods.scss';
 
 type Props = {
@@ -11,7 +10,7 @@ export const ListOfGoods: React.FC<Props> = ({ goods }) => (
     {
       goods.map(good => (
         <li
-          key={uuidv4()}
+          key={good}
         >
           {good}
         </li>
