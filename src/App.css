@@ -1,1 +1,104 @@
-/* not empty */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to top right, #0f9 0%, #06c 100%);
+  color: #fff;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+}
+
+.title {
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+.startButton {
+  outline: none;
+  border: 0;
+  background: transparent;
+
+  transition: 0.3s;
+}
+
+.startButton:hover {
+  transform: scale(1.1);
+  background-color: transparent;
+}
+
+.resetButton {
+  margin-bottom: 40px;
+  background-color: #b30;
+  width: 80px;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #b30;
+  border-radius: 10px;
+  color: #fff;
+
+  transition: 0.3s;
+}
+
+.resetButton:hover {
+  transform: scale(1.1);
+}
+
+.goodsList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 40px;
+  font-size: 26px;
+}
+
+.goodItem {
+  margin-bottom: 10px;
+}
+
+.goodItem:last-child {
+  margin-bottom: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.button {
+  box-sizing: border-box;
+
+  display: block;
+  width: 300px;
+  padding: 10px;
+
+  background-color: #4a5759;
+  color: #fff;
+
+  font-family: inherit;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 16px;
+
+  transition: 0.5s;
+}
+
+button:hover {
+  background-color: #b30;
+}
