@@ -1,0 +1,18 @@
+.goodsList {
+  &__item {
+    list-style: none;
+
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    margin: 0;
+
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+  }
+}
