@@ -43,7 +43,11 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => (
-            this.setState({ goods: [...goods].sort() })
+            this.setState({
+              goods: [...goods].sort((a, b) => (
+                a.localeCompare(b)
+              )),
+            })
           )}
         >
           Sort alphabetically
