@@ -81,13 +81,22 @@ class App extends React.Component<{}, State> {
       <div className="App">
         <h1 className="title">Goods</h1>
         { !isStart
-          ? (<button type="button" onClick={this.startButton}>Start</button>)
+          ? (
+            <button className="button" type="button" onClick={this.startButton}>
+              Start
+            </button>
+          )
           : (
             <>
-              <button type="button" onClick={this.reverseButton}>
+              <button
+                className="button"
+                type="button"
+                onClick={this.reverseButton}
+              >
                 Reverse
               </button>
               <button
+                className="button"
                 type="button"
                 onClick={() => {
                   this.sortButton('alphab');
@@ -96,6 +105,7 @@ class App extends React.Component<{}, State> {
                 Sort alphabetically
               </button>
               <button
+                className="button"
                 type="button"
                 onClick={() => {
                   this.sortButton('length');
@@ -103,7 +113,11 @@ class App extends React.Component<{}, State> {
               >
                 Sort by length
               </button>
-              <button type="button" onClick={this.resetButton}>
+              <button
+                className="button"
+                type="button"
+                onClick={this.resetButton}
+              >
                 resetButton
               </button>
               <Goods goods={prepGoods} />
