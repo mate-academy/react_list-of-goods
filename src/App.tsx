@@ -70,9 +70,11 @@ class App extends React.Component<{}, State> {
       )
       : (
         <div className="goods">
-          <GoodsList
-            goodsList={goodsList}
-          />
+          { goodsList.length > 0 && (
+            <GoodsList
+              goodsList={goodsList}
+            />
+          )}
 
           <div className="goods__buttons">
             <button
