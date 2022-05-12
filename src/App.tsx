@@ -17,76 +17,50 @@ const goodsFromServer: string[] = [
 
 type State = {
   products: string[],
-  visible: boolean,
-  reversed: boolean,
-  sortedBy: string,
+  isVisible: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     products: goodsFromServer,
-    visible: false,
-    reversed: false,
-    sortedBy: '',
-  };
-
-  prepareProducts = () => {
-    const { products, reversed, sortedBy } = this.state;
-    const copyProducts = [...products];
-
-    copyProducts.sort((productA, productB) => {
-      switch (sortedBy) {
-        case 'alphabet':
-          return productA.localeCompare(productB);
-        case 'length':
-          return productA.length - productB.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (reversed) {
-      copyProducts.reverse();
-    }
-
-    return copyProducts;
+    isVisible: false,
   };
 
   start = () => {
-    this.setState({ visible: true });
+    this.setState({ isVisible: true });
   };
 
-  revers = () => {
-    this.setState(state => ({ reversed: !state.reversed }));
+  reverse = () => {
+    this.setState((state) => ({
+      products: [...state.products].reverse(),
+    }));
   };
 
   sortAlphabetically = () => {
-    this.setState({
-      sortedBy: 'alphabet',
-    });
+    this.setState((state) => ({
+      products: [...state.products].sort((a, b) => a.localeCompare(b)),
+    }));
   };
 
   sortByLength = () => {
-    this.setState({
-      sortedBy: 'length',
-    });
+    this.setState((state) => ({
+      products: [...state.products].sort((a, b) => a.length - b.length),
+    }));
   };
 
   reset = () => {
     this.setState({
-      reversed: false,
-      sortedBy: '',
+      products: goodsFromServer,
     });
   };
 
   render() {
-    const { visible } = this.state;
-    const preparedProducts = this.prepareProducts();
+    const { isVisible, products } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {!visible && (
+        {!isVisible && (
           <button
             type="button"
             onClick={this.start}
@@ -94,12 +68,12 @@ class App extends React.Component<{}, State> {
             Start
           </button>
         )}
-        {visible && (
+        {isVisible && (
           <>
-            <ProductsList products={preparedProducts} />
+            <ProductsList products={products} />
             <button
               type="button"
-              onClick={this.revers}
+              onClick={this.reverse}
             >
               Revers
             </button>
