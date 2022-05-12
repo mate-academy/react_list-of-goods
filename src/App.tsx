@@ -17,12 +17,16 @@ const goodsFromServer: string[] = [
 type State = {
   visible: boolean,
   goods: string[],
+  select: number[],
+  minLen: number,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     visible: true,
     goods: goodsFromServer,
+    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    minLen: 0,
   };
 
   start = () => {
@@ -48,11 +52,18 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ goods: goodsFromServer });
+    this.setState({ goods: goodsFromServer, minLen: 1 });
   };
 
   render() {
-    const { visible } = this.state;
+    const {
+      visible,
+      select,
+      goods,
+      minLen,
+    } = this.state;
+
+    const renderList = goods.filter(good => good.length >= minLen);
 
     return (
       <div className="App">
@@ -92,6 +103,22 @@ class App extends React.Component<{}, State> {
                   >
                     Sort by length
                   </button>
+                  <select
+                    value={minLen}
+                    onChange={(event) => (
+                      this.setState({
+                        minLen: +event.target.value,
+                      })
+                    )}
+                    className="App__selector"
+                  >
+                    {select.map(item => (
+                      <option value={item} key={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+
                   <button
                     onClick={this.reset}
                     type="button"
@@ -100,8 +127,9 @@ class App extends React.Component<{}, State> {
                     Reset
                   </button>
                 </div>
+
                 <ul className="App__list">
-                  {this.state.goods.map(good => (
+                  {renderList.map(good => (
                     <li key={good}>
                       {good}
                     </li>

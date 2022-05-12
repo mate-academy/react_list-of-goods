@@ -14,7 +14,7 @@ body {
 .App__body {
   margin: 0 100px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 30px;
   grid-auto-rows: minmax(30px, auto);
 }
@@ -35,4 +35,8 @@ body {
   padding: 0;
   margin: 0;
   text-align: center;
+}
+
+.App__selector {
+  width: 50px;
 }
