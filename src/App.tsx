@@ -16,34 +16,37 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  visibleGoods: string[],
+  goods: string[],
   isStart: boolean,
   sortBy: string,
+  isReverse: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state = {
-    visibleGoods: goodsFromServer,
+    goods: goodsFromServer,
     isStart: false,
     sortBy: '',
+    isReverse: false,
   };
 
   startButton = () => {
-    this.setState(pState => ({
-      isStart: !pState.isStart,
+    this.setState(() => ({
+      isStart: true,
     }));
   };
 
   reverseButton = () => {
     this.setState(pState => ({
-      visibleGoods: pState.visibleGoods.reverse(),
+      isReverse: !pState.isReverse,
     }));
   };
 
   resetButton = () => {
-    this.setState({
-      visibleGoods: goodsFromServer,
-    });
+    this.setState(() => ({
+      isReverse: false,
+      sortBy: '',
+    }));
   };
 
   sortButton(sortStr: string) {
@@ -54,24 +57,29 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
-      visibleGoods,
+      goods,
       isStart,
       sortBy,
+      isReverse,
     } = this.state;
 
-    if (sortBy !== '') {
-      visibleGoods.sort((good1, good2) => {
+    const prepGoods: string[] = sortBy !== ''
+      ? [...goods].sort((good1, good2) => {
         switch (sortBy) {
           case 'alphab': return good1.localeCompare(good2);
           case 'length': return good1.length - good2.length;
           default: return 0;
         }
-      });
+      })
+      : [...goods];
+
+    if (isReverse) {
+      prepGoods.reverse();
     }
 
     return (
       <div className="App">
-        <h1>Goods</h1>
+        <h1 className="title">Goods</h1>
         { !isStart
           ? (<button type="button" onClick={this.startButton}>Start</button>)
           : (
@@ -95,10 +103,10 @@ class App extends React.Component<{}, State> {
               >
                 Sort by length
               </button>
-              <button type="button" onClick={this.startButton}>
+              <button type="button" onClick={this.resetButton}>
                 resetButton
               </button>
-              <Goods goods={visibleGoods} />
+              <Goods goods={prepGoods} />
             </>
           )}
       </div>

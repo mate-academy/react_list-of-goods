@@ -18,4 +18,4 @@ const Goods: React.FC<Props> = ({ goods }) => {
   );
 };
 
-export default Goods;
+export default React.memo(Goods);
