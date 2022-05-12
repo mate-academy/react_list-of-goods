@@ -136,6 +136,14 @@ export class SortList extends React.Component<Props, State> {
 
           <button
             type="button"
+            onClick={this.reverse}
+            className="sortList__button"
+          >
+            Reverse
+          </button>
+
+          <button
+            type="button"
             onClick={this.reset}
             className="sortList__button"
           >
