@@ -25,6 +25,36 @@ class App extends React.Component<{}, State> {
     isStartOnClick: false,
   };
 
+  showList = () => {
+    this.setState({ isStartOnClick: true });
+  };
+
+  reverse = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].reverse(),
+    }));
+  };
+
+  sortByName = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort((a, b) => (
+        a.localeCompare(b)
+      )),
+    }));
+  };
+
+  sortByLength = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort((a, b) => (
+        a.length - b.length
+      )),
+    }));
+  };
+
+  reset = () => {
+    this.setState({ goods: goodsFromServer });
+  };
+
   render() {
     const { goods, isStartOnClick } = this.state;
 
@@ -33,44 +63,28 @@ class App extends React.Component<{}, State> {
         <h1>Goods</h1>
         <button
           type="button"
-          onClick={() => (
-            this.setState({ goods: [...goods].reverse() })
-          )}
+          onClick={this.reverse}
         >
           Reverse
         </button>
 
         <button
           type="button"
-          onClick={() => (
-            this.setState({
-              goods: [...goods].sort((a, b) => (
-                a.localeCompare(b)
-              )),
-            })
-          )}
+          onClick={this.sortByName}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          onClick={() => (
-            this.setState({ goods: goodsFromServer })
-          )}
+          onClick={this.reset}
         >
           Reset
         </button>
 
         <button
           type="button"
-          onClick={() => (
-            this.setState({
-              goods: [...goods].sort((a, b) => (
-                a.length - b.length
-              )),
-            })
-          )}
+          onClick={this.sortByLength}
         >
           Sort by length
         </button>
@@ -86,9 +100,7 @@ class App extends React.Component<{}, State> {
     ) : (
       <button
         type="button"
-        onClick={() => (
-          this.setState({ isStartOnClick: true })
-        )}
+        onClick={this.showList}
       >
         Start
       </button>
