@@ -70,17 +70,19 @@ class App extends React.PureComponent<{}, State> {
   };
 
   render() {
+    const { isShow, goods } = this.state;
+
     return (
       <div className="App">
         <button
-          className="button"
+          className={`button ${isShow ? 'disabled' : ''}`}
           type="button"
           onClick={this.showGoodsList}
         >
           Start
         </button>
 
-        {this.state.isShow && (
+        {isShow && (
           <>
             <button
               className="button"
@@ -114,7 +116,7 @@ class App extends React.PureComponent<{}, State> {
               Reset
             </button>
 
-            <ListOfGoods goods={goodsFromServer} />
+            <ListOfGoods goods={goods} />
           </>
         )}
       </div>
