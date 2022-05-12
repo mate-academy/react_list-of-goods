@@ -1,4 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
+import './List.scss';
+
+enum SortBy {
+  Length = 'length',
+  Alphabet = 'alphabet',
+  None = '',
+}
 
 type Props = {
   goodsList: string[];
@@ -6,14 +14,14 @@ type Props = {
 
 type State = {
   isReverse: boolean;
-  sortBy: string;
+  sortBy: SortBy;
   wordLength: number;
 };
 
 export class List extends React.Component<Props, State> {
   state = {
     isReverse: false,
-    sortBy: '',
+    sortBy: SortBy.None,
     wordLength: 1,
   };
 
@@ -25,13 +33,17 @@ export class List extends React.Component<Props, State> {
 
   sortByAlphabet = () => {
     this.setState((state) => ({
-      sortBy: (state.sortBy === 'alphabet') ? '' : 'alphabet',
+      sortBy: (state.sortBy === SortBy.Alphabet)
+        ? SortBy.None
+        : SortBy.Alphabet,
     }));
   };
 
   sortByLength = () => {
     this.setState((state) => ({
-      sortBy: (state.sortBy === 'length') ? '' : 'length',
+      sortBy: (state.sortBy === SortBy.Length)
+        ? SortBy.None
+        : SortBy.Length,
     }));
   };
 
@@ -44,7 +56,7 @@ export class List extends React.Component<Props, State> {
   reset = () => {
     this.setState({
       isReverse: false,
-      sortBy: '',
+      sortBy: SortBy.None,
       wordLength: 1,
     });
   };
@@ -74,9 +86,8 @@ export class List extends React.Component<Props, State> {
         <div className="goods__buttons">
           <button
             type="button"
-            className={
-              `goods__button ${isReverse && 'goods__button--active'}`
-            }
+            className={classNames('goods__button',
+              { 'goods__button--active': isReverse })}
             onClick={this.switchReverse}
           >
             Reverse
@@ -84,9 +95,8 @@ export class List extends React.Component<Props, State> {
 
           <button
             type="button"
-            className={
-              `goods__button ${sortBy === 'alphabet' && 'goods__button--active'}`
-            }
+            className={classNames('goods__button',
+              { 'goods__button--active': sortBy === SortBy.Alphabet })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -94,33 +104,26 @@ export class List extends React.Component<Props, State> {
 
           <button
             type="button"
-            className={
-              `goods__button ${sortBy === 'length' && 'goods__button--active'}`
-            }
+            className={classNames('goods__button',
+              { 'goods__button--active': sortBy === SortBy.Length })}
             onClick={this.sortByLength}
           >
             Sort by length
           </button>
 
           <select
-            className={
-              `goods__button ${wordLength !== 1 && 'goods__button--active'}`
-            }
+            className={classNames('goods__button',
+              { 'goods__button--active': wordLength !== 1 })}
             onChange={
               event => this.handleChange(Number(event.target.value))
             }
             value={wordLength}
           >
-            <option value="1">{'Word length >= 1'}</option>
-            <option value="2">{'Word length >= 2'}</option>
-            <option value="3">{'Word length >= 3'}</option>
-            <option value="4">{'Word length >= 4'}</option>
-            <option value="5">{'Word length >= 5'}</option>
-            <option value="6">{'Word length >= 6'}</option>
-            <option value="7">{'Word length >= 7'}</option>
-            <option value="8">{'Word length >= 8'}</option>
-            <option value="9">{'Word length >= 9'}</option>
-            <option value="10">{'Word length >= 10'}</option>
+            {
+              Array.from({ length: 10 }, (_, i) => i + 1).map(num => (
+                <option value={num} key={num}>{`Word length >= ${num}`}</option>
+              ))
+            }
           </select>
 
           <button

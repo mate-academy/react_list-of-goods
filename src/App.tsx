@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { List } from './components/List';
+import { List } from './components/List/List';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -19,7 +19,7 @@ type State = {
   isVisible: boolean;
 };
 
-class App extends React.Component<{}, State> {
+export class App extends React.Component<{}, State> {
   state = {
     isVisible: false,
   };
@@ -39,16 +39,16 @@ class App extends React.Component<{}, State> {
 
         {isVisible && <List goodsList={goodsFromServer} />}
 
-        <button
-          type="button"
-          onClick={this.showList}
-          className={`show-button ${isVisible && 'show-button--hide'}`}
-        >
-          Start
-        </button>
+        {!isVisible && (
+          <button
+            type="button"
+            onClick={this.showList}
+            className="app__show-button"
+          >
+            Start
+          </button>
+        )}
       </div>
     );
   }
 }
-
-export default App;
