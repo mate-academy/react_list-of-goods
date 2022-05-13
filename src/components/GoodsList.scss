@@ -1,0 +1,10 @@
+.GoodsList {
+  list-style-type: none;
+  font-family: "Arvo", serif;
+  font-size: 30px;
+
+  &::before {
+    content: "\2713";
+    color: #29241e;
+  }
+}
