@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import cn from 'classnames';
 import './List.scss';
 
 enum SortBy {
@@ -67,10 +67,10 @@ export class List extends React.Component<Props, State> {
     const newGoodsList = goodsList.filter(word => word.length >= wordLength);
 
     switch (sortBy) {
-      case 'alphabet':
+      case SortBy.Alphabet:
         newGoodsList.sort((elem1, elem2) => elem1.localeCompare(elem2));
         break;
-      case 'length':
+      case SortBy.Length:
         newGoodsList.sort((elem1, elem2) => elem1.length - elem2.length);
         break;
       default:
@@ -86,7 +86,7 @@ export class List extends React.Component<Props, State> {
         <div className="goods__buttons">
           <button
             type="button"
-            className={classNames('goods__button',
+            className={cn('goods__button',
               { 'goods__button--active': isReverse })}
             onClick={this.switchReverse}
           >
@@ -95,7 +95,7 @@ export class List extends React.Component<Props, State> {
 
           <button
             type="button"
-            className={classNames('goods__button',
+            className={cn('goods__button',
               { 'goods__button--active': sortBy === SortBy.Alphabet })}
             onClick={this.sortByAlphabet}
           >
@@ -104,7 +104,7 @@ export class List extends React.Component<Props, State> {
 
           <button
             type="button"
-            className={classNames('goods__button',
+            className={cn('goods__button',
               { 'goods__button--active': sortBy === SortBy.Length })}
             onClick={this.sortByLength}
           >
@@ -112,7 +112,7 @@ export class List extends React.Component<Props, State> {
           </button>
 
           <select
-            className={classNames('goods__button',
+            className={cn('goods__button',
               { 'goods__button--active': wordLength !== 1 })}
             onChange={
               event => this.handleChange(Number(event.target.value))
