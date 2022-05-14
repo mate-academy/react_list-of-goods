@@ -91,16 +91,14 @@ class App extends Component<{}, State> {
       <div className="App">
         <h1>Goods</h1>
         {!isVisibleList
-        && (
+          ? (
           <button
             type="submit"
             onClick={this.updateVisibleList}
           >
             Start
           </button>
-        )}
-        {isVisibleList
-        && (
+        ) : (
           <>
             <select
               onChange={
