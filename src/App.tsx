@@ -37,11 +37,7 @@ class App extends Component<{}, State> {
   };
 
   updateVisibleList = () => {
-    this.setState(state => {
-      return {
-        isVisibleList: !state.isVisibleList,
-      };
-    });
+    this.setState({ isVisibleList: true });
   };
 
   reverseList = () => {
@@ -94,55 +90,62 @@ class App extends Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        <select
-          onChange={
-            (event) => this.changeLength(+event.target.value)
-          }
-          value={minLength}
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <button
-          type="submit"
-          onClick={this.updateVisibleList}
-        >
-          Start
-        </button>
-        <button
-          type="submit"
-          onClick={this.reverseList}
-        >
-          Reverse
-        </button>
-        <button
-          type="submit"
-          onClick={this.sortByName}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          type="submit"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
-        <button
-          type="submit"
-          onClick={this.resetSortList}
-        >
-          Reset
-        </button>
+        {!isVisibleList
+        && (
+          <button
+            type="submit"
+            onClick={this.updateVisibleList}
+          >
+            Start
+          </button>
+        )}
         {isVisibleList
-          && <GoodsList goods={visibleGoods} />}
+        && (
+          <>
+            <select
+              onChange={
+                (event) => this.changeLength(+event.target.value)
+              }
+              value={minLength}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <button
+              type="submit"
+              onClick={this.reverseList}
+            >
+              Reverse
+            </button>
+            <button
+              type="submit"
+              onClick={this.sortByName}
+            >
+              Sort alphabetically
+            </button>
+            <button
+              type="submit"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+            <button
+              type="submit"
+              onClick={this.resetSortList}
+            >
+              Reset
+            </button>
+            <GoodsList goods={visibleGoods} />
+          </>
+        )}
       </div>
     );
   }
