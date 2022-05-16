@@ -14,11 +14,136 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+interface State {
+  goods: string[];
+  isVisible: boolean;
+  length: number;
+}
 
-export default App;
+export class App extends React.Component<{}, State> {
+  state = {
+    goods: goodsFromServer,
+    isVisible: false,
+    length: 1,
+  };
+
+  start = () => {
+    this.setState({ isVisible: true });
+  };
+
+  onChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const { value } = e.currentTarget;
+    const newList = [...goodsFromServer];
+
+    this.setState({
+      length: +value,
+      goods: newList.filter(good => good.length >= +value),
+    });
+  };
+
+  reverse = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].reverse(),
+    }));
+  };
+
+  sortAlphabetically = () => {
+    this.setState((state) => ({
+      goods:
+        [...state.goods].sort(
+          (good1, good2) => good1.localeCompare(good2),
+        ),
+    }));
+  };
+
+  sortByLength = () => {
+    this.setState((state) => ({
+      goods:
+        [...state.goods].sort(
+          (good1, good2) => good1.length - good2.length,
+        ),
+    }));
+  };
+
+  reset = () => {
+    this.setState(() => ({
+      goods: goodsFromServer,
+      length: 1,
+    }));
+  };
+
+  render() {
+    const { goods, isVisible, length } = this.state;
+
+    return (
+      <div className="app">
+        <h1 className="title">Goods</h1>
+        {!isVisible && (
+          <button
+            type="button"
+            onClick={this.start}
+          >
+            Start
+          </button>
+        )}
+
+        {isVisible && (
+          <>
+            <div className="button-block">
+              <button
+                type="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                onClick={this.sortAlphabetically}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+
+              <button
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <select
+                className="select"
+                value={length}
+                onChange={this.onChange}
+              >
+                {goodsFromServer.map((good, index) => {
+                  return (
+                    <option key={good} value={index + 1}>
+                      {`Length >= ${index + 1}`}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <ul className="goods-list">
+              {goods.map(good => {
+                return (
+                  <li key={good} className="good">
+                    {good}
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        )}
+      </div>
+    );
+  }
+}
