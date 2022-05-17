@@ -25,15 +25,15 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   sortByAlphabet = () => {
-    this.setState(state => ({
-      sortBy: state.sortBy === 'alph' ? '' : 'alph',
-    }));
+    this.setState({
+      sortBy: 'alph',
+    });
   };
 
   sortByLength = () => {
-    this.setState(state => ({
-      sortBy: state.sortBy === 'length' ? '' : 'length',
-    }));
+    this.setState({
+      sortBy: 'length',
+    });
   };
 
   lengthChange = (len: number) => {
@@ -53,18 +53,18 @@ export class GoodsList extends React.Component<Props, State> {
   render() {
     const { list } = this.props;
     const { isReverse, sortBy, wordLength } = this.state;
-    const newList = list.filter(el => el.length >= wordLength);
+    const newGoodsList = list.filter(el => el.length >= wordLength);
 
     if (isReverse) {
-      newList.reverse();
+      newGoodsList.reverse();
     }
 
     switch (sortBy) {
       case 'alph':
-        newList.sort((e1, e2) => e1.localeCompare(e2));
+        newGoodsList.sort((e1, e2) => e1.localeCompare(e2));
         break;
       case 'length':
-        newList.sort((e1, e2) => e1.length - e2.length);
+        newGoodsList.sort((e1, e2) => e1.length - e2.length);
         break;
       default:
         break;
@@ -85,36 +85,17 @@ export class GoodsList extends React.Component<Props, State> {
             className="goodsList__button"
             onChange={event => this.lengthChange(+event.target.value)}
           >
-            <option value="1" className="goodsList__option">
-              1 character
-            </option>
-            <option value="2" className="goodsList__option">
-              2 characters
-            </option>
-            <option value="3" className="goodsList__option">
-              3 characters
-            </option>
-            <option value="4" className="goodsList__option">
-              4 characters
-            </option>
-            <option value="5" className="goodsList__option">
-              5 characters
-            </option>
-            <option value="6" className="goodsList__option">
-              6 characters
-            </option>
-            <option value="7" className="goodsList__option">
-              7 characters
-            </option>
-            <option value="8" className="goodsList__option">
-              8 characters
-            </option>
-            <option value="9" className="goodsList__option">
-              9 characters
-            </option>
-            <option value="10" className="goodsList__option">
-              10 characters
-            </option>
+            {
+              (new Array(10))
+                .fill(null)
+                .map((_, index) => (
+                  <option
+                    value={index + 1}
+                  >
+                    {`${index + 1}+ letters`}
+                  </option>
+                ))
+            }
           </select>
           <button
             className="goodsList__button"
@@ -141,7 +122,7 @@ export class GoodsList extends React.Component<Props, State> {
 
         <ul className="goodsList__list">
           {
-            newList.map(elem => (
+            newGoodsList.map(elem => (
               <li key={elem} className="goodsList__item">{elem}</li>
             ))
           }

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import './App.scss';
 import { GoodsList } from './components/GoodsList';
 
@@ -41,7 +42,12 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          className={`app__button ${isVisible && 'app__button--hide'}`}
+          className={classNames(
+            'app__button',
+            {
+              'app__button--hide': isVisible,
+            },
+          )}
           onClick={this.showList}
         >
           Show
