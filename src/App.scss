@@ -1,0 +1,28 @@
+@import "./fonts/Fonts.scss";
+
+* {
+  box-sizing: border-box;
+  font-family: NotoSans-Regular, sans-serif;
+}
+
+body {
+  background-color: bisque;
+  margin: 0;
+}
+
+.app {
+  margin: 0 auto;
+
+  width: 500px;
+  height: 500px;
+  padding: 100px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  &__list-goods {
+    list-style: none;
+  }
+}

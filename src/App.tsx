@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -86,8 +86,6 @@ export class App extends React.Component<{}, State> {
       sortBy,
     } = this.state;
 
-    console.log(lettersLimit)
-
     const listToShow = goods.filter(good => good.length >= lettersLimit);
 
     switch (sortBy) {
@@ -166,19 +164,22 @@ export class App extends React.Component<{}, State> {
                 value={lettersLimit}
                 onChange={this.filterByLength}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                {(new Array(10))
+                  .fill(null)
+                  .map((_, index) => (
+                    <option
+                      value={index + 1}
+                      // eslint-disable-next-line
+                      key={index + 1}
+                      selected={index + 1 === lettersLimit}
+                    >
+                      {`${index + 1}+ letters`}
+                    </option>
+                  ))}
               </select>
             </div>
-          </>)}
+          </>
+        )}
       </div>
     );
   }
