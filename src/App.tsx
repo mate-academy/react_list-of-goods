@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import { SortPropsPanel } from './components/SortPropsPanel';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -129,55 +130,14 @@ export class App extends React.Component<{}, State> {
                 ))}
               </ul>
             </div>
-            <div className="app__sort-btn-container">
-              <button
-                className="app__btn"
-                type="button"
-                onClick={this.reverse}
-              >
-                reverse
-              </button>
-              <button
-                className="app__btn"
-                type="button"
-                onClick={this.sortAlphabetically}
-              >
-                Sort alphabetically
-              </button>
-              <button
-                className="app__btn"
-                type="button"
-                onClick={this.reset}
-              >
-                reset
-              </button>
-              <button
-                className="app__btn"
-                type="button"
-                onClick={this.sortByLength}
-              >
-                sort by length
-              </button>
-              <select
-                name="length"
-                className="app__lettersCountFilter"
-                value={lettersLimit}
-                onChange={this.filterByLength}
-              >
-                {(new Array(10))
-                  .fill(null)
-                  .map((_, index) => (
-                    <option
-                      value={index + 1}
-                      // eslint-disable-next-line
-                      key={index + 1}
-                      selected={index + 1 === lettersLimit}
-                    >
-                      {`${index + 1}+ letters`}
-                    </option>
-                  ))}
-              </select>
-            </div>
+            <SortPropsPanel
+              reverse={this.reverse}
+              sortAlphabetically={this.sortAlphabetically}
+              reset={this.reset}
+              sortByLength={this.sortByLength}
+              filterByLength={this.filterByLength}
+              lettersLimit={lettersLimit}
+            />
           </>
         )}
       </div>
