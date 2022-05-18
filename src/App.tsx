@@ -33,11 +33,10 @@ export class App extends React.Component<{}, State> {
 
   onChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     const { value } = e.currentTarget;
-    const newList = [...goodsFromServer];
 
     this.setState({
       length: +value,
-      goods: newList.filter(good => good.length >= +value),
+      goods: goodsFromServer.filter(good => good.length >= +value),
     });
   };
 
