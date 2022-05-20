@@ -1,1 +1,84 @@
-/* not empty */
+body {
+  background-color: #7a4eab;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.App {
+  display: grid;
+  place-items: center;
+}
+
+.App__content {
+  margin: 30px;
+}
+
+.App__content h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff1fce;
+}
+
+.button-start {
+  margin: 100px;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  border: 0;
+  font-weight: 700;
+  box-shadow: 0 0 14px -7px #f09819;
+  background-image: linear-gradient(45deg, #ff2fcb 0%,
+  #da12e4  51%, #ff511f  100%);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.button-start:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.button-start:active {
+  transform: scale(0.95);
+}
+
+.button {
+  appearance: none;
+  margin-right: 15px;
+  background-color: #fff;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #adcfff 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.24px;
+  outline: none;
+  padding: 1rem 1.3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.button:hover {
+  background-color: #ff53b7;
+  box-shadow: #f00090 0 -6px 8px inset;
+  transform: scale(1.12);
+}
+
+.button:active {
+  transform: scale(1.02);
+}
