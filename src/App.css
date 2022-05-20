@@ -32,7 +32,7 @@ button,
   text-align: center;
 }
 
-button:hover,
+.button:hover,
 .select:hover {
   background-color: darkgreen;
   color: lightgreen;

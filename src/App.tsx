@@ -79,6 +79,7 @@ export class App extends React.Component<{}, State> {
         <h1 className="title">Goods</h1>
         {!isVisible && (
           <button
+            className="button"
             type="button"
             onClick={this.start}
           >
@@ -90,6 +91,7 @@ export class App extends React.Component<{}, State> {
           <>
             <div className="button-block">
               <button
+                className="button"
                 type="button"
                 onClick={this.reverse}
               >
@@ -97,6 +99,7 @@ export class App extends React.Component<{}, State> {
               </button>
 
               <button
+                className="button"
                 type="button"
                 onClick={this.sortAlphabetically}
               >
@@ -104,6 +107,7 @@ export class App extends React.Component<{}, State> {
               </button>
 
               <button
+                className="button"
                 type="button"
                 onClick={this.reset}
               >
@@ -111,6 +115,7 @@ export class App extends React.Component<{}, State> {
               </button>
 
               <button
+                className="button"
                 type="button"
                 onClick={this.sortByLength}
               >
@@ -122,23 +127,19 @@ export class App extends React.Component<{}, State> {
                 value={length}
                 onChange={this.onChange}
               >
-                {goodsFromServer.map((good, index) => {
-                  return (
-                    <option key={good} value={index + 1}>
-                      {`Length >= ${index + 1}`}
-                    </option>
-                  );
-                })}
+                {goodsFromServer.map((good, index) => (
+                  <option key={good} value={index + 1}>
+                    {`Length >= ${index + 1}`}
+                  </option>
+                ))}
               </select>
             </div>
             <ul className="goods-list">
-              {goods.map(good => {
-                return (
-                  <li key={good} className="good">
-                    {good}
-                  </li>
-                );
-              })}
+              {goods.map(good => (
+                <li key={good} className="good">
+                  {good}
+                </li>
+              ))}
             </ul>
           </>
         )}
