@@ -63,7 +63,6 @@ export class App extends React.Component<{}, StateType> {
   };
 
   minLengthOfGood = (value: number) => {
-
     this.setState({
       lengthMin: value,
     });
@@ -116,7 +115,7 @@ export class App extends React.Component<{}, StateType> {
               id="nums"
               onChange={
                 ({ currentTarget }) => {
-                  this.minLengthOfGood(Number(currentTarget.value))
+                  this.minLengthOfGood(Number(currentTarget.value));
                 }
               }
             >
