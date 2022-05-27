@@ -20,7 +20,7 @@ class Goods extends React.Component<Props, {}> {
       filterLength,
     } = this.props;
 
-    let goodsSorted = [...goods].filter(item => item.length > filterLength);
+    let goodsSorted = [...goods].filter(item => item.length >= filterLength);
 
     switch (sortBy) {
       case 'alphabet':
