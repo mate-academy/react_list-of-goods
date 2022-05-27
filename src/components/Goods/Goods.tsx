@@ -20,7 +20,7 @@ class Goods extends React.Component<Props, {}> {
       filterLength,
     } = this.props;
 
-    let goodsSorted = [...goods].filter(item => item.length >= filterLength);
+    let goodsSorted = [...goods];
 
     switch (sortBy) {
       case 'alphabet':
@@ -39,6 +39,8 @@ class Goods extends React.Component<Props, {}> {
       default:
         break;
     }
+
+    goodsSorted = goodsSorted.filter(item => item.length >= filterLength);
 
     if (isReversed) {
       goodsSorted.reverse();
