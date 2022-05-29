@@ -22,11 +22,11 @@ type State = {
 class App extends React.Component<{}, State> {
   state = {
     goods: goodsFromServer,
-    isHidden: false,
+    isHidden: true,
   };
 
   hiddenStatus = () => {
-    this.setState({ isHidden: true });
+    this.setState({ isHidden: false });
   };
 
   reverse = () => {
@@ -61,59 +61,56 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1 className="title">List of goods</h1>
-        <button
-          type="button"
-          className="button"
-          hidden={isHidden}
-          onClick={this.hiddenStatus}
-        >
-          Start
-        </button>
-        <ul
-          className="list"
-          hidden={!isHidden}
-        >
-          {goods.map(item => (
-            <li
-              key={item}
-              className="list__item"
+        {isHidden ? (
+          <button
+            type="button"
+            className="button"
+            onClick={this.hiddenStatus}
+          >
+            Start
+          </button>
+        ) : (
+          <>
+            <ul className="list">
+              {goods.map(item => (
+                <li
+                  key={item}
+                  className="list__item"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              className="button"
+              onClick={this.reverse}
             >
-              {item}
-            </li>
-          ))}
-        </ul>
-        <button
-          type="button"
-          className="button"
-          hidden={!isHidden}
-          onClick={this.reverse}
-        >
-          Reverse
-        </button>
-        <button
-          type="button"
-          className="button"
-          hidden={!isHidden}
-          onClick={this.sortAlphabetically}
-        >
-          Sort alphabetically
-        </button>
-        <button
-          type="button"
-          className="button"
-          hidden={!isHidden}
-          onClick={this.reset}
-        >
-          Reset
-        </button>
-        <button
-          type="button"
-          className="button"
-          hidden={!isHidden}
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
+              Reverse
+            </button>
+            <button
+              type="button"
+              className="button"
+              onClick={this.sortAlphabetically}
+            >
+              Sort alphabetically
+            </button>
+            <button
+              type="button"
+              className="button"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              className="button"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+          </>
+        )}
       </div>
     );
   }
