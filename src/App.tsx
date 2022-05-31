@@ -79,23 +79,22 @@ class App extends React.Component <Props, State> {
     }));
   };
 
-  selectGenerator = () => (
-    <select
-      value={this.state.lengthLimit}
-      onChange={this.changeLimit}
-    >
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-    </select>
-  );
+  selectGenerator = (limit:number) => {
+    const opts = [];
+
+    for (let i = 1; i <= limit; i += 1) {
+      opts.push(i);
+    }
+
+    return (
+      <select
+        value={this.state.lengthLimit}
+        onChange={this.changeLimit}
+      >
+        {opts.map(option => <option value={`${option}`}>{option}</option>)}
+      </select>
+    );
+  };
 
   render() {
     return (
@@ -110,7 +109,8 @@ class App extends React.Component <Props, State> {
             {this.buttonGenerator('Sort alphabetically', this.sortABC)}
             {this.buttonGenerator('Reset', this.initialOrder)}
             {this.buttonGenerator('Sort by length', this.byLength)}
-            {this.selectGenerator()}
+            {this.selectGenerator(10)}
+            {/* in the line above You can change upper limit for options of Select tag */}
             <GoodsList goods={this.state.goodsList} />
           </>
         )}
