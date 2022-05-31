@@ -5,7 +5,7 @@
 
 ## Tasks
 1. At first show a button with text `Start` on the page
-1. After clicking the button shows a `GoodsList` (ul > li) with the given goods and hide the `Start` button
+1. Clicking the button shows a `GoodsList` (ul > li) with the given goods and hides the `Start` button
 1. Add button with text `Reverse` to show the goods in reversed order
 1. Add button with text `Sort alphabetically` to show the goods in alphabetical order
 1. Add button with text `Reset` to show the goods in the initial order
