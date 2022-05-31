@@ -20,14 +20,14 @@ type Props = {};
 type State = {
   goodsList : string[],
   visibility : boolean,
-  // lengthLimit : number,
+  lengthLimit : number,
 };
 
 class App extends React.Component <Props, State> {
   state = {
     goodsList: [...goodsFromServer],
     visibility: false,
-    // lengthLimit: 1,
+    lengthLimit: 1,
   };
 
   visibilitySwitch = () => {
@@ -59,6 +59,7 @@ class App extends React.Component <Props, State> {
   initialOrder = () => {
     this.setState(() => ({
       goodsList: [...goodsFromServer],
+      lengthLimit: 1,
     }));
   };
 
@@ -70,10 +71,11 @@ class App extends React.Component <Props, State> {
     }));
   };
 
-  /*
-  changeLimit = (event) => {
+  changeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState(() => ({
-      lengthLimit: event.target.value,
+      lengthLimit: +event.target.value,
+      goodsList: [...goodsFromServer]
+        .filter(good => good.length >= +event.target.value),
     }));
   };
 
@@ -86,10 +88,14 @@ class App extends React.Component <Props, State> {
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
-      { {options.map(({ value, label }, index) => <option value={value} >{label}</option>)} }
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
     </select>
   );
-  */
 
   render() {
     return (
@@ -104,7 +110,7 @@ class App extends React.Component <Props, State> {
             {this.buttonGenerator('Sort alphabetically', this.sortABC)}
             {this.buttonGenerator('Reset', this.initialOrder)}
             {this.buttonGenerator('Sort by length', this.byLength)}
-            {/* {this.selectGenerator()} */}
+            {this.selectGenerator()}
             <GoodsList goods={this.state.goodsList} />
           </>
         )}
