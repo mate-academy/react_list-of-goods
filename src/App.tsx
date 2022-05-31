@@ -40,9 +40,10 @@ class App extends Component<Props, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
+
         {isListVisible && <GoodsList goods={goodsFromServer} />}
         {!isListVisible
-        && <button type="button" onClick={this.start}>Start</button>}
+        && (<button type="button" onClick={this.start}>Start</button>)}
       </div>
     );
   }

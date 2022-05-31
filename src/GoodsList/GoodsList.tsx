@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 type Props = {
-  goodsFromServer: string[];
+  goods: string[];
 };
 
 type State = {
@@ -37,11 +37,11 @@ class GoodsList extends Component<Props, State> {
   };
 
   render() {
-    const { goodsFromServer } = this.props;
+    const { goods } = this.props;
     const { isListReversed, sortBy } = this.state;
-    const worksCopy = [...goodsFromServer];
+    const goodsCopy = [...goods];
 
-    worksCopy.sort((name1, name2) => {
+    goodsCopy.sort((name1, name2) => {
       switch (sortBy) {
         case 'name':
           return name1.localeCompare(name2);
@@ -53,13 +53,13 @@ class GoodsList extends Component<Props, State> {
     });
 
     if (isListReversed) {
-      worksCopy.reverse();
+      goodsCopy.reverse();
     }
 
     return (
       <>
         <ul className="goodsList">
-          {worksCopy.map(goodElem => (
+          {goodsCopy.map(goodElem => (
             <li key={goodElem}>
               {goodElem}
             </li>
@@ -69,7 +69,7 @@ class GoodsList extends Component<Props, State> {
           type="button"
           onClick={this.reverseList}
         >
-          Revers
+          Reverse
         </button>
 
         <button
