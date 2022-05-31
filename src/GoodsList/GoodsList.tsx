@@ -39,7 +39,7 @@ class GoodsList extends Component<Props, State> {
   render() {
     const { goodsFromServer } = this.props;
     const { isListReversed, sortBy } = this.state;
-    const worksCopy = [...goodsFromServer];
+    const goodsCopy = [...goods];
 
     worksCopy.sort((name1, name2) => {
       switch (sortBy) {
