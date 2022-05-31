@@ -69,7 +69,7 @@ class GoodsList extends Component<Props, State> {
           type="button"
           onClick={this.reverseList}
         >
-          Revers
+          Reverse
         </button>
 
         <button
