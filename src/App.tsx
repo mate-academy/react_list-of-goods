@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer: string[] = [
@@ -37,7 +37,11 @@ class App extends React.Component <Props, State> {
   };
 
   buttonGenerator = (text:string, method:() => void) => (
-    <button type="button" onClick={method}>
+    <button
+      type="button"
+      className="button is-info is-light is-outlined is-rounded"
+      onClick={method}
+    >
       {text}
     </button>
   );
@@ -87,19 +91,22 @@ class App extends React.Component <Props, State> {
     }
 
     return (
-      <select
-        value={this.state.lengthLimit}
-        onChange={this.changeLimit}
-      >
-        {opts.map(option => <option value={`${option}`}>{option}</option>)}
-      </select>
+      <div className="select is-rounded is-info is-light is-outlined">
+        <select
+          value={this.state.lengthLimit}
+          onChange={this.changeLimit}
+        >
+          {opts.map(option => <option value={`${option}`}>{option}</option>)}
+        </select>
+      </div>
     );
   };
 
   render() {
     return (
-      <div className="App">
-        <h1>Goods</h1>
+      <div className="App has-text-centered">
+        <br />
+        <h1 className="title is-1">Goods list sorting</h1>
         {!this.state.visibility
           && this.buttonGenerator('Start', this.visibilitySwitch)}
         {this.state.visibility
