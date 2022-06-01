@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { GoodsList } from './components/GoodsList';
+import { ButtonGenerator } from './components/ButtonGenerator';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -52,7 +53,7 @@ class App extends React.Component <Props, State> {
     }));
   };
 
-  sortABC = () => {
+  sortAlphabetically = () => {
     this.setState((prevState) => ({
       goodsList: [...prevState.goodsList].sort(
         (good1, good2) => good1.localeCompare(good2),
@@ -60,14 +61,14 @@ class App extends React.Component <Props, State> {
     }));
   };
 
-  initialOrder = () => {
+  resetList = () => {
     this.setState(() => ({
       goodsList: [...goodsFromServer],
       lengthLimit: 1,
     }));
   };
 
-  byLength = () => {
+  sortbyLength = () => {
     this.setState((prevState) => ({
       goodsList: [...prevState.goodsList].sort(
         (good1, good2) => good1.length - good2.length,
@@ -96,7 +97,8 @@ class App extends React.Component <Props, State> {
           value={this.state.lengthLimit}
           onChange={this.changeLimit}
         >
-          {opts.map(option => <option value={`${option}`}>{option}</option>)}
+          {opts.map(option => (
+            <option value={option} key={option}>{option}</option>))}
         </select>
       </div>
     );
@@ -112,12 +114,33 @@ class App extends React.Component <Props, State> {
         {this.state.visibility
         && (
           <>
-            {this.buttonGenerator('Reverse', this.reverseList)}
-            {this.buttonGenerator('Sort alphabetically', this.sortABC)}
-            {this.buttonGenerator('Reset', this.initialOrder)}
-            {this.buttonGenerator('Sort by length', this.byLength)}
-            {this.selectGenerator(10)}
-            {/* in the line above You can change upper limit for options of Select tag */}
+            <ButtonGenerator name="Reverse" method={this.reverseList} />
+            <ButtonGenerator
+              name="Sort alphabetically"
+              method={this.sortAlphabetically}
+            />
+            <ButtonGenerator name="Reset" method={this.resetList} />
+            <ButtonGenerator name="Sort by length" method={this.sortbyLength} />
+            {(() => {
+              const opts = [];
+              const limit = 10;
+
+              for (let i = 1; i <= limit; i += 1) {
+                opts.push(i);
+              }
+
+              return (
+                <div className="select is-rounded is-info is-light is-outlined">
+                  <select
+                    value={this.state.lengthLimit}
+                    onChange={this.changeLimit}
+                  >
+                    {opts.map(option => (
+                      <option value={option} key={option}>{option}</option>))}
+                  </select>
+                </div>
+              );
+            })()}
             <GoodsList goods={this.state.goodsList} />
           </>
         )}
