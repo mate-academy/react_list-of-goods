@@ -1,5 +1,6 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +15,83 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+type State = {
+  appStarted: boolean,
+  curr: string[],
+};
+
+export class App extends React.Component<{}, State> {
+  state : State = {
+    appStarted: false,
+    curr: [...goodsFromServer],
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <div className="container">
+          {(this.state.appStarted)
+            ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => (
+                    this.setState({ curr: [...goodsFromServer].reverse() })
+                  )}
+                >
+                  Reverse
+                </button>
+                <button
+                  type="button"
+                  onClick={() => (
+                    this.setState(
+                      { curr: [...goodsFromServer].sort() },
+                    )
+                  )}
+                >
+                  Alphabet sort
+                </button>
+                <button
+                  type="button"
+                  onClick={() => (
+                    this.setState(
+                      {
+                        curr:
+                        [...goodsFromServer].sort(
+                          (a, b) => a.length - b.length,
+                        ),
+                      },
+                    )
+                  )}
+                >
+                  Length sort
+                </button>
+                <button
+                  type="button"
+                  onClick={() => (
+                    this.setState({ curr: [...goodsFromServer] })
+                  )}
+                >
+                  Restart
+                </button>
+                <GoodsList goods={this.state.curr} />
+              </>
+            )
+            : (
+              <button
+                type="button"
+                onClick={() => (
+                  this.setState({ appStarted: true })
+                )}
+              >
+                Start
+              </button>
+            )}
+
+        </div>
+      </div>
+    );
+  }
+}
 
 export default App;
