@@ -121,26 +121,7 @@ class App extends React.Component <Props, State> {
             />
             <ButtonGenerator name="Reset" method={this.resetList} />
             <ButtonGenerator name="Sort by length" method={this.sortbyLength} />
-            {(() => {
-              const opts = [];
-              const limit = 10;
-
-              for (let i = 1; i <= limit; i += 1) {
-                opts.push(i);
-              }
-
-              return (
-                <div className="select is-rounded is-info is-light is-outlined">
-                  <select
-                    value={this.state.lengthLimit}
-                    onChange={this.changeLimit}
-                  >
-                    {opts.map(option => (
-                      <option value={option} key={option}>{option}</option>))}
-                  </select>
-                </div>
-              );
-            })()}
+            {this.selectGenerator(10)}
             <GoodsList goods={this.state.goodsList} />
           </>
         )}
