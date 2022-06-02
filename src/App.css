@@ -1,1 +1,16 @@
-/* not empty */
+.App {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 0 30px;
+  text-align: center;
+}
+
+.button {
+  font-size: 16px;
+  line-height: 25px;
+  margin-right: 10px;
+  height: 30px;
+}
+
+.button__hidden {
+  display: none;
+}
