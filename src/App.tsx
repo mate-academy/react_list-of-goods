@@ -37,16 +37,6 @@ class App extends React.Component <Props, State> {
     }));
   };
 
-  buttonGenerator = (text:string, method:() => void) => (
-    <button
-      type="button"
-      className="button is-info is-light is-outlined is-rounded"
-      onClick={method}
-    >
-      {text}
-    </button>
-  );
-
   reverseList = () => {
     this.setState((prevState) => ({
       goodsList: [...prevState.goodsList].reverse(),
@@ -84,33 +74,13 @@ class App extends React.Component <Props, State> {
     }));
   };
 
-  selectGenerator = (limit:number) => {
-    const opts = [];
-
-    for (let i = 1; i <= limit; i += 1) {
-      opts.push(i);
-    }
-
-    return (
-      <div className="select is-rounded is-info is-light is-outlined">
-        <select
-          value={this.state.lengthLimit}
-          onChange={this.changeLimit}
-        >
-          {opts.map(option => (
-            <option value={option} key={option}>{option}</option>))}
-        </select>
-      </div>
-    );
-  };
-
   render() {
     return (
       <div className="App has-text-centered">
         <br />
         <h1 className="title is-1">Goods list sorting</h1>
         {!this.state.visibility
-          && this.buttonGenerator('Start', this.visibilitySwitch)}
+          && <ButtonGenerator name="Start" method={this.visibilitySwitch} />}
         {this.state.visibility
         && (
           <>
@@ -121,7 +91,16 @@ class App extends React.Component <Props, State> {
             />
             <ButtonGenerator name="Reset" method={this.resetList} />
             <ButtonGenerator name="Sort by length" method={this.sortbyLength} />
-            {this.selectGenerator(10)}
+            <div className="select is-rounded is-info is-light is-outlined">
+              <select
+                value={this.state.lengthLimit}
+                onChange={this.changeLimit}
+              >
+                {Array(10).fill('option').map((item, index) => (
+                  <option key={`${item}${index + 1}`} value={index + 1}>{index + 1}</option>
+                ))}
+              </select>
+            </div>
             <GoodsList goods={this.state.goodsList} />
           </>
         )}
