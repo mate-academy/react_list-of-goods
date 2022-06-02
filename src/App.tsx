@@ -46,12 +46,14 @@ export class App extends React.Component<{}, StateType> {
   SortByAlfabet = () => {
     this.setState({
       SortBy: SortType.Alfabet,
+      isReverse: false,
     });
   };
 
   SortByLen = () => {
     this.setState({
       SortBy: SortType.Length,
+      isReverse: false,
     });
   };
 

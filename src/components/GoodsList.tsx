@@ -11,7 +11,6 @@ type Props = {
 const GoodsList: React.FC<Props> = ({
   goodsFromServer, isReverse, SortBy, lengthMin,
 }) => {
-
   const copyOFGoods = goodsFromServer.filter(good => good.length >= lengthMin);
 
   switch (SortBy) {
