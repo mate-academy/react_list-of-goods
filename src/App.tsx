@@ -16,7 +16,6 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  // initialGoods: string[],
   show: boolean,
   isReversed: boolean,
   sortBy: string,
@@ -24,7 +23,6 @@ type State = {
 
 class App extends React.Component <{}, State> {
   state = {
-    // initialGoods: goodsFromServer,
     show: false,
     isReversed: false,
     sortBy: '',
