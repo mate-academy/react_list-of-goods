@@ -1,1 +1,142 @@
-/* not empty */
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(20, 20, 20);
+}
+
+.app__title {
+  text-align: center;
+  color: darkgoldenrod;
+}
+
+.app__start-button {
+  display: block;
+  margin: auto;
+  padding: 50px;
+  border-radius: 50%;
+  font-size: 30px;
+  background-color: crimson;
+  border: 1px solid crimson;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.app__start-button:hover {
+  transform: scale(1.12);
+}
+
+.app__container {
+  display: flex;
+  width: 500px;
+  margin: auto;
+}
+
+.app__finish-button {
+  display: flex;
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+}
+
+.app__content {
+  width: 100px;
+}
+
+.app__buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 200px;
+}
+
+.app__list {
+  padding: 0;
+  text-align: center;
+}
+
+.app__item {
+  list-style: none;
+  color: darkgoldenrod;
+  padding: 8px;
+}
+
+.button__finish-button {
+  padding: 5px;
+  border-radius: 8px;
+  font-size: 24px;
+  background-color: crimson;
+  border: 1px solid crimson;
+  color: rgb(219, 215, 215);
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.button__finish-button:hover {
+  transform: scale(1.08);
+}
+
+.button__reverse-button {
+  padding: 5px;
+  border-radius: 8px;
+  font-size: 20px;
+  background-color: rgb(0, 138, 134);
+  border: none;
+  color: rgba(255, 218, 178, 0.77);
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.button__reverse-button:hover {
+  transform: scale(1.08);
+}
+
+.button__sort-alphabetically-button {
+  padding: 5px;
+  border-radius: 8px;
+  font-size: 20px;
+  background-color: rgb(0, 138, 134);
+  border: none;
+  color: rgba(255, 218, 178, 0.77);
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.button__sort-alphabetically-button:hover {
+  transform: scale(1.08);
+}
+
+.button__reset-button {
+  padding: 5px;
+  border-radius: 8px;
+  font-size: 20px;
+  background-color: rgb(0, 138, 134);
+  border: none;
+  color: rgba(255, 218, 178, 0.77);
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.button__reset-button:hover {
+  transform: scale(1.08);
+}
+
+.button__sotr-by-length-button {
+  padding: 5px;
+  border-radius: 8px;
+  font-size: 20px;
+  background-color: rgb(0, 138, 134);
+  border: none;
+  color: rgba(255, 218, 178, 0.77);
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.button__sotr-by-length-button:hover {
+  transform: scale(1.08);
+}
