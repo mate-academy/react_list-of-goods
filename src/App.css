@@ -1,1 +1,33 @@
-/* not empty */
+* {
+  box-sizing: border-box;
+  color: darkslategrey;
+}
+
+.App {
+  width: 450px;
+
+  margin: 0 auto;
+  padding: 5px 20px;
+
+  background-color: rgb(255, 242, 192);
+
+  border: 3px solid rgb(195, 162, 2);
+  border-radius: 10px;
+}
+
+.title {
+  text-align: center;
+}
+
+.start-button {
+  display: flex;
+  margin: 10px auto;
+}
+
+.buttons {
+  padding-bottom: 10px;
+}
+
+.goods-list {
+  list-style: none;
+}
