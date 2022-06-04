@@ -17,31 +17,29 @@ const goodsFromServer: string[] = [
 type State = {
   goods: string[];
   clickStart: boolean;
-  visibleGoods: string[];
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
     clickStart: false,
-    visibleGoods: [...goodsFromServer],
   };
 
   getReset() {
-    this.setState(prevState => ({ visibleGoods: [...prevState.goods] }));
+    this.setState({ goods: goodsFromServer });
   }
 
   getReverse() {
     this.setState((prevState) => (
-      { visibleGoods: prevState.visibleGoods.reverse() }
+      { goods: [...prevState.goods].reverse() }
     ));
   }
 
   SortBylength() {
     this.setState((prevState) => (
       {
-        visibleGoods:
-        prevState.visibleGoods.sort((a, b) => a.length - b.length),
+        goods:
+        [...prevState.goods].sort((a, b) => a.length - b.length),
       }
     ));
   }
@@ -49,8 +47,8 @@ class App extends React.Component<{}, State> {
   sortAlphabetically() {
     this.setState((prevState) => (
       {
-        visibleGoods:
-        [...prevState.visibleGoods.sort((a, b) => a.localeCompare(b))],
+        goods:
+        [...prevState.goods].sort((a, b) => a.localeCompare(b)),
       }
     ));
   }
@@ -61,10 +59,7 @@ class App extends React.Component<{}, State> {
 
   render() {
     const { clickStart } = this.state;
-    const { visibleGoods } = this.state;
-
-    // eslint-disable-next-line no-console
-    console.log(goodsFromServer);
+    const { goods } = this.state;
 
     return (
       <div className="m-5 level-item has-text-centered">
@@ -81,7 +76,7 @@ class App extends React.Component<{}, State> {
           && (
             <div>
               <ul>
-                {visibleGoods.map(good => (
+                {goods.map(good => (
                   <div key={good} className="has-text-white">
                     <li>
                       {good}
