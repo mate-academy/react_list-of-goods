@@ -63,7 +63,7 @@ class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   onClick={() => this.setState(state => ({
-                    goods: state.goods.reverse(),
+                    goods: [...state.goods].reverse(),
                   }))}
                   className="button is-warning is-medium"
                 >
@@ -72,7 +72,7 @@ class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   onClick={() => this.setState(state => ({
-                    goods: state.goods.sort((good1, good2) => (
+                    goods: [...state.goods].sort((good1, good2) => (
                       good1.localeCompare(good2)
                     )),
                   }))}
@@ -92,7 +92,7 @@ class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   onClick={() => this.setState(state => ({
-                    goods: state.goods.sort((good1, good2) => (
+                    goods: [...state.goods].sort((good1, good2) => (
                       good1.length - good2.length
                     )),
                   }))}
