@@ -29,7 +29,7 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { visibleStart, goods, resetGoods } = this.state;
+    const { visibleStart, goods } = this.state;
 
     return (
       <div className="good">
@@ -82,7 +82,9 @@ class App extends React.Component<{}, State> {
                 </button>
                 <button
                   type="button"
-                  onClick={() => this.setState({ goods: resetGoods })}
+                  onClick={() => this.setState((state) => ({
+                    goods: state.resetGoods,
+                  }))}
                   className="button is-warning is-medium"
                 >
                   Reset
