@@ -31,3 +31,14 @@
   border-radius: 40px;
   width: 600px;
 }
+
+@media (max-width: 600px) {
+  .container {
+    width: 400px;
+  }
+
+  .button {
+    width: 200px;
+    margin: 15px;
+  }
+}
