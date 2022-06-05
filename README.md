@@ -1,5 +1,5 @@
 # React list of goods
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/)
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://volodya-leskiv.github.io/react_list-of-goods/)
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
 - Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
@@ -8,7 +8,7 @@
 2. Clicking the button shows a `GoodsList` (ul > li) with the given goods and hides the `Start` button
 3. Add button with text `Reverse` to show the goods in reversed order
 4. Add button with text `Sort alphabetically` to show the goods in alphabetical order
-5. Add button with text `Reset` to show the goods in the initial order
+5. Add button with text `Reset` to show the goods in the initialss order
 6. Add button with text `Sort by length` to show the goods ordered by name length
 
 ## (*) Advanced tasks (require understanding of Forms in React)
