@@ -3,6 +3,8 @@ import React from 'react';
 interface State {
   goods: string[];
   initialGoods: string[];
+  filterNumber: number;
+  isReversed: boolean;
 }
 
 interface Props {
@@ -13,11 +15,13 @@ export class GoodsList extends React.Component<Props, State> {
   state: State = {
     goods: [...this.props.goods],
     initialGoods: [...this.props.goods],
+    filterNumber: Infinity,
+    isReversed: false,
   };
 
   reverce = () => {
     this.setState((state) => ({
-      goods: [...state.goods].reverse(),
+      isReversed: !state.isReversed,
     }));
   };
 
@@ -34,7 +38,24 @@ export class GoodsList extends React.Component<Props, State> {
   };
 
   render() {
-    const { goods, initialGoods } = this.state;
+    const {
+      goods,
+      initialGoods,
+      isReversed,
+      filterNumber,
+    } = this.state;
+
+    const arrOfLength
+      = new Set([...initialGoods]
+        .sort((a, b) => a.length - b.length)
+        .map(el => el.length));
+
+    const arrForSelectFilter = Array.from(arrOfLength).reverse();
+    const visibleGoods = goods.filter(good => good.length <= filterNumber);
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
 
     return (
       <>
@@ -99,6 +120,20 @@ export class GoodsList extends React.Component<Props, State> {
           >
             Sort by length
           </button>
+
+          <select
+            name="filter-length"
+            id="filterLength"
+            onChange={(event) => {
+              this.setState({
+                filterNumber: +(event.currentTarget.value),
+              });
+            }}
+          >
+            {arrForSelectFilter.map(el => (
+              <option key={el} value={el}>{el}</option>
+            ))}
+          </select>
         </div>
 
         <ul
@@ -107,7 +142,7 @@ export class GoodsList extends React.Component<Props, State> {
           is-flex-direction-column
           is-align-items-center"
         >
-          {goods.map((good: string) => (
+          {visibleGoods.map((good: string) => (
             <li
               key={good}
               className="
