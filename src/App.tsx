@@ -78,51 +78,54 @@ class App extends React.Component <{}, State> {
 
     return (
       <div className="App">
-        <h1 className="">Goods</h1>
+        <h1 className="title">Goods</h1>
 
         {!this.state.show && (
           <button
             type="button"
             onClick={this.toggleList}
+            className="show-button"
           >
-            Start
+            Show
           </button>
         )}
 
         {this.state.show && (
-          <ul>
-            <GoodsList goods={goodsCopy} />
-          </ul>
+          <>
+            <ul>
+              <GoodsList goods={goodsCopy} />
+            </ul>
+
+            <button
+              type="button"
+              onClick={this.reverse}
+              className="level-item"
+            >
+              Reverse
+            </button>
+
+            <button
+              type="button"
+              onClick={this.sortByAlphabet}
+            >
+              Sort alphabetically
+            </button>
+
+            <button
+              type="button"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+
+            <button
+              type="button"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          </>
         )}
-
-        <button
-          type="button"
-          onClick={this.reverse}
-          className="level-item"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          onClick={this.sortByAlphabet}
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          onClick={this.reset}
-        >
-          Reset
-        </button>
       </div>
     );
   }
