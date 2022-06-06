@@ -28,6 +28,34 @@ class App extends React.Component<{}, State> {
     goods: [...goodsFromServer],
   };
 
+  reversed() {
+    this.setState(state => ({
+      goods: [...state.goods].reverse(),
+    }));
+  }
+
+  sortByAlfabet() {
+    this.setState(state => ({
+      goods: [...state.goods].sort((good1, good2) => (
+        good1.localeCompare(good2)
+      )),
+    }));
+  }
+
+  reset() {
+    this.setState((state) => ({
+      goods: state.resetGoods,
+    }));
+  }
+
+  sortByLength() {
+    this.setState(state => ({
+      goods: [...state.goods].sort((good1, good2) => (
+        good1.length - good2.length
+      )),
+    }));
+  }
+
   render() {
     const { visibleStart, goods } = this.state;
 
@@ -62,40 +90,28 @@ class App extends React.Component<{}, State> {
                 </ul>
                 <button
                   type="button"
-                  onClick={() => this.setState(state => ({
-                    goods: [...state.goods].reverse(),
-                  }))}
+                  onClick={() => this.reversed()}
                   className="button is-warning is-medium"
                 >
                   Reverse
                 </button>
                 <button
                   type="button"
-                  onClick={() => this.setState(state => ({
-                    goods: [...state.goods].sort((good1, good2) => (
-                      good1.localeCompare(good2)
-                    )),
-                  }))}
+                  onClick={() => this.sortByAlfabet()}
                   className="button is-warning is-medium"
                 >
                   Sort alphabetically
                 </button>
                 <button
                   type="button"
-                  onClick={() => this.setState((state) => ({
-                    goods: state.resetGoods,
-                  }))}
+                  onClick={() => this.reset()}
                   className="button is-warning is-medium"
                 >
                   Reset
                 </button>
                 <button
                   type="button"
-                  onClick={() => this.setState(state => ({
-                    goods: [...state.goods].sort((good1, good2) => (
-                      good1.length - good2.length
-                    )),
-                  }))}
+                  onClick={() => this.sortByLength()}
                   className="button is-warning is-medium"
                 >
                   Sort by length
