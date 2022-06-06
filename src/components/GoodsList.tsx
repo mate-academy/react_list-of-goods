@@ -27,7 +27,9 @@ export class GoodsList extends React.Component<Props, State> {
     return (
       this.setState(state => (
         {
-          goods: [...state.goods].sort(),
+          goods: [...state.goods]
+            .sort((firstGood, secondGood) => firstGood
+              .localeCompare(secondGood)),
         }
       ))
     );
@@ -59,11 +61,7 @@ export class GoodsList extends React.Component<Props, State> {
     return (
       <>
         <ul>
-          {this.state.goods.map(good => {
-            return (
-              <li key={good}>{good}</li>
-            );
-          })}
+          {this.state.goods.map(good => (<li key={good}>{good}</li>))}
         </ul>
 
         <button
