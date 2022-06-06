@@ -18,19 +18,15 @@ const goodsFromServer: string[] = [
 type State = {
   listIsVisible: boolean,
   copyOfGoods: string[],
-  initialGoods: string[],
   listIsReversed: boolean,
   sortBy: string,
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component<{}, State> {
   state = {
     listIsVisible: false,
-    // eslint-disable-next-line react/no-unused-state
     copyOfGoods: goodsFromServer,
     listIsReversed: false,
-    initialGoods: goodsFromServer,
     sortBy: '',
   };
 
@@ -41,7 +37,7 @@ class App extends React.Component<{}, State> {
   reverseGoods = () => {
     this.setState(prevstate => (
       {
-        copyOfGoods: [...prevstate.initialGoods],
+        copyOfGoods: [...goodsFromServer],
         listIsReversed: !prevstate.listIsReversed,
       }
     ));
@@ -49,32 +45,32 @@ class App extends React.Component<{}, State> {
 
   sortAlphabetically = () => {
     this.reset();
-    this.setState(prevstate => (
+    this.setState(
       {
-        copyOfGoods: [...prevstate.initialGoods],
+        copyOfGoods: [...goodsFromServer],
         sortBy: 'alphabet',
-      }
-    ));
+      },
+    );
   };
 
   sortByLength = () => {
     this.reset();
-    this.setState(prevstate => (
+    this.setState(
       {
-        copyOfGoods: [...prevstate.initialGoods],
+        copyOfGoods: [...goodsFromServer],
         sortBy: 'length',
-      }
-    ));
+      },
+    );
   };
 
   reset = () => {
-    this.setState(prevstate => (
+    this.setState(
       {
-        copyOfGoods: [...prevstate.initialGoods],
+        copyOfGoods: [...goodsFromServer],
         sortBy: '',
         listIsReversed: false,
-      }
-    ));
+      },
+    );
   };
 
   render() {
@@ -89,7 +85,9 @@ class App extends React.Component<{}, State> {
     }
 
     if (sortBy === 'alphabet') {
-      copyOfGoods.sort();
+      copyOfGoods.sort((a, b) => {
+        return a.localeCompare(b);
+      });
     }
 
     if (listIsReversed) {
