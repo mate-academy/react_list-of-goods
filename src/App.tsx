@@ -90,28 +90,28 @@ class App extends React.Component<{}, State> {
                 </ul>
                 <button
                   type="button"
-                  onClick={() => this.reversed()}
+                  onClick={this.reversed}
                   className="button is-warning is-medium"
                 >
                   Reverse
                 </button>
                 <button
                   type="button"
-                  onClick={() => this.sortByAlfabet()}
+                  onClick={this.sortByAlfabet}
                   className="button is-warning is-medium"
                 >
                   Sort alphabetically
                 </button>
                 <button
                   type="button"
-                  onClick={() => this.reset()}
+                  onClick={this.reset}
                   className="button is-warning is-medium"
                 >
                   Reset
                 </button>
                 <button
                   type="button"
-                  onClick={() => this.sortByLength()}
+                  onClick={this.sortByLength}
                   className="button is-warning is-medium"
                 >
                   Sort by length
