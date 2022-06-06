@@ -1,0 +1,44 @@
+/* not empty */
+.good {
+  display: grid;
+  text-align: center;
+
+  &__start-button {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+  }
+
+  &__list {
+    margin: auto;
+  }
+
+  &__item {
+    list-style: none;
+    text-align: center;
+  }
+}
+
+.button {
+  margin: 10px;
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+  border: 3px solid burlywood;
+  background-color: antiquewhite;
+  border-radius: 40px;
+  width: 600px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 250px;
+  }
+
+  .button {
+    width: 200px;
+    margin: 15px;
+  }
+}
