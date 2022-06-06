@@ -20,7 +20,7 @@ type State = {
   copyOfGoods: string[],
   initialGoods: string[],
   listIsReversed: boolean,
-  sortby: string,
+  sortBy: string,
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -31,7 +31,7 @@ class App extends React.Component<{}, State> {
     copyOfGoods: goodsFromServer,
     listIsReversed: false,
     initialGoods: goodsFromServer,
-    sortby: '',
+    sortBy: '',
   };
 
   showList = () => {
@@ -48,19 +48,21 @@ class App extends React.Component<{}, State> {
   };
 
   sortAlphabetically = () => {
+    this.reset();
     this.setState(prevstate => (
       {
         copyOfGoods: [...prevstate.initialGoods],
-        sortby: 'alphabet',
+        sortBy: 'alphabet',
       }
     ));
   };
 
   sortByLength = () => {
+    this.reset();
     this.setState(prevstate => (
       {
         copyOfGoods: [...prevstate.initialGoods],
-        sortby: 'length',
+        sortBy: 'length',
       }
     ));
   };
@@ -69,7 +71,7 @@ class App extends React.Component<{}, State> {
     this.setState(prevstate => (
       {
         copyOfGoods: [...prevstate.initialGoods],
-        sortby: '',
+        sortBy: '',
         listIsReversed: false,
       }
     ));
@@ -77,16 +79,16 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
-      listIsReversed, listIsVisible, copyOfGoods, sortby,
+      listIsReversed, listIsVisible, copyOfGoods, sortBy,
     } = this.state;
 
-    if (sortby === 'length') {
+    if (sortBy === 'length') {
       copyOfGoods.sort((a, b) => {
         return (a.length - b.length);
       });
     }
 
-    if (sortby === 'alphabet') {
+    if (sortBy === 'alphabet') {
       copyOfGoods.sort();
     }
 
