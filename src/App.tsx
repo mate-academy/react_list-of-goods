@@ -41,9 +41,11 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={() => {
-              this.setState({ isVisible: true });
-              this.setState({ start: false });
-              this.setState({ goods: [...goodsFromServer] });
+              this.setState({
+                isVisible: true,
+                start: false,
+                goods: [...goodsFromServer],
+              });
             }}
             className="app__start-button"
           >
@@ -57,8 +59,10 @@ class App extends React.Component<{}, State> {
               <button
                 type="button"
                 onClick={() => {
-                  this.setState({ isVisible: false });
-                  this.setState({ start: true });
+                  this.setState({
+                    isVisible: false,
+                    start: true,
+                  });
                 }}
                 className="button__finish-button"
               >
