@@ -47,7 +47,7 @@ class App extends React.Component<{}, State> {
 
   sortByAlphabet = () => {
     this.setState(state => ({
-      goods: [...state.goods].sort(),
+      goods: [...state.goods].sort((a, b) => a.localeCompare(b)),
     }));
   };
 
