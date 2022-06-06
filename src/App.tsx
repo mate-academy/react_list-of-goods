@@ -24,11 +24,8 @@ type State = {
 
 class App extends React.Component<{}, State> {
   state = {
-    // eslint-disable-next-line react/no-unused-state
     show: false,
-    // eslint-disable-next-line react/no-unused-state
     revers: false,
-    // eslint-disable-next-line react/no-unused-state
     sort: '',
     goods: [...goodsFromServer],
   };
