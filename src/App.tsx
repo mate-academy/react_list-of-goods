@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer: string[] = [
@@ -31,12 +31,12 @@ class App extends React.Component<{}, State> {
 
   render() {
     return (
-      <div className="App">
-        <h1>Goods</h1>
+      <div className="container">
+        <h1 className="h1">Goods</h1>
         {this.state.startBtn
           ? <GoodsList goods={goodsFromServer} />
           : (
-            <button type="button" onClick={this.start}>
+            <button className="btn-primary" type="button" onClick={this.start}>
               Start
             </button>
           )}

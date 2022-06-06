@@ -49,7 +49,7 @@ export class GoodsList extends React.Component<Props, State> {
         {
           goods: [...state.goods]
             .sort((firstGood, secondGood) => firstGood.length
-            - secondGood.length),
+              - secondGood.length),
         }
       ))
     );
@@ -66,19 +66,35 @@ export class GoodsList extends React.Component<Props, State> {
           })}
         </ul>
 
-        <button type="button" onClick={this.reverseGoods}>
+        <button
+          className="btn-primary"
+          type="button"
+          onClick={this.reverseGoods}
+        >
           Reverse
         </button>
 
-        <button type="button" onClick={this.sortGoodsAlphabetically}>
+        <button
+          type="button"
+          onClick={this.sortGoodsAlphabetically}
+          className="btn-primary"
+        >
           Sort alphabetically
         </button>
 
-        <button type="button" onClick={this.resetGoods}>
+        <button
+          className="btn-primary"
+          type="button"
+          onClick={this.resetGoods}
+        >
           Reset
         </button>
 
-        <button type="button" onClick={this.sortGoodsByLength}>
+        <button
+          className="btn-primary"
+          type="button"
+          onClick={this.sortGoodsByLength}
+        >
           Sort by length
         </button>
       </>
