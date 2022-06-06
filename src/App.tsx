@@ -1,5 +1,6 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,11 +15,34 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const App: React.FC = () => (
-  <div className="App">
-    <h1>Goods</h1>
-    {goodsFromServer.length}
-  </div>
-);
+type State = {
+  startBtn: boolean,
+};
+
+class App extends React.Component<{}, State> {
+  state = {
+    startBtn: false,
+  };
+
+  start = () => {
+    return (this.setState({ startBtn: true })
+    );
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <h1 className="h1">Goods</h1>
+        {this.state.startBtn
+          ? <GoodsList goods={goodsFromServer} />
+          : (
+            <button className="btn-primary" type="button" onClick={this.start}>
+              Start
+            </button>
+          )}
+      </div>
+    );
+  }
+}
 
 export default App;
