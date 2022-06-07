@@ -120,7 +120,11 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-medium is-danger mx-2"
-              onClick={() => this.setState({ sortBy: '', isReversed: false })}
+              onClick={() => this.setState({
+                sortBy: '',
+                isReversed: false,
+                numberValue: 0,
+              })}
             >
               Reset
             </button>
@@ -135,9 +139,10 @@ class App extends React.Component<{}, State> {
 
             <select
               className="select is-medium is-primary mx-4"
+              value={numberValue}
               onChange={(event) => (
                 this.setState({
-                  numberValue: +(event.target.value),
+                  numberValue: Number(event.target.value),
                 })
               )}
             >
