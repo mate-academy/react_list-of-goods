@@ -4,8 +4,8 @@
 - Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
 ## Tasks
-1. At first show a button with text `Start` on the page
-2. Clicking the button shows a `GoodsList` (ul > li) with the given goods and hides the `Start` button
++1. At first show a button with text `Start` on the page
++2. Clicking the button shows a `GoodsList` (ul > li) with the given goods and hides the `Start` button
 3. Add button with text `Reverse` to show the goods in reversed order
 4. Add button with text `Sort alphabetically` to show the goods in alphabetical order
 5. Add button with text `Reset` to show the goods in the initial order
