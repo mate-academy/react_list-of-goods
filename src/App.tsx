@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import './App.scss';
 
@@ -20,7 +19,6 @@ const numArr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 type State = {
   visibleGoods: boolean,
   copyArrGoods: string[],
-  secondCopyArr: string[],
   selectValue: number,
 };
 
@@ -28,7 +26,6 @@ class App extends React.Component<{}, State> {
   state = {
     visibleGoods: false,
     copyArrGoods: [...goodsFromServer],
-    secondCopyArr: [...goodsFromServer],
     selectValue: 1,
   };
 
@@ -38,7 +35,7 @@ class App extends React.Component<{}, State> {
 
   reverseList = () => {
     this.setState((state) => ({
-      copyArrGoods: state.copyArrGoods.reverse(),
+      copyArrGoods: [...state.copyArrGoods].reverse(),
     }));
   };
 
@@ -51,9 +48,9 @@ class App extends React.Component<{}, State> {
   };
 
   handleChange = (e:any) => {
-    this.setState((state) => ({
+    this.setState(() => ({
       selectValue: e.target.value,
-      copyArrGoods: state.secondCopyArr
+      copyArrGoods: [...goodsFromServer]
         .filter(good => good.length <= e.target.value),
     }));
   };
