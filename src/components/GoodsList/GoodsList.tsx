@@ -104,7 +104,10 @@ export class GoodsList extends React.Component<Props, State> {
               is-danger
               is-rounded"
             onClick={() => {
-              this.setState({ goods: initialGoods });
+              this.setState({
+                goods: initialGoods,
+                filterNumber: arrForSelectFilter[0],
+              });
             }}
           >
             Reset
@@ -124,6 +127,7 @@ export class GoodsList extends React.Component<Props, State> {
           <select
             name="filter-length"
             id="filterLength"
+            value={filterNumber}
             onChange={(event) => {
               this.setState({
                 filterNumber: +(event.currentTarget.value),
