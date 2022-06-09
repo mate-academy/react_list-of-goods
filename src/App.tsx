@@ -99,18 +99,18 @@ class App extends React.Component<{}, State> {
       <div className="App columns">
         <div className="
           column
-          is-half
-          is-offset-one-quarter"
+          is-three-fifths
+          is-offset-one-fifth"
         >
           <h1 className="title is-1">Goods</h1>
 
-          <div className="App__start">
+          <div className="App__start columns">
             {!isStarted && (
               <button
                 type="button"
                 className="button
-                  is-success column
-                  is-offset-one-fifth
+                  is-success
+                  column
                   is-one-fifth"
                 onClick={this.start}
               >
@@ -172,7 +172,6 @@ class App extends React.Component<{}, State> {
             <ul className="
               App__list
               column
-              is-offset-one-fifth
               is-one-fifth"
             >
               <h2 className="title is-3">Goods List:</h2>
@@ -194,7 +193,6 @@ class App extends React.Component<{}, State> {
                 type="button"
                 className="button
                   is-danger column
-                  is-offset-one-fifth
                   is-one-fifth"
                 onClick={this.hide}
               >
