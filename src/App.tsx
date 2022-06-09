@@ -28,7 +28,7 @@ class App extends React.Component<{}, State> {
   };
 
   reverseGoods = (goods: string[]) => {
-    return goods.reverse();
+    return [...goods].reverse();
   };
 
   render() {
@@ -85,7 +85,7 @@ class App extends React.Component<{}, State> {
                 type="button"
                 onClick={() => {
                   this.setState({
-                    goods: goods.sort((a, b) => a.localeCompare(b)),
+                    goods: [...goods].sort((a, b) => a.localeCompare(b)),
                   });
                 }}
                 className="button__sort-alphabetically-button"
@@ -97,7 +97,7 @@ class App extends React.Component<{}, State> {
                 type="button"
                 onClick={() => {
                   this.setState({
-                    goods: goods.sort((a, b) => a.length - b.length),
+                    goods: [...goods].sort((a, b) => a.length - b.length),
                   });
                 }}
                 className="button__sotr-by-length-button"
