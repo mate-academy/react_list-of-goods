@@ -5,6 +5,11 @@
   margin: 16px;
 }
 
+.App__list {
+  display: block;
+  height: 320px;
+}
+
 .button {
   margin: 8px;
 }

@@ -14,11 +14,14 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const lengths: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 interface State {
   goods: string[];
   isStarted: boolean;
   isReversed: boolean;
   sortBy: 'none' | 'name' | 'length';
+  selection: number;
 }
 
 class App extends React.Component<{}, State> {
@@ -27,11 +30,21 @@ class App extends React.Component<{}, State> {
     isStarted: false,
     isReversed: false,
     sortBy: 'none',
+    selection: 1,
   };
 
   start = () => {
     this.setState({ isStarted: true });
   };
+
+  hide = () => (this.setState(state => (
+    {
+      isStarted: !state.isStarted,
+      isReversed: false,
+      sortBy: 'none',
+      selection: 1,
+    }
+  )));
 
   reverse = () => {
     this.setState((state) => (
@@ -48,7 +61,11 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ isReversed: false, sortBy: 'none' });
+    this.setState({
+      isReversed: false,
+      sortBy: 'none',
+      selection: 1,
+    });
   };
 
   render(): React.ReactNode {
@@ -57,9 +74,11 @@ class App extends React.Component<{}, State> {
       isStarted,
       isReversed,
       sortBy,
+      selection,
     } = this.state;
 
     let visibleGoods = [...goods];
+    const filterByLength = (good: string) => good.length >= selection;
 
     switch (sortBy) {
       case 'name':
@@ -89,12 +108,32 @@ class App extends React.Component<{}, State> {
             {!isStarted && (
               <button
                 type="button"
-                className="button is-success"
+                className="button
+                  is-success column
+                  is-offset-one-quarter
+                  is-half"
                 onClick={this.start}
               >
                 Start
               </button>
             )}
+          </div>
+
+          <div>
+            <label htmlFor="select-field">Select minimum length: </label>
+            <select
+              name="select-field"
+              value={selection}
+              onChange={(event) => {
+                this.setState({
+                  selection: Number(event.currentTarget.value),
+                });
+              }}
+            >
+              {lengths.map(num => (
+                <option key={num} value={num}>{num}</option>
+              ))}
+            </select>
           </div>
 
           <button
@@ -131,19 +170,38 @@ class App extends React.Component<{}, State> {
 
           {isStarted && (
             <ul className="
+              App__list
               column
               is-half
               is-offset-one-quarter"
             >
               <h2 className="title is-3">Goods List:</h2>
-
-              {visibleGoods.map((good) => (
-                <li key={good}>
-                  {good}
-                </li>
-              ))}
+              {
+                visibleGoods
+                  .filter(filterByLength)
+                  .map((good) => (
+                    <li key={good}>
+                      {good}
+                    </li>
+                  ))
+              }
             </ul>
           )}
+
+          <div className="App__start">
+            {isStarted && (
+              <button
+                type="button"
+                className="button
+                  is-danger column
+                  is-offset-one-quarter
+                  is-half"
+                onClick={this.hide}
+              >
+                Hide
+              </button>
+            )}
+          </div>
         </div>
       </div>
     );
