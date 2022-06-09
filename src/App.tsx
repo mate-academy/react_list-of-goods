@@ -110,8 +110,8 @@ class App extends React.Component<{}, State> {
                 type="button"
                 className="button
                   is-success column
-                  is-offset-one-quarter
-                  is-half"
+                  is-offset-one-fifth
+                  is-one-fifth"
                 onClick={this.start}
               >
                 Start
@@ -172,8 +172,8 @@ class App extends React.Component<{}, State> {
             <ul className="
               App__list
               column
-              is-half
-              is-offset-one-quarter"
+              is-offset-one-fifth
+              is-one-fifth"
             >
               <h2 className="title is-3">Goods List:</h2>
               {
@@ -194,8 +194,8 @@ class App extends React.Component<{}, State> {
                 type="button"
                 className="button
                   is-danger column
-                  is-offset-one-quarter
-                  is-half"
+                  is-offset-one-fifth
+                  is-one-fifth"
                 onClick={this.hide}
               >
                 Hide
