@@ -1,1 +1,7 @@
-/* not empty */
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+  margin-right: 5px;
+}
