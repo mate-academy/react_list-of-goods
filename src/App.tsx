@@ -16,26 +16,26 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  buttonHidden: boolean,
+  buttonVisibility: boolean,
 };
 
 class App extends React.Component<{}, State> {
   state = {
-    buttonHidden: false,
+    buttonVisibility: false,
   };
 
-  buttonHidden = () => {
+  buttonVisibility = () => {
     this.setState(state => ({
-      buttonHidden: !state.buttonHidden,
+      buttonVisibility: !state.buttonVisibility,
     }));
   };
 
   render() {
-    const { buttonHidden } = this.state;
+    const { buttonVisibility } = this.state;
 
     return (
       <div className="App">
-        {buttonHidden
+        {buttonVisibility
           ? (
             <List goods={goodsFromServer} />
           )
@@ -43,7 +43,7 @@ class App extends React.Component<{}, State> {
             <button
               className="button"
               type="button"
-              onClick={this.buttonHidden}
+              onClick={this.buttonVisibility}
             >
               Start
             </button>
