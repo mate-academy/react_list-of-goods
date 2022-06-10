@@ -1,1 +1,23 @@
-/* not empty */
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+.App__start {
+  height: 48px;
+  margin: 16px;
+}
+
+.App__list {
+  display: block;
+  height: 320px;
+}
+
+.button {
+  margin: 8px;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.centered {
+  margin: 0 auto;
+}
