@@ -14,7 +14,11 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-type SortBy = 'none' | 'name' | 'length';
+enum SortBy {
+  None = 'none',
+  Name = 'name',
+  Length = 'Length',
+}
 
 type State = {
   goods: string[];
@@ -28,7 +32,7 @@ class App extends React.Component<{}, State> {
     goods: [...goodsFromServer],
     isVisible: false,
     isReversed: false,
-    sortBy: 'none',
+    sortBy: SortBy.None,
   };
 
   start = () => {
@@ -42,17 +46,17 @@ class App extends React.Component<{}, State> {
   };
 
   sortByName = () => {
-    this.setState({ sortBy: 'name' });
+    this.setState({ sortBy: SortBy.Name });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sortBy: SortBy.Length });
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: 'none',
+      sortBy: SortBy.None,
     });
   };
 
@@ -67,11 +71,11 @@ class App extends React.Component<{}, State> {
     let visibleGoods = [...goods];
 
     switch (sortBy) {
-      case 'name':
+      case SortBy.Name:
         visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
         break;
 
-      case 'length':
+      case SortBy.Length:
         visibleGoods.sort((good1, good2) => good1.length - good2.length);
         break;
 
