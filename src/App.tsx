@@ -58,6 +58,7 @@ class App extends React.Component<{}, State> {
   reset = () => {
     this.setState({
       isReversed: false,
+      length: 1,
     });
   };
 
