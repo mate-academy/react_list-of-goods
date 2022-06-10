@@ -57,6 +57,7 @@ class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState({
+      goods: [...goodsFromServer],
       isReversed: false,
       length: 1,
     });
