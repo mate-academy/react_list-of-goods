@@ -18,16 +18,12 @@ const goodsFromServer: string[] = [
 type State = {
   goods: string[],
   isVisible: boolean,
-  isReversed: boolean,
-  sortBy: string,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: goodsFromServer,
     isVisible: false,
-    isReversed: false,
-    sortBy: '',
   };
 
   start = () => {
@@ -39,50 +35,37 @@ class App extends React.Component<{}, State> {
   };
 
   sortByAlfabeth = () => {
-    this.setState({
-      sortBy: 'alphabet',
-    });
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (prevGood, nextGood) => prevGood.localeCompare(nextGood),
+      ),
+    }));
   };
 
   reverse = () => {
     this.setState(state => ({
-      isReversed: !state.isReversed,
+      goods: [...state.goods].reverse(),
     }));
   };
 
   sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-    });
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (prevGood, nextGood) => prevGood.length - nextGood.length,
+      ),
+    }));
   };
 
   reset = () => {
-    this.setState({
-      isReversed: false,
-      sortBy: '',
-    });
+    this.setState({ goods: goodsFromServer });
   };
 
   render() {
     const {
       goods,
       isVisible,
-      isReversed,
-      sortBy,
     } = this.state;
     const visibleGoods = [...goods];
-
-    if (sortBy === 'length') {
-      visibleGoods.sort((good1, good2) => good1.length - good2.length);
-    }
-
-    if (sortBy === 'alphabet') {
-      visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
-    }
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div>
