@@ -15,14 +15,16 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-type SortBy = 'none' | 'name' | 'length';
+enum SortBy {
+  Name = 'name',
+  Length = 'length',
+}
 
 interface State {
   goods: string[];
   isGoodsListVisible: boolean;
   isReversed: boolean;
-  sortBy: SortBy;
-
+  sortBy: SortBy | null;
 }
 
 class App extends React.Component<{}, State> {
@@ -30,7 +32,7 @@ class App extends React.Component<{}, State> {
     goods: [...goodsFromServer],
     isGoodsListVisible: false,
     isReversed: false,
-    sortBy: 'none',
+    sortBy: null,
   };
 
   start = (): void => {
@@ -44,17 +46,17 @@ class App extends React.Component<{}, State> {
   };
 
   sortAlphabetically = (): void => {
-    this.setState({ sortBy: 'name' });
+    this.setState({ sortBy: SortBy.Name });
   };
 
   sortByLength = (): void => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sortBy: SortBy.Length });
   };
 
   reset = (): void => {
     this.setState({
       isReversed: false,
-      sortBy: 'none',
+      sortBy: null,
     });
   };
 
@@ -66,16 +68,16 @@ class App extends React.Component<{}, State> {
       sortBy,
     } = this.state;
 
-    let visibleGoods:string[] = [...goods];
+    let visibleGoods: string[] = [...goods];
 
     switch (sortBy) {
-      case 'name':
+      case SortBy.Name:
         visibleGoods.sort(
           (good1, good2) => good1.localeCompare(good2),
         );
         break;
 
-      case 'length':
+      case SortBy.Length:
         visibleGoods.sort(
           (good1, good2) => good1.length - good2.length,
         );
