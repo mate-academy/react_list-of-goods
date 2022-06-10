@@ -16,11 +16,17 @@ const goodsFromServer: string[] = [
 
 const lengths: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+enum SortBy {
+  none,
+  name,
+  length,
+}
+
 interface State {
   goods: string[];
   isStarted: boolean;
   isReversed: boolean;
-  sortBy: 'none' | 'name' | 'length';
+  sortBy: SortBy;
   selection: number;
 }
 
@@ -29,22 +35,9 @@ class App extends React.Component<{}, State> {
     goods: [...goodsFromServer],
     isStarted: false,
     isReversed: false,
-    sortBy: 'none',
+    sortBy: SortBy.none,
     selection: 1,
   };
-
-  start = () => {
-    this.setState({ isStarted: true });
-  };
-
-  hide = () => (this.setState(state => (
-    {
-      isStarted: !state.isStarted,
-      isReversed: false,
-      sortBy: 'none',
-      selection: 1,
-    }
-  )));
 
   reverse = () => {
     this.setState((state) => (
@@ -52,20 +45,33 @@ class App extends React.Component<{}, State> {
     ));
   };
 
-  sortByAlpha = () => {
-    this.setState({ sortBy: 'name' });
+  sortByName = () => {
+    this.setState({ sortBy: SortBy.name });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sortBy: SortBy.length });
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: 'none',
+      sortBy: SortBy.none,
       selection: 1,
     });
+  };
+
+  start = () => {
+    this.setState({ isStarted: true });
+  };
+
+  toggleVisibility = () => (this.setState(state => (
+    { isStarted: !state.isStarted }
+  )));
+
+  hideAndReset = () => {
+    this.reset();
+    this.toggleVisibility();
   };
 
   render(): React.ReactNode {
@@ -81,10 +87,10 @@ class App extends React.Component<{}, State> {
     const filterByLength = (good: string) => good.length >= selection;
 
     switch (sortBy) {
-      case 'name':
+      case SortBy.name:
         visibleGoods.sort((a, b) => (a.localeCompare(b)));
         break;
-      case 'length':
+      case SortBy.length:
         visibleGoods.sort((a, b) => (a.length - b.length));
         break;
       default:
@@ -104,7 +110,7 @@ class App extends React.Component<{}, State> {
         >
           <h1 className="title is-1">Goods</h1>
 
-          <div className="App__start columns">
+          <div className="App__start">
             {!isStarted && (
               <button
                 type="button"
@@ -136,43 +142,43 @@ class App extends React.Component<{}, State> {
             </select>
           </div>
 
-          <button
-            type="button"
-            className="button is-info"
-            onClick={this.reverse}
-          >
-            Reverse
-          </button>
+          <div>
+            <button
+              type="button"
+              className="button is-info"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
 
-          <button
-            type="button"
-            className="button is-info"
-            onClick={this.sortByAlpha}
-          >
-            Sort Alphabetically
-          </button>
+            <button
+              type="button"
+              className="button is-info"
+              onClick={this.sortByName}
+            >
+              Sort Alphabetically
+            </button>
 
-          <button
-            type="button"
-            className="button is-info"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
+            <button
+              type="button"
+              className="button is-info"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
 
-          <button
-            type="button"
-            className="button is-info"
-            onClick={this.sortByLength}
-          >
-            Sort by Length
-          </button>
+            <button
+              type="button"
+              className="button is-info"
+              onClick={this.sortByLength}
+            >
+              Sort by Length
+            </button>
+          </div>
 
           {isStarted && (
             <ul className="
-              App__list
-              column
-              is-one-fifth"
+              App__list column is-full"
             >
               <h2 className="title is-3">Goods List:</h2>
               {
@@ -194,7 +200,7 @@ class App extends React.Component<{}, State> {
                 className="button
                   is-danger column
                   is-one-fifth"
-                onClick={this.hide}
+                onClick={this.hideAndReset}
               >
                 Hide
               </button>
