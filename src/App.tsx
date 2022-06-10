@@ -14,17 +14,11 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-enum SortBy {
-  None = 'none',
-  Name = 'name',
-  Length = 'Length',
-}
-
 type State = {
   goods: string[];
   isVisible: boolean;
-  isReversed: boolean,
-  sortBy: SortBy,
+  isReversed: boolean;
+  length: number;
 };
 
 class App extends React.Component<{}, State> {
@@ -32,7 +26,7 @@ class App extends React.Component<{}, State> {
     goods: [...goodsFromServer],
     isVisible: false,
     isReversed: false,
-    sortBy: SortBy.None,
+    length: 1,
   };
 
   start = () => {
@@ -46,17 +40,24 @@ class App extends React.Component<{}, State> {
   };
 
   sortByName = () => {
-    this.setState({ sortBy: SortBy.Name });
+    this.setState(state => ({
+      goods: [...state.goods].sort((good1, good2) => (
+        (good1).localeCompare(good2)
+      )),
+    }));
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: SortBy.Length });
+    this.setState(state => ({
+      goods: [...state.goods].sort((good1, good2) => (
+        good1.length - good2.length
+      )),
+    }));
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: SortBy.None,
     });
   };
 
@@ -65,24 +66,10 @@ class App extends React.Component<{}, State> {
       goods,
       isVisible,
       isReversed,
-      sortBy,
+      length,
     } = this.state;
 
-    let visibleGoods = [...goods];
-
-    switch (sortBy) {
-      case SortBy.Name:
-        visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
-        break;
-
-      case SortBy.Length:
-        visibleGoods.sort((good1, good2) => good1.length - good2.length);
-        break;
-
-      default:
-        visibleGoods = [...goods];
-        break;
-    }
+    const visibleGoods = [...goods].filter(good => good.length >= length);
 
     if (isReversed) {
       visibleGoods.reverse();
@@ -92,61 +79,82 @@ class App extends React.Component<{}, State> {
       <div className="App container.is-widescreen has-text-centered">
         <h1 className="title is-1 mt-3 has-text-centered">Goods</h1>
 
-        <div className="App__start">
-          {!isVisible && (
-            <button
-              type="button"
-              className="button is-success mt-2"
-              onClick={this.start}
-            >
-              Start
-            </button>
-          )}
-        </div>
-
-        <div className="is-flex is-justify-content-center mt-6">
+        {!isVisible && (
           <button
             type="button"
-            className="button is-info mx-4"
-            onClick={this.reverse}
+            className="button is-success mt-2"
+            onClick={this.start}
           >
-            Reverse
+            Start
           </button>
-
-          <button
-            type="button"
-            className="button is-info mx-4"
-            onClick={this.sortByName}
-          >
-            Sort alphabetically
-          </button>
-
-          <button
-            type="button"
-            className="button is-info mx-4"
-            onClick={this.sortByLength}
-          >
-            Sort Sort by length
-          </button>
-
-          <button
-            type="button"
-            className="button is-info mx-4"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
-        </div>
+        )}
 
         <div className="mt-5">
           {isVisible && (
-            <ul>
-              {visibleGoods.map((good) => (
-                <li key={good} className="is-size-4">
-                  {good}
-                </li>
-              ))}
-            </ul>
+            <div>
+              <div className="is-flex is-justify-content-center mt-6">
+                <button
+                  type="button"
+                  className="button is-info mx-4"
+                  onClick={this.reverse}
+                >
+                  Reverse
+                </button>
+
+                <button
+                  type="button"
+                  className="button is-info mx-4"
+                  onClick={() => this.sortByName()}
+                >
+                  Sort alphabetically
+                </button>
+
+                <button
+                  type="button"
+                  className="button is-info mx-4"
+                  onClick={() => this.sortByLength()}
+                >
+                  Sort Sort by length
+                </button>
+
+                <button
+                  type="button"
+                  className="button is-info mx-4"
+                  onClick={this.reset}
+                >
+                  Reset
+                </button>
+
+                <select
+                  name="length"
+                  value={length}
+                  onChange={(event) => {
+                    this.setState({
+                      length: +event.target.value,
+                    });
+                  }}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
+
+              <ul className="mt-5">
+                {visibleGoods.map((good) => (
+                  <li key={good} className="is-size-4">
+                    {good}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       </div>
