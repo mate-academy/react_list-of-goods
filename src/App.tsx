@@ -59,7 +59,6 @@ class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState({
-      // isVisible: false,
       isReversed: false,
       sortBy: SortBy.none,
     });
@@ -93,58 +92,66 @@ class App extends React.Component<{}, State> {
     }
 
     return (
-      <div className="App">
-        <h1>Goods</h1>
-        <button
-          type="button"
-          onClick={this.start}
-        >
-          Start
-        </button>
+      <div className="App container">
+        <div className="box">
+          <div className="goods-bar">
+            <h1 className="title">Goods</h1>
+            {!isVisible && (
+              <button
+                type="button"
+                onClick={this.start}
+                className="button is-primary is-rounded start-button"
+              >
+                Start
+              </button>
+            )}
+          </div>
+          {isVisible && (
+            <div className="field is-grouped">
+              <button
+                type="button"
+                onClick={this.reversed}
+                className="button is-info is-rounded"
+              >
+                Reverse
+              </button>
 
-        <div>
-          <button
-            type="button"
-            onClick={this.reversed}
-          >
-            Reverse
-          </button>
+              <button
+                type="button"
+                onClick={this.sortAlphabetically}
+                className="button is-info is-rounded"
+              >
+                Sort alphabetically
+              </button>
 
-          <button
-            type="button"
-            onClick={this.sortAlphabetically}
+              <button
+                type="button"
+                onClick={this.reset}
+                className="button is-info is-rounded"
+              >
+                Reset
+              </button>
 
-          >
-            Sort alphabetically
-          </button>
+              <button
+                type="button"
+                onClick={this.sortByLength}
+                className="button is-info is-rounded"
+              >
+                Sort by length
+              </button>
+            </div>
+          )}
 
-          <button
-            type="button"
-            onClick={this.reset}
-
-          >
-            Reset
-          </button>
-
-          <button
-            type="button"
-            onClick={this.sortByLength}
-
-          >
-            Sort by length
-          </button>
+          {isVisible && (
+            <ul>
+              {listedGoods.map((good) => (
+                <li>
+                  {good}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-
-        {isVisible && (
-          <ul>
-            {listedGoods.map((good) => (
-              <li>
-                {good}
-              </li>
-            ))}
-          </ul>
-        )}
-
       </div>
     );
   }
