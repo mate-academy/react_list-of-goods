@@ -107,7 +107,7 @@ class App extends React.Component<{}, State> {
             )}
           </div>
           {isVisible && (
-            <div className="field is-grouped">
+            <div className="field is-grouped box">
               <button
                 type="button"
                 onClick={this.reversed}
