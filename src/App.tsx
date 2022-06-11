@@ -143,7 +143,7 @@ class App extends React.Component<{}, State> {
           )}
 
           {isVisible && (
-            <ul>
+            <ul className="box">
               {listedGoods.map((good) => (
                 <li>
                   {good}
