@@ -61,29 +61,30 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    let visibleGoods: string[] = [...this.state.goods];
+    let goodsList: string[] = [...this.state.goods];
 
     switch (this.state.sortBy) {
       case SortBy.Name:
-        visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
+        goodsList.sort((good1, good2) => good1.localeCompare(good2));
         break;
       case SortBy.Length:
-        visibleGoods.sort((good1, good2) => good1.length - good2.length);
+        goodsList.sort((good1, good2) => good1.length - good2.length);
         break;
       default:
-        visibleGoods = [...this.state.goods];
+        goodsList = [...this.state.goods];
         break;
     }
 
     if (this.state.isReverse) {
-      visibleGoods.reverse();
+      goodsList.reverse();
     }
 
     return (
-      <div>
+      <div className="container.is-widescreen has-text-centered">
         {!this.state.isListVisible && (
           <button
             type="button"
+            className="button is-link mt-6"
             onClick={this.start}
           >
             Start
@@ -92,9 +93,9 @@ class App extends React.Component<{}, State> {
 
         {this.state.isListVisible && (
           <div>
-            <ul>
-              {visibleGoods.map((good) => (
-                <li key={good}>
+            <ul className="my-5">
+              {goodsList.map((good) => (
+                <li key={good} className="is-size-5">
                   {good}
                 </li>
               ))}
@@ -102,6 +103,7 @@ class App extends React.Component<{}, State> {
             <div>
               <button
                 type="button"
+                className="button is-primary mx-5"
                 onClick={this.reverse}
               >
                 Reverse
@@ -109,6 +111,7 @@ class App extends React.Component<{}, State> {
 
               <button
                 type="button"
+                className="button is-primary mx-5"
                 onClick={this.sortAlphabetically}
               >
                 Sort alphabetically
@@ -116,6 +119,7 @@ class App extends React.Component<{}, State> {
 
               <button
                 type="button"
+                className="button is-primary mx-5"
                 onClick={this.sortByLength}
               >
                 Sort By Length
@@ -123,6 +127,7 @@ class App extends React.Component<{}, State> {
 
               <button
                 type="button"
+                className="button is-primary mx-5"
                 onClick={this.reset}
               >
                 Reset
