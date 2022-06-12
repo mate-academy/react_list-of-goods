@@ -15,19 +15,23 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const numArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 type State = {
   goods: string[],
   counter: number,
+  arr: number[],
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: [...goodsFromServer],
     counter: 0,
+    arr: [...numArr],
   };
 
   render() {
-    const { goods, counter } = this.state;
+    const { goods, counter, arr } = this.state;
 
     return (
       <div>
@@ -60,7 +64,7 @@ class App extends React.Component<{}, State> {
                   type="button"
                   className="button is-info is-light"
                   onClick={() => (
-                    this.setState({ goods: goods.reverse() })
+                    this.setState({ goods: [...goods].reverse() })
                   )}
                 >
                   Reverse
@@ -71,7 +75,7 @@ class App extends React.Component<{}, State> {
                   className="button is-info is-light"
                   onClick={() => (
                     this.setState(
-                      { goods: goods.sort((a, b) => a.localeCompare(b)) },
+                      { goods: [...goods].sort((a, b) => a.localeCompare(b)) },
                     )
                   )}
                 >
@@ -82,7 +86,9 @@ class App extends React.Component<{}, State> {
                   type="button"
                   className="button is-info is-light"
                   onClick={() => (
-                    this.setState({ goods: [...goodsFromServer] })
+                    this.setState(
+                      { goods: [...goodsFromServer], arr: [...numArr] },
+                    )
                   )}
                 >
                   Reset
@@ -93,7 +99,7 @@ class App extends React.Component<{}, State> {
                   className="button is-info is-light"
                   onClick={() => (
                     this.setState(
-                      { goods: goods.sort((a, b) => a.length - b.length) },
+                      { goods: [...goods].sort((a, b) => a.length - b.length) },
                     )
                   )}
                 >
@@ -113,16 +119,13 @@ class App extends React.Component<{}, State> {
                     )
                   )}
                 >
-                  <option value="1" selected>1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                  {[...arr].map(el => {
+                    return (
+                      <option value={`${el}`}>
+                        {el}
+                      </option>
+                    );
+                  })}
                 </select>
               </>
             )
