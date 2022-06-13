@@ -15,49 +15,56 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-const numArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const selectList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 type State = {
   goods: string[],
-  counter: number,
-  arr: number[],
+  activeButton: boolean,
+  list: number[],
+  selectValue: number,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: [...goodsFromServer],
-    counter: 0,
-    arr: [...numArr],
+    activeButton: false,
+    list: [...selectList],
+    selectValue: 1,
   };
 
   render() {
-    const { goods, counter, arr } = this.state;
+    const {
+      goods,
+      activeButton,
+      list,
+      selectValue,
+    } = this.state;
 
     return (
       <div>
-        <div className={counter % 2 !== 0
+        <div className={activeButton
           ? 'App'
           : 'App-start'}
         >
           <button
             type="button"
-            className={counter % 2 !== 0
+            className={activeButton
               ? 'button is-danger is-light'
               : 'button is-success is-light'}
             onClick={() => {
-              return this.setState({ counter: counter + 1 });
+              return this.setState({ activeButton: !activeButton });
             }}
           >
-            {counter % 2 !== 0
+            {activeButton
               ? 'Hide'
               : 'Start'}
           </button>
 
-          {counter % 2 !== 0
+          {activeButton
             ? <GoodsList goods={goods} />
             : null}
 
-          {counter % 2 !== 0
+          {activeButton
             ? (
               <>
                 <button
@@ -87,7 +94,11 @@ class App extends React.Component<{}, State> {
                   className="button is-info is-light"
                   onClick={() => (
                     this.setState(
-                      { goods: [...goodsFromServer], arr: [...numArr] },
+                      {
+                        goods: [...goodsFromServer],
+                        list: [...selectList],
+                        selectValue: 1,
+                      },
                     )
                   )}
                 >
@@ -110,16 +121,18 @@ class App extends React.Component<{}, State> {
                 </p>
                 <select
                   className="select is-info"
-                  onChange={(event) => (
+                  value={selectValue}
+                  onChange={(event) => {
                     this.setState(
                       {
                         goods: [...goodsFromServer].filter(el => (
                           el.length >= +event.currentTarget.value)),
+                        selectValue: +event.currentTarget.value,
                       },
-                    )
-                  )}
+                    );
+                  }}
                 >
-                  {[...arr].map(el => {
+                  {[...list].map(el => {
                     return (
                       <option value={`${el}`}>
                         {el}
