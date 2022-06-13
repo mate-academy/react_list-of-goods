@@ -1,6 +1,4 @@
 import React from 'react';
-import './App.css';
-import 'bulma/css/bulma.min.css';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -20,7 +18,7 @@ interface State {
   goodsList: string[];
 }
 
-class App extends React.Component<{}, State> {
+class RenderList extends React.Component<{}, State> {
   state = {
     isClicked: false,
     goodsList: [...goodsFromServer],
@@ -102,7 +100,7 @@ class App extends React.Component<{}, State> {
       );
 
     return (
-      <div className="App container is-fluid">
+      <>
         <h1 className="title is-1">Goods</h1>
         {showOrHideButton}
         <article className="content is-medium">
@@ -155,9 +153,9 @@ class App extends React.Component<{}, State> {
             Sort by length
           </button>
         </article>
-      </div>
+      </>
     );
   }
 }
 
-export default App;
+export default RenderList;
