@@ -39,6 +39,30 @@ class App extends React.Component<{}, State> {
     ));
   };
 
+  sort = () => {
+    this.setState((state) => ({
+      goods: [...state.goods].sort((el1, el2) => (
+        (el1).localeCompare(el2)
+      )),
+    }));
+  };
+
+  reset = () => {
+    this.setState({
+      goods: [...goodsFromServer],
+      isReversed: false,
+      length: 1,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState(state => ({
+      goods: [...state.goods].sort((good1, good2) => (
+        good1.length - good2.length
+      )),
+    }));
+  };
+
   render() {
     const {
       goods,
@@ -77,6 +101,30 @@ class App extends React.Component<{}, State> {
                   onClick={this.reverse}
                 >
                   Reverse
+                </button>
+
+                <button
+                  type="button"
+                  className="app__sort-btn"
+                  onClick={this.sort}
+                >
+                  Sort alphabetically
+                </button>
+
+                <button
+                  type="button"
+                  className="app__reset-btn"
+                  onClick={this.reset}
+                >
+                  Reset
+                </button>
+
+                <button
+                  type="button"
+                  className="app__sortLength-btn"
+                  onClick={this.sortByLength}
+                >
+                  Sort By Length
                 </button>
               </div>
 
