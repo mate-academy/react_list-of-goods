@@ -1,1 +1,7 @@
-/* not empty */
+.App {
+  background-color: lightgrey;
+}
+
+.button {
+  background-color: aquamarine;
+}
