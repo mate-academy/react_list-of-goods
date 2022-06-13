@@ -87,6 +87,7 @@ class App extends React.Component<{}, State> {
       ? null
       : (
         <button
+          className="button is-primary"
           type="button"
           onClick={
             () => {
@@ -101,7 +102,7 @@ class App extends React.Component<{}, State> {
       );
 
     return (
-      <div className="App">
+      <div className="App container is-fluid">
         <h1>Goods</h1>
         {showOrHideButton}
         <ul>
@@ -112,7 +113,7 @@ class App extends React.Component<{}, State> {
         <hr />
         <article className="button button-group">
           <button
-            className="button is-link"
+            className="button is-dark"
             type="button"
             onClick={() => {
               this.reverse(this.state.goodsList);
@@ -122,6 +123,7 @@ class App extends React.Component<{}, State> {
           </button>
 
           <button
+            className="button is-dark"
             type="button"
             onClick={() => {
               this.sortAlphabetically(this.state.goodsList);
@@ -131,6 +133,7 @@ class App extends React.Component<{}, State> {
           </button>
 
           <button
+            className="button is-dark"
             type="button"
             onClick={() => {
               this.reset();
@@ -140,6 +143,7 @@ class App extends React.Component<{}, State> {
           </button>
 
           <button
+            className="button is-dark"
             type="button"
             onClick={() => {
               this.sortByLength(this.state.goodsList);
