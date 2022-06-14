@@ -64,11 +64,22 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        <h1>Goods</h1>
+        <h1
+          className="
+          title
+          App__header"
+        >
+          Goods
+        </h1>
 
         <button
           type="button"
           onClick={this.showList}
+          className="
+          button
+          is-info
+          is-light
+          App__button"
         >
           Start
         </button>
@@ -76,6 +87,12 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={this.reverse}
+          className="
+          button
+          is-info
+          is-light
+          App__button
+          "
         >
           Reverse
         </button>
@@ -83,6 +100,11 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={this.sortByAbc}
+          className="
+          button
+          is-info
+          is-light
+          App__button"
         >
           Sort alphavetically
         </button>
@@ -90,6 +112,11 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={this.sortByLength}
+          className="
+          button
+          is-info
+          is-light
+          App__button"
         >
           Sort by length
         </button>
@@ -97,14 +124,22 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={this.reset}
+          className="
+          button
+          is-info
+          is-light
+          App__button"
         >
           Reset
         </button>
 
         {isGoodsVisible && (
-          <ul>
+          <ul className="App__list">
             {goods.map(good => (
-              <li key={good}>
+              <li
+                key={good}
+                className="App__item has-text-weight-light"
+              >
                 {good}
               </li>
             ))}
