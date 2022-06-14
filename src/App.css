@@ -1,1 +1,10 @@
-/* not empty */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App__title {
+  color: aqua;
+  font-size: 40px;
+}
