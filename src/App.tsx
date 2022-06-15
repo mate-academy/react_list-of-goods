@@ -18,14 +18,22 @@ type State = {
   goods: string[];
   isVisible: boolean;
   isReversed: boolean;
+  sortBy: SortBy;
   length: number;
 };
+
+enum SortBy {
+  None,
+  Name,
+  Length,
+}
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
     isVisible: false,
     isReversed: false,
+    sortBy: SortBy.None,
     length: 1,
   };
 
@@ -40,25 +48,18 @@ class App extends React.Component<{}, State> {
   };
 
   sortByName = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((good1, good2) => (
-        (good1).localeCompare(good2)
-      )),
-    }));
+    this.setState({ sortBy: SortBy.Name });
   };
 
   sortByLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort((good1, good2) => (
-        good1.length - good2.length
-      )),
-    }));
+    this.setState({ sortBy: SortBy.Length });
   };
 
   reset = () => {
     this.setState({
       goods: [...goodsFromServer],
       isReversed: false,
+      sortBy: SortBy.None,
       length: 1,
     });
   };
@@ -68,10 +69,24 @@ class App extends React.Component<{}, State> {
       goods,
       isVisible,
       isReversed,
+      sortBy,
       length,
     } = this.state;
 
-    const visibleGoods = [...goods].filter(good => good.length >= length);
+    const filterByLength = (good: string) => good.length >= length;
+
+    let visibleGoods = [...goods].filter(good => good.length >= length);
+
+    switch (sortBy) {
+      case SortBy.Name:
+        visibleGoods.sort((a, b) => (a.localeCompare(b)));
+        break;
+      case SortBy.Length:
+        visibleGoods.sort((a, b) => (a.length - b.length));
+        break;
+      default:
+        (visibleGoods = [...goods]);
+    }
 
     if (isReversed) {
       visibleGoods.reverse();
@@ -150,11 +165,13 @@ class App extends React.Component<{}, State> {
               </div>
 
               <ul className="mt-5">
-                {visibleGoods.map((good) => (
-                  <li key={good} className="is-size-4">
-                    {good}
-                  </li>
-                ))}
+                {visibleGoods
+                  .filter(filterByLength)
+                  .map((good) => (
+                    <li key={good} className="is-size-4">
+                      {good}
+                    </li>
+                  ))}
               </ul>
             </div>
           )}
