@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../node_modules/bulma/css/bulma-rtl.css';
 
 const goodsFromServer: string[] = [
   'Dumplings',
@@ -14,20 +14,36 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+function createList() {
+  const result = [];
+  const maxLength = 10;
+  const minLength = 0;
+
+  for (let i = minLength; i <= maxLength; i += 1) {
+    result[result.length] = i;
+  }
+
+  return result;
+}
+
+const listOfLength = createList();
+
 interface State {
-  visiability: boolean,
+  visibility: boolean,
   goods: string[],
   length: number,
+  listOfOptions: number[],
 }
 
 class App extends React.Component<{}, State> {
   state: State = {
-    visiability: false,
+    visibility: false,
     goods: [...goodsFromServer],
     length: 10,
+    listOfOptions: listOfLength,
   };
 
-  sortByAlfa = () => {
+  sortByAbc = () => {
     this.setState(state => ({
       goods: [...state.goods].sort((a: string, b: string) => (
         (a).localeCompare(b)
@@ -51,36 +67,52 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
-      visiability,
+      visibility,
       goods,
       length,
+      listOfOptions,
     } = this.state;
 
     const visiblGoods = this.filterByLength(goods, length);
 
     return (
-      <div className="App">
-        <h1>Goods</h1>
-        {(!visiability)
+      <div className="
+          App
+          container
+          is-flex
+          is-flex-direction-column
+          is-align-items-center
+          m-3
+        "
+      >
+        <h1 className="is-size-3">
+          Goods
+        </h1>
+        {(!visibility)
           ? (
-            <>
-              <button
-                type="button"
-                onClick={() => {
-                  this.setState({ visiability: true });
-                }}
-              >
-                Start
-              </button>
-            </>
+            <button
+              type="button"
+              className="button m-3 is-primary"
+              onClick={() => {
+                this.setState({ visibility: true });
+              }}
+            >
+              Start
+            </button>
           ) : (
             <>
-              <div>
+              <div className="
+                is-flex
+                is-flex-direction-row
+                is-justify-content-space-between
+                "
+              >
                 <button
                   type="button"
+                  className="button m-3 is-primary"
                   onClick={() => {
                     this.setState((state: State) => ({
-                      goods: state.goods.reverse(),
+                      goods: [...state.goods].reverse(),
                     }));
                   }}
                 >
@@ -88,22 +120,21 @@ class App extends React.Component<{}, State> {
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    this.sortByAlfa();
-                  }}
+                  className="button m-3 is-primary"
+                  onClick={this.sortByAbc}
                 >
                   Sort alphabetically
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    this.sortByLength();
-                  }}
+                  className="button m-3 is-primary"
+                  onClick={this.sortByLength}
                 >
                   Sort by length
                 </button>
                 <button
                   type="button"
+                  className="button m-3 is-primary"
                   onClick={() => {
                     this.setState({
                       goods: goodsFromServer,
@@ -113,30 +144,39 @@ class App extends React.Component<{}, State> {
                 >
                   Reset
                 </button>
-                <select
-                  name="length"
-                  value={length}
-                  onChange={event => {
-                    this.setState({
-                      length: +event.target.value,
-                    });
-                  }}
+                <div
+                  className="
+                    select
+                    is-primary
+                    m-3
+                    is-align-self-center
+                  "
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
+                  <select
+                    name="length"
+                    value={length}
+                    onChange={event => {
+                      this.setState({
+                        length: +event.target.value,
+                      });
+                    }}
+                  >
+                    {listOfOptions.map(element => (
+                      <>
+                        <option value={element}>{element}</option>
+                      </>
+                    ))}
+                  </select>
+                </div>
               </div>
               <ul>
                 {visiblGoods.map((good: string) => (
-                  <li key={good}>{good}</li>
+                  <li
+                    key={good}
+                    className="is-size-5"
+                  >
+                    {good}
+                  </li>
                 ))}
               </ul>
             </>
