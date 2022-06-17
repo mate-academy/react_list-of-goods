@@ -34,10 +34,10 @@ export class GoodList extends React.Component<Props, State> {
 
   getGoodList = () => {
     const { sortBy, isReversed } = this.state;
-    let visibleList = this.props.goodsList;
+    const visibleList = [...this.props.goodsList];
 
     if (sortBy) {
-      visibleList = [...visibleList].sort((a, b) => {
+      visibleList.sort((a, b) => {
         switch (sortBy) {
           case 'alphabet':
             return a.localeCompare(b);
@@ -50,7 +50,7 @@ export class GoodList extends React.Component<Props, State> {
     }
 
     if (isReversed) {
-      visibleList = [...visibleList].reverse();
+      visibleList.reverse();
     }
 
     return visibleList;
