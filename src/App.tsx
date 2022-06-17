@@ -162,9 +162,7 @@ class App extends React.Component<{}, State> {
                     }}
                   >
                     {listOfOptions.map(element => (
-                      <>
-                        <option value={element}>{element}</option>
-                      </>
+                      <option value={element}>{element}</option>
                     ))}
                   </select>
                 </div>
