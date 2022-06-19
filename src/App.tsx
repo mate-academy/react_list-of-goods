@@ -40,8 +40,8 @@ class App extends React.Component<{}, State> {
   };
 
   reverse = () => {
-    this.setState((prevState) => (
-      { isReversed: !prevState.isReversed }
+    this.setState((state) => (
+      { isReversed: !state.isReversed }
     ));
   };
 
