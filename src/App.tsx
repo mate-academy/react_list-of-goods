@@ -58,29 +58,34 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const goodsList: string[] = [...this.state.goods];
+    const {
+      goods,
+      isVisible,
+      isReversed,
+      sortBy,
+    } = this.state;
 
-    switch (this.state.sortBy) {
+    const goodsList: string[] = goods;
+
+    switch (sortBy) {
       case 'name':
         goodsList.sort((first, second) => first.localeCompare(second));
         break;
       case 'length':
-        goodsList.sort((first, second) => second.length
-        - first.length);
+        goodsList.sort((first, second) => first.length
+        - second.length);
         break;
       default:
         break;
     }
 
-    if (this.state.isReversed) {
+    if (isReversed) {
       goodsList.reverse();
     }
 
-    const isListVisible = this.state.isVisible;
-
     return (
       <div className="container">
-        {!isListVisible && (
+        {!isVisible && (
           <button
             type="button"
             className="button"
@@ -90,7 +95,7 @@ class App extends React.Component<{}, State> {
           </button>
         )}
 
-        {isListVisible && (
+        {isVisible && (
           <div>
             <ul className="container__list">
               {goodsList.map((good) => (
