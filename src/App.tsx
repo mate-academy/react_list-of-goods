@@ -15,10 +15,15 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortBy {
+  alphabetically = 'alphabetically',
+  byLength = 'byLength',
+}
+
 type State = {
   isListVisible: boolean;
   isReversed: boolean;
-  sortBy: 'alphabetically' | 'byLength' | null;
+  sortBy: SortBy | null;
 };
 
 class App extends React.Component<{}, State> {
@@ -30,9 +35,12 @@ class App extends React.Component<{}, State> {
 
   showList = () => this.setState({ isListVisible: true });
 
-  reverseList = () => this.setState({ isReversed: true });
+  reverseList = () => this.setState(prevState => ({
+    ...prevState,
+    isReversed: !prevState.isReversed,
+  }));
 
-  sortList = (sortOption: 'alphabetically' | 'byLength') => (
+  sortList = (sortOption: SortBy) => (
     this.setState({ sortBy: sortOption })
   );
 
@@ -50,10 +58,10 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     switch (sortBy) {
-      case 'alphabetically':
+      case SortBy.alphabetically:
         goodsCopy.sort();
         break;
-      case 'byLength':
+      case SortBy.byLength:
         goodsCopy.sort((itemA, itemB) => itemA.length - itemB.length);
         break;
       default:
@@ -79,14 +87,14 @@ class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            onClick={() => this.sortList('alphabetically')}
+            onClick={() => this.sortList(SortBy.alphabetically)}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            onClick={() => this.sortList('byLength')}
+            onClick={() => this.sortList(SortBy.byLength)}
           >
             Sort by length
           </button>
