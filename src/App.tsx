@@ -129,7 +129,9 @@ class App extends React.Component<{}, State> {
         {isVisible && (
           <ul>
             {visibleGoods.map((good) => (
-              <li>
+              <li
+                key={good}
+              >
                 {good}
               </li>
             ))}
