@@ -51,7 +51,9 @@ class App extends React.Component<{}, State> {
   };
 
   sortByReverse = () => {
-    this.setState({ isReversed: true });
+    this.setState((state) => (
+      { isReversed: !state.isReversed }
+    ));
   };
 
   sortByAscend = () => {
