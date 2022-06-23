@@ -1,1 +1,22 @@
-/* not empty */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.active {
+  background-color: blue;
+}
+
+.container {
+  width: 250px;
+}
+
+.list {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+button,
+select {
+  margin-bottom: 10px;
+}
