@@ -53,7 +53,7 @@ class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState({
-      visible: false,
+      visible: true,
       reversed: false,
       sorted: GoodSort.none,
     });
@@ -72,7 +72,8 @@ class App extends React.Component<{}, State> {
     switch (sorted) {
       case GoodSort.name:
         listOfGoods.sort((product1, product2) => (
-          product1.localeCompare(product2)));
+          product1.localeCompare(product2)
+        ));
         break;
 
       case GoodSort.lenght:
