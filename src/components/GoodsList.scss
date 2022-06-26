@@ -1,0 +1,34 @@
+.goodsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__button {
+    border: 1px solid transparent;
+    background-color: #f7ccac;
+    padding: 7px 14px;
+    border-radius: 3px;
+    transition: 0.3s all;
+
+    &:hover {
+      background-color: transparent;
+      cursor: pointer;
+      border-color: #f7ccac;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  &__item {
+    font-size: 1.5rem;
+    color: #826f66;
+  }
+}
