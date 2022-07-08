@@ -1,1 +1,7 @@
-/* not empty */
+.interaction-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 8px;
+}
