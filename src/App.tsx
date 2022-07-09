@@ -19,24 +19,24 @@ const goodsFromServer: string[] = [
 
 interface State {
   initialGoods: string[];
-  isStartButtonShown: boolean;
+  isStarted: boolean;
   isReversed: boolean;
   sortBy: string;
-  prodMinLength: number;
+  minLength: number;
 }
 
 class App extends React.PureComponent<{}, State> {
   state: State = {
     initialGoods: goodsFromServer,
-    isStartButtonShown: true,
+    isStarted: true,
     isReversed: false,
     sortBy: 'reset',
-    prodMinLength: 1,
+    minLength: 1,
   };
 
   onStartButtonClick = () => {
     this.setState({
-      isStartButtonShown: false,
+      isStarted: false,
     });
   };
 
@@ -62,7 +62,7 @@ class App extends React.PureComponent<{}, State> {
 
   onResetButtonClick = () => {
     this.setState({
-      prodMinLength: 1,
+      minLength: 1,
       isReversed: false,
       sortBy: 'reset',
     });
@@ -71,22 +71,22 @@ class App extends React.PureComponent<{}, State> {
   render() {
     const {
       initialGoods,
-      isStartButtonShown,
+      isStarted,
       isReversed,
       sortBy,
-      prodMinLength,
+      minLength,
     } = this.state;
 
     const currentGoods = [...initialGoods]
-      .filter((product) => product.length >= prodMinLength);
+      .filter((product) => product.length >= minLength);
 
-    currentGoods.sort((firstGood, secondGood) => {
+    currentGoods.sort((firstProduct, secondProduct) => {
       switch (sortBy) {
         case 'name':
-          return firstGood.localeCompare(secondGood);
+          return firstProduct.localeCompare(secondProduct);
 
         case 'length':
-          return firstGood.length - secondGood.length;
+          return firstProduct.length - secondProduct.length;
 
         default:
           return 0;
@@ -102,7 +102,7 @@ class App extends React.PureComponent<{}, State> {
         <div className="box container is-max-desktop">
           <h1 className="title">Goods</h1>
 
-          {isStartButtonShown && (
+          {isStarted && (
             <button
               type="button"
               className="button is-primary is-fullwidth"
@@ -112,7 +112,7 @@ class App extends React.PureComponent<{}, State> {
             </button>
           )}
 
-          {!isStartButtonShown && (
+          {!isStarted && (
             <div className="columns">
               <div className="column">
                 <GoodsList goods={currentGoods} />
@@ -150,10 +150,10 @@ class App extends React.PureComponent<{}, State> {
                   </button>
                   <div className="select is-primary is-fullwidth">
                     <select
-                      name="listLength"
+                      name="minLength"
                       onChange={({ target }) => {
                         this.setState({
-                          prodMinLength: +target.value,
+                          minLength: +target.value,
                         });
                       }}
                     >
