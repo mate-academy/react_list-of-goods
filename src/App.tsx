@@ -37,20 +37,19 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState(({ sortBy: 'id' }));
+    this.setState({ sortBy: 'id' });
   };
 
   sortByAlphabet = () => {
-    this.setState(({ sortBy: 'alphabet' }));
+    this.setState({ sortBy: 'alphabet' });
   };
 
   sortByLength = () => {
-    this.setState(({ sortBy: 'length' }));
+    this.setState({ sortBy: 'length' });
   };
 
   render() {
     const { isShown, isReversed, sortBy } = this.state;
-
     const visibleGoods = [...goodsFromServer];
 
     visibleGoods.sort((a: string, b: string): number => {
