@@ -37,7 +37,7 @@ class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ sortBy: 'id' });
+    this.setState({ sortBy: 'id', isReversed: false });
   };
 
   sortByAlphabet = () => {
