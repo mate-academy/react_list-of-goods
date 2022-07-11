@@ -18,8 +18,8 @@ const goodsFromServer: string[] = [
 type State = {
   goods: string[],
   initialButtonVisible: boolean,
-  sortByName: boolean,
-  sortByLength: boolean,
+  sortedByName: boolean,
+  sortedByLength: boolean,
   reverse: boolean,
   goodsLength: string,
 };
@@ -28,41 +28,38 @@ class App extends React.Component<{}, State> {
   state = {
     goods: [''],
     initialButtonVisible: true,
-    sortByName: false,
-    sortByLength: false,
+    sortedByName: false,
+    sortedByLength: false,
     reverse: false,
     goodsLength: '1',
   };
 
   letStart = () => {
-    this.setState({ goods: [...goodsFromServer] });
-    this.setState({ initialButtonVisible: false });
+    this.setState({ goods: [...goodsFromServer], initialButtonVisible: false });
   };
 
   sortByName = () => {
-    this.setState(prevState => ({
-      sortByName: !prevState.sortByName,
-    }));
+    this.setState({ sortedByName: true, sortedByLength: false });
   };
 
   sortByLength = () => {
-    this.setState(prevState => ({
-      sortByLength: !prevState.sortByLength,
-    }));
+    this.setState({ sortedByLength: true, sortedByName: false });
   };
 
   reset = () => {
-    if (this.state.goods !== goodsFromServer) {
-      this.setState({ goods: [...goodsFromServer] });
-    }
-
-    this.setState({ goodsLength: '1' });
+    this.setState({
+      sortedByLength: false,
+      sortedByName: false,
+      reverse: false,
+      goodsLength: '1',
+    });
   };
 
   reverse = () => {
     this.setState(prevState => ({
       reverse: !prevState.reverse,
     }));
+    this.setState({ sortedByLength: false, sortedByName: false });
   };
 
   changeGoodsLength = (value: string) => {
@@ -73,27 +70,28 @@ class App extends React.Component<{}, State> {
     const {
       goods,
       initialButtonVisible,
-      sortByName,
-      sortByLength,
+      sortedByName,
+      sortedByLength,
       reverse,
       goodsLength,
     } = this.state;
 
     const visibleGoods = goods.filter(good => good.length >= +goodsLength);
 
-    if (sortByLength) {
-      visibleGoods.sort((a, b) => a.length - b.length);
-      this.state.sortByLength = !sortByLength;
+    if (sortedByLength) {
+      visibleGoods.sort((a, b) => (reverse
+        ? b.length - a.length
+        : a.length - b.length));
     }
 
-    if (sortByName) {
-      visibleGoods.sort((a, b) => a.localeCompare(b));
-      this.state.sortByName = !sortByName;
+    if (sortedByName) {
+      visibleGoods.sort((a, b) => (reverse
+        ? b.localeCompare(a)
+        : a.localeCompare(b)));
     }
 
     if (reverse) {
       visibleGoods.reverse();
-      this.state.reverse = !reverse;
     }
 
     return (
@@ -140,23 +138,24 @@ class App extends React.Component<{}, State> {
             </div>
 
             <div className="container">
-              <label
-                htmlFor="itemLength"
-                className="has-text-centered"
-              >
-                Word length
-              </label>
-              <input
-                name="itemLength"
-                type="number"
-                className="has-text-centered input is-primary is-small"
-                min="1"
-                max="10"
-                defaultValue={this.state.goodsLength}
+              <select
+                name="select"
+                value={this.state.goodsLength}
                 onChange={({ target }) => {
                   this.changeGoodsLength(target.value);
                 }}
-              />
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
             </div>
           </div>
         )}
