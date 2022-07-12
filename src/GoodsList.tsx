@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Sort = 'len' | 'alphabet' | 'reset';
+enum Sort {len, alphabet, reset}
 
 type Props = {
   goods: string[];
@@ -15,7 +15,7 @@ type State = {
 export class GoodsList extends React.PureComponent<Props, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortBy: 'len',
+    sortBy: Sort.reset,
     minLen: 1,
   };
 
@@ -26,15 +26,15 @@ export class GoodsList extends React.PureComponent<Props, State> {
   };
 
   sortByLength = () => {
-    this.setState({ isReversed: false, sortBy: 'len' });
+    this.setState({ isReversed: false, sortBy: Sort.len });
   };
 
   sortByAlphabet = () => {
-    this.setState({ isReversed: false, sortBy: 'alphabet' });
+    this.setState({ isReversed: false, sortBy: Sort.alphabet });
   };
 
   reset = () => {
-    this.setState({ isReversed: false, sortBy: 'reset', minLen: 1 });
+    this.setState({ isReversed: false, sortBy: Sort.reset, minLen: 1 });
   };
 
   filterByLenght = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -49,10 +49,10 @@ export class GoodsList extends React.PureComponent<Props, State> {
 
     goods.sort((p1, p2) => {
       switch (sortBy) {
-        case 'len':
+        case Sort.len:
           return p1.length - p2.length;
 
-        case 'alphabet':
+        case Sort.alphabet:
           return p1.localeCompare(p2);
 
         default:
