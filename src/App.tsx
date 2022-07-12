@@ -35,19 +35,19 @@ class App extends React.Component<{}, State> {
     minLength: 1,
   };
 
-  showGoodsList = () => {
+  handleGoodsList = () => {
     this.setState({ showGoods: true });
   };
 
-  sortAlphabetically = () => {
+  handleSortAlphabetically = () => {
     this.setState({ isSorted: true, sortBy: 'alphabet' });
   };
 
-  sortByLength = () => {
+  handleSortByLength = () => {
     this.setState({ isSorted: true, sortBy: 'length' });
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       isSorted: false,
@@ -56,13 +56,13 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  setMinLength = (value: number) => {
+  handleMinLength = (value: number) => {
     this.setState({ minLength: value });
   };
 
@@ -77,12 +77,12 @@ class App extends React.Component<{}, State> {
     } = this.state;
 
     const {
-      showGoodsList,
-      reverse,
-      sortAlphabetically,
-      sortByLength,
-      reset,
-      setMinLength,
+      handleGoodsList,
+      handleReverse,
+      handleSortAlphabetically,
+      handleSortByLength,
+      handleReset,
+      handleMinLength,
     } = this;
 
     const visibleGoods = goods.filter(
@@ -121,7 +121,7 @@ class App extends React.Component<{}, State> {
             <button
               className="btn btn-outline-secondary"
               type="button"
-              onClick={showGoodsList}
+              onClick={handleGoodsList}
             >
               Start
             </button>
@@ -145,7 +145,7 @@ class App extends React.Component<{}, State> {
                 <button
                   className="btn btn-outline-primary"
                   type="button"
-                  onClick={reverse}
+                  onClick={handleReverse}
                 >
                   Reverse
                 </button>
@@ -153,7 +153,7 @@ class App extends React.Component<{}, State> {
                 <button
                   className="btn btn-outline-primary"
                   type="button"
-                  onClick={reset}
+                  onClick={handleReset}
                 >
                   Reset
                 </button>
@@ -166,7 +166,7 @@ class App extends React.Component<{}, State> {
               >
                 <button
                   type="button"
-                  onClick={sortAlphabetically}
+                  onClick={handleSortAlphabetically}
                   className={classNames(
                     'btn',
                     {
@@ -180,7 +180,7 @@ class App extends React.Component<{}, State> {
 
                 <button
                   type="button"
-                  onClick={sortByLength}
+                  onClick={handleSortByLength}
                   className={classNames(
                     'btn',
                     {
@@ -198,19 +198,17 @@ class App extends React.Component<{}, State> {
                 aria-label="Default select example"
                 value={minLength}
                 onChange={({ target }) => {
-                  setMinLength(Number(target.value));
+                  handleMinLength(Number(target.value));
                 }}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                { Array.from(Array(11).keys()).slice(1).map(num => (
+                  <option
+                    key={num}
+                    value={num}
+                  >
+                    {num}
+                  </option>
+                ))}
               </select>
             </>
           )}
