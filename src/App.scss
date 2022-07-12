@@ -1,0 +1,22 @@
+@import "../node_modules/bulma/bulma.sass";
+
+.button {
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+
+  &__start {
+    margin-top: 300px;
+    width: 50%;
+    height: 300px;
+    font-size: 100px;
+  }
+
+  &__main {
+    margin-right: 10px;
+  }
+}
