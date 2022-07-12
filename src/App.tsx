@@ -24,7 +24,7 @@ class App extends React.Component<{}, State> {
     listShown: false,
   };
 
-  startHandler = () => (
+  handleStartBtn = () => (
     this.setState(prev => ({ listShown: !prev.listShown }))
   );
 
@@ -42,7 +42,7 @@ class App extends React.Component<{}, State> {
           : (
             <button
               type="button"
-              onClick={this.startHandler}
+              onClick={this.handleStartBtn}
               className="is-fullwidth button is-success "
             >
               Start

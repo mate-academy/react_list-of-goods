@@ -19,19 +19,19 @@ export class GoodsList extends React.Component<Props, State> {
     lengthLimit: 1,
   };
 
-  reverseHandler = () => {
+  handleReverseBtn = () => {
     this.setState(prev => ({ isReverse: !prev.isReverse }));
   };
 
-  aplhSortHandler = () => this.sortSwitch('alphabet');
+  handleAlphtSortBtn = () => this.sortSwitch('alphabet');
 
-  lengthSortHandler = () => this.sortSwitch('length');
+  handleLengthtSortBtn = () => this.sortSwitch('length');
 
-  resetHandler = () => {
+  handleResetBtn = () => {
     this.setState({ isReverse: false, sortedBy: 'default', lengthLimit: 1 });
   };
 
-  selectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({ lengthLimit: +event.target.value });
   };
 
@@ -79,28 +79,28 @@ export class GoodsList extends React.Component<Props, State> {
         >
           <button
             type="button"
-            onClick={this.resetHandler}
+            onClick={this.handleResetBtn}
             className="button mb-2 is-danger"
           >
             Reset
           </button>
           <button
             type="button"
-            onClick={this.reverseHandler}
+            onClick={this.handleReverseBtn}
             className="button mb-2 is-light"
           >
             Reverse
           </button>
           <button
             type="button"
-            onClick={this.aplhSortHandler}
+            onClick={this.handleAlphtSortBtn}
             className="button mb-2 is-light"
           >
             Sort alphabetically
           </button>
           <button
             type="button"
-            onClick={this.lengthSortHandler}
+            onClick={this.handleLengthtSortBtn}
             className="button mb-2 is-light"
           >
             Sort by length
@@ -113,7 +113,7 @@ export class GoodsList extends React.Component<Props, State> {
               <select
                 value={lengthLimit}
                 name="select"
-                onChange={this.selectHandler}
+                onChange={this.handleSelectChange}
                 defaultValue={lengthLimit}
               >
                 { Array.from(Array(11).keys()).slice(1).map(num => (
