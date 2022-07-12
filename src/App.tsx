@@ -38,6 +38,7 @@ export class App extends Component<{}, State> {
     this.setState({
       sortBy: '',
       isReversed: false,
+      goodsLength: 1,
     });
   };
 
