@@ -1,1 +1,20 @@
 /* not empty */
+.App {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  margin: 100px;
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  font-size: 30px;
+}
+
+button {
+  margin: 100px;
+}
