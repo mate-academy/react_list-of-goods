@@ -30,8 +30,8 @@ export class App extends Component<{}, State> {
     sortBy: '',
   };
 
-  viewLength = (value: ChangeEvent<HTMLSelectElement>) => {
-    this.setState(() => ({ selectedLength: +value.target.value }));
+  viewLength = (value: string) => {
+    this.setState(() => ({ selectedLength: +value }));
   };
 
   reset = () => {
@@ -121,7 +121,7 @@ export class App extends Component<{}, State> {
           <select
             value={selectedLength}
             className="select is-small"
-            onChange={(value) => this.viewLength(value)}
+            onChange={(element) => this.viewLength(element.target.value)}
           >
             <option value="1">1</option>
             <option value="2">2</option>
