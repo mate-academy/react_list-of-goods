@@ -167,7 +167,6 @@ export class App extends React.PureComponent<{}, State> {
                 ))}
               </select>
             </>
-
           )}
       </div>
     );
