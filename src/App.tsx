@@ -68,51 +68,50 @@ class App extends React.Component<{}, State> {
       <div className="App content">
         <h1 className="title mt-6">Goods</h1>
 
-        {!isShown && (
-          <button
-            type="button"
-            className="button is-info is-inverted"
-            onClick={this.showAll}
-          >
-            Start
-          </button>
-        )}
-
-        {isShown && (
-          <>
-            <div className="buttons">
-              <button
-                type="button"
-                className="button is-info is-inverted"
-                onClick={this.reverse}
-              >
-                Reverse
-              </button>
-              <button
-                type="button"
-                className="button is-info is-inverted"
-                onClick={this.sortByAlphabet}
-              >
-                Sort alphabetically
-              </button>
-              <button
-                type="button"
-                className="button is-info is-inverted"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-              <button
-                type="button"
-                className="button is-info is-inverted"
-                onClick={this.sortByLength}
-              >
-                Sort by length
-              </button>
-            </div>
-            <GoodsList goods={visibleGoods} />
-          </>
-        )}
+        {isShown
+          ? (
+            <>
+              <div className="buttons">
+                <button
+                  type="button"
+                  className="button is-info is-inverted"
+                  onClick={this.reverse}
+                >
+                  Reverse
+                </button>
+                <button
+                  type="button"
+                  className="button is-info is-inverted"
+                  onClick={this.sortByAlphabet}
+                >
+                  Sort alphabetically
+                </button>
+                <button
+                  type="button"
+                  className="button is-info is-inverted"
+                  onClick={this.reset}
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  className="button is-info is-inverted"
+                  onClick={this.sortByLength}
+                >
+                  Sort by length
+                </button>
+              </div>
+              <GoodsList goods={visibleGoods} />
+            </>
+          ) : (
+            <button
+              type="button"
+              className="button is-info is-inverted"
+              onClick={this.showAll}
+            >
+              Start
+            </button>
+          )}
       </div>
     );
   }
