@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEvent, Component, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import './App.scss';
 
 const goodsFromServer: string[] = [
@@ -15,46 +15,43 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortType {
+  alfabetically = 'alfabetically',
+  length = 'length',
+  nosort = '',
+}
+
 type State = {
-  selectedLength: number,
+  selectedMinLength: number,
   goodsVisible: boolean,
   isReversed: boolean,
-  sortBy: string,
+  sortBy: SortType,
 };
 
 export class App extends Component<{}, State> {
   state: Readonly<State> = {
-    selectedLength: 1,
+    selectedMinLength: 1,
     goodsVisible: false,
     isReversed: false,
-    sortBy: '',
+    sortBy: SortType.nosort,
   };
 
-  viewLength = (value: string) => {
-    this.setState(() => ({ selectedLength: +value }));
+  setMinLength = (value: string) => {
+    this.setState(() => ({ selectedMinLength: +value }));
   };
 
   reset = () => {
     this.setState({
-      sortBy: '',
+      sortBy: SortType.nosort,
       isReversed: false,
-      selectedLength: 1,
+      selectedMinLength: 1,
     });
-    this.forceUpdate();
   };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
-  };
-
-  sortAlfabetically = () => {
-    this.setState({ sortBy: 'alfabetically' });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortBy: 'length' });
   };
 
   viewList = () => {
@@ -68,12 +65,13 @@ export class App extends Component<{}, State> {
   render(): ReactNode {
     const {
       goodsVisible,
-      selectedLength,
+      selectedMinLength,
       isReversed,
       sortBy,
     } = this.state;
+    const selectValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const visibleGoods = goodsFromServer.filter(
-      (good) => good.length >= selectedLength,
+      (good) => good.length >= selectedMinLength,
     );
     const buttonClasses = [
       'button',
@@ -86,9 +84,9 @@ export class App extends Component<{}, State> {
 
     visibleGoods.sort((good1, good2) => {
       switch (sortBy) {
-        case 'alfabetically':
+        case SortType.alfabetically:
           return good1.localeCompare(good2);
-        case 'length':
+        case SortType.length:
           return good1.length - good2.length;
         default:
           return 0;
@@ -119,27 +117,22 @@ export class App extends Component<{}, State> {
             : null}
 
           <select
-            value={selectedLength}
+            value={selectedMinLength}
             className="select is-small"
-            onChange={(element) => this.viewLength(element.target.value)}
+            onChange={(element) => this.setMinLength(element.target.value)}
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
+            {selectValues.map(value => (
+              <option value={`${value}`} key={value}>
+                {value}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="buttons has-addons">
           <button
             type="button"
-            className={classNames(...buttonClasses)}
+            className={classNames(buttonClasses)}
             onClick={this.reverse}
           >
             Reverse
@@ -147,23 +140,23 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={classNames(...buttonClasses)}
-            onClick={this.sortAlfabetically}
+            className={classNames(buttonClasses)}
+            onClick={() => this.setState({ sortBy: SortType.alfabetically })}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={classNames(...buttonClasses)}
-            onClick={this.sortByLength}
+            className={classNames(buttonClasses)}
+            onClick={() => this.setState({ sortBy: SortType.length })}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={classNames(...buttonClasses)}
+            className={classNames(buttonClasses)}
             onClick={this.reset}
           >
             Reset
