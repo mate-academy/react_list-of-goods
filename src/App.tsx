@@ -66,12 +66,48 @@ class App extends React.Component<{}, State> {
     this.setState({ minLength: value });
   };
 
+  handlePreparedGoods = (goods: string[]) => {
+    const {
+      isReversed,
+      isSorted,
+      sortBy,
+      minLength,
+    } = this.state;
+
+    const preparedGoods = goods.filter(
+      singleGoods => singleGoods.length >= minLength,
+    );
+
+    if (isSorted) {
+      switch (sortBy) {
+        case 'alphabet':
+          preparedGoods.sort((firstProduct, secondProduct) => {
+            return firstProduct.localeCompare(secondProduct);
+          });
+          break;
+
+        case 'length':
+          preparedGoods.sort((firstProduct, secondProduct) => {
+            return firstProduct.length - secondProduct.length;
+          });
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    if (isReversed) {
+      preparedGoods.reverse();
+    }
+
+    return preparedGoods;
+  };
+
   render() {
     const {
       showGoods,
       goods,
-      isReversed,
-      isSorted,
       sortBy,
       minLength,
     } = this.state;
@@ -83,34 +119,10 @@ class App extends React.Component<{}, State> {
       handleSortByLength,
       handleReset,
       handleMinLength,
+      handlePreparedGoods,
     } = this;
 
-    const visibleGoods = goods.filter(
-      singleGoods => singleGoods.length >= minLength,
-    );
-
-    if (isSorted) {
-      switch (sortBy) {
-        case 'alphabet':
-          visibleGoods.sort((firstProduct, secondProduct) => {
-            return firstProduct.localeCompare(secondProduct);
-          });
-          break;
-
-        case 'length':
-          visibleGoods.sort((firstProduct, secondProduct) => {
-            return firstProduct.length - secondProduct.length;
-          });
-          break;
-
-        default:
-          return 0;
-      }
-    }
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const visibleGoods = handlePreparedGoods(goods);
 
     return (
       <div className="app">
