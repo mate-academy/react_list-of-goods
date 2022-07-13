@@ -76,7 +76,7 @@ export class App extends Component<{}, State> {
     } = this.state;
 
     const visibleGoods = [...goods]
-      .filter(good => good.length > lengthLimit);
+      .filter(good => good.length >= lengthLimit);
 
     visibleGoods.sort((g1, g2) => {
       switch (sortBy) {
