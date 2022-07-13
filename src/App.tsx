@@ -39,11 +39,19 @@ class App extends React.Component<{}, State> {
   };
 
   sortByName = () => {
-    this.setState({ sortedByName: true, sortedByLength: false });
+    this.setState({
+      sortedByName: true,
+      sortedByLength: false,
+      reverse: false,
+    });
   };
 
   sortByLength = () => {
-    this.setState({ sortedByLength: true, sortedByName: false });
+    this.setState({
+      sortedByLength: true,
+      sortedByName: false,
+      reverse: false,
+    });
   };
 
   reset = () => {
@@ -59,7 +67,6 @@ class App extends React.Component<{}, State> {
     this.setState(prevState => ({
       reverse: !prevState.reverse,
     }));
-    this.setState({ sortedByLength: false, sortedByName: false });
   };
 
   changeGoodsLength = (value: string) => {
@@ -78,6 +85,10 @@ class App extends React.Component<{}, State> {
 
     const visibleGoods = goods.filter(good => good.length >= +goodsLength);
 
+    if (reverse) {
+      visibleGoods.reverse();
+    }
+
     if (sortedByLength) {
       visibleGoods.sort((a, b) => (reverse
         ? b.length - a.length
@@ -88,10 +99,6 @@ class App extends React.Component<{}, State> {
       visibleGoods.sort((a, b) => (reverse
         ? b.localeCompare(a)
         : a.localeCompare(b)));
-    }
-
-    if (reverse) {
-      visibleGoods.reverse();
     }
 
     return (
