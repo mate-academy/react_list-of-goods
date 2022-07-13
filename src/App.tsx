@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -15,61 +14,129 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
-  isStarted: boolean,
+  goods: string[],
+  IsVisible: boolean,
   isReversed: boolean,
-  sortType: SortType,
+  sortBy: string,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+class App extends React.Component<{}, State> {
+  state = {
+    goods: goodsFromServer,
+    IsVisible: true,
+    isReversed: false,
+    sortBy: '',
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  toShowGoods = () => {
+    this.setState({ IsVisible: false });
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortAlphabetically = () => {
+    this.setState({ sortBy: 'alphabet' });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  sortByLength = () => {
+    this.setState({ sortBy: 'length' });
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({ isReversed: false, sortBy: '' });
+  };
+
+  render() {
+    const {
+      goods,
+      isReversed,
+      sortBy,
+      IsVisible,
+    } = this.state;
+
+    const copyGoods = [...goods];
+
+    copyGoods.sort((good1, good2) => {
+      switch (sortBy) {
+        case 'length':
+          return good1.length - good2.length;
+        case 'alphabet':
+          return good1.localeCompare(good2);
+
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      copyGoods.reverse();
+    }
+
+    return (
+      <div className="App box">
+        <h1 className='message-header'>Goods</h1>
+        {IsVisible && (
+          <h3 className='message-body'>Everything starts here. Just push the button</h3>
+        )}
+        {IsVisible && (
+          <button
+            className="button button__start"
+            type="button"
+            onClick={this.toShowGoods}
+          >
+            Start
+          </button>
+        )}
+        {!IsVisible && (
+          <div className='wrapper'>
+            <ul className="list">
+              {copyGoods.map(good => (
+                <li
+                  className="list__item"
+                  key={good}
+                >
+                  {good}
+                </li>
+              ))}
+            </ul>
+            <button
+              className="button"
+              type="button"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+            <button
+              className="button"
+              type="button"
+              onClick={this.sortAlphabetically}
+            >
+              Sort alphabetically
+            </button>
+            <button
+              className="button"
+              type="button"
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+            <button
+              className="button"
+              type="button"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+export default App;

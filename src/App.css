@@ -1,1 +1,12 @@
 /* not empty */
+.box {
+  width: 400px;
+}
+
+.button {
+  width: 100%;
+}
+
+.wrapper {
+  text-align: center;
+}
