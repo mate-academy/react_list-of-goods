@@ -9,8 +9,8 @@ You a given an array of goods. Render them as a list in the App after `Start` bu
 1. `Reset` button should show the goods in the initial order.
 
 ## (Optional) Advanced tasks (require understanding of Forms in React) 
-1. Add `<select>` with numbers from 1 to 10. (1 is default). All the previous buttons
-  should now show only goods having length >= than the selected value. When you change the
+1. Add `<select>` with a `minLength` numbers from 1 to 10. (1 is default). All the previous buttons
+  should now show only the goods at least `minLength` long. When you change the
   value the items should be immediately re-rendered accordingly.
 2. `Reset` button should set the default value to the `<select>`
 3. Add some styles, you are frontend developer :) (use [Bulma](https://bulma.io) or another library)
@@ -25,4 +25,3 @@ You a given an array of goods. Render them as a list in the App after `Start` bu
 - Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
 - Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/) and add it to the PR description.
-
