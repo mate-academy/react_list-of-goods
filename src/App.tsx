@@ -16,7 +16,7 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  goodsLength: number,
+  selectedLength: number,
   goodsVisible: boolean,
   isReversed: boolean,
   sortBy: string,
@@ -24,22 +24,23 @@ type State = {
 
 export class App extends Component<{}, State> {
   state: Readonly<State> = {
-    goodsLength: 1,
+    selectedLength: 1,
     goodsVisible: false,
     isReversed: false,
     sortBy: '',
   };
 
   viewLength = (value: ChangeEvent<HTMLSelectElement>) => {
-    this.setState(() => ({ goodsLength: +value.target.value }));
+    this.setState(() => ({ selectedLength: +value.target.value }));
   };
 
   reset = () => {
     this.setState({
       sortBy: '',
       isReversed: false,
-      goodsLength: 1,
+      selectedLength: 1,
     });
+    this.forceUpdate();
   };
 
   reverse = () => {
@@ -67,12 +68,12 @@ export class App extends Component<{}, State> {
   render(): ReactNode {
     const {
       goodsVisible,
-      goodsLength,
+      selectedLength,
       isReversed,
       sortBy,
     } = this.state;
     const visibleGoods = goodsFromServer.filter(
-      (good) => good.length >= goodsLength,
+      (good) => good.length >= selectedLength,
     );
     const buttonClasses = [
       'button',
@@ -118,6 +119,7 @@ export class App extends Component<{}, State> {
             : null}
 
           <select
+            value={selectedLength}
             className="select is-small"
             onChange={(value) => this.viewLength(value)}
           >
