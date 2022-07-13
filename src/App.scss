@@ -8,9 +8,17 @@
 .goodList {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+  gap: 20px;
+
+}
+
+.title {
+  font-weight: 700;
+  font-size: 30px;
+  margin: 0 auto;
 }
 
 .button__flex {
@@ -20,4 +28,9 @@
   align-items: center;
   gap: 20px;
   margin-bottom: 30px;
+}
+
+.button--size {
+  width: max-content;
+  margin: 0 auto;
 }

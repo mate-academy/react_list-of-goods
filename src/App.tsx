@@ -19,7 +19,8 @@ type State = {
   hasButton: boolean,
   isReversed: boolean,
   sortBy: string,
-  copyGoods: string[]
+  goods: string[]
+  lengthLimit: number,
 };
 
 export class App extends Component<{}, State> {
@@ -27,7 +28,8 @@ export class App extends Component<{}, State> {
     hasButton: false,
     isReversed: false,
     sortBy: '',
-    copyGoods: [...goodsFromServer],
+    goods: goodsFromServer,
+    lengthLimit: 0,
   };
 
   start = () => {
@@ -56,16 +58,25 @@ export class App extends Component<{}, State> {
 
   reset = () => {
     this.setState({
-      sortBy: '', isReversed: false,
+      sortBy: '', isReversed: false, lengthLimit: 0,
     });
+  };
+
+  viewLength = (value: string) => {
+    this.setState(() => ({ lengthLimit: +value }));
   };
 
   render() {
     const {
-      hasButton, isReversed, copyGoods, sortBy,
+      hasButton,
+      isReversed,
+      goods,
+      sortBy,
+      lengthLimit,
     } = this.state;
 
-    const visibleGoods = [...copyGoods];
+    const visibleGoods = [...goods]
+      .filter(good => good.length > lengthLimit);
 
     visibleGoods.sort((g1, g2) => {
       switch (sortBy) {
@@ -89,7 +100,7 @@ export class App extends Component<{}, State> {
           ? (
             <button
               type="button"
-              className="button is-warning"
+              className="button is-warning button--size"
               onClick={this.start}
             >
               START
@@ -100,7 +111,7 @@ export class App extends Component<{}, State> {
         <div className="button__flex">
           {hasButton && (
             <button
-              className="button"
+              className="button is-success"
               type="button"
               onClick={this.reverse}
             >
@@ -109,7 +120,7 @@ export class App extends Component<{}, State> {
           )}
           {hasButton && (
             <button
-              className="button"
+              className="button is-success"
               type="button"
               onClick={this.sortByAlphabetically}
             >
@@ -118,7 +129,7 @@ export class App extends Component<{}, State> {
           )}
           {hasButton && (
             <button
-              className="button"
+              className="button is-success"
               type="button"
               onClick={this.sortByLength}
             >
@@ -127,12 +138,32 @@ export class App extends Component<{}, State> {
           )}
           {hasButton && (
             <button
-              className="button"
+              className="button is-success"
               type="button"
               onClick={this.reset}
             >
               Reset
             </button>
+          )}
+          {hasButton && (
+            <div className="select is-success">
+              <select
+                value={lengthLimit}
+                onChange={(element) => this.viewLength(element.target.value)}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">7</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+
           )}
         </div>
       </div>
