@@ -27,7 +27,7 @@ interface State {
 class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     goods: goodsFromServer,
-    itsBegin: false,
+    itsBegin: true,
     isSorted: false,
     isReversed: false,
     sortBy: '',
