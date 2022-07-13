@@ -1,0 +1,89 @@
+/* not empty */
+body {
+  background-color: black;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__word-length-selector {
+    margin-top: 20px;
+    width: 100px;
+
+    text-align: center;
+    font-weight: bold;
+
+    border: none;
+    background-color: rgb(143, 107, 7);
+    border-radius: 5px;
+  }
+
+  &__button {
+    padding: 10px;
+    margin-right: 20px;
+
+    width: 150px;
+    background-color: transparent;
+    border: 2px solid rgb(175, 175, 175);
+    color: white;
+    border-radius: 10px;
+
+    text-transform: uppercase;
+    font-size: 0.8rem;
+
+    transition: all 0.3s ease;
+
+    &:hover {
+      cursor: pointer;
+      border-color: rgba(0, 128, 0, 0.6);
+    }
+
+    &:last-child {
+      margin: 0;
+    }
+
+    &--reset {
+      background-color: rgba(157, 14, 14, 0.6);
+      text-shadow: 2px 2px 2px black;
+
+      &:hover {
+        border-color: rgba(188, 44, 0, 0.6);
+      }
+    }
+
+    &--start {
+      background-color: rgba(9, 120, 11, 0.8);
+    }
+  }
+
+  &__button-panel {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+  }
+
+  &__card {
+    margin: 10px 0 0;
+
+    font-size: 24px;
+    line-height: 42px;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+
+    list-style: none;
+    background-color: rgba(203, 203, 203, 0.1);
+
+    &:hover {
+      background-color: rgba(212, 212, 212, 0.4);
+      cursor: pointer;
+    }
+  }
+}
