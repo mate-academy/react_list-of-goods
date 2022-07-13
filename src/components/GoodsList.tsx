@@ -45,7 +45,7 @@ export class GoodsList extends React.Component<Props, State> {
     });
   }
 
-  render(): React.ReactNode {
+  prepareList() {
     const { isReverse, sortedBy, lengthLimit } = this.state;
     const preparedList = this.props.goods
       .filter(good => good.length >= lengthLimit);
@@ -67,6 +67,10 @@ export class GoodsList extends React.Component<Props, State> {
       preparedList.reverse();
     }
 
+    return preparedList;
+  }
+
+  render(): React.ReactNode {
     return (
       <div className="columns">
         <div
@@ -111,10 +115,10 @@ export class GoodsList extends React.Component<Props, State> {
 
             <div className="select">
               <select
-                value={lengthLimit}
+                value={this.state.lengthLimit}
                 name="select"
                 onChange={this.handleSelectChange}
-                defaultValue={lengthLimit}
+                defaultValue={this.state.lengthLimit}
               >
                 { Array.from(Array(11).keys()).slice(1).map(num => (
                   <option
@@ -130,7 +134,7 @@ export class GoodsList extends React.Component<Props, State> {
         </div>
 
         <ul className="column">
-          {preparedList.map(good => (
+          {this.prepareList().map(good => (
             <li
               key={good}
               className="

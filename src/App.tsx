@@ -16,16 +16,16 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  listShown: boolean,
+  isListShown: boolean,
 };
 
 class App extends React.Component<{}, State> {
-  state = {
-    listShown: false,
+  state: Readonly<State> = {
+    isListShown: false,
   };
 
   handleStartBtn = () => (
-    this.setState(prev => ({ listShown: !prev.listShown }))
+    this.setState(prev => ({ isListShown: !prev.isListShown }))
   );
 
   render(): React.ReactNode {
@@ -37,7 +37,7 @@ class App extends React.Component<{}, State> {
         "
       >
         <h1 className="title is-1 has-text-centered">Goods</h1>
-        {this.state.listShown
+        {this.state.isListShown
           ? <GoodsList goods={goodsFromServer} />
           : (
             <button
