@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import { Component } from 'react';
 import './App.css';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -15,61 +14,126 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
-  isStarted: boolean,
-  isReversed: boolean,
-  sortType: SortType,
+  goods: string[],
+  isVisibleList: boolean,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends Component<{}, State> {
+  state: Readonly<State> = {
+    goods: goodsFromServer,
+    isVisibleList: false,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  getStart = () => {
+    this.setState(state => ({
+      isVisibleList: !state.isVisibleList,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  reverseList = () => {
+    this.setState(state => ({
+      goods: [...state.goods].reverse(),
+    }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortByName = () => {
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (good1, good2) => good1.localeCompare(good2),
+      ),
+    }));
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  sortByLength = () => {
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (good1, good2) => good1.length - good2.length,
+      ),
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  resetChanges = () => {
+    this.setState({
+      goods: [...goodsFromServer],
+    });
+  };
+
+  render() {
+    const { goods, isVisibleList } = this.state;
+
+    return (
+      <div className="App block">
+        <h1
+          className="
+            App__title
+            title
+            is-2
+          "
+        >
+          List of Goods
+        </h1>
+
+        {!isVisibleList && (
+          <button
+            className="
+              button
+              is-success
+              is-medium
+            "
+            type="button"
+            onClick={this.getStart}
+          >
+            Start
+          </button>
+        )}
+
+        {isVisibleList && (
+          <>
+            <ul className="list">
+              {goods.map(good => (
+                <li className="item media" key={good}>
+                  <p>{good}</p>
+                </li>
+              ))}
+            </ul>
+
+            <div className="buttons">
+              <button
+                className="button is-warning"
+                type="button"
+                onClick={this.reverseList}
+              >
+                Reverse
+              </button>
+
+              <button
+                className="button is-link"
+                type="button"
+                onClick={this.sortByName}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                className="button is-info"
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                className="button is-danger"
+                type="button"
+                onClick={this.resetChanges}
+              >
+                Reset
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+}
