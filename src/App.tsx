@@ -60,42 +60,6 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  // sortByAlphabet = () => {
-  //   this.setState(state => {
-  //     const newGoods = [...state.visibleGoods];
-
-  //     newGoods.sort((good1, good2) => good1.localeCompare(good2));
-
-  //     return {
-  //       visibleGoods: newGoods,
-  //     };
-  //   });
-  // };
-
-  // sortBylength = () => {
-  //   this.setState(state => {
-  //     const newGoods = [...state.visibleGoods];
-
-  //     newGoods.sort((good1, good2) => good1.length - good2.length);
-
-  //     return {
-  //       visibleGoods: newGoods,
-  //     };
-  //   });
-  // };
-
-  // sortByReverse = () => {
-  //   this.setState(state => {
-  //     const newGoods = [...state.visibleGoods];
-
-  //     newGoods.reverse();
-
-  //     return {
-  //       visibleGoods: newGoods,
-  //     };
-  //   });
-  // };
-
   reset = () => {
     this.setState({ visibleGoods: goodsFromServer });
   };
@@ -119,7 +83,11 @@ export class App extends React.Component<{}, State> {
               <div className="buttons">
                 <button
                   type="button"
-                  className="button button__sort--alph"
+                  className="button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
                   onClick={() => this.sortGoods(SortType.ALPABET)}
                 >
                   Sort alphabetically
@@ -127,7 +95,11 @@ export class App extends React.Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button button__sort--leng"
+                  className="button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
                   onClick={() => this.sortGoods(SortType.LENGTH)}
                 >
                   Sort by length
@@ -135,7 +107,12 @@ export class App extends React.Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button button__sort--leng"
+                  className="
+                  button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
                   onClick={() => this.sortGoods(SortType.REVERSE)}
                 >
                   Reverse
@@ -143,26 +120,40 @@ export class App extends React.Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button button__sort--leng"
+                  className="
+                  button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
                   onClick={this.reset}
                 >
                   Reset
                 </button>
               </div>
 
-              <ul className="Goods">
+              <ol
+                className="Goods"
+              >
                 {visibleGoods.map(good => (
-                  <li className="Goods__item">
+                  <li
+                    className="Goods__item"
+                    key={good}
+                  >
                     {good}
                   </li>
                 ))}
-              </ul>
+              </ol>
             </>
           )
           : (
             <button
               type="button"
-              className="button__start"
+              className="button
+              is-primary
+              is-medium
+              is-responsive
+              is-focused"
               onClick={this.startListView}
             >
               Start
