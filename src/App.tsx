@@ -30,31 +30,47 @@ type State = {
 export class App extends React.Component<{}, State> {
   state: State = {
     isStarted: false,
-    visibleGoods: [...goodsFromServer],
+    visibleGoods: goodsFromServer,
   };
 
   sortByAlphabet = () => {
-    this.setState((state) => ({
-      visibleGoods: state.visibleGoods
-        .sort((good1, good2) => good1.localeCompare(good2)),
-    }));
+    this.setState(state => {
+      const newGoods = [...state.visibleGoods];
+
+      newGoods.sort((good1, good2) => good1.localeCompare(good2));
+
+      return {
+        visibleGoods: newGoods,
+      };
+    });
   };
 
   sortBylength = () => {
-    this.setState((state) => ({
-      visibleGoods: state.visibleGoods
-        .sort((good1, good2) => good1.length - good2.length),
-    }));
+    this.setState(state => {
+      const newGoods = [...state.visibleGoods];
+
+      newGoods.sort((good1, good2) => good1.length - good2.length);
+
+      return {
+        visibleGoods: newGoods,
+      };
+    });
   };
 
   sortByReverse = () => {
-    this.setState((state) => ({
-      visibleGoods: state.visibleGoods.reverse(),
-    }));
+    this.setState(state => {
+      const newGoods = [...state.visibleGoods];
+
+      newGoods.reverse();
+
+      return {
+        visibleGoods: newGoods,
+      };
+    });
   };
 
   reset = () => {
-    this.setState({ visibleGoods: [...goodsFromServer] });
+    this.setState({ visibleGoods: goodsFromServer });
   };
 
   startListView = () => {
