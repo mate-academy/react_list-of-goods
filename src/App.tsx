@@ -1,29 +1,31 @@
 import React from 'react';
-import { goodsFromServer } from './api/goods';
-import './App.css';
+import './App.scss';
 import { GoodsList } from './components/GoodsList';
+import { goodsFromServer } from './api/goods';
 
 type State = {
   goods: string[],
-  isVisible: boolean,
+  lengthLimit: number,
+  minLength: number,
   isReverse: boolean,
-  sortedBy: string,
-  isReset: boolean,
+  sortBy: string,
+  selected: number,
 };
 
 class App extends React.Component<{}, State> {
-  state = {
-    goods: [...goodsFromServer],
-    isVisible: false,
+  state: Readonly<State> = {
+    lengthLimit: 0,
+    minLength: -1,
+    goods: goodsFromServer,
     isReverse: false,
-    sortedBy: '',
-    isReset: false,
+    sortBy: '',
+    selected: 1,
   };
 
-  showGoodsList = () => {
+  showAll = () => {
     this.setState((state) => ({
       ...state,
-      isVisible: !state.isVisible,
+      lengthLimit: -1,
     }));
   };
 
@@ -34,57 +36,82 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  sortByAlp = () => {
-    this.setState((state) => ({
-      ...state,
-      sortedBy: 'alp',
-    }));
-  };
-
   sortByLength = () => {
     this.setState((state) => ({
       ...state,
-      sortedBy: 'length',
+      sortBy: 'length',
+    }));
+  };
+
+  sortByName = () => {
+    this.setState((state) => ({
+      ...state,
+      sortBy: 'name',
     }));
   };
 
   reset = () => {
-    this.setState({ goods: [...goodsFromServer] });
+    this.setState({
+      sortBy: '',
+      isReverse: false,
+      lengthLimit: -1,
+    });
   };
 
-  render() {
+  cutByLength = (
+    _event: MouseEvent,
+    num: number,
+  ) => {
+    this.setState((state) => ({
+      ...state,
+      lengthLimit: state.lengthLimit + num,
+    }));
+  };
+
+  render(): React.ReactNode {
     const {
       goods,
-      isVisible,
       isReverse,
-      sortedBy,
+      sortBy,
+      lengthLimit,
+      minLength,
     } = this.state;
-    const newGoods = [...goods];
 
-    goods.sort(
-      (g1, g2) => {
-        switch (sortedBy) {
-          case 'alp':
-            return g1.localeCompare(g2);
-          case 'length':
-            return g1.length - g2.length;
-          default:
-            return 0;
-        }
-      },
-    );
+    const visibleGoods = goods.filter(good => {
+      if (minLength > -1) {
+        return good.length >= minLength;
+      }
+
+      if (lengthLimit === -1) {
+        return true;
+      }
+
+      return good.length <= lengthLimit;
+    });
+
+    visibleGoods.sort((f1, f2) => {
+      switch (sortBy) {
+        case 'length':
+          return f1.length - f2.length;
+        case 'name':
+          return f1.localeCompare(f2);
+        default:
+          return 0;
+      }
+    });
 
     if (isReverse) {
-      goods.reverse();
+      visibleGoods.reverse();
     }
 
     return (
       <div className="App">
-        <h1>Goods</h1>
-        {(isVisible && (
-          <>
-            <GoodsList goods={newGoods} />
+        <GoodsList
+          goods={visibleGoods}
+        />
 
+        {(visibleGoods.length > 0 && (
+          <>
             <button
               type="button"
               onClick={this.reverse}
@@ -94,30 +121,33 @@ class App extends React.Component<{}, State> {
 
             <button
               type="button"
-              onClick={this.sortByAlp}
-            >
-              Sort alphabetically
-            </button>
-
-            <button
-              type="button"
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
-
-            <button
-              type="button"
               onClick={this.reset}
             >
               Reset
             </button>
+
+            <p className="sorted">
+              Sort by:&nbsp;
+
+              <button
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Length
+              </button>
+
+              <button
+                type="button"
+                onClick={this.sortByName}
+              >
+                Name
+              </button>
+            </p>
           </>
-        ))
-        || (
+        )) || (
           <button
             type="button"
-            onClick={this.showGoodsList}
+            onClick={this.showAll}
           >
             Start
           </button>
@@ -126,4 +156,5 @@ class App extends React.Component<{}, State> {
     );
   }
 }
+
 export default App;

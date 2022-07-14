@@ -1,17 +1,19 @@
 import React from 'react';
 
 type Props = {
-  goods: string[],
+  goods: string[]
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
-    <ul>
-      {goods.map(good => (
-        <li key={good}>
-          {good}
-        </li>
-      ))}
-    </ul>
+    <div className="User">
+      <ul>
+        {goods.map(good => (
+          <li key={good}>
+            {good}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
