@@ -1,1 +1,77 @@
-/* not empty */
+.App__wrap {
+  margin: 50px auto;
+  width: 768px;
+}
+
+.goods-list {
+  display: flex;
+  justify-content: center;
+  height: 50vh;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btn {
+  appearance: none;
+  background-color: #fff;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #adcfff 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.24px;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  background-color: #ffc229;
+  box-shadow: #ff6314 0 -6px 8px inset;
+  transform: scale(1.13);
+}
+
+.btn:active {
+  transform: scale(1.02);
+}
+
+@media (min-width: 768px) {
+  .btn {
+    font-size: 1.5rem;
+    padding: 0.75rem 2rem;
+  }
+}
+
+.Goods {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.Goods__item {
+  list-style: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: border 0.2s;
+}
+
+.Goods__item:hover {
+  border-bottom: 2px solid #ff6314;
+  cursor: pointer;
+}
