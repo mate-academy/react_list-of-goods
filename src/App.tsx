@@ -15,16 +15,16 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-// enum SortType {
-//   NONE,
-//   ALPABET,
-//   LENGTH,
-// }
+enum SortType {
+  NONE = 'NONE',
+  ALPABET = 'ALPABET',
+  LENGTH = 'LENGTH',
+  REVERSE = 'REVERSE',
+}
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
-  visibleGoods: string[]
+  visibleGoods: string[],
 };
 
 export class App extends React.Component<{}, State> {
@@ -33,11 +33,26 @@ export class App extends React.Component<{}, State> {
     visibleGoods: goodsFromServer,
   };
 
-  sortByAlphabet = () => {
+  sortGoods = (sortBy: SortType) => {
     this.setState(state => {
       const newGoods = [...state.visibleGoods];
 
-      newGoods.sort((good1, good2) => good1.localeCompare(good2));
+      switch (sortBy) {
+        case SortType.ALPABET:
+          newGoods.sort((good1, good2) => good1.localeCompare(good2));
+          break;
+
+        case SortType.LENGTH:
+          newGoods.sort((good1, good2) => good1.length - good2.length);
+          break;
+
+        case SortType.REVERSE:
+          newGoods.reverse();
+          break;
+
+        default:
+          break;
+      }
 
       return {
         visibleGoods: newGoods,
@@ -45,29 +60,41 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  sortBylength = () => {
-    this.setState(state => {
-      const newGoods = [...state.visibleGoods];
+  // sortByAlphabet = () => {
+  //   this.setState(state => {
+  //     const newGoods = [...state.visibleGoods];
 
-      newGoods.sort((good1, good2) => good1.length - good2.length);
+  //     newGoods.sort((good1, good2) => good1.localeCompare(good2));
 
-      return {
-        visibleGoods: newGoods,
-      };
-    });
-  };
+  //     return {
+  //       visibleGoods: newGoods,
+  //     };
+  //   });
+  // };
 
-  sortByReverse = () => {
-    this.setState(state => {
-      const newGoods = [...state.visibleGoods];
+  // sortBylength = () => {
+  //   this.setState(state => {
+  //     const newGoods = [...state.visibleGoods];
 
-      newGoods.reverse();
+  //     newGoods.sort((good1, good2) => good1.length - good2.length);
 
-      return {
-        visibleGoods: newGoods,
-      };
-    });
-  };
+  //     return {
+  //       visibleGoods: newGoods,
+  //     };
+  //   });
+  // };
+
+  // sortByReverse = () => {
+  //   this.setState(state => {
+  //     const newGoods = [...state.visibleGoods];
+
+  //     newGoods.reverse();
+
+  //     return {
+  //       visibleGoods: newGoods,
+  //     };
+  //   });
+  // };
 
   reset = () => {
     this.setState({ visibleGoods: goodsFromServer });
@@ -93,7 +120,7 @@ export class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   className="button button__sort--alph"
-                  onClick={this.sortByAlphabet}
+                  onClick={() => this.sortGoods(SortType.ALPABET)}
                 >
                   Sort alphabetically
                 </button>
@@ -101,7 +128,7 @@ export class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   className="button button__sort--leng"
-                  onClick={this.sortBylength}
+                  onClick={() => this.sortGoods(SortType.LENGTH)}
                 >
                   Sort by length
                 </button>
@@ -109,7 +136,7 @@ export class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   className="button button__sort--leng"
-                  onClick={this.sortByReverse}
+                  onClick={() => this.sortGoods(SortType.REVERSE)}
                 >
                   Reverse
                 </button>
