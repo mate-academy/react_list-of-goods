@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// import { event } from 'cypress/types/jquery';
 import React from 'react';
 import './App.css';
 
@@ -21,55 +21,145 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  minLength: number,
 ) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods].filter(element => (
+    element.length >= minLength
+  ));
 
-  // Sort and reverse goods if needed
-  // ...
+  if (sortType === SortType.ALPABET) {
+    visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
+  } else if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((good1, good2) => good1.length - good2.length);
+  }
 
-  return visibleGoods;
+  return isReversed ? visibleGoods.reverse() : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  lengthValue: number,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+    lengthValue: 1,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  render() {
+    const {
+      isStarted,
+      isReversed,
+      sortType,
+      lengthValue,
+    } = this.state;
 
-    <button type="button">
-      Sort by length
-    </button>
+    return (
+      <div className="App box has-background-warning-light">
+        {!isStarted && (
+          <button
+            type="button"
+            onClick={() => {
+              this.setState({ isStarted: true });
+            }}
+            className="button is-success is-light"
+          >
+            Start
+          </button>
+        )}
 
-    <button type="button">
-      Reverse
-    </button>
+        {isStarted && (
+          <>
+            <div className="buttons">
+              <button
+                type="button"
+                onClick={() => {
+                  this.setState({ sortType: SortType.ALPABET });
+                }}
+                className="button is-info is-light"
+              >
+                Sort alphabetically
+              </button>
 
-    <button type="button">
-      Reset
-    </button>
+              <button
+                type="button"
+                onClick={() => {
+                  this.setState({ sortType: SortType.LENGTH });
+                }}
+                className="button is-info is-light"
+              >
+                Sort by length
+              </button>
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+              <button
+                type="button"
+                onClick={() => {
+                  this.setState({ isReversed: !isReversed });
+                }}
+                className="button is-info is-light"
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  this.setState({
+                    isReversed: false,
+                    sortType: SortType.NONE,
+                    lengthValue: 1,
+                  });
+                }}
+                className="button is-danger is-light"
+              >
+                Reset
+              </button>
+            </div>
+
+            <ul className="Goods content is-large block">
+              {getReorderedGoods(
+                goodsFromServer,
+                sortType,
+                isReversed,
+                lengthValue,
+              ).map(product => (
+                <li
+                  className="Goods__item"
+                  key={product}
+                >
+                  {product}
+                </li>
+              ))}
+            </ul>
+
+            <div>
+              <p className="text">Select min length of word:</p>
+
+              <div className="select is-multiply is-success block">
+                <select
+                  name="minWordLength"
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                    this.setState({ lengthValue: +event.target.value });
+                  }}
+                >
+                  {[...Array(10)].map((_, i) => (
+                    <option value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+}
