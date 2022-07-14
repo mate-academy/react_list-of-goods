@@ -1,4 +1,7 @@
 # React list of goods
+
+> [React + Typescript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
+
 You a given an array of goods. Render them as a list in the App after `Start` button click.
 
 1. Show only the `Start` button at the beginning.
