@@ -111,8 +111,9 @@ class App extends React.Component<{}, State> {
         />
 
         {(visibleGoods.length > 0 && (
-          <>
+          <div className="level">
             <button
+              className="button is-danger"
               type="button"
               onClick={this.reverse}
             >
@@ -120,37 +121,38 @@ class App extends React.Component<{}, State> {
             </button>
 
             <button
+              className="button is-warning"
               type="button"
               onClick={this.reset}
             >
               Reset
             </button>
+            <button
+              className="button is-info"
+              type="button"
+              onClick={this.sortByLength}
+            >
+              Length
+            </button>
 
-            <p className="sorted">
-              Sort by:&nbsp;
-
-              <button
-                type="button"
-                onClick={this.sortByLength}
-              >
-                Length
-              </button>
-
-              <button
-                type="button"
-                onClick={this.sortByName}
-              >
-                Name
-              </button>
-            </p>
-          </>
+            <button
+              className="button is-success"
+              type="button"
+              onClick={this.sortByName}
+            >
+              Name
+            </button>
+          </div>
         )) || (
-          <button
-            type="button"
-            onClick={this.showAll}
-          >
-            Start
-          </button>
+          <div className="main-buttons">
+            <button
+              className="button is-primary is-rounded main-buttons__item"
+              type="button"
+              onClick={this.showAll}
+            >
+              Start
+            </button>
+          </div>
         )}
       </div>
     );
