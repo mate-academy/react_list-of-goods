@@ -16,7 +16,7 @@ const goodsFromServer: string[] = [
 
 type State = {
   goods: string[],
-  IsVisible: boolean,
+  isVisible: boolean,
   isReversed: boolean,
   sortBy: string,
 };
@@ -24,13 +24,13 @@ type State = {
 class App extends React.Component<{}, State> {
   state = {
     goods: goodsFromServer,
-    IsVisible: true,
+    isVisible: true,
     isReversed: false,
     sortBy: '',
   };
 
   toShowGoods = () => {
-    this.setState({ IsVisible: false });
+    this.setState({ isVisible: false });
   };
 
   reverse = () => {
@@ -56,7 +56,7 @@ class App extends React.Component<{}, State> {
       goods,
       isReversed,
       sortBy,
-      IsVisible,
+      isVisible,
     } = this.state;
 
     const copyGoods = [...goods];
@@ -79,11 +79,13 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App box">
-        <h1 className='message-header'>Goods</h1>
-        {IsVisible && (
-          <h3 className='message-body'>Everything starts here. Just push the button</h3>
-        )}
-        {IsVisible && (
+        <h1 className="message-header">Goods</h1>
+        {isVisible && (
+          <div>
+            <h3 className="message-body">
+            Everything starts here.
+            Just push the button
+          </h3>
           <button
             className="button button__start"
             type="button"
@@ -91,9 +93,10 @@ class App extends React.Component<{}, State> {
           >
             Start
           </button>
+          </div>
         )}
-        {!IsVisible && (
-          <div className='wrapper'>
+        {!isVisible && (
+          <div className="wrapper">
             <ul className="list">
               {copyGoods.map(good => (
                 <li
