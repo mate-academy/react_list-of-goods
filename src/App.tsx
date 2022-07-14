@@ -6,20 +6,16 @@ import { goodsFromServer } from './api/goods';
 type State = {
   goods: string[],
   lengthLimit: number,
-  minLength: number,
   isReverse: boolean,
   sortBy: string,
-  selected: number,
 };
 
 class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     lengthLimit: 0,
-    minLength: -1,
     goods: goodsFromServer,
     isReverse: false,
     sortBy: '',
-    selected: 1,
   };
 
   showAll = () => {
@@ -58,30 +54,15 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  cutByLength = (
-    _event: MouseEvent,
-    num: number,
-  ) => {
-    this.setState((state) => ({
-      ...state,
-      lengthLimit: state.lengthLimit + num,
-    }));
-  };
-
   render(): React.ReactNode {
     const {
       goods,
       isReverse,
       sortBy,
       lengthLimit,
-      minLength,
     } = this.state;
 
     const visibleGoods = goods.filter(good => {
-      if (minLength > -1) {
-        return good.length >= minLength;
-      }
-
       if (lengthLimit === -1) {
         return true;
       }
