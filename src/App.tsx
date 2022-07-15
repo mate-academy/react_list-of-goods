@@ -15,6 +15,8 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+const visibleGoods = [...goodsFromServer];
+
 type State = {
   showList: boolean,
   goodsList: string[],
@@ -23,7 +25,7 @@ type State = {
 class App extends React.Component<{}, State> {
   state = {
     showList: false,
-    goodsList: goodsFromServer,
+    goodsList: visibleGoods,
   };
 
   showGoodsList = () => {
