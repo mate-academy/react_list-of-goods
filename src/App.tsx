@@ -49,19 +49,23 @@ export class App extends Component<{}, State> {
     });
   };
 
-  render() {
-    const visibleGoods = [...goodsFromServer];
-
-    visibleGoods.sort((g1, g2) => {
+  sort = (arr: string[]) => {
+    arr.sort((item1:string, item2:string) => {
       switch (this.state.sortType) {
         case 'ALPHABET':
-          return g1.localeCompare(g2);
+          return item1.localeCompare(item2);
         case 'LENGTH':
-          return g1.length - g2.length;
+          return item1.length - item2.length;
         default:
           return 0;
       }
     });
+  };
+
+  render() {
+    const visibleGoods = [...goodsFromServer];
+
+    this.sort(visibleGoods);
 
     if (this.state.isReversed) {
       visibleGoods.reverse();
