@@ -1,1 +1,4 @@
-/* not empty */
+.button,
+.is-success {
+  margin-left: 10px;
+}
