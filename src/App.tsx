@@ -1,4 +1,3 @@
-// import { event } from 'cypress/types/jquery';
 import React from 'react';
 import './App.css';
 
@@ -16,9 +15,9 @@ const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
+  NONE = 'none',
+  ALPABET = 'alphabet',
+  LENGTH = 'length',
 }
 
 function getReorderedGoods(
