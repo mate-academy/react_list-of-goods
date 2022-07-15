@@ -15,22 +15,20 @@ const goodsFromServer: string[] = [
 ];
 
 type State = {
-  goods: string[],
-  isList: boolean,
+  hideList: boolean,
   isRevers: boolean,
   sortBy: string,
 };
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
-    isList: true,
+    hideList: true,
     isRevers: false,
     sortBy: '',
   };
 
   show = () => {
-    this.setState({ isList: false });
+    this.setState({ hideList: false });
   };
 
   reverse = () => {
@@ -44,7 +42,7 @@ class App extends React.Component<{}, State> {
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'Length' });
+    this.setState({ sortBy: 'length' });
   };
 
   reset = () => {
@@ -53,14 +51,14 @@ class App extends React.Component<{}, State> {
 
   render() {
     const {
-      goods, isRevers, sortBy, isList,
+      isRevers, sortBy, hideList,
     } = this.state;
 
-    const copyGoods = [...goods];
+    const copyGoods = [...goodsFromServer];
 
     copyGoods.sort((good1, good2) => {
       switch (sortBy) {
-        case 'Length':
+        case 'length':
           return good1.length - good2.length;
         case 'abc':
           return good1.localeCompare(good2);
@@ -77,7 +75,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isList && (
+        {hideList && (
           <button
             className="btn"
             type="button"
@@ -86,7 +84,7 @@ class App extends React.Component<{}, State> {
             Start
           </button>
         )}
-        {!isList && (
+        {!hideList && (
           <div>
             <ul className="list">
               {copyGoods.map(good => (
