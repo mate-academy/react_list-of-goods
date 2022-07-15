@@ -1,5 +1,9 @@
 # React list of goods
 
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://pavlenkoam.github.io/react_list-of-goods/)
+- Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
+- Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
+
 > [React + Typescript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
 
 You a given an array of goods. Render them as a list in the App after `Start` button click.
