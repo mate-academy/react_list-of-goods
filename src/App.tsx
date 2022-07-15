@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 const goodsFromServer = [
@@ -15,61 +16,136 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
+enum sortType {
   NONE,
-  ALPABET,
+  NAME,
   LENGTH,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
-  sortType: SortType,
+  sortBy: sortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortBy: sortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  getStart = () => {
+    this.setState(state => ({
+      isStarted: !state.isStarted,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortByName = () => {
+    this.setState({ sortBy: sortType.NAME });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortByLength = () => {
+    this.setState({ sortBy: sortType.LENGTH });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortBy: sortType.NONE,
+    });
+  };
+
+  render(): React.ReactNode {
+    const { isReversed, isStarted, sortBy } = this.state;
+    const visibleProduct = [...goodsFromServer];
+
+    if (isReversed) {
+      visibleProduct.reverse();
+    }
+
+    switch (sortBy) {
+      case sortType.NAME:
+        visibleProduct.sort(
+          (prod1, prod2) => prod1.localeCompare(prod2),
+        );
+        break;
+
+      case sortType.LENGTH:
+        visibleProduct.sort(
+          (prod1, prod2) => prod1.length - prod2.length,
+        );
+        break;
+
+      default:
+    }
+
+    return (
+      <div className="App">
+        {!isStarted && (
+          <button
+            type="button"
+            className="button__start"
+            onClick={this.getStart}
+          >
+            Start
+          </button>
+        )}
+
+        {isStarted && (
+          <>
+            <div className="card">
+              <h1 className="card__title">List of Product</h1>
+              <ol className="list">
+                {visibleProduct.map(product => (
+                  <li className="card__product" key={product}>
+                    <p>{product}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="card__button">
+              <button
+                type="button"
+                className="button"
+                onClick={this.sortByName}
+              >
+                Sort by name
+              </button>
+
+              <button
+                type="button"
+                className="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                type="button"
+                className="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                className="button button__reset"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+}
