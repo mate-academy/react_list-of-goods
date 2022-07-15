@@ -35,9 +35,15 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  // Starter = () => {
-  //   this.setState({ isStarted: true });
-  // };
+  Reverse = () => {
+    this.setState((state) => {
+      if (state.isReversed) {
+        return { isReversed: false };
+      }
+
+      return { isReversed: true };
+    });
+  };
 
   render() {
     const { isStarted, isReversed, sortType } = this.state;
@@ -63,29 +69,35 @@ export class App extends React.Component<{}, State> {
     }
 
     return (
-      <>
-        {/* <div className="App">
-          {!isStarted && (
-            <button
-              className="button is-large is-fullwidth"
-              type="button"
-              // onClick={() => (this.Starter())}
-              onClick={() => (this.setState({ isStarted: true }))}
-            >
-              Start
-            </button>
-          )}
+      <article className="App panel is-warning">
+        {!isStarted && (
+          <button
+            className="button is-large is-info is-fullwidth"
+            type="button"
+            onClick={() => (this.setState({ isStarted: true }))}
+          >
+            Start
+          </button>
+        )}
 
-          {isStarted && (
-            <>
+        {isStarted && (
+          <>
+            <p className="App__title panel-heading">
+              Shoping-list
+            </p>
+
+            <div className="panel-tabs">
               <button
+                className="button is-white"
                 type="button"
-                onClick={() => (this.setState({ sortType: SortType.ALPABET }))}
+                onClick={() => (this
+                  .setState({ sortType: SortType.ALPABET }))}
               >
                 Sort alphabetically
               </button>
 
               <button
+                className="button is-white"
                 type="button"
                 onClick={() => (this.setState({ sortType: SortType.LENGTH }))}
               >
@@ -93,13 +105,15 @@ export class App extends React.Component<{}, State> {
               </button>
 
               <button
+                className="button is-white"
                 type="button"
-                onClick={() => (this.setState({ isReversed: true }))}
+                onClick={() => this.Reverse()}
               >
                 Reverse
               </button>
 
               <button
+                className="button is-danger is-light"
                 type="button"
                 onClick={() => (this.setState({
                   isReversed: false,
@@ -108,92 +122,22 @@ export class App extends React.Component<{}, State> {
               >
                 Reset
               </button>
+            </div>
 
-              <ul className="Goods menu-list">
-                {getReorderedGoods(goodsFromServer).map(good => (
-                  <li
-                    key={good}
-                    className="Goods__item"
-                  >
-                    {good}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </div> */}
-
-        <article className="App panel is-warning">
-          {!isStarted && (
-            <button
-              className="button is-large is-info is-fullwidth"
-              type="button"
-              // onClick={() => (this.Starter())}
-              onClick={() => (this.setState({ isStarted: true }))}
-            >
-              Start
-            </button>
-          )}
-
-          {isStarted && (
-            <>
-              <p className="App__title panel-heading">
-                Shoping-list
-              </p>
-
-              <p className="panel-tabs">
-                <button
-                  className="button is-white"
-                  type="button"
-                  onClick={() => (this
-                    .setState({ sortType: SortType.ALPABET }))}
+            <div className="Goods">
+              {getReorderedGoods(goodsFromServer).map(good => (
+                <a
+                  href="#test"
+                  key={good}
+                  className="Goods__item panel-block"
                 >
-                  Sort alphabetically
-                </button>
-
-                <button
-                  className="button is-white"
-                  type="button"
-                  onClick={() => (this.setState({ sortType: SortType.LENGTH }))}
-                >
-                  Sort by length
-                </button>
-
-                <button
-                  className="button is-white"
-                  type="button"
-                  onClick={() => (this.setState({ isReversed: true }))}
-                >
-                  Reverse
-                </button>
-
-                <button
-                  className="button is-danger is-light"
-                  type="button"
-                  onClick={() => (this.setState({
-                    isReversed: false,
-                    sortType: SortType.NONE,
-                  }))}
-                >
-                  Reset
-                </button>
-              </p>
-              <div className="Goods">
-                {getReorderedGoods(goodsFromServer).map(good => (
-                  <a
-                    href="#test"
-                    key={good}
-                    className="Goods__item panel-block"
-                  >
-                    {good}
-                  </a>
-                ))}
-              </div>
-
-            </>
-          )}
-        </article>
-      </>
+                  {good}
+                </a>
+              ))}
+            </div>
+          </>
+        )}
+      </article>
     );
   }
 }
