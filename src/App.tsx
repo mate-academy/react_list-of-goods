@@ -14,17 +14,54 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortType {
+  Alphabet,
+  Length,
+  None,
+}
+
 type State = {
   isVisibleList: boolean,
   isReversed: boolean,
-  sortBy: string,
+  sortBy: SortType,
 };
+
+function getSortedGoods(
+  goods: string[],
+  isReversed: boolean,
+  sortBy: SortType,
+) {
+  const visibleGoods = [...goods];
+
+  switch (sortBy) {
+    case SortType.Alphabet:
+      visibleGoods.sort(
+        (good1, good2) => good1.localeCompare(good2),
+      );
+      break;
+
+    case SortType.Length:
+      visibleGoods.sort(
+        (good1, good2) => good1.length - good2.length,
+      );
+      break;
+
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    return visibleGoods.reverse();
+  }
+
+  return visibleGoods;
+}
 
 export class App extends Component<{}, State> {
   state: Readonly<State> = {
     isVisibleList: false,
     isReversed: false,
-    sortBy: '',
+    sortBy: SortType.None,
   };
 
   getStart = () => {
@@ -39,50 +76,25 @@ export class App extends Component<{}, State> {
     }));
   };
 
-  sortByAlphabetically = () => {
-    this.setState({
-      sortBy: 'alphabetically',
-    });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortBy: 'length',
-    });
+  sortByType = (type: SortType) => {
+    this.setState({ sortBy: type });
   };
 
   resetChanges = () => {
     this.setState({
       isReversed: false,
-      sortBy: '',
+      sortBy: SortType.None,
     });
   };
 
   render() {
-    const {
-      isVisibleList,
-      isReversed,
-      sortBy,
-    } = this.state;
+    const { isVisibleList } = this.state;
 
-    const visibleGoods = [...goodsFromServer];
-
-    visibleGoods.sort((good1, good2) => {
-      switch (sortBy) {
-        case 'alphabetically':
-          return good1.localeCompare(good2);
-
-        case 'length':
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const sortedGoods = getSortedGoods(
+      goodsFromServer,
+      this.state.isReversed,
+      this.state.sortBy,
+    );
 
     return (
       <div className="App block">
@@ -113,7 +125,7 @@ export class App extends Component<{}, State> {
         {isVisibleList && (
           <>
             <ul className="list">
-              {visibleGoods.map(good => (
+              {sortedGoods.map(good => (
                 <li className="item media" key={good}>
                   <p>{good}</p>
                 </li>
@@ -132,7 +144,7 @@ export class App extends Component<{}, State> {
               <button
                 className="button is-link"
                 type="button"
-                onClick={this.sortByAlphabetically}
+                onClick={() => this.sortByType(SortType.Alphabet)}
               >
                 Sort alphabetically
               </button>
@@ -140,9 +152,9 @@ export class App extends Component<{}, State> {
               <button
                 className="button is-info"
                 type="button"
-                onClick={this.sortByLength}
+                onClick={() => this.sortByType(SortType.Length)}
               >
-                Sort by length
+                Sort by Length
               </button>
 
               <button
