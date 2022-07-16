@@ -32,19 +32,19 @@ export class App extends React.Component<{}, State> {
 
   reverseGoods = () => {
     this.setState((state => ({
-      goods: state.goods.reverse(),
+      goods: [...state.goods].reverse(),
     })));
   };
 
   sortAbcGoods = () => {
     this.setState((state => ({
-      goods: state.goods.sort((a, b) => (a.localeCompare(b))),
+      goods: [...state.goods].sort((a, b) => (a.localeCompare(b))),
     })));
   };
 
   sortLengthGoods = () => {
     this.setState((state => ({
-      goods: state.goods.sort((a, b) => {
+      goods: [...state.goods].sort((a, b) => {
         return a.length - b.length;
       }),
     })));
@@ -53,7 +53,7 @@ export class App extends React.Component<{}, State> {
   resetGoods = () => {
     const defaulSelect = document.getElementById('defaultValue');
 
-    this.showGoods();
+    this.setState({ goods: goodsFromServer });
     if (defaulSelect) {
       defaulSelect.setAttribute('selected', '');
       defaulSelect.removeAttribute('selected');
