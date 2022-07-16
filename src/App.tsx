@@ -20,34 +20,6 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-// enum SortType {
-//   NONE,
-//   ALPABET,
-//   LENGTH,
-// }
-
-// Use this function in the render method
-// function getReorderedGoods(
-//   goods: string[],
-//   sortType: SortType,
-//   isReversed: boolean,
-// ) {
-//   // Not to mutate the original array
-//   const visibleGoods = [...goods];
-
-//   // Sort and reverse goods if needed
-//   // ...
-
-//   return visibleGoods;
-// }
-
-// DON'T save goods to the state
-// type State = {
-//   isStarted: boolean,
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
 type State = {
   status: string;
   goods: string[];
