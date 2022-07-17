@@ -1,0 +1,28 @@
+.app {
+  border: 1px solid black;
+  border-radius: 25%;
+  margin: 20px;
+
+  width: 600px;
+  height: 600px;
+
+  text-align: center;
+
+  &__title {
+    font-size: 40px;
+    margin: 20px;
+  }
+
+  &__list {
+    color: grey;
+    margin-top: 50px;
+    font-size: 20px;
+
+  }
+}
+
+.buttons {
+  margin-left: 60px;
+  align-items: center;
+  text-align: center;
+}

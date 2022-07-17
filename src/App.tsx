@@ -1,75 +1,121 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import 'bulma/css/bulma.min.css';
 import React from 'react';
-import './App.css';
+import { Button } from 'react-bulma-components';
+import './App.scss';
+import { GoodList, Product } from './components/GoodList';
+import { goodsFromServer } from './data/goodsFromServer';
 
-const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+type Props = {};
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
-type State = {
+interface State {
   isStarted: boolean,
-  isReversed: boolean,
-  sortType: SortType,
-};
+  goods: Product[],
+}
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<Props, State> {
+  state: State = {
+    isStarted: false,
+    goods: goodsFromServer,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  start = () => {
+    this.setState({
+      isStarted: true,
+    });
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      goods: [...state.goods].reverse(),
+    }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortAlphabetically = () => {
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (product1, product2) => product1.value.localeCompare(product2.value),
+      ),
+    }));
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  sortByLength = () => {
+    this.setState(state => ({
+      goods: [...state.goods].sort(
+        (product1, product2) => product1.value.length - product2.value.length,
+      ),
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({
+      goods: [...goodsFromServer],
+    });
+  };
+
+  render() {
+    const { goods, isStarted } = this.state;
+
+    return (
+      <div className="app">
+        {isStarted
+          ? (
+            <>
+              <h1 className="app__title">Goods</h1>
+
+              <div className="buttons">
+                <Button
+                  color="info"
+                  type="button"
+                  onClick={this.reverse}
+                  className="button"
+                >
+                  Reverse
+                </Button>
+
+                <button
+                  type="button"
+                  onClick={this.sortAlphabetically}
+                  className="button"
+                >
+                  Sort alphabetically
+                </button>
+
+                <button
+                  type="button"
+                  onClick={this.sortByLength}
+                  className="button"
+                >
+                  Sort by length
+                </button>
+
+                <Button
+                  color="danger"
+                  type="button"
+                  onClick={this.reset}
+                  className="button"
+                >
+                  Reset
+                </Button>
+              </div>
+
+              <div className="app__list">
+                <GoodList goods={goods} />
+              </div>
+
+            </>
+          )
+          : (
+            <Button
+              color="primary"
+              type="button"
+              onClick={this.start}
+              className="button"
+            >
+              Start
+            </Button>
+          )}
+      </div>
+    );
+  }
+}
