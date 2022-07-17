@@ -1,0 +1,84 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.Goods {
+  &__list {
+    text-align: center;
+    margin: 20px;
+    line-height: 20px;
+    background-color: #fff;
+  }
+
+  &__item {
+    font-size: 15px;
+    background-color: #e8b6e0;
+
+    &:not(:first-child) {
+      margin-top: 5px;
+    }
+  }
+}
+
+.button {
+  width: max-content;
+  height: 50px;
+  font-weight: 300;
+  color: #000;
+
+  background-color: #e765d3;
+  border-radius: 10px;
+
+  &:hover {
+    color: #000;
+    background-color: #fff;
+  }
+
+  &:not(:first-child) {
+    margin-left: 20px;
+  }
+}
+
+.buttons__forSort {
+  &-start {
+    font-size: 60px;
+    height: 100px;
+    width: 200px;
+
+    background-color: #e765d3;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &-reverse {
+    background-color: #e765d3;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &-reset {
+    background-color: #e765d3;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
