@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 const goodsFromServer = [
   'Dumplings',
@@ -16,60 +16,140 @@ const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
+  NONE = 'NONE',
+  ALPABET = 'ALPABET',
+  LENGTH = 'LENGTH',
+  REVERSE = 'REVERSE',
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
-  sortType: SortType,
+  sortBy: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state: State = {
+    isStarted: false,
+    isReversed: false,
+    sortBy: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortBy: SortType.NONE,
+    });
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  startListView = () => {
+    this.setState((state) => ({ isStarted: !state.isStarted }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  render() {
+    const { isStarted, isReversed, sortBy } = this.state;
+    const visibleGoods = [...goodsFromServer];
 
-    <button type="button">
-      Reset
-    </button>
+    visibleGoods.sort((good1, good2) => {
+      switch (sortBy) {
+        case SortType.ALPABET:
+          return good1.localeCompare(good2);
+        case SortType.LENGTH:
+          return good1.length - good2.length;
+        default:
+          return 0;
+      }
+    });
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
+    return (
+      <div className="App">
+        {isStarted
+          ? (
+            <>
+              <div className="buttons">
+                <button
+                  type="button"
+                  className="button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
+                  onClick={() => this.setState({ sortBy: SortType.ALPABET })}
+                >
+                  Sort alphabetically
+                </button>
+
+                <button
+                  type="button"
+                  className="button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
+                  onClick={() => this.setState({ sortBy: SortType.LENGTH })}
+                >
+                  Sort by length
+                </button>
+
+                <button
+                  type="button"
+                  className="
+                  button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
+                  onClick={() => this.setState({ isReversed: !isReversed })}
+                >
+                  Reverse
+                </button>
+
+                <button
+                  type="button"
+                  className="
+                  button
+                  is-primary
+                  is-medium
+                  is-responsive
+                  is-focused"
+                  onClick={this.reset}
+                >
+                  Reset
+                </button>
+              </div>
+
+              <ol
+                className="Goods"
+              >
+                {visibleGoods.map(good => (
+                  <li
+                    className="Goods__item"
+                    key={good}
+                  >
+                    {good}
+                  </li>
+                ))}
+              </ol>
+            </>
+          )
+          : (
+            <button
+              type="button"
+              className="button
+              is-primary
+              is-medium
+              is-responsive
+              is-focused"
+              onClick={this.startListView}
+            >
+              Start
+            </button>
+          )}
+      </div>
+    );
+  }
+}
