@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './App.css';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -41,18 +41,18 @@ export class App extends Component<{}, State> {
     }));
   };
 
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
   sortByName = () => {
     this.setState({ sortBy: sortType.NAME });
   };
 
   sortByLength = () => {
     this.setState({ sortBy: sortType.LENGTH });
-  };
-
-  reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
   };
 
   reset = () => {
@@ -65,10 +65,6 @@ export class App extends Component<{}, State> {
   render(): React.ReactNode {
     const { isReversed, isStarted, sortBy } = this.state;
     const visibleProduct = [...goodsFromServer];
-
-    if (isReversed) {
-      visibleProduct.reverse();
-    }
 
     switch (sortBy) {
       case sortType.NAME:
@@ -84,6 +80,10 @@ export class App extends Component<{}, State> {
         break;
 
       default:
+    }
+
+    if (isReversed) {
+      visibleProduct.reverse();
     }
 
     return (
