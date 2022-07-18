@@ -16,23 +16,52 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
-enum sortType {
+enum SortType {
   NONE,
   NAME,
   LENGTH,
 }
 
+function getReorderedGoods(
+  isReversed: boolean,
+  sortBy: SortType,
+) {
+  const visibleProduct = [...goodsFromServer];
+
+  switch (sortBy) {
+    case SortType.NAME:
+      visibleProduct.sort(
+        (prod1, prod2) => prod1.localeCompare(prod2),
+      );
+      break;
+
+    case SortType.LENGTH:
+      visibleProduct.sort(
+        (prod1, prod2) => prod1.length - prod2.length,
+      );
+      break;
+
+    default:
+  }
+
+  if (isReversed) {
+    visibleProduct.reverse();
+  }
+
+  return visibleProduct;
+}
+
 type State = {
   isStarted: boolean,
   isReversed: boolean,
-  sortBy: sortType,
+  sortBy: SortType,
 };
 
 export class App extends Component<{}, State> {
   state: Readonly<State> = {
     isStarted: false,
     isReversed: false,
-    sortBy: sortType.NONE,
+    sortBy: SortType.NONE,
   };
 
   getStart = () => {
@@ -47,44 +76,23 @@ export class App extends Component<{}, State> {
     }));
   };
 
-  sortByName = () => {
-    this.setState({ sortBy: sortType.NAME });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortBy: sortType.LENGTH });
+  sortByHandler = (sortBy: SortType) => {
+    this.setState({ sortBy });
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortBy: sortType.NONE,
+      sortBy: SortType.NONE,
     });
   };
 
   render(): React.ReactNode {
     const { isReversed, isStarted, sortBy } = this.state;
-    const visibleProduct = [...goodsFromServer];
-
-    switch (sortBy) {
-      case sortType.NAME:
-        visibleProduct.sort(
-          (prod1, prod2) => prod1.localeCompare(prod2),
-        );
-        break;
-
-      case sortType.LENGTH:
-        visibleProduct.sort(
-          (prod1, prod2) => prod1.length - prod2.length,
-        );
-        break;
-
-      default:
-    }
-
-    if (isReversed) {
-      visibleProduct.reverse();
-    }
+    const visibleProduct = getReorderedGoods(
+      isReversed,
+      sortBy,
+    );
 
     return (
       <div className="App">
@@ -114,7 +122,7 @@ export class App extends Component<{}, State> {
               <button
                 type="button"
                 className="button"
-                onClick={this.sortByName}
+                onClick={() => this.sortByHandler(SortType.NAME)}
               >
                 Sort by name
               </button>
@@ -122,7 +130,7 @@ export class App extends Component<{}, State> {
               <button
                 type="button"
                 className="button"
-                onClick={this.sortByLength}
+                onClick={() => this.sortByHandler(SortType.LENGTH)}
               >
                 Sort by length
               </button>
