@@ -24,56 +24,46 @@ enum SortType {
 
 type State = {
   isStarted: boolean,
-  visibleGoods: string[],
+  isReversed: boolean,
+  sortBy: SortType,
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     isStarted: false,
-    visibleGoods: goodsFromServer,
-  };
-
-  sortGoods = (sortBy: SortType) => {
-    this.setState(state => {
-      const newGoods = [...state.visibleGoods];
-
-      switch (sortBy) {
-        case SortType.ALPABET:
-          newGoods.sort((good1, good2) => good1.localeCompare(good2));
-          break;
-
-        case SortType.LENGTH:
-          newGoods.sort((good1, good2) => good1.length - good2.length);
-          break;
-
-        case SortType.REVERSE:
-          newGoods.reverse();
-          break;
-
-        default:
-          break;
-      }
-
-      return {
-        visibleGoods: newGoods,
-      };
-    });
+    isReversed: false,
+    sortBy: SortType.NONE,
   };
 
   reset = () => {
-    this.setState({ visibleGoods: goodsFromServer });
+    this.setState({
+      isReversed: false,
+      sortBy: SortType.NONE,
+    });
   };
 
   startListView = () => {
-    const { isStarted } = this.state;
-
-    if (!isStarted) {
-      this.setState(() => ({ isStarted: !isStarted }));
-    }
+    this.setState((state) => ({ isStarted: !state.isStarted }));
   };
 
   render() {
-    const { isStarted, visibleGoods } = this.state;
+    const { isStarted, isReversed, sortBy } = this.state;
+    const visibleGoods = [...goodsFromServer];
+
+    visibleGoods.sort((good1, good2) => {
+      switch (sortBy) {
+        case SortType.ALPABET:
+          return good1.localeCompare(good2);
+        case SortType.LENGTH:
+          return good1.length - good2.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
 
     return (
       <div className="App">
@@ -88,7 +78,7 @@ export class App extends React.Component<{}, State> {
                   is-medium
                   is-responsive
                   is-focused"
-                  onClick={() => this.sortGoods(SortType.ALPABET)}
+                  onClick={() => this.setState({ sortBy: SortType.ALPABET })}
                 >
                   Sort alphabetically
                 </button>
@@ -100,7 +90,7 @@ export class App extends React.Component<{}, State> {
                   is-medium
                   is-responsive
                   is-focused"
-                  onClick={() => this.sortGoods(SortType.LENGTH)}
+                  onClick={() => this.setState({ sortBy: SortType.LENGTH })}
                 >
                   Sort by length
                 </button>
@@ -113,7 +103,7 @@ export class App extends React.Component<{}, State> {
                   is-medium
                   is-responsive
                   is-focused"
-                  onClick={() => this.sortGoods(SortType.REVERSE)}
+                  onClick={() => this.setState({ isReversed: !isReversed })}
                 >
                   Reverse
                 </button>
