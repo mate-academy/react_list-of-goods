@@ -15,17 +15,23 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+enum SortType {
+  NONE,
+  ALPHABET,
+  LENGTH,
+}
+
 type State = {
   isStarted: boolean,
   isReversed: boolean,
-  sortType: string,
+  sortType: SortType,
 };
 
 export class App extends Component<{}, State> {
   state: State = {
     isStarted: false,
     isReversed: false,
-    sortType: '',
+    sortType: SortType.NONE,
   };
 
   reverse = () => {
@@ -34,27 +40,23 @@ export class App extends Component<{}, State> {
     }));
   };
 
-  sortByABC = () => {
-    this.setState({ sortType: 'ALPHABET' });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortType: 'LENGTH' });
+  sortBy = (sortBy: SortType) => {
+    this.setState({ sortType: sortBy });
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortType: '',
+      sortType: SortType.NONE,
     });
   };
 
   sort = (arr: string[]) => {
-    arr.sort((item1:string, item2:string) => {
+    arr.sort((item1: string, item2: string) => {
       switch (this.state.sortType) {
-        case 'ALPHABET':
+        case SortType.ALPHABET:
           return item1.localeCompare(item2);
-        case 'LENGTH':
+        case SortType.LENGTH:
           return item1.length - item2.length;
         default:
           return 0;
@@ -77,14 +79,14 @@ export class App extends Component<{}, State> {
           <>
             <button
               type="button"
-              onClick={this.sortByABC}
+              onClick={() => this.sortBy(SortType.ALPHABET)}
             >
               Sort alphabetically
             </button>
 
             <button
               type="button"
-              onClick={this.sortByLength}
+              onClick={() => this.sortBy(SortType.LENGTH)}
             >
               Sort by length
             </button>
