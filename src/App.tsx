@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 const goodsFromServer = [
   'Dumplings',
@@ -21,55 +20,132 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
-  isStarted: boolean,
+  isVisible: boolean,
   isReversed: boolean,
-  sortType: SortType,
+  sortBy: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+class App extends React.Component<{}, State> {
+  state = {
+    isVisible: false,
+    isReversed: false,
+    sortBy: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  visibleGoodsList = () => {
+    this.setState((state) => ({
+      isVisible: !state.isVisible,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  reverse = () => {
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  reset = () => {
+    this.setState(() => ({
+      isVisible: false,
+      isReversed: false,
+      sortBy: SortType.NONE,
+    }));
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  sortBy = (sortType: SortType) => {
+    this.setState({
+      sortBy: sortType,
+    });
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  getReorderedGoods = (visibleGoods: string[]) => {
+    const { sortBy, isReversed } = this.state;
+
+    switch (sortBy) {
+      case SortType.LENGTH:
+        visibleGoods.sort((good, prevGood) => good.length - prevGood.length);
+        break;
+
+      case SortType.ALPABET:
+        visibleGoods.sort((good, prevGood) => good.localeCompare(prevGood));
+        break;
+
+      default:
+    }
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
+    return visibleGoods;
+  };
+
+  render():React.ReactNode {
+    const {
+      isVisible,
+    } = this.state;
+
+    return (
+      <div className="App">
+        {!isVisible && (
+          <button
+            className="button buttons__forSort-start"
+            type="button"
+            onClick={this.visibleGoodsList}
+          >
+            Start
+          </button>
+        )}
+
+        {isVisible && (
+          <div className="Goods">
+            <ul className="Goods__list">
+              {(this.getReorderedGoods(goodsFromServer).map((good) => (
+                <li className="Goods__item" key={good}>
+                  {good}
+                </li>
+              )))}
+            </ul>
+
+            <div className="buttons__forSort">
+              <button
+                className="button buttons__forSort-reverse"
+                type="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                className="button buttons__forSort-reset"
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+
+              <button
+                className="button buttons__forSort-length"
+                type="button"
+                onClick={() => this.sortBy(SortType.LENGTH)}
+              >
+                Sort By Length
+              </button>
+
+              <button
+                className="button buttons__forSort-alphabet"
+                type="button"
+                onClick={() => this.sortBy(SortType.ALPABET)}
+              >
+                Sort alphabetically
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+export default App;
