@@ -21,33 +21,17 @@ enum SortType {
 }
 
 type State = {
-  goods: string[],
   isVisible: boolean,
   isReversed: boolean,
-  isSorted: boolean,
   sortBy: SortType,
 };
 
 class App extends React.Component<{}, State> {
-  state:Readonly<State> = {
-    goods: goodsFromServer,
+  state = {
     isVisible: false,
     isReversed: false,
-    isSorted: false,
     sortBy: SortType.NONE,
   };
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        goods: goodsFromServer,
-        isVisible: true,
-        isReversed: false,
-        isSorted: false,
-        sortBy: SortType.NONE,
-      });
-    }, 100000000000);
-  }
 
   visibleGoodsList = () => {
     this.setState((state) => ({
@@ -55,56 +39,52 @@ class App extends React.Component<{}, State> {
     }));
   };
 
-  SortByLength = () => {
-    this.setState({ isSorted: true, sortBy: SortType.LENGTH });
-  };
-
-  SortByAlphabet = () => {
-    this.setState({ isSorted: true, sortBy: SortType.ALPABET });
-  };
-
-  Reverse = () => {
+  reverse = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  Reset = () => {
+  reset = () => {
     this.setState(() => ({
-      sortBy: SortType.NONE,
+      isVisible: false,
       isReversed: false,
-      isSorted: false,
+      sortBy: SortType.NONE,
     }));
+  };
+
+  sortBy = (sortType: SortType) => {
+    this.setState({
+      sortBy: sortType,
+    });
+  };
+
+  getReorderedGoods = (visibleGoods: string[]) => {
+    const { sortBy, isReversed } = this.state;
+
+    switch (sortBy) {
+      case SortType.LENGTH:
+        visibleGoods.sort((good, prevGood) => good.length - prevGood.length);
+        break;
+
+      case SortType.ALPABET:
+        visibleGoods.sort((good, prevGood) => good.localeCompare(prevGood));
+        break;
+
+      default:
+    }
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
+    return visibleGoods;
   };
 
   render():React.ReactNode {
     const {
-      goods,
       isVisible,
-      isReversed,
-      isSorted,
-      sortBy,
     } = this.state;
-
-    const sortedGoods = [...goods];
-
-    if (isSorted) {
-      switch (sortBy) {
-        case SortType.LENGTH:
-          sortedGoods.sort((good, prevGood) => good.length - prevGood.length);
-          break;
-
-        case SortType.ALPABET:
-          sortedGoods.sort((good, prevGood) => good.localeCompare(prevGood));
-          break;
-
-        default:
-      }
-    }
-
-    if (isReversed) {
-      sortedGoods.reverse();
-    }
 
     return (
       <div className="App">
@@ -121,7 +101,7 @@ class App extends React.Component<{}, State> {
         {isVisible && (
           <div className="Goods">
             <ul className="Goods__list">
-              {(sortedGoods.map((good) => (
+              {(this.getReorderedGoods(goodsFromServer).map((good) => (
                 <li className="Goods__item" key={good}>
                   {good}
                 </li>
@@ -132,7 +112,7 @@ class App extends React.Component<{}, State> {
               <button
                 className="button buttons__forSort-reverse"
                 type="button"
-                onClick={this.Reverse}
+                onClick={this.reverse}
               >
                 Reverse
               </button>
@@ -140,7 +120,7 @@ class App extends React.Component<{}, State> {
               <button
                 className="button buttons__forSort-reset"
                 type="button"
-                onClick={this.Reset}
+                onClick={this.reset}
               >
                 Reset
               </button>
@@ -148,7 +128,7 @@ class App extends React.Component<{}, State> {
               <button
                 className="button buttons__forSort-length"
                 type="button"
-                onClick={this.SortByLength}
+                onClick={() => this.sortBy(SortType.LENGTH)}
               >
                 Sort By Length
               </button>
@@ -156,7 +136,7 @@ class App extends React.Component<{}, State> {
               <button
                 className="button buttons__forSort-alphabet"
                 type="button"
-                onClick={this.SortByAlphabet}
+                onClick={() => this.sortBy(SortType.ALPABET)}
               >
                 Sort alphabetically
               </button>
