@@ -43,7 +43,7 @@ function getReorderedGoods(
 
   return (
     visibleGoods.map(item => (
-      <li className="Goods__item">{item}</li>
+      <li className="Goods__item" key={item}>{item}</li>
     ))
   );
 }
