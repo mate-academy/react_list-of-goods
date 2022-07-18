@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
@@ -15,13 +16,48 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortType {
+  Alphabet,
+  Length,
+  None,
+}
+
 type State = {
   goods: string[];
   isVisible: boolean;
   isReversed: boolean,
   isSorted: boolean,
-  sortBy: string,
+  sortBy: SortType,
 };
+
+function getSorted(
+  goods: string[],
+  isReversed: boolean,
+  sortBy: SortType,
+  isSorted: boolean,
+) {
+  const copyGoods = [...goods];
+
+  if (isSorted) {
+    copyGoods.sort((good1, good2): number => {
+      switch (sortBy) {
+        case SortType.Length:
+          return good1.length - good2.length;
+
+        case SortType.Alphabet:
+          return good1.localeCompare(good2);
+
+        default: return 0;
+      }
+    });
+  }
+
+  if (isReversed) {
+    copyGoods.reverse();
+  }
+
+  return copyGoods;
+}
 
 export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
@@ -29,7 +65,7 @@ export class App extends React.Component<{}, State> {
     isVisible: false,
     isReversed: false,
     isSorted: false,
-    sortBy: '',
+    sortBy: SortType.None,
   };
 
   visibleGoodsList = () => {
@@ -46,7 +82,7 @@ export class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState(() => ({
-      sortBy: '',
+      sortBy: SortType.None,
       isReversed: false,
       isSorted: false,
     }));
@@ -55,45 +91,26 @@ export class App extends React.Component<{}, State> {
   sortByLength = () => {
     this.setState({
       isSorted: true,
-      sortBy: 'length',
+      sortBy: SortType.Length,
     });
   };
 
   sortByAlphabetic = () => {
     this.setState({
       isSorted: true,
-      sortBy: 'alphabet',
+      sortBy: SortType.Alphabet,
     });
   };
 
   render() {
-    const {
-      isVisible,
-      goods,
-      isReversed,
-      sortBy,
-      isSorted,
-    } = this.state;
+    const { isVisible } = this.state;
 
-    const copyGoods = [...goods];
-
-    if (isSorted) {
-      copyGoods.sort((good1, good2): number => {
-        switch (sortBy) {
-          case 'length':
-            return good1.length - good2.length;
-
-          case 'alphabet':
-            return good1.localeCompare(good2);
-
-          default: return 0;
-        }
-      });
-    }
-
-    if (isReversed) {
-      copyGoods.reverse();
-    }
+    const sortedGoods = getSorted(
+      goodsFromServer,
+      this.state.isReversed,
+      this.state.sortBy,
+      this.state.isSorted,
+    );
 
     return (
       <div className="App">
@@ -112,7 +129,7 @@ export class App extends React.Component<{}, State> {
         {isVisible && (
           <div className="App__container">
             <ul className="App__list">
-              {(copyGoods.map((good) => (
+              {(sortedGoods.map((good) => (
                 <li
                   key={good}
                   className="App__item"
