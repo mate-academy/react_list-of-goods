@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
-import './App.css';
+import { Component } from 'react';
+import { GoodsList } from './GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -15,61 +14,45 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
-  isStarted: boolean,
-  isReversed: boolean,
-  sortType: SortType,
+  goodsList: string[];
+  isListVisible: boolean;
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends Component<{}, State> {
+  state: Readonly<State> = {
+    goodsList: goodsFromServer,
+    isListVisible: false,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  displayGoods = () => {
+    this.setState(state => ({
+      isListVisible: !state.isListVisible,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  render() {
+    const { goodsList, isListVisible } = this.state;
 
-    <button type="button">
-      Reverse
-    </button>
-
-    <button type="button">
-      Reset
-    </button>
-
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+    return (
+      <div className="has-text-centered">
+        <h1 className="title mt-3 is-size-3">List of goods</h1>
+        {
+          !isListVisible ? (
+            <>
+              <button
+                type="button"
+                className="button"
+                onClick={this.displayGoods}
+              >
+                Start
+              </button>
+            </>
+          ) : (
+            <GoodsList goods={goodsList} />
+          )
+        }
+      </div>
+    );
+  }
+}
