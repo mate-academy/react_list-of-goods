@@ -3,8 +3,7 @@ import './App.css';
 
 type State = {
   isOpened: boolean,
-  goodsFromServer2: string[],
-  mutedGoods: string[],
+  visibleGoods: string[],
 };
 
 const goodsFromServer: string[] = [
@@ -23,26 +22,24 @@ const goodsFromServer: string[] = [
 class App extends React.Component<{}, State> {
   state: State = {
     isOpened: false,
-    goodsFromServer2: goodsFromServer,
-    mutedGoods: [],
+    visibleGoods: [...goodsFromServer],
   };
 
   startGoods = () => {
-    this.setState(state => ({
+    this.setState({
       isOpened: true,
-      mutedGoods: [...state.goodsFromServer2],
-    }));
+    });
   };
 
   reversedGoods = () => {
     this.setState(state => {
-      state.mutedGoods.reverse();
+      state.visibleGoods.reverse();
     });
   };
 
   sortByABCGoods = () => {
     this.setState(state => {
-      state.mutedGoods.sort((good1, good2) => {
+      state.visibleGoods.sort((good1, good2) => {
         return good1.localeCompare(good2);
       });
     });
@@ -50,81 +47,91 @@ class App extends React.Component<{}, State> {
 
   sortByGoodsLength = () => {
     this.setState(state => {
-      state.mutedGoods.sort((good1, good2) => {
+      state.visibleGoods.sort((good1, good2) => {
         return (good1.length - good2.length);
       });
     });
   };
 
   resetGoods = () => {
-    this.setState(state => ({
-      mutedGoods: [...state.goodsFromServer2],
+    this.setState(() => ({
+      visibleGoods: [...goodsFromServer],
     }));
   };
 
   render() {
-    const { isOpened, mutedGoods: mutedgoods } = this.state;
+    const { isOpened, visibleGoods } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
 
-        <button
-          type="button"
-          onClick={() => {
-            this.startGoods();
-          }}
-          className={isOpened ? 'button__start' : ''}
-        >
-          Start
-        </button>
+        {!isOpened
+        && (
+          <button
+            type="button"
+            onClick={() => {
+              this.startGoods();
+            }}
+          >
+            Start
+          </button>
+        )}
 
-        <button
-          type="button"
-          onClick={() => {
-            this.reversedGoods();
-            this.forceUpdate();
-          }}
-          className={!isOpened ? 'button__start' : ''}
-        >
-          Reverse
-        </button>
+        {isOpened
+        && (
+          <button
+            type="button"
+            onClick={() => {
+              this.reversedGoods();
+              this.forceUpdate();
+            }}
+          >
+            Reverse
+          </button>
+        )}
 
-        <button
-          type="button"
-          onClick={() => {
-            this.sortByABCGoods();
-            this.forceUpdate();
-          }}
-          className={!isOpened ? 'button__start' : ''}
-        >
-          Sort alphabetically
-        </button>
+        {isOpened
+        && (
+          <button
+            type="button"
+            onClick={() => {
+              this.sortByABCGoods();
+              this.forceUpdate();
+            }}
+          >
+            Sort alphabetically
+          </button>
+        )}
 
-        <button
-          type="button"
-          onClick={() => {
-            this.sortByGoodsLength();
-            this.forceUpdate();
-          }}
-          className={!isOpened ? 'button__start' : ''}
-        >
-          Sort by length
-        </button>
+        {isOpened
+        && (
+          <button
+            type="button"
+            onClick={() => {
+              this.sortByGoodsLength();
+              this.forceUpdate();
+            }}
+          >
+            Sort by length
+          </button>
+        )}
 
-        <button
-          type="button"
-          onClick={() => {
-            this.resetGoods();
-            this.forceUpdate();
-          }}
-          className={!isOpened ? 'button__start' : ''}
-        >
-          Reset
-        </button>
+        {isOpened
+        && (
+          <button
+            type="button"
+            onClick={() => {
+              this.resetGoods();
+              this.forceUpdate();
+            }}
+          >
+            Reset
+          </button>
+        )}
 
         <ul>
-          {isOpened && mutedgoods.map((good) => {
+          {isOpened && visibleGoods.map((good) => {
             return (
               <li key={good}>
                 {good}
