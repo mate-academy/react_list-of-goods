@@ -39,7 +39,7 @@ export class App extends React.Component<{}, State> {
     const goodsCopy = [...this.state.goods];
 
     if (this.state.SortAlphabetically) {
-      goodsCopy.sort((w1, w2) => w2.localeCompare(w1));
+      goodsCopy.sort((word1, word2) => word2.localeCompare(word1));
     } else {
       goodsCopy.sort();
     }
@@ -56,9 +56,11 @@ export class App extends React.Component<{}, State> {
     const goodsCopy = [...this.state.goods];
 
     if (this.state.SortByLength) {
-      goodsCopy.sort((w1: string, w2: string) => w2.length - w1.length);
+      goodsCopy
+        .sort((word1: string, word2: string) => word2.length - word1.length);
     } else {
-      goodsCopy.sort((w1: string, w2: string) => w1.length - w2.length);
+      goodsCopy
+        .sort((word1: string, word2: string) => word1.length - word2.length);
     }
 
     this.setState(prevState => (
