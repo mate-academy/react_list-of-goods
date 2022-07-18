@@ -15,9 +15,9 @@ const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
+  none,
+  alphabet,
+  length,
 }
 
 type State = {
@@ -34,20 +34,8 @@ class App extends React.Component<{}, State> {
     isVisible: false,
     isReversed: false,
     isSorted: false,
-    sortBy: SortType.NONE,
+    sortBy: SortType.none,
   };
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        goods: goodsFromServer,
-        isVisible: true,
-        isReversed: false,
-        isSorted: false,
-        sortBy: SortType.NONE,
-      });
-    }, 100000000000);
-  }
 
   visibleGoodsList = () => {
     this.setState((state) => ({
@@ -56,11 +44,11 @@ class App extends React.Component<{}, State> {
   };
 
   SortByLength = () => {
-    this.setState({ isSorted: true, sortBy: SortType.LENGTH });
+    this.setState({ isSorted: true, sortBy: SortType.length });
   };
 
   SortByAlphabet = () => {
-    this.setState({ isSorted: true, sortBy: SortType.ALPABET });
+    this.setState({ isSorted: true, sortBy: SortType.alphabet });
   };
 
   Reverse = () => {
@@ -71,7 +59,7 @@ class App extends React.Component<{}, State> {
 
   Reset = () => {
     this.setState(() => ({
-      sortBy: SortType.NONE,
+      sortBy: SortType.none,
       isReversed: false,
       isSorted: false,
     }));
@@ -90,11 +78,11 @@ class App extends React.Component<{}, State> {
 
     if (isSorted) {
       switch (sortBy) {
-        case SortType.LENGTH:
+        case SortType.length:
           sortedGoods.sort((good, prevGood) => good.length - prevGood.length);
           break;
 
-        case SortType.ALPABET:
+        case SortType.alphabet:
           sortedGoods.sort((good, prevGood) => good.localeCompare(prevGood));
           break;
 
@@ -108,7 +96,7 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {!isVisible && (
+        {!isVisible ? (
           <button
             className="button buttons__forSort-start"
             type="button"
@@ -116,54 +104,53 @@ class App extends React.Component<{}, State> {
           >
             Start
           </button>
-        )}
+        )
+          : (
+            <div className="Goods">
+              <ul className="Goods__list">
+                {(sortedGoods.map((good) => (
+                  <li className="Goods__item" key={good}>
+                    {good}
+                  </li>
+                )))}
+              </ul>
 
-        {isVisible && (
-          <div className="Goods">
-            <ul className="Goods__list">
-              {(sortedGoods.map((good) => (
-                <li className="Goods__item" key={good}>
-                  {good}
-                </li>
-              )))}
-            </ul>
+              <div className="buttons__forSort">
+                <button
+                  className="button buttons__forSort-reverse"
+                  type="button"
+                  onClick={this.Reverse}
+                >
+                  Reverse
+                </button>
 
-            <div className="buttons__forSort">
-              <button
-                className="button buttons__forSort-reverse"
-                type="button"
-                onClick={this.Reverse}
-              >
-                Reverse
-              </button>
+                <button
+                  className="button buttons__forSort-length"
+                  type="button"
+                  onClick={this.SortByLength}
+                >
+                  Sort By Length
+                </button>
 
-              <button
-                className="button buttons__forSort-length"
-                type="button"
-                onClick={this.SortByLength}
-              >
-                Sort By Length
-              </button>
+                <button
+                  className="button buttons__forSort-alphabet"
+                  type="button"
+                  onClick={this.SortByAlphabet}
+                >
+                  Sort alphabetically
+                </button>
 
-              <button
-                className="button buttons__forSort-alphabet"
-                type="button"
-                onClick={this.SortByAlphabet}
-              >
-                Sort alphabetically
-              </button>
+                <button
+                  className="button buttons__forSort-reset"
+                  type="button"
+                  onClick={this.Reset}
+                >
+                  Reset
+                </button>
 
-              <button
-                className="button buttons__forSort-reset"
-                type="button"
-                onClick={this.Reset}
-              >
-                Reset
-              </button>
-
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     );
   }
