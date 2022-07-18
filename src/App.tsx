@@ -80,54 +80,45 @@ class App extends React.Component<{}, State> {
 
         {isOpened
         && (
-          <button
-            type="button"
-            onClick={() => {
-              this.reversedGoods();
-              this.forceUpdate();
-            }}
-          >
-            Reverse
-          </button>
-        )}
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                this.reversedGoods();
+                this.forceUpdate();
+              }}
+            >
+              Reverse
+            </button>
 
-        {isOpened
-        && (
-          <button
-            type="button"
-            onClick={() => {
-              this.sortByABCGoods();
-              this.forceUpdate();
-            }}
-          >
-            Sort alphabetically
-          </button>
-        )}
-
-        {isOpened
-        && (
-          <button
-            type="button"
-            onClick={() => {
-              this.sortByGoodsLength();
-              this.forceUpdate();
-            }}
-          >
-            Sort by length
-          </button>
-        )}
-
-        {isOpened
-        && (
-          <button
-            type="button"
-            onClick={() => {
-              this.resetGoods();
-              this.forceUpdate();
-            }}
-          >
-            Reset
-          </button>
+            <button
+              type="button"
+              onClick={() => {
+                this.sortByABCGoods();
+                this.forceUpdate();
+              }}
+            >
+              Sort alphabetically
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                this.sortByGoodsLength();
+                this.forceUpdate();
+              }}
+            >
+              Sort by length
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                this.resetGoods();
+                this.forceUpdate();
+              }}
+            >
+              Reset
+            </button>
+          </>
         )}
 
         <ul>
