@@ -1,9 +1,3 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable padding-line-between-statements */
-/* eslint-disable no-console */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
 
@@ -23,61 +17,58 @@ const goodsFromServer = [
 type State = {
   status: string;
   goods: string[];
-  SortAlphabetically: boolean;
-  SortByLength: boolean;
+  sortAlphabetically: boolean;
+  sortByLength: boolean;
 };
 
 export class App extends React.Component<{}, State> {
   state = {
     status: 'not started',
     goods: goodsFromServer,
-    SortAlphabetically: false,
-    SortByLength: false,
+    sortAlphabetically: false,
+    sortByLength: false,
   };
 
-  SortAlphabetically = () => {
+  sortAlphabetically = () => {
     const goodsCopy = [...this.state.goods];
 
-    if (this.state.SortAlphabetically) {
-      goodsCopy.sort((word1, word2) => word2.localeCompare(word1));
-    } else {
-      goodsCopy.sort();
-    }
+    goodsCopy.sort((word1, word2) => {
+      return this.state.sortAlphabetically
+        ? word2.localeCompare(word1)
+        : word1.localeCompare(word2);
+    });
 
     this.setState(prevState => (
       {
         goods: goodsCopy,
-        SortAlphabetically: !prevState.SortAlphabetically,
+        sortAlphabetically: !prevState.sortAlphabetically,
       }
     ));
   };
 
-  SortByLength = () => {
+  sortByLength = () => {
     const goodsCopy = [...this.state.goods];
 
-    if (this.state.SortByLength) {
-      goodsCopy
-        .sort((word1: string, word2: string) => word2.length - word1.length);
-    } else {
-      goodsCopy
-        .sort((word1: string, word2: string) => word1.length - word2.length);
-    }
+    goodsCopy
+      .sort((word1: string, word2: string) => {
+        return this.state.sortByLength
+          ? word2.length - word1.length
+          : word1.length - word2.length;
+      });
 
     this.setState(prevState => (
       {
         goods: goodsCopy,
-        SortByLength: !prevState.SortByLength,
+        sortByLength: !prevState.sortByLength,
       }
     ));
   };
 
-  Reverse = () => {
-    const goodsCopy = [...this.state.goods];
-
-    this.setState(({ goods: goodsCopy.reverse() }));
+  reverse = () => {
+    this.setState((prevState) => ({ goods: [...prevState.goods].reverse() }));
   };
 
-  Reset = () => {
+  reset = () => {
     this.setState(({ goods: goodsFromServer }));
   };
 
@@ -107,28 +98,28 @@ export class App extends React.Component<{}, State> {
         >
           <button
             type="button"
-            onClick={this.SortAlphabetically}
+            onClick={this.sortAlphabetically}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            onClick={this.SortByLength}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            onClick={this.Reverse}
+            onClick={this.reverse}
           >
             Reverse
           </button>
 
           <button
             type="button"
-            onClick={this.Reset}
+            onClick={this.reset}
           >
             Reset
           </button>
