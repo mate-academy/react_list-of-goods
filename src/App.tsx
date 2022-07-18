@@ -39,11 +39,7 @@ function getReorderedGoods(
     visibleGoods = visibleGoods.reverse();
   }
 
-  return (
-    visibleGoods.map(good => (
-      <li className="Goods__item level-item">{good}</li>
-    ))
-  );
+  return visibleGoods;
 }
 
 export class App extends React.Component<{}, State> {
@@ -51,6 +47,12 @@ export class App extends React.Component<{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
+  };
+
+  reverseGoods = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
   };
 
   render() {
@@ -67,17 +69,13 @@ export class App extends React.Component<{}, State> {
                 <Button
                   color="info"
                   type="button"
-                  onClick={() => {
-                    this.setState((state) => ({
-                      isReversed: !state.isReversed,
-                    }));
-                  }}
+                  onClick={this.reverseGoods}
                   className="button"
                 >
                   Reverse
                 </Button>
 
-                <button
+                <Button
                   type="button"
                   onClick={() => {
                     this.setState({ sortType: SortType.ALPABET });
@@ -85,9 +83,9 @@ export class App extends React.Component<{}, State> {
                   className="button"
                 >
                   Sort alphabetically
-                </button>
+                </Button>
 
-                <button
+                <Button
                   type="button"
                   onClick={() => {
                     this.setState({ sortType: SortType.LENGTH });
@@ -95,7 +93,7 @@ export class App extends React.Component<{}, State> {
                   className="button"
                 >
                   Sort by length
-                </button>
+                </Button>
 
                 <Button
                   className="button"
@@ -112,7 +110,13 @@ export class App extends React.Component<{}, State> {
               </div>
 
               <ul className="app__list">
-                {getReorderedGoods(goodsFromServer, isReversed, sortType)}
+                {getReorderedGoods(
+                  goodsFromServer,
+                  isReversed,
+                  sortType,
+                ).map(good => (
+                  <li className="Goods__item">{good}</li>
+                ))}
               </ul>
 
             </>
