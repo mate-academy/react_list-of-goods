@@ -62,13 +62,13 @@ export class App extends React.Component<{}, State> {
     const { isStarted, sortType, isReversed } = this.state;
     const goods = [...goodsFromServer];
 
-    goods.sort((g1, g2) => {
+    goods.sort((good1, good2) => {
       switch (sortType) {
         case SortType.ALPHABET:
-          return g1.localeCompare(g2);
+          return good1.localeCompare(good2);
 
         case SortType.LENGTH:
-          return g1.length - g2.length;
+          return good1.length - good2.length;
 
         default:
           return 0;
