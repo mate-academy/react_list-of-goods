@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -21,55 +20,140 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
-  isStarted: boolean,
+  goods: string[];
+  isVisible: boolean;
   isReversed: boolean,
-  sortType: SortType,
+  isSorted: boolean,
+  sortBy: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    goods: goodsFromServer,
+    isVisible: false,
+    isReversed: false,
+    isSorted: false,
+    sortBy: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  visibleGoodsList = () => {
+    this.setState((state) => ({
+      isVisible: !state.isVisible,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  reverse = () => {
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  reset = () => {
+    this.setState(() => ({
+      sortBy: SortType.NONE,
+      isReversed: false,
+      isSorted: false,
+    }));
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  sortByHandler = (sortBy: SortType) => {
+    this.setState({
+      isSorted: true,
+      sortBy,
+    });
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  render() {
+    const {
+      isVisible,
+      goods,
+      isReversed,
+      sortBy,
+      isSorted,
+    } = this.state;
+
+    const newGoods = [...goods];
+
+    if (isSorted) {
+      newGoods.sort((good1, good2): number => {
+        switch (sortBy) {
+          case SortType.LENGTH:
+            return good1.length - good2.length;
+
+          case SortType.ALPABET:
+            return good1.localeCompare(good2);
+
+          default: return 0;
+        }
+      });
+    }
+
+    if (isReversed) {
+      newGoods.reverse();
+    }
+
+    return (
+      <div className="App">
+        <div className="App__start">
+          {!isVisible && (
+            <button
+              type="button"
+              className="App__button"
+              onClick={this.visibleGoodsList}
+            >
+              Start
+            </button>
+          )}
+        </div>
+
+        {isVisible && (
+          <div className="App__container">
+            <ul className="App__list">
+              {(newGoods.map((good) => (
+                <li
+                  key={good}
+                  className="App__item"
+                >
+                  {good}
+                </li>
+              )))}
+            </ul>
+
+            <button
+              className="App__button"
+              onClick={this.reverse}
+              type="button"
+            >
+              Reverse
+            </button>
+
+            <button
+              className="App__button"
+              onClick={this.reset}
+              type="button"
+            >
+              Reset
+            </button>
+
+            <button
+              className="App__button"
+              onClick={() => this.sortByHandler(SortType.LENGTH)}
+              type="button"
+            >
+              Sort by length
+            </button>
+
+            <button
+              className="App__button"
+              onClick={() => this.sortByHandler(SortType.ALPABET)}
+              type="button"
+            >
+              Sort alphabetically
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
