@@ -15,9 +15,9 @@ const goodsFromServer = [
 ];
 
 enum SortType {
-  none,
-  alphabet,
-  length,
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 function getReorderedGoods(
@@ -29,9 +29,9 @@ function getReorderedGoods(
 
   visibleGoods.sort((g1, g2) => {
     switch (sortType) {
-      case SortType.alphabet:
+      case SortType.ALPHABET:
         return g1.localeCompare(g2);
-      case SortType.length:
+      case SortType.LENGTH:
         return g1.length - g2.length;
 
       default:
@@ -56,7 +56,32 @@ export class App extends React.Component<{}, State> {
   state = {
     isStarted: false,
     isReversed: false,
-    sortType: SortType.none,
+    sortType: SortType.NONE,
+  };
+
+  started = () => {
+    this.setState(state => ({ isStarted: !state.isStarted }));
+  };
+
+  sortByAlphabetically = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
+
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
   };
 
   render() {
@@ -72,9 +97,7 @@ export class App extends React.Component<{}, State> {
         && (
           <button
             type="button"
-            onClick={() => {
-              this.setState(state => ({ isStarted: !state.isStarted }));
-            }}
+            onClick={this.started}
           >
             Start
           </button>
@@ -85,48 +108,38 @@ export class App extends React.Component<{}, State> {
           <div>
             <button
               type="button"
-              onClick={() => {
-                this.setState({ sortType: SortType.alphabet });
-              }}
+              onClick={this.sortByAlphabetically}
             >
               Sort alphabetically
             </button>
 
             <button
               type="button"
-              onClick={() => {
-                this.setState({ sortType: SortType.length });
-              }}
+              onClick={this.sortByLength}
             >
               Sort by length
             </button>
 
             <button
               type="button"
-              onClick={() => {
-                this.setState(state => ({
-                  isReversed: !state.isReversed,
-                }));
-              }}
+              onClick={this.reverse}
             >
               Reverse
             </button>
 
             <button
               type="button"
-              onClick={() => {
-                this.setState({
-                  isReversed: false,
-                  sortType: SortType.none,
-                });
-              }}
+              onClick={this.reset}
             >
               Reset
             </button>
 
             <ul className="Goods">
               {visibleGoods.map(good => (
-                <li className="Goods__item" key={good}>
+                <li
+                  className="Goods__item"
+                  key={good}
+                >
                   {good}
                 </li>
               ))}
