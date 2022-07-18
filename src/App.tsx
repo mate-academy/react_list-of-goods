@@ -96,15 +96,16 @@ class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-        {!isVisible ? (
-          <button
-            className="button buttons__forSort-start"
-            type="button"
-            onClick={this.visibleGoodsList}
-          >
-            Start
-          </button>
-        )
+        {!isVisible
+          ? (
+            <button
+              className="button buttons__forSort-start"
+              type="button"
+              onClick={this.visibleGoodsList}
+            >
+              Start
+            </button>
+          )
           : (
             <div className="Goods">
               <ul className="Goods__list">
