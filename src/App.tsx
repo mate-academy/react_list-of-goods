@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -16,60 +17,163 @@ const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
+  Alphabet,
+  Length,
+  None,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
-  isStarted: boolean,
+  goods: string[];
+  isVisible: boolean;
   isReversed: boolean,
-  sortType: SortType,
+  isSorted: boolean,
+  sortBy: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+function getSorted(
+  goods: string[],
+  isReversed: boolean,
+  sortBy: SortType,
+  isSorted: boolean,
+) {
+  const copyGoods = [...goods];
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  if (isSorted) {
+    copyGoods.sort((good1, good2): number => {
+      switch (sortBy) {
+        case SortType.Length:
+          return good1.length - good2.length;
 
-    <button type="button">
-      Sort by length
-    </button>
+        case SortType.Alphabet:
+          return good1.localeCompare(good2);
 
-    <button type="button">
-      Reverse
-    </button>
+        default: return 0;
+      }
+    });
+  }
 
-    <button type="button">
-      Reset
-    </button>
+  if (isReversed) {
+    copyGoods.reverse();
+  }
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  return copyGoods;
+}
+
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    goods: goodsFromServer,
+    isVisible: false,
+    isReversed: false,
+    isSorted: false,
+    sortBy: SortType.None,
+  };
+
+  visibleGoodsList = () => {
+    this.setState((state) => ({
+      isVisible: !state.isVisible,
+    }));
+  };
+
+  reverse = () => {
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  reset = () => {
+    this.setState(() => ({
+      sortBy: SortType.None,
+      isReversed: false,
+      isSorted: false,
+    }));
+  };
+
+  sortByLength = () => {
+    this.setState({
+      isSorted: true,
+      sortBy: SortType.Length,
+    });
+  };
+
+  sortByAlphabetic = () => {
+    this.setState({
+      isSorted: true,
+      sortBy: SortType.Alphabet,
+    });
+  };
+
+  render() {
+    const { isVisible } = this.state;
+
+    const sortedGoods = getSorted(
+      goodsFromServer,
+      this.state.isReversed,
+      this.state.sortBy,
+      this.state.isSorted,
+    );
+
+    return (
+      <div className="App">
+        <div className="App__start">
+          {!isVisible && (
+            <button
+              type="button"
+              className="App__button"
+              onClick={this.visibleGoodsList}
+            >
+              Start
+            </button>
+          )}
+        </div>
+
+        {isVisible && (
+          <div className="App__container">
+            <ul className="App__list">
+              {(sortedGoods.map((good) => (
+                <li
+                  key={good}
+                  className="App__item"
+                >
+                  {good}
+                </li>
+              )))}
+            </ul>
+
+            <button
+              className="App__button"
+              onClick={this.reverse}
+              type="button"
+            >
+              Reverse
+            </button>
+
+            <button
+              className="App__button"
+              onClick={this.reset}
+              type="button"
+            >
+              Reset
+            </button>
+
+            <button
+              className="App__button"
+              onClick={this.sortByAlphabetic}
+              type="button"
+            >
+              Sort alphabetic
+            </button>
+
+            <button
+              className="App__button"
+              onClick={this.sortByLength}
+              type="button"
+            >
+              Sort by length
+            </button>
+
+          </div>
+        )}
+      </div>
+    );
+  }
+}
