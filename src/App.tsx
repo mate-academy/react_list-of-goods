@@ -14,12 +14,18 @@ const goodsFromServer: string[] = [
   'Garlic',
 ];
 
+enum SortType {
+  NONE,
+  ALPABET,
+  LENGTH,
+}
+
 type State = {
   goods: string[];
   isVisible: boolean;
   isReversed: boolean,
   isSorted: boolean,
-  sortBy: string,
+  sortBy: SortType,
 };
 
 export class App extends React.Component<{}, State> {
@@ -28,7 +34,7 @@ export class App extends React.Component<{}, State> {
     isVisible: false,
     isReversed: false,
     isSorted: false,
-    sortBy: '',
+    sortBy: SortType.NONE,
   };
 
   visibleGoodsList = () => {
@@ -45,23 +51,16 @@ export class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState(() => ({
-      sortBy: '',
+      sortBy: SortType.NONE,
       isReversed: false,
       isSorted: false,
     }));
   };
 
-  sortByLength = () => {
+  sortByHandler = (sortBy: SortType) => {
     this.setState({
       isSorted: true,
-      sortBy: 'length',
-    });
-  };
-
-  sortByAlphabetically = () => {
-    this.setState({
-      isSorted: true,
-      sortBy: 'alphabet',
+      sortBy,
     });
   };
 
@@ -79,10 +78,10 @@ export class App extends React.Component<{}, State> {
     if (isSorted) {
       newGoods.sort((good1, good2): number => {
         switch (sortBy) {
-          case 'length':
+          case SortType.LENGTH:
             return good1.length - good2.length;
 
-          case 'alphabet':
+          case SortType.ALPABET:
             return good1.localeCompare(good2);
 
           default: return 0;
@@ -139,7 +138,7 @@ export class App extends React.Component<{}, State> {
 
             <button
               className="App__button"
-              onClick={this.sortByLength}
+              onClick={() => this.sortByHandler(SortType.LENGTH)}
               type="button"
             >
               Sort by length
@@ -147,7 +146,7 @@ export class App extends React.Component<{}, State> {
 
             <button
               className="App__button"
-              onClick={this.sortByAlphabetically}
+              onClick={() => this.sortByHandler(SortType.ALPABET)}
               type="button"
             >
               Sort alphabetically
