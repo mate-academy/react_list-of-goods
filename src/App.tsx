@@ -2,59 +2,59 @@
 import 'bulma/css/bulma.min.css';
 import React from 'react';
 import { Button } from 'react-bulma-components';
+
 import './App.scss';
-import { GoodList, Product } from './components/GoodList';
 import { goodsFromServer } from './data/goodsFromServer';
 
-type Props = {};
-
-interface State {
-  isStarted: boolean,
-  goods: Product[],
+enum SortType {
+  NONE = 'NONE',
+  ALPABET = 'ALPABET',
+  LENGTH = 'LENGTH',
 }
 
-export class App extends React.Component<Props, State> {
-  state: State = {
+type State = {
+  isStarted: boolean,
+  isReversed: boolean,
+  sortType: SortType,
+};
+
+function getReorderedGoods(
+  goods: string[],
+  isReversed: boolean,
+  sortType: SortType,
+) {
+  let visibleGoods = [...goods];
+
+  if (sortType === SortType.ALPABET) {
+    visibleGoods.sort((a, b) => {
+      return a.localeCompare(b);
+    });
+  }
+
+  if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((a, b) => (a.length - b.length));
+  }
+
+  if (isReversed === true) {
+    visibleGoods = visibleGoods.reverse();
+  }
+
+  return (
+    visibleGoods.map(good => (
+      <li className="Goods__item level-item">{good}</li>
+    ))
+  );
+}
+
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
     isStarted: false,
-    goods: goodsFromServer,
-  };
-
-  start = () => {
-    this.setState({
-      isStarted: true,
-    });
-  };
-
-  reverse = () => {
-    this.setState(state => ({
-      goods: [...state.goods].reverse(),
-    }));
-  };
-
-  sortAlphabetically = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort(
-        (product1, product2) => product1.value.localeCompare(product2.value),
-      ),
-    }));
-  };
-
-  sortByLength = () => {
-    this.setState(state => ({
-      goods: [...state.goods].sort(
-        (product1, product2) => product1.value.length - product2.value.length,
-      ),
-    }));
-  };
-
-  reset = () => {
-    this.setState({
-      goods: [...goodsFromServer],
-    });
+    isReversed: false,
+    sortType: SortType.NONE,
   };
 
   render() {
-    const { goods, isStarted } = this.state;
+    const { isStarted, isReversed, sortType } = this.state;
 
     return (
       <div className="app">
@@ -67,7 +67,11 @@ export class App extends React.Component<Props, State> {
                 <Button
                   color="info"
                   type="button"
-                  onClick={this.reverse}
+                  onClick={() => {
+                    this.setState((state) => ({
+                      isReversed: !state.isReversed,
+                    }));
+                  }}
                   className="button"
                 >
                   Reverse
@@ -75,7 +79,9 @@ export class App extends React.Component<Props, State> {
 
                 <button
                   type="button"
-                  onClick={this.sortAlphabetically}
+                  onClick={() => {
+                    this.setState({ sortType: SortType.ALPABET });
+                  }}
                   className="button"
                 >
                   Sort alphabetically
@@ -83,25 +89,31 @@ export class App extends React.Component<Props, State> {
 
                 <button
                   type="button"
-                  onClick={this.sortByLength}
+                  onClick={() => {
+                    this.setState({ sortType: SortType.LENGTH });
+                  }}
                   className="button"
                 >
                   Sort by length
                 </button>
 
                 <Button
+                  className="button"
                   color="danger"
                   type="button"
-                  onClick={this.reset}
-                  className="button"
+                  onClick={() => {
+                    this.setState({
+                      isReversed: false, sortType: SortType.NONE,
+                    });
+                  }}
                 >
                   Reset
                 </Button>
               </div>
 
-              <div className="app__list">
-                <GoodList goods={goods} />
-              </div>
+              <ul className="app__list">
+                {getReorderedGoods(goodsFromServer, isReversed, sortType)}
+              </ul>
 
             </>
           )
@@ -109,8 +121,10 @@ export class App extends React.Component<Props, State> {
             <Button
               color="primary"
               type="button"
-              onClick={this.start}
-              className="button"
+              onClick={() => {
+                this.setState({ isStarted: true });
+              }}
+              className="buttons__start"
             >
               Start
             </Button>

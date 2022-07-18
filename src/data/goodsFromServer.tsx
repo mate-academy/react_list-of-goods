@@ -1,7 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
-import { Product } from '../components/GoodList';
-
-export const goodsFromServer: Product[] = [
+export const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -12,7 +9,4 @@ export const goodsFromServer: Product[] = [
   'Honey',
   'Jam',
   'Garlic',
-].map(good => ({
-  id: uuidv4(),
-  value: good,
-}));
+];

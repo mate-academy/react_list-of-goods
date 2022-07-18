@@ -14,7 +14,7 @@
   }
 
   &__list {
-    color: grey;
+    color: gray;
     margin-top: 50px;
     font-size: 20px;
 
@@ -25,4 +25,10 @@
   margin-left: 60px;
   align-items: center;
   text-align: center;
+
+  &__start {
+    margin-top: 40%;
+    width: 100px;
+    height: 100px;
+  }
 }
