@@ -83,7 +83,9 @@ export class App extends React.Component<{}, State> {
               <button
                 type="button"
                 onClick={() => {
-                  this.setState({ sortType: SortType.ALPABET });
+                  this.setState(
+                    { sortType: SortType.ALPABET, isReversed: false },
+                  );
                 }}
               >
                 Sort alphabetically
@@ -92,7 +94,9 @@ export class App extends React.Component<{}, State> {
               <button
                 type="button"
                 onClick={() => {
-                  this.setState({ sortType: SortType.LENGTH });
+                  this.setState(
+                    { sortType: SortType.LENGTH, isReversed: false }
+                  );
                 }}
               >
                 Sort by length
