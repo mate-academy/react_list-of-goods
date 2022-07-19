@@ -15,61 +15,145 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+enum SortType {
+  NONE = 'NONE',
+  ALPHABET = 'ALPHABET',
+  LENGTH = 'LENGTH',
+}
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  handleReset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  render() {
+    function getReorderedGoods(
+      goods: string[],
+      sortType: SortType,
+      isReversed: boolean,
+    ): string[] {
+      const showedGoods = [...goods];
 
-    <button type="button">
-      Reset
-    </button>
+      switch (sortType) {
+        case SortType.ALPHABET:
+          showedGoods.sort(
+            (currentProduct, nextProduct) => (
+              currentProduct.localeCompare(nextProduct)
+            ),
+          );
+          break;
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+        case SortType.LENGTH:
+          showedGoods.sort(
+            (currentProduct, nextProduct) => (
+              currentProduct.length - nextProduct.length
+            ),
+          );
+          break;
+
+        default:
+          break;
+      }
+
+      if (isReversed) {
+        return showedGoods.reverse();
+      }
+
+      return showedGoods;
+    }
+
+    const showedGoods = getReorderedGoods(
+      goodsFromServer,
+      this.state.sortType,
+      this.state.isReversed,
+    );
+
+    return (
+      <div className="App">
+        {!this.state.isStarted
+        && (
+          <button
+            className="App__button App__button--start"
+            type="button"
+            onClick={() => {
+              this.setState(state => ({ isStarted: !state.isStarted }));
+            }}
+          >
+            Start
+          </button>
+        )}
+
+        {this.state.isStarted
+        && (
+          <>
+            <button
+              className="App__button"
+              type="button"
+              onClick={() => {
+                this.setState({ sortType: SortType.ALPHABET });
+              }}
+            >
+              Sort alphabetically
+            </button>
+
+            <button
+              className="App__button"
+              type="button"
+              onClick={() => {
+                this.setState({ sortType: SortType.LENGTH });
+              }}
+            >
+              Sort by length
+            </button>
+
+            <button
+              className="App__button"
+              type="button"
+              onClick={() => {
+                this.setState(state => ({
+                  isReversed: !state.isReversed,
+                }));
+              }}
+            >
+              Reverse
+            </button>
+
+            <button
+              className="App__button App__button--reset"
+              type="button"
+              onClick={this.handleReset}
+            >
+              Reset
+            </button>
+
+            <ul className="App__goods-list">
+              {showedGoods.map(product => (
+                <li
+                  className="App__goods-item"
+                  key={product}
+                >
+                  {product}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    );
+  }
+}
