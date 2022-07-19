@@ -88,7 +88,7 @@ export class App extends React.Component<{}, State> {
         {!this.state.isStarted
         && (
           <button
-            className="App__button App__button--start"
+            className="button button--start"
             type="button"
             onClick={() => {
               this.setState(state => ({ isStarted: !state.isStarted }));
@@ -102,7 +102,7 @@ export class App extends React.Component<{}, State> {
         && (
           <>
             <button
-              className="App__button"
+              className="button"
               type="button"
               onClick={() => {
                 this.setState({ sortType: SortType.ALPHABET });
@@ -112,7 +112,7 @@ export class App extends React.Component<{}, State> {
             </button>
 
             <button
-              className="App__button"
+              className="button"
               type="button"
               onClick={() => {
                 this.setState({ sortType: SortType.LENGTH });
@@ -122,7 +122,7 @@ export class App extends React.Component<{}, State> {
             </button>
 
             <button
-              className="App__button"
+              className="button"
               type="button"
               onClick={() => {
                 this.setState(state => ({
@@ -134,17 +134,17 @@ export class App extends React.Component<{}, State> {
             </button>
 
             <button
-              className="App__button App__button--reset"
+              className="button button--reset"
               type="button"
               onClick={this.handleReset}
             >
               Reset
             </button>
 
-            <ul className="App__goods-list">
+            <ul className="Goods">
               {showedGoods.map(product => (
                 <li
-                  className="App__goods-item"
+                  className="Goods__item"
                   key={product}
                 >
                   {product}
