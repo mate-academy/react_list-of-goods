@@ -11,7 +11,7 @@ You a given an array of goods. Render them as a list in the App after `Start` bu
 1. `Reverse` button changes the current order to the opposite one. It should work with any sorting.
 1. `Reset` button should show the goods in the initial order.
 
-## (Optional) Advanced tasks (require understanding of Forms in React) 
+## (Optional) Advanced tasks (require understanding of Forms in React)
 1. Add `<select>` with a `minLength` numbers from 1 to 10. (1 is default). All the previous buttons
   should now show only the goods at least `minLength` long. When you change the
   value the items should be immediately re-rendered accordingly.
@@ -27,4 +27,4 @@ You a given an array of goods. Render them as a list in the App after `Start` bu
 - Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
 - Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/) and add it to the PR description.
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://ik-web.github.io/react_list-of-goods/) and add it to the PR description.
