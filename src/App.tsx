@@ -68,15 +68,36 @@ export class App extends React.Component<{}, State> {
       this.state.isReversed,
     );
 
+    const handleSortByName = () => {
+      this.setState({ sortType: SortType.ALPABET });
+    };
+
+    const handleSortByLength = () => {
+      this.setState({ sortType: SortType.LENGTH });
+    };
+
+    const handleStart = () => {
+      this.setState(state => ({ isStarted: !state.isStarted }));
+    };
+
+    const handleReverse = () => {
+      this.setState(state => ({ isReversed: !state.isReversed }));
+    };
+
+    const handleReset = () => {
+      this.setState({
+        isReversed: false,
+        sortType: SortType.NONE,
+      });
+    };
+
     return (
       <div className="App">
         {!this.state.isStarted
         && (
           <button
             type="button"
-            onClick={() => {
-              this.setState(state => ({ isStarted: !state.isStarted }));
-            }}
+            onClick={handleStart}
           >
             Start
           </button>
@@ -86,41 +107,28 @@ export class App extends React.Component<{}, State> {
           <div>
             <button
               type="button"
-              onClick={() => {
-                this.setState({ sortType: SortType.ALPABET });
-              }}
+              onClick={handleSortByName}
             >
               Sort alphabetically
             </button>
 
             <button
               type="button"
-              onClick={() => {
-                this.setState({ sortType: SortType.LENGTH });
-              }}
+              onClick={handleSortByLength}
             >
               Sort by length
             </button>
 
             <button
               type="button"
-              onClick={() => {
-                this.setState(state => ({
-                  isReversed: !state.isReversed,
-                }));
-              }}
+              onClick={handleReverse}
             >
               Reverse
             </button>
 
             <button
               type="button"
-              onClick={() => {
-                this.setState({
-                  isReversed: false,
-                  sortType: SortType.NONE,
-                });
-              }}
+              onClick={handleReset}
             >
               Reset
             </button>
