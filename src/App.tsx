@@ -24,7 +24,7 @@ type State = {
 export class App extends React.Component<{}, State> {
   state = {
     status: 'not started',
-    goods: goodsFromServer,
+    goods: [...goodsFromServer],
     sortAlphabetically: false,
     sortByLength: false,
   };
@@ -32,11 +32,11 @@ export class App extends React.Component<{}, State> {
   sortAlphabetically = () => {
     const goodsCopy = [...this.state.goods];
 
-    goodsCopy.sort((word1, word2) => {
-      return this.state.sortAlphabetically
-        ? word2.localeCompare(word1)
-        : word1.localeCompare(word2);
-    });
+    if (this.state.sortAlphabetically) {
+      goodsCopy.reverse();
+    } else {
+      goodsCopy.sort();
+    }
 
     this.setState(prevState => (
       {
@@ -49,12 +49,12 @@ export class App extends React.Component<{}, State> {
   sortByLength = () => {
     const goodsCopy = [...this.state.goods];
 
-    goodsCopy
-      .sort((word1: string, word2: string) => {
-        return this.state.sortByLength
-          ? word2.length - word1.length
-          : word1.length - word2.length;
-      });
+    if (this.state.sortByLength) {
+      goodsCopy.reverse();
+    } else {
+      goodsCopy
+        .sort((word1: string, word2: string) => (word1.length - word2.length));
+    }
 
     this.setState(prevState => (
       {
