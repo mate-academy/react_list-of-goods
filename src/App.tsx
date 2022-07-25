@@ -104,7 +104,7 @@ export class App extends Component<{}, State> {
               <ul className="Goods">
                 {
                   visibleGoods.map(el => (
-                    <li className="Goods__item">
+                    <li className="Goods__item" key={el}>
                       {el}
                     </li>
                   ))
