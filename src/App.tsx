@@ -21,6 +21,36 @@ enum SortType {
   LENGTH,
 }
 
+function getReorderedGoods(
+  goods: string[],
+  sortType: SortType,
+  isReversed: boolean,
+) {
+  let visibleGoods = [...goods];
+
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => (a.length - b.length));
+      break;
+
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    visibleGoods = visibleGoods.reverse();
+  }
+
+  return (
+    visibleGoods.map(item => (
+      <li className="Goods__item" key={item}>{item}</li>
+    ))
+  );
+}
+
 type State = {
   isStarted: boolean,
   isReversed: boolean,
@@ -60,24 +90,6 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isStarted, sortType, isReversed } = this.state;
-    const goods = [...goodsFromServer];
-
-    goods.sort((good1, good2) => {
-      switch (sortType) {
-        case SortType.ALPHABET:
-          return good1.localeCompare(good2);
-
-        case SortType.LENGTH:
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      goods.reverse();
-    }
 
     return (
       <div className="App">
@@ -105,11 +117,7 @@ export class App extends React.Component<{}, State> {
                 </button>
 
                 <ul className="Goods">
-                  {goods.map(good => (
-                    <li className="Goods__item" key={good}>
-                      {good}
-                    </li>
-                  ))}
+                  {getReorderedGoods(goodsFromServer, sortType, isReversed)}
                 </ul>
               </>
             )
