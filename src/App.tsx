@@ -21,55 +21,140 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
 };
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    sortType: SortType.NONE,
+    isReversed: false,
+  };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+  start = () => {
+    this.setState(state => ({
+      isStarted: !state.isStarted,
+    }));
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortAlph = () => {
+    this.setState(({
+      sortType: SortType.ALPABET,
+    }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortLen = () => {
+    this.setState(({
+      sortType: SortType.LENGTH,
+    }));
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  reset = () => {
+    this.setState(({
+      sortType: SortType.NONE,
+      isReversed: false,
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  render() {
+    let goods = [...goodsFromServer];
+    const { isReversed, sortType } = this.state;
+
+    if (sortType === SortType.ALPABET) {
+      goods = goods.sort((a, b) => a.localeCompare(b));
+    }
+
+    if (sortType === SortType.LENGTH) {
+      goods = goods.sort((a, b) => a.length - b.length);
+    }
+
+    if (sortType === SortType.NONE) {
+      goods = [...goodsFromServer];
+    }
+
+    if (isReversed) {
+      goods.reverse();
+    }
+
+    return (
+      <div className="App column">
+        <div className="level">
+          {!this.state.isStarted
+            && (
+              <button
+                type="button"
+                onClick={this.start}
+                className="button is-light is-primary level-item"
+              >
+                Start
+              </button>
+            )}
+
+          {this.state.isStarted
+            && (
+              <button
+                type="button"
+                onClick={this.sortAlph}
+                className="button is-light is-link"
+              >
+                Sort alphabetically
+              </button>
+            )}
+
+          {this.state.isStarted
+            && (
+              <button
+                type="button"
+                onClick={this.sortLen}
+                className="button is-light is-link"
+              >
+                Sort by length
+              </button>
+            )}
+
+          {this.state.isStarted
+            && (
+              <button
+                type="button"
+                onClick={this.reverse}
+                className="button is-light is-link"
+              >
+                Reverse
+              </button>
+            )}
+
+          {this.state.isStarted
+            && (
+              <button
+                type="button"
+                onClick={this.reset}
+                className="button is-light is-danger"
+              >
+                Reset
+              </button>
+            )}
+
+        </div>
+
+        {this.state.isStarted
+          && (
+            <ul className="panel Goods">
+              {this.state.isStarted
+                && goods.map(good => (
+                  <li className="Goods__item panel-block" key={good}>{good}</li>
+                ))}
+            </ul>
+          )}
+
+      </div>
+    );
+  }
+}
