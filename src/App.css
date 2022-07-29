@@ -1,1 +1,24 @@
-/* not empty */
+.button {
+  border: 2px solid black;
+  padding: 20px;
+  background-color: bisque;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.header {
+  background-color: aqua;
+  width: max-content;
+  border: 2px solid black;
+}
+
+.Goods__item {
+  list-style: none;
+  border: 2px solid black;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  background-color: aqua;
+  text-align: center;
+  font-weight: 700;
+}

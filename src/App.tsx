@@ -30,8 +30,19 @@ function getReorderedGoods(
   // Not to mutate the original array
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // ...
+  switch (sortType) {
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    case SortType.ALPABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+    default:
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -43,33 +54,84 @@ type State = {
   sortType: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  render() {
+    const { isStarted, isReversed, sortType } = this.state;
+    const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
 
-    <button type="button">
-      Sort by length
-    </button>
+    return (
+      <div className="App">
+        <div className="header">
+          {!isStarted && (
+            <button
+              className="button"
+              type="button"
+              onClick={() => (
+                this.setState({ isStarted: true })
+              )}
+            >
+              Start
+            </button>
+          )}
+          {isStarted && (
+            <>
+              <button
+                className="button"
+                type="button"
+                onClick={() => this.setState({ sortType: SortType.ALPABET })}
+              >
+                Sort alphabetically
+              </button>
 
-    <button type="button">
-      Reverse
-    </button>
+              <button
+                className="button"
+                type="button"
+                onClick={() => this.setState({ sortType: SortType.LENGTH })}
+              >
+                Sort by length
+              </button>
 
-    <button type="button">
-      Reset
-    </button>
+              <button
+                className="button"
+                type="button"
+                onClick={() => this.setState(state => (
+                  { isReversed: !state.isReversed }
+                ))}
+              >
+                Reverse
+              </button>
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+              <button
+                className="button"
+                type="button"
+                onClick={() => this.setState({
+                  isReversed: false,
+                  sortType: SortType.NONE,
+                })}
+              >
+                Reset
+              </button>
+            </>
+          )}
+        </div>
+
+        <ul className="Goods">
+          {isStarted && goods.map(good => (
+            <li
+              key={good}
+              className="Goods__item"
+            >
+              {good}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
