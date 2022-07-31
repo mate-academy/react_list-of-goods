@@ -130,16 +130,18 @@ export class App extends React.Component<{}, State> {
               Reset
             </button>
 
-            <ul className="list">
-              {visibleGoods.map(good => (
-                <li
-                  key={good}
-                  className="list__item"
-                >
-                  <span>{good}</span>
-                </li>
-              ))}
-            </ul>
+            {isStarted && (
+              <ul className="Goods">
+                {visibleGoods.map(good => (
+                  <li
+                    key={good}
+                    className="Goods__item"
+                  >
+                    <span>{good}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </>
         )}
       </div>
