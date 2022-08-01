@@ -73,22 +73,6 @@ export class App extends React.Component<{}, State> {
 
     const visibleGoods = [...goodsFromServer];
 
-    visibleGoods.sort((good: any, nextGood: any) => {
-      switch (sortType) {
-        case 'alphabetically':
-          return good.localeCompare(nextGood);
-
-        case 'by length':
-          return good.length - nextGood.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
-
     return (
       <div className="App">
         {isStarted && (
