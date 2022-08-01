@@ -84,7 +84,7 @@ export class App extends Component<{}, State> {
 
   reverse = () => {
     if (this.state.isReversed) {
-      this.setState({ isReversed: false })
+      this.setState({ isReversed: false });
     } else {
       this.setState({ isReversed: true });
     }
