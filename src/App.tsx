@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
+import { Button } from './components/Button';
+import { GoodsList } from './components/GoodsList';
 
 const goodsFromServer = [
   'Dumplings',
@@ -68,16 +70,18 @@ export class App extends React.Component<{}, State> {
     let goods = [...goodsFromServer];
     const { isReversed, sortType } = this.state;
 
-    if (sortType === SortType.ALPABET) {
-      goods = goods.sort((a, b) => a.localeCompare(b));
-    }
-
-    if (sortType === SortType.LENGTH) {
-      goods = goods.sort((a, b) => a.length - b.length);
-    }
-
-    if (sortType === SortType.NONE) {
-      goods = [...goodsFromServer];
+    switch (sortType) {
+      case SortType.ALPABET:
+        goods = goods.sort((a, b) => a.localeCompare(b));
+        break;
+      case SortType.LENGTH:
+        goods = goods.sort((a, b) => a.length - b.length);
+        break;
+      case SortType.NONE:
+        goods = [...goodsFromServer];
+        break;
+      default:
+        break;
     }
 
     if (isReversed) {
@@ -89,69 +93,58 @@ export class App extends React.Component<{}, State> {
         <div className="level">
           {!this.state.isStarted
             && (
-              <button
-                type="button"
-                onClick={this.start}
+              <Button
+                text="Start"
                 className="button is-light is-primary level-item"
-              >
-                Start
-              </button>
+                method={this.start}
+              />
             )}
 
           {this.state.isStarted
             && (
-              <button
-                type="button"
-                onClick={this.sortAlph}
+              <Button
+                text="Sort alphabetically"
                 className="button is-light is-link"
-              >
-                Sort alphabetically
-              </button>
+                method={this.sortAlph}
+              />
             )}
 
           {this.state.isStarted
             && (
-              <button
-                type="button"
-                onClick={this.sortLen}
+              <Button
+                text="Sort by length"
                 className="button is-light is-link"
-              >
-                Sort by length
-              </button>
+                method={this.sortLen}
+              />
             )}
 
           {this.state.isStarted
             && (
-              <button
-                type="button"
-                onClick={this.reverse}
+              <Button
+                text="Reverse"
                 className="button is-light is-link"
-              >
-                Reverse
-              </button>
+                method={this.reverse}
+              />
             )}
 
           {this.state.isStarted
             && (
-              <button
-                type="button"
-                onClick={this.reset}
+              <Button
+                text="Reset"
                 className="button is-light is-danger"
-              >
-                Reset
-              </button>
+                method={this.reset}
+              />
             )}
 
         </div>
 
         {this.state.isStarted
           && (
-            <ul className="panel Goods">
-              {this.state.isStarted
-                && goods.map(good => (
-                  <li className="Goods__item panel-block" key={good}>{good}</li>
-                ))}
-            </ul>
+            <GoodsList
+              className="panel Goods"
+              goods={goods}
+              isStarted={this.state.isStarted}
+            />
           )}
 
       </div>
