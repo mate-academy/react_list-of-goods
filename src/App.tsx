@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { GoodsList } from './components/goodsList';
 import './App.css';
@@ -21,7 +20,6 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: string,
-  initialOrder: boolean;
 };
 
 export class App extends React.Component<{}, State> {
@@ -29,7 +27,6 @@ export class App extends React.Component<{}, State> {
     isStarted: true,
     isReversed: false,
     sortType: '',
-    initialOrder: false,
   };
 
   start = () => {
@@ -53,24 +50,36 @@ export class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState(state => ({
-      initialOrder: !state.initialOrder,
-    }));
-
-    // Haven't found the diffrence so don't know how to set the state correct
-
-    // this.setState({ initialOrder: true });
+    this.setState({
+      sortType: '',
+      isReversed: false,
+    });
   };
 
   render(): React.ReactNode {
     const {
       isReversed,
       isStarted,
-      initialOrder,
       sortType,
     } = this.state;
 
     const visibleGoods = [...goodsFromServer];
+
+    visibleGoods.sort((good: any, nextGood: any) => {
+      switch (sortType) {
+        case 'alphabetically':
+          return good.localeCompare(nextGood);
+
+        case 'by length':
+          return good.length - nextGood.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
 
     return (
       <div className="App">
@@ -102,9 +111,7 @@ export class App extends React.Component<{}, State> {
             </button>
 
             {/* Can't sort or reverse the list items after I pressed reset button. Maybe it should be this way if no - let me know please */}
-            {!initialOrder
-              ? <GoodsList goods={visibleGoods} />
-              : <GoodsList goods={goodsFromServer} />}
+            <GoodsList goods={visibleGoods} />
           </>
         )}
       </div>
