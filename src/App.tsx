@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { GoodsList } from './components/goodsList';
-
 import './App.css';
 
 const goodsFromServer = [
