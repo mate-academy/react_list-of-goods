@@ -36,7 +36,7 @@ export class App extends Component<{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
-    selected: 1,
+    selected: 10,
     isSortedByLength: false,
     isSortedAlphabetically: false,
   };
@@ -90,12 +90,12 @@ export class App extends Component<{}, State> {
     }))
   );
 
-  revers = () => (
+  reverse = () => (
     this.setState(state => ({ isReversed: !state.isReversed }))
   );
 
   handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => (
-    this.setState({ selected: +event.target.value })
+    this.setState({ selected: Number(event.target.value) })
   );
 
   reset = () => (
@@ -156,7 +156,7 @@ export class App extends Component<{}, State> {
               <button
                 type="button"
                 className="button is-dark"
-                onClick={this.revers}
+                onClick={this.reverse}
               >
                 Reverse
               </button>
@@ -184,8 +184,8 @@ export class App extends Component<{}, State> {
             </div>
 
             <ul className="Goods">
-              {goods.map(good => (
-                <li className="Goods__item" key={good}>
+              {goods.map((good, i) => (
+                <li className="Goods__item" key={minLengths[i]}>
                   {good}
                 </li>
               ))}
