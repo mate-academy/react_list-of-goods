@@ -52,18 +52,30 @@ export class App extends Component<{}, State> {
       }
     });
 
-    return isReversed ? visibleGoods.reverse() : visibleGoods;
+    return isReversed
+      ? visibleGoods.reverse()
+      : visibleGoods;
   };
 
-  startedSort = () => this.setState({ isStarted: true });
+  startedSort = () => (
+    this.setState({ isStarted: true })
+  );
 
-  sortByLength = () => this.setState({ sortType: SortType.LENGTH });
+  sortByLength = () => (
+    this.setState({ sortType: SortType.LENGTH })
+  );
 
-  sortAlphabetically = () => this.setState({ sortType: SortType.ALPHABET });
+  sortAlphabetically = () => (
+    this.setState({ sortType: SortType.ALPHABET })
+  );
 
-  revers = () => this.setState(state => ({ isReversed: !state.isReversed }));
+  revers = () => (
+    this.setState(state => ({ isReversed: !state.isReversed }))
+  );
 
-  reset = () => this.setState({ sortType: SortType.NONE, isReversed: false });
+  reset = () => (
+    this.setState({ sortType: SortType.NONE, isReversed: false })
+  );
 
   render() {
     const { isStarted, isReversed, sortType } = this.state;
@@ -119,7 +131,9 @@ export class App extends Component<{}, State> {
 
             <ul className="Goods">
               {goods.map(good => (
-                <li className="Goods__item" key={good}>{good}</li>
+                <li className="Goods__item" key={good}>
+                  {good}
+                </li>
               ))}
             </ul>
           </>
