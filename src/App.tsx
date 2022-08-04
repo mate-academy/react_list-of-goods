@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { ChangeEvent, Component } from 'react';
 import './App.css';
 
 const goodsFromServer = [
@@ -14,6 +14,8 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const minLengths = new Array(10).fill(0).map((_, i) => i + 1);
+
 enum SortType {
   NONE,
   ALPHABET,
@@ -24,6 +26,7 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  selected: number,
 };
 
 export class App extends Component<{}, State> {
@@ -31,14 +34,16 @@ export class App extends Component<{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
+    selected: 1,
   };
 
   getReorderedGoods = (
     goods: string[],
     sortType: SortType,
     isReversed: boolean,
+    selected: number,
   ) => {
-    const visibleGoods = [...goods];
+    const visibleGoods = goods.filter(good => good.length <= selected);
 
     // f equal first word and s equal second word
     visibleGoods.sort((f, s) => {
@@ -73,13 +78,23 @@ export class App extends Component<{}, State> {
     this.setState(state => ({ isReversed: !state.isReversed }))
   );
 
+  handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => (
+    this.setState({ selected: +event.target.value })
+  );
+
   reset = () => (
-    this.setState({ sortType: SortType.NONE, isReversed: false })
+    this.setState(
+      { sortType: SortType.NONE, isReversed: false, selected: 1 },
+    )
   );
 
   render() {
-    const { isStarted, isReversed, sortType } = this.state;
-    const goods = this.getReorderedGoods(goodsFromServer, sortType, isReversed);
+    const {
+      isStarted, isReversed, sortType, selected,
+    } = this.state;
+    const goods = this.getReorderedGoods(
+      goodsFromServer, sortType, isReversed, selected,
+    );
 
     return (
       <div className="App is-light">
@@ -127,6 +142,19 @@ export class App extends Component<{}, State> {
               >
                 Reset
               </button>
+
+              <select
+                name="minLength"
+                className="select is-primary"
+                value={selected}
+                onChange={this.handleChangeSelect}
+              >
+                {minLengths.map(length => (
+                  <option value={length} key={length}>
+                    {length}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <ul className="Goods">
