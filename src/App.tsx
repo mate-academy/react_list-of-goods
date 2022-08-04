@@ -52,7 +52,9 @@ const getReorderedGoods = (
     });
   }
 
-  return isReversed ? visibleGoods.reverse() : visibleGoods;
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
 };
 
 type State = {
@@ -68,13 +70,11 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByName = () => {
-    this.setState({ sortType: SortType.ALPHABET });
-  };
+  start = () => this.setState({ isStarted: true });
 
-  sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
-  };
+  sortByName = () => this.setState({ sortType: SortType.ALPHABET });
+
+  sortByLength = () => this.setState({ sortType: SortType.LENGTH });
 
   reverse = () => {
     this.setState(state => ({
@@ -99,7 +99,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className="button is-success level-item"
-            onClick={() => this.setState({ isStarted: true })}
+            onClick={this.start}
           >
             Start
           </button>
