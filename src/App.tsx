@@ -27,6 +27,8 @@ type State = {
   isReversed: boolean,
   sortType: SortType,
   selected: number,
+  isSortedByLength: boolean,
+  isSortedAlphabetically: boolean,
 };
 
 export class App extends Component<{}, State> {
@@ -35,6 +37,8 @@ export class App extends Component<{}, State> {
     isReversed: false,
     sortType: SortType.NONE,
     selected: 1,
+    isSortedByLength: false,
+    isSortedAlphabetically: false,
   };
 
   getReorderedGoods = (
@@ -42,6 +46,8 @@ export class App extends Component<{}, State> {
     sortType: SortType,
     isReversed: boolean,
     selected: number,
+    isSortedByLength: boolean,
+    isSortedAlphabetically: boolean,
   ) => {
     const visibleGoods = goods.filter(good => good.length <= selected);
 
@@ -49,9 +55,13 @@ export class App extends Component<{}, State> {
     visibleGoods.sort((f, s) => {
       switch (sortType) {
         case SortType.ALPHABET:
-          return f.localeCompare(s);
+          return isSortedAlphabetically
+            ? f.localeCompare(s)
+            : s.localeCompare(f);
         case SortType.LENGTH:
-          return f.length - s.length;
+          return isSortedByLength
+            ? f.length - s.length
+            : s.length - f.length;
         default:
           return 0;
       }
@@ -67,11 +77,17 @@ export class App extends Component<{}, State> {
   );
 
   sortByLength = () => (
-    this.setState({ sortType: SortType.LENGTH })
+    this.setState((state) => ({
+      sortType: SortType.LENGTH,
+      isSortedByLength: !state.isSortedByLength,
+    }))
   );
 
   sortAlphabetically = () => (
-    this.setState({ sortType: SortType.ALPHABET })
+    this.setState((state) => ({
+      sortType: SortType.ALPHABET,
+      isSortedAlphabetically: !state.isSortedAlphabetically,
+    }))
   );
 
   revers = () => (
@@ -90,10 +106,20 @@ export class App extends Component<{}, State> {
 
   render() {
     const {
-      isStarted, isReversed, sortType, selected,
+      isStarted,
+      isReversed,
+      sortType,
+      selected,
+      isSortedByLength,
+      isSortedAlphabetically,
     } = this.state;
     const goods = this.getReorderedGoods(
-      goodsFromServer, sortType, isReversed, selected,
+      goodsFromServer,
+      sortType,
+      isReversed,
+      selected,
+      isSortedByLength,
+      isSortedAlphabetically,
     );
 
     return (
