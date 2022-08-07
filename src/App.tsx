@@ -116,10 +116,9 @@ export class App extends Component<{}, State> {
         {!isStarted
           && (
             <>
-              <div className="buttons level">
+              <div>
                 <button
                   type="button"
-                  className="button is-info"
                   onClick={() => {
                     this.sortByAlphabet();
                   }}
@@ -129,7 +128,6 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button is-info"
                   onClick={() => {
                     this.sortByLength();
                   }}
@@ -139,7 +137,6 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button is-info"
                   onClick={() => {
                     this.reverse();
                   }}
@@ -149,7 +146,6 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button is-danger"
                   onClick={() => {
                     this.reset();
                   }}
