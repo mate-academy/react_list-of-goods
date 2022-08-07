@@ -60,13 +60,11 @@ type State = {
 };
 
 export class App extends Component<{}, State> {
-  options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   state: Readonly<State> = {
     isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
-    minLength: this.options[0],
+    minLength: 1,
   };
 
   start = () => {
