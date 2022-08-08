@@ -1,1 +1,9 @@
-/* not empty */
+iframe {
+  display: none;
+}
+
+.App {
+  width: 530px;
+  margin: 24px auto 0;
+  padding: 16px;
+}
