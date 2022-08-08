@@ -38,18 +38,22 @@ export class App extends Component <{}, State> {
     const { isStarted, isReversed, sortType } = this.state;
 
     function getReorderedGoods(goods: string[]) {
-      const visibleGoods = [...goods];
-
-      return visibleGoods.sort((a, b) => {
+      const visibleGoods = [...goods].sort((a, b) => {
         switch (sortType) {
           case SortType.ALPABET:
-            return isReversed ? b.localeCompare(a) : a.localeCompare(b);
+            return a.localeCompare(b);
           case SortType.LENGTH:
-            return isReversed ? b.length - a.length : a.length - b.length;
+            return a.length - b.length;
           default:
             return 0;
         }
       });
+
+      if (isReversed) {
+        return visibleGoods.reverse();
+      }
+
+      return visibleGoods;
     }
 
     const preparedGoods
