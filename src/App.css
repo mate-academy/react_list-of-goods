@@ -1,1 +1,17 @@
-/* not empty */
+@import "bulma/css/bulma.css";
+
+.App {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  margin: 0 8px;
+}
+
+.Goods {
+  padding: 8px;
+}
