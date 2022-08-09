@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
@@ -111,7 +112,10 @@ export class App extends React.Component<{}, State> {
             <>
               <button
                 type="button"
-                className="button is-primary"
+                className={classNames(
+                  'button is-primary',
+                  { active: sortType === SortType.ALPABET },
+                )}
                 onClick={() => this.handleSortBtnClick(SortType.ALPABET)}
               >
                 Sort alphabetically
@@ -119,7 +123,10 @@ export class App extends React.Component<{}, State> {
 
               <button
                 type="button"
-                className="button is-primary"
+                className={classNames(
+                  'button is-primary',
+                  { active: sortType === SortType.LENGTH },
+                )}
                 onClick={() => this.handleSortBtnClick(SortType.LENGTH)}
               >
                 Sort by length
@@ -127,7 +134,10 @@ export class App extends React.Component<{}, State> {
 
               <button
                 type="button"
-                className="button is-warning"
+                className={classNames(
+                  'button is-warning',
+                  { active: isReversed },
+                )}
                 onClick={this.handleReverseBtnClick}
               >
                 Reverse
