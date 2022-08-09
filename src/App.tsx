@@ -37,7 +37,7 @@ function getReorderedGoods(
   isReversed: boolean,
 ) {
   // Not to mutate the original array
-  const visibleGoods = [...goods].filter(good => good.length <= minLen);
+  const visibleGoods = [...goods].filter(good => good.length >= minLen);
 
   if (sortType !== SortType.NONE) {
     visibleGoods.sort((a, b) => {
@@ -87,8 +87,6 @@ export class App extends React.Component<{}, State> {
       sortType,
       isReversed,
     );
-
-    // , sortType, isReversed);
 
     return (
       <div className="App box">
