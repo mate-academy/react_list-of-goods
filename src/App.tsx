@@ -105,15 +105,19 @@ export class App extends React.Component<{}, State> {
       { value: 'Sort by length', handler: this.sortByLength },
       { value: 'Reverse', handler: this.reverse },
       { value: 'Reset', handler: this.reset },
-    ];
+    ].map((button) => ({
+      ...button,
+      id: uuidv4(),
+    }));
 
-    const buttonListToRender = buttons.map(({ value, handler }) => (
+    const buttonListToRender = buttons.map(({ value, handler, id }) => (
       <button
+        key={id}
         onClick={handler}
         className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
         type="button"
       >
-        { value }
+        {value}
       </button>
     ));
 
@@ -121,7 +125,7 @@ export class App extends React.Component<{}, State> {
       <div className="App font-mono bg-stone-800 h-screen">
         {isStarted ? (
           <div className="container mx-auto p-35 text-center">
-            { buttonListToRender }
+            {buttonListToRender}
             <ul className="Goods space-y-35">
               {formattedGoodList.map(({ name, id }) => (
                 <li
