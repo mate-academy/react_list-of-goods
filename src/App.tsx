@@ -15,14 +15,21 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const preparedGoods = goodsFromServer.map(title => ({ title, id: uuidv4() }));
+
 enum SortType {
   NONE,
   ALPABET,
   LENGTH,
 }
 
+type Good = {
+  title: string;
+  id: string;
+};
+
 function getReorderedGoods(
-  goods: string[],
+  goods: Good[],
   sortType: SortType,
 ) {
   const visibleGoods = [...goods];
@@ -30,12 +37,12 @@ function getReorderedGoods(
   switch (sortType) {
     case SortType.ALPABET:
       return visibleGoods.sort((a, b) => {
-        return a.localeCompare(b);
+        return a.title.localeCompare(b.title);
       });
 
     case SortType.LENGTH:
       return visibleGoods.sort((a, b) => {
-        return a.length - b.length;
+        return a.title.length - b.title.length;
       });
 
     default:
@@ -80,7 +87,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isStarted, isReversed, sortType } = this.state;
     const goods = getReorderedGoods(
-      goodsFromServer,
+      preparedGoods,
       sortType,
     );
 
@@ -137,7 +144,7 @@ export class App extends React.Component<{}, State> {
               <ul className="Goods">
                 {
                   goods.map(good => (
-                    <li key={uuidv4()} className="Goods__item">{good}</li>
+                    <li key={good.id} className="Goods__item">{good.title}</li>
                   ))
                 }
               </ul>
