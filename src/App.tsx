@@ -22,8 +22,6 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
-
 type State = {
   isStarted: boolean,
   isReversed: boolean,
@@ -92,12 +90,6 @@ export class App extends React.Component<{}, State> {
       isReversed: !state.isReversed,
     }));
   };
-
-  // sortLength = (event) => {
-  //   this.setState({
-  //     minLength:
-  //   })
-  // }
 
   reset = () => {
     this.setState({
