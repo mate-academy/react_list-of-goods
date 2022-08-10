@@ -154,6 +154,7 @@ export class App extends Component<{}, State> {
               {goods.map(good => {
                 return (
                   <li
+                    className="Goods__item"
                     key={good}
                   >
                     {good}
