@@ -100,7 +100,7 @@ export class App extends Component<{}, State> {
 
   reset = () => (
     this.setState(
-      { sortType: SortType.NONE, isReversed: false, selected: 1 },
+      { sortType: SortType.NONE, isReversed: false, selected: 10 },
     )
   );
 
