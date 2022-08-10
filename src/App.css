@@ -1,1 +1,31 @@
-/* not empty */
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Goods {
+  position: relative;
+}
+
+.Goods__item {
+  width: max-content;
+  position: relative;
+  animation: moveToCenter 1s cubic-bezier(0.33,0.24,0.35,1.85);
+  animation-fill-mode: forwards;
+}
+
+@keyframes moveToCenter {
+  from {
+    left: 0%;
+    transform: translateX(0%);
+  }
+
+  to {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
