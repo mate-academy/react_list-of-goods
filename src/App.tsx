@@ -141,7 +141,14 @@ export class App extends React.Component<{}, State> {
 
             <ul className="Goods">
               {reorderList.map(
-                el => <li>{el}</li>,
+                el => (
+                  <li
+                    className="Goods__item"
+                    key={el}
+                  >
+                    {el}
+                  </li>
+                ),
               )}
             </ul>
           </div>
