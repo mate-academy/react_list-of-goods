@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import { Component } from 'react';
+// import { v4 as uuidv4 } from 'uuid';
+// import classNames from 'classnames';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import './App.css';
 
 const goodsFromServer = [
@@ -17,59 +23,137 @@ const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
 ) {
-  // Not to mutate the original array
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // ...
+  visibleGoods.sort((g1: string, g2: string) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return g1.localeCompare(g2);
 
-  return visibleGoods;
+      case SortType.LENGTH:
+        return g1.length - g2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends Component<{}, State> {
+  state = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  start = () => this.setState({ isStarted: true });
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortAlphabet = () => this.setState({ sortType: SortType.ALPHABET });
 
-    <button type="button">
-      Reverse
-    </button>
+  sortLength = () => this.setState({ sortType: SortType.LENGTH });
 
-    <button type="button">
-      Reset
-    </button>
+  reverse = () => {
+    this.setState(state => ({ isReversed: !state.isReversed }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
+  render() {
+    const { isStarted, sortType, isReversed } = this.state;
+    const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
+
+    return (
+      <div className="App">
+
+        {isStarted
+          ? (
+            <>
+              <Button
+                type="button"
+                variant="outlined"
+                onClick={this.sortAlphabet}
+              >
+                Sort alphabetically
+              </Button>
+
+              <Button
+                type="button"
+                variant="outlined"
+                onClick={this.sortLength}
+              >
+                Sort by length
+              </Button>
+
+              <Button
+                type="button"
+                variant="outlined"
+                onClick={this.reverse}
+              >
+                Reverse
+              </Button>
+
+              <Button
+                type="button"
+                variant="outlined"
+                onClick={this.reset}
+              >
+                Reset
+              </Button>
+
+              <List
+                sx={{
+                  width: '100%',
+                  maxWidth: 360,
+                  bgcolor: 'background.paper',
+                }}
+                className="Goods"
+              >
+                {goods.map(good => (
+                  <ListItem
+                    key={good}
+                    className="Goods__item"
+                  >
+                    <ListItemText primary={good} />
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          )
+
+          : (
+            <Button
+              type="button"
+              variant="outlined"
+              onClick={this.start}
+            >
+              Start
+            </Button>
+          )}
+      </div>
+    );
+  }
+}
