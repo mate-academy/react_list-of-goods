@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
+import classNames from 'classnames';
 import './App.css';
 
 const goodsFromServer = [
@@ -26,9 +26,10 @@ function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  minLength: number,
 ) {
   // Not to mutate the original array
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods].filter(good => good.length > minLength);
 
   visibleGoods.sort((good1, good2) => {
     switch (sortType) {
@@ -58,6 +59,7 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  minLength: number,
 };
 
 export class App extends React.Component<{}, State> {
@@ -65,6 +67,7 @@ export class App extends React.Component<{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
+    minLength: 0,
   };
 
   startList = () => {
@@ -84,11 +87,20 @@ export class App extends React.Component<{}, State> {
   };
 
   resetSorting = () => {
-    this.setState({ isReversed: false, sortType: SortType.NONE });
+    this.setState({ isReversed: false, sortType: SortType.NONE, minLength: 0 });
+  };
+
+  changeMinLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ minLength: +event.target.value });
   };
 
   render() {
-    const { isReversed, isStarted, sortType } = this.state;
+    const {
+      isReversed,
+      isStarted,
+      sortType,
+      minLength,
+    } = this.state;
 
     return (
       <div className="App">
@@ -96,50 +108,83 @@ export class App extends React.Component<{}, State> {
         {isStarted
           ? (
             <>
-              <button
-                type="button"
-                onClick={this.sortAlphabetically}
-              >
-                Sort alphabetically
-              </button>
+              <div className="buttons">
+                <button
+                  type="button"
+                  className={classNames('button',
+                    { 'is-active': sortType === SortType.ALPABET })}
+                  onClick={this.sortAlphabetically}
+                >
+                  Sort alphabetically
+                </button>
+                <button
+                  type="button"
+                  className={classNames('button',
+                    { 'is-active': sortType === SortType.LENGTH })}
+                  onClick={this.sortByLength}
+                >
+                  Sort by length
+                </button>
+                <button
+                  type="button"
+                  className={classNames('button', { 'is-active': isReversed })}
+                  onClick={this.reverseSorting}
+                >
+                  Reverse
+                </button>
+                <button
+                  type="button"
+                  className="button"
+                  onClick={this.resetSorting}
+                >
+                  Reset
+                </button>
+              </div>
 
-              <button
-                type="button"
-                onClick={this.sortByLength}
-              >
-                Sort by length
-              </button>
-
-              <button
-                type="button"
-                onClick={this.reverseSorting}
-              >
-                Reverse
-              </button>
-
-              <button
-                type="button"
-                onClick={this.resetSorting}
-              >
-                Reset
-              </button>
+              <div>
+                <select
+                  name="select"
+                  className="select"
+                  value={minLength}
+                  onChange={value => this.changeMinLength(value)}
+                >
+                  <option value="0" hidden selected>select</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
 
               <ul className="Goods">
-                {getReorderedGoods(goodsFromServer, sortType, isReversed)
-                  .map(good => {
-                    return (
-                      <li className="Goods__item">{good}</li>
-                    );
-                  })}
+                {getReorderedGoods(
+                  goodsFromServer,
+                  sortType,
+                  isReversed,
+                  minLength,
+                ).map(good => {
+                  return (
+                    <li className="Goods__item">{good}</li>
+                  );
+                })}
               </ul>
             </>
           ) : (
-            <button
-              type="button"
-              onClick={this.startList}
-            >
-              Start
-            </button>
+            <div className="buttons">
+              <button
+                type="button"
+                className="button"
+                onClick={this.startList}
+              >
+                Start
+              </button>
+            </div>
           )}
       </div>
     );
