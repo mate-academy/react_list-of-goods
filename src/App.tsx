@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -127,56 +128,70 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {!isStarted ? (
-          <button
-            type="button"
-            onClick={() => this.setState({ isStarted: true })}
-          >
-            Start
-          </button>
+          <div className="start-button__container">
+            <Button
+              variant="outlined"
+              type="button"
+              className="start-button"
+              onClick={() => this.setState({ isStarted: true })}
+            >
+              Start
+            </Button>
+          </div>
         ) : (
           <>
-            <button
-              type="button"
-              onClick={() => this.handleSort(SortType.ALPABET)}
-            >
-              Sort alphabetically
-            </button>
-
-            <button
-              type="button"
-              onClick={() => this.handleSort(SortType.LENGTH)}
-            >
-              Sort by length
-            </button>
-
-            <button
-              type="button"
-              onClick={() => this.handleReverse()}
-            >
-              Reverse
-            </button>
-
-            <button
-              type="button"
-              onClick={() => this.handleReset()}
-            >
-              Reset
-            </button>
-
-            <FormControl>
-              <InputLabel id="length-select-label">Min length</InputLabel>
-              <Select
-                labelId="length-select-label"
-                id="length-select"
-                value={minLength}
-                label="Age"
-                onChange={event => this.handleSelectChange(event)}
+            <div className="menu__controls">
+              <Button
+                variant="outlined"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleSort(SortType.ALPABET)}
               >
-                {wordLengths.map(length => (
-                  <MenuItem value={length}>{length}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                Sort alphabetically
+              </Button>
+              <Button
+                variant="outlined"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleSort(SortType.LENGTH)}
+              >
+                Sort by length
+              </Button>
+              <Button
+                variant="outlined"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleReverse()}
+              >
+                Reverse
+              </Button>
+              <Button
+                variant="outlined"
+                color="error"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleReset()}
+              >
+                Reset
+              </Button>
+            </div>
+
+            <div className="select-container">
+              <FormControl fullWidth>
+                <InputLabel id="length-select-label">Min length</InputLabel>
+                <Select
+                  labelId="length-select-label"
+                  id="length-select"
+                  value={minLength}
+                  label="Age"
+                  onChange={event => this.handleSelectChange(event)}
+                >
+                  {wordLengths.map(length => (
+                    <MenuItem value={length}>{length}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
 
             <ul className="Goods">
               {visibleGoods.map((good => (
