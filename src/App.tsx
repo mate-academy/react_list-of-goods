@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
+import 'bulma/css/bulma.min.css';
 
 const goodsFromServer = [
   'Dumplings',
@@ -28,6 +29,8 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  activeSortByAlphabet: boolean | null,
+  activeSortByLength: boolean | null
 };
 
 export class App extends React.Component <{}, State> {
@@ -35,6 +38,8 @@ export class App extends React.Component <{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: 0,
+    activeSortByAlphabet: false,
+    activeSortByLength: false,
   };
 
   start = () => {
@@ -43,11 +48,17 @@ export class App extends React.Component <{}, State> {
   };
 
   sortByAlphabet = () => {
-    this.setState({ sortType: SortType.ALPABET });
+    this.setState(state => ({
+      sortType: SortType.ALPABET,
+      activeSortByAlphabet: !state.activeSortByAlphabet,
+    }));
   };
 
   sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+    this.setState(state => ({
+      sortType: SortType.LENGTH,
+      activeSortByLength: !state.activeSortByLength,
+    }));
   };
 
   reverse = () => {
@@ -64,7 +75,13 @@ export class App extends React.Component <{}, State> {
   };
 
   render() {
-    const { isStarted, isReversed, sortType } = this.state;
+    const {
+      isStarted,
+      isReversed,
+      sortType,
+      activeSortByAlphabet,
+      activeSortByLength,
+    } = this.state;
     const goods = [...goodsFromServer];
 
     goods.sort((item1, item2) => {
@@ -87,6 +104,11 @@ export class App extends React.Component <{}, State> {
         {!isStarted && (
           <button
             type="button"
+            className="
+              button
+              is-success
+              is-rounded
+            "
             onClick={this.start}
           >
             Start
@@ -95,21 +117,58 @@ export class App extends React.Component <{}, State> {
 
         {isStarted && (
           <>
-            <button type="button" onClick={this.sortByAlphabet}>
-              Sort alphabetically
-            </button>
+            <div className="container">
+              <button
+                type="button"
+                className={`
+                  button
+                  ${activeSortByAlphabet ? 'active' : ''}
+                  is-warning
+                  is-rounded
+                `}
+                onClick={this.sortByAlphabet}
+              >
+                Sort alphabetically
+              </button>
 
-            <button type="button" onClick={this.sortByLength}>
-              Sort by length
-            </button>
+              <button
+                type="button"
+                className={`
+                  button
+                  ${activeSortByLength ? 'active' : ''}
+                  is-warning
+                  is-rounded
+                `}
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
 
-            <button type="button" onClick={this.reverse}>
-              Reverse
-            </button>
+              <button
+                type="button"
+                className={`
+                  button
+                  ${isReversed ? 'active' : ''}
+                  is-warning
+                  is-rounded
+                `}
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
 
-            <button type="button" onClick={this.reset}>
-              Reset
-            </button>
+              <button
+                type="button"
+                className="
+                  button
+                  is-danger
+                  is-rounded
+                "
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
 
             <ul className="Goods">
               {goods.map(good => (
