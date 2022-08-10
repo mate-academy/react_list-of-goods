@@ -55,7 +55,6 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
-  isReset: boolean,
 };
 
 export class App extends React.Component<{}, State> {
@@ -63,7 +62,6 @@ export class App extends React.Component<{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
-    isReset: false,
   };
 
   isStarted = () => {
@@ -87,12 +85,19 @@ export class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState(state => ({
-      isReset: !state.isReset,
-    }));
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
   };
 
   render(): React.ReactNode {
+    const reorderList = getReorderedGoods(
+      goodsFromServer,
+      this.state.sortType,
+      this.state.isReversed,
+    );
+
     return (
       <>
         {!this.state.isStarted && (
@@ -135,16 +140,9 @@ export class App extends React.Component<{}, State> {
             </button>
 
             <ul className="Goods">
-              {!this.state.isReset
-                ? (getReorderedGoods(
-                  goodsFromServer,
-                  this.state.sortType,
-                  this.state.isReversed,
-                )
-                  .map(
-                    el => <li>{el}</li>,
-                  ))
-                : goodsFromServer.map(el => <li>{el}</li>)}
+              {reorderList.map(
+                el => <li>{el}</li>,
+              )}
             </ul>
           </div>
         )}
