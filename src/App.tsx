@@ -76,10 +76,11 @@ export class App extends React.Component<{}, State> {
       = getReorderedGoods(goodsFromServer, sortType, isReversed, wordsLength);
 
     return (
-      <div className="App">
+      <div className="App notification is-warning">
         {!isStarted && (
           <button
             type="button"
+            className="button is-link"
             onClick={() => this.setState({ isStarted: true })}
           >
             Start
@@ -96,51 +97,57 @@ export class App extends React.Component<{}, State> {
               ))}
             </ul>
 
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({ sortType: SortType.ALPHABET });
-              }}
-            >
-              Sort alphabetically
-            </button>
+            <div className="options">
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={() => {
+                  this.setState({ sortType: SortType.ALPHABET });
+                }}
+              >
+                Sort alphabetically
+              </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({ sortType: SortType.LENGTH });
-              }}
-            >
-              Sort by length
-            </button>
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={() => {
+                  this.setState({ sortType: SortType.LENGTH });
+                }}
+              >
+                Sort by length
+              </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                this.setState((state) => ({ isReversed: !state.isReversed }));
-              }}
-            >
-              Reverse
-            </button>
+              <button
+                type="button"
+                className="button is-info"
+                onClick={() => {
+                  this.setState((state) => ({ isReversed: !state.isReversed }));
+                }}
+              >
+                Reverse
+              </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                this.setState({
-                  sortType: SortType.NONE,
-                  isReversed: false,
-                  wordsLength: 1,
-                });
-              }}
-            >
-              Reset
-            </button>
+              <button
+                type="button"
+                className="button is-danger"
+                onClick={() => {
+                  this.setState({
+                    sortType: SortType.NONE,
+                    isReversed: false,
+                    wordsLength: 1,
+                  });
+                }}
+              >
+                Reset
+              </button>
+            </div>
 
-            <label>
-              Length
+            <div className="select is-success">
               <select
                 onChange={
-                  (event) => this.setState({ wordsLength: +event.target.value })
+                  (event) => this
+                    .setState({ wordsLength: +event.target.value })
                 }
                 value={wordsLength}
               >
@@ -150,7 +157,7 @@ export class App extends React.Component<{}, State> {
                   </option>
                 ))}
               </select>
-            </label>
+            </div>
           </>
         )}
       </div>
