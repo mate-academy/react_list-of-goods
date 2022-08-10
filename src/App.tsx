@@ -96,6 +96,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             onClick={this.show}
+            className="button is-primary"
           >
             Start
           </button>
@@ -103,21 +104,39 @@ export class App extends Component<{}, State> {
 
         {isStarted && (
           <>
-            <button type="button" onClick={this.sortAlphabetically}>
-              Sort alphabetically
-            </button>
+            <div className="wrapper">
+              <button
+                type="button"
+                onClick={this.sortAlphabetically}
+                className="button is-primary is-light"
+              >
+                Sort alphabetically
+              </button>
 
-            <button type="button" onClick={this.sortByLength}>
-              Sort by length
-            </button>
+              <button
+                type="button"
+                onClick={this.sortByLength}
+                className="button is-primary is-light"
+              >
+                Sort by length
+              </button>
 
-            <button type="button" onClick={this.reverse}>
-              Reverse
-            </button>
+              <button
+                type="button"
+                onClick={this.reverse}
+                className="button is-primary is-light"
+              >
+                Reverse
+              </button>
 
-            <button type="button" onClick={this.reset}>
-              Reset
-            </button>
+              <button
+                type="button"
+                onClick={this.reset}
+                className="button is-primary is-light"
+              >
+                Reset
+              </button>
+            </div>
 
             <ul className="Goods">
               {visibleGoods.map(good => (
