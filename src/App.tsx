@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 const goodsFromServer = [
   'Dumplings',
@@ -90,49 +95,71 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="App">
         {isStarted && (
-          <button
+          <Button
+            variant="contained"
             type="button"
             onClick={() => this.setState({ isStarted: !isStarted })}
           >
             Start
-          </button>
+          </Button>
         )}
 
         {!isStarted && (
           <>
-            <button
-              type="button"
-              onClick={this.sortByAlpabet}
-            >
-              Sort alphabetically
-            </button>
+            <div className="Buttons">
+              <Button
+                variant="outlined"
+                size="small"
+                type="button"
+                onClick={this.sortByAlpabet}
+              >
+                Sort alphabetically
+              </Button>
 
-            <button
-              type="button"
-              onClick={this.sortByLength}
-            >
-              Sort by length
-            </button>
+              <Button
+                variant="outlined"
+                size="small"
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </Button>
 
-            <button
-              type="button"
-              onClick={this.reverse}
-            >
-              Reverse
-            </button>
+              <Button
+                variant="outlined"
+                size="small"
+                type="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </Button>
 
-            <button
-              type="button"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
+              <Button
+                variant="contained"
+                size="small"
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </Button>
+            </div>
 
-            <ul className="Goods">
+            <List className="Goods">
               {visibleGoods.map(good => (
-                <li key={good} className="Goods__item">{good}</li>
+                <>
+                  <ListItem
+                    disablePadding
+                    key={good}
+                    className="Goods__item"
+                  >
+                    <ListItemText
+                      primary={good}
+                    />
+                  </ListItem>
+                  <Divider />
+                </>
               ))}
-            </ul>
+            </List>
           </>
         )}
       </div>
