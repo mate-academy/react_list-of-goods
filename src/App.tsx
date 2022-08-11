@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 
 const goodsFromServer = [
   'Dumplings',
@@ -21,55 +26,148 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+function getReorderedGoods(
+  goods: string[],
+  sortType: SortType,
+  isReversed: boolean,
+) {
+  const visibleGoods = [...goods];
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  switch (sortType) {
+    case SortType.ALPABET:
+      visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((good1, good2) => good1.length - good2.length);
+      break;
+    case SortType.NONE:
+    default:
+      break;
+  }
 
-    <button type="button">
-      Sort by length
-    </button>
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
-    <button type="button">
-      Reverse
-    </button>
+  return visibleGoods;
+}
 
-    <button type="button">
-      Reset
-    </button>
+export class App extends React.Component<{}, State> {
+  state = {
+    isStarted: true,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  sortByAlpabet = () => {
+    this.setState({ sortType: SortType.ALPABET });
+  };
+
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  reset = () => {
+    this.setState({ isReversed: false, sortType: SortType.NONE });
+  };
+
+  render() {
+    const { isStarted, isReversed, sortType } = this.state;
+
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer, sortType, isReversed,
+    );
+
+    return (
+      <div className="App">
+        {isStarted && (
+          <Button
+            variant="contained"
+            type="button"
+            onClick={() => this.setState({ isStarted: !isStarted })}
+          >
+            Start
+          </Button>
+        )}
+
+        {!isStarted && (
+          <>
+            <div className="Buttons">
+              <Button
+                variant={sortType === 1
+                  ? 'contained'
+                  : 'outlined'}
+                size="small"
+                type="button"
+                onClick={this.sortByAlpabet}
+              >
+                Sort alphabetically
+              </Button>
+
+              <Button
+                variant={sortType === 2
+                  ? 'contained'
+                  : 'outlined'}
+                size="small"
+                type="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </Button>
+
+              <Button
+                variant={isReversed
+                  ? 'contained'
+                  : 'outlined'}
+                size="small"
+                type="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </Button>
+
+              <Button
+                variant="outlined"
+                size="small"
+                color="warning"
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </Button>
+            </div>
+
+            <List className="Goods">
+              {visibleGoods.map(good => (
+                <>
+                  <ListItem
+                    disablePadding
+                    key={good}
+                    className="Goods__item"
+                  >
+                    <ListItemText
+                      primary={good}
+                    />
+                  </ListItem>
+                  <Divider />
+                </>
+              ))}
+            </List>
+          </>
+        )}
+      </div>
+    );
+  }
+}
