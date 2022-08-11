@@ -30,19 +30,22 @@ function getReorderedGoods(
   // Not to mutate the original array
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.LENGTH:
-      return visibleGoods.sort((good1, good2) => good1.length - good2.length);
-    case SortType.ALPHABET:
-      return visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
-    case SortType.NONE:
-      break;
-    default:
-      break;
+  if (sortType !== SortType.NONE) {
+    if (sortType === SortType.ALPHABET) {
+      visibleGoods.sort((good1, good2) => {
+        return good1.localeCompare(good2);
+      });
+    }
+
+    if (sortType === SortType.LENGTH) {
+      visibleGoods.sort((good1, good2) => {
+        return good1.length - good2.length;
+      });
+    }
   }
 
   if (isReversed) {
-    visibleGoods.reverse();
+    return visibleGoods.reverse();
   }
 
   return visibleGoods;
@@ -62,15 +65,15 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  startWork = () => this.setState({
+    isStarted: true,
+  });
+
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
-
-  startWork = () => this.setState({
-    isStarted: true,
-  });
 
   sortByAlpabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
@@ -82,12 +85,6 @@ export class App extends Component<{}, State> {
 
   reset = () => {
     this.setState({ sortType: SortType.NONE, isReversed: false });
-  };
-
-  getElements = (goods: string[]) => {
-    return goods.map(good => (
-      <li className="Goods__item" key={good}>{good}</li>
-    ));
   };
 
   render() {
@@ -120,7 +117,7 @@ export class App extends Component<{}, State> {
                 <button
                   type="button"
                   className="button is-warning is-light btn"
-                  onClick={() => this.sortByLength()}
+                  onClick={this.sortByLength}
                 >
                   Sort by length
                 </button>
@@ -143,7 +140,16 @@ export class App extends Component<{}, State> {
               </div>
 
               <ul className="listRender">
-                {this.getElements(listRender)}
+                {listRender.map(good => {
+                  return (
+                    <li
+                      className="listRender__item"
+                      key={good}
+                    >
+                      {good}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
