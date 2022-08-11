@@ -74,6 +74,7 @@ export class App extends Component<{}, State> {
     this.setState(({ isSortAlphabet }) => ({
       sortType: SortType.ALPABET,
       isSortAlphabet: !(isSortAlphabet),
+      isSortLength: false,
     }));
   };
 
@@ -81,6 +82,7 @@ export class App extends Component<{}, State> {
     this.setState(({ isSortLength }) => ({
       sortType: SortType.LENGTH,
       isSortLength: !(isSortLength),
+      isSortAlphabet: false,
     }));
   };
 
