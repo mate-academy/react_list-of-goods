@@ -67,7 +67,7 @@ export class App extends React.Component<{}, State> {
       ));
   };
 
-  clickOnStart = () => {
+  onStart = () => {
     this.setState(state => ({
       isStarted: !state.isStarted,
     }));
@@ -113,7 +113,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-success"
-            onClick={this.clickOnStart}
+            onClick={this.onStart}
           >
             Start
           </button>
@@ -173,16 +173,18 @@ export class App extends React.Component<{}, State> {
                 })
               )}
             >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
+              {Array(10).fill(1).map((option, i) => {
+                const val = option + i;
+
+                return (
+                  <option
+                    value={val}
+                    key={val}
+                  >
+                    {val}
+                  </option>
+                );
+              })}
             </select>
           </>
         )}
