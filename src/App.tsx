@@ -198,7 +198,7 @@ export class App extends Component<{}, State> {
                 onChange={this.handleChangeValueLength}
               >
                 { positionsSelect.map(position => (
-                  <option value={position}>{position}</option>))}
+                  <option key={position} value={position}>{position}</option>))}
               </select>
             </>
           )}
