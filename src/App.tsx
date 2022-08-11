@@ -43,12 +43,8 @@ function getReorderedGoods(
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
     case SortType.NONE:
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      visibleGoods;
-      break;
-
     default:
-      throw new Error(`Case ${sortType} not found`);
+      break;
   }
 
   return isReversed ? visibleGoods.reverse() : visibleGoods;
