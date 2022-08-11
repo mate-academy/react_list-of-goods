@@ -24,23 +24,28 @@ enum SortType {
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
+  isReversed: boolean,
 ) {
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.LENGTH:
-      return visibleGoods.sort((g1, g2) => {
-        return g1.length - g2.length;
-      });
-
-    case SortType.ALPABET:
-      return visibleGoods.sort((g1, g2) => {
-        return g1.localeCompare(g2);
-      });
-
-    default:
-      return visibleGoods;
+  if (sortType !== SortType.NONE) {
+    visibleGoods.sort((g1, g2) => {
+      switch (sortType) {
+        case SortType.ALPABET:
+          return g1.localeCompare(g2);
+        case SortType.LENGTH:
+          return g1.length - g2.length;
+        default:
+          return 0;
+      }
+    });
   }
+
+  if (isReversed) {
+    return visibleGoods.reverse();
+  }
+
+  return visibleGoods;
 }
 
 // DON'T save goods to the state
@@ -87,11 +92,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, isStarted, sortType } = this.state;
 
-    const goods = getReorderedGoods(goodsFromServer, sortType);
-
-    if (isReversed) {
-      goods.reverse();
-    }
+    const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
 
     return (
       <div className="App">
@@ -100,39 +101,46 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               onClick={this.start}
+              className="start-button button"
             >
               Start
             </button>
           )
           : (
             <>
-              <button
-                type="button"
-                onClick={this.sortByAlphabet}
-              >
-                Sort alphabetically
-              </button>
+              <div className="buttons">
+                <button
+                  type="button"
+                  onClick={this.sortByAlphabet}
+                  className="button"
+                >
+                  Sort alphabetically
+                </button>
 
-              <button
-                type="button"
-                onClick={this.sortByLength}
-              >
-                Sort by length
-              </button>
+                <button
+                  type="button"
+                  onClick={this.sortByLength}
+                  className="button"
+                >
+                  Sort by length
+                </button>
 
-              <button
-                type="button"
-                onClick={this.reverse}
-              >
-                Reverse
-              </button>
+                <button
+                  type="button"
+                  onClick={this.reverse}
+                  className="button"
+                >
+                  Reverse
+                </button>
 
-              <button
-                type="button"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
+                <button
+                  type="button"
+                  onClick={this.reset}
+                  className="reset-button button"
+                >
+                  Reset
+                </button>
+              </div>
 
               <ul className="Goods">
                 {goods.map(good => (
