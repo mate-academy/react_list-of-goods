@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const goodsFromServer = [
   'Dumplings',
@@ -39,22 +40,22 @@ function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType !== SortType.NONE) {
-    visibleGoods.sort((goodA, goodB): number => {
-      const firstGood = goodA.goodName;
-      const secondGood = goodB.goodName;
+  switch (sortType) {
+    case SortType.ALPABET:
+      visibleGoods.sort((a, b) => (
+        a.goodName.localeCompare(b.goodName)
+      ));
+      break;
 
-      switch (sortType) {
-        case SortType.ALPABET:
-          return firstGood.localeCompare(secondGood);
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => (
+        a.goodName.length - b.goodName.length
+      ));
+      break;
 
-        case SortType.LENGTH:
-          return firstGood.length - secondGood.length;
-
-        default:
-          return 0;
-      }
-    });
+    case SortType.NONE:
+    default:
+      break;
   }
 
   return isReversed
@@ -82,27 +83,35 @@ export class App extends React.Component<{}, State> {
       sortType,
     } = this.state;
 
+    const goods = getReorderedGoods(
+      preparedGoods,
+      sortType,
+      isReversed,
+    );
+
     return (
       <div className="App">
         <div className="box">
-          <div className="buttons">
-            {!isStarted
-              ? (
-                <button
-                  type="button"
-                  className="
+          {!isStarted
+            ? (
+              <button
+                type="button"
+                className="
                     button
                     is-primary
                     is-large
                     is-light
                   "
-                  onClick={() => this.setState({ isStarted: true })}
-                >
-                  Start
-                </button>
-              )
-              : (
-                <>
+                onClick={() => this.setState(
+                  { isStarted: true },
+                )}
+              >
+                Start
+              </button>
+            )
+            : (
+              <>
+                <div className="buttons">
                   <button
                     type="button"
                     className="button"
@@ -116,7 +125,9 @@ export class App extends React.Component<{}, State> {
                   <button
                     type="button"
                     className="button"
-                    onClick={() => this.setState({ sortType: SortType.LENGTH })}
+                    onClick={() => this.setState(
+                      { sortType: SortType.LENGTH },
+                    )}
                   >
                     Sort by length
                   </button>
@@ -124,9 +135,9 @@ export class App extends React.Component<{}, State> {
                   <button
                     type="button"
                     className="button"
-                    onClick={() => this.setState(state => ({
-                      isReversed: !state.isReversed,
-                    }))}
+                    onClick={() => this.setState(state => (
+                      { isReversed: !state.isReversed }
+                    ))}
                   >
                     Reverse
                   </button>
@@ -145,26 +156,20 @@ export class App extends React.Component<{}, State> {
                   >
                     Reset
                   </button>
-                </>
-              )}
-          </div>
+                </div>
 
-          {isStarted && (
-            <ul className="Goods">
-              {getReorderedGoods(
-                preparedGoods,
-                sortType,
-                isReversed,
-              ).map(good => (
-                <li
-                  key={good.id}
-                  className="Goods__item"
-                >
-                  {good.goodName}
-                </li>
-              ))}
-            </ul>
-          )}
+                <ul className="Goods">
+                  {goods.map(good => (
+                    <li
+                      key={uuidv4()}
+                      className="Goods__item"
+                    >
+                      {good.goodName}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
         </div>
       </div>
     );

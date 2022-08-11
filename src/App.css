@@ -7,13 +7,10 @@
   height: 100vh;
 }
 
-.Goods {
-  position: relative;
-}
-
 .Goods__item {
   width: max-content;
   position: relative;
+
   animation: moveToCenter 1s cubic-bezier(0.33,0.24,0.35,1.85);
   animation-fill-mode: forwards;
 }
