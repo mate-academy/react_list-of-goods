@@ -81,11 +81,11 @@ export class App extends Component<{}, State> {
       isRevers: boolean,
       valueSelect: number,
     ): string[] => {
-      const lengthGoods = goods.map(good => good.length);
-      const valueMinLength = Math.min(...lengthGoods) - 1;
+      // const lengthGoods = goods.map(good => good.length);
+      // const valueMinLength = Math.min(...lengthGoods) - 1;
 
       const visibleGoods = goods
-        .filter(good => good.length <= valueMinLength + valueSelect);
+        .filter(good => good.length >= valueSelect);
 
       if (sortBy === SortType.ALPABET) {
         visibleGoods.sort((a, b) => b.localeCompare(a));
@@ -104,7 +104,8 @@ export class App extends Component<{}, State> {
 
     return (
       <div className="App level">
-        <div className="button-wrapper">
+
+        {!isStarted && (
           <button
             type="button"
             className="button is-warning"
@@ -112,68 +113,74 @@ export class App extends Component<{}, State> {
           >
             Start
           </button>
+        )}
 
-          <button
-            type="button"
-            className="button is-success"
-            onClick={() => this.sortByAlpabet()}
-          >
-            Sort alphabetically
-          </button>
+        {isStarted
+          && (
+            <>
+              <div className="button-wrapper">
+                <button
+                  type="button"
+                  className="button is-success"
+                  onClick={() => this.sortByAlpabet()}
+                >
+                  Sort alphabetically
+                </button>
 
-          <button
-            type="button"
-            className="button is-success"
-            onClick={() => this.sortByLength()}
-          >
-            Sort by length
-          </button>
+                <button
+                  type="button"
+                  className="button is-success"
+                  onClick={() => this.sortByLength()}
+                >
+                  Sort by length
+                </button>
 
-          <button
-            type="button"
-            className="button is-success"
-            onClick={() => this.reverse()}
-          >
-            Reverse
-          </button>
+                <button
+                  type="button"
+                  className="button is-success"
+                  onClick={() => this.reverse()}
+                >
+                  Reverse
+                </button>
 
-          <button
-            type="button"
-            className="button is-success"
-            onClick={() => this.reset()}
-          >
-            Reset
-          </button>
-        </div>
+                <button
+                  type="button"
+                  className="button is-success"
+                  onClick={() => this.reset()}
+                >
+                  Reset
+                </button>
+              </div>
 
-        <ul className="Goods">
-          { isStarted
-          && getReorderedGoods(
-            goodsFromServer,
-            sortType,
-            isReversed,
-            value,
-          ).map(good => (
-            <li className="Goods__item" key={good}>{good}</li>
-          ))}
-        </ul>
-        <span className="titleSelect">Filterd by name length:</span>
-        <select
-          name="select"
-          value={this.state.value}
-          onChange={this.handleChange}
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
+              <ul className="Goods">
+                { getReorderedGoods(
+                  goodsFromServer,
+                  sortType,
+                  isReversed,
+                  value,
+                ).map(good => (
+                  <li className="Goods__item" key={good}>{good}</li>
+                ))}
+              </ul>
+              <span className="titleSelect">Filterd by name length:</span>
+              <select
+                name="select"
+                value={this.state.value}
+                onChange={this.handleChange}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </>
+          )}
       </div>
     );
   }
