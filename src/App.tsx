@@ -81,9 +81,6 @@ export class App extends Component<{}, State> {
       isRevers: boolean,
       valueSelect: number,
     ): string[] => {
-      // const lengthGoods = goods.map(good => good.length);
-      // const valueMinLength = Math.min(...lengthGoods) - 1;
-
       const visibleGoods = goods
         .filter(good => good.length >= valueSelect);
 
