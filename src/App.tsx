@@ -51,7 +51,6 @@ export class App extends Component<{}, State> {
   ) => {
     const visibleGoods = goods.filter(good => good.length <= selected);
 
-    // f equal first word and s equal second word
     visibleGoods.sort((firstWord, secondWord) => {
       switch (sortType) {
         case SortType.ALPHABET:
@@ -60,8 +59,8 @@ export class App extends Component<{}, State> {
             : secondWord.localeCompare(firstWord);
         case SortType.LENGTH:
           return isSortedByLength
-            ? firstWord.length - secondWord.length
-            : secondWord.length - firstWord.length;
+            ? secondWord.length - firstWord.length
+            : firstWord.length - secondWord.length;
         default:
           return 0;
       }
@@ -77,16 +76,14 @@ export class App extends Component<{}, State> {
   );
 
   sortByLength = () => (
-    this.setState((state) => ({
+    this.setState(() => ({
       sortType: SortType.LENGTH,
-      isSortedByLength: !state.isSortedByLength,
     }))
   );
 
   sortAlphabetically = () => (
-    this.setState((state) => ({
+    this.setState(() => ({
       sortType: SortType.ALPHABET,
-      isSortedAlphabetically: !state.isSortedAlphabetically,
     }))
   );
 
