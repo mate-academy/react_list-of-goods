@@ -81,7 +81,7 @@ export class App extends Component<{}, State> {
           <>
             <button
               type="button"
-              className="button is-success"
+              className={`button ${this.state.sortType === SortType.ALPABET ? 'is-success' : 'is-danger'}`}
               onClick={() => {
                 this.setState({ sortType: SortType.ALPABET });
               }}
@@ -91,7 +91,7 @@ export class App extends Component<{}, State> {
 
             <button
               type="button"
-              className="button is-success"
+              className={`button ${this.state.sortType === SortType.LENGTH ? 'is-success' : 'is-danger'}`}
               onClick={() => {
                 this.setState({ sortType: SortType.LENGTH });
               }}
@@ -101,9 +101,11 @@ export class App extends Component<{}, State> {
 
             <button
               type="button"
-              className="button is-warning"
+              className={`button ${this.state.isReversed ? 'is-success' : 'is-danger'}`}
               onClick={() => {
-                this.setState({ isReversed: true });
+                this.setState((prevState) => ({
+                  isReversed: !prevState.isReversed,
+                }));
               }}
             >
               Reverse
@@ -111,7 +113,8 @@ export class App extends Component<{}, State> {
 
             <button
               type="button"
-              className="button is-danger"
+              className={`button ${this.state.sortType === SortType.NONE
+                && !this.state.isReversed ? 'is-success' : 'is-danger'}`}
               onClick={() => {
                 this.setState({ sortType: SortType.NONE, isReversed: false });
               }}
