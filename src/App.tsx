@@ -106,7 +106,9 @@ export class App extends React.Component<{}, State> {
           <>
             <div className="Buttons">
               <Button
-                variant="outlined"
+                variant={sortType === 1
+                  ? 'contained'
+                  : 'outlined'}
                 size="small"
                 type="button"
                 onClick={this.sortByAlpabet}
@@ -115,7 +117,9 @@ export class App extends React.Component<{}, State> {
               </Button>
 
               <Button
-                variant="outlined"
+                variant={sortType === 2
+                  ? 'contained'
+                  : 'outlined'}
                 size="small"
                 type="button"
                 onClick={this.sortByLength}
@@ -124,7 +128,9 @@ export class App extends React.Component<{}, State> {
               </Button>
 
               <Button
-                variant="outlined"
+                variant={isReversed
+                  ? 'contained'
+                  : 'outlined'}
                 size="small"
                 type="button"
                 onClick={this.reverse}
@@ -133,8 +139,9 @@ export class App extends React.Component<{}, State> {
               </Button>
 
               <Button
-                variant="contained"
+                variant="outlined"
                 size="small"
+                color="warning"
                 type="button"
                 onClick={this.reset}
               >
