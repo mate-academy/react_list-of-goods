@@ -28,16 +28,17 @@ function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((g1, g2) => {
-    switch (sortType) {
-      case SortType.ALPABET:
-        return g1.localeCompare(g2);
-      case SortType.LENGTH:
-        return g1.length - g2.length;
-      default:
-        return 0;
-    }
-  });
+  switch (sortType) {
+    case SortType.ALPABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    case SortType.NONE:
+    default:
+      break;
+  }
 
   if (isReversed) {
     visibleGoods.reverse();
