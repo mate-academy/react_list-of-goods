@@ -80,12 +80,12 @@ export class App extends Component<{}, State> {
   });
 
   render() {
-    const { sortType, isReversed } = this.state;
+    const { sortType, isReversed, isStarted } = this.state;
     const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
 
     return (
       <div className="App">
-        {!this.state.isStarted
+        {!isStarted
           ? (
             <button
               type="button"
