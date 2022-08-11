@@ -2,6 +2,7 @@
 import './App.css';
 import 'bulma/css/bulma.min.css';
 import { ChangeEvent, Component } from 'react';
+import cn from 'classnames';
 
 const goodsFromServer = [
   'Dumplings',
@@ -25,16 +26,44 @@ enum SortType {
 type State = {
   isStarted: boolean,
   isReversed: boolean,
+  isSortAlphabet: boolean,
+  isSortLength: boolean,
   sortType: SortType,
-  value: number,
+  valueMinLensthGood: number,
+};
+
+const getReorderedGoods = (
+  goods: string[],
+  sortBy: SortType,
+  isRevers: boolean,
+  valueSelect: number,
+): string[] => {
+  const visibleGoods = goods
+    .filter(good => good.length >= valueSelect);
+
+  if (sortBy === SortType.ALPABET) {
+    visibleGoods.sort((a, b) => b.localeCompare(a));
+  }
+
+  if (sortBy === SortType.LENGTH) {
+    visibleGoods.sort((a, b) => b.length - a.length);
+  }
+
+  if (!isRevers) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
 };
 
 export class App extends Component<{}, State> {
   state = {
     isStarted: false,
     isReversed: false,
+    isSortAlphabet: false,
+    isSortLength: false,
     sortType: SortType.NONE,
-    value: 1,
+    valueMinLensthGood: 1,
   };
 
   start = () => {
@@ -42,11 +71,17 @@ export class App extends Component<{}, State> {
   };
 
   sortByAlpabet = () => {
-    this.setState({ sortType: SortType.ALPABET });
+    this.setState(({ isSortAlphabet }) => ({
+      sortType: SortType.ALPABET,
+      isSortAlphabet: !(isSortAlphabet),
+    }));
   };
 
   sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+    this.setState(({ isSortLength }) => ({
+      sortType: SortType.LENGTH,
+      isSortLength: !(isSortLength),
+    }));
   };
 
   reverse = () => {
@@ -58,46 +93,34 @@ export class App extends Component<{}, State> {
       {
         sortType: SortType.NONE,
         isReversed: false,
-        value: 1,
+        isSortAlphabet: false,
+        isSortLength: false,
+        valueMinLensthGood: 1,
       },
     );
   };
 
-  handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    this.setState({ value: Number(event.target.value) });
+  handleChangeValueLength = (event: ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ valueMinLensthGood: Number(event.target.value) });
   };
 
   render() {
     const {
       isReversed,
       isStarted,
+      isSortLength,
+      isSortAlphabet,
       sortType,
-      value,
+      valueMinLensthGood,
     } = this.state;
 
-    const getReorderedGoods = (
-      goods: string[],
-      sortBy: SortType,
-      isRevers: boolean,
-      valueSelect: number,
-    ): string[] => {
-      const visibleGoods = goods
-        .filter(good => good.length >= valueSelect);
-
-      if (sortBy === SortType.ALPABET) {
-        visibleGoods.sort((a, b) => b.localeCompare(a));
-      }
-
-      if (sortBy === SortType.LENGTH) {
-        visibleGoods.sort((a, b) => b.length - a.length);
-      }
-
-      if (!isRevers) {
-        visibleGoods.reverse();
-      }
-
-      return visibleGoods;
-    };
+    const positionsSelect = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+    const resultGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+      valueMinLensthGood,
+    );
 
     return (
       <div className="App level">
@@ -118,7 +141,11 @@ export class App extends Component<{}, State> {
               <div className="button-wrapper">
                 <button
                   type="button"
-                  className="button is-success"
+                  className={cn(
+                    'button',
+                    'is-success',
+                    { 'is-light': isSortAlphabet },
+                  )}
                   onClick={() => this.sortByAlpabet()}
                 >
                   Sort alphabetically
@@ -126,7 +153,11 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button is-success"
+                  className={cn(
+                    'button',
+                    'is-success',
+                    { 'is-light': isSortLength },
+                  )}
                   onClick={() => this.sortByLength()}
                 >
                   Sort by length
@@ -134,7 +165,11 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button is-success"
+                  className={cn(
+                    'button',
+                    'is-success',
+                    { 'is-light': isReversed },
+                  )}
                   onClick={() => this.reverse()}
                 >
                   Reverse
@@ -150,31 +185,18 @@ export class App extends Component<{}, State> {
               </div>
 
               <ul className="Goods">
-                { getReorderedGoods(
-                  goodsFromServer,
-                  sortType,
-                  isReversed,
-                  value,
-                ).map(good => (
+                { resultGoods.map(good => (
                   <li className="Goods__item" key={good}>{good}</li>
                 ))}
               </ul>
               <span className="titleSelect">Filterd by name length:</span>
               <select
                 name="select"
-                value={this.state.value}
-                onChange={this.handleChange}
+                value={this.state.valueMinLensthGood}
+                onChange={this.handleChangeValueLength}
               >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                { positionsSelect.map(position => (
+                  <option value={position}>{position}</option>))}
               </select>
             </>
           )}
