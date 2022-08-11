@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
 const goodsFromServer = [
@@ -15,61 +15,140 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const preparedGoods = goodsFromServer.map(name => ({
+  name,
+  id: uuidv4(),
+}));
+
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
+type Good = {
+  name: string;
+  id: string;
+};
+
 // Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
+const getReorderedGoods = (
+  goods: Good[],
   sortType: SortType,
   isReversed: boolean,
-) {
-  // Not to mutate the original array
+) => {
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // ...
+  if (sortType !== SortType.NONE) {
+    visibleGoods.sort((a, b) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return a.name.localeCompare(b.name);
+        case SortType.LENGTH:
+          return a.name.length - b.name.length;
+        default:
+          return 0;
+      }
+    });
+  }
 
-  return visibleGoods;
-}
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
+};
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends Component<{}, State> {
+  state = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  start = () => this.setState({ isStarted: true });
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortByName = () => this.setState({ sortType: SortType.ALPHABET });
 
-    <button type="button">
-      Reverse
-    </button>
+  sortByLength = () => this.setState({ sortType: SortType.LENGTH });
 
-    <button type="button">
-      Reset
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
+  render() {
+    const { isStarted, isReversed, sortType } = this.state;
+    const goods = getReorderedGoods(preparedGoods, sortType, isReversed);
+
+    return (
+      <div className="App level is-flex-direction-column">
+        {!isStarted && (
+          <button
+            type="button"
+            className="button is-success level-item"
+            onClick={this.start}
+          >
+            Start
+          </button>
+        )}
+
+        {isStarted && (
+          <div className="level-item is-flex-direction-column">
+            <div>
+              <button
+                type="button"
+                className="button is-primary m-2"
+                onClick={this.sortByName}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                type="button"
+                className="button is-primary m-2"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                type="button"
+                className="button is-primary m-2"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                className="button is-primary m-2"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
+
+            <ul className="Goods">
+              {goods.map(({ name, id }) => (
+                <li className="Goods__item" key={id}>{name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
