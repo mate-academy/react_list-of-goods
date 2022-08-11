@@ -34,22 +34,23 @@ function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((a, b) => {
-    switch (sortType) {
-      case SortType.ALPABET:
-        return a.localeCompare(b);
+  switch (sortType) {
+    case SortType.ALPABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    case SortType.NONE:
+    default:
+      break;
+  }
 
-      case SortType.LENGTH:
-        return a.length - b.length;
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
-      default:
-        return 0;
-    }
-  });
-
-  return isReversed
-    ? visibleGoods.reverse()
-    : visibleGoods;
+  return visibleGoods;
 }
 
 export class App extends React.Component<{}, State> {
@@ -60,14 +61,12 @@ export class App extends React.Component<{}, State> {
   };
 
   reverseList = () => {
-    this.setState(state => {
-      return {
-        isReversed: !state.isReversed,
-      };
-    });
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
   };
 
-  isWorking = () => {
+  isStarted = () => {
     this.setState({ isStarted: true });
   };
 
@@ -139,7 +138,9 @@ export class App extends React.Component<{}, State> {
           : (
             <button
               type="button"
-              onClick={this.isWorking}
+              onClick={() => this.setState({
+                isStarted: true,
+              })}
               className="button is-info"
             >
               Start
