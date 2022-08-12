@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import classNames from 'classnames';
 import './App.css';
 
 const goodsFromServer = [
@@ -104,7 +105,10 @@ export class App extends React.Component<{}, State> {
             <div className="App__content">
               <div className="App__buttons">
                 <button
-                  className="button is-primary"
+                  className={classNames(
+                    'button is-primary',
+                    { 'is-light': sortType === SortType.ALPABET },
+                  )}
                   type="button"
                   onClick={() => this.setState(
                     state => ({
@@ -119,7 +123,10 @@ export class App extends React.Component<{}, State> {
                 </button>
 
                 <button
-                  className="button is-primary"
+                  className={classNames(
+                    'button is-primary',
+                    { 'is-light': sortType === SortType.LENGTH },
+                  )}
                   type="button"
                   onClick={() => this.setState(
                     state => ({
@@ -134,7 +141,10 @@ export class App extends React.Component<{}, State> {
                 </button>
 
                 <button
-                  className="button is-primary"
+                  className={classNames(
+                    'button is-primary',
+                    { 'is-light': isReversed },
+                  )}
                   type="button"
                   onClick={() => this.setState(
                     state => ({ isReversed: !state.isReversed }),
