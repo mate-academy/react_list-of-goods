@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
+import classNames from 'classnames';
 import './App.css';
 
 const goodsFromServer = [
@@ -17,7 +18,7 @@ const goodsFromServer = [
 
 enum SortType {
   NONE = 'None',
-  ALPABET = 'Alphabet',
+  ALPHABET = 'Alphabet',
   LENGTH = 'length',
 }
 
@@ -31,7 +32,7 @@ function getReorderedGoods(
 
   visibleGoods.sort((good1, good2) => {
     switch (sortType) {
-      case SortType.ALPABET:
+      case SortType.ALPHABET:
         return good1.localeCompare(good2);
 
       case SortType.LENGTH:
@@ -71,7 +72,7 @@ export class App extends React.Component<{}, State> {
   };
 
   sortByAlpabet = () => {
-    this.setState({ sortType: SortType.ALPABET });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   reverse = () => {
@@ -112,22 +113,43 @@ export class App extends React.Component<{}, State> {
                 <button
                   type="button"
                   onClick={this.sortByAlpabet}
-                  className="btn btn-outline-success"
+                  className={classNames(
+                    'btn', {
+                      'btn-outline-success':
+                      this.state.sortType !== SortType.ALPHABET,
+                    }, {
+                      'btn-success':
+                      this.state.sortType === SortType.ALPHABET,
+                    },
+                  )}
                 >
                   Sort alphabetically
                 </button>
 
                 <button
                   type="button"
-                  onClick={this.sortByLength}
-                  className="btn btn-outline-success"
+                  onClick={(
+                    this.reset,
+                    this.sortByLength
+                  )}
+                  className={classNames(
+                    'btn', {
+                      'btn-outline-success':
+                      this.state.sortType !== SortType.LENGTH,
+                    }, {
+                      'btn-success':
+                      this.state.sortType === SortType.LENGTH,
+                    },
+                  )}
                 >
                   Sort by length
                 </button>
 
                 <button
                   type="button"
-                  onClick={this.reverse}
+                  onClick={(
+                    this.reset,
+                    this.reverse)}
                   className="btn btn-outline-success"
                 >
                   Reverse
@@ -144,7 +166,10 @@ export class App extends React.Component<{}, State> {
 
               <ul className="list-group">
                 {visibleGoods.map(good => (
-                  <li className="list-item list-group-item" key={good}>
+                  <li
+                    className="list-item list-group-item"
+                    key={good}
+                  >
                     {good}
                   </li>
                 ))}
