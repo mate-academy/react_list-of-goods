@@ -58,13 +58,13 @@ export class App extends React.Component<{}, State> {
       }
     });
 
-    return isReversed
-      ? visibleGoods.filter(good => (
-        good.length >= minLength
-      )).reverse()
-      : visibleGoods.filter(good => (
-        good.length >= minLength
-      ));
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
+    return visibleGoods.filter(good => (
+      good.length >= minLength
+    ));
   };
 
   onStart = () => {
@@ -99,6 +99,12 @@ export class App extends React.Component<{}, State> {
     });
   };
 
+  minLengthSort = (numLengthToSort: number) => {
+    this.setState({
+      minLength: numLengthToSort,
+    });
+  };
+
   render() {
     const {
       isStarted,
@@ -106,6 +112,10 @@ export class App extends React.Component<{}, State> {
       isReversed,
       minLength,
     } = this.state;
+
+    const goodsToShow = this.getReorderedGoods(
+      goodsFromServer, sortType, isReversed, minLength,
+    );
 
     return (
       <div className="App">
@@ -123,7 +133,7 @@ export class App extends React.Component<{}, State> {
           <>
             <button
               type="button"
-              className="button is-info"
+              className={`button ${sortType === 1 ? 'is-info' : ''}`}
               onClick={this.sortAlphabetically}
             >
               Sort alphabetically
@@ -131,7 +141,7 @@ export class App extends React.Component<{}, State> {
 
             <button
               type="button"
-              className="button is-link"
+              className={`button ${sortType === 2 ? 'is-link' : ''}`}
               onClick={this.sortByLength}
             >
               Sort by length
@@ -139,7 +149,7 @@ export class App extends React.Component<{}, State> {
 
             <button
               type="button"
-              className="button is-warning"
+              className={`button ${isReversed ? 'is-warning' : ''}`}
               onClick={this.reverseSort}
             >
               Reverse
@@ -153,12 +163,7 @@ export class App extends React.Component<{}, State> {
               Reset
             </button>
 
-            <GoodsList goods={
-              this.getReorderedGoods(
-                goodsFromServer, sortType, isReversed, minLength,
-              )
-            }
-            />
+            <GoodsList goods={goodsToShow} />
 
             <p>Select min size of word to sort</p>
 
@@ -168,9 +173,7 @@ export class App extends React.Component<{}, State> {
               className="select is-link"
               value={minLength}
               onChange={(event) => (
-                this.setState({
-                  minLength: +event.currentTarget.value,
-                })
+                this.minLengthSort(+event.currentTarget.value)
               )}
             >
               {Array(10).fill(1).map((option, i) => {
