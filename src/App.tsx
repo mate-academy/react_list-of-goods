@@ -2,6 +2,7 @@
 import React from 'react';
 import './App.css';
 import 'bulma/css/bulma.min.css';
+import cn from 'classnames';
 
 const goodsFromServer = [
   'Dumplings',
@@ -22,15 +23,37 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
-
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
-  activeSortByAlphabet: boolean | null,
-  activeSortByLength: boolean | null
+};
+
+const getSortedList = (
+  userGoods: string[],
+  sortType: SortType,
+  isReversed: boolean,
+) => {
+  const goods = [...userGoods];
+
+  switch (sortType) {
+    case SortType.ALPABET:
+      goods.sort((a, b) => a.localeCompare(b));
+      break;
+
+    case SortType.LENGTH:
+      goods.sort((a, b) => a.length - b.length);
+      break;
+    case SortType.NONE:
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    goods.reverse();
+  }
+
+  return goods;
 };
 
 export class App extends React.Component <{}, State> {
@@ -38,8 +61,6 @@ export class App extends React.Component <{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: 0,
-    activeSortByAlphabet: false,
-    activeSortByLength: false,
   };
 
   start = () => {
@@ -48,16 +69,20 @@ export class App extends React.Component <{}, State> {
   };
 
   sortByAlphabet = () => {
-    this.setState(state => ({
-      sortType: SortType.ALPABET,
-      activeSortByAlphabet: !state.activeSortByAlphabet,
+    this.setState((currentState) => ({
+      sortType: (currentState.sortType === SortType.ALPABET
+        ? SortType.NONE
+        : SortType.ALPABET
+      ),
     }));
   };
 
   sortByLength = () => {
-    this.setState(state => ({
-      sortType: SortType.LENGTH,
-      activeSortByLength: !state.activeSortByLength,
+    this.setState((currentState) => ({
+      sortType: (currentState.sortType === SortType.LENGTH
+        ? SortType.NONE
+        : SortType.LENGTH
+      ),
     }));
   };
 
@@ -79,25 +104,9 @@ export class App extends React.Component <{}, State> {
       isStarted,
       isReversed,
       sortType,
-      activeSortByAlphabet,
-      activeSortByLength,
     } = this.state;
-    const goods = [...goodsFromServer];
 
-    goods.sort((item1, item2) => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return item1.localeCompare(item2);
-        case SortType.LENGTH:
-          return (item1.length - item2.length);
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      goods.reverse();
-    }
+    const goods = getSortedList(goodsFromServer, sortType, isReversed);
 
     return (
       <div className="App">
@@ -120,12 +129,12 @@ export class App extends React.Component <{}, State> {
             <div className="container">
               <button
                 type="button"
-                className={`
-                  button
-                  ${activeSortByAlphabet ? 'active' : ''}
-                  is-warning
-                  is-rounded
-                `}
+                className={cn(
+                  'button',
+                  'is-warning',
+                  'is-rounded',
+                  { 'btn-active': SortType.ALPABET === sortType },
+                )}
                 onClick={this.sortByAlphabet}
               >
                 Sort alphabetically
@@ -133,12 +142,12 @@ export class App extends React.Component <{}, State> {
 
               <button
                 type="button"
-                className={`
-                  button
-                  ${activeSortByLength ? 'active' : ''}
-                  is-warning
-                  is-rounded
-                `}
+                className={cn(
+                  'button',
+                  'is-warning',
+                  'is-rounded',
+                  { 'btn-active': SortType.LENGTH === sortType },
+                )}
                 onClick={this.sortByLength}
               >
                 Sort by length
@@ -146,12 +155,12 @@ export class App extends React.Component <{}, State> {
 
               <button
                 type="button"
-                className={`
-                  button
-                  ${isReversed ? 'active' : ''}
-                  is-warning
-                  is-rounded
-                `}
+                className={cn(
+                  'button',
+                  'is-warning',
+                  'is-rounded',
+                  { 'btn-active': isReversed === true },
+                )}
                 onClick={this.reverse}
               >
                 Reverse
