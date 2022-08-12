@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import cn from 'classnames';
 
 import './App.css';
 
@@ -30,18 +31,16 @@ function getReorderedGoods(
   // Not to mutate the original array
   const visibleGoods = [...goods];
 
-  if (sortType !== SortType.NONE) {
-    if (sortType === SortType.ALPHABET) {
-      visibleGoods.sort((good1, good2) => {
-        return good1.localeCompare(good2);
-      });
-    }
+  if (sortType === SortType.ALPHABET) {
+    visibleGoods.sort((good1, good2) => {
+      return good1.localeCompare(good2);
+    });
+  }
 
-    if (sortType === SortType.LENGTH) {
-      visibleGoods.sort((good1, good2) => {
-        return good1.length - good2.length;
-      });
-    }
+  if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((good1, good2) => {
+      return good1.length - good2.length;
+    });
   }
 
   if (isReversed) {
@@ -108,7 +107,11 @@ export class App extends Component<{}, State> {
               <div className="buttons">
                 <button
                   type="button"
-                  className="button is-link btn"
+                  // className={`button is-link btn ${sortType === SortType.ALPHABET ? 'is-active' : ''}`}
+                  className={cn(
+                    'button btn',
+                    { 'is-warning': sortType === SortType.ALPHABET },
+                  )}
                   onClick={this.sortByAlpabet}
                 >
                   Sort alphabetically
@@ -116,7 +119,10 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button is-warning is-light btn"
+                  className={cn(
+                    'button btn',
+                    { 'is-warning': sortType === SortType.LENGTH },
+                  )}
                   onClick={this.sortByLength}
                 >
                   Sort by length
@@ -125,7 +131,10 @@ export class App extends Component<{}, State> {
                 <button
                   type="button"
                   onClick={this.reverse}
-                  className="button is-info btn"
+                  className={cn(
+                    'button  btn',
+                    { 'is-warning': isReversed === true },
+                  )}
                 >
                   Reverse
                 </button>
@@ -133,7 +142,13 @@ export class App extends Component<{}, State> {
                 <button
                   type="button"
                   onClick={this.reset}
-                  className="button is-danger btn"
+                  className={cn(
+                    'button is-info btn',
+                    {
+                      'is-warning': sortType === SortType.NONE
+                    && isReversed === false,
+                    },
+                  )}
                 >
                   Reset
                 </button>

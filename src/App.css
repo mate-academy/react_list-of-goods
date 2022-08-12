@@ -36,6 +36,7 @@ iframe {
 .buttons {
   display: flex;
   justify-content: space-evenly;
+  color: coral;
 }
 
 .buttons:not(:last-child) {
