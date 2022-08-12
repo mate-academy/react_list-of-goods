@@ -27,4 +27,4 @@ You a given an array of goods. Render them as a list in the App after `Start` bu
 - Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
 - Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/) and add it to the PR description.
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://mikhail-shchuka.github.io/react_list-of-goods/) and add it to the PR description.
