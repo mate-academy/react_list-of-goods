@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.css';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -16,60 +16,153 @@ const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
+  NONE = 'None',
+  ALPHABET = 'Alphabet',
+  LENGTH = 'Length',
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
-  sortType: SortType,
+  sortBy: SortType,
   isReversed: boolean,
 ) {
-  // Not to mutate the original array
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // ...
+  switch (sortBy) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((goodA, goodB) => goodA.localeCompare(goodB));
+
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((goodA, goodB) => goodA.length - goodB.length);
+
+      break;
+
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
-  sortType: SortType,
+  sortBy: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.PureComponent<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortBy: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  start = () => {
+    this.setState(state => ({
+      isStarted: !state.isStarted,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortBy = (type: SortType) => {
+    this.setState({ sortBy: type });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  reset = () => {
+    this.setState({
+      sortBy: SortType.NONE,
+      isReversed: false,
+    });
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  render(): React.ReactNode {
+    const sortedList = getReorderedGoods(
+      goodsFromServer,
+      this.state.sortBy,
+      this.state.isReversed,
+    );
+
+    return (
+      <div className="App">
+        <h1 className="App__title">
+          List of Goods
+        </h1>
+
+        {!this.state.isStarted && (
+          <button
+            className="
+              button
+              button--start
+            "
+            type="button"
+            onClick={this.start}
+          >
+            Start
+          </button>
+        )}
+
+        {this.state.isStarted && (
+          <div className="App__content">
+            <div className="buttons">
+              <button
+                className="
+                  button
+                  button--sort-name
+                "
+                type="button"
+                onClick={() => this.sortBy(SortType.ALPHABET)}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                className="button"
+                type="button"
+                onClick={() => this.sortBy(SortType.LENGTH)}
+              >
+                Sort by length
+              </button>
+
+              <button
+                className="button"
+                type="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                className="button"
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
+
+            <ul
+              className="Goods"
+            >
+              {sortedList.map(good => (
+                <li className="Goods__item" key={good}>
+                  <p>{good}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
