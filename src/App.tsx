@@ -45,18 +45,17 @@ export class App extends React.Component<{}, State> {
   ) => {
     const visibleGoods = [...goods];
 
-    visibleGoods.sort((a, b) => {
-      switch (sortType) {
-        case 1:
-          return a.localeCompare(b);
-
-        case 2:
-          return a.length - b.length;
-
-        default:
-          return 0;
-      }
-    });
+    switch (sortType) {
+      case SortType.ALPABET:
+        visibleGoods.sort((a, b) => a.localeCompare(b));
+        break;
+      case SortType.LENGTH:
+        visibleGoods.sort((a, b) => a.length - b.length);
+        break;
+      case SortType.NONE:
+      default:
+        break;
+    }
 
     if (isReversed) {
       visibleGoods.reverse();
@@ -75,13 +74,13 @@ export class App extends React.Component<{}, State> {
 
   sortAlphabetically = () => {
     this.setState({
-      sortType: 1,
+      sortType: SortType.ALPABET,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortType: 2,
+      sortType: SortType.LENGTH,
     });
   };
 
@@ -93,7 +92,7 @@ export class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState({
-      sortType: 0,
+      sortType: SortType.NONE,
       isReversed: false,
       minLength: 1,
     });
