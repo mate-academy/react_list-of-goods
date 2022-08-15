@@ -102,6 +102,16 @@ export class App extends React.Component<{}, State> {
       minLength,
     } = this.state;
 
+    const reorderedGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+      minLength,
+    );
+
+    const lengthValues = new Array(Math.max(...reorderedGoods
+      .map(good => good.length))).fill('0').map((_, i) => i + 1);
+
     return (
       <div className="App">
 
@@ -149,26 +159,18 @@ export class App extends React.Component<{}, State> {
                   onChange={value => this.changeMinLength(value)}
                 >
                   <option value="0" hidden selected>select</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                  {lengthValues.map((length) => {
+                    return (
+                      <option value={length} key={length}>
+                        {length}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
 
               <ul className="Goods">
-                {getReorderedGoods(
-                  goodsFromServer,
-                  sortType,
-                  isReversed,
-                  minLength,
-                ).map(good => {
+                {reorderedGoods.map(good => {
                   return (
                     <li className="Goods__item">{good}</li>
                   );
