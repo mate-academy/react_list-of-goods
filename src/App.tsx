@@ -155,6 +155,7 @@ export class App extends React.Component<{}, State> {
                   <option
                     key={`selectNumber${number}`}
                     value={number}
+                    selected={number === minLength}
                   >
                     {number}
                   </option>
