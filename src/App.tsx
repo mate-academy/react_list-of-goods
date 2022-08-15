@@ -172,7 +172,7 @@ export class App extends React.Component<{}, State> {
               <ul className="Goods">
                 {reorderedGoods.map(good => {
                   return (
-                    <li className="Goods__item">{good}</li>
+                    <li className="Goods__item" key={good}>{good}</li>
                   );
                 })}
               </ul>
