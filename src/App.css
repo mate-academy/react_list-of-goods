@@ -1,1 +1,11 @@
-/* not empty */
+.button-start {
+  background-color: blueviolet;
+}
+
+.button-reverse {
+  background-color: yellowgreen;
+}
+
+.button-reset {
+  background-color: red;
+}
