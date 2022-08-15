@@ -87,6 +87,7 @@ export class App extends React.Component<{}, State> {
     this.setState({
       isReversed: false,
       sortType: 0,
+      minLength: 1,
     });
   };
 
