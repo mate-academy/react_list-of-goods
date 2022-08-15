@@ -1,1 +1,16 @@
 /* not empty */
+.App {
+  padding: 20px;
+}
+
+.button {
+  margin: 5px;
+}
+
+.Goods {
+  margin-left: 20px;
+}
+
+.select {
+  margin: 5px 0 0 5px;
+}
