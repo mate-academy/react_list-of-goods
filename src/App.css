@@ -1,1 +1,19 @@
-/* not empty */
+@import '../node_modules/bulma/css/bulma.css';
+
+.App {
+  background-color: #1d1d1d;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ul {
+  text-align: center;
+  color: #fff;
+}
+
+button {
+  margin: 5px;
+}
+
