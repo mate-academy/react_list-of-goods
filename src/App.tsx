@@ -98,13 +98,13 @@ export class App extends Component<{}, State> {
     const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
 
     return (
-      <div className="App">
+      <div className="App  has-text-centered">
 
         {isStarted
         && (
           <button
             type="button"
-            className="button-start"
+            className="button is-success "
             onClick={() => {
               this.start();
             }}
@@ -116,10 +116,10 @@ export class App extends Component<{}, State> {
         {!isStarted
           && (
             <>
-              <div className="button">
+              <div className="button  level-item ">
                 <button
                   type="button"
-                  className="button"
+                  className="button is-link"
                   onClick={() => {
                     this.sortAlpabet();
                   }}
@@ -129,7 +129,7 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button"
+                  className="button is-success"
                   onClick={() => {
                     this.sortLength();
                   }}
@@ -139,7 +139,7 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button-reverse"
+                  className="button is-warning"
                   onClick={() => {
                     this.reverse();
                   }}
@@ -149,7 +149,7 @@ export class App extends Component<{}, State> {
 
                 <button
                   type="button"
-                  className="button-reset"
+                  className="button is-danger"
                   onClick={() => {
                     this.reset();
                   }}
@@ -162,7 +162,7 @@ export class App extends Component<{}, State> {
                 {goods.map(good => (
                   <li
                     key={good}
-                    className="Goods__item"
+                    className="Goods__item has-text-centered "
                   >
                     {good}
 

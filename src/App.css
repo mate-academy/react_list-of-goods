@@ -1,11 +1,1 @@
-.button-start {
-  background-color: blueviolet;
-}
-
-.button-reverse {
-  background-color: yellowgreen;
-}
-
-.button-reset {
-  background-color: red;
-}
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
