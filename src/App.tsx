@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import { Component } from 'react';
 import './App.css';
 
 const goodsFromServer = [
@@ -21,55 +21,157 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
 ) {
-  // Not to mutate the original array
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // ...
+  visibleGoods.sort((g1, g2) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return g1.localeCompare(g2);
+
+      case SortType.LENGTH:
+        return g1.length - g2.length;
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    return visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: true,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  start = () => {
+    this.setState({
+      isStarted: false,
+      sortType: SortType.NONE,
+    });
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortAlpabet = () => {
+    this.setState({
+      sortType: SortType.ALPABET,
+    });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
+  render() {
+    const { isStarted, sortType, isReversed } = this.state;
+
+    const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
+
+    return (
+      <div className="App  has-text-centered">
+
+        {isStarted
+        && (
+          <button
+            type="button"
+            className="button is-success "
+            onClick={() => {
+              this.start();
+            }}
+          >
+            Start
+          </button>
+        )}
+
+        {!isStarted
+          && (
+            <>
+              <div className="button  level-item ">
+                <button
+                  type="button"
+                  className="button is-link"
+                  onClick={() => {
+                    this.sortAlpabet();
+                  }}
+                >
+                  Sort alphabetically
+                </button>
+
+                <button
+                  type="button"
+                  className="button is-success"
+                  onClick={() => {
+                    this.sortLength();
+                  }}
+                >
+                  Sort by length
+                </button>
+
+                <button
+                  type="button"
+                  className="button is-warning"
+                  onClick={() => {
+                    this.reverse();
+                  }}
+                >
+                  Reverse
+                </button>
+
+                <button
+                  type="button"
+                  className="button is-danger"
+                  onClick={() => {
+                    this.reset();
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
+
+              <ul className="Goods">
+                {goods.map(good => (
+                  <li
+                    key={good}
+                    className="Goods__item has-text-centered "
+                  >
+                    {good}
+
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+      </div>
+    );
+  }
+}
