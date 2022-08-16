@@ -1,4 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 import React from 'react';
 import './App.css';
 
@@ -15,61 +23,189 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+const wordLengthFromServer = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+];
+
 enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
+  NONE = 'none',
+  ALPABET = 'string',
+  LENGTH = 'number',
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  minLength: number,
 ) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods].filter(good => good.length >= minLength);
 
-  // Sort and reverse goods if needed
-  // ...
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.NONE:
+        return 0;
+
+      case SortType.ALPABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        throw new Error('unknown sort type in getReorderedGoods function');
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  minLength: number,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+    minLength: 1,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  handleSort(sortType: SortType) {
+    this.setState({ sortType });
+  }
 
-    <button type="button">
-      Sort by length
-    </button>
+  handleReverse() {
+    this.setState(state => ({ isReversed: !state.isReversed }));
+  }
 
-    <button type="button">
-      Reverse
-    </button>
+  handleReset() {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+      minLength: 1,
+    });
+  }
 
-    <button type="button">
-      Reset
-    </button>
+  handleSelectChange = (event: SelectChangeEvent<number>) => {
+    this.setState({ minLength: +event.target.value });
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  render() {
+    const {
+      isStarted,
+      isReversed,
+      sortType,
+      minLength,
+    } = this.state;
+
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+      minLength,
+    );
+
+    const wordLengths = [...wordLengthFromServer];
+
+    return (
+      <div className="App">
+        {!isStarted ? (
+          <div className="start-button__container">
+            <Button
+              variant="outlined"
+              type="button"
+              className="start-button"
+              onClick={() => this.setState({ isStarted: true })}
+            >
+              Start
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className="menu__controls">
+              <Button
+                variant="outlined"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleSort(SortType.ALPABET)}
+              >
+                Sort alphabetically
+              </Button>
+              <Button
+                variant="outlined"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleSort(SortType.LENGTH)}
+              >
+                Sort by length
+              </Button>
+              <Button
+                variant="outlined"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleReverse()}
+              >
+                Reverse
+              </Button>
+              <Button
+                variant="outlined"
+                color="error"
+                type="button"
+                className="menu__button"
+                onClick={() => this.handleReset()}
+              >
+                Reset
+              </Button>
+            </div>
+
+            <div className="select-container">
+              <FormControl fullWidth>
+                <InputLabel id="length-select-label">Min length</InputLabel>
+                <Select
+                  labelId="length-select-label"
+                  id="length-select"
+                  value={minLength}
+                  label="Age"
+                  onChange={event => this.handleSelectChange(event)}
+                >
+                  {wordLengths.map(length => (
+                    <MenuItem value={length}>{length}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+
+            <ul className="Goods">
+              {visibleGoods.map((good => (
+                <li
+                  className="Goods__item"
+                  key={good}
+                >
+                  {good}
+                </li>
+              )))}
+            </ul>
+          </>
+        )}
+      </div>
+    );
+  }
+}
