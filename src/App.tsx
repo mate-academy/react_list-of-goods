@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
+import { v4 as uuid4 } from 'uuid';
 import './App.css';
 
 const goodsFromServer = [
@@ -17,21 +18,33 @@ const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  wordsLength: number,
 ) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods]
+    .filter(goodItem => goodItem.length >= wordsLength);
 
-  // Sort and reverse goods if needed
-  // ...
+  visibleGoods.sort((prev, curr) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return prev.localeCompare(curr);
+      case SortType.LENGTH:
+        return prev.length - curr.length;
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -41,35 +54,113 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  wordsLength: number,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+    wordsLength: 1,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  render() {
+    const {
+      isStarted,
+      isReversed,
+      sortType,
+      wordsLength,
+    } = this.state;
+    const changedArray
+      = getReorderedGoods(goodsFromServer, sortType, isReversed, wordsLength);
 
-    <button type="button">
-      Sort by length
-    </button>
+    return (
+      <div className="App notification is-warning">
+        {!isStarted && (
+          <button
+            type="button"
+            className="button is-link"
+            onClick={() => this.setState({ isStarted: true })}
+          >
+            Start
+          </button>
+        )}
 
-    <button type="button">
-      Reverse
-    </button>
+        {isStarted && (
+          <>
+            <ul className="Goods">
+              {changedArray.map(goodItem => (
+                <li className="Goods__item" key={uuid4()}>
+                  {goodItem}
+                </li>
+              ))}
+            </ul>
 
-    <button type="button">
-      Reset
-    </button>
+            <div className="options">
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={() => {
+                  this.setState({ sortType: SortType.ALPHABET });
+                }}
+              >
+                Sort alphabetically
+              </button>
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={() => {
+                  this.setState({ sortType: SortType.LENGTH });
+                }}
+              >
+                Sort by length
+              </button>
+
+              <button
+                type="button"
+                className="button is-info"
+                onClick={() => {
+                  this.setState((state) => ({ isReversed: !state.isReversed }));
+                }}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                className="button is-danger"
+                onClick={() => {
+                  this.setState({
+                    sortType: SortType.NONE,
+                    isReversed: false,
+                    wordsLength: 1,
+                  });
+                }}
+              >
+                Reset
+              </button>
+            </div>
+
+            <div className="select is-success">
+              <select
+                onChange={
+                  (event) => this
+                    .setState({ wordsLength: +event.target.value })
+                }
+                value={wordsLength}
+              >
+                {[...Array(10)].map((_, index) => (
+                  <option value={index + 1} key={uuid4()}>
+                    {index + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+}
