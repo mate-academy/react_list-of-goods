@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
-import './App.css';
+import { Component } from 'react';
+import './App.scss';
 
 const goodsFromServer = [
   'Dumplings',
@@ -26,12 +26,27 @@ function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  minLength: number,
 ) {
   // Not to mutate the original array
-  const visibleGoods = [...goods];
+  const visibleGoods = goods.filter(good => good.length >= minLength);
 
-  // Sort and reverse goods if needed
-  // ...
+  visibleGoods.sort((g1, g2) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return g1.localeCompare(g2);
+
+      case SortType.LENGTH:
+        return g1.length - g2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -41,35 +56,111 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  minLength: number,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+    minLength: 1,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  start = () => {
+    this.setState({ isStarted: true });
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  alphabet = () => {
+    this.setState({ sortType: SortType.ALPABET });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  length = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  revers = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+      minLength: 1,
+    });
+  };
+
+  minLength = (value: number) => {
+    this.setState({ minLength: value });
+  };
+
+  render() {
+    const {
+      isStarted,
+      sortType,
+      isReversed,
+      minLength,
+    } = this.state;
+
+    const visibleGoods
+      = getReorderedGoods(goodsFromServer, sortType, isReversed, minLength);
+
+    return (
+      <div className="App panel is-success">
+        {!isStarted ? (
+          <button className="button" type="button" onClick={this.start}>
+            Start
+          </button>
+        ) : (
+          <>
+            <div className="panel-heading">
+              <button
+                className="button"
+                type="button"
+                onClick={this.alphabet}
+              >
+                Sort alphabetically
+              </button>
+
+              <button className="button" type="button" onClick={this.length}>
+                Sort by length
+              </button>
+
+              <button className="button" type="button" onClick={this.revers}>
+                Reverse
+              </button>
+
+              <button className="button" type="button" onClick={this.reset}>
+                Reset
+              </button>
+            </div>
+
+            <label className="App__label panel-block">
+              Min-length:
+              <select
+                className="App__select select"
+                name="minLength"
+                id="minLength"
+                value={minLength}
+                onChange={e => this.minLength(+e.currentTarget.value)}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => (
+                  <option value={item}>{item}</option>
+                ))}
+              </select>
+            </label>
+
+            <ul className="Goods">
+              {visibleGoods.map(good => (
+                <li key={good} className="Goods__item panel-block">{good}</li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    );
+  }
+}
