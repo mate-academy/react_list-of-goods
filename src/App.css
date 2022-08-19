@@ -1,1 +1,19 @@
-/* not empty */
+.App {
+  width: max-content;
+  background-color: rgba(224, 255, 255, 0.5);
+  border-radius: 10px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.Goods {
+  padding-bottom: 20px;
+}
+
+.Goods__item {
+  color: rgb(30, 200, 100);
+  font-style: italic;
+  font-weight: bold;
+}
