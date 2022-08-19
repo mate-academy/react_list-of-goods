@@ -1,1 +1,4 @@
 /* not empty */
+.startButton--hidden {
+  display: none;
+}

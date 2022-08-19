@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import classNames from 'classnames';
 import React from 'react';
+import { GoodsList } from './GoodsList';
 import './App.css';
 
 const goodsFromServer = [
@@ -15,61 +16,103 @@ const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // ...
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
-  sortType: SortType,
+  sortType: string,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state = {
+    isStarted: false,
+    isReversed: false,
+    sortType: 'none',
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  start = () => {
+    this.setState(state => ({
+      isStarted: !state.isStarted,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortAlpabet = () => {
+    this.setState({ sortType: 'alpabet', isReversed: false });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  sortByLength = () => {
+    this.setState({ sortType: 'length', isReversed: false });
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({ sortType: 'none', isReversed: false });
+  };
+
+  render() {
+    const { isStarted, isReversed, sortType } = this.state;
+
+    const goodsClone = [...goodsFromServer];
+
+    goodsClone.sort((good1, good2) => {
+      switch (sortType) {
+        case 'alpabet':
+          return good1.localeCompare(good2);
+        case 'length':
+          return good1[sortType] - good2[sortType];
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      goodsClone.reverse();
+    }
+
+    return (
+      <div className="App">
+        <button
+          className={classNames('startButton',
+            { 'startButton--hidden': isStarted })}
+          type="button"
+          onClick={this.start}
+        >
+          Start
+        </button>
+
+        <button
+          type="button"
+          onClick={this.sortAlpabet}
+        >
+          Sort alphabetically
+        </button>
+
+        <button
+          type="button"
+          onClick={this.sortByLength}
+        >
+          Sort by length
+        </button>
+
+        <button
+          type="button"
+          onClick={this.reverse}
+        >
+          Reverse
+        </button>
+
+        <button type="button" onClick={this.reset}>
+          Reset
+        </button>
+
+        {isStarted
+          ? (<GoodsList goodsFromServer={goodsClone} />)
+          : ''}
+      </div>
+    );
+  }
+}
