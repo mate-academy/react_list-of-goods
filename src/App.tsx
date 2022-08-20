@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import './App.css';
 
@@ -17,59 +16,172 @@ const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  minLength: number,
 ) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods]
+    .filter(good => good.length >= minLength);
 
-  // Sort and reverse goods if needed
-  // ...
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  minLength: number,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends React.Component<{}, State> {
+  state = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+    minLength: 1,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  startRenderingList = () => {
+    this.setState({ isStarted: true });
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortByAlphabet = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+      minLength: 1,
+    });
+  };
+
+  filterByLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({
+      minLength: Number(event.target.value),
+    });
+  };
+
+  render() {
+    const {
+      isStarted,
+      isReversed,
+      sortType,
+      minLength,
+    } = this.state;
+
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+      minLength,
+    );
+
+    return (
+      <div className="App">
+        {!isStarted
+          ? (
+            <button
+              type="button"
+              onClick={this.startRenderingList}
+              className="button is-success"
+            >
+              Start
+            </button>
+          ) : (
+            <>
+              <div className="buttons">
+                <button
+                  type="button"
+                  onClick={this.sortByAlphabet}
+                  className="button is-primary is-rounded"
+                >
+                  Sort alphabetically
+                </button>
+
+                <button
+                  type="button"
+                  onClick={this.sortByLength}
+                  className="button is-success is-rounded"
+                >
+                  Sort by length
+                </button>
+
+                <button
+                  type="button"
+                  onClick={this.reverse}
+                  className="button is-info is-rounded"
+                >
+                  Reverse
+                </button>
+
+                <button
+                  type="button"
+                  onClick={this.reset}
+                  className="button is-danger is-rounded"
+                >
+                  Reset
+                </button>
+                <select
+                  name="minLength"
+                  id="minLength"
+                  value={minLength}
+                  onChange={this.filterByLength}
+                >
+                  {
+                    [...new Array(10)].map((item, index) => (
+                      <option key={item} value={index + 1}>
+                        {index + 1}
+                      </option>
+                    ))
+                  }
+                </select>
+              </div>
+
+              <ul className="Goods">
+                {visibleGoods.map(good => (
+                  <li className="Goods__item level-item" key={good}>
+                    {good}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+      </div>
+    );
+  }
+}
