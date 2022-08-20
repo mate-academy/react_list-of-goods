@@ -76,8 +76,8 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <button
-          className={classNames('startButton',
-            { 'startButton--hidden': isStarted })}
+          className={classNames('button',
+            { 'button--hidden': isStarted })}
           type="button"
           onClick={this.start}
         >
@@ -87,6 +87,8 @@ export class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={this.sortAlpabet}
+          className={classNames('button',
+            { 'button--hidden': !isStarted })}
         >
           Sort alphabetically
         </button>
@@ -94,6 +96,8 @@ export class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={this.sortByLength}
+          className={classNames('button',
+            { 'button--hidden': !isStarted })}
         >
           Sort by length
         </button>
@@ -101,11 +105,18 @@ export class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={this.reverse}
+          className={classNames('button',
+            { 'button--hidden': !isStarted })}
         >
           Reverse
         </button>
 
-        <button type="button" onClick={this.reset}>
+        <button
+          type="button"
+          onClick={this.reset}
+          className={classNames('button',
+            { 'button--hidden': !isStarted })}
+        >
           Reset
         </button>
 
