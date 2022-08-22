@@ -1,1 +1,13 @@
-/* not empty */
+li {
+  list-style: none;
+}
+
+.App {
+  background-color: #4c00b0;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  width: 500px;
+  margin: 0 auto;
+  padding: 16px;
+}
