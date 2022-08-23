@@ -16,17 +16,23 @@ const goodsFromServer = [
   'Garlic',
 ];
 
+enum SortType {
+  NONE = 'none',
+  ALPABET = 'alpabet',
+  LENGTH = 'length',
+}
+
 type State = {
   isStarted: boolean,
   isReversed: boolean,
-  sortType: string,
+  sortType: SortType,
 };
 
 export class App extends React.Component<{}, State> {
   state = {
     isStarted: false,
     isReversed: false,
-    sortType: 'none',
+    sortType: SortType.NONE,
   };
 
   start = () => {
@@ -42,15 +48,15 @@ export class App extends React.Component<{}, State> {
   };
 
   sortAlpabet = () => {
-    this.setState({ sortType: 'alpabet', isReversed: false });
+    this.setState({ sortType: SortType.ALPABET, isReversed: false });
   };
 
   sortByLength = () => {
-    this.setState({ sortType: 'length', isReversed: false });
+    this.setState({ sortType: SortType.LENGTH, isReversed: false });
   };
 
   reset = () => {
-    this.setState({ sortType: 'none', isReversed: false });
+    this.setState({ sortType: SortType.NONE, isReversed: false });
   };
 
   render() {
@@ -60,10 +66,10 @@ export class App extends React.Component<{}, State> {
 
     goodsClone.sort((good1, good2) => {
       switch (sortType) {
-        case 'alpabet':
+        case SortType.ALPABET:
           return good1.localeCompare(good2);
-        case 'length':
-          return good1[sortType] - good2[sortType];
+        case SortType.LENGTH:
+          return good1[SortType.LENGTH] - good2[SortType.LENGTH];
         default:
           return 0;
       }
