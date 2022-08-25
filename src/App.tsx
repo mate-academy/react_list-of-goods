@@ -26,6 +26,7 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  minLength: number,
 };
 
 export class App extends React.Component<{}, State> {
@@ -33,6 +34,7 @@ export class App extends React.Component<{}, State> {
     isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
+    minLength: 0,
   };
 
   start = () => {
@@ -60,11 +62,15 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { isStarted, isReversed, sortType } = this.state;
+    const {
+      isStarted, isReversed, sortType, minLength,
+    } = this.state;
 
-    const goodsClone = [...goodsFromServer];
+    const visibleGoods = goodsFromServer.filter(
+      good => good.length >= minLength,
+    );
 
-    goodsClone.sort((good1, good2) => {
+    visibleGoods.sort((good1, good2) => {
       switch (sortType) {
         case SortType.ALPABET:
           return good1.localeCompare(good2);
@@ -75,8 +81,21 @@ export class App extends React.Component<{}, State> {
       }
     });
 
+    const ten = [
+      { id: 'one', number: 1 },
+      { id: 'two', number: 2 },
+      { id: 'three', number: 3 },
+      { id: 'four', number: 4 },
+      { id: 'fmive', number: 5 },
+      { id: 'six', number: 6 },
+      { id: 'seven', number: 7 },
+      { id: 'eight', number: 8 },
+      { id: 'nine', number: 9 },
+      { id: 'ten', number: 10 },
+    ];
+
     if (isReversed) {
-      goodsClone.reverse();
+      visibleGoods.reverse();
     }
 
     return (
@@ -126,8 +145,28 @@ export class App extends React.Component<{}, State> {
           Reset
         </button>
 
+        <select
+          value={minLength}
+          defaultValue={1}
+          onChange={(event) => {
+            this.setState({ minLength: +event.target.value });
+          }}
+          className={classNames('button',
+            { 'button--hidden': !isStarted })}
+        >
+          <option value="0" disabled>Chose minimum length</option>
+          {ten.map(item => (
+            <option
+              key={item.id}
+              value={item.number}
+            >
+              {item.number}
+            </option>
+          ))}
+        </select>
+
         {isStarted
-          ? (<GoodsList goodsFromServer={goodsClone} />)
+          ? (<GoodsList goodsFromServer={visibleGoods} />)
           : ''}
       </div>
     );
