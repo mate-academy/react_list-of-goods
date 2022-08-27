@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import { PureComponent } from 'react';
 import './App.css';
 
 const goodsFromServer = [
@@ -17,7 +17,7 @@ const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -32,6 +32,22 @@ function getReorderedGoods(
 
   // Sort and reverse goods if needed
   // ...
+  visibleGoods.sort((firstGood, secondGood) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return firstGood.localeCompare(secondGood);
+
+      case SortType.LENGTH:
+        return firstGood.length - secondGood.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -43,33 +59,119 @@ type State = {
   sortType: SortType,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+export class App extends PureComponent<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  showGoods = () => {
+    this.setState({
+      isStarted: true,
+    });
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortbyAlpabet = () => {
+    this.setState({
+      sortType: SortType.ALPHABET,
+    });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  sortbyLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  sortbNone = () => {
+    this.setState({
+      sortType: SortType.NONE,
+    });
+  };
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  sortRevers = () => {
+    this.setState(prevState => ({
+      isReversed: !prevState.isReversed,
+    }));
+  };
+
+  sortReset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
+  render() {
+    const { isStarted, isReversed, sortType } = this.state;
+
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+    );
+
+    return (
+      <div className="container">
+        {!isStarted
+          ? (
+            <button
+              type="button"
+              className="button"
+              onClick={this.showGoods}
+            >
+              Start
+            </button>
+          ) : (
+            <>
+              <div className="App">
+                <div className="App__buttons">
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortbyAlpabet}
+                  >
+                    Sort alphabetically
+                  </button>
+
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortbyLength}
+                  >
+                    Sort by length
+                  </button>
+
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortRevers}
+                  >
+                    Reverse
+                  </button>
+
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortReset}
+                  >
+                    Reset
+                  </button>
+                </div>
+
+                <ul className="Goods">
+                  {visibleGoods.map(item => (
+                    <li className="Goods__item" key={item}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+              </div>
+            </>
+          )}
+      </div>
+    );
+  }
+}
