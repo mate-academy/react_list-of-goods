@@ -66,7 +66,7 @@ export class App extends PureComponent<{}, State> {
     sortType: SortType.NONE,
   };
 
-  showRender = () => {
+  showGoods = () => {
     this.setState({
       isStarted: true,
     });
@@ -106,60 +106,70 @@ export class App extends PureComponent<{}, State> {
   render() {
     const { isStarted, isReversed, sortType } = this.state;
 
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+    );
+
     return (
       <div className="container">
-        {(isStarted === false)
-          && (
+        {!isStarted
+          ? (
             <button
               type="button"
               className="button"
-              onClick={this.showRender}
+              onClick={this.showGoods}
             >
               Start
             </button>
-          )}
+          ) : (
+            <>
+              <div className="App">
+                <div className="App__buttons">
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortbyAlpabet}
+                  >
+                    Sort alphabetically
+                  </button>
 
-        {isStarted
-          && (
-            <div className="App">
-              <div className="App__buttons">
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.sortbyAlpabet}
-                >
-                  Sort alphabetically
-                </button>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortbyLength}
+                  >
+                    Sort by length
+                  </button>
 
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.sortbyLength}
-                >
-                  Sort by length
-                </button>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortRevers}
+                  >
+                    Reverse
+                  </button>
 
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.sortRevers}
-                >
-                  Reverse
-                </button>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={this.sortReset}
+                  >
+                    Reset
+                  </button>
+                </div>
 
-                <button
-                  type="button"
-                  className="button"
-                  onClick={this.sortReset}
-                >
-                  Reset
-                </button>
+                <ul className="Goods">
+                  {visibleGoods.map(item => (
+                    <li className="Goods__item" key={item}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
               </div>
-              <ul className="Goods">
-                {getReorderedGoods(goodsFromServer, sortType, isReversed)
-                  .map(item => <li className="Goods__item">{item}</li>)}
-              </ul>
-            </div>
+            </>
           )}
       </div>
     );
