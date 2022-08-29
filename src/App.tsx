@@ -154,7 +154,7 @@ export class App extends React.Component<{}, State> {
 
             <ul className="Goods">
               {goods.map(good => (
-                <li className="Goods__item">
+                <li className="Goods__item" key={good}>
                   {good}
                 </li>
               ))}
