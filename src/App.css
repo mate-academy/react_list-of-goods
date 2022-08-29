@@ -1,1 +1,23 @@
-/* not empty */
+.App__container {
+  display: flex;
+  justify-content: space-around;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.Goods {
+  margin: 0 auto;
+}
+
+.Goods__item {
+  list-style-type: none;
+  color: rgb(29, 194, 70);
+}
+
+.button {
+  margin: 0 auto;
+}
+
+.list {
+  display: flex;
+}
