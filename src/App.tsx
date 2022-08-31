@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
-import './App.css';
+import { Component } from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Slider from '@mui/material/Slider';
+
+import { Goods } from './components/Goods/Goods';
 
 const goodsFromServer = [
   'Dumplings',
@@ -21,55 +29,196 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
 function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  minLength: number,
 ) {
-  // Not to mutate the original array
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods].filter(good => good.length >= minLength);
 
-  // Sort and reverse goods if needed
-  // ...
+  visibleGoods.sort((a, b) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return a.localeCompare(b);
+      case SortType.LENGTH:
+        return a.length - b.length;
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isStarted: boolean,
+  isInitial: boolean,
   isReversed: boolean,
   sortType: SortType,
+  minLength: number,
 };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+const initialState: State = {
+  isStarted: false,
+  isInitial: true,
+  isReversed: false,
+  sortType: SortType.NONE,
+  minLength: 1,
+};
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+export class App extends Component {
+  state: Readonly<State> = { ...initialState };
 
-    <button type="button">
-      Sort by length
-    </button>
+  start = () => this.setState({
+    isStarted: true,
+  });
 
-    <button type="button">
-      Reverse
-    </button>
+  sort = (sortType: SortType) => this.setState({
+    sortType,
+    isInitial: false,
+  });
 
-    <button type="button">
-      Reset
-    </button>
+  reverse = () => this.setState((state: State) => ({
+    isReversed: !state.isReversed,
+    isInitial: false,
+  }));
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+  adjustLength = (_1: Event, newValue: number | number[]) => this.setState({
+    minLength: +newValue,
+    isInitial: false,
+  });
+
+  reset = () => this.setState({
+    ...initialState,
+    isStarted: true,
+  });
+
+  render() {
+    const {
+      isStarted,
+      isReversed,
+      sortType,
+      minLength,
+      isInitial,
+    } = this.state;
+
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+      minLength,
+    );
+
+    return (
+      <Box>
+        <Grid
+          className="App"
+          container
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+        >
+          <Grid
+            className="App__controls"
+            item
+            sx={{
+              marginBottom: '24px',
+            }}
+          >
+            {!isStarted && (
+              <Button
+                type="button"
+                onClick={this.start}
+                variant="contained"
+                color="success"
+              >
+                Start
+              </Button>
+            )}
+
+            {isStarted && (
+              <Stack direction="column" spacing={2}>
+                <ButtonGroup variant="contained">
+                  <Button
+                    type="button"
+                    onClick={() => this.sort(SortType.ALPABET)}
+                    color={
+                      sortType === SortType.ALPABET
+                        ? 'success'
+                        : 'primary'
+                    }
+                  >
+                    Sort alphabetically
+                  </Button>
+
+                  <Button
+                    type="button"
+                    onClick={() => this.sort(SortType.LENGTH)}
+                    color={
+                      sortType === SortType.LENGTH
+                        ? 'success'
+                        : 'primary'
+                    }
+                  >
+                    Sort by length
+                  </Button>
+
+                  <Button
+                    type="button"
+                    onClick={this.reverse}
+                    color={
+                      isReversed
+                        ? 'success'
+                        : 'primary'
+                    }
+                  >
+                    Reverse
+                  </Button>
+
+                  <Button
+                    type="button"
+                    onClick={this.reset}
+                    color="error"
+                    variant={
+                      isInitial
+                        ? 'outlined'
+                        : 'contained'
+                    }
+                  >
+                    Reset
+                  </Button>
+                </ButtonGroup>
+                <Stack direction="row" spacing={2}>
+                  <Typography
+                    variant="button"
+                    display="block"
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      margin: 'auto',
+                    }}
+                  >
+                    {'Minimal good\'s length: '}
+                  </Typography>
+                  <Slider
+                    value={minLength}
+                    marks
+                    min={1}
+                    max={10}
+                    valueLabelDisplay="auto"
+                    onChange={this.adjustLength}
+                  />
+                </Stack>
+              </Stack>
+            )}
+          </Grid>
+          {isStarted && <Goods visibleGoods={visibleGoods} />}
+        </Grid>
+      </Box>
+    );
+  }
+}
