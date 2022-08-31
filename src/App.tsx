@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Goods } from './components/Goods/Goods';
 
 import './App.css';
@@ -27,8 +27,9 @@ function getReorderedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
+  minLength: number,
 ) {
-  const visibleGoods = [...goods];
+  const visibleGoods = [...goods].filter(good => good.length >= minLength);
 
   visibleGoods.sort((a, b) => {
     switch (sortType) {
@@ -52,12 +53,14 @@ type State = {
   isStarted: boolean,
   isReversed: boolean,
   sortType: SortType,
+  minLength: number,
 };
 
 const initialState: State = {
   isStarted: false,
   isReversed: false,
   sortType: SortType.NONE,
+  minLength: 1,
 };
 
 export class App extends Component {
@@ -75,64 +78,102 @@ export class App extends Component {
     isReversed: !state.isReversed,
   }));
 
+  adjustLength = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newValue = event.currentTarget.value;
+
+    this.setState({
+      minLength: +newValue,
+    });
+  };
+
   reset = () => this.setState({
     ...initialState,
     isStarted: true,
   });
 
   render() {
-    const { isStarted, isReversed, sortType } = this.state;
+    const {
+      isStarted,
+      isReversed,
+      sortType,
+      minLength,
+    } = this.state;
 
     const visibleGoods = getReorderedGoods(
       goodsFromServer,
       sortType,
       isReversed,
+      minLength,
     );
 
     return (
       <div className="App">
-        {!isStarted && (
-          <button
-            type="button"
-            onClick={this.start}
-          >
-            Start
-          </button>
-        )}
-
-        {isStarted && (
-          <>
+        <div className="App__controls">
+          {!isStarted && (
             <button
               type="button"
-              onClick={() => this.sort(SortType.ALPABET)}
+              onClick={this.start}
             >
-              Sort alphabetically
+              Start
             </button>
+          )}
 
-            <button
-              type="button"
-              onClick={() => this.sort(SortType.LENGTH)}
-            >
-              Sort by length
-            </button>
+          {isStarted && (
+            <>
+              <button
+                type="button"
+                onClick={() => this.sort(SortType.ALPABET)}
+              >
+                Sort alphabetically
+              </button>
 
-            <button
-              type="button"
-              onClick={this.reverse}
-            >
-              Reverse
-            </button>
+              <button
+                type="button"
+                onClick={() => this.sort(SortType.LENGTH)}
+              >
+                Sort by length
+              </button>
 
-            <button
-              type="button"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
+              <button
+                type="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
 
-            <Goods visibleGoods={visibleGoods} />
-          </>
-        )}
+              <button
+                type="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+
+              <label>
+                Minimal good length:
+                <select
+                  name="minLength"
+                  id="minLength"
+                  value={minLength}
+                  onChange={this.adjustLength}
+                >
+                  {
+                    Array
+                      .from({ length: 10 }, (_, index) => index + 1)
+                      .map(option => (
+                        <option
+                          value={option}
+                          key={option}
+                        >
+                          {option}
+                        </option>
+                      ))
+                  }
+                </select>
+              </label>
+            </>
+          )}
+        </div>
+        {isStarted && <Goods visibleGoods={visibleGoods} />}
       </div>
     );
   }
