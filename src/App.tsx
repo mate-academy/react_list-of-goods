@@ -30,14 +30,14 @@ function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((prev, next) => {
+  visibleGoods.sort((product1, product2) => {
     switch (sortType) {
       case SortType.NONE:
         return 0;
       case SortType.ALPABET:
-        return prev.localeCompare(next);
+        return product1.localeCompare(product2);
       case SortType.LENGTH:
-        return prev.length - next.length;
+        return product1.length - product2.length;
       default:
         return 0;
     }
@@ -75,11 +75,11 @@ export class App extends React.Component<{}, State> {
   };
 
   sortAlph = () => {
-    this.setState({ sortType: SortType.ALPABET });
+    this.setState({ sortType: SortType.ALPABET, isReversed: false });
   };
 
   sortLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+    this.setState({ sortType: SortType.LENGTH, isReversed: false });
   };
 
   render() {
