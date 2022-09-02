@@ -6,21 +6,25 @@ const page = {
   resetButton: () => cy.contains('button', 'Reset'),
   goodsList: () => cy.get('.Goods'),
   goodAtIndex: (index) => cy.get('.Goods__item').eq(index),
+
+  assertFirstGoods: (first, second, third) => {
+    page.goodAtIndex(0).should('have.text', first);
+    page.goodAtIndex(1).should('have.text', second);
+    page.goodAtIndex(2).should('have.text', third);
+  }
 };
 
-function checkFirstGoods(first, second, third) {
-  page.goodAtIndex(0)
-    .should('have.text', first);
+let failed = false;
 
-  page.goodAtIndex(1)
-    .should('have.text', second);
-
-  page.goodAtIndex(2)
-    .should('have.text', third);
-}
+Cypress.on('fail', (e) => {
+  failed = true;
+  throw e;
+});
 
 describe('Page', () => {
   beforeEach(() => {
+    if (failed) Cypress.runner.stop();
+
     cy.visit('/');
   });
 
@@ -68,39 +72,39 @@ describe('Goods List', () => {
   });
 
   it('should show goods in the initial order', () => {
-    checkFirstGoods('Dumplings', 'Carrot', 'Eggs');
+    page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
   });
 
   it(`should sort goods alphabetically`, () => {
     page.sortAlphButton().click();
 
-    checkFirstGoods('Apple', 'Bread', 'Carrot');
+    page.assertFirstGoods('Apple', 'Bread', 'Carrot');
   });
 
   it(`should sort goods by length`, () => {
     page.sortByLengthButton().click();
 
-    checkFirstGoods('Jam', 'Eggs', 'Fish');
+    page.assertFirstGoods('Jam', 'Eggs', 'Fish');
   });
 
   it(`should reverse goods`, () => {
     page.reverseButton().click();
 
-    checkFirstGoods('Garlic', 'Jam', 'Honey');
+    page.assertFirstGoods('Garlic', 'Jam', 'Honey');
   });
 
   it(`should show goods in the original order after two reverses`, () => {
     page.reverseButton().click();
     page.reverseButton().click();
 
-    checkFirstGoods('Dumplings', 'Carrot', 'Eggs');
+    page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
   });
 
   it(`should reverse goods sorted alphabetically`, () => {
     page.sortAlphButton().click();
     page.reverseButton().click();
 
-    checkFirstGoods('Jam', 'Ice cream', 'Honey');
+    page.assertFirstGoods('Jam', 'Ice cream', 'Honey');
   });
 
   it(`should show goods sorted alphabetically after double reverse`, () => {
@@ -108,14 +112,14 @@ describe('Goods List', () => {
     page.reverseButton().click();
     page.reverseButton().click();
 
-    checkFirstGoods('Apple', 'Bread', 'Carrot');
+    page.assertFirstGoods('Apple', 'Bread', 'Carrot');
   });
 
   it(`should reverse goods sorted by length`, () => {
     page.sortByLengthButton().click();
     page.reverseButton().click();
 
-    checkFirstGoods('Ice cream', 'Dumplings', 'Garlic');
+    page.assertFirstGoods('Ice cream', 'Dumplings', 'Garlic');
   });
 
   it(`should show goods sorted by length after double reverse`, () => {
@@ -123,21 +127,21 @@ describe('Goods List', () => {
     page.reverseButton().click();
     page.reverseButton().click();
 
-    checkFirstGoods('Jam', 'Eggs', 'Fish');
+    page.assertFirstGoods('Jam', 'Eggs', 'Fish');
   });
 
   it(`should reset order after reversing`, () => {
     page.reverseButton().click();
     page.resetButton().click();
 
-    checkFirstGoods('Dumplings', 'Carrot', 'Eggs');
+    page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
   });
 
   it(`should reset order after sorting alphabetically`, () => {
     page.sortAlphButton().click();
     page.resetButton().click();
 
-    checkFirstGoods('Dumplings', 'Carrot', 'Eggs');
+    page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
   });
 
   it(`should reset order after sorting alphabetically and reversing`, () => {
@@ -145,14 +149,14 @@ describe('Goods List', () => {
     page.reverseButton().click();
     page.resetButton().click();
 
-    checkFirstGoods('Dumplings', 'Carrot', 'Eggs');
+    page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
   });
 
   it(`should reset order after sorting by length`, () => {
     page.sortAlphButton().click();
     page.resetButton().click();
 
-    checkFirstGoods('Dumplings', 'Carrot', 'Eggs');
+    page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
   });
 
   it(`should reset order after sorting by length and reversing`, () => {
@@ -160,6 +164,6 @@ describe('Goods List', () => {
     page.reverseButton().click();
     page.resetButton().click();
 
-    checkFirstGoods('Dumplings', 'Carrot', 'Eggs');
+    page.assertFirstGoods('Dumplings', 'Carrot', 'Eggs');
   });
 });

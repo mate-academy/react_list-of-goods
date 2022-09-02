@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import './App.css';
+import './App.scss';
 
 const goodsFromServer = [
   'Dumplings',
@@ -27,7 +27,7 @@ function getReorderedGoods(
   sortType: SortType,
   isReversed: boolean,
 ) {
-  // Not to mutate the original array
+  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
