@@ -37,7 +37,9 @@ export const Goods: React.FC<Props> = (props) => {
             >
               <ListItemText primary={good} />
             </ListItem>
-            {index !== goods.length - 1 && <Divider />}
+            {index !== goods.length - 1 && (
+              <Divider />
+            )}
           </>
         ))}
       </List>
