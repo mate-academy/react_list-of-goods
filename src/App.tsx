@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
+import 'bulma/css/bulma.css';
 import './App.scss';
 
-const goodsFromServer = [
+export const goodsFromServer = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -21,55 +21,75 @@ enum SortType {
   LENGTH,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
+type ReorderOptions = {
   sortType: SortType,
   isReversed: boolean,
+};
+
+// Use this function in the render to prepare goods
+export function getReorderedGoods(
+  goods: string[],
+  { sortType, isReversed }: ReorderOptions,
 ) {
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
-  // ...
+  // eslint-disable-next-line no-console
+  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
 // DON'T save goods to the state
-type State = {
-  isStarted: boolean,
-  isReversed: boolean,
-  sortType: SortType,
+// type State = {
+//   isReversed: boolean,
+//   sortType: SortType,
+// };
+
+export const App: React.FC = () => {
+  return (
+    <div className="section content">
+      <div className="buttons">
+        <button
+          type="button"
+          className="button is-info is-light"
+        >
+          Sort alphabetically
+        </button>
+
+        <button
+          type="button"
+          className="button is-success is-light"
+        >
+          Sort by length
+        </button>
+
+        <button
+          type="button"
+          className="button is-warning is-light"
+        >
+          Reverse
+        </button>
+
+        <button
+          type="button"
+          className="button is-danger is-light"
+        >
+          Reset
+        </button>
+      </div>
+
+      <ul>
+        <ul>
+          <li data-cy="Good">Dumplings</li>
+          <li data-cy="Good">Carrot</li>
+          <li data-cy="Good">Eggs</li>
+          <li data-cy="Good">Ice cream</li>
+          <li data-cy="Good">Apple</li>
+          <li data-cy="Good">...</li>
+        </ul>
+      </ul>
+    </div>
+  );
 };
-
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
-
-    <button type="button">
-      Sort alphabetically
-    </button>
-
-    <button type="button">
-      Sort by length
-    </button>
-
-    <button type="button">
-      Reverse
-    </button>
-
-    <button type="button">
-      Reset
-    </button>
-
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
