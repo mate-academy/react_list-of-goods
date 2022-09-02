@@ -1,1 +1,23 @@
-/* not empty */
+html {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+}
+
+.title {
+  margin: 20px 0;
+  text-transform: uppercase;
+}
+
+.block {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.item {
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}

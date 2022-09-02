@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import { Component } from 'react';
 import './App.css';
 
-const goodsFromServer = [
+const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -16,60 +15,159 @@ const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
+  Alphabet,
+  Length,
+  None,
 }
 
-// Use this function in the render method
-function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
+type State = {
+  isVisibleList: boolean,
   isReversed: boolean,
+  sortBy: SortType,
+};
+
+function getSortedGoods(
+  goods: string[],
+  isReversed: boolean,
+  sortBy: SortType,
 ) {
-  // Not to mutate the original array
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // ...
+  switch (sortBy) {
+    case SortType.Alphabet:
+      visibleGoods.sort(
+        (good1, good2) => good1.localeCompare(good2),
+      );
+      break;
+
+    case SortType.Length:
+      visibleGoods.sort(
+        (good1, good2) => good1.length - good2.length,
+      );
+      break;
+
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    return visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-type State = {
-  isStarted: boolean,
-  isReversed: boolean,
-  sortType: SortType,
-};
+export class App extends Component<{}, State> {
+  state: Readonly<State> = {
+    isVisibleList: false,
+    isReversed: false,
+    sortBy: SortType.None,
+  };
 
-export const App = () => (
-  <div className="App">
-    <button type="button">
-      Start
-    </button>
+  getStart = () => {
+    this.setState(state => ({
+      isVisibleList: !state.isVisibleList,
+    }));
+  };
 
-    <button type="button">
-      Sort alphabetically
-    </button>
+  reverseList = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-    <button type="button">
-      Sort by length
-    </button>
+  sortByType = (type: SortType) => {
+    this.setState({ sortBy: type });
+  };
 
-    <button type="button">
-      Reverse
-    </button>
+  resetChanges = () => {
+    this.setState({
+      isReversed: false,
+      sortBy: SortType.None,
+    });
+  };
 
-    <button type="button">
-      Reset
-    </button>
+  render() {
+    const { isVisibleList } = this.state;
 
-    <ul className="Goods">
-      <li className="Goods__item">Dumplings</li>
-      <li className="Goods__item">Carrot</li>
-      <li className="Goods__item">Eggs</li>
-      <li className="Goods__item">...</li>
-    </ul>
-  </div>
-);
+    const sortedGoods = getSortedGoods(
+      goodsFromServer,
+      this.state.isReversed,
+      this.state.sortBy,
+    );
+
+    return (
+      <div className="App block">
+        <h1
+          className="
+            App__title
+            title
+            is-2
+          "
+        >
+          List of Goods
+        </h1>
+
+        {!isVisibleList && (
+          <button
+            className="
+              button
+              is-success
+              is-medium
+            "
+            type="button"
+            onClick={this.getStart}
+          >
+            Start
+          </button>
+        )}
+
+        {isVisibleList && (
+          <>
+            <ul className="list">
+              {sortedGoods.map(good => (
+                <li className="item media" key={good}>
+                  <p>{good}</p>
+                </li>
+              ))}
+            </ul>
+
+            <div className="buttons">
+              <button
+                className="button is-warning"
+                type="button"
+                onClick={this.reverseList}
+              >
+                Reverse
+              </button>
+
+              <button
+                className="button is-link"
+                type="button"
+                onClick={() => this.sortByType(SortType.Alphabet)}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                className="button is-info"
+                type="button"
+                onClick={() => this.sortByType(SortType.Length)}
+              >
+                Sort by Length
+              </button>
+
+              <button
+                className="button is-danger"
+                type="button"
+                onClick={this.resetChanges}
+              >
+                Reset
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+}
