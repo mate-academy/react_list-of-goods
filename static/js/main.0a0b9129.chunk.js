@@ -1,2 +1,0 @@
-(this["webpackJsonpreact_list-of-goods"]=this["webpackJsonpreact_list-of-goods"]||[]).push([[0],{3:function(e,t,n){e.exports=n(9)},8:function(e,t,n){},9:function(e,t,n){"use strict";n.r(t);var o=n(0),a=n.n(o),r=n(2),s=n.n(r),c=(n(8),["Dumplings","Carrot","Eggs","Ice cream","Apple","Bread","Fish","Honey","Jam","Garlic"]),l=function(){return a.a.createElement("div",{className:"App"},a.a.createElement("h1",null,"Goods"),c.length)};s.a.render(a.a.createElement(l,null),document.getElementById("root"))}},[[3,1,2]]]);
-//# sourceMappingURL=main.0a0b9129.chunk.js.map
