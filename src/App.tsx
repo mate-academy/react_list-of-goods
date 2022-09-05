@@ -44,7 +44,7 @@ export function getReorderedGoods(
       break;
 
     default:
-      return goods;
+      break;
   }
 
   if (isReversed) {
