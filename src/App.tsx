@@ -16,9 +16,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'none',
-  ALPABET = 'alphabet',
-  LENGTH = 'length',
+  NONE,
+  ALPABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -116,12 +116,13 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {this.state.sortType !== SortType.NONE && (
+          {(this.state.sortType !== SortType.NONE || this.state.isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
               onClick={() => this.setState(() => ({
                 sortType: SortType.NONE,
+                isReversed: false,
               }))}
             >
               Reset
