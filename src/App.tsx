@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bulma/css/bulma.css';
 import './App.scss';
 
 export const goodsFromServer = [
@@ -21,75 +20,146 @@ enum SortType {
   LENGTH,
 }
 
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed: boolean,
-};
-
-// Use this function in the render to prepare goods
-export function getReorderedGoods(
+function getReorderedGoods(
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
+  sortBy: SortType,
+  isReversed: boolean,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  visibleGoods.sort((goodOne, goodTwo) => {
+    switch (sortBy) {
+      case SortType.ALPABET:
+        return goodOne.localeCompare(goodTwo);
 
-  return visibleGoods;
+      case SortType.LENGTH:
+        return goodOne.length - goodTwo.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+ type State = {
+   isStarted: boolean,
+   isReversed: boolean,
+   sortType: SortType,
+ };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isStarted: false,
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+  showElements = () => {
+    this.setState(state => ({
+      isStarted: !state.isStarted,
+    }));
+  };
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+  sortByABC = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.ALPABET,
+    });
+  };
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
+  sortByLength = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.LENGTH,
+    });
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
+  render() {
+    const { isStarted, isReversed, sortType } = this.state;
+
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+    );
+
+    return (
+      <div className="App">
+        <h1 className="App__title">
+          List of goods
+        </h1>
+        {!isStarted ? (
+          <button
+            type="button"
+            className="button"
+            onClick={this.showElements}
+          >
+            Start
+          </button>
+        ) : (
+          <>
+            <div className="button__list">
+              <button
+                type="button"
+                className="button"
+                onClick={this.sortByABC}
+              >
+                Sort alphabetically
+              </button>
+
+              <button
+                type="button"
+                className="button"
+                onClick={this.sortByLength}
+              >
+                Sort by length
+              </button>
+
+              <button
+                type="button"
+                className="button"
+                onClick={this.reverse}
+              >
+                Reverse
+              </button>
+
+              <button
+                type="button"
+                className="button"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            </div>
+
+            <ul className="App__list">
+
+              {visibleGoods.map(good => (
+                <li className="App__item" key={good}>
+                  {good}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
-};
+    );
+  }
+}
