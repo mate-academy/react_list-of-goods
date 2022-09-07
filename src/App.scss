@@ -1,3 +1,71 @@
-iframe {
-  display: none;
+// iframe {
+//   display: none;
+// }
+$font: "helvetica", sans-serif;
+$color-body: #18dde8;
+$color-button: #24bb13;
+$color-font: #050877;
+
+ul,
+li,
+h1,
+div,
+span {
+  margin: 0;
+}
+
+body {
+  font-family: $font;
+  background-color: $color-body;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+
+  &__title {
+    margin: 10px auto;
+    color: $color-font;
+  }
+
+  &__list {
+    display: block;
+    text-align: start;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  &__item {
+    list-style: none;
+    margin-bottom: 5px;
+    color: $color-font;
+    font-size: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.button__list {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 50px;
+}
+
+.button {
+  width: 120px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: $color-button;
+  color: $color-font;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #fdfd3e;
+  }
 }
