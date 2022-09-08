@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -26,7 +27,6 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
@@ -100,15 +100,16 @@ export class App extends Component<{}, State> {
       { sortType, isReversed },
     );
 
+    const resetEnabled = isReversed || sortType !== SortType.NONE;
+
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={(
-              sortType === SortType.ALPHABET
-                ? 'button is-info'
-                : 'button is-info is-light'
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortByAlphabet}
           >
@@ -117,10 +118,9 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={(
-              sortType === SortType.LENGTH
-                ? 'button is-success'
-                : 'button is-success is-light'
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortByLength}
           >
@@ -129,17 +129,16 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={(
-              isReversed
-                ? 'button is-warning'
-                : 'button is-warning is-light'
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
             )}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {resetEnabled && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -151,11 +150,9 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(good => (
-              <li key={good} data-cy="Good">{good}</li>
-            ))}
-          </ul>
+          {visibleGoods.map(good => (
+            <li key={good} data-cy="Good">{good}</li>
+          ))}
         </ul>
       </div>
     );
