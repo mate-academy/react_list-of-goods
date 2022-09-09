@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import { GoodsList } from './GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -21,75 +22,104 @@ enum SortType {
   LENGTH,
 }
 
-type ReorderOptions = {
-  sortType: SortType,
+type State = {
   isReversed: boolean,
+  sortType: SortType,
 };
 
-// Use this function in the render to prepare goods
-export function getReorderedGoods(
-  goods: string[],
-  { sortType, isReversed }: ReorderOptions,
-) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
+export class App extends React.Component<{}, State> {
+  state = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  sortAlphabetically = () => {
+    this.setState({ sortType: SortType.ALPABET });
+  };
 
-  return visibleGoods;
-}
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+  resetGoods = () => {
+    this.setState({ sortType: SortType.NONE, isReversed: false });
+  };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+  reverseGoods = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+  render(): React.ReactNode {
+    const { isReversed, sortType } = this.state;
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+    const visibleGoods = [...goodsFromServer];
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+    visibleGoods.sort((good1, good2) => {
+      switch (sortType) {
+        case SortType.ALPABET:
+          return good1.localeCompare(good2);
 
-      <ul>
+        case SortType.LENGTH:
+          return good1.length - good2.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={sortType !== 1
+              ? 'button is-info is-light'
+              : 'button is-info'}
+            onClick={this.sortAlphabetically}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={sortType !== 2
+              ? 'button is-success is-light'
+              : 'button is-success'}
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={isReversed !== true
+              ? 'button is-warning is-light'
+              : 'button is-warning'}
+            onClick={this.reverseGoods}
+          >
+            Reverse
+          </button>
+
+          {(sortType === 1 || sortType === 2 || isReversed === true) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.resetGoods}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          <GoodsList goods={visibleGoods} />
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
