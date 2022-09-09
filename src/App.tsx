@@ -72,7 +72,15 @@ export class App extends React.Component<{}, State> {
       visibleGoods.reverse();
     }
 
+    const {
+      sortAlphabetically,
+      sortByLength,
+      reverseGoods,
+      resetGoods,
+    } = this;
+
     return (
+
       <div className="section content">
         <div className="buttons">
           <button
@@ -80,7 +88,7 @@ export class App extends React.Component<{}, State> {
             className={sortType !== 1
               ? 'button is-info is-light'
               : 'button is-info'}
-            onClick={this.sortAlphabetically}
+            onClick={sortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -90,7 +98,7 @@ export class App extends React.Component<{}, State> {
             className={sortType !== 2
               ? 'button is-success is-light'
               : 'button is-success'}
-            onClick={this.sortByLength}
+            onClick={sortByLength}
           >
             Sort by length
           </button>
@@ -100,7 +108,7 @@ export class App extends React.Component<{}, State> {
             className={isReversed !== true
               ? 'button is-warning is-light'
               : 'button is-warning'}
-            onClick={this.reverseGoods}
+            onClick={reverseGoods}
           >
             Reverse
           </button>
@@ -109,7 +117,7 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.resetGoods}
+              onClick={resetGoods}
             >
               Reset
             </button>
