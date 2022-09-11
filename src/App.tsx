@@ -71,11 +71,17 @@ export class App extends React.Component<{}, State> {
   };
 
   sortByAlpabet = () => {
-    this.setState({ sortType: SortType.ALPABET });
+    this.setState({
+      isReversed: false,
+      sortType: SortType.ALPABET,
+    });
   };
 
   sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+    this.setState({
+      isReversed: false,
+      sortType: SortType.LENGTH,
+    });
   };
 
   reverse = () => {
