@@ -26,6 +26,7 @@ type State = {
   isReversed: boolean,
   sortType: boolean,
   sortBy: string,
+  isShowm: boolean,
 };
 
 type ReorderOptions = {
@@ -34,7 +35,6 @@ type ReorderOptions = {
 };
 
 // Use this function in the render to prepare goods
-
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
@@ -42,6 +42,7 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
+  // eslint-disable-next-line
   console.log(sortType, isReversed);
 
   return visibleGoods;
@@ -53,32 +54,30 @@ export class App extends React.Component<{}, State> {
     // eslint-disable-next-line react/no-unused-state
     sortType: true,
     sortBy: 'id',
+    isShowm: false,
   };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
+      isShowm: true,
     }));
   };
 
-  // reset = () => {
-  //   this.setState({ sortBy: 'id', isReversed: false });
-  // };
-
   sortByAlphabet = () => {
-    this.setState({ sortBy: 'alphabet' });
+    this.setState({ sortBy: 'alphabet', isShowm: true });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length' });
+    this.setState({ sortBy: 'length', isShowm: true });
   };
 
   reset = () => {
-    this.setState({ sortBy: 'id', isReversed: false });
+    this.setState({ sortBy: 'id', isReversed: false, isShowm: false });
   };
 
   render() {
-    const { isReversed, sortBy } = this.state;
+    const { isReversed, sortBy, isShowm } = this.state;
     const visibleGoods = [...goodsFromServer];
 
     visibleGoods.sort((a, b) => {
@@ -125,13 +124,16 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          <button
-            type="button"
-            className="button btn-reset is-danger is-light"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
+          { isShowm
+          && (
+            <button
+              type="button"
+              className="button btn-reset is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <GoodList goods={visibleGoods} />
