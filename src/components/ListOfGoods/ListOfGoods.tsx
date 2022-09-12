@@ -11,7 +11,7 @@ export class ListOfGoods extends React.PureComponent<Props> {
     return (
       <ul>
         {goods.map(good => (
-          <li data-cy="Good" key={Math.random()}>{good}</li>
+          <li data-cy="Good" key={good}>{good}</li>
         ))}
       </ul>
     );
