@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 import { GoodList } from './components/goods';
 
 export const goodsFromServer = [
@@ -27,6 +28,10 @@ type State = {
   sortType: boolean,
   sortBy: string,
   isShowm: boolean,
+  isClickedAlph: boolean,
+  isClickedLength: boolean,
+  isClickedReverse: boolean,
+  // toggleClass: boolean,
 };
 
 type ReorderOptions = {
@@ -55,29 +60,60 @@ export class App extends React.Component<{}, State> {
     sortType: true,
     sortBy: 'id',
     isShowm: false,
+    isClickedAlph: true,
+    isClickedLength: true,
+    isClickedReverse: true,
   };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
       isShowm: true,
+      isClickedReverse: false,
+
+      // {isClickedReverse
+      //   && (
+      //     isClickedReverse: true,
+      //   )
+      // }
     }));
   };
 
   sortByAlphabet = () => {
-    this.setState({ sortBy: 'alphabet', isShowm: true });
+    this.setState({
+      sortBy: 'alphabet',
+      isShowm: true,
+      isClickedAlph: false,
+      isClickedLength: true,
+    });
   };
 
   sortByLength = () => {
-    this.setState({ sortBy: 'length', isShowm: true });
+    this.setState({
+      sortBy: 'length',
+      isShowm: true,
+      isClickedLength: false,
+      isClickedAlph: true,
+    });
   };
 
   reset = () => {
-    this.setState({ sortBy: 'id', isReversed: false, isShowm: false });
+    this.setState({
+      sortBy: 'id',
+      isReversed: false,
+      isShowm: false,
+      isClickedAlph: true,
+      isClickedLength: true,
+      isClickedReverse: true,
+
+    });
   };
 
   render() {
-    const { isReversed, sortBy, isShowm } = this.state;
+    const {
+      isReversed, sortBy, isShowm, isClickedAlph,
+      isClickedLength, isClickedReverse,
+    } = this.state;
     const visibleGoods = [...goodsFromServer];
 
     visibleGoods.sort((a, b) => {
@@ -101,7 +137,8 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={classNames('button is-info',
+              { 'is-light': isClickedAlph })}
             onClick={this.sortByAlphabet}
 
           >
@@ -110,7 +147,8 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={classNames('button is-success',
+              { 'is-light': isClickedLength })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -118,7 +156,8 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={classNames('button is-warning',
+              { 'is-light': isClickedReverse })}
             onClick={this.reverse}
           >
             Reverse
