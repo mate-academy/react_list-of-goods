@@ -1,6 +1,7 @@
 import { Component, ReactNode } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -17,7 +18,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -37,7 +38,7 @@ export function getReorderedGoods(
       visibleGoods.sort((good1, good2) => good1.length - good2.length);
       break;
 
-    case SortType.ALPABET:
+    case SortType.ALPHABET:
       visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
       break;
 
@@ -64,7 +65,7 @@ export class App extends Component<{}, State> {
   };
 
   sortAlphabet = () => this.setState(() => ({
-    sortType: SortType.ALPABET,
+    sortType: SortType.ALPHABET,
   }));
 
   sortByLength = () => this.setState(() => ({
@@ -94,10 +95,12 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={(
-              sortType === SortType.ALPABET
-                ? 'button is-info'
-                : 'button is-info is-light'
+            className={classNames(
+              'button',
+              'is-info',
+              {
+                'is-light': sortType !== SortType.ALPHABET,
+              },
             )}
             onClick={sortAlphabet}
           >
@@ -106,10 +109,13 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={(
-              sortType === SortType.LENGTH
-                ? 'button is-success'
-                : 'button is-success is-light'
+            className={classNames(
+              'button',
+              'is-success',
+              {
+                'is-light':
+                  sortType !== SortType.LENGTH,
+              },
             )}
             onClick={sortByLength}
           >
@@ -118,10 +124,12 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={(
-              isReversed === true
-                ? 'button is-warning'
-                : 'button is-warning is-light'
+            className={classNames(
+              'button',
+              'is-warning',
+              {
+                'is-light': !isReversed,
+              },
             )}
             onClick={getReverse}
           >
