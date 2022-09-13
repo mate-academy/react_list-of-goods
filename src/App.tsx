@@ -144,7 +144,7 @@ export class App extends Component<{}, State> {
         <ul>
           <ul>
             {goods.map(good => (
-              <li data-cy="Good">
+              <li key={good} data-cy="Good">
                 {good}
               </li>
             ))}
