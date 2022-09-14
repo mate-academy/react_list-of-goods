@@ -39,7 +39,9 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-export class App extends React.Component<{}, ReorderOptions> {
+type Props = {};
+
+export class App extends React.Component<Props, ReorderOptions> {
   state: Readonly<ReorderOptions> = {
     isReversed: false,
     sortType: SortType.NONE,
