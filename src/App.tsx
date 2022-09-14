@@ -1,7 +1,7 @@
-import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import React from 'react';
 
 import { GoodsList } from './components/GoodsList';
 
@@ -98,6 +98,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isAnyChange = this.state.isChanged || this.state.isReversed;
 
     return (
       <div className="section content">
@@ -128,7 +129,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames(
               'button is-warning',
-              { 'is-light': this.state.isReversed !== true },
+              { 'is-light': !this.state.isReversed },
             )}
             onClick={this.reverseList}
           >
@@ -137,11 +138,12 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-danger is-light"
+            className={classNames('button is-danger is-light',
+              {
+                'is-visible': isAnyChange,
+                'is-hidden': !isAnyChange,
+              })}
             onClick={this.resetOptions}
-            style={(this.state.isChanged || this.state.isReversed)
-              ? { visibility: 'visible' }
-              : { visibility: 'hidden' }}
           >
             Reset
           </button>
