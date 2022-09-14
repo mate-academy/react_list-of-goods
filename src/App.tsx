@@ -71,11 +71,6 @@ export class App extends React.Component<{}, State> {
       isShowm: true,
       isClickedReverse: false,
 
-      // {isClickedReverse
-      //   && (
-      //     isClickedReverse: true,
-      //   )
-      // }
     }));
   };
 
@@ -157,7 +152,9 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button is-warning',
-              { 'is-light': isClickedReverse })}
+              {
+                'is-light': isClickedReverse,
+              })}
             onClick={this.reverse}
           >
             Reverse
