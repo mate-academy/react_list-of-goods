@@ -51,15 +51,15 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortedByAlphabet = () => {
+  handleSortListByAlphabet = () => {
     this.setState({ sortType: SortType.ALPABET });
   };
 
-  sortedByLength = () => {
+  handleSortListByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reverseList = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -76,13 +76,13 @@ export class App extends React.Component<{}, State> {
     const { isReversed, sortType } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
-    goods.sort((item1, item2) => {
+    goods.sort((product1, product2) => {
       switch (sortType) {
         case SortType.ALPABET:
-          return item1.localeCompare(item2);
+          return product1.localeCompare(product2);
 
         case SortType.LENGTH:
-          return item1.length - item2.length;
+          return product1.length - product2.length;
 
         default:
           return 0;
@@ -98,27 +98,33 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button is-info ',
-              { 'is-light': sortType !== SortType.ALPABET })}
-            onClick={this.sortedByAlphabet}
+            className={classNames(
+              'button is-info ',
+              { 'is-light': sortType !== SortType.ALPABET },
+            )}
+            onClick={this.handleSortListByAlphabet}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={classNames('button is-success',
-              { 'is-light': sortType !== SortType.LENGTH })}
-            onClick={this.sortedByLength}
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
+            onClick={this.handleSortListByLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={classNames('button is-warning',
-              { 'is-light': isReversed === false })}
-            onClick={this.reverseList}
+            className={classNames(
+              'button is-warning',
+              { 'is-light': isReversed === false },
+            )}
+            onClick={this.handleReverse}
           >
             Reverse
           </button>
