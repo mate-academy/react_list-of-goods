@@ -64,7 +64,7 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState((state: State) => ({
       isReversed: !state.isReversed,
     }));
@@ -82,7 +82,7 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -99,9 +99,10 @@ export class App extends React.Component<{}, State> {
             type="button"
             onClick={this.sortByAlphabet}
             className={classNames(
-              'button is-info',
+              'button',
+              'is-info',
               {
-                'button is-info is-light':
+                'is-light':
                 sortType !== SortType.ALPHABET,
               },
             )}
@@ -113,9 +114,10 @@ export class App extends React.Component<{}, State> {
             type="button"
             onClick={this.sortByLength}
             className={classNames(
-              'button is-success',
+              'button',
+              'is-success',
               {
-                'button is-success is-light':
+                'is-light':
                 sortType !== SortType.LENGTH,
               },
             )}
@@ -125,10 +127,11 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            onClick={this.reverse}
+            onClick={this.handleReverse}
             className={classNames(
-              'button is-warning',
-              { 'button is-warning is-light': !isReversed },
+              'button',
+              'is-warning',
+              { 'is-light': !isReversed },
             )}
           >
             Reverse
@@ -138,7 +141,7 @@ export class App extends React.Component<{}, State> {
             && (
               <button
                 type="button"
-                onClick={this.reset}
+                onClick={this.handleReset}
                 className="button is-danger is-light"
               >
                 Reset
