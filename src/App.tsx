@@ -40,8 +40,12 @@ export function getReorderedGoods(
 
   visibleGoods.sort((goodA, goodB) => {
     switch (sortType) {
-      case SortType.ALPABET: return goodA.localeCompare(goodB);
-      case SortType.LENGTH: return goodA.length - goodB.length;
+      case SortType.ALPABET:
+        return goodA.localeCompare(goodB);
+
+      case SortType.LENGTH:
+        return goodA.length - goodB.length;
+
       default: return 0;
     }
   });
