@@ -147,8 +147,8 @@ export class App extends React.Component<Props, State> {
             className="button is-info is-light"
             onClick={this.reset}
             style={isReversed === false && sortType === 0
-              ? { display: 'none' }
-              : { display: 'block' }}
+              ? { visibility: 'hidden' }
+              : { visibility: 'inherit' }}
           >
             Reset
           </button>
