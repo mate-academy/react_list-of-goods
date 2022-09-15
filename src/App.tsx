@@ -91,7 +91,10 @@ export default class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={classNames(
+              'button is-info',
+              { 'is-light': this.state.sortType !== SortType.ALPABET },
+            )}
             onClick={this.sortAlphabetically}
           >
             Sort alphabetically
