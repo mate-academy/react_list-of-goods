@@ -133,7 +133,7 @@ export class App extends React.Component<Props, ReorderOptions> {
         <ul>
           <ul>
             {goods.map((good) => (
-              <li key={good}>
+              <li data-cy="Good" key={good}>
                 {good}
               </li>
             ))}
