@@ -69,7 +69,7 @@ export class App extends React.Component<{}, State> {
     this.setState(state => ({
       isReversed: !state.isReversed,
       isShowm: true,
-      isClickedReverse: false,
+      isClickedReverse: !state.isClickedReverse,
 
     }));
   };
