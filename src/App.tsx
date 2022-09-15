@@ -85,6 +85,7 @@ export class App extends React.Component<{}, ReorderOptions> {
   render() {
     const { sortType, isReversed } = this.state;
     const onReorder = (sortType !== SortType.NONE || isReversed);
+    const orderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -133,7 +134,7 @@ export class App extends React.Component<{}, ReorderOptions> {
           )}
         </div>
 
-        <ListOfGoods goods={getReorderedGoods(goodsFromServer, this.state)} />
+        <ListOfGoods goods={orderedGoods} />
       </div>
     );
   }
