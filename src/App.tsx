@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'none',
-  ALPABET = 'alphabet',
-  LENGTH = 'length',
+  NONE,
+  ALPABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -37,10 +37,10 @@ export function getReorderedGoods(
 
   visibleGoods.sort((good1, good2) => {
     switch (sortType) {
-      case 'alphabet':
+      case SortType.ALPABET:
         return good1.localeCompare(good2);
 
-      case 'length':
+      case SortType.LENGTH:
         return good1.length - good2.length;
 
       default:
@@ -68,21 +68,21 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  sortByAlphabet = () => {
+  handleSortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPABET });
   };
 
-  sortByLength = () => {
+  handleSortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({ isReversed: false, sortType: SortType.NONE });
   };
 
@@ -106,7 +106,7 @@ export class App extends React.Component<{}, State> {
                 { 'is-light': sortType !== SortType.ALPABET },
               )
             }
-            onClick={this.sortByAlphabet}
+            onClick={this.handleSortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -120,7 +120,7 @@ export class App extends React.Component<{}, State> {
                 { 'is-light': sortType !== SortType.LENGTH },
               )
             }
-            onClick={this.sortByLength}
+            onClick={this.handleSortByLength}
           >
             Sort by length
           </button>
@@ -134,7 +134,7 @@ export class App extends React.Component<{}, State> {
                 { 'is-light': isReversed === false },
               )
             }
-            onClick={this.reverse}
+            onClick={this.handleReverse}
           >
             Reverse
           </button>
@@ -151,7 +151,7 @@ export class App extends React.Component<{}, State> {
                     'is-light',
                   )
                 }
-                onClick={this.reset}
+                onClick={this.handleReset}
               >
                 Reset
               </button>
