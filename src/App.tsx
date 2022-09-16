@@ -77,15 +77,15 @@ export class App extends Component<Props, State> {
     }));
   };
 
-  sortByAlphabet = () => {
+  handleSortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
-  sortByLegth = () => {
+  handleSortByLegth = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({ sortType: SortType.NONE, isReversed: false });
   };
 
@@ -102,10 +102,10 @@ export class App extends Component<Props, State> {
             type="button"
             className={classNames(
               'button', 'is-info', {
-                'is-light': this.state.sortType !== SortType.ALPHABET,
+                'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={this.sortByAlphabet}
+            onClick={this.handleSortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -114,10 +114,10 @@ export class App extends Component<Props, State> {
             type="button"
             className={classNames(
               'button', 'is-success', {
-                'is-light': this.state.sortType !== SortType.LENGTH,
+                'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={this.sortByLegth}
+            onClick={this.handleSortByLegth}
           >
             Sort by length
           </button>
@@ -126,7 +126,7 @@ export class App extends Component<Props, State> {
             type="button"
             className={classNames(
               'button', 'is-warning', {
-                'is-light': !this.state.isReversed,
+                'is-light': !isReversed,
               },
             )}
             onClick={this.reverse}
@@ -134,13 +134,13 @@ export class App extends Component<Props, State> {
             Reverse
           </button>
 
-          {(this.state.sortType !== SortType.NONE
-          || this.state.isReversed === true)
+          {(sortType !== SortType.NONE
+          || isReversed === true)
           && (
             <button
               type="button"
               className="button is-warning is-light"
-              onClick={this.reset}
+              onClick={this.handleReset}
             >
               Reset
             </button>
