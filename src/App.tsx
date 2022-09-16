@@ -22,6 +22,37 @@ enum SortType {
   LENGTH,
 }
 
+type ReorderOptions = {
+  sortType: SortType,
+  isReversed: boolean,
+};
+
+export function getReorderedGoods(
+  goods: string[],
+  { sortType, isReversed }: ReorderOptions,
+) {
+  const visibleGoods = [...goods];
+
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
+}
+
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -33,16 +64,8 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByAlpabet = () => {
-    this.setState({
-      sortType: SortType.ALPABET,
-    });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
-    });
+  updateSortType = (sortType: SortType) => {
+    this.setState({ sortType });
   };
 
   reverseGoods = () => {
@@ -60,24 +83,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const visibleGoods = [...goodsFromServer];
-
-    visibleGoods.sort((good1, good2) => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return good1.localeCompare(good2);
-
-        case SortType.LENGTH:
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
     return (
       <div className="section content">
@@ -91,7 +97,7 @@ export class App extends Component<{}, State> {
                 'is-light': sortType !== SortType.ALPABET,
               },
             )}
-            onClick={(this.sortByAlpabet)}
+            onClick={() => this.updateSortType(SortType.ALPABET)}
           >
             Sort alphabetically
           </button>
@@ -105,7 +111,7 @@ export class App extends Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={(this.sortByLength)}
+            onClick={() => this.updateSortType(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -119,7 +125,7 @@ export class App extends Component<{}, State> {
                 'is-light': isReversed !== true,
               },
             )}
-            onClick={(this.reverseGoods)}
+            onClick={this.reverseGoods}
           >
             Reverse
           </button>
@@ -128,7 +134,7 @@ export class App extends Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={(this.resetGoods)}
+              onClick={this.resetGoods}
             >
               Reset
             </button>
@@ -136,7 +142,7 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          {visibleGoods.map(good => (
+          {goods.map(good => (
             <li
               data-cy="Good"
               key={good}
