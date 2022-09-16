@@ -35,16 +35,20 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((g1, g2) => (
-      g1.length - g2.length
-    ));
-  }
+  switch (sortType) {
+    case SortType.LENGTH:
+      visibleGoods.sort((g1, g2) => (
+        g1.length - g2.length
+      ));
+      break;
 
-  if (sortType === SortType.ALPABET || sortType === SortType.NONE) {
-    visibleGoods.sort((g1, g2) => (
-      g1.localeCompare(g2)
-    ));
+    case SortType.ALPABET:
+      visibleGoods.sort((g1, g2) => (
+        g1.localeCompare(g2)
+      ));
+      break;
+
+    default:
   }
 
   if (isReversed) {
@@ -68,7 +72,7 @@ type State = {
 export class App extends Component<{}, State> {
   state: State = {
     isReversed: false,
-    sortType: SortType.ALPABET,
+    sortType: SortType.NONE,
     resetBTN: false,
   };
 
@@ -137,7 +141,7 @@ export class App extends Component<{}, State> {
               onClick={() => this.setState({
                 resetBTN: false,
                 isReversed: false,
-                sortType: SortType.ALPABET,
+                sortType: SortType.NONE,
               })}
             >
               Reset
