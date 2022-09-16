@@ -52,14 +52,12 @@ export function getReorderedGoods(
     visibleGoods.reverse();
   }
 
-  // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -68,6 +66,11 @@ type State = {
 type Props = {};
 
 export class App extends Component<Props, State> {
+  state = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
+
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
@@ -87,11 +90,6 @@ export class App extends Component<Props, State> {
   };
 
   render() {
-    this.state = {
-      isReversed: false,
-      sortType: SortType.NONE,
-    };
-
     const { isReversed, sortType } = this.state;
 
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
@@ -157,50 +155,3 @@ export class App extends Component<Props, State> {
     );
   }
 }
-
-// export const App: React.FC = () => {
-//   return (
-//     <div className="section content">
-//       <div className="buttons">
-//         <button
-//           type="button"
-//           className="button is-info is-light"
-//         >
-//           Sort alphabetically
-//         </button>
-
-//         <button
-//           type="button"
-//           className="button is-success is-light"
-//         >
-//           Sort by length
-//         </button>
-
-//         <button
-//           type="button"
-//           className="button is-warning is-light"
-//         >
-//           Reverse
-//         </button>
-
-//         <button
-//           type="button"
-//           className="button is-danger is-light"
-//         >
-//           Reset
-//         </button>
-//       </div>
-
-//       <ul>
-//         <ul>
-//           <li data-cy="Good">Dumplings</li>
-//           <li data-cy="Good">Carrot</li>
-//           <li data-cy="Good">Eggs</li>
-//           <li data-cy="Good">Ice cream</li>
-//           <li data-cy="Good">Apple</li>
-//           <li data-cy="Good">...</li>
-//         </ul>
-//       </ul>
-//     </div>
-//   );
-// };
