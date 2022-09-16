@@ -33,8 +33,22 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -50,16 +64,8 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handleSortAlphabet = () => {
-    this.setState({
-      sortType: SortType.ALPABET,
-    });
-  };
-
-  handleSortLength = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
-    });
+  updateSortType = (sortType: SortType) => {
+    this.setState({ sortType });
   };
 
   handleReverse = () => {
@@ -77,42 +83,28 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
-
-    goods.sort((good1, good2) => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return good1.localeCompare(good2);
-
-        case SortType.LENGTH:
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      goods.reverse();
-    }
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button is-info ',
-              { 'is-light': sortType !== SortType.ALPABET })}
-            onClick={this.handleSortAlphabet}
+            className={classNames(
+              'button is-info ',
+              { 'is-light': sortType !== SortType.ALPABET },
+            )}
+            onClick={() => this.updateSortType(SortType.ALPABET)}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={classNames('button is-success',
-              { 'is-light': sortType !== SortType.LENGTH })}
-            onClick={this.handleSortLength}
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
+            onClick={() => this.updateSortType(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -137,12 +129,12 @@ export class App extends React.Component<{}, State> {
           )}
         </div>
         <ul>
-          {goods.map((items) => (
+          {getReorderedGoods(goodsFromServer, this.state).map((good) => (
             <li
-              key={items}
+              key={good}
               data-cy="Good"
             >
-              {items}
+              {good}
             </li>
           ))}
         </ul>
