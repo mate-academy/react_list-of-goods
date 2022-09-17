@@ -26,9 +26,6 @@ enum SortType {
 type State = {
   isReversed: boolean,
   sortBy: string,
-  isClickedAlph: boolean,
-  isClickedLength: boolean,
-  isClickedReverse: boolean,
 };
 
 type ReorderOptions = {
@@ -54,48 +51,36 @@ export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortBy: 'id',
-    isClickedAlph: true,
-    isClickedLength: true,
-    isClickedReverse: true,
   };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      isClickedReverse: !state.isClickedReverse,
     }));
   };
 
   sortByAlphabet = () => {
     this.setState({
       sortBy: 'alphabet',
-      isClickedAlph: false,
-      isClickedLength: true,
     });
   };
 
   sortByLength = () => {
     this.setState({
       sortBy: 'length',
-      isClickedLength: false,
-      isClickedAlph: true,
     });
   };
 
   reset = () => {
     this.setState({
       sortBy: 'id',
-      isClickedAlph: true,
-      isClickedLength: true,
-      isClickedReverse: true,
+      isReversed: false,
     });
   };
 
   render() {
     const {
       isReversed, sortBy,
-      isClickedAlph,
-      isClickedLength, isClickedReverse,
     } = this.state;
     const visibleGoods = [...goodsFromServer];
 
@@ -122,7 +107,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button is-info',
-              { 'is-light': isClickedAlph })}
+              { 'is-light': sortBy !== 'alphabet' })}
             onClick={this.sortByAlphabet}
 
           >
@@ -132,7 +117,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button is-success',
-              { 'is-light': isClickedLength })}
+              { 'is-light': sortBy !== 'length' })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -142,14 +127,14 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames('button is-warning',
               {
-                'is-light': isClickedReverse,
+                'is-light': isReversed === false,
               })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          { (!isClickedReverse || sortBy !== 'id')
+          { (isReversed || sortBy !== 'id')
           && (
             <button
               type="button"
