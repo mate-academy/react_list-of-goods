@@ -35,18 +35,18 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  if (sortType !== SortType.NONE) {
-    visibleGoods.sort((a, b): number => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return a.localeCompare(b);
-        case SortType.LENGTH:
-          return a.length - b.length;
-        default:
-          return 0;
-      }
-    });
-  }
+  visibleGoods.sort((goodA, goodB): number => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return goodA.localeCompare(goodB);
+
+      case SortType.LENGTH:
+        return goodA.length - goodB.length;
+
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -67,17 +67,15 @@ export class App extends React.Component<{}, State> {
   };
 
   handleAlpabetSort = () => {
-    this.setState(state => ({
-      ...state,
+    this.setState({
       sortType: SortType.ALPABET,
-    }));
+    });
   };
 
   handleLengthSort = () => {
-    this.setState(state => ({
-      ...state,
+    this.setState({
       sortType: SortType.LENGTH,
-    }));
+    });
   };
 
   handleReverse = () => {
@@ -154,7 +152,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           {visibleGoods.map(good => (
-            <li data-cy="Good">{good}</li>
+            <li data-cy="Good" key={good}>{good}</li>
           ))}
         </ul>
       </div>
