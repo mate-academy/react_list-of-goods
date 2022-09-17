@@ -17,35 +17,10 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
 type State = {
   isReversed: boolean,
   sortBy: string,
 };
-
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed: boolean,
-};
-
-// Use this function in the render to prepare goods
-export function getReorderedGoods(
-  goods: string[],
-  { sortType, isReversed }: ReorderOptions,
-) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
-
-  // eslint-disable-next-line
-  console.log(sortType, isReversed);
-
-  return visibleGoods;
-}
 
 export class App extends React.Component<{}, State> {
   state = {
