@@ -25,13 +25,10 @@ enum SortType {
 
 type State = {
   isReversed: boolean,
-  sortType: boolean,
   sortBy: string,
-  isShowm: boolean,
   isClickedAlph: boolean,
   isClickedLength: boolean,
   isClickedReverse: boolean,
-  // toggleClass: boolean,
 };
 
 type ReorderOptions = {
@@ -56,10 +53,7 @@ export function getReorderedGoods(
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    // eslint-disable-next-line react/no-unused-state
-    sortType: true,
     sortBy: 'id',
-    isShowm: false,
     isClickedAlph: true,
     isClickedLength: true,
     isClickedReverse: true,
@@ -68,16 +62,13 @@ export class App extends React.Component<{}, State> {
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      isShowm: true,
       isClickedReverse: !state.isClickedReverse,
-
     }));
   };
 
   sortByAlphabet = () => {
     this.setState({
       sortBy: 'alphabet',
-      isShowm: true,
       isClickedAlph: false,
       isClickedLength: true,
     });
@@ -86,7 +77,6 @@ export class App extends React.Component<{}, State> {
   sortByLength = () => {
     this.setState({
       sortBy: 'length',
-      isShowm: true,
       isClickedLength: false,
       isClickedAlph: true,
     });
@@ -95,18 +85,16 @@ export class App extends React.Component<{}, State> {
   reset = () => {
     this.setState({
       sortBy: 'id',
-      isReversed: false,
-      isShowm: false,
       isClickedAlph: true,
       isClickedLength: true,
       isClickedReverse: true,
-
     });
   };
 
   render() {
     const {
-      isReversed, sortBy, isShowm, isClickedAlph,
+      isReversed, sortBy,
+      isClickedAlph,
       isClickedLength, isClickedReverse,
     } = this.state;
     const visibleGoods = [...goodsFromServer];
@@ -130,6 +118,7 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="section content">
         <div className="buttons">
+
           <button
             type="button"
             className={classNames('button is-info',
@@ -160,7 +149,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          { isShowm
+          { (!isClickedReverse || sortBy !== 'id')
           && (
             <button
               type="button"
@@ -171,7 +160,6 @@ export class App extends React.Component<{}, State> {
             </button>
           )}
         </div>
-
         <GoodList goods={visibleGoods} />
       </div>
     );
