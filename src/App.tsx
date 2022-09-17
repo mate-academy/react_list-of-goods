@@ -30,7 +30,7 @@ const getReorderedGoods = function (
       case SortType.LENGTH:
         return a.length - b.length;
       case SortType.NONE:
-        return visibleGoods;
+        return 1;
       default:
         return 0;
     }
@@ -123,7 +123,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classnames(
               'button is-danger', {
-                'is-light': sortType !== SortType.ALPABET,
+                'is-light': isReversed !== true,
               },
             )}
             onClick={this.NONE}
