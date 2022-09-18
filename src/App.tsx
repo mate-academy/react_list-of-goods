@@ -29,8 +29,6 @@ const getReorderedGoods = function (
         return a.localeCompare(b);
       case SortType.LENGTH:
         return a.length - b.length;
-      case SortType.NONE:
-        return 1;
       default:
         return 0;
     }
@@ -60,11 +58,11 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  ALPABET = () => {
+  handleSortByAlpabet = () => {
     this.setState({ sortType: SortType.ALPABET });
   };
 
-  LENGTH = () => {
+  handleSortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
@@ -88,7 +86,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.ALPABET,
               },
             )}
-            onClick={this.ALPABET}
+            onClick={this.handleSortByAlpabet}
           >
             Sort alphabetically
           </button>
@@ -100,7 +98,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={this.LENGTH}
+            onClick={this.handleSortByLength}
           >
             Sort by length
           </button>
@@ -117,13 +115,13 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE && isReversed)
+          {(sortType !== SortType.NONE || isReversed)
         && (
           <button
             type="button"
             className={classnames(
               'button is-danger', {
-                'is-light': isReversed !== true,
+                'is-light': !isReversed,
               },
             )}
             onClick={this.NONE}
