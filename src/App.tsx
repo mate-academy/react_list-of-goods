@@ -18,7 +18,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -33,13 +33,13 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((g1, g2) => {
+  visibleGoods.sort((firstGood, secondGood) => {
     switch (sortType) {
-      case SortType.ALPABET:
-        return g1.localeCompare(g2);
+      case SortType.ALPHABET:
+        return firstGood.localeCompare(secondGood);
 
       case SortType.LENGTH:
-        return g1.length - g2.length;
+        return firstGood.length - secondGood.length;
 
       default:
         return 0;
@@ -65,7 +65,7 @@ export class App extends React.Component<{}, State> {
   };
 
   sortByName = () => {
-    this.setState({ sortType: SortType.ALPABET });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortByLength = () => {
@@ -96,7 +96,7 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button is-info',
               {
-                'is-light': sortType !== SortType.ALPABET,
+                'is-light': sortType !== SortType.ALPHABET,
               },
             )}
             onClick={this.sortByName}
