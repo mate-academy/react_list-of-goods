@@ -95,6 +95,8 @@ export class App extends React.Component<{}, State> {
       goodsFromServer, { sortType, isReversed },
     );
 
+    const hideResetButton = sortType !== SortType.NONE || isReversed;
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -131,7 +133,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {(hideResetButton) && (
             <button
               type="button"
               className="button is-danger is-light"
