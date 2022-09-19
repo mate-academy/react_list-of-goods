@@ -104,7 +104,9 @@ export class App extends Component<Props, State> {
             type="button"
             className={classNames(
               'button', 'is-info',
-              { 'is-light': !(sortType === SortType.ALPABET) },
+              {
+                'is-light': !(sortType === SortType.ALPABET),
+              },
             )}
             onClick={this.handleSortByAlphabetically}
           >
@@ -115,7 +117,9 @@ export class App extends Component<Props, State> {
             type="button"
             className={classNames(
               'button', 'is-success',
-              { 'is-light': !(sortType === SortType.LENGTH) },
+              {
+                'is-light': !(sortType === SortType.LENGTH),
+              },
             )}
             onClick={this.handleSortByLength}
           >
@@ -126,7 +130,9 @@ export class App extends Component<Props, State> {
             type="button"
             className={classNames(
               'button', 'is-warning',
-              { 'is-light': isReversed === false },
+              {
+                'is-light': (isReversed === false),
+              },
             )}
             onClick={this.handleReverse}
           >
