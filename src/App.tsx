@@ -82,12 +82,14 @@ export const App: React.FC = () => {
 
       <ul>
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          {goodsFromServer.map(good => (
+            <li
+              data-cy="Good"
+              key={Math.random()}
+            >
+              {good}
+            </li>
+          ))}
         </ul>
       </ul>
     </div>
