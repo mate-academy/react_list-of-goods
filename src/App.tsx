@@ -39,8 +39,6 @@ export function getReorderedGoods(
         return good1.localeCompare(good2);
       case SortType.LENGTH:
         return good1.length - good2.length;
-      case SortType.NONE:
-        return 1;
       default:
         return 0;
     }
@@ -67,7 +65,7 @@ type Props = {
 export class App extends React.Component<Props, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   props = {
