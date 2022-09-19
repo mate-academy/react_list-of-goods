@@ -111,7 +111,6 @@ export class App extends Component<{}, State> {
             onClick={() => this.sortBy(SortType.LENGTH)}
           >
             Sort by length
-            {sortType}
           </button>
 
           <button
