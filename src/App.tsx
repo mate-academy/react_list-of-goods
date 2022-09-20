@@ -146,7 +146,7 @@ export class App extends Component<{}, State> {
           {goods.map(good => (
             <li
               data-cy="Good"
-              key={Math.random()}
+              key={good}
             >
               {good}
             </li>
