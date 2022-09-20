@@ -72,6 +72,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const condition = (sortType !== SortType.NONE || isReversed);
 
     const preparedGoods
     = getReorderedGoods(goodsFromServer, { sortType, isReversed });
@@ -115,7 +116,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed)
+          {condition
         && (
           <button
             type="button"
