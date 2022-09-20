@@ -48,16 +48,6 @@ export function getReorderedGoods(
         return 0;
     }
   });
-  visibleGoods.sort((good1, good2) => {
-    switch (sortType) {
-      case SortType.ALPABET:
-        return good1.localeCompare(good2);
-      case SortType.LENGTH:
-        return good1.length - good2.length;
-      default:
-        return 0;
-    }
-  });
 
   if (isReversed) {
     visibleGoods.reverse();
