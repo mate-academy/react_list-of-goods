@@ -45,8 +45,10 @@ export function getReorderedGoods(
         return 0;
     }
   });
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -81,10 +83,6 @@ export class App extends React.Component<{}, ReorderOptions> {
   render(): React.ReactNode {
     const { sortType, isReversed } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
-
-    if (isReversed) {
-      goods.reverse();
-    }
 
     return (
       <div className="section content">
