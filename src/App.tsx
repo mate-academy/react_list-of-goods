@@ -63,15 +63,6 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  // sortByAlpabet = () => {
-  // };
-  //
-  // sortByLength = () => {
-  // };
-  //
-  // reverse = () => {
-  // };
-
   handleSorting = (name: string) => {
     switch (name) {
       case 'Sort alphabetically':
