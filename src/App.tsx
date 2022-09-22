@@ -72,7 +72,7 @@ export class App extends React.Component<{}, State> {
   // reverse = () => {
   // };
 
-  foo = (name: string) => {
+  handleSorting = (name: string) => {
     switch (name) {
       case 'Sort alphabetically':
         return this.setState({ sortType: SortType.ALPABET });
@@ -107,7 +107,7 @@ export class App extends React.Component<{}, State> {
               { 'is-light': sortType !== SortType.ALPABET },
             )}
             onClick={state => {
-              this.foo(state.currentTarget.innerText);
+              this.handleSorting(state.currentTarget.innerText);
             }}
           >
             Sort alphabetically
@@ -121,7 +121,7 @@ export class App extends React.Component<{}, State> {
               { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={state => {
-              this.foo(state.currentTarget.innerText);
+              this.handleSorting(state.currentTarget.innerText);
             }}
           >
             Sort by length
@@ -135,7 +135,7 @@ export class App extends React.Component<{}, State> {
               { 'is-light': !isReversed },
             )}
             onClick={state => {
-              this.foo(state.currentTarget.innerText);
+              this.handleSorting(state.currentTarget.innerText);
             }}
           >
             Reverse
