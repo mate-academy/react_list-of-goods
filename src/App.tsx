@@ -33,6 +33,23 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -75,30 +92,13 @@ export class App extends Component<{}, State> {
     const { sortType, isReversed } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
-    goods.sort((good1, good2) => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return good1.localeCompare(good2);
-
-        case SortType.LENGTH:
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      goods.reverse();
-    }
-
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
             className={classNames(
-              'button is-success',
+              'button is-info',
               { 'is-light': sortType !== SortType.ALPABET },
             )}
             onClick={this.sortByAlphabet}
