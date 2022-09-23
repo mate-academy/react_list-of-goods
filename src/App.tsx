@@ -87,6 +87,11 @@ export class App extends React.Component<{}, State> {
       sortType,
     } = this.state;
 
+    const mutatedArrOfGoods = getReorderedGoods(
+      goodsFromServer,
+      { sortType, isReversed },
+    );
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -151,10 +156,7 @@ export class App extends React.Component<{}, State> {
           </button>
         </div>
         <ul>
-          {getReorderedGoods(
-            goodsFromServer,
-            { sortType, isReversed },
-          ).map(good => (
+          {mutatedArrOfGoods.map(good => (
             <li key={good}>{good}</li>
           ))}
         </ul>
