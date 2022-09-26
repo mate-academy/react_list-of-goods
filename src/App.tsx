@@ -58,7 +58,6 @@ type State = {
   sortType: SortType,
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
