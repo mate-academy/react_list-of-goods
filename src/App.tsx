@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -32,12 +33,16 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((el1, el2) => el1.localeCompare(el2));
-  }
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((el1, el2) => el1.localeCompare(el2));
+      break;
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((el1, el2) => el1.length - el2.length);
+    case SortType.LENGTH:
+      visibleGoods.sort((el1, el2) => el1.length - el2.length);
+      break;
+    default:
+      visibleGoods.map(el => el);
   }
 
   if (isReversed) {
@@ -99,9 +104,10 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={sortType === SortType.ALPHABET
-              ? 'button is-info'
-              : 'button is-info is-light'}
+            className={classNames(
+              'button is-info',
+              { 'button is-info is-light': sortType !== SortType.ALPHABET },
+            )}
             onClick={this.handleSortAlphabetic}
           >
             Sort alphabetically
@@ -109,9 +115,10 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={sortType === SortType.LENGTH
-              ? 'button is-success'
-              : 'button is-success is-light'}
+            className={classNames(
+              'button is-success',
+              { 'button is-success is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={this.handleSortLength}
           >
             Sort by length
@@ -119,9 +126,10 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={isReversed
-              ? 'button is-warning'
-              : 'button is-warning is-light'}
+            className={classNames(
+              'button is-warning',
+              { 'button is-warning is-light': !isReversed },
+            )}
             onClick={this.handleSortReverse}
           >
             Reverse
