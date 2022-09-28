@@ -33,7 +33,7 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort();
+    visibleGoods.sort((el1, el2) => el1.localeCompare(el2));
   }
 
   if (sortType === SortType.LENGTH) {
@@ -61,31 +61,28 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortAlphabetic = () => {
+  handleSortAlphabetic = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
   };
 
-  sortLength = () => {
+  handleSortLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
   };
 
-  sortReverse = () => {
-    if (this.state.isReversed) {
-      this.setState({
-        isReversed: false,
-      });
-    } else {
-      this.setState({
-        isReversed: true,
-      });
-    }
+  handleSortReverse = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    this.state.isReversed ? this.setState({
+      isReversed: false,
+    }) : this.setState({
+      isReversed: true,
+    });
   };
 
-  sortReset = () => {
+  handleReset = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
@@ -102,24 +99,30 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
-            onClick={this.sortAlphabetic}
+            className={sortType === SortType.ALPHABET
+              ? 'button is-info'
+              : 'button is-info is-light'}
+            onClick={this.handleSortAlphabetic}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className="button is-success is-light"
-            onClick={this.sortLength}
+            className={sortType === SortType.LENGTH
+              ? 'button is-success'
+              : 'button is-success is-light'}
+            onClick={this.handleSortLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className="button is-warning is-light"
-            onClick={this.sortReverse}
+            className={isReversed
+              ? 'button is-warning'
+              : 'button is-warning is-light'}
+            onClick={this.handleSortReverse}
           >
             Reverse
           </button>
@@ -129,7 +132,7 @@ export class App extends Component<{}, State> {
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={this.sortReset}
+                onClick={this.handleReset}
               >
                 Reset
               </button>
