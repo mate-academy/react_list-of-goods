@@ -35,11 +35,11 @@ export function getReorderedGoods(
 
   switch (sortType) {
     case SortType.ALPHABET:
-      visibleGoods.sort((el1, el2) => el1.localeCompare(el2));
+      visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
       break;
 
     case SortType.LENGTH:
-      visibleGoods.sort((el1, el2) => el1.length - el2.length);
+      visibleGoods.sort((good1, good2) => good1.length - good2.length);
       break;
     default:
       visibleGoods.map(el => el);
@@ -79,12 +79,9 @@ export class App extends Component<{}, State> {
   };
 
   handleSortReverse = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.state.isReversed ? this.setState({
-      isReversed: false,
-    }) : this.setState({
-      isReversed: true,
-    });
+    this.setState(state => (
+      { isReversed: !state.isReversed }
+    ));
   };
 
   handleReset = () => {
@@ -106,7 +103,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'button is-info is-light': sortType !== SortType.ALPHABET },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.handleSortAlphabetic}
           >
@@ -149,8 +146,8 @@ export class App extends Component<{}, State> {
         </div>
         <ul>
           <ul>
-            {visibleGoods.map(el => (
-              <li data-cy="Good" key={el}>{el}</li>
+            {visibleGoods.map(good => (
+              <li data-cy="Good" key={good}>{good}</li>
             ))}
           </ul>
         </ul>
