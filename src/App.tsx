@@ -48,19 +48,15 @@ function getReorderedGoods(
 }
 
 type State = {
-  isStarted: boolean,
   isReversed: boolean,
   sortType: SortType
 };
 
 export class App extends Component<{}, State> {
   state = {
-    isStarted: false,
     isReversed: false,
     sortType: SortType.NONE,
   };
-
-  start = () => this.setState({ isStarted: true });
 
   reverse = () => this.setState(state => ({ isReversed: !state.isReversed }));
 
@@ -68,81 +64,73 @@ export class App extends Component<{}, State> {
 
   length = () => this.setState({ sortType: SortType.LENGTH });
 
-  reset = () => this.setState({
-    isReversed: false,
-    sortType: SortType.NONE,
-  });
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
 
   render() {
-    const { sortType, isReversed, isStarted } = this.state;
+    const { sortType, isReversed } = this.state;
     const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
 
     return (
       <div className="App mt-6">
-        {!isStarted
-          ? (
+        (
+        <>
+          <div className="buttons is-desktop is-flex is-centered">
             <button
-              className="button is-black is-large is-fullwidth is-outlined"
               type="button"
-              onClick={this.start}
+              className="button is-rounded is-success is-outlined"
+              onClick={this.alphabet}
             >
-              Start
+              Sort alphabetically
             </button>
-          )
 
-          : (
-            <>
-              <div className="buttons is-desktop is-flex is-centered">
-                <button
-                  type="button"
-                  className="button is-rounded is-success is-outlined"
-                  onClick={this.alphabet}
-                >
-                  Sort alphabetically
-                </button>
+            <button
+              type="button"
+              className="button is-rounded is-danger is-outlined"
+              onClick={this.length}
+            >
+              Sort by length
+            </button>
 
-                <button
-                  type="button"
-                  className="button is-rounded is-danger is-outlined"
-                  onClick={this.length}
-                >
-                  Sort by length
-                </button>
+            <button
+              type="button"
+              className="button is-rounded is-black is-outlined"
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
 
-                <button
-                  type="button"
-                  className="button is-rounded is-black is-outlined"
-                  onClick={this.reverse}
-                >
-                  Reverse
-                </button>
-
-                <button
-                  type="button"
-                  className="button is-rounded is-ghost is-outlined"
-                  onClick={this.reset}
-                >
-                  Reset
-                </button>
-              </div>
-              <div className="is-flex is-justify-content-center">
-                <div className="has-text-centered">
-                  {goods.map(good => {
-                    return (
-                      <div>
-                        <div
-                          key={good}
-                          className="box column is-info is-rounded mb-3"
-                        >
-                          {good}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </>
-          )}
+            <button
+              type="button"
+              className="button is-rounded is-ghost is-outlined"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          </div>
+          <div className="is-flex is-justify-content-center">
+            <div className="has-text-centered">
+              {goods.map(good => {
+                return (
+                  <div>
+                    <div
+                      data-cy="Good"
+                      key={good}
+                      className="box column is-info is-rounded mb-3"
+                    >
+                      {good}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </>
+        )
       </div>
     );
   }
