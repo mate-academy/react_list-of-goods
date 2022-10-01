@@ -38,9 +38,9 @@ export function getReorderedGoods(
 
   visibleGoods.sort((goods1, goods2) => {
     switch (sortType) {
-      case 1:
+      case SortType.ALPHABET:
         return goods1.localeCompare(goods2);
-      case 2:
+      case SortType.LENGTH:
         return goods1.length - goods2.length;
       default:
         return 0;
@@ -98,7 +98,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 1 },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={() => this.sortBy(SortType.ALPHABET)}
           >
@@ -109,7 +109,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 2 },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={() => this.sortBy(SortType.LENGTH)}
           >
