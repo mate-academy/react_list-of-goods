@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -100,9 +101,8 @@ export class App extends Component<{}, State> {
             type="button"
             onClick={this.sortByAlpabet}
             className={
-              sortType !== SortType.ALPABET
-                ? 'button is-info is-light'
-                : 'button is-info'
+              classNames('button is-info',
+                { 'is-light': sortType !== SortType.ALPABET })
             }
           >
             Sort alphabetically
@@ -112,9 +112,8 @@ export class App extends Component<{}, State> {
             type="button"
             onClick={this.sortByLength}
             className={
-              sortType !== SortType.LENGTH
-                ? 'button is-success is-light'
-                : 'button is-success'
+              classNames('button is-success',
+                { 'is-light': sortType !== SortType.LENGTH })
             }
           >
             Sort by length
@@ -124,9 +123,8 @@ export class App extends Component<{}, State> {
             type="button"
             onClick={this.reverse}
             className={
-              !isReversed
-                ? 'button is-warning is-light'
-                : 'button is-warning'
+              classNames('button is-warning',
+                { 'is-light': !isReversed })
             }
           >
             Reverse
