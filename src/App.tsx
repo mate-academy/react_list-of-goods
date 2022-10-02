@@ -26,25 +26,18 @@ function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType !== SortType.NONE) {
-    if (sortType === SortType.ALPHABET) {
-      visibleGoods.sort((g1, g2) => {
+  visibleGoods.sort((g1, g2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
         return g1.localeCompare(g2);
-      });
-    }
-
-    if (sortType === SortType.LENGTH) {
-      visibleGoods.sort((g1, g2) => {
+      case SortType.LENGTH:
         return g1.length - g2.length;
-      });
+      default:
+        return 0;
     }
-  }
+  });
 
-  if (isReversed) {
-    return visibleGoods.reverse();
-  }
-
-  return visibleGoods;
+  return isReversed ? visibleGoods.reverse() : visibleGoods;
 }
 
 type State = {
@@ -64,12 +57,7 @@ export class App extends Component<{}, State> {
 
   length = () => this.setState({ sortType: SortType.LENGTH });
 
-  reset = () => {
-    this.setState({
-      isReversed: false,
-      sortType: SortType.NONE,
-    });
-  };
+  reset = () => this.setState({ isReversed: false, sortType: SortType.NONE });
 
   render() {
     const { sortType, isReversed } = this.state;
@@ -77,12 +65,11 @@ export class App extends Component<{}, State> {
 
     return (
       <div className="App mt-6">
-        (
         <>
-          <div className="buttons is-desktop is-flex is-centered">
+          <div className="buttons is-flex is-centered">
             <button
               type="button"
-              className="button is-rounded is-success is-outlined"
+              className={`button is-outlined is-success is-rounded ${this.state.sortType !== SortType.ALPHABET && 'is-light'}`}
               onClick={this.alphabet}
             >
               Sort alphabetically
@@ -90,7 +77,7 @@ export class App extends Component<{}, State> {
 
             <button
               type="button"
-              className="button is-rounded is-danger is-outlined"
+              className={`button is-rounded is-danger is-outlined ${this.state.sortType !== SortType.LENGTH && 'is-light'}`}
               onClick={this.length}
             >
               Sort by length
@@ -98,19 +85,23 @@ export class App extends Component<{}, State> {
 
             <button
               type="button"
-              className="button is-rounded is-black is-outlined"
+              className={`button is-rounded is-black is-outlined ${!this.state.isReversed && 'is-light'}`}
               onClick={this.reverse}
             >
               Reverse
             </button>
 
-            <button
-              type="button"
-              className="button is-rounded is-ghost is-outlined"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
+            {(sortType || isReversed)
+              ? (
+                <button
+                  type="button"
+                  className="button is-rounded is-ghost is-outlined"
+                  onClick={this.reset}
+                >
+                  Reset
+                </button>
+              )
+              : ''}
           </div>
           <div className="is-flex is-justify-content-center">
             <div className="has-text-centered">
@@ -130,7 +121,6 @@ export class App extends Component<{}, State> {
             </div>
           </div>
         </>
-        )
       </div>
     );
   }
