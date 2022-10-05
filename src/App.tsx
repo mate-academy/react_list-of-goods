@@ -92,7 +92,7 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button', 'is-info',
+            className={classNames('button', 'is-success',
               { 'is-light': sortType !== SortType.LENGTH })}
             onClick={() => this.setState((state) => ({
               ...state,
@@ -104,7 +104,7 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button', 'is-info',
+            className={classNames('button', 'is-warning',
               { 'is-light': !isReversed })}
             onClick={() => this.setState((state) => ({
               ...state,
