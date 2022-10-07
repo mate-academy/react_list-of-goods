@@ -22,33 +22,30 @@ enum SortType {
   LENGTH,
 }
 
-type ReorderOptions = {
-  sortType: SortType;
-  isReversed: boolean;
-};
+// type ReorderOptions = {
+//   sortType: SortType;
+//   isReversed: boolean;
+// };
 
-export function getReorderedGoods(goods: string[], order: ReorderOptions) {
+function getReorderedGoods(
+  goods: string[],
+  sortType: SortType,
+  isReversed: boolean,
+) {
   const visibleGoods = [...goods];
 
-  if (order.sortType !== SortType.NONE) {
-    if (order.sortType === SortType.ALPHABET) {
-      visibleGoods.sort((g1, g2) => {
+  visibleGoods.sort((g1, g2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
         return g1.localeCompare(g2);
-      });
-    }
-
-    if (order.sortType === SortType.LENGTH) {
-      visibleGoods.sort((g1, g2) => {
+      case SortType.LENGTH:
         return g1.length - g2.length;
-      });
+      default:
+        return 0;
     }
-  }
+  });
 
-  if (order.isReversed) {
-    return visibleGoods.reverse();
-  }
-
-  return visibleGoods;
+  return isReversed ? visibleGoods.reverse() : visibleGoods;
 }
 
 type State = {
@@ -73,7 +70,8 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const goods = getReorderedGoods(goodsFromServer, this.state);
+    const { sortType, isReversed } = this.state;
+    const goods = getReorderedGoods(goodsFromServer, sortType, isReversed);
 
     return (
       <div className="section content">
@@ -106,8 +104,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames({
               'button is-info': this.state.isReversed === true,
-              'button is-info is-light':
-              this.state.isReversed === false,
+              'button is-info is-light': this.state.isReversed === false,
             })}
             onClick={this.reverse}
           >
@@ -115,7 +112,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {this.state.sortType !== SortType.NONE
-          || this.state.isReversed !== false
+            || this.state.isReversed !== false
             ? (
               <button
                 type="button"
