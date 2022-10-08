@@ -27,28 +27,25 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort();
-  }
-
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((good1, good2) => good1.length - good2.length);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort();
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((good1, good2) => good1.length - good2.length);
+      break;
+    default:
   }
 
   if (isReversed) {
     visibleGoods.reverse();
   }
-  /* eslint-disable-next-line */
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
