@@ -1,18 +1,18 @@
 import React from 'react';
 
 type Props = {
-  lists: string[]
+  goods: string[]
 };
 
-export const GoodsList: React.FC<Props> = ({ lists }) => {
+export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <ul>
-      {lists.map(list => (
+      {goods.map(good => (
         <li
-          key={list}
+          key={good}
           data-cy="Good"
         >
-          {list}
+          {good}
         </li>
       ))}
     </ul>
