@@ -48,9 +48,6 @@ export function getReorderedGoods(
       break;
   }
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
   if (isReversed) {
     visibleGoods.reverse();
   }
@@ -129,11 +126,11 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map((good) => (
-              <li key={good} data-cy="Good">{good}</li>
-            ))}
-          </ul>
+
+          {getReorderedGoods(goodsFromServer, this.state).map((good) => (
+            <li key={good} data-cy="Good">{good}</li>
+          ))}
+
         </ul>
       </div>
     );
