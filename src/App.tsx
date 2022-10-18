@@ -2,6 +2,7 @@ import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -135,7 +136,7 @@ export class App extends Component<{}, State> {
         <ul>
           <ul>
             {reorderedGoods.map(good => (
-              <li key={good} data-cy="Good">{good}</li>
+              <li key={uuidv4()} data-cy="Good">{good}</li>
             ))}
           </ul>
         </ul>
