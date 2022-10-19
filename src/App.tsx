@@ -90,6 +90,13 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
   render() {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
     const { sortType, isReversed } = this.state;
@@ -139,12 +146,15 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          <button
-            type="button"
-            className="button is-danger is-light"
-          >
-            Reset
-          </button>
+          {(sortType !== SortType.NONE || isReversed === true) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
