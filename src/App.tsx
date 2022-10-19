@@ -97,12 +97,12 @@ export class App extends Component<{}, State> {
   };
 
   render() {
+    const { sortType, isReversed } = this.state;
+
     const reorderedGoods = getReorderedGoods(
       goodsFromServer,
-      { sortType: this.state.sortType, isReversed: this.state.isReversed },
+      { sortType, isReversed },
     );
-
-    const { sortType, isReversed } = this.state;
 
     return (
       <div className="section content">
