@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import { v4 as uuidv4 } from 'uuid';
 import cn from 'classnames';
 
 export const goodsFromServer = [
@@ -17,9 +18,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'NONE',
-  ALPHABET = 'ALPHABET',
-  LENGTH = 'LENGTH',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -35,26 +36,23 @@ export function getReorderedGoods(
 
   visibleGoods.sort((goodA, goodB) => {
     switch (sortType) {
-      case 'ALPHABET':
+      case SortType.ALPHABET:
         return goodA.localeCompare(goodB);
 
-      case 'LENGTH':
+      case SortType.LENGTH:
         return goodA.length - goodB.length;
 
-      case 'NONE':
+      case SortType.NONE:
         return 0;
 
       default:
-        return 0;
+        throw new Error('Wrong type!');
     }
   });
 
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
@@ -71,11 +69,15 @@ export class App extends Component<{}, State> {
   };
 
   sortByAlphabet = () => {
-    this.setState({ sortType: SortType.ALPHABET });
+    this.setState(
+      { sortType: SortType.ALPHABET },
+    );
   };
 
   sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+    this.setState(
+      { sortType: SortType.LENGTH },
+    );
   };
 
   reverse = () => {
@@ -85,7 +87,10 @@ export class App extends Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ sortType: SortType.NONE, isReversed: false });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
   render() {
@@ -110,7 +115,7 @@ export class App extends Component<{}, State> {
             className={cn(
               'button',
               'is-info',
-              { 'is-light': sortType !== 'ALPHABET' },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={sortByAlphabet}
           >
@@ -122,7 +127,7 @@ export class App extends Component<{}, State> {
             className={cn(
               'button',
               'is-success',
-              { 'is-light': sortType !== 'LENGTH' },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={sortByLength}
           >
@@ -141,7 +146,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== 'NONE' || isReversed) && (
+          {(isReversed || sortType !== SortType.NONE) && (
             <button
               type="button"
               className="button is-danger"
@@ -155,7 +160,9 @@ export class App extends Component<{}, State> {
         <ul>
           <ul>
             {visibleGoods.map(good => (
-              <li data-cy="Good" key={good}>{good}</li>
+              <li data-cy="Good" key={uuidv4()}>
+                {good}
+              </li>
             ))}
           </ul>
         </ul>
