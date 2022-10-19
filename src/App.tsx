@@ -18,7 +18,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -38,7 +38,7 @@ export function getReorderedGoods(
   // Sort and reverse goods if needed
   if (sortType === SortType.LENGTH) {
     visibleGoods.sort((a, b) => a.length - b.length);
-  } else if (sortType === SortType.ALPABET) {
+  } else if (sortType === SortType.ALPHABET) {
     visibleGoods.sort((a, b) => a.localeCompare(b));
   }
 
@@ -68,10 +68,10 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button is-info', {
-              'is-light': this.state.sortType !== SortType.ALPABET,
+              'is-light': this.state.sortType !== SortType.ALPHABET,
             })}
             onClick={() => {
-              this.setState({ sortType: SortType.ALPABET });
+              this.setState({ sortType: SortType.ALPHABET });
             }}
           >
             Sort alphabetically
