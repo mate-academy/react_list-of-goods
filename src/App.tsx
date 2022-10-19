@@ -84,9 +84,15 @@ export class App extends React.Component<{}, State> {
     });
   };
 
+  reverseGoods = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
   render() {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-    const { sortType } = this.state;
+    const { sortType, isReversed } = this.state;
 
     return (
       <div className="section content">
@@ -121,7 +127,14 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={cn(
+              'button',
+              'is-warning',
+              {
+                'is-light': !isReversed,
+              },
+            )}
+            onClick={this.reverseGoods}
           >
             Reverse
           </button>
