@@ -20,7 +20,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -29,17 +29,14 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   switch (sortType) {
-    case SortType.ALPABET:
+    case SortType.ALPHABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
 
@@ -74,7 +71,7 @@ export class App extends React.Component<{}, State> {
 
   sortByName = () => {
     this.setState({
-      sortType: SortType.ALPABET,
+      sortType: SortType.ALPHABET,
     });
   };
 
@@ -110,7 +107,7 @@ export class App extends React.Component<{}, State> {
               'button',
               'is-info',
               {
-                'is-light': sortType !== SortType.ALPABET,
+                'is-light': sortType !== SortType.ALPHABET,
               },
             )}
             onClick={this.sortByName}
@@ -146,7 +143,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed === true) && (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
