@@ -78,9 +78,15 @@ export class App extends React.Component<{}, State> {
     });
   };
 
+  sortByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
+  };
+
   render() {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-    const { sortType, isReversed } = this.state;
+    const { sortType } = this.state;
 
     return (
       <div className="section content">
@@ -101,7 +107,14 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={cn(
+              'button',
+              'is-success',
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              },
+            )}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
