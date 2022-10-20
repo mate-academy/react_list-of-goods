@@ -33,6 +33,21 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
+  visibleGoods.sort((a, b) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return a.localeCompare(b);
+      case SortType.LENGTH:
+        return a.length - b.length;
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -75,21 +90,6 @@ export class App extends Component<{}, State> {
     const shouldRenderResetButton = sortType !== SortType.NONE || isReversed;
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-
-    visibleGoods.sort((a, b) => {
-      switch (sortType) {
-        case SortType.ALPHABET:
-          return a.localeCompare(b);
-        case SortType.LENGTH:
-          return a.length - b.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div className="section content">
