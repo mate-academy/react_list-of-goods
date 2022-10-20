@@ -18,6 +18,16 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
+interface Goods {
+  name: string;
+  id: string;
+}
+
+const goodsWithUniqueID: Goods[] = goodsFromServer.map(goodsName => ({
+  name: goodsName,
+  id: uuidv4(),
+}));
+
 enum SortType {
   NONE,
   ALPHABET,
@@ -30,19 +40,19 @@ type ReorderOptions = {
 };
 
 export function getReorderedGoods(
-  goods: string[],
+  goods: Goods[],
   { sortType, isReversed }: ReorderOptions,
 ) {
   const visibleGoods = [...goods];
 
   if (!SortType.NONE) {
-    visibleGoods.sort((prev, curr) => {
+    visibleGoods.sort(({ name: prevName }, { name: currName }) => {
       switch (sortType) {
         case SortType.ALPHABET:
-          return prev.localeCompare(curr);
+          return prevName.localeCompare(currName);
 
         case SortType.LENGTH:
-          return prev.length - curr.length;
+          return prevName.length - currName.length;
 
         default:
           return 0;
@@ -70,7 +80,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const goods = getReorderedGoods(goodsFromServer, {
+    const goods = getReorderedGoods(goodsWithUniqueID, {
       sortType,
       isReversed,
     });
@@ -134,8 +144,8 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {goods.map(good => (
-              <li data-cy="Good" key={uuidv4()}>{good}</li>
+            {goods.map(({ name, id }) => (
+              <li data-cy="Good" key={id}>{name}</li>
             ))}
           </ul>
         </ul>
