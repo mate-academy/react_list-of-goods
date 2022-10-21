@@ -80,6 +80,7 @@ export class App extends Component<{}, State> {
       NONE,
     } = SortType;
     const isSorted = isReversed || (sortType !== NONE);
+    const sortedGoodsList = getReorderedGoods(goodsFromServer, this.state);
     const setSortTypeState = (inputType: SortType) => (
       this.setState({ sortType: inputType })
     );
@@ -141,10 +142,7 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(
-              goodsFromServer,
-              this.state,
-            ).map((good, index) => (
+            {sortedGoodsList.map((good, index) => (
               <li key={String(good + index)} data-cy="Good">{good}</li>
             ))}
           </ul>
