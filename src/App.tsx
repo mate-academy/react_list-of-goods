@@ -1,7 +1,7 @@
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Good } from './react-app-env';
 
 export const goodsFromServer = [
