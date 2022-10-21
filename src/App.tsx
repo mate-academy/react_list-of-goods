@@ -3,7 +3,9 @@ import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
-export const goodsFromServer: string[] = [
+import { GoodsList } from './components/GoodsList';
+
+export const goodsFromServer = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -33,7 +35,7 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((g1: string, g2: string): number => {
+  visibleGoods.sort((g1, g2) => {
     switch (sortType) {
       case SortType.LENGTH:
         return g1.length - g2.length;
@@ -49,9 +51,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
@@ -142,13 +141,7 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          {reorderedGoods.map(good => (
-            <li key={good} data-cy="Good">
-              { good }
-            </li>
-          ))}
-        </ul>
+        <GoodsList reorderedGoods={reorderedGoods} />
       </div>
     );
   }
