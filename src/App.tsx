@@ -1,25 +1,26 @@
-import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import React, { Component } from 'react';
+import { Good } from './react-app-env';
 
 export const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
+  { name: 'Dumplings', id: 1 },
+  { name: 'Carrot', id: 2 },
+  { name: 'Eggs', id: 3 },
+  { name: 'Ice cream', id: 4 },
+  { name: 'Apple', id: 5 },
+  { name: 'Bread', id: 6 },
+  { name: 'Fish', id: 7 },
+  { name: 'Honey', id: 8 },
+  { name: 'Jam', id: 9 },
+  { name: 'Garlic', id: 10 },
 ];
 
 enum SortType {
-  NONE = '',
-  ALPABET = 'ALPABET',
-  LENGTH = 'LENGTH',
+  NONE,
+  ALPABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -28,7 +29,7 @@ type ReorderOptions = {
 };
 
 export function getReorderedGoods(
-  goods: string[],
+  goods: Good[],
   { sortType, isReversed }: ReorderOptions,
 ) {
   const visibleGoods = [...goods];
@@ -36,10 +37,10 @@ export function getReorderedGoods(
   visibleGoods.sort((prevGoods, currGoods) => {
     switch (sortType) {
       case SortType.ALPABET:
-        return prevGoods.localeCompare(currGoods);
+        return prevGoods.name.localeCompare(currGoods.name);
 
       case SortType.LENGTH:
-        return prevGoods.length - currGoods.length;
+        return prevGoods.name.length - currGoods.name.length;
 
       default:
         return 0;
@@ -145,9 +146,9 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          {reorderedGoods.map(item => (
-            <li data-cy="Good" key={item}>
-              {item}
+          {reorderedGoods.map(({ name, id }) => (
+            <li data-cy="Good" key={id}>
+              {name}
             </li>
           ))}
         </ul>
