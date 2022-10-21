@@ -44,7 +44,6 @@ export function getReorderedGoods(
     const {
       ALPHABET,
       LENGTH,
-      NONE,
     } = SortType;
 
     switch (sortType) {
@@ -52,9 +51,8 @@ export function getReorderedGoods(
         return prevGood.localeCompare(currentGood);
       case LENGTH:
         return prevGood.length - currentGood.length;
-      case NONE:
+      default:
         return 0;
-      default: return 0;
     }
   });
 
@@ -81,7 +79,21 @@ export class App extends Component<{}, State> {
       ALPHABET,
       NONE,
     } = SortType;
-    const visibleReset = (isReversed || sortType !== NONE);
+    const isSorted = isReversed || (sortType !== NONE);
+    const setSortTypeState = (inputType: SortType) => (
+      this.setState({ sortType: inputType })
+    );
+    const setDefaultState = () => (
+      this.setState({
+        isReversed: false,
+        sortType: NONE,
+      })
+    );
+    const switchIsReversedState = () => (
+      this.setState((state) => (
+        { isReversed: !state.isReversed }
+      ))
+    );
 
     return (
       <div className="section content">
@@ -91,7 +103,7 @@ export class App extends Component<{}, State> {
             className={classNames('button is-info', {
               'is-light': sortType !== ALPHABET,
             })}
-            onClick={() => (this.setState({ sortType: ALPHABET }))}
+            onClick={() => (setSortTypeState(ALPHABET))}
           >
             Sort alphabetically
           </button>
@@ -101,7 +113,7 @@ export class App extends Component<{}, State> {
             className={classNames('button is-success', {
               'is-light': sortType !== LENGTH,
             })}
-            onClick={() => (this.setState({ sortType: LENGTH }))}
+            onClick={() => (setSortTypeState(LENGTH))}
           >
             Sort by length
           </button>
@@ -111,23 +123,16 @@ export class App extends Component<{}, State> {
             className={classNames('button is-warning', {
               'is-light': !isReversed,
             })}
-            onClick={() => (
-              isReversed
-                ? this.setState({ isReversed: false })
-                : this.setState({ isReversed: true })
-            )}
+            onClick={switchIsReversedState}
           >
             Reverse
           </button>
 
-          {visibleReset && (
+          {isSorted && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => (this.setState({
-                isReversed: false,
-                sortType: NONE,
-              }))}
+              onClick={setDefaultState}
             >
               Reset
             </button>
@@ -140,7 +145,7 @@ export class App extends Component<{}, State> {
               goodsFromServer,
               this.state,
             ).map((good, index) => (
-              <li key={good + index.toString()} data-cy="Good">{good}</li>
+              <li key={String(good + index)} data-cy="Good">{good}</li>
             ))}
           </ul>
         </ul>
