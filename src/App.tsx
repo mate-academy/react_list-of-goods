@@ -66,6 +66,14 @@ export class App extends React.Component<{}, State> {
   };
 
   render(): React.ReactNode {
+    const newGoods = getReorderedGoods(
+      goodsFromServer,
+      {
+        sortType: this.state.sortType,
+        isReversed: this.state.isReversed,
+      },
+    );
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -122,10 +130,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, {
-              sortType: this.state.sortType,
-              isReversed: this.state.isReversed,
-            }).map((good: string) => {
+            {newGoods.map((good: string) => {
               return (
                 <li key={good} data-cy="Good">{good}</li>
               );
