@@ -99,7 +99,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={
               `button is-info ${
-                sortType !== 'alphabet' && 'is-light'
+                sortType !== SortType.ALPHABET && 'is-light'
               }`
             }
             onClick={this.sortAlphabetically}
@@ -110,7 +110,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={`button is-success ${
-              sortType !== 'length' && 'is-light'
+              sortType !== SortType.LENGTH && 'is-light'
             }`}
             onClick={this.sortByLength}
           >
@@ -128,7 +128,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            (isReversed || sortType) !== 'none'
+            (isReversed || sortType !== SortType.NONE)
               && (
                 <button
                   type="button"
