@@ -35,19 +35,19 @@ export function getReorderedGoods(
 
   visibleGoods.sort((item1, item2) => {
     switch (sortType) {
-      case 1:
+      case SortType.ALPHABET:
         return item1.localeCompare(item2);
 
-      case 2:
+      case SortType.LENGTH:
         return item1.length - item2.length;
 
       default:
-        return 0;
+        return SortType.NONE;
     }
   });
 
   if (isReversed) {
-    return visibleGoods.reverse();
+    visibleGoods.reverse();
   }
 
   return visibleGoods;
@@ -61,15 +61,15 @@ type State = {
 export class App extends Component<{}, State> {
   state = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortAlphabet = () => {
-    this.setState({ sortType: 1 });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortLength = () => {
-    this.setState({ sortType: 2 });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   reverseItems = () => {
@@ -81,7 +81,7 @@ export class App extends Component<{}, State> {
   resetList = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
     });
   };
 
@@ -99,7 +99,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 1 },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortAlphabet}
           >
@@ -110,7 +110,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 2 },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortLength}
           >
@@ -128,7 +128,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== 0)
+          {(isReversed || sortType !== SortType.NONE)
             && (
               <button
                 type="button"
