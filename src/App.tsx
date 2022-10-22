@@ -4,6 +4,7 @@ import 'bulma/css/bulma.css';
 import './App.scss';
 
 import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -94,50 +95,46 @@ export class App extends Component<{}, State> {
     return (
       <div className="section content">
         <div className="buttons">
-          <button
-            type="button"
+          <Button
             onClick={this.sortByLength}
             className={
-              classNames('button is-success', {
+              classNames('is-success', {
                 'is-light': sortType !== SortType.LENGTH,
               })
             }
           >
             Sort by length
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
             onClick={this.sortByAlphabet}
             className={
-              classNames('button is-info', {
+              classNames('is-info', {
                 'is-light': sortType !== SortType.ALPHABET,
               })
             }
           >
             Sort alphabetically
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
             onClick={this.reverse}
             className={
-              classNames('button is-warning', {
+              classNames('is-warning', {
                 'is-light': !isReversed,
               })
             }
           >
             Reverse
-          </button>
+          </Button>
 
           {(sortType !== SortType.NONE || isReversed) && (
-            <button
-              type="button"
+            <Button
               onClick={this.reset}
-              className="button is-danger is-light"
+              className="is-danger is-light"
             >
               Reset
-            </button>
+            </Button>
           )}
         </div>
 
