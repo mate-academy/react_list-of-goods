@@ -1,8 +1,10 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
+import { Button } from './components';
 
-export const goodsFromServer = [
+export const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -42,54 +44,113 @@ export function getReorderedGoods(
 }
 
 // DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
 };
+
+function sortGoods(sortType: SortType, isReversed: boolean) {
+  const visibleGoods = [...goodsFromServer];
+
+  if (sortType !== SortType.NONE) {
+    visibleGoods.sort((firstItem, nextItem) => {
+      switch (sortType) {
+        case SortType.ALPABET:
+          return firstItem.localeCompare(nextItem);
+        case SortType.LENGTH:
+          return firstItem.length - nextItem.length;
+        default:
+          return 0;
+      }
+    });
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
+}
+
+export class App extends React.Component<{}, State> {
+  state = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
+
+  setSortType = (type: SortType) => {
+    this.setState({ sortType: type });
+  };
+
+  setIsReverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  resetState = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
+  render() {
+    const { isReversed, sortType } = this.state;
+    const goods = sortGoods(sortType, isReversed);
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <Button
+            className={classNames('button', 'is-info', {
+              'is-light': sortType !== SortType.ALPABET,
+            })}
+            onClick={() => {
+              this.setSortType(SortType.ALPABET);
+            }}
+          >
+            Sort alphabetically
+          </Button>
+
+          <Button
+            className={classNames('button', 'is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
+            onClick={() => {
+              this.setSortType(SortType.LENGTH);
+            }}
+          >
+            Sort by length
+          </Button>
+
+          <Button
+            className={classNames('button', 'is-warning', {
+              'is-light': !isReversed,
+            })}
+            onClick={this.setIsReverse}
+          >
+            Reverse
+          </Button>
+
+          {(isReversed || sortType !== SortType.NONE) && (
+            <Button
+              className="button is-danger is-light"
+              onClick={this.resetState}
+            >
+              Reset
+            </Button>
+          )}
+        </div>
+
+        <ul>
+          {goods.map(item => (
+            <li data-cy="Good" key={item}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
