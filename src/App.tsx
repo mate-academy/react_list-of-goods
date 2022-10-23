@@ -18,7 +18,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -37,7 +37,7 @@ export function getReorderedGoods(
     switch (sortType) {
       case SortType.LENGTH:
         return good1.length - good2.length;
-      case SortType.ALPABET:
+      case SortType.ALPHABET:
         return good1.localeCompare(good2);
       default:
         return 0;
@@ -62,18 +62,12 @@ export class App extends React.Component<{}, State> {
     sortType: 0,
   };
 
-  handleSortClick = (
-    currentTarget: EventTarget & HTMLButtonElement,
-  ) => {
-    const { value } = currentTarget;
-
-    this.setState({ sortType: +value });
+  handleSortClick = (sortType: SortType) => {
+    this.setState({ sortType });
   };
 
-  handleResetClick = (
-    currentTarget: EventTarget & HTMLButtonElement,
-  ) => {
-    this.handleSortClick(currentTarget);
+  handleResetClick = (sortType: SortType) => {
+    this.handleSortClick(sortType);
     this.setState({ isReversed: false });
   };
 
@@ -89,24 +83,20 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            value="1"
             className={classNames(
               'button',
               'is-info',
               {
-                'is-light': this.state.sortType !== SortType.ALPABET,
+                'is-light': this.state.sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={(event) => {
-              this.handleSortClick(event.currentTarget);
-            }}
+            onClick={() => this.handleSortClick(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            value="2"
             className={classNames(
               'button',
               'is-success',
@@ -114,9 +104,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': this.state.sortType !== SortType.LENGTH,
               },
             )}
-            onClick={(event) => {
-              this.handleSortClick(event.currentTarget);
-            }}
+            onClick={() => this.handleSortClick(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -135,15 +123,12 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(this.state.sortType !== 0 || this.state.isReversed)
+          {(this.state.sortType !== SortType.NONE || this.state.isReversed)
           && (
             <button
               type="button"
-              value="0"
               className="button is-danger is-light"
-              onClick={(event) => {
-                this.handleResetClick(event.currentTarget);
-              }}
+              onClick={() => this.handleResetClick(SortType.NONE)}
             >
               Reset
             </button>
