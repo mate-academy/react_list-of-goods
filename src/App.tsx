@@ -49,10 +49,31 @@ type State = {
   sortType: SortType,
 };
 
+function sortGoods(sortType: SortType, isReversed: boolean) {
+  const visibleGoods = [...goodsFromServer];
+
+  visibleGoods.sort((firstItem, nextItem) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return firstItem.localeCompare(nextItem);
+      case SortType.LENGTH:
+        return firstItem.length - nextItem.length;
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
+}
+
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   setSortType = (type: SortType) => {
@@ -68,29 +89,12 @@ export class App extends React.Component<{}, State> {
   resetState = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
     });
   };
 
   render() {
     const { isReversed, sortType } = this.state;
-
-    const visibleGoods = [...goodsFromServer];
-
-    visibleGoods.sort((firstItem, nextItem) => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return firstItem.localeCompare(nextItem);
-        case SortType.LENGTH:
-          return firstItem.length - nextItem.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div className="section content">
@@ -126,7 +130,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </Button>
 
-          {(isReversed || sortType !== 0) && (
+          {(isReversed || sortType !== SortType.NONE) && (
             <Button
               className="button is-danger is-light"
               onClick={this.resetState}
@@ -137,7 +141,7 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          {visibleGoods.map(item => (
+          {sortGoods(sortType, isReversed).map(item => (
             <li data-cy="Good" key={item}>
               {item}
             </li>
