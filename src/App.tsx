@@ -59,7 +59,7 @@ type State = {
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   handleSortClick = (sortType: SortType) => {
