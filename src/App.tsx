@@ -29,6 +29,29 @@ type State = {
   sortType: SortType,
 };
 
+export function implementButtonsActions(
+  goods: string[],
+  sortType: SortType,
+  isReversed: boolean,
+) {
+  const visibleGoods = [...goods].sort((goodA, goodB) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return goodA.localeCompare(goodB);
+
+      case SortType.LENGTH:
+        return goodA.length - goodB.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
+}
+
 export class App extends Component<{}, State> {
   state = {
     isReversed: false,
@@ -59,22 +82,8 @@ export class App extends Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
 
-    let visibleGoods = [...goodsFromServer].sort((goodA, goodB) => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return goodA.localeCompare(goodB);
-
-        case SortType.LENGTH:
-          return goodA.length - goodB.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    visibleGoods = isReversed
-      ? visibleGoods.reverse()
-      : visibleGoods;
+    const visibleGoods = implementButtonsActions(goodsFromServer,
+      sortType, isReversed);
 
     const checkOnChanges = isReversed || sortType !== SortType.NONE;
 
