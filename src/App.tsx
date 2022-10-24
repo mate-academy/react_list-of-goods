@@ -103,9 +103,9 @@ export class App extends React.Component<{}, State> {
             className={classNames('button is-info', {
               'is-light': this.state.sortType !== SortType.ALPHABET,
             })}
-            onClick={() => {
-              this.sortByAlphabet();
-            }}
+            onClick={
+              this.sortByAlphabet
+            }
           >
             Sort alphabetically
           </button>
@@ -115,9 +115,9 @@ export class App extends React.Component<{}, State> {
             className={classNames('button is-success', {
               'is-light': this.state.sortType !== SortType.LENGTH,
             })}
-            onClick={() => {
-              this.sortByLength();
-            }}
+            onClick={
+              this.sortByLength
+            }
           >
             Sort by length
           </button>
@@ -127,9 +127,9 @@ export class App extends React.Component<{}, State> {
             className={classNames('button is-warning', {
               'is-light': !this.state.isReversed,
             })}
-            onClick={() => {
-              this.reverse();
-            }}
+            onClick={
+              this.reverse
+            }
           >
             Reverse
           </button>
