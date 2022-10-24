@@ -18,7 +18,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -38,9 +38,9 @@ export function getReorderedGoods(
   // Sort and reverse goods if needed
   visibleGoods.sort((good1, good2) => {
     switch (sortType) {
-      case 1:
+      case SortType.ALPHABET:
         return good1.localeCompare(good2);
-      case 2:
+      case SortType.LENGTH:
         return good1.length - good2.length;
       default:
         return 0;
@@ -66,15 +66,15 @@ type State = {
 export class App extends Component<{}, State> {
   state: State = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortByAlphabet = () => {
-    this.setState({ sortType: 1 });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortByLength = () => {
-    this.setState({ sortType: 2 });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   reverse = () => {
@@ -86,7 +86,7 @@ export class App extends Component<{}, State> {
   reset = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
     });
   };
 
@@ -103,7 +103,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 1 },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortByAlphabet}
           >
@@ -114,7 +114,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-success',
-              { 'is-light': sortType !== 2 },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortByLength}
           >
@@ -132,7 +132,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== 0) && (
+          {(isReversed || sortType !== SortType.NONE) && (
             <button
               type="button"
               className="button is-danger is-light"
