@@ -29,7 +29,7 @@ type State = {
   sortType: SortType,
 };
 
-export function implementButtonsActions(
+export function getSortedGoods(
   goods: string[],
   sortType: SortType,
   isReversed: boolean,
@@ -58,15 +58,15 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  setOrderAlphabetical = () => {
+  sortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPABET });
   };
 
-  setOrderLength = () => {
+  sortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  setOrderReverse = () => {
+  reverseOrder = () => {
     this.setState(state => {
       return ({ isReversed: !state.isReversed });
     });
@@ -82,10 +82,10 @@ export class App extends Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
 
-    const visibleGoods = implementButtonsActions(goodsFromServer,
+    const visibleGoods = getSortedGoods(goodsFromServer,
       sortType, isReversed);
 
-    const checkOnChanges = isReversed || sortType !== SortType.NONE;
+    const isReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -96,7 +96,7 @@ export class App extends Component<{}, State> {
               'is-info',
               { 'is-light': sortType !== SortType.ALPABET },
             )}
-            onClick={this.setOrderAlphabetical}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </Button>
@@ -107,7 +107,7 @@ export class App extends Component<{}, State> {
               'is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={this.setOrderLength}
+            onClick={this.sortByLength}
           >
             Sort by length
           </Button>
@@ -118,12 +118,12 @@ export class App extends Component<{}, State> {
               'is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.setOrderReverse}
+            onClick={this.reverseOrder}
           >
             Reverse
           </Button>
 
-          {checkOnChanges && (
+          {isReset && (
             <Button
               className="button is-danger is-light"
               onClick={this.resetOrder}
@@ -135,16 +135,14 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {visibleGoods.map(good => {
-              return (
-                <li
-                  data-cy="Good"
-                  key={uuid()}
-                >
-                  {good}
-                </li>
-              );
-            })}
+            {visibleGoods.map(good => (
+              <li
+                data-cy="Good"
+                key={uuid()}
+              >
+                {good}
+              </li>
+            ))}
           </ul>
         </ul>
       </div>
