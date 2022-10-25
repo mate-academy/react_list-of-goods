@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -18,7 +19,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -35,7 +36,7 @@ export function getReorderedGoods(
 
   visibleGoods.sort((previous, current) => {
     switch (sortType) {
-      case SortType.ALPABET:
+      case SortType.ALPHABET:
         return previous.localeCompare(current);
 
       case SortType.LENGTH:
@@ -64,28 +65,22 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  setSortMethod = (type: SortType) => {
+    this.setState({
+      sortType: type,
+    });
+  };
+
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  resetReverse = () => {
+  reset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
-    });
-  };
-
-  sortByAlphabet = () => {
-    this.setState({
-      sortType: SortType.ALPABET,
-    });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
     });
   };
 
@@ -102,10 +97,10 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            onClick={this.sortByAlphabet}
+            onClick={() => this.setSortMethod(SortType.ALPHABET)}
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== SortType.ALPABET },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
           >
             Sort alphabetically
@@ -113,7 +108,7 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            onClick={this.sortByLength}
+            onClick={() => this.setSortMethod(SortType.LENGTH)}
             className={classNames(
               'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
@@ -134,11 +129,11 @@ export class App extends Component<{}, State> {
           </button>
 
           {
-            (sortType || isReversed)
+            (sortType !== SortType.NONE || isReversed)
               && (
                 <button
                   type="button"
-                  onClick={this.resetReverse}
+                  onClick={this.reset}
                   className="button is-danger is-light"
                 >
                   Reset
@@ -146,16 +141,10 @@ export class App extends Component<{}, State> {
               )
           }
         </div>
-        <ul>
-          {goods.map(good => (
-            <li
-              data-cy="Good"
-              key={good}
-            >
-              {good}
-            </li>
-          ))}
-        </ul>
+
+        <GoodsList
+          goods={goods}
+        />
       </div>
     );
   }
