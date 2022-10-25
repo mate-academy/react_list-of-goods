@@ -95,7 +95,11 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const visibilityResetButton = sortType !== SortType.NONE || isReversed;
+    const isResetButtonVisible = sortType !== SortType.NONE || isReversed;
+    const visibleItems = getReorderedGoods(
+      goodsFromServer,
+      { sortType, isReversed },
+    );
 
     return (
       <div className="section content">
@@ -126,21 +130,19 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            onClick={() => {
-              this.setState({
-                isReversed: !isReversed,
-              });
-            }}
+            onClick={this.reverseList}
             className={classNames(
               'button',
               'is-warning',
-              { 'is-light': !isReversed },
+              {
+                'is-light': !isReversed,
+              },
             )}
           >
             Reverse
           </button>
 
-          {visibilityResetButton && (
+          {isResetButtonVisible && (
             <button
               type="button"
               onClick={this.resetList}
@@ -153,8 +155,13 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map(good => (
-              <li key={uuidv4()} data-cy="Good">{good}</li>
+            {visibleItems.map(good => (
+              <li
+                key={uuidv4()}
+                data-cy="Good"
+              >
+                {good}
+              </li>
             ))}
           </ul>
         </ul>
