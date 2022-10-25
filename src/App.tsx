@@ -31,9 +31,9 @@ type State = {
 
 export function getSortedGoods(
   goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
+  state: State,
 ) {
+  const { sortType, isReversed } = state;
   const visibleGoods = [...goods].sort((goodA, goodB) => {
     switch (sortType) {
       case SortType.ALPABET:
@@ -83,9 +83,9 @@ export class App extends Component<{}, State> {
     const { sortType, isReversed } = this.state;
 
     const visibleGoods = getSortedGoods(goodsFromServer,
-      sortType, isReversed);
+      this.state);
 
-    const isReset = isReversed || sortType !== SortType.NONE;
+    const shouldRenderReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -123,7 +123,7 @@ export class App extends Component<{}, State> {
             Reverse
           </Button>
 
-          {isReset && (
+          {shouldRenderReset && (
             <Button
               className="button is-danger is-light"
               onClick={this.resetOrder}
