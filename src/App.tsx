@@ -5,16 +5,16 @@ import classNames from 'classnames';
 import { v4 as uuid } from 'uuid';
 
 export const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
+  { name: 'Dumplings', id: uuid() },
+  { name: 'Carrot', id: uuid() },
+  { name: 'Eggs', id: uuid() },
+  { name: 'Ice cream', id: uuid() },
+  { name: 'Apple', id: uuid() },
+  { name: 'Bread', id: uuid() },
+  { name: 'Fish', id: uuid() },
+  { name: 'Honey', id: uuid() },
+  { name: 'Jam', id: uuid() },
+  { name: 'Garlic', id: uuid() },
 ];
 
 enum SortType {
@@ -23,20 +23,25 @@ enum SortType {
   LENGTH,
 }
 
-export function getReorderedGoods(
-  goods: string[],
-  sortType: SortType,
-  isReversed: boolean,
-) {
-  const visibleGoods = [...goods];
+type Good = {
+  name: string;
+  id: string;
+};
 
-  visibleGoods.sort((goodA, goodB) => {
+export function getReorderedGoods(
+  goods: Good[],
+  isReversed: boolean,
+  sortType: SortType,
+) {
+  const reorderedGoods = [...goods];
+
+  reorderedGoods.sort(({ name: nameA }, { name: nameB }) => {
     switch (sortType) {
       case SortType.ALPABET:
-        return goodA.localeCompare(goodB);
+        return nameA.localeCompare(nameB);
 
       case SortType.LENGTH:
-        return goodA.length - goodB.length;
+        return nameA.length - nameB.length;
 
       default:
         return 0;
@@ -44,8 +49,8 @@ export function getReorderedGoods(
   });
 
   return isReversed
-    ? visibleGoods.reverse()
-    : visibleGoods;
+    ? reorderedGoods.reverse()
+    : reorderedGoods;
 }
 
 type State = {
@@ -84,9 +89,10 @@ export class App extends Component<{}, State> {
     const { isReversed, sortType } = this.state;
     const reorderedGoods = getReorderedGoods(
       goodsFromServer,
-      sortType,
       isReversed,
+      sortType,
     );
+
     const isChanged = isReversed || sortType !== SortType.NONE;
 
     return (
@@ -142,7 +148,7 @@ export class App extends Component<{}, State> {
         <ul>
           <ul>
             {reorderedGoods.map(good => (
-              <li key={uuid()} data-cy="Good">{good}</li>
+              <li key={good.id} data-cy="Good">{good.name}</li>
             ))}
           </ul>
         </ul>
