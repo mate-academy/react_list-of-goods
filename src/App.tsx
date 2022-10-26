@@ -31,33 +31,26 @@ export function GetReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  const visibleGoods = [...goods];
-
-  function renderGoods(goodsList: string[]) {
-    const goodsItem = goodsList.map((product: string) => (
-      <li data-cy="Good" key={product}>{product}</li>
-    ));
-
-    if (isReversed === false) {
-      return goodsItem;
-    }
-
-    return goodsItem.reverse();
-  }
+  const visibleGoodsSort = [...goods];
 
   switch (sortType) {
-    case 'NONE':
-      return renderGoods(visibleGoods);
-
     case 'ALPABET':
-      return renderGoods(visibleGoods.sort((a, b) => a.localeCompare(b)));
+      visibleGoodsSort.sort((a, b) => a.localeCompare(b));
+      break;
 
     case 'LENGTH':
-      return renderGoods(visibleGoods.sort((a, b) => a.length - b.length));
+      visibleGoodsSort.sort((a, b) => a.length - b.length);
+      break;
 
     default:
-      return 1;
+      break;
   }
+
+  if (isReversed === false) {
+    return visibleGoodsSort;
+  }
+
+  return visibleGoodsSort.reverse();
 }
 
 export class App extends React.Component {
@@ -135,7 +128,10 @@ export class App extends React.Component {
         </div>
 
         <ul>
-          {GetReorderedGoods(goodsFromServer, this.state)}
+          {GetReorderedGoods(goodsFromServer, this.state)
+            .map((product: string) => (
+              <li data-cy="Good" key={product}>{product}</li>
+            ))}
         </ul>
       </div>
     );
