@@ -27,7 +27,7 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-export function GetReorderedGoods(
+function GetReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
