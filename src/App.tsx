@@ -95,7 +95,7 @@ export class App extends PureComponent<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
 
-    const mas = getReorderedGoods(goodsFromServer, {
+    const goodsReorder = getReorderedGoods(goodsFromServer, {
       isReversed,
       sortType,
     });
@@ -155,7 +155,7 @@ export class App extends PureComponent<{}, State> {
 
         <ul>
           <ul>
-            {mas.map((good) => (
+            {goodsReorder.map((good) => (
               <li data-cy="Good" key={good}>
                 {good}
               </li>
