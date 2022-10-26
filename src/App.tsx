@@ -35,10 +35,17 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   let visibleGoods = [...goods];
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => (a.length - b.length));
-  } else if (sortType === SortType.ALPABET) {
-    visibleGoods.sort((a, b) => (a.localeCompare(b)));
+  switch (sortType) {
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => (a.length - b.length));
+      break;
+
+    case SortType.ALPABET:
+      visibleGoods.sort((a, b) => (a.localeCompare(b)));
+      break;
+
+    default:
+      break;
   }
 
   if (isReversed) {
@@ -68,6 +75,11 @@ export class App extends React.Component<{}, State> {
 
   toggleReverse = (value: boolean) => {
     this.setState({ isReversed: value });
+  };
+
+  onReset = () => {
+    this.toggleReverse(false);
+    this.setSortType(SortType.NONE);
   };
 
   render() {
@@ -116,10 +128,7 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => {
-                this.toggleReverse(false);
-                this.setSortType(SortType.NONE);
-              }}
+              onClick={() => (this.onReset())}
             >
               Reset
             </button>
