@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
@@ -65,7 +65,7 @@ type State = {
   sortType: SortType,
 };
 
-export class App extends React.Component <{}, State> {
+export class App extends Component <{}, State> {
   state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
@@ -108,8 +108,10 @@ export class App extends React.Component <{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button is-info',
-              { 'is-light': sortType !== SortType.ALPABET })}
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPABET }
+            )}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -126,13 +128,15 @@ export class App extends React.Component <{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-warning',
-              { 'is-light': !isReversed })}
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed }
+            )}
             onClick={this.reverse}
           >
             Reverse
           </button>
-          {(this.state.isReversed || this.state.sortType !== SortType.NONE) && (
+          {(isReversed || sortType) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -145,7 +149,7 @@ export class App extends React.Component <{}, State> {
 
         <ul>
           {sortedGoods.map(good => (
-            <li key={good}>
+            <li key={good} data-cy="Good">
               {good}
             </li>
           ))}
