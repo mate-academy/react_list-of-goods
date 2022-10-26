@@ -51,9 +51,6 @@ export function getReorderedGoods(
     visibleGoods.reverse();
   }
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   return visibleGoods;
 }
 
@@ -96,6 +93,7 @@ export class App extends Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const isResetButtonVisible = sortType !== SortType.NONE || isReversed;
+
     const visibleItems = getReorderedGoods(
       goodsFromServer,
       { sortType, isReversed },
