@@ -23,14 +23,10 @@ enum SortType {
   LENGTH,
 }
 
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed: boolean,
-};
-
 export function getReorderedGoods(
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
+  sortType: SortType,
+  isReversed: boolean,
 ) {
   const visibleGoods = [...goods];
 
@@ -71,7 +67,7 @@ export class App extends Component<{}, State> {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reverse = () => {
+  toggleRverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -85,8 +81,12 @@ export class App extends Component<{}, State> {
   };
 
   render() {
-    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
     const { isReversed, sortType } = this.state;
+    const reorderedGoods = getReorderedGoods(
+      goodsFromServer,
+      sortType,
+      isReversed,
+    );
     const isChanged = isReversed || sortType !== SortType.NONE;
 
     return (
@@ -123,7 +123,7 @@ export class App extends Component<{}, State> {
               'is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.reverse}
+            onClick={this.toggleRverse}
           >
             Reverse
           </button>
