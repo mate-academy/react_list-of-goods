@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Good } from '../react-app-env';
+import { Good } from '../../react-app-env';
 
 type Props = {
   goods: Good[];

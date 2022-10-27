@@ -3,8 +3,8 @@ import './App.scss';
 import cn from 'classnames';
 import { Component } from 'react';
 import { Good } from './react-app-env';
-import { GoodsList } from './components';
-import { Button } from './components/SortButton';
+import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 
 export const goodsFromServer = [
   { name: 'Dumplings', id: 1 },
