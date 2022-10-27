@@ -1,8 +1,10 @@
 import 'bulma/css/bulma.css';
 import './App.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 import { Component } from 'react';
 import { Good } from './react-app-env';
+import { GoodsList } from './components';
+import { Button } from './components/SortButton';
 
 export const goodsFromServer = [
   { name: 'Dumplings', id: 1 },
@@ -17,7 +19,7 @@ export const goodsFromServer = [
   { name: 'Garlic', id: 10 },
 ];
 
-enum SortType {
+export enum SortType {
   NONE,
   ALPABET,
   LENGTH,
@@ -65,12 +67,8 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByAlphabet = () => {
-    this.setState({ sortType: SortType.ALPABET });
-  };
-
-  sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+  handleSortType = (sortType: SortType) => {
+    this.setState({ sortType });
   };
 
   handleReverse = () => {
@@ -94,36 +92,33 @@ export class App extends Component<{}, State> {
     return (
       <div className="section content">
         <div className="buttons">
-          <button
-            type="button"
-            className={classNames(
-              'button is-info',
+          <Button
+            className={cn(
+              'is-info',
               {
                 'is-light': sortType !== SortType.ALPABET,
               },
             )}
-            onClick={this.sortByAlphabet}
+            onClick={() => this.handleSortType(SortType.ALPABET)}
           >
             Sort alphabetically
-          </button>
+          </Button>
 
-          <button
-            type="button"
-            className={classNames(
-              'button is-success',
+          <Button
+            className={cn(
+              'is-success',
               {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={this.sortByLength}
+            onClick={() => this.handleSortType(SortType.LENGTH)}
           >
             Sort by length
-          </button>
+          </Button>
 
-          <button
-            type="button"
-            className={classNames(
-              'button is-warning',
+          <Button
+            className={cn(
+              'is-warning',
               {
                 'is-light': isReversed === false,
               },
@@ -131,27 +126,20 @@ export class App extends Component<{}, State> {
             onClick={this.handleReverse}
           >
             Reverse
-          </button>
+          </Button>
 
           {originalOrder
-          && (
-            <button
-              type="button"
-              className="button is-danger is-light"
-              onClick={this.handleReset}
-            >
-              Reset
-            </button>
-          )}
+            && (
+              <Button
+                className="is-danger is-light"
+                onClick={this.handleReset}
+              >
+                Reset
+              </Button>
+            )}
         </div>
 
-        <ul>
-          {reorderedGoods.map(({ name, id }) => (
-            <li data-cy="Good" key={id}>
-              {name}
-            </li>
-          ))}
-        </ul>
+        <GoodsList goods={reorderedGoods} />
       </div>
     );
   }
