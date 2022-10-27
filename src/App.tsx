@@ -1,6 +1,11 @@
-import React from 'react';
+import { Component } from 'react';
+import classNames from 'classnames';
+
 import 'bulma/css/bulma.css';
 import './App.scss';
+
+import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -17,79 +22,126 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
-type ReorderOptions = {
+interface ReorderOptions {
   sortType: SortType,
   isReversed: boolean,
-};
+}
 
-// Use this function in the render to prepare goods
+interface State {
+  isReversed: boolean,
+  sortType: SortType,
+}
+
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
+  const goodsToShow = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  goodsToShow.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.LENGTH:
+        return good1.length - good2.length;
 
-  return visibleGoods;
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    goodsToShow.reverse();
+  }
+
+  return goodsToShow;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+export class App extends Component<{}, State> {
+  state = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+  sortByAlphabet = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+  toggleReverse = () => {
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
+  reset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
+  render() {
+    const { sortType, isReversed } = this.state;
+    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isReordered = sortType !== SortType.NONE || isReversed;
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <Button
+            onClick={this.sortByAlphabet}
+            className={
+              classNames('is-info', {
+                'is-light': sortType !== SortType.ALPHABET,
+              })
+            }
+          >
+            Sort alphabetically
+          </Button>
+
+          <Button
+            onClick={this.sortByLength}
+            className={
+              classNames('is-success', {
+                'is-light': sortType !== SortType.LENGTH,
+              })
+            }
+          >
+            Sort by length
+          </Button>
+
+          <Button
+            onClick={this.toggleReverse}
+            className={
+              classNames('is-warning', {
+                'is-light': !isReversed,
+              })
+            }
+          >
+            Reverse
+          </Button>
+
+          {(isReordered) && (
+            <Button
+              onClick={this.reset}
+              className="is-danger is-light"
+            >
+              Reset
+            </Button>
+          )}
+        </div>
+
+        <GoodsList reorderedGoods={reorderedGoods} />
       </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
-};
+    );
+  }
+}
