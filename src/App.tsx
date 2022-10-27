@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -15,81 +16,160 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPABET,
-  LENGTH,
-}
-
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed: boolean,
-};
-
-// Use this function in the render to prepare goods
-export function getReorderedGoods(
+type State = {
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
-) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
-  return visibleGoods;
-}
-
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+  isReversed: boolean,
+  sortBy: string,
+  resetVisibility: boolean,
+  classVisibility: string,
+  isReverseClicked: boolean,
 };
+
+type ButtonsMap = {
+  ALPHABETICALLY: string,
+  BUY_LENGTH: string,
+};
+
+const buttonsMap: ButtonsMap = {
+  ALPHABETICALLY: 'ALPHABETICALLY',
+  BUY_LENGTH: 'BUY_LENGTH',
+};
+
+export class App extends React.Component<{}, State> {
+  state = {
+    goods: goodsFromServer,
+    isReversed: false,
+    sortBy: '',
+    resetVisibility: false,
+    classVisibility: '',
+    isReverseClicked: false,
+  };
+
+  toShowButton = () => {
+    this.setState({ resetVisibility: true });
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+      resetVisibility: true,
+      isReverseClicked: !state.isReverseClicked,
+    }));
+  };
+
+  sortByAlphabet = () => {
+    this.setState({
+      sortBy: 'alpha',
+      resetVisibility: true,
+      classVisibility: 'ALPHABETICALLY',
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortBy: 'length',
+      resetVisibility: true,
+      classVisibility: 'BUY_LENGTH',
+    });
+  };
+
+  reset = () => {
+    this.setState({
+      goods: goodsFromServer,
+      isReversed: false,
+      sortBy: '',
+      resetVisibility: false,
+      classVisibility: '',
+      isReverseClicked: false,
+    });
+  };
+
+  render() {
+    const {
+      goods,
+      isReversed,
+      sortBy,
+      resetVisibility,
+      classVisibility,
+      isReverseClicked,
+    } = this.state;
+
+    const visibleGoods = [...goods];
+
+    visibleGoods.sort((alph, len) => {
+      switch (sortBy) {
+        case 'alpha':
+          return alph.localeCompare(len);
+        case 'length':
+          return alph.length - len.length;
+        default:
+          return 0;
+      }
+    });
+
+    if (isReversed) {
+      visibleGoods.reverse();
+    }
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            onClick={this.sortByAlphabet}
+            className={classNames('button', {
+              'is-info is-light': classVisibility !== buttonsMap.ALPHABETICALLY,
+              'is-info': classVisibility === buttonsMap.ALPHABETICALLY,
+            })}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={classNames('button', {
+              'is-success is-light': classVisibility !== buttonsMap.BUY_LENGTH,
+              'is-success': classVisibility === buttonsMap.BUY_LENGTH,
+            })}
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={classNames('button', {
+              'is-warning is-light': !isReverseClicked,
+              'is-warning': isReverseClicked,
+            })}
+            onClick={this.reverse}
+          >
+            Reverse
+          </button>
+          {resetVisibility && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
+
+        </div>
+
+        <ul>
+          <ul>
+            {visibleGoods.map(good => (
+              <li
+                key={good}
+              >
+                {good}
+              </li>
+            ))}
+          </ul>
+        </ul>
+      </div>
+    );
+  }
+}
