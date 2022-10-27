@@ -76,7 +76,7 @@ export class App extends Component<{}, State> {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
-  reverse = () => {
+  toggleReverse = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
@@ -92,6 +92,7 @@ export class App extends Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isReordered = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -119,7 +120,7 @@ export class App extends Component<{}, State> {
           </Button>
 
           <Button
-            onClick={this.reverse}
+            onClick={this.toggleReverse}
             className={
               classNames('is-warning', {
                 'is-light': !isReversed,
@@ -129,7 +130,7 @@ export class App extends Component<{}, State> {
             Reverse
           </Button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {(isReordered) && (
             <Button
               onClick={this.reset}
               className="is-danger is-light"
