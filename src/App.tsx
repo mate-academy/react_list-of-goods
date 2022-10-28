@@ -35,15 +35,18 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((firstGood, secondGood) => (
-      firstGood.localeCompare(secondGood)
-    ));
-  } else if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((firstGood, secondGood) => (
-      firstGood.length - secondGood.length
-    ));
-  }
+  visibleGoods.sort((firstGood, secondGood) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return firstGood.localeCompare(secondGood);
+
+      case SortType.LENGTH:
+        return firstGood.length - secondGood.length;
+
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed === true) {
     visibleGoods.reverse();
