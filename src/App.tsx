@@ -22,18 +22,12 @@ type State = {
   sortBy: string,
   resetVisibility: boolean,
   classVisibility: string,
-  isReverseClicked: boolean,
 };
 
-type ButtonsMap = {
-  ALPHABETICALLY: string,
-  BUY_LENGTH: string,
-};
-
-const buttonsMap: ButtonsMap = {
-  ALPHABETICALLY: 'ALPHABETICALLY',
-  BUY_LENGTH: 'BUY_LENGTH',
-};
+enum ButtonsMap {
+  ALPHABETICALLY = 'ALPHABETICALLY',
+  BY_LENGTH = 'BY_LENGTH',
+}
 
 export class App extends React.Component<{}, State> {
   state = {
@@ -42,7 +36,6 @@ export class App extends React.Component<{}, State> {
     sortBy: '',
     resetVisibility: false,
     classVisibility: '',
-    isReverseClicked: false,
   };
 
   toShowButton = () => {
@@ -53,7 +46,6 @@ export class App extends React.Component<{}, State> {
     this.setState(state => ({
       isReversed: !state.isReversed,
       resetVisibility: true,
-      isReverseClicked: !state.isReverseClicked,
     }));
   };
 
@@ -69,7 +61,7 @@ export class App extends React.Component<{}, State> {
     this.setState({
       sortBy: 'length',
       resetVisibility: true,
-      classVisibility: 'BUY_LENGTH',
+      classVisibility: 'BY_LENGTH',
     });
   };
 
@@ -80,7 +72,6 @@ export class App extends React.Component<{}, State> {
       sortBy: '',
       resetVisibility: false,
       classVisibility: '',
-      isReverseClicked: false,
     });
   };
 
@@ -91,17 +82,16 @@ export class App extends React.Component<{}, State> {
       sortBy,
       resetVisibility,
       classVisibility,
-      isReverseClicked,
     } = this.state;
 
     const visibleGoods = [...goods];
 
-    visibleGoods.sort((alph, len) => {
+    visibleGoods.sort((a, b) => {
       switch (sortBy) {
         case 'alpha':
-          return alph.localeCompare(len);
+          return a.localeCompare(b);
         case 'length':
-          return alph.length - len.length;
+          return a.length - b.length;
         default:
           return 0;
       }
@@ -118,8 +108,8 @@ export class App extends React.Component<{}, State> {
             type="button"
             onClick={this.sortByAlphabet}
             className={classNames('button', {
-              'is-info is-light': classVisibility !== buttonsMap.ALPHABETICALLY,
-              'is-info': classVisibility === buttonsMap.ALPHABETICALLY,
+              'is-info is-light': classVisibility !== ButtonsMap.ALPHABETICALLY,
+              'is-info': classVisibility === ButtonsMap.ALPHABETICALLY,
             })}
           >
             Sort alphabetically
@@ -128,8 +118,8 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button', {
-              'is-success is-light': classVisibility !== buttonsMap.BUY_LENGTH,
-              'is-success': classVisibility === buttonsMap.BUY_LENGTH,
+              'is-success is-light': classVisibility !== ButtonsMap.BY_LENGTH,
+              'is-success': classVisibility === ButtonsMap.BY_LENGTH,
             })}
             onClick={this.sortByLength}
           >
@@ -139,8 +129,8 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button', {
-              'is-warning is-light': !isReverseClicked,
-              'is-warning': isReverseClicked,
+              'is-warning is-light': !isReversed,
+              'is-warning': isReversed,
             })}
             onClick={this.reverse}
           >
