@@ -39,10 +39,6 @@ export class App extends React.Component<{}, State> {
     goods: goodsFromServer,
   };
 
-  showReset = () => {
-    this.setState({ resetVisible: true });
-  };
-
   sortAlpha = () => {
     this.setState({
       sortBy: 'alpha',
