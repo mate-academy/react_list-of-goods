@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 0,
-  ALPABET = 1,
-  LENGTH = 2,
+  NONE,
+  ALPABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -92,6 +92,8 @@ export class App extends React.Component<{}, State> {
       goodsFromServer, { isReversed, sortType },
     );
 
+    const isOriginal: boolean = isReversed || sortType !== SortType.NONE;
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -131,7 +133,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isOriginal && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -143,13 +145,11 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(good => (
-              <li data-cy="Good" key={good}>
-                {good}
-              </li>
-            ))}
-          </ul>
+          {visibleGoods.map(good => (
+            <li data-cy="Good" key={good}>
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
