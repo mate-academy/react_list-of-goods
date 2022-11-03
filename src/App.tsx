@@ -17,15 +17,13 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'NONE',
-  ALPABET = 'ALPABET',
-  LENGTH = 'LENGTH',
+  NONE = 'none',
+  ALPABET = 'alphabet',
+  LENGTH = 'length',
 }
 
 type State = {
   isReversed: boolean,
-  resetVisible: boolean,
-  classVisible: string,
   sortBy: string,
   goods: string[],
 };
@@ -33,32 +31,25 @@ type State = {
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    resetVisible: false,
-    classVisible: '',
     sortBy: '',
     goods: goodsFromServer,
   };
 
   sortAlpha = () => {
     this.setState({
-      sortBy: 'alpha',
-      resetVisible: true,
-      classVisible: 'ALPABET',
+      sortBy: SortType.ALPABET,
     });
   };
 
   sortLength = () => {
     this.setState({
-      sortBy: 'length',
-      resetVisible: true,
-      classVisible: 'LENGTH',
+      sortBy: SortType.LENGTH,
     });
   };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      resetVisible: !state.isReversed,
     }));
   };
 
@@ -67,29 +58,25 @@ export class App extends React.Component<{}, State> {
       goods: goodsFromServer,
       isReversed: false,
       sortBy: '',
-      resetVisible: false,
-      classVisible: '',
     });
   };
 
   render() {
     const {
       isReversed,
-      resetVisible,
-      classVisible,
       sortBy,
       goods,
     } = this.state;
 
     const visibleGoods = [...goods];
 
-    visibleGoods.sort((alpha, length) => {
+    visibleGoods.sort((a, b) => {
       switch (sortBy) {
-        case 'alpha':
-          return alpha.localeCompare(length);
+        case 'alphabet':
+          return a.localeCompare(b);
 
         case 'length':
-          return alpha[sortBy] - length[sortBy];
+          return a[sortBy] - b[sortBy];
 
         default:
           return 0;
@@ -106,8 +93,8 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button', {
-              'is-info is-light': classVisible !== SortType.ALPABET,
-              'is-info': classVisible === SortType.ALPABET,
+              'is-info is-light': sortBy !== SortType.ALPABET,
+              'is-info': sortBy === SortType.ALPABET,
             })}
             onClick={this.sortAlpha}
           >
@@ -117,8 +104,8 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button', {
-              'is-success is-light': classVisible !== SortType.LENGTH,
-              'is-success': classVisible === SortType.LENGTH,
+              'is-success is-light': sortBy !== SortType.LENGTH,
+              'is-success': sortBy === SortType.LENGTH,
             })}
             onClick={this.sortLength}
           >
@@ -136,7 +123,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {resetVisible && (
+          {(sortBy || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
