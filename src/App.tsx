@@ -25,14 +25,12 @@ enum SortType {
 type State = {
   isReversed: boolean,
   sortBy: string,
-  goods: string[],
 };
 
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortBy: '',
-    goods: goodsFromServer,
   };
 
   sortAlpha = () => {
@@ -55,7 +53,6 @@ export class App extends React.Component<{}, State> {
 
   reset = () => {
     this.setState({
-      goods: goodsFromServer,
       isReversed: false,
       sortBy: '',
     });
@@ -65,17 +62,14 @@ export class App extends React.Component<{}, State> {
     const {
       isReversed,
       sortBy,
-      goods,
     } = this.state;
 
-    const visibleGoods = [...goods];
-
-    visibleGoods.sort((a, b) => {
+    const visibleGoods = [...goodsFromServer].sort((a, b) => {
       switch (sortBy) {
-        case 'alphabet':
+        case SortType.ALPABET:
           return a.localeCompare(b);
 
-        case 'length':
+        case SortType.LENGTH:
           return a[sortBy] - b[sortBy];
 
         default:
