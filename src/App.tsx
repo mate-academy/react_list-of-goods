@@ -27,6 +27,29 @@ type State = {
   sortBy: string,
 };
 
+export function getVisibleGoods(
+  { sortBy, isReversed }: State,
+) {
+  const visibleGoods = [...goodsFromServer].sort((a, b) => {
+    switch (sortBy) {
+      case SortType.ALPABET:
+        return a.localeCompare(b);
+
+      case SortType.LENGTH:
+        return a[sortBy] - b[sortBy];
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
+}
+
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
@@ -64,22 +87,10 @@ export class App extends React.Component<{}, State> {
       sortBy,
     } = this.state;
 
-    const visibleGoods = [...goodsFromServer].sort((a, b) => {
-      switch (sortBy) {
-        case SortType.ALPABET:
-          return a.localeCompare(b);
-
-        case SortType.LENGTH:
-          return a[sortBy] - b[sortBy];
-
-        default:
-          return 0;
-      }
+    const goods = getVisibleGoods({
+      sortBy,
+      isReversed,
     });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div className="section content">
@@ -130,7 +141,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {visibleGoods.map(good => (
+            {goods.map(good => (
               <li
                 data-cy="Good"
                 key={good}
