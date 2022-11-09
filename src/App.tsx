@@ -127,15 +127,17 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType) && (
-            <button
-              type="button"
-              className="button is-danger is-light"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
-          )}
+          {(isReversed || sortType)
+            ? (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )
+            : null}
         </div>
 
         <ul>
