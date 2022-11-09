@@ -133,7 +133,7 @@ export class App extends Component <{}, State> {
           >
             Reverse
           </button>
-          {(isReversed || sortType) && (
+          {(isReversed || sortType) ? (
             <button
               type="button"
               className="button is-danger is-light"
@@ -141,7 +141,9 @@ export class App extends Component <{}, State> {
             >
               Reset
             </button>
-          )}
+          )
+            : '' }
+
         </div>
 
         <ul>
