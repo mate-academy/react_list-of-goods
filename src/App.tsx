@@ -42,7 +42,7 @@ export function getReorderedGoods(
         return item1.localeCompare(item2);
 
       default:
-        return SortType.NONE;
+        return 0;
     }
   });
 
@@ -88,6 +88,8 @@ export class App extends React.Component<{}, State> {
       sortType,
       isReversed,
     } = this.state;
+
+    const reorderOptions = { sortType, isReversed };
 
     return (
       <div className="section content">
@@ -143,7 +145,7 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          {getReorderedGoods(goodsFromServer, this.state).map(good => (
+          {getReorderedGoods(goodsFromServer, reorderOptions).map(good => (
             <li key={good} data-cy="Good">
               {good}
             </li>
