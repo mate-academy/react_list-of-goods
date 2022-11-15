@@ -27,12 +27,10 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   switch (sortType) {
@@ -55,23 +53,16 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
 export const App: React.FC = () => {
   const [sortType, setSortType] = useState(SortType.NONE);
   const [isReversed, setIsReversed] = useState(false);
+  const visibleResetButton = (sortType !== SortType.NONE) || isReversed;
 
   return (
     <div className="section content">
@@ -109,7 +100,7 @@ export const App: React.FC = () => {
           Reverse
         </button>
 
-        { ((sortType !== SortType.NONE) || isReversed) && (
+        { visibleResetButton && (
           <button
             type="button"
             className="button is-danger is-light"
