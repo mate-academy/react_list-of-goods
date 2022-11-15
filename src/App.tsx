@@ -2,7 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classnames from 'classnames';
-import { List } from './goodsList';
+import { List } from './List';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -19,7 +19,7 @@ export const goodsFromServer = [
 
 enum SortType {
   NONE,
-  ALPABET,
+  ALPHABET,
   LENGTH,
 }
 
@@ -44,7 +44,7 @@ function getReorderedGoods(
       case SortType.LENGTH:
         return a.length - b.length;
 
-      case SortType.ALPABET:
+      case SortType.ALPHABET:
         return a.localeCompare(b);
 
       default:
@@ -75,8 +75,8 @@ export class App extends React.Component<{}, State> {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  sortGoodsAlpha = () => {
-    this.setState({ sortType: SortType.ALPABET });
+  sortGoodsAlphabetically = () => {
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   reset = () => {
@@ -95,9 +95,9 @@ export class App extends React.Component<{}, State> {
             className={classnames({
               button: true,
               'is-info': true,
-              'is-light': this.state.sortType !== SortType.ALPABET,
+              'is-light': this.state.sortType !== SortType.ALPHABET,
             })}
-            onClick={this.sortGoodsAlpha}
+            onClick={this.sortGoodsAlphabetically}
           >
             Sort alphabetically
           </button>
