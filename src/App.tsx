@@ -53,8 +53,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
@@ -62,7 +60,7 @@ export function getReorderedGoods(
 export const App: React.FC = () => {
   const [sortType, setSortType] = useState(SortType.NONE);
   const [isReversed, setIsReversed] = useState(false);
-  const visibleResetButton = (sortType !== SortType.NONE) || isReversed;
+  const isResetButtonVisible = (sortType !== SortType.NONE) || isReversed;
 
   return (
     <div className="section content">
@@ -94,13 +92,13 @@ export const App: React.FC = () => {
           onClick={() => setIsReversed(!isReversed)}
           className={classNames(
             'button is-warning',
-            { 'is-light': isReversed !== true },
+            { 'is-light': !isReversed },
           )}
         >
           Reverse
         </button>
 
-        { visibleResetButton && (
+        { isResetButtonVisible && (
           <button
             type="button"
             className="button is-danger is-light"
