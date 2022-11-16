@@ -49,18 +49,18 @@ type State = {
   sortType: SortType,
 };
 
-export class App extends Component {
+export class App extends Component<{}, State> {
   state: State = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortAlphabetically = () => {
-    this.setState({ sortType: 1 });
+    this.setState({ sortType: SortType.ALPABET });
   };
 
   sortByLength = () => {
-    this.setState({ sortType: 2 });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   reverse = () => {
@@ -72,7 +72,7 @@ export class App extends Component {
   reset = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
     });
   };
 
@@ -83,14 +83,14 @@ export class App extends Component {
 
     goods.sort((good1, good2) => {
       switch (sortType) {
-        case 1:
+        case SortType.ALPABET:
           return good1.localeCompare(good2);
 
-        case 2:
+        case SortType.LENGTH:
           return good1.length - good2.length;
 
         default:
-          return 0;
+          return SortType.NONE;
       }
     });
 
@@ -106,7 +106,7 @@ export class App extends Component {
             className={classNames(
               'button is-info',
               {
-                'is-light': sortType !== 1,
+                'is-light': sortType !== SortType.ALPABET,
               },
             )}
             onClick={this.sortAlphabetically}
@@ -119,7 +119,7 @@ export class App extends Component {
             className={classNames(
               'button is-success',
               {
-                'is-light': sortType !== 2,
+                'is-light': sortType !== SortType.LENGTH,
               },
             )}
             onClick={this.sortByLength}
@@ -140,7 +140,7 @@ export class App extends Component {
             Reverse
           </button>
 
-          {(isReversed !== false || sortType !== 0) && (
+          {(isReversed !== false || sortType !== SortType.NONE) && (
             <button
               type="button"
               className="button is-danger is-light"
