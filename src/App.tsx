@@ -106,7 +106,6 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-
           >
             Sort alphabetically
           </button>
@@ -148,7 +147,6 @@ export class App extends React.Component<{}, State> {
               Reset
             </button>
           )}
-
         </div>
 
         <ul>
