@@ -31,24 +31,21 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  let visibleGoods = [...goods];
+  const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.ALPABET:
-      visibleGoods.sort((good1, good2) => (good1.localeCompare(good2)));
-      break;
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.LENGTH:
+        return good1.length - good2.length;
 
-    case SortType.LENGTH:
-      visibleGoods.sort((good1, good2) => (good1.length - good2.length));
-      break;
+      case SortType.ALPABET:
+        return good1.localeCompare(good2);
 
-    case SortType.NONE:
-      visibleGoods = [...goods];
-      break;
-
-    default:
-      break;
-  }
+      case SortType.NONE:
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -73,14 +70,17 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const orderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            // eslint-disable-next-line max-len
-            className={classNames('button is-info', { 'is-light': sortType !== SortType.ALPABET })}
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPABET }
+            )}
             onClick={() => {
               this.setState(() => ({
                 sortType: SortType.ALPABET,
@@ -92,8 +92,10 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            // eslint-disable-next-line max-len
-            className={classNames('button is-success', { 'is-light': sortType !== SortType.LENGTH })}
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={() => {
               this.setState(() => ({
                 sortType: SortType.LENGTH,
@@ -105,8 +107,10 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            // eslint-disable-next-line max-len
-            className={classNames('button is-warning', { 'is-light': !isReversed })}
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
+            )}
             onClick={() => {
               this.setState(state => ({
                 isReversed: !state.isReversed,
@@ -116,8 +120,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {
-            (sortType !== SortType.NONE || isReversed)
+          {(sortType !== SortType.NONE || isReversed)
               && (
                 <button
                   type="button"
@@ -131,13 +134,12 @@ export class App extends Component<{}, State> {
                 >
                   Reset
                 </button>
-              )
-          }
+              )}
         </div>
 
         <ul>
           {
-            getReorderedGoods(goodsFromServer, this.state).map((good) => (
+            orderedGoods.map((good) => (
               <li key={good} data-cy="Good">{good}</li>
             ))
           }
