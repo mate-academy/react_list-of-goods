@@ -84,7 +84,10 @@ export class App extends Component<{}, State> {
   };
 
   resetButton = () => {
-    this.setState({ sortType: SortType.NONE, isReversed: false });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
   render() {
@@ -102,7 +105,7 @@ export class App extends Component<{}, State> {
             className={sortType === SortType.ALPABET
               ? 'button is-info'
               : 'button is-info is-light'}
-            onClick={() => this.sortByAlphabetButton()}
+            onClick={this.sortByAlphabetButton}
           >
             Sort alphabetically
           </button>
@@ -112,7 +115,7 @@ export class App extends Component<{}, State> {
             className={sortType === SortType.LENGTH
               ? 'button is-success'
               : 'button is-success is-light'}
-            onClick={() => this.sortByLengthButton()}
+            onClick={this.sortByLengthButton}
           >
             Sort by length
           </button>
@@ -122,7 +125,7 @@ export class App extends Component<{}, State> {
             className={isReversed
               ? 'button is-warning'
               : 'button is-warning is-light'}
-            onClick={() => this.reverseButton()}
+            onClick={this.reverseButton}
           >
             Reverse
           </button>
@@ -131,7 +134,7 @@ export class App extends Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => this.resetButton()}
+              onClick={this.resetButton}
             >
               Reset
             </button>
