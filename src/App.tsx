@@ -38,8 +38,10 @@ export function getReorderedGoods(
     switch (sortType) {
       case SortType.ALPABET:
         return goodOne.localeCompare(goodTwo);
+
       case SortType.LENGTH:
         return goodOne.length - goodTwo.length;
+
       case SortType.NONE:
       default:
         return 0;
