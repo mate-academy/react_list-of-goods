@@ -18,9 +18,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'NONE',
-  ALPABET = 'ALPHABET',
-  LENGTH = 'LENGTH',
+  NONE,
+  ALPABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -90,6 +90,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+    const isDisplay = isReversed || sortType !== SortType.NONE;
 
     const allGoods = getReorderedGoods(
       goodsFromServer, { sortType, isReversed },
@@ -100,10 +101,12 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button is-info',
+            className={classNames(
+              'button is-info',
               {
                 'is-light': sortType !== SortType.ALPABET,
-              })}
+              },
+            )}
             onClick={this.sortByAlphabrtical}
           >
             Sort alphabetically
@@ -111,10 +114,12 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-success',
+            className={classNames(
+              'button is-success',
               {
                 'is-light': sortType !== SortType.LENGTH,
-              })}
+              },
+            )}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -122,16 +127,18 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-warning',
+            className={classNames(
+              'button is-warning',
               {
                 'is-light': !isReversed,
-              })}
+              },
+            )}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {isReversed || sortType !== SortType.NONE
+          {isDisplay
             ? (
               <button
                 type="button"
