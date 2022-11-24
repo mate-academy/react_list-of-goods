@@ -32,7 +32,7 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  const visibleGoods = [...goods];
+  const visibleGoods:string[] = [...goods];
 
   visibleGoods.sort((goodOne, goodTwo) => {
     switch (sortType) {
@@ -40,6 +40,7 @@ export function getReorderedGoods(
         return goodOne.localeCompare(goodTwo);
       case SortType.LENGTH:
         return goodOne.length - goodTwo.length;
+      case SortType.NONE:
       default:
         return 0;
     }
@@ -92,7 +93,7 @@ export class App extends React.Component<{}, State> {
     const { sortType, isReversed } = this.state;
     const isDisplay = isReversed || sortType !== SortType.NONE;
 
-    const allGoods = getReorderedGoods(
+    const preparedGoods = getReorderedGoods(
       goodsFromServer, { sortType, isReversed },
     );
 
@@ -152,7 +153,7 @@ export class App extends React.Component<{}, State> {
         </div>
         <ul>
           <GoodsList goods={
-            allGoods
+            preparedGoods
           }
           />
         </ul>
