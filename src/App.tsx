@@ -41,16 +41,15 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return good1.length - good2.length;
 
+      case SortType.NONE:
       default:
         return 0;
     }
   });
 
-  if (isReversed) {
-    visibleGoods.reverse();
-  }
-
-  return visibleGoods;
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
 }
 
 type State = {
@@ -125,15 +124,17 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
-            <button
-              type="button"
-              className="button is-danger is-light"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
-          )}
+          {
+            (isReversed || sortType !== SortType.NONE) && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )
+          }
         </div>
 
         <ul>
