@@ -81,6 +81,7 @@ export class App extends Component< {}, State > {
     const visibleGoods = getReorderedGoods(
       goodsFromServer, { isReversed, sortType },
     );
+    const resetButtonCondition = isReversed || sortType !== SortType.NONE;
 
     visibleGoods.sort((g1, g2) => {
       switch (sortType) {
@@ -141,7 +142,7 @@ export class App extends Component< {}, State > {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {resetButtonCondition && (
             <button
               type="button"
               className="button is-danger is-light"
