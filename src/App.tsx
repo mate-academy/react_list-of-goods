@@ -127,7 +127,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed !== false)
+          {(isReversed || sortType !== SortType.NONE)
             && (
               <button
                 type="button"
