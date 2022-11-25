@@ -76,7 +76,7 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  goodsReversed = () => {
+  reverseGoods = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -121,20 +121,20 @@ export class App extends React.Component<{}, State> {
             className={className('button is-warning', {
               'is-light': !isReversed,
             })}
-            onClick={this.goodsReversed}
+            onClick={this.reverseGoods}
           >
             Reverse
           </button>
 
-          <button
-            type="button"
-            className={className('button is-danger is-light', {
-              hiddenElement: sortType === SortType.NONE && !isReversed,
-            })}
-            onClick={this.reset}
-          >
-            Reset
-          </button>
+          {(isReversed || sortType !== SortType.NONE) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
