@@ -27,17 +27,11 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   visibleGoods.sort((currentGood, nextGood) => {
     switch (sortType) {
@@ -49,7 +43,7 @@ export function getReorderedGoods(
 
       case SortType.NONE:
       default:
-        break
+       return 0;
     }
   });
 
