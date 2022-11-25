@@ -37,7 +37,23 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -84,23 +100,6 @@ export class App extends React.Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-
-    visibleGoods.sort((good1, good2) => {
-      switch (sortType) {
-        case SortType.ALPABET:
-          return good1.localeCompare(good2);
-
-        case SortType.LENGTH:
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div className="section content">
@@ -160,12 +159,6 @@ export class App extends React.Component<{}, State> {
                 {good}
               </li>
             ))}
-            {/* <li data-cy="Good">Dumplings</li>
-            <li data-cy="Good">Carrot</li>
-            <li data-cy="Good">Eggs</li>
-            <li data-cy="Good">Ice cream</li>
-            <li data-cy="Good">Apple</li>
-            <li data-cy="Good">...</li> */}
           </ul>
         </ul>
       </div>
