@@ -93,6 +93,7 @@ export class App extends Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const { reverse, setSortType, reset } = this;
+    const isOrderChanged = isReversed || sortType !== SortType.NONE;
     const orderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
@@ -128,23 +129,21 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {sortType === SortType.NONE && !isReversed
-            ? ('')
-            : (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={() => reset()}
-              >
-                Reset
-              </button>
-            )}
+          {isOrderChanged && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={() => reset()}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
           <ul>
             {orderedGoods.map(good => (
-              <li data-cy="Good">{ good }</li>
+              <li data-cy="Good" key={good}>{ good }</li>
             ))}
           </ul>
         </ul>
