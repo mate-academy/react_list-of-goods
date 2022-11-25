@@ -79,8 +79,10 @@ export class App extends React.Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ sortType: SortType.NONE });
-    this.setState({ isReversed: false });
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
   };
 
   render() {
