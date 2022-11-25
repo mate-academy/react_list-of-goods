@@ -67,12 +67,6 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
-  };
-
   sortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
@@ -83,6 +77,12 @@ export class App extends Component<{}, State> {
     this.setState({
       sortType: SortType.LENGTH,
     });
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
   };
 
   reset = () => {
@@ -127,7 +127,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed)
+          {(sortType !== SortType.NONE || isReversed !== false)
             && (
               <button
                 type="button"
