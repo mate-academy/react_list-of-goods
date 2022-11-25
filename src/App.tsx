@@ -136,7 +136,7 @@ export class App extends React.Component<{}, State> {
         <ul>
           <ul>
             {getReorderedGoods(goodsFromServer, this.state).map(good => (
-              <li data-cy="Good">{good}</li>
+              <li key={good} data-cy="Good">{good}</li>
             ))}
           </ul>
         </ul>
