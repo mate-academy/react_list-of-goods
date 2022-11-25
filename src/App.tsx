@@ -43,7 +43,7 @@ export function getReorderedGoods(
 
       case SortType.NONE:
       default:
-       return 0;
+        return 0;
     }
   });
 
@@ -57,7 +57,7 @@ export function getReorderedGoods(
 interface State {
   isReversed: boolean,
   sortType: SortType,
-};
+}
 
 export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
@@ -111,8 +111,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             onClick={this.sortByLength}
             className={classNames(
-              'button',
-              'is-success',
+              'button is-success',
               {
                 'is-light': sortType !== SortType.LENGTH,
               },
@@ -125,8 +124,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             onClick={this.reverse}
             className={classNames(
-              'button',
-              'is-warning',
+              'button is-warning',
               {
                 'is-light': !isReversed,
               },
@@ -157,5 +155,5 @@ export class App extends React.Component<{}, State> {
         </ul>
       </div>
     );
-  };
+  }
 }
