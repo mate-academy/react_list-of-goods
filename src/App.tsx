@@ -33,13 +33,13 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((a, b) => {
+  visibleGoods.sort((firstGood, secondGood) => {
     switch (sortType) {
       case SortType.ALPABET:
-        return a.localeCompare(b);
+        return firstGood.localeCompare(secondGood);
 
       case SortType.LENGTH:
-        return a.length - b.length;
+        return firstGood.length - secondGood.length;
 
       default:
         return 0;
@@ -84,6 +84,9 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const modifiedGoods = getReorderedGoods(
+      goodsFromServer, { isReversed, sortType },
+    );
 
     return (
       <div className="section content">
@@ -141,17 +144,16 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, { isReversed, sortType })
-              .map(good => {
-                return (
-                  <li
-                    data-cy="Good"
-                    key={good}
-                  >
-                    {good}
-                  </li>
-                );
-              })}
+            {modifiedGoods.map(good => {
+              return (
+                <li
+                  data-cy="Good"
+                  key={good}
+                >
+                  {good}
+                </li>
+              );
+            })}
           </ul>
         </ul>
       </div>
