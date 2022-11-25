@@ -33,14 +33,15 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((a, b) => {
+  visibleGoods.sort((good1, good2) => {
     switch (sortType) {
       case SortType.ALPHABET:
-        return a.localeCompare(b);
+        return good1.localeCompare(good2);
 
       case SortType.LENGTH:
-        return a.length - b.length;
+        return good1.length - good2.length;
 
+      case SortType.NONE:
       default:
         return 0;
     }
@@ -88,6 +89,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const goods = getReorderedGoods(goodsFromServer, this.state);
+    const isDefault = (isReversed || sortType) !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -125,7 +127,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isDefault && (
             <button
               type="button"
               className="button is-danger is-light"
