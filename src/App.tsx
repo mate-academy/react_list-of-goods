@@ -43,6 +43,7 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return good1.length - good2.length;
 
+      case SortType.NONE:
       default:
         return 0;
     }
@@ -93,6 +94,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
     const isOrderChanged = isReversed || sortType !== SortType.NONE;
 
@@ -104,7 +106,9 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button',
               'is-info',
-              { 'is-light': sortType !== SortType.ALPABET },
+              {
+                'is-light': sortType !== SortType.ALPABET,
+              },
             )}
             onClick={this.sortAlphabetically}
           >
@@ -116,7 +120,9 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button',
               'is-success',
-              { 'is-light': sortType !== SortType.LENGTH },
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              },
             )}
             onClick={this.sortByLength}
           >
