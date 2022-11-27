@@ -41,10 +41,12 @@ export const App: React.FC = () => {
   const [showResetButton, setShowResetButton] = useState(false);
   const [reverseGoods, setReverseGoods] = useState(false);
 
-  const alphabeticalSortButton
-  = document.getElementById('alphabeticalSortButton');
-  const lengthSortButton = document.getElementById('lengthSortButton');
-  const reverseSortButton = document.getElementById('reverseSortButton');
+  const alphabeticalSortButton: HTMLElement
+  = document.getElementById('alphabeticalSortButton') as HTMLElement;
+  const lengthSortButton: HTMLElement
+  = document.getElementById('lengthSortButton') as HTMLElement;
+  const reverseSortButton: HTMLElement
+  = document.getElementById('reverseSortButton') as HTMLElement;
 
   return (
     <div className="section content">
