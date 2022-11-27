@@ -22,20 +22,17 @@ enum SortType {
   LENGTH,
 }
 
-type ReorderOptions = {
+type State = {
   sortType: SortType,
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
+  { sortType, isReversed }: State,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -45,7 +42,7 @@ export function getReorderedGoods(
       break;
 
     case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
+      visibleGoods.sort((good1, good2) => good1.length - good2.length);
       break;
 
     default:
@@ -55,14 +52,8 @@ export function getReorderedGoods(
   return isReversed ? visibleGoods.reverse() : visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export class App extends Component<{}, ReorderOptions> {
-  state: Readonly<ReorderOptions> = {
+export class App extends Component<{}, State> {
+  state: Readonly<State> = {
     sortType: SortType.NONE,
     isReversed: false,
   };
@@ -92,7 +83,8 @@ export class App extends Component<{}, ReorderOptions> {
     const { sortType, isReversed } = this.state;
 
     const goods = getReorderedGoods(
-      goodsFromServer, { sortType, isReversed },
+      goodsFromServer,
+      { sortType, isReversed },
     );
 
     const isChanged = isReversed || sortType !== SortType.NONE;
