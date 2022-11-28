@@ -36,6 +36,19 @@ export function getReorderedGoods(
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        return 0;
+    }
+  });
+
   switch (sortType) {
     case SortType.ALPABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
