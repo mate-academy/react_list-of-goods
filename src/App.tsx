@@ -76,15 +76,9 @@ export class App extends Component< {}, State > {
     });
   };
 
-  render() {
-    const { isReversed, sortType } = this.state;
-    const visibleGoods = getReorderedGoods(
-      goodsFromServer, { isReversed, sortType },
-    );
-    const resetButtonCondition = isReversed || sortType !== SortType.NONE;
-
-    visibleGoods.sort((g1, g2) => {
-      switch (sortType) {
+  getSortedGoods = () => {
+    return [...goodsFromServer].sort((g1, g2) => {
+      switch (this.state.sortType) {
         case SortType.ALPHABET:
           return g1.localeCompare(g2);
 
@@ -95,6 +89,12 @@ export class App extends Component< {}, State > {
           return 0;
       }
     });
+  };
+
+  render() {
+    const { isReversed, sortType } = this.state;
+    const visibleGoods = this.getSortedGoods();
+    const resetButtonCondition = isReversed || sortType !== SortType.NONE;
 
     if (isReversed) {
       visibleGoods.reverse();
