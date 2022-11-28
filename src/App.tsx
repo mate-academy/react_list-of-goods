@@ -1,6 +1,9 @@
-import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
+import React from 'react';
+
+import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -34,62 +37,124 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
+  if (sortType === SortType.ALPABET) {
+    visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
+  }
+
+  if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((g1, g2) => g1.length - g2.length);
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
+  isChanged: boolean,
 };
+
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isReversed: false,
+    sortType: SortType.NONE,
+    isChanged: false,
+  };
+
+  sortByAlphabet = () => {
+    this.setState({
+      sortType: SortType.ALPABET,
+      isChanged: true,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+      isChanged: true,
+    });
+  };
+
+  reverseList = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  resetOptions = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+      isChanged: false,
+    });
+  };
+
+  render() {
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isAnyChange = this.state.isChanged || this.state.isReversed;
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={classNames(
+              'button is-info',
+              { 'is-light': this.state.sortType !== SortType.ALPABET },
+            )}
+            onClick={this.sortByAlphabet}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={classNames(
+              'button is-success',
+              { 'is-light': this.state.sortType !== SortType.LENGTH },
+            )}
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !this.state.isReversed },
+            )}
+            onClick={this.reverseList}
+          >
+            Reverse
+          </button>
+
+          <button
+            type="button"
+            className={classNames('button is-danger is-light',
+              {
+                'is-visible': isAnyChange,
+                'is-hidden': !isAnyChange,
+              })}
+            onClick={this.resetOptions}
+          >
+            Reset
+          </button>
+        </div>
+
+        <ul>
+          <ul>
+            <GoodsList visibleGoods={visibleGoods} />
+          </ul>
+        </ul>
+      </div>
+    );
+  }
+}
