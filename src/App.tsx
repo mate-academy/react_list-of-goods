@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import { ListOfGoods } from './components/ListOfGoods/ListOfGoods';
+import { ListOfGoods } from './ListOfGoods';
 
 export const goodsFromServer = [
   'Dumplings',
