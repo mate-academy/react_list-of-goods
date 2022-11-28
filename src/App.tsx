@@ -61,17 +61,19 @@ type State = {
 };
 
 export class App extends React.Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
   };
 
-  sortAlfabeticaly = () => {
-    this.setState({ sortType: SortType.ALPABET });
-  };
+  sortBy = (type: string) => {
+    if (type === 'ALPABET') {
+      this.setState({ sortType: SortType.ALPABET });
+    }
 
-  sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+    if (type === 'LENGTH') {
+      this.setState({ sortType: SortType.LENGTH });
+    }
   };
 
   reverse = () => {
@@ -102,7 +104,7 @@ export class App extends React.Component<{}, State> {
             className={classNames('button', 'is-info', {
               'is-light': sortType !== SortType.ALPABET,
             })}
-            onClick={this.sortAlfabeticaly}
+            onClick={() => this.sortBy('ALPABET')}
           >
             Sort alphabetically
           </button>
@@ -114,7 +116,7 @@ export class App extends React.Component<{}, State> {
               'is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={this.sortByLength}
+            onClick={() => this.sortBy('LENGTH')}
           >
             Sort by length
           </button>
@@ -143,11 +145,9 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(good => (
-              <li key={good} data-cy="Good">{good}</li>
-            ))}
-          </ul>
+          {visibleGoods.map(good => (
+            <li key={good} data-cy="Good">{good}</li>
+          ))}
         </ul>
       </div>
     );
