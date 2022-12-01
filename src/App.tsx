@@ -27,28 +27,28 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  if (sortType === SortType.ALPABET) {
-    visibleGoods.sort((a, b) => a.localeCompare(b));
+  switch (sortType) {
+    case SortType.ALPABET:
+      visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((good1, good2) => good1.length - good2.length);
+      break;
+
+    default:
+      break;
   }
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => a.length - b.length);
-  }
-
-  // eslint-disable-next-line no-console
   return isReversed ? visibleGoods.reverse() : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -57,18 +57,18 @@ type State = {
 export class App extends Component<{}, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortByAlphabet = () => {
     this.setState({
-      sortType: 1,
+      sortType: SortType.ALPABET,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortType: 2,
+      sortType: SortType.LENGTH,
     });
   };
 
@@ -81,13 +81,13 @@ export class App extends Component<{}, State> {
   reset = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
     });
   };
 
   render() {
     const { sortType, isReversed } = this.state;
-    const arr = getReorderedGoods(goodsFromServer, this.state);
+    const sortedGoods = getReorderedGoods(goodsFromServer, this.state);
     const isClicked = !(!isReversed && !sortType);
 
     return (
@@ -143,7 +143,7 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {arr.map((good) => (
+            {sortedGoods.map((good) => (
               <li data-cy="Good" key={good}>
                 {good}
               </li>
