@@ -33,16 +33,16 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   switch (sortType) {
-    case 0:
+    case SortType.NONE:
       break;
 
-    case 1:
+    case SortType.ALPABET:
       visibleGoods.sort(
         (good1, good2) => good1.localeCompare(good2),
       );
       break;
 
-    case 2:
+    case SortType.LENGTH:
       visibleGoods.sort(
         (good1, good2) => (good1.length - good2.length),
       );
@@ -68,20 +68,20 @@ type State = {
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
     isReset: false,
   };
 
   sortByAlphabet = () => {
     this.setState({
-      sortType: 1,
+      sortType: SortType.ALPABET,
       isReset: true,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortType: 2,
+      sortType: SortType.LENGTH,
       isReset: true,
     });
   };
@@ -89,7 +89,7 @@ export class App extends React.Component<{}, State> {
   reset = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
       isReset: false,
     });
   };
@@ -97,12 +97,8 @@ export class App extends React.Component<{}, State> {
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      isReset: true,
+      isReset: !state.isReversed || state.sortType !== SortType.NONE,
     }));
-
-    if (this.state.isReversed && this.state.sortType === 0) {
-      this.setState({ isReset: false });
-    }
   };
 
   render() {
@@ -114,7 +110,9 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${(sortType === 1) ? '' : 'is-light'}`}
+            className={
+              `button is-info ${(sortType === SortType.ALPABET) ? '' : 'is-light'}`
+            }
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -123,7 +121,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              `button is-success ${(sortType === 2) ? '' : 'is-light'}`
+              `button is-success ${(sortType === SortType.LENGTH) ? '' : 'is-light'}`
             }
             onClick={this.sortByLength}
           >
