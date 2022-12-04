@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -62,27 +63,23 @@ export function getReorderedGoods(
 type State = {
   isReversed: boolean,
   sortType: SortType,
-  isReset: boolean,
 };
 
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
-    isReset: false,
   };
 
   sortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
-      isReset: true,
     });
   };
 
   sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
-      isReset: true,
     });
   };
 
@@ -90,20 +87,18 @@ export class App extends React.Component<{}, State> {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
-      isReset: false,
     });
   };
 
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      isReset: !state.isReversed || state.sortType !== SortType.NONE,
     }));
   };
 
   render() {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-    const { isReversed, sortType, isReset } = this.state;
+    const { isReversed, sortType } = this.state;
 
     return (
       <div className="section content">
@@ -111,7 +106,11 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              `button is-info ${(sortType === SortType.ALPHABET) ? '' : 'is-light'}`
+              classNames(
+                'button',
+                'is-info',
+                { 'is-light': sortType !== SortType.ALPHABET },
+              )
             }
             onClick={this.sortByAlphabet}
           >
@@ -121,7 +120,11 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              `button is-success ${(sortType === SortType.LENGTH) ? '' : 'is-light'}`
+              classNames(
+                'button',
+                'is-success',
+                { 'is-light': sortType !== SortType.LENGTH },
+              )
             }
             onClick={this.sortByLength}
           >
@@ -131,14 +134,18 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              `button is-warning ${(isReversed) ? '' : 'is-light'}`
+              classNames(
+                'button',
+                'is-warning',
+                { 'is-light': !isReversed },
+              )
             }
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {isReset && (
+          {(isReversed || sortType !== SortType.NONE) && (
             <button
               type="button"
               className="button is-danger is-light"
