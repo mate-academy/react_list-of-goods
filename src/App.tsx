@@ -1,6 +1,20 @@
 import React from 'react';
+// import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
+
+const goodsFromServer = [
+  'Dumplings',
+  'Carrot',
+  'Eggs',
+  'Ice cream',
+  'Apple',
+  'Bread',
+  'Fish',
+  'Honey',
+  'Jam',
+  'Garlic',
+];
 
 type State = {
   isReversed: boolean,
@@ -13,22 +27,9 @@ export class App extends React.Component<{}, State> {
     sortBy: 0,
   };
 
-  goodsFromServer = [
-    'Dumplings',
-    'Carrot',
-    'Eggs',
-    'Ice cream',
-    'Apple',
-    'Bread',
-    'Fish',
-    'Honey',
-    'Jam',
-    'Garlic',
-  ];
-
   render() {
     const { isReversed } = this.state;
-    const visibleGoods = [...this.goodsFromServer];
+    const visibleGoods = [...goodsFromServer];
 
     const reverse = () => {
       this.setState(state => ({
@@ -56,8 +57,8 @@ export class App extends React.Component<{}, State> {
     }
 
     if (this.state.sortBy === 2) {
-      visibleGoods.sort((g1, g2) => {
-        return g1.length - g2.length;
+      visibleGoods.sort((good1, good2) => {
+        return good1.length - good2.length;
       });
     }
 
@@ -73,11 +74,12 @@ export class App extends React.Component<{}, State> {
               sortedAlphabetically();
             }}
             type="button"
-            className={
-              this.state.sortBy === 1
-                ? 'button is-info'
-                : 'button is-info is-light'
-            }
+            // className={classNames(
+            //   'button is-info',
+            //   {
+            //     is-light: this.state.sortBy === 1
+            //   },
+            // )}
           >
             Sort alphabetically
           </button>
