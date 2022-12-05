@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-
 import classNames from 'classnames';
 
 export const goodsFromServer = [
@@ -66,21 +65,18 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  sortByAlphabet = () => {
+    this.setState({ sortType: SortType.ALPABET });
+  };
+
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
+
   reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
-  };
-
-  setSortType = (sortType: SortType) => {
-    return this.state.sortType === sortType
-      ? this.setState({
-        sortType: SortType.NONE,
-      })
-
-      : this.setState({
-        sortType,
-      });
   };
 
   reset = () => {
@@ -92,7 +88,12 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const { reverse, setSortType, reset } = this;
+    const {
+      sortByAlphabet,
+      sortByLength,
+      reverse,
+      reset,
+    } = this;
     const isOrderChanged = isReversed || sortType !== SortType.NONE;
     const orderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
@@ -104,7 +105,7 @@ export class App extends Component<{}, State> {
             className={classNames('button', 'is-info', {
               'is-light': sortType !== SortType.ALPABET,
             })}
-            onClick={(() => setSortType(SortType.ALPABET))}
+            onClick={sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -114,7 +115,7 @@ export class App extends Component<{}, State> {
             className={classNames('button', 'is-success', {
               'is-light': sortType !== SortType.LENGTH,
             })}
-            onClick={(() => setSortType(SortType.LENGTH))}
+            onClick={sortByLength}
           >
             Sort by length
           </button>
@@ -124,7 +125,7 @@ export class App extends Component<{}, State> {
             className={classNames('button', 'is-warning', {
               'is-light': !isReversed,
             })}
-            onClick={() => reverse()}
+            onClick={reverse}
           >
             Reverse
           </button>
@@ -133,7 +134,7 @@ export class App extends Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => reset()}
+              onClick={reset}
             >
               Reset
             </button>
