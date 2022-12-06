@@ -21,10 +21,16 @@ type State = {
   sortBy: number
 };
 
+enum SortType {
+  NONE,
+  ALPHABET,
+  LENGTH,
+}
+
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    sortBy: 0,
+    sortBy: SortType.NONE,
   };
 
   render() {
@@ -38,25 +44,25 @@ export class App extends React.Component<{}, State> {
     };
 
     const sortedAlphabetically = () => {
-      this.setState({ sortBy: 1 });
+      this.setState({ sortBy: SortType.ALPHABET });
     };
 
     const sortedLength = () => {
-      this.setState({ sortBy: 2 });
+      this.setState({ sortBy: SortType.LENGTH });
     };
 
     const reset = () => {
       this.setState({
         isReversed: false,
-        sortBy: 0,
+        sortBy: SortType.NONE,
       });
     };
 
-    if (this.state.sortBy === 1) {
+    if (this.state.sortBy === SortType.ALPHABET) {
       visibleGoods.sort();
     }
 
-    if (this.state.sortBy === 2) {
+    if (this.state.sortBy === SortType.LENGTH) {
       visibleGoods.sort((good1, good2) => {
         return good1.length - good2.length;
       });
@@ -70,14 +76,16 @@ export class App extends React.Component<{}, State> {
       <div className="section content">
         <div className="buttons">
           <button
-            onClick={() => {
-              sortedAlphabetically();
-            }}
+            onClick={sortedAlphabetically}
             type="button"
             className={classNames(
-              'button is-info',
               {
-                'button is-info is-light': this.state.sortBy === 1,
+                'button is-info is-light':
+                  this.state.sortBy !== SortType.ALPHABET,
+              },
+              {
+                'button is-info':
+                  this.state.sortBy === SortType.ALPHABET,
               },
             )}
           >
@@ -85,14 +93,16 @@ export class App extends React.Component<{}, State> {
           </button>
 
           <button
-            onClick={() => {
-              sortedLength();
-            }}
+            onClick={sortedLength}
             type="button"
             className={classNames(
-              'button is-success',
               {
-                'button is-success is-light': this.state.sortBy === 1,
+                'button is-success is-light':
+                  this.state.sortBy !== SortType.LENGTH,
+              },
+              {
+                'button is-success':
+                  this.state.sortBy === SortType.LENGTH,
               },
             )}
           >
@@ -105,9 +115,11 @@ export class App extends React.Component<{}, State> {
             }}
             type="button"
             className={classNames(
-              'button is-warning',
               {
-                'button is-warning is-light': this.state.isReversed === true,
+                'button is-warning is-light': this.state.isReversed === false,
+              },
+              {
+                'button is-warning': this.state.isReversed === true,
               },
             )}
           >
@@ -115,8 +127,9 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            (this.state.sortBy > 0 || this.state.isReversed === true)
-              ? (
+            (this.state.sortBy !== SortType.NONE
+              || this.state.isReversed === true)
+              && (
                 <button
                   onClick={() => {
                     reset();
@@ -127,7 +140,6 @@ export class App extends React.Component<{}, State> {
                   Reset
                 </button>
               )
-              : ('')
           }
         </div>
 
