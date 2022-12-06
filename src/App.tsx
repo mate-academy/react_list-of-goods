@@ -110,9 +110,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           <button
-            onClick={() => {
-              reverse();
-            }}
+            onClick={reverse}
             type="button"
             className={classNames(
               {
@@ -131,9 +129,7 @@ export class App extends React.Component<{}, State> {
               || this.state.isReversed === true)
               && (
                 <button
-                  onClick={() => {
-                    reset();
-                  }}
+                  onClick={reset}
                   type="button"
                   className="button is-danger is-light"
                 >
