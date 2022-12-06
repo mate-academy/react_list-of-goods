@@ -18,7 +18,7 @@ const goodsFromServer = [
 
 type State = {
   isReversed: boolean,
-  sortBy: number
+  sortBy: SortType
 };
 
 enum SortType {
