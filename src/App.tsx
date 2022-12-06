@@ -41,6 +41,7 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return goodA.length - goodB.length;
 
+      case SortType.NONE:
       default:
         return 0;
     }
@@ -49,9 +50,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
