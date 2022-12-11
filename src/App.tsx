@@ -35,12 +35,12 @@ export function getReorderedGoods(
 
   visibleGoods.sort((g1, g2) => {
     switch (sortType) {
-      case 1:
+      case SortType.ALPHABET:
         return g1.localeCompare(g2);
-      case 2:
+      case SortType.LENGTH:
         return g1.length - g2.length;
       default:
-        return 0;
+        return SortType.NONE;
     }
   });
 
@@ -72,7 +72,7 @@ export class App extends Component<{}, State> {
     const currentGoods = getReorderedGoods(goodsFromServer, this.state);
     const { sortType, isReversed } = this.state;
     const resetCondition
-      = (sortType !== 0) || (sortType === 0 && isReversed === true);
+      = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
