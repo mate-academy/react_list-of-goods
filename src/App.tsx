@@ -17,6 +17,12 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
+enum SortType {
+  NONE = 'id',
+  ALPHABET = 'alphabet',
+  LENGTH = 'length',
+}
+
 type State = {
   isReversed: boolean,
   sortBy: string,
@@ -25,7 +31,7 @@ type State = {
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    sortBy: 'id',
+    sortBy: SortType.NONE,
   };
 
   reverse = () => {
@@ -36,19 +42,19 @@ export class App extends React.Component<{}, State> {
 
   sortByAlphabet = () => {
     this.setState({
-      sortBy: 'alphabet',
+      sortBy: SortType.ALPHABET,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortBy: 'length',
+      sortBy: SortType.LENGTH,
     });
   };
 
   reset = () => {
     this.setState({
-      sortBy: 'id',
+      sortBy: SortType.NONE,
       isReversed: false,
     });
   };
@@ -81,8 +87,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-info',
-              { 'is-light': sortBy !== 'alphabet' })}
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortBy !== 'alphabet' },
+            )}
             onClick={this.sortByAlphabet}
 
           >
@@ -91,8 +99,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-success',
-              { 'is-light': sortBy !== 'length' })}
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortBy !== 'length' },
+            )}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -100,10 +110,12 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-warning',
+            className={classNames(
+              'button is-warning',
               {
                 'is-light': isReversed === false,
-              })}
+              },
+            )}
             onClick={this.reverse}
           >
             Reverse
