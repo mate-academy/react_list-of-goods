@@ -67,10 +67,10 @@ export class App extends React.Component<{}, State> {
 
     visibleGoods.sort((a, b) => {
       switch (sortBy) {
-        case 'length':
+        case SortType.LENGTH:
           return a.length - b.length;
 
-        case 'alphabet':
+        case SortType.ALPHABET:
           return a.localeCompare(b);
 
         default: return 0;
