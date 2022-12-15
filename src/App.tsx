@@ -71,7 +71,7 @@ export const App: React.FC = () => {
           }
           onClick={() => setState({
             sortType: SortType.ALPHABET,
-            isReversed: false,
+            isReversed: state.isReversed,
           })}
         >
           Sort alphabetically
@@ -86,7 +86,7 @@ export const App: React.FC = () => {
           }
           onClick={() => setState({
             sortType: SortType.LENGTH,
-            isReversed: false,
+            isReversed: state.isReversed,
           })}
         >
           Sort by length
