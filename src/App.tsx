@@ -48,7 +48,7 @@ export function getReorderedGoods(
   }
 
   // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  console.log(visibleGoods);
 
   return visibleGoods;
 }
@@ -71,7 +71,7 @@ export const App: React.FC = () => {
           }
           onClick={() => setState({
             sortType: SortType.ALPHABET,
-            isReversed: false,
+            isReversed: state.isReversed,
           })}
         >
           Sort alphabetically
@@ -86,7 +86,7 @@ export const App: React.FC = () => {
           }
           onClick={() => setState({
             sortType: SortType.LENGTH,
-            isReversed: false,
+            isReversed: state.isReversed,
           })}
         >
           Sort by length
