@@ -105,7 +105,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-info',
+            className={classNames('button is-success',
               { 'is-light': sortType !== SortType.LENGTH })}
             onClick={this.sortByLength}
           >
