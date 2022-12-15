@@ -48,7 +48,7 @@ export function getReorderedGoods(
   }
 
   // eslint-disable-next-line no-console
-  console.log(visibleGoods);
+  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
