@@ -78,7 +78,7 @@ export const App: React.FC = () => {
           type="button"
           className={
             classNames({
-              'button is-info': true,
+              'button is-success': true,
               'is-light': sortType !== SortType.LENGTH,
             })
           }
@@ -94,7 +94,7 @@ export const App: React.FC = () => {
           type="button"
           className={
             classNames({
-              'button is-info': true,
+              'button is-warning': true,
               'is-light': !isReversed,
             })
           }
