@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classnames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -16,32 +17,11 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
+  None,
+  Alphabet,
+  Length,
 }
 
-// type ReorderOptions = {
-//   sortType: SortType,
-//   isReversed: boolean,
-// };
-
-// Use this function in the render to prepare goods
-// export function getReorderedGoods(
-//   goods: string[],
-//   { sortType, isReversed }: ReorderOptions,
-// ) {
-//   // To avoid the original array mutation
-//   const visibleGoods = [...goods];
-
-//   // Sort and reverse goods if needed
-//   // eslint-disable-next-line no-console
-//   console.log(sortType, isReversed);
-
-//   return visibleGoods;
-// }
-
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -52,7 +32,7 @@ export class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
     isReversed: false,
-    sortType: SortType.NONE,
+    sortType: SortType.None,
   };
 
   render() {
@@ -61,10 +41,10 @@ export class App extends React.Component<{}, State> {
 
     visibleGoods.sort((a, b): SortType => {
       switch (sortType) {
-        case SortType.LENGTH:
+        case SortType.Length:
           return a.length - b.length;
 
-        case SortType.ALPHABET:
+        case SortType.Alphabet:
           return a.localeCompare(b);
 
         default:
@@ -76,64 +56,69 @@ export class App extends React.Component<{}, State> {
       visibleGoods.reverse();
     }
 
+    const handleSortAlphabetically = () => {
+      this.setState({
+        sortType: SortType.Alphabet,
+      });
+    };
+
+    const handleSortByLength = () => {
+      this.setState({
+        sortType: SortType.Length,
+      });
+    };
+
+    const handleReverse = () => {
+      this.setState((state) => ({
+        isReversed: !state.isReversed,
+      }));
+    };
+
+    const handleSReset = () => {
+      this.setState(() => ({
+        sortType: SortType.None,
+        isReversed: false,
+      }));
+    };
+
     return (
       <>
         <div className="section content">
           <div className="buttons">
             <button
               type="button"
-              className={`button is-info ${this.state.sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
-              onClick={
-                () => {
-                  this.setState({
-                    sortType: SortType.ALPHABET,
-                  });
-                }
-              }
+              className={classnames('button', 'is-info',
+                this.state.sortType !== SortType.Alphabet && 'is-light')}
+              onClick={handleSortAlphabetically}
             >
               Sort alphabetically
             </button>
 
             <button
               type="button"
-              className={`button is-success ${this.state.sortType !== SortType.LENGTH ? 'is-light' : ''}`}
-              onClick={
-                (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                  this.setState({
-                    sortType: SortType.LENGTH,
-                  });
-                  event.currentTarget.classList.remove('is-light');
-                }
-              }
+              className={classnames('button', 'is-success',
+                this.state.sortType !== SortType.Length && 'is-light')}
+              onClick={handleSortByLength}
             >
               Sort by length
             </button>
 
             <button
               type="button"
-              className={`button is-warning ${this.state.isReversed !== true ? 'is-light' : ''}`}
-              onClick={
-                () => {
-                  this.setState((state) => ({
-                    isReversed: !state.isReversed,
-                  }));
-                }
-              }
+              className={classnames('button', 'is-warning',
+                !this.state.isReversed && 'is-light')}
+              onClick={handleReverse}
             >
               Reverse
             </button>
 
             {
-              (visibleGoods[0] !== this.state.goods[0]) && (
+              (this.state.sortType !== SortType.None
+                || this.state.isReversed) && (
                 <button
                   type="button"
                   className="button is-danger is-light"
-                  onClick={() => {
-                    this.setState(() => ({
-                      sortType: SortType.NONE,
-                      isReversed: false,
-                    }));
-                  }}
+                  onClick={handleSReset}
                 >
                   Reset
                 </button>
