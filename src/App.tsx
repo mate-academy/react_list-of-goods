@@ -162,15 +162,15 @@ export class App extends React.Component<{}, State > {
           </button>
 
           {resetButton
-          && (
-            <button
-              type="button"
-              className="button is-danger is-light"
-              onClick={this.reset}
-            >
-              Reset
-            </button>
-          )}
+            && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )}
         </div>
 
         <ul>
