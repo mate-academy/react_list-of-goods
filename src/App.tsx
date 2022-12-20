@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'n',
-  ALPHABET = 'a',
-  LENGTH = 'l',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -33,12 +33,12 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((w1, w2) => {
+  visibleGoods.sort((first, second) => {
     switch (sortType) {
-      case 'a':
-        return w1.localeCompare(w2);
-      case 'l':
-        return w1.length - w2.length;
+      case SortType.ALPHABET:
+        return first.localeCompare(second);
+      case SortType.LENGTH:
+        return first.length - second.length;
       default:
         return 0;
     }
@@ -52,8 +52,8 @@ export function getReorderedGoods(
 }
 
 type State = {
-  alphabetButton: boolean,
-  lengthButton: boolean,
+  alphabetSortedButton: boolean,
+  lengthSortedButton: boolean,
   resetButton: boolean,
   isReversed: boolean,
   sortType: SortType,
@@ -61,8 +61,8 @@ type State = {
 
 export class App extends React.Component<{}, State > {
   state: State = {
-    alphabetButton: true,
-    lengthButton: true,
+    alphabetSortedButton: true,
+    lengthSortedButton: true,
     resetButton: false,
     isReversed: false,
     sortType: SortType.NONE,
@@ -71,20 +71,18 @@ export class App extends React.Component<{}, State > {
   sortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
-      alphabetButton: false,
-      lengthButton: true,
+      alphabetSortedButton: false,
+      lengthSortedButton: true,
       resetButton: true,
-      isReversed: false,
     });
   };
 
   sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
-      alphabetButton: true,
-      lengthButton: false,
+      alphabetSortedButton: true,
+      lengthSortedButton: false,
       resetButton: true,
-      isReversed: false,
     });
   };
 
@@ -92,8 +90,8 @@ export class App extends React.Component<{}, State > {
     this.setState(state => ({
       isReversed: !state.isReversed,
       resetButton: !(
-        state.alphabetButton
-        && state.lengthButton
+        state.alphabetSortedButton
+        && state.lengthSortedButton
         && state.isReversed
       ),
     }));
@@ -101,8 +99,8 @@ export class App extends React.Component<{}, State > {
 
   reset = () => {
     this.setState({
-      alphabetButton: true,
-      lengthButton: true,
+      alphabetSortedButton: true,
+      lengthSortedButton: true,
       resetButton: false,
       isReversed: false,
       sortType: SortType.NONE,
@@ -111,8 +109,8 @@ export class App extends React.Component<{}, State > {
 
   render() {
     const {
-      alphabetButton,
-      lengthButton,
+      alphabetSortedButton,
+      lengthSortedButton,
       resetButton,
       isReversed,
       sortType,
@@ -130,7 +128,7 @@ export class App extends React.Component<{}, State > {
             className={classNames(
               'button is-info',
               {
-                'is-light': alphabetButton,
+                'is-light': alphabetSortedButton,
               },
             )}
           >
@@ -143,7 +141,7 @@ export class App extends React.Component<{}, State > {
             className={classNames(
               'button is-success',
               {
-                'is-light': lengthButton,
+                'is-light': lengthSortedButton,
               },
             )}
           >
