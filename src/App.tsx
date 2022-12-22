@@ -60,12 +60,9 @@ export const App: React.FC = () => {
       <div className="buttons">
         <button
           type="button"
-          className={
-            classNames({
-              'button is-info': true,
-              'is-light': sortType !== SortType.ALPHABET,
-            })
-          }
+          className={classNames('button is-info', {
+            'is-light': sortType !== SortType.ALPHABET,
+          })}
           onClick={() => {
             setSortType(SortType.ALPHABET);
             setIsReversed(isReversed);
@@ -76,12 +73,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={
-            classNames({
-              'button is-success': true,
-              'is-light': sortType !== SortType.LENGTH,
-            })
-          }
+          className={classNames('button is-success', {
+            'is-light': sortType !== SortType.LENGTH,
+          })}
           onClick={() => {
             setSortType(SortType.LENGTH);
             setIsReversed(isReversed);
@@ -92,12 +86,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={
-            classNames({
-              'button is-warning': true,
-              'is-light': !isReversed,
-            })
-          }
+          className={classNames('button is-warning', {
+            'is-light': !isReversed,
+          })}
           onClick={() => {
             setSortType(sortType);
             setIsReversed(!isReversed);
