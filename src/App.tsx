@@ -64,21 +64,21 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByAlphabet = () => {
+  handleSortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
-  sortByLength = () => {
+  handleSortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -86,7 +86,9 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
+    const { isReversed, sortType } = this.state;
     const goodsToRender = getReorderedGoods(goodsFromServer, this.state);
+    const isButtonVisible = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -97,7 +99,7 @@ export class App extends React.Component<{}, State> {
               'button is-info',
               { 'is-light': this.state.sortType !== SortType.ALPHABET },
             )}
-            onClick={this.sortByAlphabet}
+            onClick={this.handleSortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -108,7 +110,7 @@ export class App extends React.Component<{}, State> {
               'button is-success',
               { 'is-light': this.state.sortType !== SortType.LENGTH },
             )}
-            onClick={this.sortByLength}
+            onClick={this.handleSortByLength}
           >
             Sort by length
           </button>
@@ -119,21 +121,20 @@ export class App extends React.Component<{}, State> {
               'button is-warning',
               { 'is-light': !this.state.isReversed },
             )}
-            onClick={this.reverse}
+            onClick={this.handleReverse}
           >
             Reverse
           </button>
 
-          {(this.state.isReversed || this.state.sortType !== SortType.NONE)
-            && (
-              <button
-                type="button"
-                onClick={this.reset}
-                className="button is-danger is-light"
-              >
-                Reset
-              </button>
-            )}
+          {isButtonVisible && (
+            <button
+              type="button"
+              onClick={this.handleReset}
+              className="button is-danger is-light"
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
