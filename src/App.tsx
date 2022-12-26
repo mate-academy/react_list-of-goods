@@ -36,9 +36,6 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   switch (sortType) {
     case SortType.ALPHABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
