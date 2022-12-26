@@ -103,8 +103,8 @@ export class App extends Component<{}, ReorderOptions> {
           <button
             type="button"
             className={classNames(
-              'button is-primary is-rounded',
-              { 'is-': sortType !== SortType.ALPHABET },
+              'button is-info is-rounded',
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortByAlphabet}
           >
