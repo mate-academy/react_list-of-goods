@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -64,12 +64,19 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handleSortByAlphabet = () => {
-    this.setState({ sortType: SortType.ALPHABET });
-  };
+  handleSort = (sortBy: SortType) => {
+    switch (sortBy) {
+      case SortType.ALPHABET:
+        this.setState({ sortType: sortBy });
+        break;
 
-  handleSortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
+      case SortType.LENGTH:
+        this.setState({ sortType: SortType.LENGTH });
+        break;
+
+      default:
+        break;
+    }
   };
 
   handleReverse = () => {
@@ -95,29 +102,29 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames(
+            className={cn(
               'button is-info',
               { 'is-light': this.state.sortType !== SortType.ALPHABET },
             )}
-            onClick={this.handleSortByAlphabet}
+            onClick={() => this.handleSort(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={classNames(
+            className={cn(
               'button is-success',
               { 'is-light': this.state.sortType !== SortType.LENGTH },
             )}
-            onClick={this.handleSortByLength}
+            onClick={() => this.handleSort(SortType.LENGTH)}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={classNames(
+            className={cn(
               'button is-warning',
               { 'is-light': !this.state.isReversed },
             )}
