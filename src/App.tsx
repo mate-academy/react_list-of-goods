@@ -66,25 +66,25 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortAlphabetically = () => {
+  handleClickSortAlphabetically = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
   };
 
-  SortByLength = () => {
+  handleClickSortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
   };
 
-  reverse = () => {
+  handleClickReverse = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  reset = () => {
+  handleClickReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -97,13 +97,15 @@ export class App extends Component<{}, State> {
       isReversed,
     } = this.state;
 
+    const isResetRendered = isReversed || sortType !== SortType.NONE;
+
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
             className={`button is-info ${sortType === SortType.ALPHABET ? '' : 'is-light'}`}
-            onClick={this.sortAlphabetically}
+            onClick={this.handleClickSortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -111,7 +113,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={`button is-success ${sortType === SortType.LENGTH ? '' : 'is-light'}`}
-            onClick={this.SortByLength}
+            onClick={this.handleClickSortByLength}
           >
             Sort by length
           </button>
@@ -119,18 +121,18 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={`button is-warning ${isReversed ? '' : 'is-light'}`}
-            onClick={this.reverse}
+            onClick={this.handleClickReverse}
           >
             Reverse
           </button>
 
           {
-            (isReversed || sortType !== SortType.NONE)
+            (isResetRendered)
             && (
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={this.reset}
+                onClick={this.handleClickReset}
               >
                 Reset
               </button>
