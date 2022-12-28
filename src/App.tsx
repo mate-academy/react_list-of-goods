@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import cn from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -87,15 +88,28 @@ export const App: React.FC = () => {
     isReversed,
   });
 
+  const isSorted = sortType !== SortType.NONE;
+  const isModified = isSorted || isReversed;
+
+  const resetButton = isModified && (
+    <button
+      type="button"
+      className="button is-danger is-light"
+      onClick={reset}
+    >
+      Reset
+    </button>
+  );
+
   return (
     <div className="section content">
       <div className="buttons">
         <button
           type="button"
           className={
-            sortType === SortType.ALPHABET
-              ? 'button is-info'
-              : 'button is-info is-light'
+            cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })
           }
           onClick={sortAlphabetically}
         >
@@ -105,9 +119,9 @@ export const App: React.FC = () => {
         <button
           type="button"
           className={
-            sortType === SortType.LENGTH
-              ? 'button is-success'
-              : 'button is-success is-light'
+            cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })
           }
           onClick={sortByLength}
         >
@@ -117,22 +131,16 @@ export const App: React.FC = () => {
         <button
           type="button"
           className={
-            !isReversed ? 'button is-warning is-light' : 'button is-warning'
+            cn('button is-warning', {
+              'is-light': !isReversed,
+            })
           }
           onClick={reverseGoods}
         >
           Reverse
         </button>
 
-        {(sortType !== SortType.NONE || isReversed) && (
-          <button
-            type="button"
-            className="button is-danger is-light"
-            onClick={reset}
-          >
-            Reset
-          </button>
-        )}
+        {resetButton}
       </div>
 
       <ul>
