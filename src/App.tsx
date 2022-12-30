@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -104,7 +105,10 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${sortType === SortType.ALPHABET ? '' : 'is-light'}`}
+            className={cn({
+              'button is-info': true,
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.handleClickSortAlphabetically}
           >
             Sort alphabetically
@@ -112,7 +116,10 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-success ${sortType === SortType.LENGTH ? '' : 'is-light'}`}
+            className={cn({
+              'button is-success': true,
+              'is-light': sortType !== SortType.LENGTH,
+            })}
             onClick={this.handleClickSortByLength}
           >
             Sort by length
@@ -120,15 +127,17 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-warning ${isReversed ? '' : 'is-light'}`}
+            className={cn({
+              'button is-warning': true,
+              'is-light': !isReversed,
+            })}
             onClick={this.handleClickReverse}
           >
             Reverse
           </button>
 
           {
-            (isResetRendered)
-            && (
+            (isResetRendered) && (
               <button
                 type="button"
                 className="button is-danger is-light"
