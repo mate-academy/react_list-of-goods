@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import cn from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -104,7 +104,7 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames(
+            className={cn(
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
@@ -115,7 +115,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames(
+            className={cn(
               'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
@@ -126,7 +126,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames(
+            className={cn(
               'button is-warning',
               { 'is-light': !isReversed },
             )}
