@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -32,10 +33,6 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (isReversed) {
-    return visibleGoods.reverse();
-  }
-
   visibleGoods.sort((a, b) => {
     switch (sortType) {
       case 1:
@@ -48,6 +45,10 @@ export function getReorderedGoods(
         return 0;
     }
   });
+
+  if (isReversed) {
+    return visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -82,12 +83,17 @@ export class App extends React.Component {
   };
 
   render() {
+    const { sortType, isReversed } = this.state;
+
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== 1 },
+            )}
             onClick={this.sortByName}
           >
             Sort alphabetically
@@ -95,7 +101,10 @@ export class App extends React.Component {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== 2 },
+            )}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -103,19 +112,24 @@ export class App extends React.Component {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
+            )}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          <button
-            type="button"
-            className="button is-danger is-light"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
+          {(sortType !== 0 || isReversed) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
