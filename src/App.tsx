@@ -58,7 +58,7 @@ type State = {
   sortType: SortType,
 };
 
-export class App extends React.Component {
+export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     isReversed: false,
     sortType: 0,
