@@ -27,7 +27,6 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -45,16 +44,19 @@ export class App extends React.Component<{}, State> {
   ) => {
     const visibleGoods = [...goods];
 
-    if (sortType === 1) {
-      visibleGoods.sort((a, b) => {
-        return a.localeCompare(b);
-      });
-    }
-
-    if (sortType === 2) {
-      visibleGoods.sort((a, b) => {
-        return a.length - b.length;
-      });
+    switch (sortType) {
+      case SortType.ALPHABET:
+        visibleGoods.sort((a, b) => {
+          return a.localeCompare(b);
+        });
+        break;
+      case SortType.LENGTH:
+        visibleGoods.sort((a, b) => {
+          return a.length - b.length;
+        });
+        break;
+      default:
+        break;
     }
 
     if (isReversed) {
@@ -121,17 +123,16 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
           {
-            JSON.stringify(reorderedGoods)
-              !== JSON.stringify(goodsFromServer)
-              ? (
-                <button
-                  type="button"
-                  className="button is-danger is-light"
-                  onClick={this.reset}
-                >
-                  Reset
-                </button>
-              ) : <></>
+            (this.state.sortType !== SortType.NONE || this.state.isReversed)
+            && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )
           }
         </div>
 
