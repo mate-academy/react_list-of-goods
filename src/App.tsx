@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -39,13 +40,13 @@ export function getReorderedGoods(
   console.log(sortType, isReversed);
 
   switch (sortType) {
-    case SortType.ALPHABET: visibleGoods.sort(
-      (a, b) => a.localeCompare(b),
-    ); break;
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
 
-    case SortType.LENGTH: visibleGoods.sort(
-      (a, b) => a.length - b.length,
-    ); break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
 
     default: break;
   }
@@ -97,9 +98,11 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${sortType !== SortType.ALPHABET
-              ? 'is-light'
-              : ''}`}
+            className={classNames(
+              'button',
+              'is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
             onClick={this.handleAlphabeticSort}
           >
             Sort alphabetically
@@ -107,9 +110,11 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-success ${sortType !== SortType.LENGTH
-              ? 'is-light'
-              : ''}`}
+            className={classNames(
+              'button',
+              'is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={this.handleLengthSort}
           >
             Sort by length
@@ -117,7 +122,11 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-warning ${!isReversed ? 'is-light' : ''}`}
+            className={classNames(
+              'button',
+              'is-warning',
+              { 'is-light': !isReversed },
+            )}
             onClick={this.handleReverseSort}
           >
             Reverse
