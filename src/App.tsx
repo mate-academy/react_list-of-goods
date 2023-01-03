@@ -64,6 +64,14 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  handleSortAlphabetically = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
+
+  handleSortLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
+
   handleReverse = () => {
     this.setState(state => ({ isReversed: !state.isReversed }));
   };
@@ -86,7 +94,7 @@ export class App extends Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={() => this.setState({ sortType: SortType.ALPHABET })}
+            onClick={this.handleSortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -97,7 +105,7 @@ export class App extends Component<{}, State> {
               'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={() => this.setState({ sortType: SortType.LENGTH })}
+            onClick={this.handleSortLength}
           >
             Sort by length
           </button>
