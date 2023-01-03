@@ -62,15 +62,15 @@ export class App extends PureComponent<{}, State> {
     sortType: SortType.NONE,
   };
 
-  setSortType = (sortType: SortType) => {
+  handleSort = (sortType: SortType) => {
     this.setState({ sortType });
   };
 
-  setIsReversed = () => {
+  handleReversed = () => {
     this.setState(state => ({ isReversed: !state.isReversed }));
   };
 
-  resetParams = () => {
+  handleParamsReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -95,7 +95,7 @@ export class App extends PureComponent<{}, State> {
               'is-success',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={() => this.setSortType(SortType.ALPHABET)}
+            onClick={() => this.handleSort(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -108,7 +108,7 @@ export class App extends PureComponent<{}, State> {
               { 'is-light': sortType !== SortType.LENGTH },
             )}
             data-sort-by={SortType.LENGTH}
-            onClick={() => this.setSortType(SortType.LENGTH)}
+            onClick={() => this.handleSort(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -120,7 +120,7 @@ export class App extends PureComponent<{}, State> {
               'is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.setIsReversed}
+            onClick={this.handleReversed}
           >
             Reverse
           </button>
@@ -130,7 +130,7 @@ export class App extends PureComponent<{}, State> {
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={this.resetParams}
+                onClick={this.handleParamsReset}
               >
                 Reset
               </button>
@@ -139,11 +139,9 @@ export class App extends PureComponent<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(good => (
-              <li key={good} data-cy="Good">{good}</li>
-            ))}
-          </ul>
+          {visibleGoods.map(good => (
+            <li key={good} data-cy="Good">{good}</li>
+          ))}
         </ul>
       </div>
     );
