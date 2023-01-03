@@ -144,7 +144,7 @@ export class App extends Component<{}, State> {
         <ul>
           {getReorderedGoods(
             goodsFromServer,
-            { isReversed, sortType },
+            this.state,
           ).map(good => (
             <li key={good} data-cy="Good">
               {good}
