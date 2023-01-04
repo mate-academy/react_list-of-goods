@@ -1,3 +1,30 @@
 iframe {
   display: none;
 }
+
+body {
+  height: 100vh;
+  background: #111;
+}
+
+.section {
+
+  &::after {
+    content: "З креативом все погано";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    font-size: 24px;
+    font-weight: bold;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.goods-list {
+
+  &__item {
+    color: #fff;
+    list-style: armenian;
+  }
+}
