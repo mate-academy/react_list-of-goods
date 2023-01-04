@@ -60,14 +60,12 @@ export function getReorderedGoods(
 }
 
 type State = {
-  goods: string[],
   isReversed: boolean,
   sortType: SortType,
 };
 
 export class App extends React.Component<{}, State> {
   state = {
-    goods: goodsFromServer,
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -97,12 +95,11 @@ export class App extends React.Component<{}, State> {
     const {
       isReversed,
       sortType,
-      goods,
     } = this.state;
 
     const visibleGoods = getReorderedGoods(
-      goods,
-      { sortType, isReversed },
+      goodsFromServer,
+      this.state,
     );
 
     return (
