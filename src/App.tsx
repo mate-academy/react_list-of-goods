@@ -65,17 +65,17 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  setSortType = (sortType: SortType) => {
+  handleSortType = (sortType: SortType) => {
     this.setState({ sortType });
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -98,7 +98,7 @@ export class App extends Component<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={() => this.setSortType(SortType.ALPHABET)}
+            onClick={() => this.handleSortType(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -111,7 +111,7 @@ export class App extends Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={() => this.setSortType(SortType.LENGTH)}
+            onClick={() => this.handleSortType(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -124,7 +124,7 @@ export class App extends Component<{}, State> {
                 'is-light': !isReversed,
               },
             )}
-            onClick={this.reverse}
+            onClick={this.handleReverse}
           >
             Reverse
           </button>
@@ -133,7 +133,7 @@ export class App extends Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.reset}
+              onClick={this.handleReset}
             >
               Reset
             </button>
