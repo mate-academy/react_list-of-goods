@@ -34,17 +34,20 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((firstGood, secondGood) => {
-    if (sortType === SortType.ALPHABET) {
-      return firstGood.localeCompare(secondGood);
-    }
+  if (sortType !== SortType.NONE) {
+    visibleGoods.sort((firstGood, secondGood) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return firstGood.localeCompare(secondGood);
 
-    if (sortType === SortType.LENGTH) {
-      return Number(firstGood.length) - Number(secondGood.length);
-    }
+        case SortType.LENGTH:
+          return Number(firstGood.length) - Number(secondGood.length);
 
-    return 0;
-  });
+        default:
+          return 0;
+      }
+    });
+  }
 
   if (isReversed) {
     visibleGoods.reverse();
