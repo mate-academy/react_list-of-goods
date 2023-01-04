@@ -35,18 +35,18 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
-      break;
+  visibleGoods.sort((a, b) => {
+    switch (sortType) {
+      case SortType.LENGTH:
+        return a.length - b.length;
 
-    case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => a.localeCompare(b));
-      break;
+      case SortType.ALPHABET:
+        return a.localeCompare(b);
 
-    default:
-      break;
-  }
+      default:
+        return 0;
+    }
+  });
 
   return isReversed
     ? visibleGoods.reverse()
