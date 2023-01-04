@@ -140,10 +140,16 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <ul>
+        <ul className="goods-list">
           <ul>
             {visibleGoods.map(good => (
-              <li data-cy="Good" key={good}>{good}</li>
+              <li
+                data-cy="Good"
+                className="goods-list__item"
+                key={good}
+              >
+                { good }
+              </li>
             ))}
           </ul>
         </ul>
