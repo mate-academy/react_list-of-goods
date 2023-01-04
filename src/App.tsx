@@ -97,7 +97,6 @@ export class App extends React.Component<{}, State> {
     const goods = getReorderedGoods(goodsFromServer, this.state);
     const needRemoveButton = isReversed || sortType !== SortType.NONE;
 
-
     return (
       <div className="section content">
         <div className="buttons">
