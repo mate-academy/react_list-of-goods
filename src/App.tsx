@@ -145,7 +145,19 @@ export class App extends React.Component<{}, State> {
         <ul>
           <ul>
             {getReorderedGoods(goodsFromServer, this.state).map(good => (
-              <li data-cy="Good" key={good}>{good}</li>
+              <li
+                data-cy="Good"
+                key={good}
+                className={cn(
+                  {
+                    SortByLength: sortType === SortType.LENGTH,
+                    SortAlphabetically: sortType === SortType.ALPHABET,
+                    Reverse: isReversed,
+                  },
+                )}
+              >
+                {good}
+              </li>
             ))}
           </ul>
         </ul>
