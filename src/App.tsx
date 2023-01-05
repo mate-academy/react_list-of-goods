@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -84,12 +85,19 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
+    const { sortType, isReversed } = this.state;
+
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={cn(
+              'button is-info',
+              {
+                'is-light': sortType !== SortType.ALPHABET,
+              },
+            )}
             onClick={this.handleClickSortAlphabetically}
           >
             Sort alphabetically
@@ -97,7 +105,12 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={cn(
+              'button is-success',
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              },
+            )}
             onClick={this.handleClickSortByLength}
           >
             Sort by length
@@ -105,19 +118,28 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={cn(
+              'button is-warning',
+              {
+                'is-light': !isReversed,
+              },
+            )}
             onClick={this.handleClickReverse}
           >
             Reverse
           </button>
 
-          <button
-            type="button"
-            className="button is-danger is-light"
-            onClick={this.handleClickReset}
-          >
-            Reset
-          </button>
+          {
+            ((isReversed || sortType !== SortType.NONE) && (
+              <button
+                type="button"
+                className="button is-warning is-light"
+                onClick={this.handleClickReset}
+              >
+                Reset
+              </button>
+            ))
+          }
         </div>
 
         <ul>
