@@ -1,7 +1,72 @@
-import React from 'react';
+import * as React from 'react';
 import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+
+function MyApp() {
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        borderRadius: 1,
+        p: 3,
+      }}
+    >
+      {theme.palette.mode}
+      mode
+      <IconButton
+        sx={{ ml: 1 }}
+        onClick={colorMode.toggleColorMode}
+        color="inherit"
+      >
+        {theme.palette.mode === 'dark'
+          ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
+    </Box>
+  );
+}
+
+export default function ToggleColorMode() {
+  const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+  const colorMode = React.useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const theme = React.useMemo(() => createTheme({
+    palette: {
+      mode,
+    },
+  }),
+  [mode]);
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <MyApp />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+}
 
 export const goodsFromServer = [
   'Dumplings',
@@ -59,12 +124,6 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -107,7 +166,9 @@ export class App extends React.Component<{}, State> {
     const isResetOnPage = isReversed || sortType !== SortType.NONE;
 
     return (
+
       <div className="section content">
+        <ToggleColorMode />
         <div className="buttons">
           <button
             type="button"
@@ -135,7 +196,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames(
               'button is-warning',
-              {'is-light': !isReversed },
+              { 'is-light': !isReversed },
             )}
             onClick={this.handleReverse}
           >
