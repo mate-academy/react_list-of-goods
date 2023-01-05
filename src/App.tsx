@@ -35,18 +35,21 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((good1, good2) => {
-    switch (sortType) {
-      case SortType.ALPHABET:
-        return good1.localeCompare(good2);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((good1, good2) => (
+        good1.localeCompare(good2)));
+      break;
 
-      case SortType.LENGTH:
-        return good1.length - good2.length;
+    case SortType.LENGTH:
+      visibleGoods.sort((good1, good2) => (
+        good1.length - good2.length));
+      break;
 
-      default:
-        return 0;
-    }
-  });
+    case SortType.NONE:
+    default:
+      break;
+  }
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -82,8 +85,7 @@ export class App extends Component<{}, State> {
   };
 
   handleClickReset = () => {
-    this.setState({ sortType: SortType.NONE });
-    this.setState({ isReversed: false });
+    this.setState({ sortType: SortType.NONE, isReversed: false });
   };
 
   render() {
