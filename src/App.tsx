@@ -56,7 +56,7 @@ export function getReorderedGoods(
 }
 
 export class App extends React.Component<{}, ReorderOptions> {
-  state = {
+  state: Readonly<ReorderOptions> = {
     sortType: SortType.NONE,
     isReversed: false,
   };
