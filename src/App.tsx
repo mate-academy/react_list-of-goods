@@ -55,8 +55,6 @@ export class App extends React.Component<{}, State> {
   render() {
     return (
       <div className="section content">
-        {this.state.isReversed}
-        {this.state.sortType}
         <div className="buttons">
           <button
             type="button"
@@ -89,12 +87,9 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            <li data-cy="Good">Dumplings</li>
-            <li data-cy="Good">Carrot</li>
-            <li data-cy="Good">Eggs</li>
-            <li data-cy="Good">Ice cream</li>
-            <li data-cy="Good">Apple</li>
-            <li data-cy="Good">...</li>
+            {getReorderedGoods(goodsFromServer, this.state).map(good => (
+              <li data-cy="Good" key={good}>{good}</li>
+            ))}
           </ul>
         </ul>
       </div>
