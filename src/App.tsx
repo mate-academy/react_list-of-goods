@@ -41,55 +41,63 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
 };
+
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
+
+  render() {
+    return (
+      <div className="section content">
+        {this.state.isReversed}
+        {this.state.sortType}
+        <div className="buttons">
+          <button
+            type="button"
+            className="button is-info is-light"
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className="button is-success is-light"
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className="button is-warning is-light"
+          >
+            Reverse
+          </button>
+
+          <button
+            type="button"
+            className="button is-danger is-light"
+          >
+            Reset
+          </button>
+        </div>
+
+        <ul>
+          <ul>
+            <li data-cy="Good">Dumplings</li>
+            <li data-cy="Good">Carrot</li>
+            <li data-cy="Good">Eggs</li>
+            <li data-cy="Good">Ice cream</li>
+            <li data-cy="Good">Apple</li>
+            <li data-cy="Good">...</li>
+          </ul>
+        </ul>
+      </div>
+    );
+  }
+}
