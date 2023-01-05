@@ -1,6 +1,9 @@
-import React from 'react';
+import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -16,12 +19,12 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
+  NONE = 'none',
+  ALPHABET = 'alpabet',
+  LENGTH = 'length',
 }
 
-type ReorderOptions = {
+type State = {
   sortType: SortType,
   isReversed: boolean,
 };
@@ -29,67 +32,158 @@ type ReorderOptions = {
 // Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
+  { sortType, isReversed }: State,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((productName1, productName2) => (
+        productName1.localeCompare(productName2)
+      ));
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((product1, product2) => (
+        product1.length - product2.length
+      ));
+      break;
+
+    case SortType.NONE:
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+export class App extends Component<{}, State> {
+  state = {
+    sortType: SortType.NONE,
+    isReversed: false,
+  };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+  goodsReverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+  sortByAlphabet = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+  resetButton = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
 
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
-};
+  render() {
+    const { sortType, isReversed } = this.state;
+
+    const preparedGoods = (
+      getReorderedGoods(goodsFromServer, this.state)
+    );
+
+    return (
+      <>
+        <div className="container">
+          <Box
+            sx={{
+              display: 'flex',
+              '& > :not(style)': {
+                m: 1,
+                mt: 30,
+                mx: 'auto',
+                width: 665,
+                height: 500,
+              },
+            }}
+          >
+            <Paper
+              variant="outlined"
+              sx={{
+                backgroundColor: 'text.disabled',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'start',
+                fontSize: 24,
+                fontWeight: 'bold',
+              }}
+            >
+              <div className="section content">
+                <div className="buttons">
+                  <Button
+                    variant="contained"
+                    type="button"
+                    className={sortType === SortType.ALPHABET
+                      ? 'button is-info'
+                      : 'button is-info is-light'}
+                    onClick={this.sortByAlphabet}
+                  >
+                    Sort alphabetically
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    type="button"
+                    className={sortType === SortType.LENGTH
+                      ? 'button is-success'
+                      : 'button is-success is-light'}
+                    onClick={this.sortByLength}
+                  >
+                    Sort by length
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    type="button"
+                    className={isReversed
+                      ? 'button is-warning'
+                      : 'button is-warning is-light'}
+                    onClick={this.goodsReverse}
+                  >
+                    Reverse
+                  </Button>
+
+                  {(sortType !== SortType.NONE || isReversed)
+                  && (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      type="button"
+                      className="button is-danger"
+                      onClick={this.resetButton}
+                    >
+                      Reset
+                    </Button>
+                  )}
+                </div>
+                <div className="list">
+                  <ul>
+                    {preparedGoods.map(product => (
+                      <li data-cy="Good" key={product}>
+                        {product}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Paper>
+          </Box>
+        </div>
+
+      </>
+    );
+  }
+}
