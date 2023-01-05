@@ -64,6 +64,25 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  handleClickReverse = () => {
+    this.setState((state) => ({ isReversed: !state.isReversed }));
+  };
+
+  handleClickSortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
+
+  handleClickSortAlphabetically = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
+
+  handleClickReset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
   render() {
     return (
       <div className="section content">
@@ -71,6 +90,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-info is-light"
+            onClick={this.handleClickSortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -78,6 +98,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-success is-light"
+            onClick={this.handleClickSortByLength}
           >
             Sort by length
           </button>
@@ -85,6 +106,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-warning is-light"
+            onClick={this.handleClickReverse}
           >
             Reverse
           </button>
@@ -92,6 +114,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-danger is-light"
+            onClick={this.handleClickReset}
           >
             Reset
           </button>
