@@ -61,26 +61,26 @@ export class App extends React.Component<{}, ReorderOptions> {
     isReversed: false,
   };
 
-  setSortTypeAlpabet() {
+  setSortTypeAlpabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
-  }
+  };
 
-  setSortTypeLength() {
+  setSortTypeLength = () => {
     this.setState({ sortType: SortType.LENGTH });
-  }
+  };
 
-  toogleReverse() {
+  toogleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
-  }
+  };
 
-  resetList() {
+  resetList = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
     });
-  }
+  };
 
   render() {
     const { sortType, isReversed } = this.state;
@@ -95,9 +95,7 @@ export class App extends React.Component<{}, ReorderOptions> {
               'is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={() => {
-              this.setSortTypeAlpabet();
-            }}
+            onClick={this.setSortTypeAlpabet}
           >
             Sort alphabetically
           </button>
@@ -109,9 +107,7 @@ export class App extends React.Component<{}, ReorderOptions> {
               'is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={() => {
-              this.setSortTypeLength();
-            }}
+            onClick={this.setSortTypeLength}
           >
             Sort by length
           </button>
@@ -123,9 +119,7 @@ export class App extends React.Component<{}, ReorderOptions> {
               'is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={() => {
-              this.toogleReverse();
-            }}
+            onClick={this.toogleReverse}
           >
             Reverse
           </button>
@@ -136,9 +130,7 @@ export class App extends React.Component<{}, ReorderOptions> {
                 <button
                   type="button"
                   className="button is-danger"
-                  onClick={() => {
-                    this.resetList();
-                  }}
+                  onClick={this.resetList}
                 >
                   Reset
                 </button>
