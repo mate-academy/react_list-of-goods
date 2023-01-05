@@ -29,6 +29,7 @@ type State = {
   isReversed: boolean,
 };
 
+// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: State,
