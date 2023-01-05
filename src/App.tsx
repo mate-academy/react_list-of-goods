@@ -154,7 +154,7 @@ export class App extends React.Component<{}, State> {
             >
               {good}
             </li>
-          ))}
+          ))} 
         </ul>
       </div>
     );
