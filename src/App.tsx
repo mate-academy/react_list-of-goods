@@ -33,18 +33,18 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.ALPHABET:
-      visibleGoods.sort();
-      break;
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
 
-    case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
-      break;
+      case SortType.LENGTH:
+        return good1.length - good2.length;
 
-    default:
-      break;
-  }
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
     return visibleGoods.reverse();
@@ -67,13 +67,13 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handelSortedByAlphabetically = () => {
+  handelSortAlphabetically = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
   };
 
-  handelSortedByLength = () => {
+  handelSortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
@@ -105,7 +105,7 @@ export class App extends React.Component<{}, State> {
               'button is-info is-large',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.handelSortedByAlphabetically}
+            onClick={this.handelSortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -116,7 +116,7 @@ export class App extends React.Component<{}, State> {
               'button is-success is-large',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={this.handelSortedByLength}
+            onClick={this.handelSortByLength}
           >
             Sort by length
           </button>
@@ -143,17 +143,14 @@ export class App extends React.Component<{}, State> {
               </button>
             )
             : null}
-
         </div>
 
         <ul>
-          <ul>
-            {sortedGoods.map(good => (
-              <li data-cy="Good" key={good}>
-                {good}
-              </li>
-            ))}
-          </ul>
+          {sortedGoods.map(good => (
+            <li data-cy="Good" key={good}>
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
