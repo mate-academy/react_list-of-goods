@@ -27,29 +27,26 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-  visibleGoods.sort((prevGood, nextGood) => {
-    switch (sortType) {
-      case SortType.ALPHABET:
-        return prevGood.localeCompare(nextGood);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((prevGood, nextGood) => (
+        prevGood.localeCompare(nextGood)));
+      break;
 
-      case SortType.LENGTH:
-        return prevGood.length - nextGood.length;
+    case SortType.LENGTH:
+      visibleGoods.sort((prevGood, nextGood) => (
+        prevGood.length - nextGood.length));
+      break;
 
-      default:
-        return 0;
-    }
-  });
+    default:
+      break;
+  }
 
   if (isReversed) {
     return visibleGoods.reverse();
@@ -58,13 +55,11 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
  type State = {
    isReversed: boolean,
    sortType: SortType,
  };
 
-// eslint-disable-next-line react/prefer-stateless-function
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
