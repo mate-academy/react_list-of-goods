@@ -34,6 +34,18 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
+  if (sortType !== SortType.NONE) {
+    visibleGoods.sort((firstItem, secondItem) => {
+      return sortType === SortType.LENGTH
+        ? firstItem.length - secondItem.length
+        : firstItem.localeCompare(secondItem);
+    });
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
