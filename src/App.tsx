@@ -47,6 +47,7 @@ export function getReorderedGoods(
 
       break;
 
+    case SortType.NONE:
     default: break;
   }
 
@@ -154,7 +155,7 @@ export class App extends React.Component<{}, State> {
             >
               {good}
             </li>
-          ))} 
+          ))}
         </ul>
       </div>
     );
