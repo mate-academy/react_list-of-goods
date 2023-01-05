@@ -89,57 +89,59 @@ export class App extends React.Component<{}, State> {
     }
 
     return (
-      <div className="section content">
-        <div className="buttons">
-          <button
-            type="button"
-            className={cn(
-              'button is-info',
-              { 'is-light': sortType !== SortType.ALPHABET },
-            )}
-            onClick={this.sortByAlphabet}
-          >
-            Sort alphabetically
-          </button>
-
-          <button
-            type="button"
-            className={cn(
-              'button is-success',
-              { 'is-light': sortType !== SortType.LENGTH },
-            )}
-            onClick={this.sortByLength}
-          >
-            Sort by length
-          </button>
-
-          <button
-            type="button"
-            className={cn(
-              'button is-warning',
-              { 'is-light': !isReversed },
-            )}
-            onClick={this.reverse}
-          >
-            Reverse
-          </button>
-
-          {isButtonVisible && (
+      <div className="wrapper">
+        <div className="section content box">
+          <div className="buttons">
             <button
               type="button"
-              className="button is-danger is-light"
-              onClick={this.reset}
+              className={cn(
+                'button is-info',
+                { 'is-light': sortType !== SortType.ALPHABET },
+              )}
+              onClick={this.sortByAlphabet}
             >
-              Reset
+              Sort alphabetically
             </button>
-          )}
-        </div>
 
-        <ul>
-          {goods.map(good => (
-            <li data-cy="Good" key={good}>{good}</li>
-          ))}
-        </ul>
+            <button
+              type="button"
+              className={cn(
+                'button is-success',
+                { 'is-light': sortType !== SortType.LENGTH },
+              )}
+              onClick={this.sortByLength}
+            >
+              Sort by length
+            </button>
+
+            <button
+              type="button"
+              className={cn(
+                'button is-warning',
+                { 'is-light': !isReversed },
+              )}
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+
+            {isButtonVisible && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )}
+          </div>
+
+          <ul>
+            {goods.map(good => (
+              <li data-cy="Good" key={good}>{good}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
