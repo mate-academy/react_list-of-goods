@@ -48,6 +48,7 @@ export function getReorderedGoods(
       ));
       break;
 
+    case SortType.NONE:
     default:
       break;
   }
@@ -90,7 +91,7 @@ export class App extends Component<{}, State> {
     const { sortType, isReversed } = this.state;
 
     const preparedGoods = (
-      getReorderedGoods(goodsFromServer, { sortType, isReversed })
+      getReorderedGoods(goodsFromServer, this.state)
     );
 
     return (
@@ -154,19 +155,18 @@ export class App extends Component<{}, State> {
                     Reverse
                   </Button>
 
-                  {sortType !== SortType.NONE || isReversed
-                    ? (
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        type="button"
-                        className="button is-danger"
-                        onClick={this.resetButton}
-                      >
-                        Reset
-                      </Button>
-                    )
-                    : ''}
+                  {(sortType !== SortType.NONE || isReversed)
+                  && (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      type="button"
+                      className="button is-danger"
+                      onClick={this.resetButton}
+                    >
+                      Reset
+                    </Button>
+                  )}
                 </div>
                 <div className="list">
                   <ul>
