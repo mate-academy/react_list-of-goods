@@ -34,13 +34,13 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   if (sortType !== SortType.NONE) {
-    visibleGoods.sort((good1, good2) => {
+    visibleGoods.sort((firstGood, secondGood) => {
       switch (sortType) {
         case SortType.ALPHABET:
-          return good1.localeCompare(good2);
+          return firstGood.localeCompare(secondGood);
 
         case SortType.LENGTH:
-          return Number(good1.length) - Number(good2.length);
+          return Number(firstGood.length) - Number(secondGood.length);
 
         default:
           return 0;
