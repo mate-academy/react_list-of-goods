@@ -9,7 +9,11 @@ html {
   background-attachment: fixed;
 }
 
+.good {
+  width: max-content;
+}
+
 .good:hover {
   cursor: pointer;
-  color:goldenrod;
+  color: goldenrod;
 }
