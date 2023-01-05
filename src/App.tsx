@@ -33,17 +33,22 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((prevGood, nextGood) => {
-    if (sortType === SortType.ALPHABET) {
-      return prevGood.localeCompare(nextGood);
-    }
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((firstGood, secondGood) => (
+        firstGood.localeCompare(secondGood)
+      ));
 
-    if (sortType === SortType.LENGTH) {
-      return prevGood.length - nextGood.length;
-    }
+      break;
 
-    return 0;
-  });
+    case SortType.LENGTH:
+      visibleGoods.sort((firstGood, secondGood) => (
+        firstGood.length - secondGood.length));
+
+      break;
+
+    default: break;
+  }
 
   if (isReversed) {
     return visibleGoods.reverse();
@@ -95,7 +100,7 @@ export class App extends React.Component<{}, State> {
 
     return (
       <div className="section content">
-        <div className="buttons">
+        <div className="buttons" style={{ justifyContent: 'center' }}>
           <button
             type="button"
             className={cn(
@@ -142,7 +147,11 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           {renderedGoods.map((good) => (
-            <li key={good} data-cy="Good">
+            <li
+              key={good}
+              data-cy="Good"
+              style={{ textAlign: 'center', listStyle: 'none' }}
+            >
               {good}
             </li>
           ))}
