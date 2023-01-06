@@ -34,18 +34,23 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods: string[] = [...goods];
 
-  visibleGoods.sort((firstGood, secondGood) => {
-    switch (sortType) {
-      case SortType.LENGTH:
-        return firstGood.length - secondGood.length;
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((firstGood, secondGood) => (
+        firstGood.localeCompare(secondGood)
+      ));
 
-      case SortType.ALPHABET:
-        return firstGood.localeCompare(secondGood);
+      break;
 
-      default:
-        return 0;
-    }
-  });
+    case SortType.LENGTH:
+      visibleGoods.sort((firstGood, secondGood) => (
+        firstGood.length - secondGood.length));
+
+      break;
+
+    case SortType.NONE:
+    default: break;
+  }
 
   // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
