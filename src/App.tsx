@@ -46,6 +46,7 @@ export function getReorderedGoods(
       ));
       break;
 
+    case SortType.NONE:
     default:
       break;
   }
