@@ -135,7 +135,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button is-warning', { 'is-light': !isReversed},
+              'button is-warning', { 'is-light': !isReversed },
             )}
             onClick={this.reverse}
           >
