@@ -67,15 +67,11 @@ export class App extends React.Component<{}, State> {
   };
 
   handleClickSortByAlphabetically = () => {
-    this.setState(state => {
-      return { ...state, sortType: SortType.ALPHABET };
-    });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   handleClickSortByLength = () => {
-    this.setState(state => {
-      return { ...state, sortType: SortType.LENGTH };
-    });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   handleClickReverse = () => {
@@ -120,14 +116,14 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button', 'is-warning', {
-              'is-light': isReversed !== true,
+              'is-light': !isReversed,
             })}
             onClick={this.handleClickReverse}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed === true) && (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
