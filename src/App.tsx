@@ -125,7 +125,7 @@ export class App extends React.Component<{}, State> {
               'button',
               'is-warning',
               {
-                'is-light': isReversed === false,
+                'is-light': !isReversed,
               },
             )}
           >
@@ -145,10 +145,8 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {getReorderedGoods(goodsFromServer, this.state)
-              .map(good => <li data-cy="Good" key={good}>{good}</li>)}
-          </ul>
+          {getReorderedGoods(goodsFromServer, this.state)
+            .map(good => <li data-cy="Good" key={good}>{good}</li>)}
         </ul>
       </div>
     );
