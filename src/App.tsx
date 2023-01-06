@@ -27,19 +27,23 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
-  }
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
+      break;
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((g1, g2) => g1.length - g2.length);
+    case SortType.LENGTH:
+      visibleGoods.sort((g1, g2) => g1.length - g2.length);
+      break;
+
+    default:
+      break;
   }
 
   if (isReversed) {
@@ -79,7 +83,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const myPrepareProducts = getReorderedGoods(goodsFromServer, this.state);
     const { isReversed, sortType } = this.state;
-    const visibleReset = isReversed === true || (sortType !== SortType.NONE);
+    const visibleReset = isReversed || (sortType !== SortType.NONE);
 
     return (
       <div className="section content">
