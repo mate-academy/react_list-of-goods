@@ -22,42 +22,38 @@ enum SortType {
   LENGTH,
 }
 
-// type ReorderOptions = {
-//   sortType: SortType,
-//   isReversed: boolean,
-// };
+type ReorderOptions = {
+  sortType: SortType,
+  isReversed: boolean,
+};
 
 // Use this function in the render to prepare goods
-// export function getReorderedGoods(
-//   goods: string[],
-//   { sortType, isReversed }: ReorderOptions,
-// ) {
-//   // To avoid the original array mutation
-//   const visibleGoods = [...goods];
+export function getReorderedGoods(
+  goods: string[],
+  { sortType, isReversed }: ReorderOptions,
+) {
+  // To avoid the original array mutation
+  const visibleGoods = [...goods];
 
-//   // Sort and reverse goods if needed
-//   if (isReversed) {
-//     visibleGoods.reverse()
-//   }
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
-//   visibleGoods.sort((good1: string, good2: string) => {
-//     switch (sortType) {
-//       case SortType.ALPHABET:
-//         return good1.localeCompare(good2)
+  // Sort and reverse goods if needed
+  visibleGoods.sort((good1: string, good2: string) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+      case SortType.LENGTH:
+        return good1.length - good2.length;
 
-//       case SortType.LENGTH:
-//         return good1.length - good2.length
+      default:
+        return 0;
+    }
+  });
 
-//       default:
-//         return 0
-//     }
-//   })
-
-//   // eslint-disable-next-line no-console
-//   console.log(sortType, isReversed);
-
-//   return visibleGoods;
-// };
+  return visibleGoods;
+}
 
 type State = {
   isReversed: boolean,
@@ -91,23 +87,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
 
-    const visibleGoods = [...goodsFromServer];
-
-    visibleGoods.sort((good1: string, good2: string) => {
-      switch (sortType) {
-        case SortType.ALPHABET:
-          return good1.localeCompare(good2);
-        case SortType.LENGTH:
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const checkedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content box">
@@ -156,7 +136,7 @@ export class App extends React.Component<{}, State> {
 
         </div>
         <ul>
-          {visibleGoods.map((good: string) => (
+          {checkedGoods.map((good: string) => (
             <li data-cy="Good" key={good}>
               {good}
             </li>
