@@ -151,7 +151,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           {visibleGoods.map((good) => (
-            <li data-cy="Good">
+            <li data-cy="Good" key={good}>
               {good}
             </li>
           ))}
