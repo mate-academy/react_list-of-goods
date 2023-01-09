@@ -36,16 +36,21 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort goods if needed
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort(
-      (firstGood, secondGood) => firstGood.localeCompare(secondGood),
-    );
-  }
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort(
+        (firstGood, secondGood) => firstGood.localeCompare(secondGood),
+      );
+      break;
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort(
-      (firstGood, secondGood) => firstGood.length - secondGood.length,
-    );
+    case SortType.LENGTH:
+      visibleGoods.sort(
+        (firstGood, secondGood) => firstGood.length - secondGood.length,
+      );
+      break;
+
+    default:
+      break;
   }
 
   // Reverse goods if needed
@@ -70,6 +75,25 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  handleClickSortByAlphabet = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
+
+  handleClickSortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
+
+  handleClickReverse = () => {
+    this.setState(state => ({ isReversed: !state.isReversed }));
+  };
+
+  handleClickReset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
   render() {
     const {
       isReversed,
@@ -89,9 +113,7 @@ export class App extends Component<{}, State> {
                 { 'is-light': sortType !== SortType.ALPHABET },
               )
             }
-            onClick={() => this.setState({
-              sortType: SortType.ALPHABET,
-            })}
+            onClick={this.handleClickSortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -104,9 +126,7 @@ export class App extends Component<{}, State> {
                 { 'is-light': sortType !== SortType.LENGTH },
               )
             }
-            onClick={() => this.setState({
-              sortType: SortType.LENGTH,
-            })}
+            onClick={this.handleClickSortByLength}
           >
             Sort by length
           </button>
@@ -119,9 +139,7 @@ export class App extends Component<{}, State> {
                 { 'is-light': !isReversed },
               )
             }
-            onClick={() => this.setState(state => ({
-              isReversed: !state.isReversed,
-            }))}
+            onClick={this.handleClickReverse}
           >
             Reverse
           </button>
@@ -131,10 +149,7 @@ export class App extends Component<{}, State> {
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={() => this.setState({
-                  isReversed: false,
-                  sortType: SortType.NONE,
-                })}
+                onClick={this.handleClickReset}
               >
                 Reset
               </button>
