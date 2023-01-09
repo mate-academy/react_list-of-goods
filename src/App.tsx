@@ -50,7 +50,6 @@ export function getReorderedGoods(
 
       break;
 
-    case SortType.NONE:
     default: break;
   }
 
@@ -72,7 +71,7 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handleClickSortedByAlphabet = () => {
+  sortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
@@ -101,7 +100,7 @@ export class App extends React.Component<{}, State> {
     const { sortType, isReversed } = this.state;
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-    const sortedBy = isReversed || sortType !== SortType.NONE;
+    const isResetButtonVisible = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -112,7 +111,7 @@ export class App extends React.Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.handleClickSortedByAlphabet}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -139,7 +138,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {sortedBy && (
+          {isResetButtonVisible && (
             <button
               type="button"
               className="button is-danger is-light"
