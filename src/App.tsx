@@ -50,9 +50,6 @@ export function getReorderedGoods(
     visibleGoods.reverse();
   }
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   return visibleGoods;
 }
 
@@ -103,7 +100,10 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={cn(`button is-info ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`)}
+            className={cn('button is-info',
+              sortType !== SortType.ALPHABET
+                ? 'is-light'
+                : '')}
             onClick={() => this.handleSort(SortType.ALPHABET)}
           >
             Sort alphabetically
@@ -111,7 +111,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={cn(`button is-success ${sortType !== SortType.LENGTH ? 'is-light' : ''}`)}
+            className={cn('button is-success',
+              sortType !== SortType.LENGTH
+                ? 'is-light'
+                : '')}
             onClick={() => this.handleSort(SortType.LENGTH)}
           >
             Sort by length
@@ -119,7 +122,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={cn(`button is-warning ${!isReversed ? 'is-light' : ''}`)}
+            className={cn('button is-warning',
+              !isReversed
+                ? 'is-light'
+                : '')}
             onClick={() => this.handleReverse()}
           >
             Reverse
@@ -138,7 +144,11 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           {getReorderedGoods(goodsFromServer, { sortType, isReversed })
-            .map(good => <li key={good} data-cy="Good">{ good }</li>)}
+            .map(good => (
+              <li key={good} data-cy="Good">
+                { good }
+              </li>
+            ))}
         </ul>
       </div>
     );
