@@ -35,15 +35,13 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  if (isReversed) {
-    visibleGoods.reverse();
-  }
 
   // Sort and reverse goods if needed
   visibleGoods.sort((good1: string, good2: string) => {
     switch (sortType) {
       case SortType.ALPHABET:
         return good1.localeCompare(good2);
+
       case SortType.LENGTH:
         return good1.length - good2.length;
 
@@ -51,6 +49,10 @@ export function getReorderedGoods(
         return 0;
     }
   });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -122,17 +124,15 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE)
-            ? (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-            )
-            : null}
+          {(isReversed || sortType !== SortType.NONE) &&
+            (<button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>)
+          }
 
         </div>
         <ul>
