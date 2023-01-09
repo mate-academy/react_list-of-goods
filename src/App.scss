@@ -1,3 +1,17 @@
 iframe {
   display: none;
 }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  background-color: beige;
+}
+
+.section {
+  background-color: rgb(245, 229, 198);
+  box-shadow: 10px 10px 35px rgb(167, 167, 167);
+}
