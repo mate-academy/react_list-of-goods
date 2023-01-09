@@ -72,17 +72,17 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortBy = (sortType: SortType) => {
+  setSort = (sortType: SortType) => {
     this.setState({ sortType });
   };
 
-  reverse = () => {
+  setReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  reset = () => {
+  setReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -92,6 +92,7 @@ export class App extends Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const shouldRenderResetButton = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -102,7 +103,7 @@ export class App extends Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={() => this.sortBy(SortType.ALPHABET)}
+            onClick={() => this.setSort(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -113,7 +114,7 @@ export class App extends Component<{}, State> {
               'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={() => this.sortBy(SortType.LENGTH)}
+            onClick={() => this.setSort(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -124,16 +125,16 @@ export class App extends Component<{}, State> {
               'button is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.reverse}
+            onClick={this.setReverse}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {shouldRenderResetButton && (
             <button
               type="button"
               className="button is-danger"
-              onClick={() => this.reset()}
+              onClick={() => this.setReset()}
             >
               Reset
             </button>
@@ -141,16 +142,9 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          {
-            visibleGoods
-              .map((good) => {
-                return (
-                  <li key={good} data-cy="Good">
-                    {good}
-                  </li>
-                );
-              })
-          }
+          {visibleGoods.map(name => (
+            <li key={name} data-cy="Good">{name}</li>
+          ))}
         </ul>
       </div>
     );
