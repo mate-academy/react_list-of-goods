@@ -22,11 +22,6 @@ enum SortType {
   LENGTH,
 }
 
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed: boolean,
-};
-
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -34,22 +29,28 @@ type State = {
 
 export function getReorderedGoods(
   goods: string[],
-  { sortType }: ReorderOptions,
+  { sortType, isReversed }: State,
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((good1, good2) => {
-    switch (sortType) {
-      case SortType.ALPHABET:
-        return good1.localeCompare(good2);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((good1, good2) => (
+        good1.localeCompare(good2)));
+      break;
 
-      case SortType.LENGTH:
-        return good1.length - good2.length;
+    case SortType.LENGTH:
+      visibleGoods.sort((good1, good2) => (
+        good1.length - good2.length));
+      break;
 
-      default:
-        return 0;
-    }
-  });
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -80,13 +81,9 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const goods = getReorderedGoods(goodsFromServer, this.state);
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
-    const isButtonVisible = isReversed || (sortType !== SortType.NONE);
-
-    if (isReversed) {
-      goods.reverse();
-    }
+    const isResetButtonVisible = isReversed || (sortType !== SortType.NONE);
 
     return (
       <div className="wrapper">
@@ -125,7 +122,7 @@ export class App extends React.Component<{}, State> {
               Reverse
             </button>
 
-            {isButtonVisible && (
+            {isResetButtonVisible && (
               <button
                 type="button"
                 className="button is-danger is-light"
@@ -137,7 +134,7 @@ export class App extends React.Component<{}, State> {
           </div>
 
           <ul>
-            {goods.map(good => (
+            {visibleGoods.map(good => (
               <li data-cy="Good" key={good}>{good}</li>
             ))}
           </ul>
