@@ -160,7 +160,12 @@ export class App extends Component<{}, State> {
         <ul>
           <ul>
             {visibleGoods.map(good => (
-              <li key={good}>{good}</li>
+              <li
+                data-cy="Good"
+                key={good}
+              >
+                {good}
+              </li>
             ))}
           </ul>
         </ul>
