@@ -48,6 +48,8 @@ export function getReorderedGoods(
         (firstGood, secondGood) => firstGood.length - secondGood.length,
       );
       break;
+    case SortType.NONE:
+      break;
 
     default:
       break;
@@ -57,9 +59,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
