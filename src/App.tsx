@@ -124,7 +124,7 @@ export class App extends Component<{}, State> {
               'button is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={() => this.reverse()}
+            onClick={this.reverse}
           >
             Reverse
           </button>
@@ -142,7 +142,7 @@ export class App extends Component<{}, State> {
 
         <ul>
           {
-            getReorderedGoods(visibleGoods, { sortType, isReversed })
+            visibleGoods
               .map((good) => {
                 return (
                   <li key={good} data-cy="Good">
