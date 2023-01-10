@@ -26,15 +26,12 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   switch (sortType) {
     case SortType.ALPHABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
@@ -53,7 +50,6 @@ export function getReorderedGoods(
     : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
