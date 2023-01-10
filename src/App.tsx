@@ -94,16 +94,17 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const isButtonVisible = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={cn('button is-info',
-              sortType !== SortType.ALPHABET
-                ? 'is-light'
-                : '')}
+            className={cn(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
             onClick={() => this.handleSort(SortType.ALPHABET)}
           >
             Sort alphabetically
@@ -111,10 +112,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={cn('button is-success',
-              sortType !== SortType.LENGTH
-                ? 'is-light'
-                : '')}
+            className={cn(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={() => this.handleSort(SortType.LENGTH)}
           >
             Sort by length
@@ -122,20 +123,20 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={cn('button is-warning',
-              !isReversed
-                ? 'is-light'
-                : '')}
+            className={cn(
+              'button is-warning',
+              { 'is-light': !this.state.isReversed },
+            )}
             onClick={() => this.handleReverse()}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {(isButtonVisible) && (
             <button
               type="button"
-              className={cn('button is-danger is-light')}
-              onClick={() => this.handleReset()}
+              className="button is-danger is-light"
+              onClick={this.handleReset}
             >
               Reset
             </button>
