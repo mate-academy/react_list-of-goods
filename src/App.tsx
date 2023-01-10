@@ -46,6 +46,9 @@ export function getReorderedGoods(
       ));
       break;
 
+    case SortType.NONE:
+      break;
+
     default: break;
   }
 
@@ -62,27 +65,27 @@ export class App extends Component<{}, ReorderOptions> {
     isReversed: false,
   };
 
-  doReverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  doSortAlphabetically = () => {
+  handleSortAlphabetically = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
-  doSortByLength = () => {
+  handleSortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  doReset = () => {
+  handleReset = () => {
     this.setState({ sortType: SortType.NONE, isReversed: false });
   };
 
   render() {
     const { sortType, isReversed } = this.state;
-    const useGoods = (
+    const visibleGoods = (
       getReorderedGoods(goodsFromServer, { sortType, isReversed })
     );
 
@@ -95,7 +98,7 @@ export class App extends Component<{}, ReorderOptions> {
               'is-light': sortType !== SortType.ALPHABET,
               pulse: sortType === SortType.ALPHABET,
             })}
-            onClick={this.doSortAlphabetically}
+            onClick={this.handleSortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -106,7 +109,7 @@ export class App extends Component<{}, ReorderOptions> {
               'is-light': sortType !== SortType.LENGTH,
               pulse: sortType === SortType.LENGTH,
             })}
-            onClick={this.doSortByLength}
+            onClick={this.handleSortByLength}
           >
             Sort by length
           </button>
@@ -117,7 +120,7 @@ export class App extends Component<{}, ReorderOptions> {
               'is-light': !isReversed,
               pulse: isReversed,
             })}
-            onClick={this.doReverse}
+            onClick={this.handleReverse}
           >
             Reverse
           </button>
@@ -126,7 +129,7 @@ export class App extends Component<{}, ReorderOptions> {
             ? (
               <button
                 type="button"
-                onClick={this.doReset}
+                onClick={this.handleReset}
                 className="button is-danger"
               >
                 Reset
@@ -137,7 +140,7 @@ export class App extends Component<{}, ReorderOptions> {
 
         <div>
           <ul>
-            {useGoods.map(product => (
+            {visibleGoods.map(product => (
               <li
                 data-cy="Good"
                 key={product}
