@@ -106,7 +106,7 @@ export class App extends React.PureComponent<{}, State> {
             )}
             onClick={this.sortByAlphabet}
           >
-            Sort Alphabetically
+            Sort alphabetically
           </Button>
 
           <Button
@@ -118,7 +118,7 @@ export class App extends React.PureComponent<{}, State> {
             )}
             onClick={this.sortByLength}
           >
-            Sort By Length
+            Sort by length
           </Button>
 
           <Button
