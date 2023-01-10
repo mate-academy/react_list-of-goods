@@ -83,7 +83,9 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const resetConditions = isReversed === true || sortType !== SortType.NONE;
+    const shouldRenderResetButton = isReversed === true
+      || sortType !== SortType.NONE;
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -130,7 +132,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {resetConditions && (
+          {shouldRenderResetButton && (
             <button
               onClick={this.reset}
               type="button"
@@ -143,8 +145,11 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          {getReorderedGoods(goodsFromServer, this.state)
-            .map(good => <li data-cy="Good" key={good}>{good}</li>)}
+          {visibleGoods.map(good => (
+            <li data-cy="Good" key={good}>
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
