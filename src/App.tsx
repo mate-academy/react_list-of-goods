@@ -35,10 +35,22 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    default:
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
-  return visibleGoods;
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
 }
 
 // DON'T save goods to the state
@@ -80,6 +92,11 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      { sortType, isReversed },
+    );
 
     return (
       <div className="section content">
@@ -126,7 +143,7 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          {goodsFromServer.map(good => (
+          {visibleGoods.map(good => (
             <li
               data-cy="Good"
               key={good}
