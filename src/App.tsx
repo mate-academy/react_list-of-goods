@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -61,9 +62,6 @@ export class App extends Component<{}, ReorderOptions> {
     isReversed: false,
   };
 
-  // Why when I write an arrow function everything works,
-  // but when I add a method it destroys everything. It's make me cry, dude..
-
   doReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
@@ -93,9 +91,10 @@ export class App extends Component<{}, ReorderOptions> {
         <div className="buttons">
           <button
             type="button"
-            className={sortType === SortType.ALPHABET
-              ? 'button is-info pulse'
-              : 'button is-info is-light'}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+              pulse: sortType === SortType.ALPHABET,
+            })}
             onClick={this.doSortAlphabetically}
           >
             Sort alphabetically
@@ -103,9 +102,10 @@ export class App extends Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={sortType === SortType.LENGTH
-              ? 'button is-success pulse'
-              : 'button is-success is-light'}
+            className={cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+              pulse: sortType === SortType.LENGTH,
+            })}
             onClick={this.doSortByLength}
           >
             Sort by length
@@ -113,9 +113,10 @@ export class App extends Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={isReversed
-              ? 'button is-warning pulse'
-              : 'button is-warning is-light'}
+            className={cn('button is-warning', {
+              'is-light': !isReversed,
+              pulse: isReversed,
+            })}
             onClick={this.doReverse}
           >
             Reverse
@@ -126,7 +127,7 @@ export class App extends Component<{}, ReorderOptions> {
               <button
                 type="button"
                 onClick={this.doReset}
-                className="button pulse is-danger"
+                className="button is-danger"
               >
                 Reset
               </button>
