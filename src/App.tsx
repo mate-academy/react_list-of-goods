@@ -107,6 +107,7 @@ export class App extends React.PureComponent<{}, State> {
     } = this.state;
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const reArrange = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -146,7 +147,7 @@ export class App extends React.PureComponent<{}, State> {
           >
             Reverse
           </Button>
-          {(isReversed || sortType !== SortType.NONE) && (
+          {reArrange && (
             <Button
               className="button is-danger is-light"
               onClick={this.reset}
