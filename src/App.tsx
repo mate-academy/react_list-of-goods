@@ -39,19 +39,26 @@ export function getReorderedGoods(
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
+  if (sortType) {
+    visibleGoods.sort((g1, g2) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return g1.localeCompare(g2);
+
+        case SortType.LENGTH:
+          return g1.length - g2.length;
+
+        default:
+          return 0;
+      }
+    });
+  }
+
   if (isReversed) {
-    return visibleGoods.reverse();
+    visibleGoods.reverse();
   }
 
-  switch (sortType) {
-    case SortType.ALPHABET:
-      return visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
-    case SortType.LENGTH:
-      return visibleGoods.sort((g1, g2) => g1.length - g2.length);
-
-    default:
-      return visibleGoods;
-  }
+  return visibleGoods;
 }
 
 type State = {
