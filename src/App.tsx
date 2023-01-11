@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -94,15 +95,18 @@ export class App extends Component<{}, State> {
       { sortType, isReversed },
     );
 
+    const isSortedOrReversed = isReversed || (sortType !== SortType.NONE);
+
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
             onClick={this.handleSortByAlphab}
-            className={`button is-info ${
-              sortType !== SortType.ALPHABET && 'is-light'
-            }`}
+            className={cn(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
           >
             Sort alphabetically
           </button>
@@ -110,9 +114,10 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             onClick={this.handleSortByLength}
-            className={`button is-success ${
-              sortType !== SortType.LENGTH && 'is-light'
-            }`}
+            className={cn(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
           >
             Sort by length
           </button>
@@ -127,7 +132,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          { isSortedOrReversed && (
             <button
               type="button"
               onClick={this.handleReset}
