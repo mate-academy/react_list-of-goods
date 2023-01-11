@@ -50,9 +50,6 @@ export function getReorderedGoods(
     visibleGoods.reverse();
   }
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   return visibleGoods;
 }
 
@@ -68,21 +65,15 @@ export class App extends React.Component<{}, State> {
   };
 
   handleSortingAlphabetically = () => {
-    this.setState({
-      sortType: SortType.ALPHABET,
-    });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   handleSortingByLength = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
-    });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   handleReversing = () => {
-    this.setState({
-      isReversed: true,
-    });
+    this.setState({ isReversed: true });
   };
 
   handleResetting = () => {
