@@ -69,25 +69,25 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handleAlpha = () => {
+  sortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
   };
 
-  handleLength = () => {
+  sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
   };
 
-  handleReverse = () => {
+  toggleReverse = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  resetHandle = () => {
+  reset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -97,8 +97,12 @@ export class App extends React.Component<{}, State> {
   render(): React.ReactNode {
     const { isReversed, sortType } = this.state;
 
-    const visibleGoods
-      = getReorderedGoods(goodsFromServer, { sortType, isReversed });
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      { sortType, isReversed },
+    );
+
+    const resetButtonExists = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -106,12 +110,11 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={cn(
-              'button is-info',
-              {
+              'button is-info', {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={this.handleAlpha}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -124,7 +127,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={this.handleLength}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
@@ -137,16 +140,16 @@ export class App extends React.Component<{}, State> {
                 'is-light': !isReversed,
               },
             )}
-            onClick={this.handleReverse}
+            onClick={this.toggleReverse}
           >
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {resetButtonExists && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.resetHandle}
+              onClick={this.reset}
             >
               Reset
             </button>
@@ -155,16 +158,11 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {visibleGoods.map(
-              good => (
-                <li
-                  key={good}
-                  data-cy="Good"
-                >
-                  {good}
-                </li>
-              ),
-            )}
+            {visibleGoods.map(good => (
+              <li key={good} data-cy="Good">
+                {good}
+              </li>
+            ))}
           </ul>
         </ul>
       </div>
