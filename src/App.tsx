@@ -1,6 +1,9 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
+import classNames from 'classnames';
 import './App.scss';
+import { ListOfGoods } from './ListOfGoods';
+import { Button } from './Button';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -34,7 +37,25 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
+  if (sortType) {
+    visibleGoods.sort((a, b) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return a.localeCompare(b);
+
+        case SortType.LENGTH:
+          return a.length - b.length;
+
+        default:
+          return 0;
+      }
+    });
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -42,54 +63,102 @@ export function getReorderedGoods(
 }
 
 // DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
 };
+
+export class App extends React.PureComponent<{}, State> {
+  state: Readonly<State> = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
+
+  sortByAlphabet = () => {
+    this.setState({
+      sortType: SortType.ALPHABET,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
+  };
+
+  reverse = () => {
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  reset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
+  render() {
+    const {
+      isReversed,
+      sortType,
+    } = this.state;
+
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const reArrange = isReversed || sortType !== SortType.NONE;
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <Button
+            className={classNames(
+              'is-info',
+              {
+                'is-light': sortType !== SortType.ALPHABET,
+              },
+            )}
+            onClick={this.sortByAlphabet}
+          >
+            Sort alphabetically
+          </Button>
+
+          <Button
+            className={classNames(
+              'is-success',
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              },
+            )}
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </Button>
+
+          <Button
+            className={classNames(
+              'is-warning',
+              {
+                'is-light': !isReversed,
+              },
+            )}
+            onClick={this.reverse}
+          >
+            Reverse
+          </Button>
+          {reArrange && (
+            <Button
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </Button>
+          )}
+
+        </div>
+        <ListOfGoods goods={visibleGoods} />
+      </div>
+    );
+  }
+}
