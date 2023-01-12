@@ -130,7 +130,6 @@ export class App extends React.Component<{}, State> {
             >
               Reset
             </button>
-
           </div>
 
           <ul>
