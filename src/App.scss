@@ -1,3 +1,17 @@
 iframe {
   display: none;
 }
+
+html {
+  height: 100vh;
+  background-image: url("images/phonoteka.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.wrapper {
+  display: flex;
+  margin: 30px auto;
+  width: 600px;
+}
