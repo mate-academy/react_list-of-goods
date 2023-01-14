@@ -110,7 +110,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) ? (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -121,7 +121,7 @@ export class App extends Component<{}, State> {
             >
               Reset
             </button>
-          ) : null}
+          )}
         </div>
 
         <GoodsList goods={updatedGoods} />
