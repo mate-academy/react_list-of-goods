@@ -35,12 +35,19 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((a, b) => a.localeCompare(b));
-  }
+  if (sortType) {
+    visibleGoods.sort((a, b) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return a.localeCompare(b);
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => a.length - b.length);
+        case SortType.LENGTH:
+          return a.length - b.length;
+
+        default:
+          return 0;
+      }
+    });
   }
 
   if (isReversed) {
@@ -93,6 +100,7 @@ export class App extends React.PureComponent<{}, State> {
     } = this.state;
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const reverseConditions = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -132,7 +140,7 @@ export class App extends React.PureComponent<{}, State> {
           >
             Reverse
           </Button>
-          {(isReversed || sortType !== SortType.NONE) && (
+          {(reverseConditions) && (
             <Button
               className="button is-dange is-light"
               onClick={this.reset}
