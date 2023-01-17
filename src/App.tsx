@@ -35,14 +35,14 @@ export function getReorderedGoods(
 
   visibleGoods.sort((a, b) => {
     switch (sortType) {
-      case 1:
+      case SortType.ALPHABET:
         return a.localeCompare(b);
 
-      case 2:
+      case SortType.LENGTH:
         return a.length - b.length;
 
       default:
-        return 0;
+        return SortType.NONE;
     }
   });
 
@@ -53,7 +53,6 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
