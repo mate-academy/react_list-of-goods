@@ -2,6 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { SortType } from './types/SortType';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -16,26 +17,17 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
-}
-
 type ReorderOptions = {
   sortType: SortType,
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
