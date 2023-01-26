@@ -5,6 +5,8 @@ import './App.scss';
 import { ListOfGoods } from './ListOfGoods';
 import { Button } from './Button';
 
+// comment added for refork //
+
 export const goodsFromServer = [
   'Dumplings',
   'Carrot',
