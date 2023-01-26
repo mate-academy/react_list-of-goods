@@ -1,6 +1,8 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
+import { Good } from './Components/Good';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -33,10 +35,10 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   switch (sortType) {
-    case 1:
+    case SortType.ALPHABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
-    case 2:
+    case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
     default:
@@ -46,9 +48,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
@@ -62,30 +61,16 @@ type State = {
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
     reset: false,
   };
 
   sortAlphabet = () => {
-    this.setState({ sortType: 1, reset: true });
-    const buttonLength = document.querySelector('.is-success');
-
-    buttonLength?.classList.add('is-light');
-
-    const buttonAlpabet = document.querySelector('.is-info');
-
-    buttonAlpabet?.classList.remove('is-light');
+    this.setState({ sortType: SortType.ALPHABET, reset: true });
   };
 
   sortLength = () => {
-    this.setState({ sortType: 2, reset: true });
-
-    const buttonAlphabet = document.querySelector('.is-info');
-
-    buttonAlphabet?.classList.add('is-light');
-    const buttonSucc = document.querySelector('.is-success');
-
-    buttonSucc?.classList.remove('is-light');
+    this.setState({ sortType: SortType.LENGTH, reset: true });
   };
 
   reverse = () => {
@@ -93,41 +78,30 @@ export class App extends React.Component<{}, State> {
       isReversed: !state.isReversed,
       reset: true,
     }));
-    this.forceUpdate();
-
-    const buttonAlpabet = document.querySelector('.is-warning');
-
-    if (!this.state.isReversed) {
-      buttonAlpabet?.classList.remove('is-light');
-    } else {
-      buttonAlpabet?.classList.add('is-light');
-    }
   };
 
   reset = () => {
-    this.setState({ sortType: 2, reset: false });
-    const buttons = document.querySelectorAll('.button');
-
-    buttons.forEach(element => {
-      element.classList.add('is-light');
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+      reset: false,
     });
   };
 
   render() {
-    const { reset } = this.state;
+    const { isReversed, sortType, reset } = this.state;
 
-    let visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-
-    if (!reset) {
-      visibleGoods = [...goodsFromServer];
-    }
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
             onClick={this.sortAlphabet}
           >
             Sort alphabetically
@@ -135,7 +109,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={this.sortLength}
           >
             Sort by length
@@ -143,13 +120,16 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
+            )}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {this.state.reset && (
+          {reset && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -163,9 +143,7 @@ export class App extends React.Component<{}, State> {
         <ul>
           <ul>
             {visibleGoods.map(good => (
-              <li data-cy="Good" key={good}>
-                {good}
-              </li>
+              <Good good={good} key={good} />
             ))}
           </ul>
         </ul>
