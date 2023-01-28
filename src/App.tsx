@@ -36,10 +36,10 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   switch (sortType) {
-    case 1:
+    case SortType.ALPHABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
-    case 2:
+    case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
     default:
@@ -66,15 +66,15 @@ type State = {
 export class App extends Component<{}, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortAlphabetically = () => {
-    this.setState({ sortType: 1 });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortByLength = () => {
-    this.setState({ sortType: 2 });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   reverseListOfGoods = () => {
@@ -85,7 +85,7 @@ export class App extends Component<{}, State> {
 
   resetListOfGoods = () => {
     this.setState({
-      sortType: 0,
+      sortType: SortType.NONE,
       isReversed: false,
     });
   };
@@ -101,7 +101,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 1 },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortAlphabetically}
           >
@@ -112,7 +112,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-success',
-              { 'is-light': sortType !== 2 },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortByLength}
           >
@@ -130,7 +130,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType || isReversed) && (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
