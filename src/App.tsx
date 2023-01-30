@@ -108,7 +108,6 @@ export class App extends React.Component <{}, State> {
               'button is-info',
               { 'is-light': sortType !== 'Alphabet' },
             )}
-            // className="button is-info is-light"
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
