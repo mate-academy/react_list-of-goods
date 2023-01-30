@@ -135,8 +135,7 @@ export class App extends React.Component <{}, State> {
             Reverse
           </button>
 
-          {isNotDefault
-          && (
+          {isNotDefault && (
             <button
               type="button"
               className="button is-danger is-light"
