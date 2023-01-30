@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { SortType } from '../../types/SortType';
+import { getReorderedGoods } from '../../utils/getReorderedGoods';
 
 type Props = {
   goods: string[],
@@ -8,24 +9,7 @@ type Props = {
 };
 
 export const GoodsList: FC<Props> = ({ goods, sortType, isReversed }) => {
-  const renderedGoods = [...goods];
-
-  switch (sortType) {
-    case SortType.ALPHABET:
-      renderedGoods.sort((a, b) => a.localeCompare(b));
-      break;
-
-    case SortType.LENGTH:
-      renderedGoods.sort((a, b) => a.length - b.length);
-      break;
-
-    default:
-      // do nothing
-  }
-
-  if (isReversed) {
-    renderedGoods.reverse();
-  }
+  const renderedGoods = getReorderedGoods(goods, sortType, isReversed);
 
   return (
     <ul>

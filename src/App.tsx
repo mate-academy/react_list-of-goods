@@ -50,6 +50,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+    const isResetButtonVisible = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -90,7 +91,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE)
+          {isResetButtonVisible
             && (
               <button
                 type="button"
