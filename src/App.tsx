@@ -6,19 +6,8 @@ import './App.scss';
 
 import { GoodsList } from './components/GoodsList';
 import { SortType } from './types/SortType';
-
-export const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import { getReorderedGoods } from './utils/getReorderedGoods';
+import { goods } from './api/goods';
 
 type State = {
   isReversed: boolean,
@@ -50,6 +39,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+    const reorderedGoods = getReorderedGoods(goods, sortType, isReversed);
     const isResetButtonVisible = isReversed || sortType !== SortType.NONE;
 
     return (
@@ -104,9 +94,7 @@ export class App extends Component<{}, State> {
         </div>
 
         <GoodsList
-          goods={goodsFromServer}
-          sortType={sortType}
-          isReversed={isReversed}
+          goods={reorderedGoods}
         />
       </div>
     );
