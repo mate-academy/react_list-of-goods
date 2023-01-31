@@ -28,12 +28,12 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((f1, f2) => {
+  visibleGoods.sort((good1, good2) => {
     switch (sortType) {
       case SortType.ALPHABET:
-        return f1.localeCompare(f2);
+        return good1.localeCompare(good2);
       case SortType.LENGTH:
-        return f1.length - f2.length;
+        return good1.length - good2.length;
       case SortType.NONE:
       default:
         return 0;
@@ -58,7 +58,7 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortAlph = () => {
+  sortAlphabetically = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
@@ -66,7 +66,7 @@ export class App extends React.Component<{}, State> {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  sortNone = () => {
+  reset = () => {
     this.setState({ sortType: SortType.NONE, isReversed: false });
   };
 
@@ -82,6 +82,7 @@ export class App extends React.Component<{}, State> {
       goodsFromServer,
       { sortType, isReversed },
     );
+    const isResetButtonVisible = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -92,7 +93,7 @@ export class App extends React.Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.sortAlph}
+            onClick={this.sortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -119,11 +120,11 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
           {
-            (sortType !== SortType.NONE || isReversed) && (
+            isResetButtonVisible && (
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={this.sortNone}
+                onClick={this.reset}
               >
                 Reset
               </button>
