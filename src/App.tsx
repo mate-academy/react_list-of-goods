@@ -81,7 +81,10 @@ export class App extends React.Component<{}, State> {
   };
 
   resetAll = () => {
-    this.setState({ sortType: SortType.NONE, isReversed: false });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
   render() {
@@ -136,7 +139,12 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           {getReorderedGoods(goodsFromServer, this.state).map(good => (
-            <li key={good} data-cy="Good">{good}</li>
+            <li
+              key={good}
+              data-cy="Good"
+            >
+              {good}
+            </li>
           ))}
         </ul>
       </div>
