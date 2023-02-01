@@ -80,7 +80,6 @@ export class App extends React.Component<{}, State> {
 
   sortReversed = () => {
     this.setState((state: State) => ({
-      ...state,
       isReversed: !state.isReversed,
     }));
   };
@@ -95,6 +94,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const resetIsHidden = isReversed || sortType !== SortType.NONE;
+    const sortedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -144,7 +144,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map(good => (
+            {sortedGoods.map(good => (
               <li data-cy="Good" key={good}>{good}</li>
             ))}
           </ul>
