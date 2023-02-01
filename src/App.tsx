@@ -101,6 +101,8 @@ export class App extends Component<{}, State> {
       { sortType, isReversed },
     );
 
+    const isResetButtonVisible = (isReversed || sortType !== SortType.NONE);
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -133,16 +135,15 @@ export class App extends Component<{}, State> {
           >
             Reverse
           </button>
-          {(isReversed || sortType !== SortType.NONE)
-            && (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-            )}
+          {isResetButtonVisible && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
 
         </div>
         {visibleGoods.map(good => (
