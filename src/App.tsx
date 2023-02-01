@@ -73,22 +73,22 @@ export class App extends Component<{}, Readonly<State>> {
     }));
   };
 
-  sortByName = () => {
+  sortByAlphabet = () => {
     this.setState({
-      sortType: 1,
+      sortType: SortType.ALPHABET,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortType: 2,
+      sortType: SortType.LENGTH,
     });
   };
 
   reset = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
     });
   };
 
@@ -98,6 +98,7 @@ export class App extends Component<{}, Readonly<State>> {
       goodsFromServer,
       { sortType, isReversed },
     );
+    const resetCondition = isReversed || sortType !== 0;
 
     return (
       <div className="section content">
@@ -109,7 +110,7 @@ export class App extends Component<{}, Readonly<State>> {
               'is-info',
               { 'is-light': sortType !== 1 },
             )}
-            onClick={this.sortByName}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -138,7 +139,7 @@ export class App extends Component<{}, Readonly<State>> {
             Reverse
           </button>
 
-          {(isReversed === true || sortType !== 0) && (
+          {resetCondition && (
             <button
               type="button"
               className="button is-danger is-light"
