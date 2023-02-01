@@ -33,18 +33,18 @@ export function getReorderedGoods(
   { sortType, isReversed }: ReorderOptions,
 ) {
   // To avoid the original array mutation
-  const visibleGoods = [...goods];
-
-  switch (sortType) {
-    case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => a.localeCompare(b));
-      break;
-    case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
-      break;
-    default:
-      break;
-  }
+  const visibleGoods = [...goods].sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+      case SortType.NONE:
+        return 0;
+      default:
+        throw new Error('Invalid SortType');
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -93,6 +93,7 @@ export class App extends Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isReset = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -130,7 +131,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {isReset && (
             <button
               type="button"
               className="button is-danger is-light"
