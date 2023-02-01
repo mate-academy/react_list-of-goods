@@ -43,6 +43,7 @@ export function getReorderedGoods(
       break;
 
     default:
+      break;
   }
 
   if (isReversed) {
