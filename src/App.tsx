@@ -19,9 +19,12 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  let visibleGoods = [...goods];
+  const visibleGoods = [...goods];
 
   switch (sortType) {
+    case (SortType.NONE):
+      break;
+
     case (SortType.ALPHABET):
       visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
@@ -35,7 +38,7 @@ export function getReorderedGoods(
   }
 
   if (isReversed) {
-    visibleGoods = visibleGoods.reverse();
+    visibleGoods.reverse();
   }
 
   return visibleGoods;
@@ -44,36 +47,29 @@ export function getReorderedGoods(
 type State = {
   isReversed: boolean,
   sortType: SortType,
-  isOriginalOrder: boolean,
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     isReversed: false,
     sortType: SortType.NONE,
-    isOriginalOrder: true,
   };
 
   handleSortByAlphabet = () => {
     this.setState({
-      isReversed: false,
       sortType: SortType.ALPHABET,
-      isOriginalOrder: false,
     });
   };
 
   handleSortByLength = () => {
     this.setState({
-      isReversed: false,
       sortType: SortType.LENGTH,
-      isOriginalOrder: false,
     });
   };
 
   handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      isOriginalOrder: false,
     }));
   };
 
@@ -81,12 +77,11 @@ export class App extends React.Component<{}, State> {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
-      isOriginalOrder: true,
     });
   };
 
   render() {
-    const { isReversed, sortType, isOriginalOrder } = this.state;
+    const { isReversed, sortType } = this.state;
     const reorderedGoods = getReorderedGoods(dataFromServer, {
       isReversed,
       sortType,
@@ -127,7 +122,7 @@ export class App extends React.Component<{}, State> {
           >
             Reverse
           </button>
-          {!isOriginalOrder && (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
