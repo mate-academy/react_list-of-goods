@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'None',
-  ALPHABET = 'Alphabet',
-  LENGTH = 'Length',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -32,30 +32,28 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
-  const newGoods = [...goods];
+  const reordererGoods = [...goods];
 
   // Sort and reverse goods if needed
-  if (sortType === 'Alphabet') {
-    newGoods.sort((good1, good2) => (
-      good1.localeCompare(good2)
-    ));
-  }
-
-  if (sortType === 'Length') {
-    newGoods.sort((good1, good2) => (
-      good1.length - good2.length
-    ));
-  }
+  reordererGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
-    newGoods.reverse();
+    reordererGoods.reverse();
   }
 
   // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  console.log(SortType, isReversed);
 
-  return newGoods;
+  return reordererGoods;
 }
 
 // DON'T save goods to the state
@@ -70,7 +68,7 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByABC = () => {
+  sortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
@@ -97,7 +95,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const newGoods = getReorderedGoods(goodsFromServer,
+    const reordererGoods = getReorderedGoods(goodsFromServer,
       { sortType, isReversed });
     const isInitial = isReversed || sortType !== SortType.NONE;
 
@@ -111,7 +109,7 @@ export class App extends Component<{}, State> {
               'is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.sortByABC}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -152,7 +150,7 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          {newGoods.map(good => (
+          {reordererGoods.map(good => (
             <li
               data-cy="Good"
               key={good}
