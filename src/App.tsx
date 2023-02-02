@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import { GoodsBlock } from './components/goodsBlock';
+import { GoodsListWrapper } from './components/goodsListWrapper';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -19,7 +19,7 @@ export const goodsFromServer = [
 export const App: React.FC = () => {
   return (
     <div className="section content">
-      <GoodsBlock goods={goodsFromServer} />
+      <GoodsListWrapper goods={goodsFromServer} />
     </div>
   );
 };

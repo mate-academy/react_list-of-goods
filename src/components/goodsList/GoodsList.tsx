@@ -8,12 +8,14 @@ type Props = {
   isReversed: boolean;
 };
 
-export const GoodsList: React.FC<Props> = (props: Props) => {
-  const { goods, sortType, isReversed } = props;
+const getReorderedGoods = (
+  goods: string[],
+  sortType: SortType,
+  isReversed: boolean,
+) => {
+  const reorderedGoods = [...goods];
 
-  const visibleGoods = [...goods];
-
-  visibleGoods.sort((good1, good2) => {
+  reorderedGoods.sort((good1, good2) => {
     switch (sortType) {
       case SortType.ALPHABET:
         return good1.localeCompare(good2);
@@ -27,18 +29,24 @@ export const GoodsList: React.FC<Props> = (props: Props) => {
   });
 
   if (isReversed) {
-    visibleGoods.reverse();
+    reorderedGoods.reverse();
   }
+
+  return reorderedGoods;
+};
+
+export const GoodsList: React.FC<Props> = (props: Props) => {
+  const { goods, sortType, isReversed } = props;
+
+  const visibleGoods = getReorderedGoods(goods, sortType, isReversed);
 
   return (
     <ul>
-      {visibleGoods.map(good => {
-        return (
-          <li data-cy="Good" key={good}>
-            {good}
-          </li>
-        );
-      })}
+      {visibleGoods.map(good => (
+        <li data-cy="Good" key={good}>
+          {good}
+        </li>
+      ))}
     </ul>
   );
 };

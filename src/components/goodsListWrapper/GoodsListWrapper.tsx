@@ -13,7 +13,7 @@ type Props = {
   goods: string[];
 };
 
-export class GoodsBlock extends React.Component<Props, ReorderOptions> {
+export class GoodsListWrapper extends React.Component<Props, ReorderOptions> {
   state = {
     sortType: SortType.NONE,
     isReversed: false,
@@ -32,11 +32,9 @@ export class GoodsBlock extends React.Component<Props, ReorderOptions> {
   };
 
   handleReverseButtonClick = () => {
-    this.setState((state) => {
-      return {
-        isReversed: !state.isReversed,
-      };
-    });
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
+    }));
   };
 
   handleResetButtonClick = () => {
