@@ -46,7 +46,7 @@ export function getReorderedGoods(
         return a.length - b.length;
 
       default:
-        return 0;
+        throw new Error('Unexpected sortBy value');
     }
   });
 
@@ -100,6 +100,8 @@ export class App extends React.Component<{}, State> {
     const { isReversed, sortType } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
+    const selectedSortBy = (isReversed || sortType !== SortType.NONE);
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -133,7 +135,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType || isReversed) && (
+          {selectedSortBy && (
             <button
               type="button"
               className="button is-danger is-light"
