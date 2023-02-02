@@ -27,25 +27,28 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.ALPHABET:
-      visibleGoods.sort((first, next) => first.localeCompare(next));
-      break;
+  visibleGoods.sort((first, next) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return first.localeCompare(next);
 
-    case SortType.LENGTH:
-      visibleGoods.sort((first, next) => first.length - next.length);
-      break;
+      case SortType.LENGTH:
+        return first.length - next.length;
 
-    default:
-      break;
-  }
+      case SortType.NONE:
+        return 0;
+
+      default:
+        throw new Error('Wrong sort type');
+        break;
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -54,7 +57,6 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -89,7 +91,8 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const visibleList = getReorderedGoods(goodsFromServer, this.state);
+    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isResetBtnClicked = Boolean(sortType !== SortType.NONE || isReversed);
 
     return (
       <div className="section content">
@@ -128,7 +131,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          { (sortType !== SortType.NONE || isReversed) && (
+          { isResetBtnClicked && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -141,7 +144,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {visibleList.map(good => (
+            {reorderedGoods.map(good => (
               <li
                 data-cy="Good"
                 key={good}
