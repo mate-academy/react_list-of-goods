@@ -60,8 +60,8 @@ type State = {
 
 export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
-    isReversed: false,
     sortType: SortType.NONE,
+    isReversed: false,
   };
 
   toReverse() {
