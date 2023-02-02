@@ -43,8 +43,11 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return g1.length - g2.length;
 
-      default:
+      case SortType.NONE:
         return 0;
+
+      default:
+        throw new Error('Invalid sort type');
     }
   });
 
@@ -93,6 +96,8 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const isResetVisible = (isReversed || sortType !== SortType.NONE);
+    const preparedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -130,7 +135,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isResetVisible && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -144,7 +149,7 @@ export class App extends React.Component<{}, State> {
         <ul>
           <ul>
             {
-              getReorderedGoods(goodsFromServer, this.state).map(good => (
+              preparedGoods.map(good => (
                 <li data-cy="Good" key={good}>
                   {good}
                 </li>
