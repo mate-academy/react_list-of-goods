@@ -45,8 +45,11 @@ export function getReorderedGoods(
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
 
-    default:
+    case SortType.NONE:
       break;
+
+    default:
+      throw new Error('Please, enter fild by sort')
   }
 
   if (isReversed) {
