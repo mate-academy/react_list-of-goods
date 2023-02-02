@@ -36,21 +36,21 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => a.localeCompare(b));
-      break;
+  visibleGoods.sort((a, b) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return a.localeCompare(b);
 
-    case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
-      break;
+      case SortType.LENGTH:
+        return a.length - b.length;
 
-    case SortType.NONE:
-      break;
+      case SortType.NONE:
+        return 0;
 
-    default:
-      throw new Error('Please, enter fild by sort')
-  }
+      default:
+        throw new Error('Wrong sort type');
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -81,7 +81,7 @@ export class App extends Component<{}, State> {
     }));
   };
 
-  sorrBy = (sortType: SortType) => {
+  sortBy = (sortType: SortType) => {
     this.setState(() => ({
       sortType,
     }));
@@ -95,7 +95,7 @@ export class App extends Component<{}, State> {
   };
 
   render() {
-    const copyGoodsList = getReorderedGoods(goodsFromServer, this.state);
+    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     const visibleReset = this.state.isReversed === false
       && this.state.sortType === SortType.NONE;
@@ -111,7 +111,7 @@ export class App extends Component<{}, State> {
               'is-light': sortType !== SortType.ALPHABET,
             })}
             onClick={() => (
-              this.sorrBy(SortType.ALPHABET)
+              this.sortBy(SortType.ALPHABET)
             )}
           >
             Sort alphabetically
@@ -123,7 +123,7 @@ export class App extends Component<{}, State> {
               'is-light': sortType !== SortType.LENGTH,
             })}
             onClick={() => (
-              this.sorrBy(SortType.LENGTH)
+              this.sortBy(SortType.LENGTH)
             )}
           >
             Sort by length
@@ -152,7 +152,7 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {copyGoodsList.map(good => (
+            {reorderedGoods.map(good => (
               <li
                 data-cy="Good"
                 key={good}
