@@ -64,7 +64,7 @@ type State = {
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   alphabetSort = () => {
@@ -80,8 +80,8 @@ export class App extends React.Component<{}, State> {
   };
 
   reversed = () => {
-    this.setState(() => ({
-      isReversed: true,
+    this.setState((state) => ({
+      isReversed: !state.isReversed,
     }));
   };
 
@@ -98,6 +98,7 @@ export class App extends React.Component<{}, State> {
       isReversed,
       sortType,
     });
+    const isVisible = sortType === SortType.NONE && isReversed === false;
 
     return (
       <div className="section content">
@@ -138,17 +139,17 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          <button
-            type="button"
-            className={classNames('button is-danger', {
-              'is-light': SortType.NONE === sortType,
-            })}
-            onClick={() => {
-              this.reset();
-            }}
-          >
-            Reset
-          </button>
+          {!isVisible && (
+            <button
+              type="button"
+              className="button is-danger"
+              onClick={() => {
+                this.reset();
+              }}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
