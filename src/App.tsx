@@ -38,7 +38,7 @@ export function getReorderedGoods(
   visibleGoods.sort((a, b) => {
     switch (sortType) {
       case SortType.ALPHABET:
-        return a < b ? -1 : 1;
+        return a.localeCompare(b);
       case SortType.LENGTH:
         return a.length - b.length;
       default:
@@ -74,7 +74,6 @@ export class App extends Component<{}, ReorderOptions> {
 
   handleOrderChange = () => {
     this.setState((state) => ({
-      ...state,
       isReversed: !state.isReversed,
     }));
   };
@@ -105,6 +104,8 @@ export class App extends Component<{}, ReorderOptions> {
     } = SortType;
 
     const goods = getReorderedGoods(goodsFromServer, state);
+
+    const shouldRenderResetButton = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -146,7 +147,7 @@ export class App extends Component<{}, ReorderOptions> {
           </button>
 
           {
-            (sortType !== SortType.NONE || isReversed) && (
+            shouldRenderResetButton && (
               <button
                 type="button"
                 className="button is-danger is-light"
