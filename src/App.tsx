@@ -33,18 +33,33 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case (SortType.ALPHABET):
-      visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
-      break;
+  visibleGoods.sort((g1, g2) => {
+    switch (sortType) {
+      case (SortType.ALPHABET):
+        return g1.localeCompare(g2);
 
-    case (SortType.LENGTH):
-      visibleGoods.sort((g1, g2) => g1.length - g2.length);
-      break;
+      case (SortType.LENGTH):
+        return g1.length - g2.length;
 
-    default:
-      break;
-  }
+      case (SortType.NONE):
+      default:
+        return 0;
+    }
+  });
+
+  // switch (sortType) {
+  //   case (SortType.ALPHABET):
+  //     visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
+  //     break;
+
+  //   case (SortType.LENGTH):
+  //     visibleGoods.sort((g1, g2) => g1.length - g2.length);
+  //     break;
+
+  //   case (SortType.NONE):
+  //   default:
+  //     break;
+  // }
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -79,6 +94,7 @@ export class App extends Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
+    const checkForReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -113,7 +129,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {checkForReset && (
             <button
               type="button"
               className="button is-danger is-light"
