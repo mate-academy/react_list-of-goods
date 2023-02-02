@@ -66,7 +66,7 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByName = () => {
+  sortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
@@ -89,6 +89,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+    const apparentGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -99,7 +100,7 @@ export class App extends React.Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.sortByName}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -126,7 +127,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {(sortType || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -138,7 +139,7 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          {getReorderedGoods(goodsFromServer, this.state).map(good => (
+          {apparentGoods.map(good => (
             <li
               key={good}
               data-cy="Good"
