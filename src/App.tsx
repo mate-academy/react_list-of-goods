@@ -86,14 +86,17 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
-    const {isReversed, sortType} = this.state;
+    const { isReversed, sortType } = this.state;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -101,7 +104,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -109,19 +115,23 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
+            )}
             onClick={this.reverse}
           >
             Reverse
           </button>
-
-          <button
-            type="button"
-            className="button is-danger is-light"
-            onClick={this.reset}
-          >
-            Reset
-          </button>
+          {(sortType !== SortType.NONE || isReversed) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
