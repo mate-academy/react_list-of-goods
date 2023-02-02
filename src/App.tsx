@@ -42,24 +42,12 @@ export function getReorderedGoods(
         return g1.length - g2.length;
 
       case (SortType.NONE):
-      default:
         return 0;
+
+      default:
+        throw new Error('No valid sort type');
     }
   });
-
-  // switch (sortType) {
-  //   case (SortType.ALPHABET):
-  //     visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
-  //     break;
-
-  //   case (SortType.LENGTH):
-  //     visibleGoods.sort((g1, g2) => g1.length - g2.length);
-  //     break;
-
-  //   case (SortType.NONE):
-  //   default:
-  //     break;
-  // }
 
   if (isReversed) {
     visibleGoods.reverse();
