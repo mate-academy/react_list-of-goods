@@ -27,31 +27,25 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.ALPHABET:
-      visibleGoods.sort((good1, good2) => (
-        good1.localeCompare(good2)
-      ));
-      break;
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
 
-    case SortType.LENGTH:
-      visibleGoods.sort((good1, good2) => (
-        good1.length - good2.length
-      ));
-      break;
+      case SortType.LENGTH:
+        return good1.length - good2.length;
 
-    case SortType.NONE:
-    default:
-      break;
-  }
+      case SortType.NONE:
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -94,8 +88,11 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+
     const isAlphabet = sortType === SortType.ALPHABET;
     const isLength = sortType === SortType.LENGTH;
+    const isResetRenderButton = isReversed || sortType !== SortType.NONE;
+
     const goodsForRender = getReorderedGoods(
       goodsFromServer,
       { sortType, isReversed },
@@ -128,7 +125,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isResetRenderButton && (
             <button
               type="button"
               className="button is-danger is-light"
