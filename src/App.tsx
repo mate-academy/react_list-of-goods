@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'None',
-  ALPHABET = 'Alphabet',
-  LENGTH = 'Length',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -33,19 +33,18 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case ('Alphabet'):
-      visibleGoods.sort((good1, good2) => (
-        good1.localeCompare(good2)));
-      break;
-    case ('Length'):
-      visibleGoods.sort((good1, good2) => (
-        good1.length - good2.length));
-      break;
-
-    default:
-      break;
-  }
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+      case SortType.NONE:
+        return 0;
+      default:
+        throw new Error('Unexpected sort value');
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -95,9 +94,11 @@ export class App extends React.Component <{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    // eslint-disable-next-line max-len
-    const visibleGoods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
-    const isNotDefault = isReversed || sortType !== 'None';
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer,
+      { sortType, isReversed },
+    );
+    const isNotDefault = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -106,7 +107,7 @@ export class App extends React.Component <{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 'Alphabet' },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortByAlphabet}
           >
@@ -117,7 +118,7 @@ export class App extends React.Component <{}, State> {
             type="button"
             className={classNames(
               'button is-success',
-              { 'is-light': sortType !== 'Length' },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortByLength}
           >
