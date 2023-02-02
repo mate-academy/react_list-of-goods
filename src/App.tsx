@@ -41,8 +41,12 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return good1.length - good2.length;
 
-      default:
+      case SortType.NONE:
         return 0;
+
+      default:
+        // eslint-disable-next-line max-len
+        throw new Error('Developer did something wrong, because we have only buttons and user could not click something else');
     }
   });
 
