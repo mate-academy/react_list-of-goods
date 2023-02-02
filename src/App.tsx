@@ -45,6 +45,7 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return a.length - b.length;
 
+      case SortType.NONE:
       default:
         throw new Error('Unexpected sortBy value');
     }
