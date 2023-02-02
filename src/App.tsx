@@ -65,7 +65,7 @@ export class App extends Component<{}, State> {
     isReversed: false,
   };
 
-  sortAlphabetic = () => {
+  sortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
@@ -99,7 +99,7 @@ export class App extends Component<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={this.sortAlphabetic}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
