@@ -1,6 +1,6 @@
 # React list of goods
 
-Implement the ability to reorder the goods with the given buttons.
+Implement the ability to reorder the goods with the given buttons. 
 
 > Here is [the working version](https://mate-academy.github.io/react_list-of-goods/)
 
