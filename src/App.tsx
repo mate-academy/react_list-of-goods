@@ -45,8 +45,9 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return good1.length - good2.length;
       case SortType.NONE:
-      default:
         return 0;
+      default:
+        throw new Error('No sort type, write correct one');
     }
   });
 
@@ -118,7 +119,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-info', {
+            className={classNames('button is-success', {
               'is-light': sortType !== SortType.LENGTH,
             })}
             onClick={this.sortByLength}
@@ -128,7 +129,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-info', {
+            className={classNames('button is-warning', {
               'is-light': !isReversed,
             })}
             onClick={this.handleReverse}
