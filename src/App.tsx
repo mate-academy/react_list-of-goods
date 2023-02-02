@@ -70,30 +70,31 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByLength = () => (
+  sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
-    })
-  );
+    });
+  };
 
-  sortByAlphabet = () => (
+  sortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
-    })
-  );
+    });
+  };
 
-  handleReset = () => (
+  handleReset = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
-    })
-  );
+    });
+  };
 
-  handleReverse = () => (
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }
-    )));
+    ));
+  };
 
   render() {
     const { isReversed, sortType } = this.state;
