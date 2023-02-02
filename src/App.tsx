@@ -39,8 +39,11 @@ export function getReorderedGoods(
         return a.localeCompare(b);
       case SortType.LENGTH:
         return a.length - b.length;
-      default:
+      case SortType.NONE:
         return 0;
+
+      default:
+        throw new Error('Unexpected sort type!');
     }
   });
 
@@ -89,6 +92,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
+    const showResetButton = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -126,7 +130,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {showResetButton && (
             <button
               type="button"
               className="button is-danger is-light"
