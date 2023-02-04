@@ -17,5 +17,3 @@ export const GoodsList: React.FC<Props> = React.memo(
     );
   },
 );
-
-export default React.memo(GoodsList);

@@ -133,9 +133,8 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {goodsFromServer[0] === visibleGoods[0]
-            ? ''
-            : (
+          {sortType !== SortType.NONE || isReversed
+            ? (
               <button
                 type="button"
                 className="button is-danger is-light"
@@ -143,7 +142,8 @@ export class App extends React.Component<{}, State> {
               >
                 Reset
               </button>
-            )}
+            )
+            : ''}
 
         </div>
 
