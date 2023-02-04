@@ -89,7 +89,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const finishGoods = getReorderedGoods(goodsFromServer, this.state);
-    const isReset = isReversed !== false || sortType !== SortType.NONE;
+    const isReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -125,7 +125,7 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button is-warning',
               {
-                'is-light': isReversed === false,
+                'is-light': !isReversed,
               },
             )}
             onClick={this.reverse}
