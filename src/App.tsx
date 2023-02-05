@@ -58,22 +58,22 @@ export class App extends React.Component<{}, State> {
     isReversed: false,
   };
 
-  isAlphabetically = () => {
+  sortByAlphabetically = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
-  isLenth = () => {
+  sortByLenth = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  isReset = () => {
+  reset = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
     });
   };
 
-  isReverse = () => {
+  reverse = () => {
     this.setState((state) => ({ isReversed: !state.isReversed }));
   };
 
@@ -97,7 +97,7 @@ export class App extends React.Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.isAlphabetically}
+            onClick={this.sortByAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -108,7 +108,7 @@ export class App extends React.Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={this.isLenth}
+            onClick={this.sortByLenth}
           >
             Sort by length
           </button>
@@ -119,7 +119,7 @@ export class App extends React.Component<{}, State> {
               'button is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.isReverse}
+            onClick={this.reverse}
           >
             Reverse
           </button>
@@ -130,7 +130,7 @@ export class App extends React.Component<{}, State> {
                 type="button"
                 className={classNames('button is-info',
                   { 'is-light': sortType !== SortType.NONE })}
-                onClick={this.isReset}
+                onClick={this.reset}
               >
                 Reset
               </button>
