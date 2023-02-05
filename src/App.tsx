@@ -66,17 +66,25 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handleSortType = (sortType: SortType) => {
-    this.setState({ sortType });
+  handleClickSortByAlphabet = () => {
+    this.setState({
+      sortType: SortType.ALPHABET,
+    });
   };
 
-  handleReverse = () => {
+  handleClickSortByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
+  };
+
+  handleClickReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  handleReset = () => {
+  handleClickReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -85,7 +93,9 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const newGoods = getReorderedGoods(goodsFromServer, this.state);
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+
+    const isResetButton = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -98,7 +108,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={() => this.handleSortType(SortType.ALPHABET)}
+            onClick={this.handleClickSortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -111,7 +121,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={() => this.handleSortType(SortType.LENGTH)}
+            onClick={this.handleClickSortByLength}
           >
             Sort by length
           </button>
@@ -124,32 +134,32 @@ export class App extends React.Component<{}, State> {
                 'is-light': !isReversed,
               },
             )}
-            onClick={this.handleReverse}
+            onClick={this.handleClickReverse}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
-            <button
-              type="button"
-              className="button is-danger is-light"
-              onClick={this.handleReset}
-            >
-              Reset
-            </button>
-          )}
+          {
+            isResetButton && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.handleClickReset}
+              >
+                Reset
+              </button>
+            )
+          }
         </div>
 
         <ul className="goods-list">
-          {newGoods.map(good => (
-            <li
-              data-cy="Good"
-              className="goods-list__item"
-              key={good}
-            >
-              { good }
-            </li>
-          ))}
+          {
+            visibleGoods.map(good => (
+              <li data-cy="Good" key={good}>
+                {good}
+              </li>
+            ))
+          }
         </ul>
       </div>
     );
