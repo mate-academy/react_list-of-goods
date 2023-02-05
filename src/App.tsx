@@ -48,7 +48,7 @@ export function getReorderedGoods(
   });
 
   if (isReversed) {
-    visibleGoods.reverse();
+    return visibleGoods.reverse();
   }
 
   // eslint-disable-next-line no-console
@@ -76,11 +76,11 @@ export class App extends React.Component<{}, State> {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reset = () => {
+  resetList = () => {
     this.setState({ sortType: SortType.NONE, isReversed: false });
   };
 
-  reverse = () => {
+  reverseList = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -116,7 +116,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           <button
-            onClick={this.reverse}
+            onClick={this.reverseList}
             type="button"
             className={classNames(
               'button is-info',
@@ -128,7 +128,7 @@ export class App extends React.Component<{}, State> {
 
           {(sortType || isReversed) && (
             <button
-              onClick={this.reset}
+              onClick={this.resetList}
               type="button"
               className="button is-danger is-light"
             >
@@ -136,6 +136,7 @@ export class App extends React.Component<{}, State> {
             </button>
           )}
         </div>
+
         <ul>
           {isGoodsVisible.map(good => (
             <li
