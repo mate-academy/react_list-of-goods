@@ -45,7 +45,7 @@ export function getReorderedGoods(
     default: break;
   }
 
-  if (!isReversed) {
+  if (isReversed) {
     visibleGoods.reverse();
   }
 
@@ -67,10 +67,13 @@ export class App extends React.Component<{}, State> {
   };
 
   isReset = () => {
-    this.setState({ sortType: SortType.NONE });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
-  isRverse = () => {
+  isReverse = () => {
     this.setState((state) => ({ isReversed: !state.isReversed }));
   };
 
@@ -92,7 +95,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-info': sortType !== SortType.ALPHABET },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.isAlphabetically}
           >
@@ -103,7 +106,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-info': sortType !== SortType.LENGTH },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.isLenth}
           >
@@ -112,8 +115,11 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
-            onClick={this.isRverse}
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
+            )}
+            onClick={this.isReverse}
           >
             Reverse
           </button>
@@ -123,7 +129,7 @@ export class App extends React.Component<{}, State> {
               <button
                 type="button"
                 className={classNames('button is-info',
-                  { 'is-info': sortType !== SortType.NONE })}
+                  { 'is-light': sortType !== SortType.NONE })}
                 onClick={this.isReset}
               >
                 Reset
