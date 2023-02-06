@@ -39,7 +39,7 @@ export function getReorderedGoods(
 
     case SortType.LENGTH:
       visibleGoods.sort((good1, good2) => (
-        good2.name.length - good1.name.length));
+        good1.name.length - good2.name.length));
       break;
 
     default: break;
@@ -124,18 +124,16 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed)
-            ? (
-              <button
-                type="button"
-                className={classNames('button is-danger',
-                  { 'is-light': sortType !== SortType.NONE })}
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-            )
-            : '' }
+          {(sortType !== SortType.NONE || isReversed) && (
+            <button
+              type="button"
+              className={classNames('button is-info',
+                { 'is-light': sortType !== SortType.NONE })}
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
         <GoodList goods={preparedList} />
       </div>
