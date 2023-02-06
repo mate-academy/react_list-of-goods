@@ -128,7 +128,7 @@ export class App extends React.Component<{}, State> {
             ? (
               <button
                 type="button"
-                className={classNames('button is-info',
+                className={classNames('button is-danger',
                   { 'is-light': sortType !== SortType.NONE })}
                 onClick={this.reset}
               >
