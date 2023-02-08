@@ -63,7 +63,7 @@ export class App extends React.Component <{}, State> {
   };
 
   render() {
-    const visibleGoods1 = getReorderedGoods(goodsFromServer, this.state);
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
     const { sortType, isReversed } = this.state;
     const booleanReset = sortType !== SortType.NONE || isReversed;
 
@@ -126,14 +126,13 @@ export class App extends React.Component <{}, State> {
             >
               Reset
             </button>
-          )
-          }
+          )}
         </div>
 
         <ul>
           <ul>
-            {visibleGoods1.map(good => (
-              <li data-cy="Good">{good}</li>
+            {visibleGoods.map(good => (
+              <li data-cy="Good" key={good}>{good}</li>
             ))}
           </ul>
         </ul>
