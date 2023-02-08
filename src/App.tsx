@@ -1,19 +1,19 @@
-import React from 'react';
-import 'bulma/css/bulma.css';
-import './App.scss';
-import className from 'classnames';
+import React from "react";
+import "bulma/css/bulma.css";
+import "./App.scss";
+import className from "classnames";
 
 export const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
+  "Dumplings",
+  "Carrot",
+  "Eggs",
+  "Ice cream",
+  "Apple",
+  "Bread",
+  "Fish",
+  "Honey",
+  "Jam",
+  "Garlic",
 ];
 
 enum SortType {
@@ -55,7 +55,7 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
@@ -64,17 +64,20 @@ export class App extends React.Component<{}, State> {
 
   getReorderedGoods = (
     goods: string[],
-    { sortType, isReversed }: ReorderOptions,
+    { sortType, isReversed }: ReorderOptions
   ) => {
     const visibleGoods = [...goods];
-
     switch (sortType) {
       case SortType.ALPHABET:
-        visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
+        visibleGoods.sort((previousGood, nextGood) =>
+          previousGood.localeCompare(nextGood)
+        );
         break;
 
       case SortType.LENGTH:
-        visibleGoods.sort((g1, g2) => g1.length - g2.length);
+        visibleGoods.sort(
+          (previousGood, nextGood) => previousGood.length - nextGood.length
+        );
         break;
 
       default:
@@ -99,8 +102,8 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={className('button is-info', {
-              'is-light': sortType !== SortType.ALPHABET,
+            className={className("button is-info", {
+              "is-light": sortType !== SortType.ALPHABET,
             })}
             onClick={this.sortByAlphabet}
           >
@@ -109,8 +112,8 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={className('button is-success', {
-              'is-light': sortType !== SortType.LENGTH,
+            className={className("button is-success", {
+              "is-light": sortType !== SortType.LENGTH,
             })}
             onClick={this.sortByLength}
           >
@@ -119,8 +122,8 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={className('button is-warning', {
-              'is-light': !isReversed,
+            className={className("button is-warning", {
+              "is-light": !isReversed,
             })}
             onClick={this.reverse}
           >
@@ -131,7 +134,7 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.reset}
+              onClick={this.handleReset}
             >
               Reset
             </button>
