@@ -68,12 +68,8 @@ export class App extends Component<{}, State> {
       goodsFromServer,
       { sortType, isReversed },
     );
-    const handleSortAlphabeticallyButton = () => {
-      this.setState({ sortType: SortType.ALPHABET });
-    };
-
-    const handleSortByLengthButton = () => {
-      this.setState({ sortType: SortType.LENGTH });
+    const handleSortButtons = (sortBy: SortType) => () => {
+      this.setState({ sortType: sortBy });
     };
 
     const handleResetButton = () => {
@@ -95,7 +91,7 @@ export class App extends Component<{}, State> {
             className={Classname('button is-info', {
               'is-light': sortType !== SortType.ALPHABET,
             })}
-            onClick={handleSortAlphabeticallyButton}
+            onClick={handleSortButtons(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -105,7 +101,7 @@ export class App extends Component<{}, State> {
             className={Classname('button is-success', {
               'is-light': sortType !== SortType.LENGTH,
             })}
-            onClick={handleSortByLengthButton}
+            onClick={handleSortButtons(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -132,11 +128,9 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(
-              good => (<li key={good} data-cy="Good">{good}</li>),
-            )}
-          </ul>
+          {visibleGoods.map(
+            good => (<li key={good} data-cy="Good">{good}</li>),
+          )}
         </ul>
       </div>
     );
