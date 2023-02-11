@@ -48,7 +48,7 @@ class App extends React.Component<{}, State> {
     this.setState({
       goods: goodsFromServer,
       isReversed: false,
-      sortBy: '',
+      sortBy: ' ',
     });
   };
 
@@ -98,7 +98,13 @@ class App extends React.Component<{}, State> {
             <>
               <ul className="goods-list">
                 {visibleGoods.map(good => (
-                  <li key={good} className="goods-list__item">{good}</li>
+                  <li
+                    data-cy="Good"
+                    key={good}
+                    className="goods-list__item"
+                  >
+                    {good}
+                  </li>
                 ))}
               </ul>
               <div className="buttons">
