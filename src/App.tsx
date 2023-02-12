@@ -34,7 +34,7 @@ class App extends React.Component<{}, State> {
 
   sortAlphabetically = () => {
     this.setState({
-      sortBy: 'alhhabet',
+      sortBy: 'alphabet',
     });
   };
 
@@ -64,7 +64,7 @@ class App extends React.Component<{}, State> {
     if (sortBy) {
       visibleGoods.sort((a, b) => {
         switch (sortBy) {
-          case 'alhhabet':
+          case 'alphabet':
             return a.localeCompare(b);
           case 'length':
             return a.length - b.length;
