@@ -97,6 +97,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const resetHidden = isReversed || sortType !== SortType.NONE;
+    const sortedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -134,7 +135,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(resetHidden) && (
+          {resetHidden && (
             <button
               onClick={this.reset}
               type="button"
@@ -146,7 +147,7 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          {getReorderedGoods(goodsFromServer, this.state).map(good => (
+          {sortedGoods.map(good => (
             <li data-cy="Good" key={good}>
               {good}
             </li>
