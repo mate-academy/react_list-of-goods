@@ -62,26 +62,33 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  handleSortButtons = (sortBy: SortType) => () => {
+    this.setState({ sortType: sortBy });
+  };
+
+  handleResetButton = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
+  handleReverseButton = () => {
+    this.setState(state => ({ isReversed: !state.isReversed }));
+  };
+
   render() {
-    const { isReversed, sortType } = this.state;
+    const {
+      isReversed,
+      sortType,
+    } = this.state;
     const visibleGoods = getReorderedGoods(
       goodsFromServer,
-      { sortType, isReversed },
+      {
+        sortType,
+        isReversed,
+      },
     );
-    const handleSortButtons = (sortBy: SortType) => () => {
-      this.setState({ sortType: sortBy });
-    };
-
-    const handleResetButton = () => {
-      this.setState({
-        sortType: SortType.NONE,
-        isReversed: false,
-      });
-    };
-
-    const handleReverseButton = () => {
-      this.setState({ isReversed: !isReversed });
-    };
 
     return (
       <div className="section content">
@@ -91,7 +98,7 @@ export class App extends Component<{}, State> {
             className={Classname('button is-info', {
               'is-light': sortType !== SortType.ALPHABET,
             })}
-            onClick={handleSortButtons(SortType.ALPHABET)}
+            onClick={this.handleSortButtons(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -101,7 +108,7 @@ export class App extends Component<{}, State> {
             className={Classname('button is-success', {
               'is-light': sortType !== SortType.LENGTH,
             })}
-            onClick={handleSortButtons(SortType.LENGTH)}
+            onClick={this.handleSortButtons(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -111,7 +118,7 @@ export class App extends Component<{}, State> {
             className={Classname('button is-warning', {
               'is-light': !isReversed,
             })}
-            onClick={handleReverseButton}
+            onClick={this.handleReverseButton}
           >
             Reverse
           </button>
@@ -120,7 +127,7 @@ export class App extends Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={handleResetButton}
+              onClick={this.handleResetButton}
             >
               Reset
             </button>
