@@ -76,6 +76,13 @@ export class App extends Component<{}, State> {
     });
   };
 
+  reset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
+
   render() {
     const goodsToRender = getReorderedGoods(goodsFromServer, this.state);
     const { sortType: currentSortType, isReversed } = this.state;
@@ -122,10 +129,7 @@ export class App extends Component<{}, State> {
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={() => {
-                  this.changeSortMethod(SortType.NONE);
-                  this.reverseTheList(false);
-                }}
+                onClick={() => this.reset()}
               >
                 Reset
               </button>
@@ -141,7 +145,7 @@ export class App extends Component<{}, State> {
             })}
           </ul>
         </ul>
-      </div>
+      </div >
     );
   }
 }
