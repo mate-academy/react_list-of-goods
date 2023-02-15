@@ -71,7 +71,7 @@ type State = {
 };
 
 export class App extends Component {
-  state: Readonly<State> = {
+  state = {
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -102,6 +102,12 @@ export class App extends Component {
       isReversed,
       sortType,
     } = this.state;
+
+    const isResetActive = isReversed || sortType !== SortType.NONE;
+    const goods = getReorderedGoods(goodsFromServer, {
+      sortType,
+      isReversed,
+    });
 
     return (
       <div className="section content">
@@ -136,7 +142,7 @@ export class App extends Component {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE)
+          {(isResetActive)
           && (
             <button
               type="button"
@@ -149,13 +155,7 @@ export class App extends Component {
         </div>
 
         <ul>
-          <GoodsList goods={
-            getReorderedGoods(goodsFromServer, {
-              sortType,
-              isReversed,
-            })
-          }
-          />
+          <GoodsList goods={goods} />
         </ul>
       </div>
     );
