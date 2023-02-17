@@ -57,6 +57,43 @@ export class App extends React.PureComponent<{}, State> {
     sortType: SortType.NONE,
   };
 
+  changeSatate(typeMove?: string, typeSort?: string) {
+    if (typeMove === 'sort' && typeSort === 'alpha') {
+      return this.setState((prev: State) => {
+        return {
+          ...prev,
+          sortType: SortType.ALPHABET,
+        };
+      });
+    }
+
+    if (typeMove === 'sort' && typeSort === 'length') {
+      return this.setState((prev: State) => {
+        return {
+          ...prev,
+          isReversed: !prev.isReversed,
+        };
+      });
+    }
+
+    if (typeMove === 'reverse') {
+      return this.setState((prev: State) => {
+        return {
+          ...prev,
+          isReversed: !prev.isReversed,
+        };
+      });
+    }
+
+    return this.setState((prev: State) => {
+      return {
+        ...prev,
+        sortType: SortType.NONE,
+        isReversed: false,
+      };
+    });
+  }
+
   render() {
     return (
       <div className="section content">
@@ -64,12 +101,7 @@ export class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             className={`button is-info ${this.state.sortType !== SortType.ALPHABET && 'is-light'}`}
-            onClick={() => this.setState((prev: State) => {
-              return {
-                ...prev,
-                sortType: SortType.ALPHABET,
-              };
-            })}
+            onClick={() => this.changeSatate('sort', 'alpha')}
           >
             Sort alphabetically
           </button>
@@ -77,12 +109,7 @@ export class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             className={`button is-success ${this.state.sortType !== SortType.LENGTH && 'is-light'}`}
-            onClick={() => this.setState((prev: State) => {
-              return {
-                ...prev,
-                sortType: SortType.LENGTH,
-              };
-            })}
+            onClick={() => this.changeSatate('sort', 'length')}
           >
             Sort by length
           </button>
@@ -90,12 +117,7 @@ export class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             className={`button is-warning ${!this.state.isReversed && 'is-light'}`}
-            onClick={() => this.setState((prev: State) => {
-              return {
-                ...prev,
-                isReversed: !prev.isReversed,
-              };
-            })}
+            onClick={() => this.changeSatate('reverse')}
           >
             Reverse
           </button>
@@ -104,13 +126,7 @@ export class App extends React.PureComponent<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => this.setState((prev: State) => {
-                return {
-                  ...prev,
-                  sortType: SortType.NONE,
-                  isReversed: false,
-                };
-              })}
+              onClick={() => this.changeSatate()}
             >
               Reset
             </button>
