@@ -63,9 +63,9 @@ export class App extends Component<{}, State> {
   };
 
   handleReverseGoods = () => (
-    this.setState({
-      isReversed: true,
-    })
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }))
   );
 
   handleSortByAlphabet = () => (
