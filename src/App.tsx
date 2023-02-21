@@ -33,6 +33,18 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
+  if (sortType === SortType.ALPHABET) {
+    goods.sort();
+  }
+
+  if (sortType === SortType.LENGTH) {
+    goods.sort((a, b) => a.length - b.length);
+  }
+
+  if (isReversed) {
+    goods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -70,20 +82,9 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-
     const goods = [...goodsFromServer];
 
-    if (sortType === SortType.ALPHABET) {
-      goods.sort();
-    }
-
-    if (sortType === SortType.LENGTH) {
-      goods.sort((a, b) => a.length - b.length);
-    }
-
-    if (isReversed) {
-      goods.reverse();
-    }
+    getReorderedGoods(goods, { sortType, isReversed });
 
     return (
       <div className="section content">
@@ -98,7 +99,6 @@ export class App extends React.Component<{}, State> {
           >
             Sort alphabetically
           </button>
-
           <button
             type="button"
             className={classNames(
@@ -109,7 +109,6 @@ export class App extends React.Component<{}, State> {
           >
             Sort by length
           </button>
-
           <button
             type="button"
             className={classNames(
@@ -120,7 +119,6 @@ export class App extends React.Component<{}, State> {
           >
             Reverse
           </button>
-
           {
             sortType || isReversed
               ? (
@@ -135,15 +133,12 @@ export class App extends React.Component<{}, State> {
               : ''
           }
         </div>
-
         <ul>
-          <ul>
-            {goods.map(list => (
-              <li data-cy="Good" key={list}>
-                {list}
-              </li>
-            ))}
-          </ul>
+          {goods.map(list => (
+            <li data-cy="Good" key={list}>
+              {list}
+            </li>
+          ))}
         </ul>
       </div>
     );
