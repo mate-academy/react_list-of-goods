@@ -34,15 +34,15 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   if (sortType === SortType.ALPHABET) {
-    goods.sort();
+    visibleGoods.sort((a, b) => a.localeCompare(b));
   }
 
   if (sortType === SortType.LENGTH) {
-    goods.sort((a, b) => a.length - b.length);
+    visibleGoods.sort((a, b) => a.length - b.length);
   }
 
   if (isReversed) {
-    goods.reverse();
+    visibleGoods.reverse();
   }
 
   // eslint-disable-next-line no-console
@@ -82,9 +82,10 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const goods = [...goodsFromServer];
 
-    getReorderedGoods(goods, { sortType, isReversed });
+    const reoderedGoods = getReorderedGoods(
+      goodsFromServer, { sortType, isReversed },
+    );
 
     return (
       <div className="section content">
@@ -120,21 +121,20 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
           {
-            sortType || isReversed
-              ? (
-                <button
-                  type="button"
-                  className="button is-danger is-light"
-                  onClick={this.reset}
-                >
-                  Reset
-                </button>
-              )
-              : ''
+            (sortType || isReversed)
+                && (
+                  <button
+                    type="button"
+                    className="button is-danger is-light"
+                    onClick={this.reset}
+                  >
+                    Reset
+                  </button>
+                )
           }
         </div>
         <ul>
-          {goods.map(list => (
+          {reoderedGoods.map(list => (
             <li data-cy="Good" key={list}>
               {list}
             </li>
