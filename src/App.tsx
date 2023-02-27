@@ -127,7 +127,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {goodsFromServer.map((good) => (
+            {visibleGoods.map((good) => (
               <li data-cy="Good" key={good}>
                 {good}
               </li>
