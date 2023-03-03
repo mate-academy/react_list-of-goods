@@ -33,9 +33,6 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   switch (sortType) {
     case SortType.NONE:
       break;
@@ -49,8 +46,7 @@ export function getReorderedGoods(
       break;
 
     default:
-      // eslint-disable-next-line no-console
-      console.log('error of sortType');
+      return visibleGoods;
   }
 
   if (!isReversed) {
