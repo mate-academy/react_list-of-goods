@@ -58,8 +58,8 @@ export class App extends React.PureComponent<{}, State> {
     sortType: SortType.NONE,
   };
 
-  changeSatate(typeMove?: string, typeSort?: string) {
-    if (typeMove === 'sort' && typeSort === 'alpha') {
+  changeSatate(typeMove?: string, typeSort?: SortType) {
+    if (typeMove === 'sort' && typeSort === SortType.ALPHABET) {
       return this.setState((prev: State) => {
         return {
           ...prev,
@@ -68,7 +68,7 @@ export class App extends React.PureComponent<{}, State> {
       });
     }
 
-    if (typeMove === 'sort' && typeSort === 'length') {
+    if (typeMove === 'sort' && typeSort === SortType.LENGTH) {
       return this.setState((prev: State) => {
         return {
           ...prev,
@@ -100,7 +100,7 @@ export class App extends React.PureComponent<{}, State> {
       <div className="section content">
         <div className="buttons">
           <button
-            onClick={() => this.changeSatate('sort', 'alpha')}
+            onClick={() => this.changeSatate('sort', SortType.ALPHABET)}
             className={
               classNames('button is-info', {
                 'is-light': this.state.sortType !== SortType.ALPHABET,
@@ -112,7 +112,7 @@ export class App extends React.PureComponent<{}, State> {
           </button>
 
           <button
-            onClick={() => this.changeSatate('sort', 'length')}
+            onClick={() => this.changeSatate('sort', SortType.LENGTH)}
             className={
               classNames('button is-info', {
                 'is-light': this.state.sortType !== SortType.LENGTH,
@@ -147,16 +147,11 @@ export class App extends React.PureComponent<{}, State> {
         </div>
 
         <ul>
-          {
-            getReorderedGoods(goodsFromServer, this.state).map(good => (
-              <li
-                key={good}
-                data-cy="Good"
-              >
-                {good}
-              </li>
-            ))
-          }
+          {getReorderedGoods(goodsFromServer, this.state).map(good => (
+            <li key={good} data-cy="Good">
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
