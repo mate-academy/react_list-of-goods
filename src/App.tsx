@@ -27,30 +27,26 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((a, b) => a.localeCompare(b));
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    default:
+      break;
   }
-
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => a.length - b.length);
-  }
-
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return isReversed ? visibleGoods.reverse() : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -63,16 +59,16 @@ export class App extends React.PureComponent<{}, State> {
   };
 
   changeSatate(typeMove?: string, typeSort?: string) {
-    if (typeMove === 'sort') {
-      if (typeSort === 'alpha') {
-        return this.setState((prev: State) => {
-          return {
-            ...prev,
-            sortType: SortType.ALPHABET,
-          };
-        });
-      }
+    if (typeMove === 'sort' && typeSort === 'alpha') {
+      return this.setState((prev: State) => {
+        return {
+          ...prev,
+          sortType: SortType.ALPHABET,
+        };
+      });
+    }
 
+    if (typeMove === 'sort' && typeSort === 'length') {
       return this.setState((prev: State) => {
         return {
           ...prev,
