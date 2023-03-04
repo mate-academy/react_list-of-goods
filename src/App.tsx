@@ -122,6 +122,7 @@ export class App extends React.Component<{}, State> {
           >
             Reverse
           </button>
+
           {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
@@ -138,7 +139,7 @@ export class App extends React.Component<{}, State> {
             {visibleGoods.map(item => (
               <li
                 data-cy="Good"
-                key={visibleGoods.indexOf(item)}
+                key={item}
               >
                 {item}
               </li>
