@@ -32,10 +32,10 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((f1, f2) => {
+  visibleGoods.sort((a, b) => {
     switch (sortType) {
-      case SortType.ALPHABET: return f1.localeCompare(f2);
-      case SortType.LENGTH: return f1.length - f2.length;
+      case SortType.ALPHABET: return a.localeCompare(b);
+      case SortType.LENGTH: return a.length - b.length;
       default: return 0;
     }
   });
@@ -91,7 +91,11 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
+            className={
+              `button 
+              is-info 
+              ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`
+            }
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -99,7 +103,11 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-success ${sortType !== SortType.LENGTH ? 'is-light' : ''}`}
+            className={
+              `button 
+              is-success 
+              ${sortType !== SortType.LENGTH ? 'is-light' : ''}`
+            }
             onClick={this.sortByLength}
           >
             Sort by length
@@ -107,13 +115,17 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-warning ${!isReversed ? 'is-light' : ''}`}
+            className={
+              `button 
+              is-warning 
+              ${!isReversed ? 'is-light' : ''}`
+            }
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {sortType !== SortType.NONE || isReversed ? (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -121,7 +133,7 @@ export class App extends React.Component<{}, State> {
             >
               Reset
             </button>
-          ) : null}
+          )}
 
         </div>
         <ul>
