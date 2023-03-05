@@ -23,61 +23,27 @@ export const goodsFromServer = [
 type State = {
   isReversed: boolean,
   sortType: SortType,
-  showResetButton: boolean,
 };
 
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
-    showResetButton: false,
   };
 
-  alphSort = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as Element;
-
+  alphSort = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
-    if (target.classList.contains('is-light')) {
-      this.setState({
-        showResetButton: true,
-      });
-    }
   };
 
-  lengthSort = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as Element;
-
+  lengthSort = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
-
-    if (target.classList.contains('is-light')) {
-      this.setState({
-        showResetButton: true,
-      });
-    }
   };
 
-  reversed = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.currentTarget as Element;
-    const parentEl = target.parentElement as Element;
-
-    const alphButton = parentEl.children[0] as Element;
-    const lenghtButton = parentEl.children[1] as Element;
-
-    if (target.classList.contains('is-light')) {
-      this.setState({
-        showResetButton: true,
-      });
-    } else if (alphButton.classList.contains('is-light')
-        && lenghtButton.classList.contains('is-light')) {
-      this.setState({
-        showResetButton: false,
-      });
-    }
-
+  reversed = () => {
     this.setState(prevState => ({
       isReversed: !prevState.isReversed,
     }));
@@ -87,19 +53,17 @@ export class App extends React.Component<{}, State> {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
-      showResetButton: false,
     });
   };
 
   render() {
-    const { sortType, isReversed, showResetButton } = this.state;
+    const { sortType, isReversed } = this.state;
 
     const reorderedGoods = getReorderedGoods(
       goodsFromServer,
       { sortType, isReversed },
     );
 
-    // const removeBut = document.querySelector(".is-danger");
     return (
       <div className="section content">
         <div className="buttons">
@@ -142,16 +106,16 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {showResetButton
-            && (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-            )}
+          { (sortType !== SortType.NONE || isReversed)
+          && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <Goods goods={reorderedGoods} />
