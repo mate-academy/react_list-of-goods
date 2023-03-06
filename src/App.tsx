@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'n',
-  ALPHABET = 'a',
-  LENGTH = 'l',
+  NONE = 'none',
+  ALPHABET = 'alphabet',
+  LENGTH = 'length',
 }
 
 type ReorderOptions = {
@@ -35,11 +35,11 @@ export function getReorderedGoods(
 
   visibleGoods.sort((a, b) => {
     switch (sortType) {
-      case 'n':
+      case 'none':
         return 0;
-      case 'a':
+      case 'alphabet':
         return a.localeCompare(b);
-      case 'l':
+      case 'length':
         return a.length - b.length;
       default:
         return 0;
@@ -56,18 +56,12 @@ export function getReorderedGoods(
 type State = {
   isReversed: boolean,
   sortType: SortType,
-  reset: boolean,
-  alphabet: boolean,
-  length: boolean,
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     isReversed: false,
     sortType: SortType.NONE,
-    reset: false,
-    alphabet: false,
-    length: false,
   };
 
   reverse = () => {
@@ -81,18 +75,12 @@ export class App extends React.Component<{}, State> {
   sortAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
-      reset: true,
-      alphabet: true,
-      length: false,
     });
   };
 
   sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
-      reset: true,
-      alphabet: false,
-      length: true,
     });
   };
 
@@ -100,20 +88,11 @@ export class App extends React.Component<{}, State> {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
-      reset: false,
-      alphabet: false,
-      length: false,
     });
   };
 
   render() {
-    const {
-      isReversed,
-      sortType,
-      reset,
-      alphabet,
-      length,
-    } = this.state;
+    const { isReversed, sortType } = this.state;
     const data = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
     return (
@@ -122,7 +101,10 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              classNames('button is-info', { 'is-light': !alphabet })
+              classNames(
+                'button is-info',
+                { 'is-light': sortType !== SortType.ALPHABET },
+              )
             }
             onClick={() => {
               this.sortAlphabet();
@@ -134,7 +116,10 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              classNames('button is-success', { 'is-light': !length })
+              classNames(
+                'button is-success',
+                { 'is-light': sortType !== SortType.LENGTH },
+              )
             }
             onClick={() => {
               this.sortByLength();
@@ -146,7 +131,10 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              classNames('button is-warning', { 'is-light': !isReversed })
+              classNames(
+                'button is-warning',
+                { 'is-light': !isReversed },
+              )
             }
             onClick={() => {
               this.reverse();
@@ -156,7 +144,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            (reset || isReversed)
+            (sortType !== SortType.NONE || isReversed)
             && (
               <button
                 type="button"
