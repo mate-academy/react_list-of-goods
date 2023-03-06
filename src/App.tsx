@@ -93,9 +93,7 @@ export class App extends Component<{}, State> {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
     const isSortedByAlphabet = sortType === SortType.ALPHABET;
     const isSortedByLength = sortType === SortType.LENGTH;
-    const isNotInitial
-      = isReversed !== false
-      || sortType !== SortType.NONE;
+    const isInitial = !isReversed && sortType === SortType.NONE;
 
     return (
       <div className="section content">
@@ -105,10 +103,7 @@ export class App extends Component<{}, State> {
             className={`
               button
               is-info
-              ${isSortedByAlphabet
-        ? ''
-        : 'is-light'
-      }
+              ${isSortedByAlphabet ? '' : 'is-light'}
             `}
             onClick={this.sortAlphabetically}
           >
@@ -120,10 +115,7 @@ export class App extends Component<{}, State> {
             className={`
               button
               is-success
-              ${isSortedByLength
-        ? ''
-        : 'is-light'
-      }
+              ${isSortedByLength ? '' : 'is-light'}
             `}
             onClick={this.sortByLength}
           >
@@ -135,17 +127,14 @@ export class App extends Component<{}, State> {
             className={`
               button
               is-warning
-              ${isReversed
-        ? ''
-        : 'is-light'
-      }
+              ${isReversed ? '' : 'is-light'}
             `}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {isNotInitial && (
+          {!isInitial && (
             <button
               type="button"
               className="button is-danger is-light"
