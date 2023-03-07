@@ -33,17 +33,13 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType) {
+  if (sortType !== SortType.NONE) {
     visibleGoods.sort((good1, good2) => {
       if (sortType === SortType.LENGTH) {
         return good1.length - good2.length;
       }
 
-      if (sortType === SortType.ALPHABET) {
-        return good1.localeCompare(good2);
-      }
-
-      return 0;
+      return good1.localeCompare(good2);
     });
   }
 
