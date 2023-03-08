@@ -34,12 +34,16 @@ function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((a, b) => (a.localeCompare(b)));
-  }
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => (a.localeCompare(b)));
+      break;
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => (a.length - b.length));
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => (a.length - b.length));
+      break;
+
+    default:
   }
 
   if (isReversed) {
@@ -130,19 +134,17 @@ export class App extends React.Component<{}, State> {
 
           {!visible
             && (
-              <>
-                <button
-                  type="button"
-                  className={classNames(
-                    'button',
-                    'is-danger',
-                    'is-light',
-                  )}
-                  onClick={this.toInitialOrder}
-                >
-                  Reset
-                </button>
-              </>
+              <button
+                type="button"
+                className={classNames(
+                  'button',
+                  'is-danger',
+                  'is-light',
+                )}
+                onClick={this.toInitialOrder}
+              >
+                Reset
+              </button>
             )}
         </div>
 
