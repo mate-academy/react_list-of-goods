@@ -26,21 +26,17 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
   const visibleGoods = [...goods];
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   visibleGoods.sort((a, b) => {
     switch (sortType) {
-      case 1:
+      case SortType.ALPHABET:
         return a.localeCompare(b);
-      case 2:
+      case SortType.LENGTH:
         return a.length - b.length;
       default:
         return 0;
@@ -66,11 +62,11 @@ export class App extends React.Component<{}, State> {
   };
 
   sortAlph = () => {
-    this.setState({ sortType: 1 });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortLength = () => {
-    this.setState({ sortType: 2 });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   reverse = () => {
@@ -88,6 +84,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const goods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -95,7 +92,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              sortType === 1
+              sortType === SortType.ALPHABET
                 ? 'button is-info'
                 : 'button is-info is-light'
             }
@@ -106,7 +103,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={sortType === 2
+            className={sortType === SortType.LENGTH
               ? 'button is-success'
               : 'button is-success is-light'}
             onClick={this.sortLength}
@@ -128,7 +125,7 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className={
-                sortType === 0 && !isReversed
+                sortType === SortType.NONE && !isReversed
                   ? 'button is-info'
                   : 'button is-info is-light'
               }
@@ -141,7 +138,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map(item => (
+            {goods.map(item => (
               <li key={item}>
                 {item}
               </li>
