@@ -35,26 +35,36 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
-  if (sortType === SortType.NONE && isReversed) {
-    return visibleGoods.reverse();
+  // if (sortType === SortType.NONE && isReversed) {
+  //   return visibleGoods.reverse();
+  // }
+
+  // if (sortType === SortType.ALPHABET) {
+  //   return !isReversed
+  //     ? visibleGoods.sort()
+  //     : visibleGoods.sort((a, b) => (a > b ? -1 : 1));
+  // }
+
+  // if (sortType === SortType.LENGTH) {
+  //   return !isReversed
+  //     ? visibleGoods.sort((a, b) => a.length - b.length)
+  //     : visibleGoods.sort((a, b) => a.length - b.length).reverse();
+  // }
+
+  switch (sortType) {
+    case SortType.ALPHABET:
+      return !isReversed
+        ? visibleGoods.sort()
+        : visibleGoods.sort((a, b) => (a > b ? -1 : 1));
+    case SortType.LENGTH:
+      return !isReversed
+        ? visibleGoods.sort((a, b) => a.length - b.length)
+        : visibleGoods.sort((a, b) => a.length - b.length).reverse();
+    case SortType.NONE:
+      return isReversed ? visibleGoods.reverse() : visibleGoods;
+    default:
+      return visibleGoods;
   }
-
-  if (sortType === SortType.ALPHABET) {
-    return !isReversed
-      ? visibleGoods.sort()
-      : visibleGoods.sort((a, b) => (a > b ? -1 : 1));
-  }
-
-  if (sortType === SortType.LENGTH) {
-    return !isReversed
-      ? visibleGoods.sort((a, b) => a.length - b.length)
-      : visibleGoods.sort((a, b) => a.length - b.length).reverse();
-  }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
-  return visibleGoods;
 }
 
 // DON'T save goods to the state
@@ -73,6 +83,7 @@ export default class App extends React.Component {
   reverse = () => {
     this.setState(state => ({
       ...state,
+      // eslint-disable-next-line react/no-access-state-in-setstate
       isReversed: !this.state.isReversed,
     }));
   };
