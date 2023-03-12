@@ -79,9 +79,7 @@ export class App extends PureComponent<{}, State> {
   };
 
   reverse = () => {
-    this.setState(({ isReversed }) => {
-      return { isReversed: !isReversed };
-    });
+    this.setState(({ isReversed }) => ({ isReversed: !isReversed }));
   };
 
   reset = () => {
