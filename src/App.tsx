@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
+import { GoodsList } from './components/GoodsList';
+
 export const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -85,6 +87,7 @@ export class App extends Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isAbleToReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -115,7 +118,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-warning',
-              { 'is-light': isReversed === false },
+              { 'is-light': !isReversed },
             )}
             onClick={this.handleReverse}
           >
@@ -123,7 +126,7 @@ export class App extends Component<{}, State> {
           </button>
 
           {
-            (isReversed || sortType !== SortType.NONE) && (
+            (isAbleToReset) && (
               <button
                 type="button"
                 className="button is-danger is-light"
@@ -135,13 +138,7 @@ export class App extends Component<{}, State> {
           }
         </div>
 
-        <ul>
-          {visibleGoods.map((good) => (
-            <li data-cy="Good" key={good}>
-              {good}
-            </li>
-          ))}
-        </ul>
+        <GoodsList goods={visibleGoods} />
       </div>
     );
   }
