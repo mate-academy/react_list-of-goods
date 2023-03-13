@@ -58,7 +58,7 @@ type State = {
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
-export default class App extends React.Component {
+export default class App extends React.Component<{}, State> {
   state: State = {
     isReversed: false,
     sortType: SortType.NONE,
@@ -68,7 +68,7 @@ export default class App extends React.Component {
     this.setState(state => ({
       ...state,
       // eslint-disable-next-line react/no-access-state-in-setstate
-      isReversed: !this.state.isReversed,
+      isReversed: !state.isReversed,
     }));
   };
 
