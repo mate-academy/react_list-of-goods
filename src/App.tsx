@@ -31,40 +31,24 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // if (sortType === SortType.NONE && isReversed) {
-  //   return visibleGoods.reverse();
-  // }
-
-  // if (sortType === SortType.ALPHABET) {
-  //   return !isReversed
-  //     ? visibleGoods.sort()
-  //     : visibleGoods.sort((a, b) => (a > b ? -1 : 1));
-  // }
-
-  // if (sortType === SortType.LENGTH) {
-  //   return !isReversed
-  //     ? visibleGoods.sort((a, b) => a.length - b.length)
-  //     : visibleGoods.sort((a, b) => a.length - b.length).reverse();
-  // }
 
   switch (sortType) {
     case SortType.ALPHABET:
-      return !isReversed
-        ? visibleGoods.sort()
-        : visibleGoods.sort((a, b) => (a > b ? -1 : 1));
+      visibleGoods.sort();
+      break;
     case SortType.LENGTH:
-      return !isReversed
-        ? visibleGoods.sort((a, b) => a.length - b.length)
-        : visibleGoods.sort((a, b) => a.length - b.length).reverse();
-    case SortType.NONE:
-      return isReversed ? visibleGoods.reverse() : visibleGoods;
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
     default:
-      return visibleGoods;
+      break;
   }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
 }
 
 // DON'T save goods to the state
@@ -88,14 +72,14 @@ export default class App extends React.Component {
     }));
   };
 
-  alphSort = () => {
+  sortByAlph = () => {
     this.setState(state => ({
       ...state,
       sortType: SortType.ALPHABET,
     }));
   };
 
-  byLength = () => {
+  sortByLength = () => {
     this.setState(state => ({
       ...state,
       sortType: SortType.LENGTH,
@@ -123,7 +107,7 @@ export default class App extends React.Component {
                 ? 'button is-info'
                 : 'button is-info is-light'
             }
-            onClick={this.alphSort}
+            onClick={this.sortByAlph}
           >
             Sort alphabetically
           </button>
@@ -135,7 +119,7 @@ export default class App extends React.Component {
                 ? 'button is-success'
                 : 'button is-success is-light'
             }
-            onClick={this.byLength}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
