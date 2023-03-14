@@ -2,6 +2,7 @@ import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -93,8 +94,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button',
-              'is-info',
+              'button is-info',
               {
                 'is-light': sortType !== SortType.ALPHABET,
               },
@@ -109,8 +109,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button',
-              'is-info',
+              'button is-info',
               {
                 'is-light': sortType !== SortType.LENGTH,
               },
@@ -125,8 +124,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button',
-              'is-info',
+              'button is-info',
               {
                 'is-light': !isReversed,
               },
@@ -139,11 +137,7 @@ export class App extends Component<{}, State> {
           {(isReversed || sortType !== SortType.NONE) && (
             <button
               type="button"
-              className={classNames(
-                'button',
-                'is-info',
-                'is-light',
-              )}
+              className="button is-info is-light"
               onClick={this.resetState}
             >
               Reset
@@ -151,18 +145,7 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          <ul>
-            {goods.map(good => (
-              <li
-                key={good}
-                data-cy="Good"
-              >
-                {good}
-              </li>
-            ))}
-          </ul>
-        </ul>
+        <GoodsList goods={goods} />
       </div>
     );
   }
