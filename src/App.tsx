@@ -2,6 +2,7 @@ import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -75,7 +76,10 @@ export class App extends Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ isReversed: false, sortType: SortType.NONE });
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
   };
 
   render() {
@@ -89,7 +93,8 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button is-info', {
+              'button is-info',
+              {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
@@ -101,7 +106,8 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button is-success', {
+              'button is-success',
+              {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
@@ -113,7 +119,8 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button is-warning', {
+              'button is-warning',
+              {
                 'is-light': !isReversed,
               },
             )}
@@ -133,15 +140,7 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          {
-            reorderedGoods.map(good => (
-              <li data-cy="Good" key={good}>
-                {good}
-              </li>
-            ))
-          }
-        </ul>
+        <GoodsList goods={reorderedGoods} />
       </div>
     );
   }
