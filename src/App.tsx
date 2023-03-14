@@ -57,7 +57,6 @@ type State = {
   sortType: SortType,
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 export default class App extends React.Component<{}, State> {
   state: State = {
     isReversed: false,
@@ -66,8 +65,6 @@ export default class App extends React.Component<{}, State> {
 
   reverse = () => {
     this.setState(state => ({
-      ...state,
-      // eslint-disable-next-line react/no-access-state-in-setstate
       isReversed: !state.isReversed,
     }));
   };
@@ -96,6 +93,8 @@ export default class App extends React.Component<{}, State> {
   render() {
     const isInitialState = !this.state.isReversed
       && this.state.sortType === SortType.NONE;
+
+    const reorderedGoodsArray = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -149,7 +148,7 @@ export default class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map(good => (
+            {reorderedGoodsArray.map(good => (
               <li
                 data-cy="Good"
                 key={good}
