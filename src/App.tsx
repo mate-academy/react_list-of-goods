@@ -2,6 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './components/goodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -43,6 +44,7 @@ export function getReorderedGoods(
         return 0;
     }
   });
+
   if (isReversed) {
     visibleGoods.reverse();
   }
@@ -91,7 +93,7 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button', 'is-info', {
+            className={classNames('button is-info', {
               'is-light': sortType !== SortType.ALPHABET,
             })}
             onClick={this.sortByAlphabet}
@@ -101,9 +103,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button', 'is-success', {
-              'is-light': sortType !== SortType.LENGTH,
-            })}
+            className={classNames('button is-success',
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -111,9 +114,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button', 'is-warning', {
-              'is-light': !isReversed,
-            })}
+            className={classNames('button is-warning',
+              {
+                'is-light': !isReversed,
+              })}
             onClick={this.reverse}
           >
             Reverse
@@ -130,13 +134,7 @@ export class App extends React.Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          {visibleGoods.map((good) => (
-            <li data-cy="Good" key={good}>
-              {good}
-            </li>
-          ))}
-        </ul>
+        <GoodsList goods={visibleGoods} />
       </div>
     );
   }
