@@ -34,9 +34,25 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
+  visibleGoods.sort((g1, g2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return g1.localeCompare(g2);
+      case SortType.LENGTH:
+        return g1.length - g2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  console.log(sortType, isReversed, visibleGoods);
 
   return visibleGoods;
 }
@@ -47,49 +63,98 @@ export function getReorderedGoods(
 //   sortType: SortType,
 // };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+export class App extends React.Component {
+  state: ReorderOptions = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+  sortByAlphabet = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-      <ul>
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
+  render() {
+    const { sortType, isReversed } = this.state;
+    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={sortType === SortType.ALPHABET
+              ? 'button is-info'
+              : 'button is-info is-light'}
+            onClick={this.sortByAlphabet}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={sortType === SortType.LENGTH
+              ? 'button is-success'
+              : 'button is-success is-light'}
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={isReversed === true
+              ? 'button is-warning'
+              : 'button is-warning is-light'}
+            onClick={this.reverse}
+          >
+            Reverse
+          </button>
+          {
+            (isReversed === true || sortType !== SortType.NONE)
+            && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )
+          }
+
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          <ul>
+            {
+              reorderedGoods.map(good => (
+                <li data-cy="Good" key={good}>
+                  {' '}
+                  {good}
+                  {' '}
+                </li>
+              ))
+            }
+          </ul>
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
