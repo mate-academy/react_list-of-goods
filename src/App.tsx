@@ -1,8 +1,12 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
+
+import { GoodList } from './GoodList';
+
 import goodsFromServer from './api/goods';
 
 enum SortType {
@@ -145,13 +149,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {goods.map((good) => {
-              return (
-                <li data-cy="Good" key={uuidv4()}>
-                  {good}
-                </li>
-              );
-            })}
+            {goods.map((good) => <GoodList key={uuidv4()} good={good} />)}
           </ul>
         </ul>
       </div>
