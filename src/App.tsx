@@ -58,13 +58,13 @@ export function getReorderedGoods(
 }
 
 // DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
+};
 
-export class App extends React.Component {
-  state: ReorderOptions = {
+export class App extends React.Component<{}, State> {
+  state = {
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -78,10 +78,10 @@ export class App extends React.Component {
   };
 
   reverse = () => {
-    this.setState(state => ({
+    this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
-  };
+  }
 
   reset = () => {
     this.setState({
