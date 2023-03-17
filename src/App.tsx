@@ -81,7 +81,7 @@ export class App extends React.Component<{}, State> {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
-  }
+  };
 
   reset = () => {
     this.setState({
@@ -146,9 +146,7 @@ export class App extends React.Component<{}, State> {
             {
               reorderedGoods.map(good => (
                 <li data-cy="Good" key={good}>
-                  {' '}
                   {good}
-                  {' '}
                 </li>
               ))
             }
