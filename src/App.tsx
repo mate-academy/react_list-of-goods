@@ -5,7 +5,7 @@ import './App.scss';
 import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
 
-import { GoodList } from './GoodList';
+import { Good } from './Good';
 
 import goodsFromServer from './api/goods';
 
@@ -149,7 +149,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {goods.map((good) => <GoodList key={uuidv4()} good={good} />)}
+            {goods.map((good) => <Good key={uuidv4()} good={good} />)}
           </ul>
         </ul>
       </div>
