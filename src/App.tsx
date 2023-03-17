@@ -1,25 +1,14 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import { v4 as uuidv4 } from 'uuid';
 import classNames from 'classnames';
-
-export const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import goodsFromServer from './api/goods';
 
 enum SortType {
-  NONE = 'none',
-  ALPHABET = 'alphabet',
-  LENGTH = 'length',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -35,10 +24,10 @@ export function getReorderedGoods(
 
   visibleGoods.sort((prev, curr) => {
     switch (sortType) {
-      case ('alphabet'):
+      case (SortType.ALPHABET):
         return prev.localeCompare(curr);
 
-      case ('length'):
+      case (SortType.LENGTH):
         return prev.length - curr.length;
 
       default:
@@ -56,50 +45,59 @@ export function getReorderedGoods(
 type State = {
   isReversed: boolean,
   sortType: SortType,
-  reseted: boolean,
 };
 
 export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortType: 'none',
-    reseted: false,
+    sortType: SortType.NONE,
   };
 
   reverseButton = () => {
     this.setState(state => ({
-      reseted: true,
       isReversed: !state.isReversed,
     }));
   };
 
   resetedButton = () => {
-    this.setState({ reseted: false, sortType: 'none', isReversed: false });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
   sortByAlphabet = () => {
-    this.setState({ sortType: 'alphabet', reseted: true });
+    this.setState({
+      sortType: SortType.ALPHABET,
+    });
   };
 
   sortByLength = () => {
-    this.setState({ sortType: 'length', reseted: true });
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
   };
 
   render() {
     const { isReversed, sortType } = this.state;
+    const isReseted = (sortType !== SortType.NONE || isReversed);
 
-    const goods = getReorderedGoods(goodsFromServer, { isReversed, sortType });
+    const goods = getReorderedGoods(
+      goodsFromServer,
+      {
+        isReversed, sortType,
+      },
+    );
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            // className="button is-info is-light"
             className={classNames(
               'button is-info',
               {
-                'is-light': this.state.sortType !== 'alphabet',
+                'is-light': sortType !== SortType.ALPHABET,
               },
             )}
             onClick={this.sortByAlphabet}
@@ -112,7 +110,7 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button is-info',
               {
-                'is-light': this.state.sortType !== 'length',
+                'is-light': sortType !== SortType.LENGTH,
               },
             )}
             onClick={this.sortByLength}
@@ -125,7 +123,7 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button is-info',
               {
-                'is-light': !this.state.isReversed,
+                'is-light': !isReversed,
               },
             )}
             onClick={this.reverseButton}
@@ -133,7 +131,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {this.state.reseted && (
+          {isReseted && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -149,7 +147,7 @@ export class App extends React.Component<{}, State> {
           <ul>
             {goods.map((good) => {
               return (
-                <li data-cy="Good" key={good}>
+                <li data-cy="Good" key={uuidv4()}>
                   {good}
                 </li>
               );
