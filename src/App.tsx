@@ -89,7 +89,7 @@ export class App extends Component <{}, State> {
           <button
             type="button"
             className={classNames('button is-info', {
-              'is-light': !this.state.goods || sortType === SortType.ALPHABET,
+              'is-light': !this.state.goods || sortType !== SortType.ALPHABET,
             })}
             onClick={this.sortByAlphabet}
           >
@@ -99,7 +99,7 @@ export class App extends Component <{}, State> {
           <button
             type="button"
             className={classNames('button is-success', {
-              'is-light': !this.state.goods || sortType === SortType.LENGTH,
+              'is-light': !this.state.goods || sortType !== SortType.LENGTH,
             })}
             onClick={this.sortByLength}
           >
@@ -113,13 +113,13 @@ export class App extends Component <{}, State> {
             })}
             onClick={this.reverse}
           >
-            {isReversed ? 'Show in direct order' : 'Reverse'}
+            Reverse
           </button>
 
           {isResetButtonVisible && (
             <button
               type="button"
-              className="button is-danger"
+              className="button is-danger is-light"
               onClick={this.reset}
             >
               Reset
