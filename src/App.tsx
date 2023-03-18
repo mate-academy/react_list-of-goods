@@ -44,7 +44,6 @@ export function getReorderedGoods(
   goods: string[], reorderOptions: ReorderOptions,
 ): string[] {
   const sortFunction = getSortFunction(reorderOptions.sortType);
-
   const visibleGoods = [...goods].sort(sortFunction);
 
   if (reorderOptions.isReversed) {
