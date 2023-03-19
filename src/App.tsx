@@ -23,15 +23,47 @@ enum SortType {
   LENGTH,
 }
 
+type ReorderOptions = {
+  sortType: SortType,
+  isReversed: boolean,
+};
+
 interface State {
-  goods: string[],
   isReversed: boolean,
   sortType: SortType,
 }
 
+export function getReorderedGoods(
+  goods: string[],
+  { sortType, isReversed }: ReorderOptions,
+) {
+  // To avoid the original array mutation
+  const visibleGoods = [...goods];
+
+  // Sort and reverse goods if needed
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+
+    case SortType.NONE:
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
+}
+
 export class App extends Component <{}, State> {
   state: State = {
-    goods: goodsFromServer,
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -51,36 +83,20 @@ export class App extends Component <{}, State> {
   };
 
   reset = () => {
-    this.setState({ sortType: SortType.NONE });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
   render() {
-    const { goods, isReversed, sortType } = this.state;
+    const { isReversed, sortType } = this.state;
 
-    const visibleGoods = [...goods];
-
-    visibleGoods.sort((g1, g2) => {
-      switch (sortType) {
-        case SortType.ALPHABET:
-          return g1.localeCompare(g2);
-
-        case SortType.LENGTH:
-          return g1.length - g2.length;
-
-        case SortType.NONE:
-          return 0;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const visibleGoods
+      = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
     const isGoodsSorted
-      = JSON.stringify(visibleGoods) === JSON.stringify(goods);
+      = JSON.stringify(visibleGoods) === JSON.stringify(goodsFromServer);
     const isResetButtonVisible = !isGoodsSorted;
 
     return (
@@ -89,7 +105,7 @@ export class App extends Component <{}, State> {
           <button
             type="button"
             className={classNames('button is-info', {
-              'is-light': !this.state.goods || sortType !== SortType.ALPHABET,
+              'is-light': sortType !== SortType.ALPHABET,
             })}
             onClick={this.sortByAlphabet}
           >
@@ -99,7 +115,7 @@ export class App extends Component <{}, State> {
           <button
             type="button"
             className={classNames('button is-success', {
-              'is-light': !this.state.goods || sortType !== SortType.LENGTH,
+              'is-light': sortType !== SortType.LENGTH,
             })}
             onClick={this.sortByLength}
           >
