@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import classNames from 'classnames';
+import { GoodList } from './components/GoodList/GoodList';
 
 import 'bulma/css/bulma.css';
 import './App.scss';
@@ -28,15 +29,12 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   visibleGoods.sort((firstGood, secondGood) => {
     switch (sortType) {
       case SortType.ALPHABET:
@@ -50,15 +48,11 @@ export function getReorderedGoods(
     }
   });
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   return isReversed
     ? visibleGoods.reverse()
     : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -150,13 +144,7 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          {sortedGoods.map(good => (
-            <li key={good} data-cy="Good">
-              {good}
-            </li>
-          ))}
-        </ul>
+        <GoodList goods={sortedGoods} />
       </div>
     );
   }
