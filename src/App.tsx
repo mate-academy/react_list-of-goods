@@ -1,6 +1,6 @@
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import classNames from 'classnames';
-import { Good } from './components/Good';
+import { GoodList } from './components/GoodList';
 import 'bulma/css/bulma.css';
 
 import './App.scss';
@@ -60,31 +60,23 @@ type State = {
   sortType: SortType,
 };
 
-export class App extends PureComponent<{}, State> {
+export class App extends Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
   };
 
-  sortAlphabetically = () => {
-    this.setState({
-      sortType: SortType.ALPHABET,
-    });
+  handleSort = (sortType: SortType) => {
+    this.setState({ sortType });
   };
 
-  sortByLength = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
-    });
-  };
-
-  reverse = () => {
+  reverseGoods = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  reset = () => {
+  resetGoods = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -111,7 +103,9 @@ export class App extends PureComponent<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.sortAlphabetically}
+            onClick={() => {
+              this.handleSort(SortType.ALPHABET);
+            }}
           >
             Sort alphabetically
           </button>
@@ -122,7 +116,9 @@ export class App extends PureComponent<{}, State> {
               'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={this.sortByLength}
+            onClick={() => {
+              this.handleSort(SortType.LENGTH);
+            }}
           >
             Sort by length
           </button>
@@ -133,7 +129,7 @@ export class App extends PureComponent<{}, State> {
               'button is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.reverse}
+            onClick={this.reverseGoods}
           >
             Reverse
           </button>
@@ -142,20 +138,14 @@ export class App extends PureComponent<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.reset}
+              onClick={this.resetGoods}
             >
               Reset
             </button>
           )}
         </div>
 
-        <ul>
-          <ul>
-            {reorderedGoods.map((good) => (
-              <Good good={good} key={good} />
-            ))}
-          </ul>
-        </ul>
+        <GoodList goods={reorderedGoods} />
       </div>
     );
   }
