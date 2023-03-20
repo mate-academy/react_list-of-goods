@@ -96,7 +96,8 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={ classNames('button is-info', {'button is-info is-light': sortType !== SortType.ALPHABET})}
+            className={classNames('button is-info',
+              { 'button is-info is-light': sortType !== SortType.ALPHABET })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -104,7 +105,8 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={ classNames('button is-success', {'button is-success is-light': sortType !== SortType.LENGTH})}
+            className={classNames('button is-success',
+              { 'button is-success is-light': sortType !== SortType.LENGTH })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -112,7 +114,8 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={ classNames('button is-warning', {'button is-warning is-light': !isReversed})}
+            className={classNames('button is-warning',
+              { 'button is-warning is-light': !isReversed })}
             onClick={this.reverse}
           >
             Reverse
