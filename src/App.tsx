@@ -88,7 +88,7 @@ export class App extends Component<{}, State> {
       isReversed,
       sortType,
     } = this.state;
-    const checkReset = (sortType !== SortType.NONE || isReversed);
+    const checkReset = sortType !== SortType.NONE || isReversed;
     const reorderedGoods = getReorderedGoods(
       goodsFromServer,
       { isReversed, sortType },
