@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -95,11 +96,7 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={
-              sortType === SortType.ALPHABET
-                ? 'button is-info'
-                : 'button is-info is-light'
-            }
+            className={ classNames('button is-info', {'button is-info is-light': sortType !== SortType.ALPHABET})}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -107,11 +104,7 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={
-              sortType === SortType.LENGTH
-                ? 'button is-success'
-                : 'button is-success is-light'
-            }
+            className={ classNames('button is-success', {'button is-success is-light': sortType !== SortType.LENGTH})}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -119,11 +112,7 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={
-              isReversed === false
-                ? 'button is-warning is-light'
-                : 'button is-warning'
-            }
+            className={ classNames('button is-warning', {'button is-warning is-light': !isReversed})}
             onClick={this.reverse}
           >
             Reverse
@@ -141,9 +130,9 @@ export class App extends Component<{}, State> {
         </div>
         <ul>
           <ul>
-            {updateGoods.map((elem) => (
-              <li key={elem} data-cy="Good">
-                {elem}
+            {updateGoods.map((good) => (
+              <li key={good} data-cy="Good">
+                {good}
               </li>
             ))}
           </ul>
