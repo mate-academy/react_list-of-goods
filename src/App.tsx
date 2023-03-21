@@ -2,6 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { Good } from './GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -91,6 +92,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const isSorted = (sortType !== SortType.NONE || isReversed);
+    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -136,17 +138,13 @@ export class App extends React.Component<{}, State> {
           )}
         </div>
 
-        {getReorderedGoods(goodsFromServer, this.state).map((good) => {
-          return (
-            <ul>
-              <ul>
-                <li data-cy="Good" key={good}>
-                  {good}
-                </li>
-              </ul>
-            </ul>
-          );
-        })}
+        <ul>
+          <ul>
+            {reorderedGoods.map((good) => (
+              <Good key={good} good={good} />
+            ))}
+          </ul>
+        </ul>
       </div>
     );
   }
