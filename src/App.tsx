@@ -47,7 +47,7 @@ export function getReorderedGoods(
     }
   });
 
-  if (isReversed === true) {
+  if (isReversed) {
     visibleGoods.reverse();
   }
 
@@ -90,6 +90,18 @@ export class App extends Component<{}, State> {
       sortType,
       isReversed,
     });
+
+    const goodStyle = {
+      backgroundColor: '#eff5fb',
+      maxWidth: 'max-content',
+      borderRadius: '20px',
+    };
+
+    const reversedStyle = {
+      backgroundColor: '#fee08a',
+      maxWidth: 'max-content',
+      borderRadius: '20px',
+    };
 
     return (
       <div className="section content">
@@ -134,7 +146,11 @@ export class App extends Component<{}, State> {
         <ul>
           <ul>
             {updateGoods.map((good) => (
-              <li key={good} data-cy="Good">
+              <li
+                key={good}
+                data-cy="Good"
+                style={isReversed ? reversedStyle : goodStyle}
+              >
                 {good}
               </li>
             ))}
