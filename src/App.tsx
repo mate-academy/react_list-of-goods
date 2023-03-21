@@ -2,20 +2,8 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
-import { Good } from './GoodsList';
-
-export const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+import { GoodsList } from './GoodsList';
+import { goodsFromServer } from './Goods';
 
 enum SortType {
   NONE = 'none',
@@ -50,9 +38,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
@@ -120,7 +105,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button is-warning', {
-              ' is-light': !isReversed,
+              'is-light': !isReversed,
             })}
             onClick={this.reverse}
           >
@@ -139,11 +124,7 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {reorderedGoods.map((good) => (
-              <Good key={good} good={good} />
-            ))}
-          </ul>
+          <GoodsList goods={reorderedGoods} />
         </ul>
       </div>
     );
