@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
+import { Goods } from './components/Goods';
+
 export const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -163,16 +165,7 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {reoderedGoods.map(good => (
-              <li
-                data-cy="Good"
-                key={good}
-              >
-                {good}
-              </li>
-            ))}
-          </ul>
+          <Goods goods={reoderedGoods} />
         </ul>
       </div>
     );
