@@ -141,15 +141,3 @@ export class App extends React.Component<{}, State> {
     );
   }
 }
-
-// sortByAlphabet = () => {
-//   this.setState({ sortType: SortType.ALPHABET });
-// };
-
-// sortByLength = () => {
-//   this.setState({ sortType: SortType.LENGTH });
-// };
-
-// noneSort = () => {
-//   this.setState({ sortType: SortType.NONE, isReversed: false });
-// };
