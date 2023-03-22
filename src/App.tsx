@@ -2,8 +2,9 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
 
-export const goodsFromServer = [
+export const goodsFromServer: string[] = [
   'Dumplings',
   'Carrot',
   'Eggs',
@@ -30,7 +31,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods]
     .sort((previousGood, currentGood) => {
       switch (sortType) {
@@ -40,11 +41,8 @@ export function getReorderedGoods(
         case SortType.LENGTH:
           return previousGood.length - currentGood.length;
 
-        case SortType.NONE:
-          return 0;
-
         default:
-          throw new Error(`Unknown value of sort type - ${sortType}`);
+          return 0;
       }
     });
 
@@ -64,8 +62,17 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  handleReset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
   render() {
     const { isReversed, sortType } = this.state;
+    const shouldSortList = sortType !== SortType.NONE || isReversed;
+    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -116,17 +123,12 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            (sortType !== SortType.NONE || isReversed)
+            shouldSortList
               && (
                 <button
                   type="button"
                   className="button is-danger is-light"
-                  onClick={() => this.setState(
-                    {
-                      isReversed: false,
-                      sortType: SortType.NONE,
-                    },
-                  )}
+                  onClick={this.handleReset}
                 >
                   Reset
                 </button>
@@ -134,14 +136,7 @@ export class App extends React.Component<{}, State> {
           }
         </div>
 
-        <ul>
-          {
-            getReorderedGoods(goodsFromServer, this.state)
-              .map(good => (
-                <li data-cy="Good" key={good}>{good}</li>
-              ))
-          }
-        </ul>
+        <GoodsList goods={reorderedGoods} />
       </div>
     );
   }
