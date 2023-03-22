@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'NONE',
-  ALPHABET = 'ALPHABET',
-  LENGTH = 'LENGTH',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -72,10 +72,10 @@ export class App extends PureComponent <{}, State> {
 
     visibleGoods.sort((good1, good2) => {
       switch (sortType) {
-        case 'ALPHABET':
+        case SortType.ALPHABET:
           return good1.localeCompare(good2);
 
-        case 'LENGTH':
+        case SortType.LENGTH:
           return good1.length - good2.length;
 
         default:
@@ -93,6 +93,7 @@ export class App extends PureComponent <{}, State> {
     );
 
     const { sortType, isReversed } = this.state;
+    const canReset = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -101,8 +102,8 @@ export class App extends PureComponent <{}, State> {
             type="button"
             className={classNames(
               'button',
-              'is-success',
-              { 'is-light': sortType !== 'ALPHABET' },
+              'is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.handleAlphabetSort}
           >
@@ -114,7 +115,7 @@ export class App extends PureComponent <{}, State> {
             className={classNames(
               'button',
               'is-success',
-              { 'is-light': sortType !== 'LENGTH' },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.handleLengthSort}
           >
@@ -125,7 +126,7 @@ export class App extends PureComponent <{}, State> {
             type="button"
             className={classNames(
               'button',
-              'is-success',
+              'is-warning',
               { 'is-light': !isReversed },
             )}
             onClick={this.handleReverse}
@@ -134,7 +135,7 @@ export class App extends PureComponent <{}, State> {
           </button>
 
           {
-            (sortType !== 'NONE' || isReversed) && (
+            canReset && (
               <button
                 type="button"
                 className="button is-danger is-light"
