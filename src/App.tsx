@@ -112,7 +112,10 @@ export class App extends PureComponent<{}, State> {
               type="button"
               className="button is-danger is-light"
               onClick={() => {
-                this.setState({ sortType: SortType.NONE });
+                this.setState({
+                  sortType: SortType.NONE,
+                  isReversed: false,
+                });
               }}
             >
               Reset
