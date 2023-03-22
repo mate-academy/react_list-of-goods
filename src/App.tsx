@@ -2,6 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -54,15 +55,9 @@ export function getReorderedGoods(
 }
 
 export class App extends React.Component<{}, ReorderOptions> {
-  state: ReorderOptions = {
+  state: Readonly<ReorderOptions> = {
     isReversed: false,
     sortType: SortType.NONE,
-  };
-
-  reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
   };
 
   reset = () => {
@@ -72,13 +67,19 @@ export class App extends React.Component<{}, ReorderOptions> {
     });
   };
 
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
   sortByType(sortType: SortType) {
     this.setState({ sortType });
   }
 
   render() {
     const { isReversed, sortType } = this.state;
-    const addResetButton = sortType !== SortType.NONE || isReversed;
+    const isResetButton = sortType !== SortType.NONE || isReversed;
     const goodsToShow = getReorderedGoods(goodsFromServer, this.state);
 
     return (
@@ -123,7 +124,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             Reverse
           </button>
 
-          {addResetButton && (
+          {isResetButton && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -134,11 +135,7 @@ export class App extends React.Component<{}, ReorderOptions> {
           )}
         </div>
 
-        <ul>
-          {goodsToShow.map(good => (
-            <li data-cy="Good" key={good}>{good}</li>
-          ))}
-        </ul>
+        <GoodsList goods={goodsToShow} />
       </div>
     );
   }
