@@ -2,6 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -146,18 +147,7 @@ export class App extends React.Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          <ul>
-            {goods.map(good => (
-              <li
-                data-cy="Good"
-                key={good}
-              >
-                {good}
-              </li>
-            ))}
-          </ul>
-        </ul>
+        <GoodsList goods={goods} />
       </div>
     );
   }
