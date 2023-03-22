@@ -92,6 +92,7 @@ export class App extends Component<{}, State> {
       sortType,
     } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isFiltered = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -129,7 +130,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isFiltered && (
             <button
               type="button"
               className="button is-danger is-light"
