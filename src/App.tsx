@@ -31,7 +31,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods];
 
   visibleGoods.sort((itemPrev, itemCurr) => {
@@ -87,7 +87,7 @@ export class App extends React.Component<{}, State> {
     } = this.state;
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-    const isStateChanged = isReversed || sortType !== SortType.NONE;
+    const isReordered = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -126,7 +126,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            (isStateChanged) && (
+            (isReordered) && (
               <button
                 type="button"
                 className="button is-danger is-light"
