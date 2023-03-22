@@ -61,22 +61,22 @@ type State = {
 };
 
 export class App extends Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
   };
 
-  handleSort = (sortType: SortType) => {
+  sortByType = (sortType: SortType) => {
     this.setState({ sortType });
   };
 
-  reverseGoods = () => {
+  reverseOrder = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  resetGoods = () => {
+  resetSorting = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -88,7 +88,7 @@ export class App extends Component<{}, State> {
       isReversed,
       sortType,
     } = this.state;
-    const checkReset = sortType !== SortType.NONE || isReversed;
+    const isReordered = sortType !== SortType.NONE || isReversed;
     const reorderedGoods = getReorderedGoods(
       goodsFromServer,
       { isReversed, sortType },
@@ -104,7 +104,7 @@ export class App extends Component<{}, State> {
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={() => {
-              this.handleSort(SortType.ALPHABET);
+              this.sortByType(SortType.ALPHABET);
             }}
           >
             Sort alphabetically
@@ -117,7 +117,7 @@ export class App extends Component<{}, State> {
               { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={() => {
-              this.handleSort(SortType.LENGTH);
+              this.sortByType(SortType.LENGTH);
             }}
           >
             Sort by length
@@ -129,16 +129,16 @@ export class App extends Component<{}, State> {
               'button is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.reverseGoods}
+            onClick={this.reverseOrder}
           >
             Reverse
           </button>
 
-          {checkReset && (
+          {isReordered && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.resetGoods}
+              onClick={this.resetSorting}
             >
               Reset
             </button>
