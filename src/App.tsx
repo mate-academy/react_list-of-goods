@@ -28,12 +28,10 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   visibleGoods.sort((good1, good2) => {
@@ -50,8 +48,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
 
   return visibleGoods;
 }
@@ -134,7 +130,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {((isReversed || sortType) !== SortType.NONE) && (
+          {(isReversed || (sortType !== SortType.NONE)) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -144,6 +140,7 @@ export class App extends React.Component<{}, State> {
             </button>
           )}
         </div>
+
         <GoodsList goods={goods} />
       </div>
     );

@@ -4,12 +4,10 @@ type Props = {
   goods: string[];
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => {
-  return (
-    <ul>
-      {goods.map(good => (
-        <GoodsItem good={good} />
-      ))}
-    </ul>
-  );
-};
+export const GoodsList: React.FC<Props> = ({ goods }) => (
+  <ul>
+    {goods.map(good => (
+      <GoodsItem good={good} key={good} />
+    ))}
+  </ul>
+);
