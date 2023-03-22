@@ -46,7 +46,7 @@ export function getReorderedGoods(
   });
 
   if (isReversed) {
-    return visibleGoods.reverse();
+    visibleGoods.reverse();
   }
 
   return visibleGoods;
@@ -75,7 +75,7 @@ export class App extends Component<{}, State> {
     });
   };
 
-  reverse = () => {
+  reverseList = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
@@ -90,6 +90,8 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const isReset = isReversed || sortType !== SortType.NONE;
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -128,12 +130,12 @@ export class App extends Component<{}, State> {
                 'is-light': !isReversed,
               },
             )}
-            onClick={this.reverse}
+            onClick={this.reverseList}
           >
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isReset && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -144,7 +146,7 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <ListOfGoods goods={getReorderedGoods(goodsFromServer, this.state)} />
+        <ListOfGoods goods={visibleGoods} />
       </div>
     );
   }
