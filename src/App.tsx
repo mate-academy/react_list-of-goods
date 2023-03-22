@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -62,12 +63,12 @@ export class App extends React.Component<{}, State> {
     isReversed: false,
   };
 
-  resetSorting() {
+  resetSorting = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
     });
-  }
+  };
 
   render() {
     const {
@@ -135,27 +136,14 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => (
-                this.resetSorting()
-              )}
+              onClick={this.resetSorting}
             >
               Reset
             </button>
           )}
         </div>
 
-        <ul>
-          <ul>
-            {reorderedGoods.map(good => (
-              <li
-                data-cy="Good"
-                key={good}
-              >
-                {good}
-              </li>
-            ))}
-          </ul>
-        </ul>
+        <GoodsList goods={reorderedGoods} />
       </div>
     );
   }
