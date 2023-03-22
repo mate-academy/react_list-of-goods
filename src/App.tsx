@@ -2,6 +2,7 @@ import { PureComponent } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { Good } from './components/Good/Good';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -148,13 +149,9 @@ export class App extends PureComponent <{}, State> {
         </div>
 
         <ul>
-          {
-            visibleGoods.map(good => (
-              <li data-cy="Good" key={good}>
-                {good}
-              </li>
-            ))
-          }
+          {visibleGoods.map(good => (
+            <Good good={good} key={good} />
+          ))}
         </ul>
       </div>
     );
