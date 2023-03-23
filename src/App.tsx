@@ -135,17 +135,15 @@ export class App extends PureComponent <{}, State> {
             Reverse
           </button>
 
-          {
-            canReset && (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.handleReset}
-              >
-                Reset
-              </button>
-            )
-          }
+          {canReset && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.handleReset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
