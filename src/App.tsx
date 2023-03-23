@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 import GoodsList from './components/GoodsList/GoodsList';
 
@@ -40,12 +41,12 @@ export function getReorderedGoods(
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
-  if (sortType !== 0) {
-    if (sortType === 1) {
+  if (sortType !== 0) { // Check if sortType is not default 0 (NONE value)
+    if (sortType === 1) { // sortType[1] === ALPHABET
       visibleGoods.sort(
         (goodOne, goodAnother) => goodOne.localeCompare(goodAnother),
       );
-    } else {
+    } else { // sortType[2] === LENGTH
       visibleGoods.sort(
         (goodOne, goodAnother) => goodOne.length - goodAnother.length,
       );
@@ -62,11 +63,6 @@ type State = {
   isReversed: boolean,
   sortType: SortType,
 };
-
-// interface State {
-//   isReversed: boolean;
-//   sortType: SortType;
-// }
 
 export class App extends Component<{}, State> {
   state = {
@@ -90,7 +86,9 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={
+              classNames('button', 'is-info', { 'is-light': sortBy !== 1 })
+            }
             onClick={() => this.setState({ sortType: SortType.ALPHABET })}
           >
             Sort alphabetically
@@ -98,7 +96,9 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={
+              classNames('button', 'is-success', { 'is-light': sortBy !== 2 })
+            }
             onClick={() => this.setState({ sortType: SortType.LENGTH })}
           >
             Sort by length
@@ -106,7 +106,9 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={
+              classNames('button', 'is-warning', { 'is-light': !isRev })
+            }
             onClick={() => this.setState(
               (prevState) => ({ isReversed: !prevState.isReversed }),
             )}
@@ -114,16 +116,19 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          <button
-            type="button"
-            className="button is-danger is-light"
-            onClick={() => this.setState({
-              sortType: SortType.NONE,
-              isReversed: false,
-            })}
-          >
-            Reset
-          </button>
+          {(isRev || sortBy !== 0)
+            && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={() => this.setState({
+                  sortType: SortType.NONE,
+                  isReversed: false,
+                })}
+              >
+                Reset
+              </button>
+            )}
         </div>
 
         <ul>
