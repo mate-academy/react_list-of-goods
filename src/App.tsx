@@ -86,9 +86,10 @@ export class App extends React.Component<{}, State> {
   };
 
   handleReset = () => {
-    this.setState({
+    this.setState((prevState) => ({
       sortType: SortType.NONE,
-    });
+      isReversed: false,
+    }));
   };
 
   render() {
@@ -137,7 +138,7 @@ export class App extends React.Component<{}, State> {
             {isReversed ? 'Reverse' : 'Reverse'}
           </button>
 
-          {sortType !== SortType.NONE
+          {(sortType !== SortType.NONE || isReversed)
             && (
               <button
                 type="button"
