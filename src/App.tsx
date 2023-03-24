@@ -2,6 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import classNames from 'classnames';
 import './App.scss';
+import { GoodsList } from './components/goodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -30,7 +31,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods];
 
   switch (sortType) {
@@ -46,7 +47,6 @@ export function getReorderedGoods(
       ));
       break;
 
-    case SortType.NONE:
     default:
       break;
   }
@@ -64,18 +64,18 @@ type State = {
 };
 
 export class App extends React.Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
   };
 
-  handleAlphabet = () => {
+  handleSortByAlphabet = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
   };
 
-  handleLength = () => {
+  handleSortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
@@ -108,7 +108,7 @@ export class App extends React.Component<{}, State> {
               'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
-            onClick={this.handleAlphabet}
+            onClick={this.handleSortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -119,7 +119,7 @@ export class App extends React.Component<{}, State> {
               'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={this.handleLength}
+            onClick={this.handleSortByLength}
           >
             Sort by length
           </button>
@@ -146,13 +146,7 @@ export class App extends React.Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          {sortedGoods.map(good => (
-            <li key={good} data-cy="Good" className="good">
-              {good}
-            </li>
-          ))}
-        </ul>
+        <GoodsList goods={sortedGoods} />
       </div>
     );
   }
