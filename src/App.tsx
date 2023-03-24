@@ -2,6 +2,7 @@ import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import GoodList from './GoodList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -97,6 +98,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { isReversed, sortType });
+    const resetCondition = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -137,10 +139,10 @@ export class App extends React.Component<{}, State> {
             )}
             onClick={this.handleReverse}
           >
-            {isReversed ? 'Reverse' : 'Reverse'}
+            Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed)
+          {resetCondition
             && (
               <button
                 type="button"
@@ -153,11 +155,7 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {goods.map((good) => {
-              return <li key={good} data-cy="Good">{good}</li>;
-            })}
-          </ul>
+          <GoodList goods={goods} />
         </ul>
       </div>
     );
