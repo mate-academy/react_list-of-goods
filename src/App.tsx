@@ -31,7 +31,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods];
 
   visibleGoods.sort((firstGoods, secondGoods) => {
@@ -65,7 +65,7 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  revers = () => {
+  reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -90,6 +90,7 @@ export class App extends React.Component<{}, State> {
     const { isReversed, sortType } = this.state;
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const reversedType = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -122,13 +123,13 @@ export class App extends React.Component<{}, State> {
               'button is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={this.revers}
+            onClick={this.reverse}
           >
             Reverse
           </button>
 
           {
-            (isReversed || sortType !== SortType.NONE) && (
+            (reversedType) && (
               <button
                 type="button"
                 className="button is-danger is-light"
