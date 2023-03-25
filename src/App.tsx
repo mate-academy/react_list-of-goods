@@ -83,7 +83,7 @@ export class App extends Component<{}, State> {
   handleReverse = (prevState: State) => {
     this.setState({
       isReversed: !prevState.isReversed,
-      reordered: true,
+      reordered: !prevState.reordered,
     });
   };
 
