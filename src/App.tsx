@@ -29,56 +29,82 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  visibleGoods.sort(
+    (prevGood, nextGood) => {
+      switch (sortType) {
+        case SortType.LENGTH:
+          return prevGood.length - nextGood.length;
+        case SortType.ALPHABET:
+          return prevGood.localeCompare(nextGood);
+        default:
+          return 0;
+      }
+    },
+  );
 
-  if (sortType !== 0) { // Check if sortType is not default 0 (NONE value)
-    if (sortType === 1) { // sortType[1] === ALPHABET
-      visibleGoods.sort(
-        (goodOne, goodAnother) => goodOne.localeCompare(goodAnother),
-      );
-    } else { // sortType[2] === LENGTH
-      visibleGoods.sort(
-        (goodOne, goodAnother) => goodOne.length - goodAnother.length,
-      );
-    }
-  }
-
-  return !isReversed
-    ? visibleGoods
-    : visibleGoods.reverse();
+  return isReversed
+    ? visibleGoods.reverse()
+    : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
+  reordered: boolean,
 };
 
 export class App extends Component<{}, State> {
-  state = {
+  readonly state = {
     isReversed: false,
     sortType: SortType.NONE,
+    reordered: false,
+  };
+
+  handleSortAlphabetic = () => {
+    this.setState({
+      sortType: SortType.ALPHABET,
+      reordered: true,
+    });
+  };
+
+  handleSortByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+      reordered: true,
+    });
+  };
+
+  handleReverse = (prevState: State) => {
+    this.setState({
+      isReversed: !prevState.isReversed,
+      reordered: true,
+    });
+  };
+
+  handleReset = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+      reordered: false,
+    });
   };
 
   render() {
     const {
       isReversed: isRev,
       sortType: sortBy,
+      reordered,
     } = this.state;
 
     const options = {
-      sortType: sortBy || SortType.NONE,
-      isReversed: isRev || false,
+      sortType: sortBy,
+      isReversed: isRev,
     };
 
     return (
@@ -87,9 +113,10 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={
-              classNames('button', 'is-info', { 'is-light': sortBy !== 1 })
+              classNames('button', 'is-info',
+                { 'is-light': sortBy !== SortType.ALPHABET })
             }
-            onClick={() => this.setState({ sortType: SortType.ALPHABET })}
+            onClick={() => this.handleSortAlphabetic()}
           >
             Sort alphabetically
           </button>
@@ -97,9 +124,10 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={
-              classNames('button', 'is-success', { 'is-light': sortBy !== 2 })
+              classNames('button', 'is-success',
+                { 'is-light': sortBy !== SortType.LENGTH })
             }
-            onClick={() => this.setState({ sortType: SortType.LENGTH })}
+            onClick={() => this.handleSortByLength()}
           >
             Sort by length
           </button>
@@ -109,35 +137,28 @@ export class App extends Component<{}, State> {
             className={
               classNames('button', 'is-warning', { 'is-light': !isRev })
             }
-            onClick={() => this.setState(
-              (prevState) => ({ isReversed: !prevState.isReversed }),
-            )}
+            onClick={() => this.handleReverse(this.state)}
           >
             Reverse
           </button>
 
-          {(isRev || sortBy !== 0)
-            && (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={() => this.setState({
-                  sortType: SortType.NONE,
-                  isReversed: false,
-                })}
-              >
-                Reset
-              </button>
-            )}
+          {reordered && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={() => this.handleReset()}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
-        <ul>
-          <GoodsList goods={getReorderedGoods(
-            goodsFromServer,
-            options,
-          )}
-          />
-        </ul>
+        <GoodsList goods={getReorderedGoods(
+          goodsFromServer,
+          options,
+        )}
+        />
+
       </div>
     );
   }
