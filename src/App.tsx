@@ -20,9 +20,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
+  NONE = 'none',
+  ALPHABET = 'alphabet',
+  LENGTH = 'length',
 }
 
 type ReorderOptions = {
@@ -33,7 +33,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods];
 
   switch (sortType) {
@@ -64,7 +64,7 @@ type State = {
 };
 
 export class App extends Component<{}, State> {
-  state = {
+  readonly state = {
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -88,7 +88,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const validGoods = getReorderedGoods(goodsFromServer, this.state);
+    const sortedGoods = getReorderedGoods(goodsFromServer, this.state);
     const canReset = (sortType !== SortType.NONE) || isReversed;
 
     return (
@@ -138,7 +138,7 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <GoodsList goods={validGoods} />
+        <GoodsList goods={sortedGoods} />
       </div>
     );
   }
