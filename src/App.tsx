@@ -56,34 +56,29 @@ export function getReorderedGoods(
 type State = {
   isReversed: boolean,
   sortType: SortType,
-  reordered: boolean,
 };
 
 export class App extends Component<{}, State> {
   readonly state = {
     isReversed: false,
     sortType: SortType.NONE,
-    reordered: false,
   };
 
   handleSortAlphabetic = () => {
     this.setState({
       sortType: SortType.ALPHABET,
-      reordered: true,
     });
   };
 
   handleSortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
-      reordered: true,
     });
   };
 
   handleReverse = (prevState: State) => {
     this.setState({
       isReversed: !prevState.isReversed,
-      reordered: !prevState.reordered,
     });
   };
 
@@ -91,7 +86,6 @@ export class App extends Component<{}, State> {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
-      reordered: false,
     });
   };
 
@@ -99,13 +93,14 @@ export class App extends Component<{}, State> {
     const {
       isReversed: isRev,
       sortType: sortBy,
-      reordered,
     } = this.state;
 
     const options = {
       sortType: sortBy,
       isReversed: isRev,
     };
+
+    const isReordered = isRev || sortBy !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -142,7 +137,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {reordered && (
+          {isReordered && (
             <button
               type="button"
               className="button is-danger is-light"
