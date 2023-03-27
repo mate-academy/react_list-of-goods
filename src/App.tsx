@@ -126,17 +126,16 @@ export class App extends Component<{}, State> {
                 'is-light': !isReversed,
               },
             )}
-            onClick={() => this.reverse()}
+            onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {showResetButton
-          && (
+          {showResetButton && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => this.reset()}
+              onClick={this.reset}
             >
               Reset
             </button>
