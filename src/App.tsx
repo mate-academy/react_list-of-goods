@@ -1,9 +1,9 @@
 import { Component } from 'react';
+import classNames from 'classnames';
 
 import 'bulma/css/bulma.css';
 import './App.scss';
 
-import classNames from 'classnames';
 import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
