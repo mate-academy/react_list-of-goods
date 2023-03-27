@@ -31,7 +31,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods];
 
   visibleGoods.sort((firstProduct: string, secondProduct: string) => {
