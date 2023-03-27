@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { ListGoods } from './component/listGoods';
 
 import 'bulma/css/bulma.css';
 import './App.scss';
@@ -32,7 +33,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods];
 
   visibleGoods.sort((prevGood, nextGood) => {
@@ -59,7 +60,7 @@ type State = {
 };
 
 export class App extends React.Component<{}, State> {
-  state: State = {
+  state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -86,6 +87,8 @@ export class App extends React.Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const isListChanged = sortType !== SortType.NONE || isReversed;
+    const reorderedGoods = getReorderedGoods(goodsFromServer,
+      { isReversed, sortType });
 
     return (
       <div className="section content">
@@ -116,19 +119,17 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={classNames('button is-warning',
               { 'is-light': !isReversed })}
-            onClick={() => {
-              this.reverse();
-            }}
+            onClick={this.reverse}
           >
             Reverse
           </button>
-          {isListChanged && (
+
+          {isListChanged
+          && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => {
-                this.reset();
-              }}
+              onClick={this.reset}
             >
               Reset
             </button>
@@ -136,14 +137,7 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {getReorderedGoods(goodsFromServer, { isReversed, sortType })
-              .map(good => (
-                <li data-cy="Good" key={good}>
-                  {good}
-                </li>
-              ))}
-          </ul>
+          <ListGoods goods={reorderedGoods} />
         </ul>
       </div>
     );
