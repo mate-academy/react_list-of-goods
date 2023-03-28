@@ -2,6 +2,12 @@ iframe {
   display: none;
 }
 
-.displayNone {
-  display: none;
+.is-success {
+  background-color: #effaf5;
+  color: #257953;
+}
+
+.is-warning {
+  background-color: #fffaeb;
+  color: #946c00;
 }
