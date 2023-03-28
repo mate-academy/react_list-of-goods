@@ -31,7 +31,7 @@ type ReorderOptions = {
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
-) {
+): string[] {
   const visibleGoods = [...goods];
 
   if (sortType !== SortType.NONE) {
@@ -60,7 +60,7 @@ type State = {
 };
 
 export class App extends Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -88,6 +88,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const sorted = isReversed || sortType !== SortType.NONE;
     const goods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
@@ -126,7 +127,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {sorted && (
             <button
               type="button"
               className="button is-danger is-light"
