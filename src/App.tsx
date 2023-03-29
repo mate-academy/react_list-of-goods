@@ -2,6 +2,7 @@ import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -39,6 +40,23 @@ export function getReorderedGoods(
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   return visibleGoods;
 }
 
@@ -74,24 +92,7 @@ export class App extends Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-    const displayReset = sortType !== SortType.NONE || isReversed;
-
-    visibleGoods.sort((good1, good2) => {
-      switch (sortType) {
-        case SortType.ALPHABET:
-          return good1.localeCompare(good2);
-
-        case SortType.LENGTH:
-          return good1.length - good2.length;
-
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
+    const shoudShowReset = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -137,7 +138,8 @@ export class App extends Component<{}, State> {
           >
             Reverse
           </button>
-          {displayReset && (
+
+          {shoudShowReset && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -149,13 +151,7 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(good => (
-              <li data-cy="Good" key={good}>
-                {good}
-              </li>
-            ))}
-          </ul>
+          <GoodsList goods={visibleGoods} />
         </ul>
       </div>
     );
