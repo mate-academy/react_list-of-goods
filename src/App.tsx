@@ -2,6 +2,7 @@ import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -27,45 +28,38 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   visibleGoods.sort((g1, g2) => {
     switch (sortType) {
-      case SortType.NONE:
-        return 0;
       case SortType.ALPHABET:
         return g1.localeCompare(g2);
       case SortType.LENGTH:
         return g1.length - g2.length;
+      case SortType.NONE:
       default:
         return 0;
     }
   });
-  // Sort and reverse goods if needed
+
   if (isReversed) {
     visibleGoods.reverse();
   }
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
-
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
 };
 
 export class App extends Component<{}, State> {
-  state = {
+  state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -89,7 +83,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const rstBttn = sortType !== SortType.NONE || isReversed;
+    const isResetButton = sortType !== SortType.NONE || isReversed;
     const orderingGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
@@ -134,7 +128,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {rstBttn && (
+          {isResetButton && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -145,12 +139,7 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <ul>
-          {orderingGoods
-            .map(
-              word => <li data-cy="Good" key={word}>{word}</li>,
-            )}
-        </ul>
+        <GoodsList orderingGoods={orderingGoods} />
       </div>
     );
   }
