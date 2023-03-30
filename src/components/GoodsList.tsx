@@ -1,20 +1,17 @@
-import React from 'react';
+import { FC } from 'react';
 
 type Props = {
-  orderingGoods: string[],
+  orderingGoods: string[];
 };
 
-export class GoodsList extends React.PureComponent<Props, {}> {
-  render() {
-    const { orderingGoods } = this.props;
-
-    return (
-      <ul>
-        {orderingGoods
-          .map(
-            word => <li data-cy="Good" key={word}>{word}</li>,
-          )}
-      </ul>
-    );
-  }
-}
+export const GoodsList: FC<Props> = ({ orderingGoods }) => {
+  return (
+    <ul>
+      {orderingGoods.map((word) => (
+        <li data-cy="Good" key={word}>
+          {word}
+        </li>
+      ))}
+    </ul>
+  );
+};
