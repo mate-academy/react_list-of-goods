@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
@@ -20,6 +21,13 @@ enum SortType {
   NONE,
   ALPHABET,
   LENGTH,
+}
+
+enum ButtonType {
+  ALPHABET,
+  LENGTH,
+  REVERSE,
+  RESET,
 }
 
 type ReorderOptions = {
@@ -59,13 +67,37 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  onButtonClick = (button: ButtonType) => {
+    switch (button) {
+      case ButtonType.ALPHABET:
+        return this.setState({ sortType: SortType.ALPHABET });
+      case ButtonType.LENGTH:
+        return this.setState({ sortType: SortType.LENGTH });
+      case ButtonType.REVERSE:
+        return this.setState({
+          sortType: SortType.NONE,
+          isReversed: true,
+        });
+      case ButtonType.RESET:
+        this.setState({
+          sortType: SortType.NONE,
+          isReversed: false,
+        });
+        break;
+      default:
+        return 0;
+    }
+  };
+
   render() {
     const { isReversed, sortType } = this.state;
     const newGoods = getReorderedGoods(goodsFromServer,
       { sortType, isReversed });
 
-    return (
+    const setResetButton = sortType === SortType.ALPHABET
+      || sortType === SortType.LENGTH || isReversed;
 
+    return (
       <div className="section content">
         <div className="buttons">
           <button
@@ -73,9 +105,7 @@ export class App extends React.Component<{}, State> {
             className={classNames('button', 'is-info', {
               'is-light': sortType !== SortType.ALPHABET,
             })}
-            onClick={() => {
-              this.setState({ sortType: SortType.ALPHABET });
-            }}
+            onClick={() => this.onButtonClick(ButtonType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -85,9 +115,7 @@ export class App extends React.Component<{}, State> {
             className={classNames('button', 'is-success', {
               'is-light': sortType !== SortType.LENGTH,
             })}
-            onClick={() => {
-              this.setState({ sortType: SortType.LENGTH });
-            }}
+            onClick={() => this.onButtonClick(ButtonType.LENGTH)}
           >
             Sort by length
           </button>
@@ -98,29 +126,18 @@ export class App extends React.Component<{}, State> {
               'is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={() => {
-              this.setState({
-                sortType: SortType.NONE,
-                isReversed: !isReversed,
-              });
-            }}
+            onClick={() => this.onButtonClick(ButtonType.REVERSE)}
           >
             Reverse
           </button>
-          {(sortType === SortType.ALPHABET
-          || sortType === SortType.LENGTH || isReversed)
+          {setResetButton
             && (
               <button
                 type="button"
                 className={classNames('button', 'is-danger', {
                   'is-light': !isReversed,
                 })}
-                onClick={() => {
-                  this.setState({
-                    sortType: SortType.NONE,
-                    isReversed: false,
-                  });
-                }}
+                onClick={() => this.onButtonClick(ButtonType.RESET)}
               >
                 Reset
               </button>
