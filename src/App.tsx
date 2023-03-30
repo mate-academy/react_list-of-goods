@@ -39,8 +39,10 @@ export function getReorderedGoods(
     switch (sortType) {
       case SortType.ALPHABET:
         return g1.localeCompare(g2);
+
       case SortType.LENGTH:
         return g1.length - g2.length;
+
       default:
         return 0;
     }
@@ -64,6 +66,10 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  handleChangeSortType = (sortType: SortType): void => {
+    this.setState({ sortType });
+  };
+
   render() {
     const { isReversed, sortType } = this.state;
     const listOfGoods = getReorderedGoods(goodsFromServer, this.state);
@@ -78,7 +84,7 @@ export class App extends React.Component<{}, State> {
               'is-light': sortType !== SortType.ALPHABET,
             })}
             onClick={() => {
-              this.setState({ sortType: SortType.ALPHABET });
+              this.handleChangeSortType(SortType.ALPHABET);
             }}
           >
             Sort alphabetically
@@ -90,7 +96,7 @@ export class App extends React.Component<{}, State> {
               'is-light': sortType !== SortType.LENGTH,
             })}
             onClick={() => {
-              this.setState({ sortType: SortType.LENGTH });
+              this.handleChangeSortType(SortType.LENGTH);
             }}
           >
             Sort by length
