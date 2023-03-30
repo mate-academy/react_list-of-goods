@@ -27,15 +27,12 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   visibleGoods.sort((good1, good2) => {
     switch (sortType) {
       case SortType.LENGTH:
@@ -49,14 +46,9 @@ export function getReorderedGoods(
     }
   });
 
-  // if (isReversed) {
-  //   visibleGoods.reverse();
-  // }
-
   return isReversed ? visibleGoods.reverse() : visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
