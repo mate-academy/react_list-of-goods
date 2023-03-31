@@ -18,9 +18,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
+  NONE = 'NONE',
+  ALPHABET = 'ALPHABET',
+  LENGTH = 'LENGTH',
 }
 
 type ReorderOptions = {
@@ -90,7 +90,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const visibitityResetButton = (sortType !== SortType.NONE || isReversed);
+    const isResetButtonVisible = (sortType !== SortType.NONE || isReversed);
     const sortedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
@@ -99,7 +99,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button is-inf',
+              'button is-info',
               { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortAlphabetically}
@@ -129,7 +129,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          { visibitityResetButton && (
+          {isResetButtonVisible && (
             <button
               type="button"
               className="button is-danger is-light"
