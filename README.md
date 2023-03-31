@@ -15,9 +15,23 @@ Implement the ability to reorder the goods with the given buttons.
 1. `Reset` button should show the goods in the initial order.
     - it should be visible only if goods are not already in the original order;
 
+
+    > Вот [рабочая версия](https://mate-academy.github.io/react_list-of-goods/)
+
+1. Кнопка «Сортировать по алфавиту» должна сортировать товары по алфавиту.
+     - убрать класс `is-light` с кнопки при применении этого ордера;
+1. Кнопка «Сортировать по длине» должна сортировать товары по длине.
+     - убрать класс `is-light` с кнопки при применении этого ордера;
+1. Кнопка «Обратный» меняет текущий ордер на противоположный.
+     - должно работать вместе с любой сортировкой;
+     - убрать класс `is-light` с кнопки при переворачивании товаров;
+     - второй клик должен показывать товары в прямом порядке;
+1. Кнопка «Сброс» должна показывать товары в первоначальном порядке.
+     - он должен быть виден только в том случае, если товара еще нет в первоначальном заказе;
+
 ## Instructions
 
 - Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
 - Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_list-of-goods/) and add it to the PR description.
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://yevhenii-stanchenko.github.io/react_list-of-goods/) and add it to the PR description.
