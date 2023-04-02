@@ -35,22 +35,24 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort(
+  return visibleGoods.sort(
     (prevGood, nextGood) => {
       switch (sortType) {
         case SortType.LENGTH:
-          return prevGood.length - nextGood.length;
+          return isReversed
+            ? nextGood.length - prevGood.length
+            : prevGood.length - nextGood.length;
         case SortType.ALPHABET:
-          return prevGood.localeCompare(nextGood);
+          return isReversed
+            ? nextGood.localeCompare(prevGood)
+            : prevGood.localeCompare(nextGood);
+        case SortType.NONE:
+          return isReversed ? -1 : 0;
         default:
           return 0;
       }
     },
   );
-
-  return isReversed
-    ? visibleGoods.reverse()
-    : visibleGoods;
 }
 
 type State = {
@@ -76,10 +78,10 @@ export class App extends Component<{}, State> {
     });
   };
 
-  handleReverse = (prevState: State) => {
-    this.setState({
+  handleReverse = () => {
+    this.setState((prevState) => ({
       isReversed: !prevState.isReversed,
-    });
+    }));
   };
 
   handleReset = () => {
@@ -90,27 +92,25 @@ export class App extends Component<{}, State> {
   };
 
   render() {
-    const {
-      isReversed: isRev,
-      sortType: sortBy,
-    } = this.state;
+    const { isReversed, sortType } = this.state;
 
     const options = {
-      sortType: sortBy,
-      isReversed: isRev,
+      sortType,
+      isReversed,
     };
 
-    const isReordered = isRev || sortBy !== SortType.NONE;
+    const isReordered
+      = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={
-              classNames('button', 'is-info',
-                { 'is-light': sortBy !== SortType.ALPHABET })
-            }
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
             onClick={() => this.handleSortAlphabetic()}
           >
             Sort alphabetically
@@ -118,10 +118,10 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={
-              classNames('button', 'is-success',
-                { 'is-light': sortBy !== SortType.LENGTH })
-            }
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={() => this.handleSortByLength()}
           >
             Sort by length
@@ -129,10 +129,11 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={
-              classNames('button', 'is-warning', { 'is-light': !isRev })
-            }
-            onClick={() => this.handleReverse(this.state)}
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
+            )}
+            onClick={() => this.handleReverse()}
           >
             Reverse
           </button>
@@ -148,10 +149,11 @@ export class App extends Component<{}, State> {
           )}
         </div>
 
-        <GoodsList goods={getReorderedGoods(
-          goodsFromServer,
-          options,
-        )}
+        <GoodsList
+          goods={getReorderedGoods(
+            goodsFromServer,
+            options,
+          )}
         />
 
       </div>
