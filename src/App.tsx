@@ -46,10 +46,8 @@ export function getReorderedGoods(
           return isReversed
             ? nextGood.localeCompare(prevGood)
             : prevGood.localeCompare(nextGood);
-        case SortType.NONE:
-          return isReversed ? -1 : 0;
         default:
-          return 0;
+          return isReversed ? -1 : 0;
       }
     },
   );
