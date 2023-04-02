@@ -35,22 +35,22 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  return visibleGoods.sort(
+  visibleGoods.sort(
     (prevGood, nextGood) => {
       switch (sortType) {
         case SortType.LENGTH:
-          return isReversed
-            ? nextGood.length - prevGood.length
-            : prevGood.length - nextGood.length;
+          return prevGood.length - nextGood.length;
         case SortType.ALPHABET:
-          return isReversed
-            ? nextGood.localeCompare(prevGood)
-            : prevGood.localeCompare(nextGood);
+          return prevGood.localeCompare(nextGood);
         default:
-          return isReversed ? -1 : 0;
+          return 0;
       }
     },
   );
+
+  return !isReversed
+    ? visibleGoods
+    : visibleGoods.reverse();
 }
 
 type State = {
