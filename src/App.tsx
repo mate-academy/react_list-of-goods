@@ -33,12 +33,7 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   visibleGoods.sort((good1, good2) => {
     switch (sortType) {
@@ -86,7 +81,10 @@ export class App extends Component<{}, State> {
   };
 
   reset = () => {
-    this.setState({ isReversed: false, sortType: SortType.NONE });
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
   };
 
   render() {
@@ -149,10 +147,7 @@ export class App extends Component<{}, State> {
             </button>
           )}
         </div>
-
-        <ul>
-          <GoodsList goods={visibleGoods} />
-        </ul>
+        <GoodsList goods={visibleGoods} />
       </div>
     );
   }
