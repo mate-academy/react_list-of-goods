@@ -34,7 +34,7 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (!SortType.NONE) {
+  if (sortType !== SortType.NONE) {
     visibleGoods.sort((g1, g2): number => {
       switch (sortType) {
         case SortType.ALPHABET:
