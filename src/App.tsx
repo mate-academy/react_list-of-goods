@@ -60,8 +60,7 @@ type State = {
   isReversed: boolean,
   sortType: SortType,
   goodsList: string[],
-  isLighOn: boolean,
-  isLightLength: boolean,
+  isLightOn: boolean,
 };
 
 export class App extends React.Component<Props, State> {
@@ -69,8 +68,7 @@ export class App extends React.Component<Props, State> {
     sortType: SortType.NONE,
     isReversed: false,
     goodsList: goodsFromServer,
-    isLighOn: false,
-    isLightLength: false,
+    isLightOn: false,
   };
 
   setsortType(sortType: SortType) {
@@ -83,7 +81,7 @@ export class App extends React.Component<Props, State> {
     });
 
     this.setState({
-      isLighOn: true,
+      isLightOn: true,
     });
   }
 
@@ -95,7 +93,7 @@ export class App extends React.Component<Props, State> {
     }
 
     this.setState({
-      isLighOn: false,
+      isLightOn: false,
     });
   }
 
@@ -105,7 +103,7 @@ export class App extends React.Component<Props, State> {
     });
 
     this.setState({
-      isLighOn: false,
+      isLightOn: false,
     });
   }
 
@@ -118,7 +116,7 @@ export class App extends React.Component<Props, State> {
           <button
             type="button"
             className={this.state.sortType === 1
-              && this.state.isLighOn === true
+              && this.state.isLightOn === true
               ? 'button is-info'
               : 'button is-success is-light'}
             onClick={() => {
@@ -131,7 +129,7 @@ export class App extends React.Component<Props, State> {
           <button
             type="button"
             className={this.state.sortType === 2
-              && this.state.isLighOn === true
+              && this.state.isLightOn === true
               ? 'button is-success'
               : 'button is-success is-light'}
             onClick={() => {
