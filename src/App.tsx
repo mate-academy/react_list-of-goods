@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-// import { render } from 'react-dom';
 
 type Props = {};
 
@@ -33,16 +32,14 @@ function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ): string [] {
-  // To avoid the original array mutation
-
   const visible = [...goods];
 
   visible.sort((word1, word2) => {
     switch (sortType) {
-      case 2:
+      case SortType.LENGTH:
         return word1.length - word2.length;
 
-      case 1:
+      case SortType.ALPHABET:
         return word1.localeCompare(word2);
       default:
         return 0;
@@ -60,7 +57,6 @@ type State = {
   isReversed: boolean,
   sortType: SortType,
   goodsList: string[],
-  isLightOn: boolean,
 };
 
 export class App extends React.Component<Props, State> {
@@ -68,7 +64,6 @@ export class App extends React.Component<Props, State> {
     sortType: SortType.NONE,
     isReversed: false,
     goodsList: goodsFromServer,
-    isLightOn: false,
   };
 
   setsortType(sortType: SortType) {
@@ -79,31 +74,15 @@ export class App extends React.Component<Props, State> {
     this.setState({
       isReversed: false,
     });
-
-    this.setState({
-      isLightOn: true,
-    });
   }
 
-  toggleIsReversed() {
-    if (this.state.isReversed === false) {
-      this.setState({ isReversed: true });
-    } else {
-      this.setState({ isReversed: false });
-    }
-
-    this.setState({
-      isLightOn: false,
-    });
+  toggleIsReversed(prevsTate: boolean) {
+    this.setState(() => ({ isReversed: prevsTate }));
   }
 
   reset() {
     this.setState({
       sortType: SortType.NONE, isReversed: false,
-    });
-
-    this.setState({
-      isLightOn: false,
     });
   }
 
@@ -115,10 +94,7 @@ export class App extends React.Component<Props, State> {
         <div className="buttons">
           <button
             type="button"
-            className={this.state.sortType === 1
-              && this.state.isLightOn === true
-              ? 'button is-info'
-              : 'button is-success is-light'}
+            className={`button is-info ${this.state.sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
             onClick={() => {
               this.setsortType(SortType.ALPHABET);
             }}
@@ -128,10 +104,7 @@ export class App extends React.Component<Props, State> {
 
           <button
             type="button"
-            className={this.state.sortType === 2
-              && this.state.isLightOn === true
-              ? 'button is-success'
-              : 'button is-success is-light'}
+            className={`button is-success ${this.state.sortType !== SortType.LENGTH ? 'is-light' : ''}`}
             onClick={() => {
               this.setsortType(SortType.LENGTH);
             }}
@@ -141,11 +114,11 @@ export class App extends React.Component<Props, State> {
 
           <button
             type="button"
-            className={this.state.isReversed === true
+            className={this.state.isReversed
               ? 'button is-warning'
               : 'button is-success is-light'}
             onClick={() => {
-              this.toggleIsReversed();
+              this.toggleIsReversed(!this.state.isReversed);
             }}
           >
             Reverse
@@ -169,18 +142,11 @@ export class App extends React.Component<Props, State> {
 
         <ul>
           <ul>
-            { this.state.isReversed === false
-            && this.state.sortType === SortType.NONE
-              ? goodsFromServer.map((goodSecond) => {
-                return (
-                  <li data-cy="Good" key={goodSecond}>{goodSecond}</li>
-                );
-              })
-              : reorderedGoods.map((goodSecond) => {
-                return (
-                  <li data-cy="Good" key={goodSecond}>{goodSecond}</li>
-                );
-              })}
+            { reorderedGoods.map((goodSecond) => {
+              return (
+                <li data-cy="Good" key={goodSecond}>{goodSecond}</li>
+              );
+            })}
           </ul>
         </ul>
       </div>
