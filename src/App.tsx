@@ -91,7 +91,7 @@ export const App: React.FC = () => {
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${reorderOptions.sortType === SortType.ALPHABET && 'is-active'}`}
+          className={`button is-info ${reorderOptions.sortType === SortType.ALPHABET ? 'is-active' : ''}`}
           onClick={handleSortAlphabetically}
         >
           Sort alphabetically
@@ -99,7 +99,7 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is-success ${reorderOptions.sortType === SortType.LENGTH && 'is-active'}`}
+          className={`button is-success ${reorderOptions.sortType === SortType.LENGTH ? 'is-active' : ''}`}
           onClick={handleSortByLength}
         >
           Sort by length
@@ -107,7 +107,7 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is-warning ${reorderOptions.isReversed && 'is-active'}`}
+          className={`button is-warning ${reorderOptions.isReversed ? 'is-active' : ''}`}
           onClick={handleReverse}
         >
           Reverse
