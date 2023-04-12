@@ -29,7 +29,7 @@ type ReorderOptions = {
 
 export function getReorderedGoods(
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
+  { sortType, isReversed }: ReorderOptions
 ) {
   const visibleGoods = [...goods];
 
@@ -85,6 +85,7 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+
     const goods = getReorderedGoods(goodsFromServer, {
       sortType,
       isReversed,
