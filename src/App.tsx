@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'none',
-  ALPHABET = 'alphabet',
-  LENGTH = 'length',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -33,18 +33,16 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType !== 'none') {
-    visibleGoods.sort((firstGood, secondGood) => {
-      switch (sortType) {
-        case 'alphabet':
-          return firstGood.localeCompare(secondGood);
-        case 'length':
-          return firstGood.length - secondGood.length;
-        default:
-          return 0;
-      }
-    });
-  }
+  visibleGoods.sort((firstGood, secondGood) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return firstGood.localeCompare(secondGood);
+      case SortType.LENGTH:
+        return firstGood.length - secondGood.length;
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -53,13 +51,8 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-type State = {
-  isReversed: boolean,
-  sortType: SortType,
-};
-
-export class App extends React.Component<{}, State> {
-  state: State = {
+export class App extends React.Component<{}, ReorderOptions> {
+  state = {
     sortType: SortType.NONE,
     isReversed: false,
   };
@@ -94,7 +87,7 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={sortType === 'alphabet'
+            className={sortType === SortType.ALPHABET
               ? 'button is-info' : 'button is-info is-light'}
             onClick={this.sortByAlphabet}
           >
@@ -103,7 +96,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={sortType === 'length'
+            className={sortType === SortType.LENGTH
               ? 'button is-success' : 'button is-success is-light'}
             onClick={this.sortByLength}
           >
@@ -119,7 +112,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== 'none' || isReversed) && (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
