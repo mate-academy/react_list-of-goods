@@ -34,7 +34,7 @@ export function getReorderedGoods(
 
   switch (sortType) {
     case 1:
-      visibleGoods.sort();
+      visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
 
     case 2:
@@ -54,8 +54,8 @@ export function getReorderedGoods(
 
 export class App extends React.Component<{}, ReorderOptions> {
   state = {
+    sortType: SortType.NONE,
     isReversed: false,
-    sortType: 0,
   };
 
   render() {
@@ -66,16 +66,16 @@ export class App extends React.Component<{}, ReorderOptions> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${sortType !== 1 ? 'is-light' : ''}`}
-            onClick={() => this.setState({ sortType: 1 })}
+            className={`button is-info ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
+            onClick={() => this.setState({ sortType: SortType.ALPHABET })}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={`button is-success ${sortType !== 2 ? 'is-light' : ''}`}
-            onClick={() => this.setState({ sortType: 2 })}
+            className={`button is-success ${sortType !== SortType.LENGTH ? 'is-light' : ''}`}
+            onClick={() => this.setState({ sortType: SortType.LENGTH })}
           >
             Sort by length
           </button>
@@ -89,12 +89,14 @@ export class App extends React.Component<{}, ReorderOptions> {
           >
             Reverse
           </button>
-          {(isReversed === true || sortType !== 0) && (
+          {(isReversed === true || sortType !== SortType.NONE) && (
             <button
               type="button"
               className="button is-danger is-light"
               onClick={
-                () => this.setState({ sortType: 0, isReversed: false })
+                () => this.setState(
+                  { sortType: SortType.NONE, isReversed: false },
+                )
               }
             >
               Reset
