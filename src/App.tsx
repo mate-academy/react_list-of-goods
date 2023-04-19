@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -86,6 +86,9 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
+    const isAlphabetSort = sortType === SortType.ALPHABET;
+    const isLengthSort = sortType === SortType.LENGTH;
+    const isResetButtonActive = (sortType !== SortType.NONE || isReversed);
 
     const products = getReorderedGoods(
       goodsFromServer,
@@ -97,9 +100,9 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={sortType === SortType.ALPHABET
-              ? 'button is-info'
-              : 'button is-info is-light'}
+            className={classNames('button is-info', {
+              'button is-info is-light': !isAlphabetSort,
+            })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -107,9 +110,9 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={sortType === SortType.LENGTH
-              ? 'button is-success'
-              : 'button is-success is-light'}
+            className={classNames('button is-success', {
+              'button is-success is-light': !isLengthSort,
+            })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -117,15 +120,15 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={isReversed
-              ? 'button is-warning'
-              : 'button is-warning is-light'}
+            className={classNames('button is-warning', {
+              'button is-warning is-light': !isReversed,
+            })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {isResetButtonActive && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -139,7 +142,7 @@ export class App extends Component<{}, State> {
         <ul>
           <ul>
             {products.map(product => (
-              <li data-cy="Good" key={uuidv4()}>
+              <li data-cy="Good" key={product}>
                 {product}
               </li>
             ))}
