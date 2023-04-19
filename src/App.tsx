@@ -64,6 +64,31 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  sortByAlphabet = () => {
+    this.setState({
+      sortType: SortType.ALPHABET,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
   render() {
     const { isReversed, sortType } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
@@ -80,11 +105,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={() => {
-              this.setState({
-                sortType: SortType.ALPHABET,
-              });
-            }}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -98,11 +119,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={() => {
-              this.setState({
-                sortType: SortType.LENGTH,
-              });
-            }}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
@@ -116,11 +133,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': !isReversed,
               },
             )}
-            onClick={() => {
-              this.setState(state => ({
-                isReversed: !state.isReversed,
-              }));
-            }}
+            onClick={this.reverse}
           >
             Reverse
           </button>
@@ -129,12 +142,7 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => {
-                this.setState({
-                  isReversed: false,
-                  sortType: SortType.NONE,
-                });
-              }}
+              onClick={this.reset}
             >
               Reset
             </button>
