@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
@@ -35,61 +36,133 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
+  switch (sortType) {
+    case SortType.ALPHABET: {
+      visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
+      break;
+    }
+
+    case SortType.LENGTH: {
+      visibleGoods.sort((good1, good2) => good1.length - good2.length);
+      break;
+    }
+
+    case SortType.NONE: {
+      break;
+    }
+
+    default: {
+      const exhaustiveCheck: never = sortType;
+
+      throw new Error(`Unhandled sortType: ${exhaustiveCheck}`);
+    }
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
 // DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
 };
+
+export class App extends React.Component<{}, State> {
+  state = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
+
+  sortByAlphabet = () => {
+    this.setState({
+      sortType: SortType.ALPHABET,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
+  };
+
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
+
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
+
+  render() {
+    const { isReversed, sortType } = this.state;
+
+    const IsActiveResetButton = () => {
+      if (isReversed === false && sortType === SortType.NONE) {
+        return false;
+      }
+
+      return true;
+    };
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className="button is-info is-light"
+            onClick={this.sortByAlphabet}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className="button is-success is-light"
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className="button is-warning is-light"
+            onClick={this.reverse}
+          >
+            Reverse
+          </button>
+
+          {IsActiveResetButton() && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
+
+        </div>
+
+        <ul>
+          {getReorderedGoods(goodsFromServer, {
+            sortType,
+            isReversed,
+          }).map(good => (
+            <li key={good}>{good}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
