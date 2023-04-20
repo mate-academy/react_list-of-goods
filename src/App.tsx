@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -87,7 +88,13 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const isApdated = sortType !== 'none' || isReversed;
+    const {
+      sortByAlphabet,
+      sortByLength,
+      resetGoodsList,
+      reverseGoodsList,
+    } = this;
+    const isReseted = sortType === 'none' && !isReversed;
     const listOfGoods = getReorderedGoods(
       goodsFromServer,
       { isReversed, sortType },
@@ -98,33 +105,39 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
-            onClick={this.sortByAlphabet}
+            className={classNames('button is-info is-light', {
+              'is-light': sortType !== 'alphabet',
+            })}
+            onClick={sortByAlphabet}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className="button is-success is-light"
-            onClick={this.sortByLength}
+            className={classNames('button is-success', {
+              'is-light': sortType !== 'length',
+            })}
+            onClick={sortByLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className="button is-warning is-light"
-            onClick={this.reverseGoodsList}
+            className={classNames('button is-warning', {
+              'is-light': !isReseted,
+            })}
+            onClick={reverseGoodsList}
           >
             Reverse
           </button>
 
-          { isApdated && (
+          { !isReseted && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.resetGoodsList}
+              onClick={resetGoodsList}
             >
               Reset
             </button>
