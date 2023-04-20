@@ -44,16 +44,17 @@ export function getReorderedGoods(
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
 
-    default:
+    case SortType.NONE:
       break;
+
+    default:
+      return visibleGoods;
   }
 
   if (isReversed) {
     visibleGoods.reverse();
   }
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
   if (sortType === SortType.NONE && isReversed !== true) {
     return goodsFromServer;
   }
