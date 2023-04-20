@@ -17,9 +17,9 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 'none',
-  ALPHABET = 'alphabet',
-  LENGTH = 'length',
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -35,13 +35,13 @@ export function getReorderedGoods(
 
   visibleGoods.sort((prevGood, nextGood) => {
     switch (sortType) {
-      case 'none':
+      case SortType.NONE:
         return 0;
 
-      case 'alphabet':
+      case SortType.ALPHABET:
         return prevGood.localeCompare(nextGood);
 
-      case 'length':
+      case SortType.LENGTH:
         return prevGood.length - nextGood.length;
 
       default:
@@ -94,7 +94,8 @@ export class App extends React.Component<{}, State> {
       resetGoodsList,
       reverseGoodsList,
     } = this;
-    const isReseted = sortType === 'none' && !isReversed;
+
+    const isSelected = sortType !== SortType.NONE || isReversed;
     const listOfGoods = getReorderedGoods(
       goodsFromServer,
       { isReversed, sortType },
@@ -105,8 +106,8 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button is-info is-light', {
-              'is-light': sortType !== 'alphabet',
+            className={classNames('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
             })}
             onClick={sortByAlphabet}
           >
@@ -116,7 +117,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button is-success', {
-              'is-light': sortType !== 'length',
+              'is-light': sortType !== SortType.LENGTH,
             })}
             onClick={sortByLength}
           >
@@ -126,14 +127,14 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button is-warning', {
-              'is-light': !isReseted,
+              'is-light': !isReversed,
             })}
             onClick={reverseGoodsList}
           >
             Reverse
           </button>
 
-          { !isReseted && (
+          { isSelected && (
             <button
               type="button"
               className="button is-danger is-light"
