@@ -95,7 +95,7 @@ export class App extends Component<{}, State> {
       handleReseting,
     } = this;
 
-    const isActiveReset = (isReversed !== false || sortType !== SortType.NONE);
+    const activeReset = (isReversed !== false || sortType !== SortType.NONE);
 
     const goodsToDisplay = getReorderedGoods(
       goodsFromServer, { sortType, isReversed },
@@ -137,7 +137,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {isActiveReset && (
+          {activeReset && (
             <button
               type="button"
               className="button is-danger is-light"
