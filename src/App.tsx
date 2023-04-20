@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -34,9 +35,22 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  visibleGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SortType.LENGTH:
+        return good1.length - good2.length;
+
+      case SortType.ALPHABET:
+        return good1.localeCompare(good2);
+
+      default:
+        return SortType.NONE;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -47,49 +61,102 @@ export function getReorderedGoods(
 //   sortType: SortType,
 // };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+export class App extends React.Component<{}, ReorderOptions> {
+  state = {
+    sortType: SortType.NONE,
+    isReversed: false,
+  };
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+  alphabeticSort = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+  lengthSort = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+  resetSort = () => {
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
+  };
 
-      <ul>
+  reversed = () => {
+    this.setState((prevState) => ({
+      isReversed: !prevState.isReversed,
+    }));
+  };
+
+  render() {
+    const { sortType, isReversed } = this.state;
+    const visibleGoods = getReorderedGoods(
+      goodsFromServer, { sortType, isReversed },
+    );
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={classNames(
+              'button is-info',
+              {
+                'is-light': sortType !== SortType.ALPHABET,
+              },
+            )}
+            onClick={this.alphabeticSort}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={classNames(
+              'button is-success',
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              },
+            )}
+            onClick={this.lengthSort}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={classNames(
+              'button is-warning',
+              {
+                'is-light': isReversed !== true,
+              },
+            )}
+            onClick={this.reversed}
+          >
+            Reverse
+          </button>
+
+          {(sortType !== SortType.NONE || isReversed) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.resetSort}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          <ul>
+            {visibleGoods.map((good) => (
+              <li data-cy="Good" key={good}>
+                {good}
+              </li>
+            ))}
+          </ul>
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
