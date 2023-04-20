@@ -104,7 +104,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={this.state.sortType === SortType.ALPHABET
-              ? 'button is-info is-active'
+              ? 'button is-info '
               : 'button is-info is-light'}
             onClick={handleSortAlphabetically}
           >
@@ -114,7 +114,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={this.state.sortType === SortType.LENGTH
-              ? 'button is-success is-active'
+              ? 'button is-success '
               : 'button is-success is-light'}
             onClick={handleSortByLength}
           >
@@ -124,7 +124,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={this.state.isReversed
-              ? 'button is-warning is-active'
+              ? 'button is-warning '
               : 'button is-warning is-light'}
             onClick={handleReverse}
           >
