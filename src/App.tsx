@@ -82,9 +82,9 @@ export class App extends React.Component<{}, ReorderOptions> {
     goods.sort((good1, good2) => {
       switch (sortType) {
         case SortType.ALPHABET:
-          return good1[sortType].localeCompare(good2[sortType]);
+          return good1.localeCompare(good2);
         case SortType.LENGTH:
-          return good1[sortType].length - good2[sortType].length;
+          return good1.length - good2.length;
         default:
           return 0;
       }
