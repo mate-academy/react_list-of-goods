@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import ClassNames from 'classnames';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -65,26 +65,26 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  alphabeticallySort = () => {
+  hendleAlphabeticallySort = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
   };
 
-  lengthSort = () => {
+  hendleLengthSort = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
     });
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -93,50 +93,54 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const {
-      alphabeticallySort,
-      lengthSort,
-      reverse,
-      reset,
+      hendleAlphabeticallySort,
+      hendleLengthSort,
+      handleReverse,
+      handleReset,
     } = this;
 
     const goods = getReorderedGoods(goodsFromServer, this.state);
+    const isSorted = sortType !== SortType.NONE;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={ClassNames('button', 'is-info',
-              { 'is-light': sortType !== SortType.ALPHABET })}
-            onClick={alphabeticallySort}
+            className={cn('button', 'is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
+            onClick={hendleAlphabeticallySort}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={ClassNames('button', 'is-success',
-              { 'is-light': sortType !== SortType.LENGTH })}
-            onClick={lengthSort}
+            className={cn('button', 'is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
+            onClick={hendleLengthSort}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={ClassNames('button', 'is-warning',
-              { 'is-light': !isReversed })}
-            onClick={reverse}
+            className={cn('button', 'is-warning', {
+              'is-light': !isReversed,
+            })}
+            onClick={handleReverse}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed)
+          {(isSorted || isReversed)
             && (
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={reset}
+                onClick={handleReset}
               >
                 Reset
               </button>
