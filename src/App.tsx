@@ -62,25 +62,25 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  toSortAlphabet = () => {
+  handleSortAlphabet = () => {
     this.setState(({
       sortType: SortType.ALPHABET,
     }));
   };
 
-  toSortByLength = () => {
+  handleSortByLength = () => {
     this.setState(({
       sortType: SortType.LENGTH,
     }));
   };
 
-  toReverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  toReset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -89,25 +89,25 @@ export class App extends Component<{}, State> {
 
   render() {
     const {
-      toSortAlphabet,
-      toSortByLength,
-      toReverse,
-      toReset,
+      handleSortAlphabet,
+      handleSortByLength,
+      handleReverse,
+      handleReset,
     } = this;
 
     const { sortType, isReversed } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
+    const isSelected = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={classNames(
-              'button is-info',
-              { 'is-light': sortType !== SortType.ALPHABET },
-            )}
-            onClick={toSortAlphabet}
+            className={classNames('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
+            onClick={handleSortAlphabet}
           >
             Sort alphabetically
           </button>
@@ -118,7 +118,7 @@ export class App extends Component<{}, State> {
               'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
-            onClick={toSortByLength}
+            onClick={handleSortByLength}
           >
             Sort by length
           </button>
@@ -129,16 +129,16 @@ export class App extends Component<{}, State> {
               'button is-warning',
               { 'is-light': !isReversed },
             )}
-            onClick={toReverse}
+            onClick={handleReverse}
           >
             Reverse
           </button>
 
-          { (sortType !== SortType.NONE || isReversed) && (
+          { isSelected && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={toReset}
+              onClick={handleReset}
             >
               Reset
             </button>
