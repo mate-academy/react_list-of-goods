@@ -27,60 +27,74 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
+function getReorderedGoods(
+  goods: string[],
+  { sortType, isReversed }: ReorderOptions,
+) {
+  const visibleGoods = [...goods];
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  switch (sortType) {
+    case SortType.NONE:
+      break;
+    
+    case SortType.ALPHABET:
+      visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((good1, good2) => good1.length - good2.length);
+      break;
+
+    default: throw new Error('Unknown sort type');
+  }
+
+  return visibleGoods;
+}
+
+
 export class App extends React.Component<{}, ReorderOptions> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
   };
 
-  reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
-  };
+  handler = (action: string) => {
+    switch (action) {
+      case 'reverse':
+        this.setState(state => ({
+          isReversed: !state.isReversed,
+        }));
+        break;
 
-  sortAlphabetically = () => {
-    this.setState({
-      sortType: SortType.ALPHABET,
-    });
-  };
+      case 'sortAlphabetically':
+        this.setState({
+          sortType: SortType.ALPHABET,
+        });
+        break;
 
-  sortByLength = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
-    });
-  };
+      case 'sortByLength':
+        this.setState({
+          sortType: SortType.LENGTH,
+        });
+        break;
 
-  reset = () => {
-    this.setState({
-      sortType: SortType.NONE,
-      isReversed: false,
-    });
-  };
+      case 'reset':
+        this.setState({
+          sortType: SortType.NONE,
+          isReversed: false,
+        });
+        break;
+
+      default: throw new Error('Unknown action');
+    }
+  }
 
   render() {
     const { isReversed, sortType } = this.state;
-
-    function getReorderedGoods(
-      goods: string[],
-      { sortType, isReversed }: ReorderOptions, // eslint-disable-line
-    ) {
-      const visibleGoods = [...goods];
-
-      if (sortType === SortType.ALPHABET) {
-        visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
-      }
-
-      if (sortType === SortType.LENGTH) {
-        visibleGoods.sort((good1, good2) => good1.length - good2.length);
-      }
-
-      if (isReversed) {
-        visibleGoods.reverse();
-      }
-
-      return visibleGoods;
-    }
 
     return (
       <div className="section content">
@@ -90,7 +104,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             className={classNames('button', 'is-info', {
               'is-light': sortType !== SortType.ALPHABET,
             })}
-            onClick={this.sortAlphabetically}
+            onClick={() => this.handler('SortAlphabetically')}
           >
             Sort alphabetically
           </button>
@@ -100,7 +114,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             className={classNames('button', 'is-info', {
               'is-light': sortType !== SortType.LENGTH,
             })}
-            onClick={this.sortByLength}
+            onClick={() => this.handler('sortByLength')}
           >
             Sort by length
           </button>
@@ -110,7 +124,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             className={classNames('button', 'is-warning', {
               'is-light': !isReversed,
             })}
-            onClick={this.reverse}
+            onClick={() => this.handler('reverse')}
           >
             Reverse
           </button>
@@ -121,7 +135,7 @@ export class App extends React.Component<{}, ReorderOptions> {
                 <button
                   type="button"
                   className="button is-danger is-light"
-                  onClick={this.reset}
+                  onClick={() => this.handler('reset')}
                 >
                   Reset
                 </button>
