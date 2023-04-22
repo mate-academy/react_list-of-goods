@@ -84,7 +84,7 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -96,7 +96,7 @@ export class App extends React.Component<{}, State> {
       sortByAlphabet,
       sortByLength,
       reversedList,
-      reset,
+      handleReset,
     } = this;
 
     const {
@@ -113,8 +113,9 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button is-info',
-              { 'is-light': sortType !== SortType.ALPHABET })}
+            className={classNames('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={sortByAlphabet}
           >
             Sort alphabetically
@@ -142,7 +143,7 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={reset}
+              onClick={handleReset}
             >
               Reset
             </button>
