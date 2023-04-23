@@ -132,7 +132,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(resetButtonVisible) && (
+          {resetButtonVisible && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -146,7 +146,7 @@ export class App extends React.Component<{}, State> {
         <ul>
           <ul>
             {goods.map(good => (
-              <li data-cy="Good" key={(new Date().getTime()) * Math.random()}>
+              <li data-cy="Good" key={good}>
                 {good}
               </li>
             ))}
