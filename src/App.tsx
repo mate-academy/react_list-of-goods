@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -47,42 +47,31 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-export class App extends Component<{}, ReorderOptions> {
-  state: Readonly<ReorderOptions> = {
-    sortType: SortType.NONE,
-    isReversed: false,
+export const App: React.FC = () => {
+  const [sortType, setSortType] = useState(SortType.NONE);
+  const [isReversed, setIsReversed] = useState(false);
+
+  const handleAlphabetSort = () => {
+    setSortType(SortType.ALPHABET);
   };
 
-  handleAlphabetSort = () => {
-    this.setState({
-      sortType: SortType.ALPHABET,
-    });
+  const handleLengthSort = () => {
+    setSortType(SortType.LENGTH);
   };
 
-  handleLengthSort = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
-    });
+  const handleReverse = () => {
+    setIsReversed(currentIsReversed => !currentIsReversed);
   };
 
-  handleReverse = () => {
-    this.setState((state) => ({
-      isReversed: !state.isReversed,
-    }));
+  const handleReset = () => {
+    setSortType(SortType.NONE);
+    setIsReversed(false);
   };
 
-  handleReset = () => {
-    this.setState({
-      isReversed: false,
-      sortType: SortType.NONE,
-    });
-  };
+  const goods = getReorderedGoods(goodsFromServer, { isReversed, sortType });
 
-  render() {
-    const { isReversed, sortType } = this.state;
-    const goods = getReorderedGoods(goodsFromServer, { isReversed, sortType });
-
-    return (
+  return (
+    <>
       <div className="section content">
         <div className="buttons">
           <button
@@ -90,7 +79,7 @@ export class App extends Component<{}, ReorderOptions> {
             className={sortType === SortType.ALPHABET
               ? 'button is-info'
               : 'button is-info is-light'}
-            onClick={this.handleAlphabetSort}
+            onClick={handleAlphabetSort}
           >
             Sort alphabetically
           </button>
@@ -100,7 +89,7 @@ export class App extends Component<{}, ReorderOptions> {
             className={sortType === SortType.LENGTH
               ? 'button is-success'
               : 'button is-success is-light'}
-            onClick={this.handleLengthSort}
+            onClick={handleLengthSort}
           >
             Sort by length
           </button>
@@ -110,7 +99,7 @@ export class App extends Component<{}, ReorderOptions> {
             className={isReversed
               ? 'button is-warning'
               : 'button is-warning is-light'}
-            onClick={this.handleReverse}
+            onClick={handleReverse}
           >
             Reverse
           </button>
@@ -119,7 +108,7 @@ export class App extends Component<{}, ReorderOptions> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.handleReset}
+              onClick={handleReset}
             >
               Reset
             </button>
@@ -135,6 +124,6 @@ export class App extends Component<{}, ReorderOptions> {
           ))}
         </ul>
       </div>
-    );
-  }
-}
+    </>
+  );
+};
