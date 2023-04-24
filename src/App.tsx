@@ -59,6 +59,17 @@ export class App extends React.Component {
     sortType: SortType.NONE,
   };
 
+  onReset = () => {
+    this.setState(
+      {
+        isReversed: false,
+        sortType: SortType.NONE,
+      },
+    );
+  };
+
+  onSort = (sortType: SortType) => () => this.setState({ sortType });
+
   render() {
     return (
       <div className="section content">
@@ -72,11 +83,7 @@ export class App extends React.Component {
                 'is-light': this.state.sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={() => {
-              this.setState(
-                { sortType: SortType.ALPHABET },
-              );
-            }}
+            onClick={this.onSort(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -90,11 +97,7 @@ export class App extends React.Component {
                 'is-light': this.state.sortType !== SortType.LENGTH,
               },
             )}
-            onClick={() => {
-              this.setState(
-                { sortType: SortType.LENGTH },
-              );
-            }}
+            onClick={this.onSort(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -121,14 +124,7 @@ export class App extends React.Component {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={() => {
-                this.setState(
-                  {
-                    isReversed: false,
-                    sortType: SortType.NONE,
-                  },
-                );
-              }}
+              onClick={this.onReset}
             >
               Reset
             </button>
