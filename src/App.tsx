@@ -26,26 +26,30 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  visibleGoods.sort((firstGood, secondGood) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return firstGood.localeCompare(secondGood);
+
+      case SortType.LENGTH:
+        return firstGood.length - secondGood.length;
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
-
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
 
 export class App extends React.Component<{}, ReorderOptions> {
   state: ReorderOptions = {
@@ -53,46 +57,37 @@ export class App extends React.Component<{}, ReorderOptions> {
     isReversed: false,
   };
 
-  reverse = () => {
-    this.setState(state => ({
-      isReversed: !state.isReversed,
-    }));
-  };
+  getCorrectMethod(name: string) {
+    switch (name) {
+      case 'reverse':
+        this.setState(state => ({
+          isReversed: !state.isReversed,
+        }));
+        break;
 
-  sortByLength = () => {
-    this.setState({ sortType: SortType.LENGTH });
-  };
+      case 'sortByLength':
+        this.setState({ sortType: SortType.LENGTH });
+        break;
 
-  sortByAlp = () => {
-    this.setState({ sortType: SortType.ALPHABET });
-  };
+      case 'sortByAlp':
+        this.setState({ sortType: SortType.ALPHABET });
+        break;
 
-  reset = () => {
-    this.setState({
-      sortType: SortType.NONE,
-      isReversed: false,
-    });
-  };
+      case 'reset':
+        this.setState({
+          sortType: SortType.NONE,
+          isReversed: false,
+        });
+        break;
+
+      default:
+        throw new Error();
+    }
+  }
 
   render() {
     const { sortType, isReversed } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-
-    visibleGoods.sort((firstGood, secondGood) => {
-      switch (sortType) {
-        case SortType.ALPHABET:
-          return firstGood.localeCompare(secondGood);
-
-        case SortType.LENGTH:
-          return firstGood.length - secondGood.length;
-        default:
-          return 0;
-      }
-    });
-
-    if (isReversed) {
-      visibleGoods.reverse();
-    }
 
     return (
       <div className="section content">
@@ -102,7 +97,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             className={sortType === SortType.ALPHABET
               ? 'button is-info'
               : 'button is-info is-light'}
-            onClick={this.sortByAlp}
+            onClick={() => this.getCorrectMethod('sortByAlp')}
           >
             Sort alphabetically
           </button>
@@ -112,7 +107,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             className={sortType === SortType.LENGTH
               ? 'button is-success'
               : 'button is-success is-light'}
-            onClick={this.sortByLength}
+            onClick={() => this.getCorrectMethod('sortByLength')}
           >
             Sort by length
           </button>
@@ -122,7 +117,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             className={isReversed
               ? 'button is-warning'
               : 'button is-warning is-light'}
-            onClick={this.reverse}
+            onClick={() => this.getCorrectMethod('reverse')}
           >
             Reverse
           </button>
@@ -132,7 +127,7 @@ export class App extends React.Component<{}, ReorderOptions> {
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={this.reset}
+                onClick={() => this.getCorrectMethod('reset')}
               >
                 Reset
               </button>
