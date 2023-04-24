@@ -36,7 +36,9 @@ export function getReorderedGoods(
   const displayGoods = [...goods];
 
   if (sortType === SortType.ALPHABET) {
-    goods.sort((firstGood, secondGood) => firstGood.localeCompare(secondGood));
+    displayGoods.sort((firstGood, secondGood) => (
+      firstGood.localeCompare(secondGood)
+    ));
   }
 
   if (sortType === SortType.LENGTH) {
