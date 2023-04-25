@@ -36,11 +36,13 @@ export function getReorderedGoods(
 
   switch (sortType) {
     case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => a.localeCompare(b));
+      visibleGoods
+        .sort((currentGood, nextGood) => currentGood.localeCompare(nextGood));
       break;
 
     case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
+      visibleGoods
+        .sort((currentGood, nextGood) => currentGood.length - nextGood.length);
       break;
 
     case SortType.NONE:
@@ -74,7 +76,7 @@ export class App extends Component<{}, ReorderOptions> {
     this.setState(state => ({ isReversed: !state.isReversed }));
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -90,10 +92,9 @@ export class App extends Component<{}, ReorderOptions> {
         <div className="buttons">
           <button
             type="button"
-            className={cn(
-              'button is-info',
-              { 'is-light': sortType !== SortType.ALPHABET },
-            )}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -101,10 +102,9 @@ export class App extends Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={cn(
-              'button is-success',
-              { 'is-light': sortType !== SortType.LENGTH },
-            )}
+            className={cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -112,25 +112,23 @@ export class App extends Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={cn(
-              'button is-warning',
-              { 'is-light': !isReversed },
-            )}
+            className={cn('button is-warning', {
+              'is-light': !isReversed,
+            })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed)
-            && (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-            )}
+          {(sortType !== SortType.NONE || isReversed) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.handleReset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
