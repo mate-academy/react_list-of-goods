@@ -33,14 +33,19 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((firstGood, secondGood) => (
-      firstGood.localeCompare(secondGood)));
-  }
+  if (sortType) {
+    visibleGoods.sort((firstGood, secondGood) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return firstGood.localeCompare(secondGood);
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((firstGood, secondGood) => (
-      firstGood.length - secondGood.length));
+        case SortType.LENGTH:
+          return firstGood.length - secondGood.length;
+
+        default:
+          return 0;
+      }
+    });
   }
 
   if (isReversed) {
@@ -80,7 +85,7 @@ export class App extends Component<{}, State> {
     });
   };
 
-  sortByReverse = () => {
+  handleReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
@@ -90,6 +95,7 @@ export class App extends Component<{}, State> {
     const { isReversed, sortType } = this.state;
 
     const goods = getReorderedGoods(goodsFromServer, this.state);
+
     const resetButton = sortType !== SortType.NONE || isReversed;
     const sortByAlphabet = sortType === SortType.ALPHABET;
     const sortLength = sortType === SortType.LENGTH;
@@ -98,7 +104,7 @@ export class App extends Component<{}, State> {
       sortByAlphabetical,
       sortByLength,
       handleReset,
-      sortByReverse,
+      handleReverse,
     } = this;
 
     return (
@@ -129,7 +135,7 @@ export class App extends Component<{}, State> {
             className={classNames('button is-warning', {
               'is-light': !isReversed,
             })}
-            onClick={sortByReverse}
+            onClick={handleReverse}
           >
             Reverse
           </button>
