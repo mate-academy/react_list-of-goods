@@ -86,6 +86,7 @@ export class App extends Component<{}, ReorderOptions> {
   render() {
     const { sortType, isReversed } = this.state;
     const goods = getReorderedGoods(goodsFromServer, this.state);
+    const isDefaultOrder = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -120,7 +121,7 @@ export class App extends Component<{}, ReorderOptions> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {isDefaultOrder && (
             <button
               type="button"
               className="button is-danger is-light"
