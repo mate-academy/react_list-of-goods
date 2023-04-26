@@ -33,13 +33,13 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((a, b) => {
+  visibleGoods.sort((prevGood, nextGood) => {
     switch (sortType) {
-      case 1:
-        return a.localeCompare(b);
+      case SortType.ALPHABET:
+        return prevGood.localeCompare(nextGood);
 
-      case 2:
-        return a.length - b.length;
+      case SortType.LENGTH:
+        return prevGood.length - nextGood.length;
 
       default:
         return 0;
@@ -75,23 +75,23 @@ export class App extends React.Component<{}, State> {
 
   handleReset = () => {
     this.setState({
-      sortType: 0,
+      sortType: SortType.NONE,
       isReversed: false,
     });
   };
 
   sortByAlphabet = () => {
-    this.setState({ sortType: 1 });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortByLength = () => {
-    this.setState({ sortType: 2 });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   render() {
     const { isReversed, sortType } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { isReversed, sortType });
-    const resetButtonVisible = isReversed || sortType !== 0;
+    const isResetButtonVisible = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -100,7 +100,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={
               classNames('button is-info', {
-                'is-light': sortType !== 1,
+                'is-light': sortType !== SortType.ALPHABET,
               })
             }
             onClick={this.sortByAlphabet}
@@ -112,7 +112,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={
               classNames('button is-success', {
-                'is-light': sortType !== 2,
+                'is-light': sortType !== SortType.LENGTH,
               })
             }
             onClick={this.sortByLength}
@@ -132,7 +132,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {resetButtonVisible && (
+          {isResetButtonVisible && (
             <button
               type="button"
               className="button is-danger is-light"
