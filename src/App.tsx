@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -99,13 +99,9 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames(
-              'button',
-              'is-info',
-              {
-                'is-light': sortType !== SortType.ALPHABET,
-              },
-            )}
+            className={cn('button', 'is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.handleSortByAlphabet}
           >
             Sort alphabetically
@@ -113,9 +109,9 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={sortType === SortType.LENGTH
-              ? 'button is-primary'
-              : 'button is-success is-light'}
+            className={cn('button', 'is-primary', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
             onClick={this.handleSortByLength}
           >
             Sort by length
@@ -123,9 +119,9 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={isReversed
-              ? 'button is-warning'
-              : 'button is-warning is-light'}
+            className={cn('button', 'is-warning', {
+              'is-light': !isReversed,
+            })}
             onClick={this.handleReverseItems}
           >
             Reverse
@@ -134,9 +130,9 @@ export class App extends Component<{}, State> {
           {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
-              className={sortType === SortType.NONE
-                ? 'button is-danger'
-                : 'button is-danger is-light'}
+              className={cn('button', 'is-danger', {
+                'is-light': sortType !== SortType.NONE,
+              })}
               onClick={this.handleResetSorting}
             >
               Reset
