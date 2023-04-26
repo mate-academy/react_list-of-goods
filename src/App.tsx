@@ -27,7 +27,6 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
@@ -35,13 +34,13 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((f1, f2) => {
+  visibleGoods.sort((goods1, goods2) => {
     switch (sortType) {
       case SortType.ALPHABET:
-        return f1.localeCompare(f2);
+        return goods1.localeCompare(goods2);
 
       case SortType.LENGTH:
-        return f1.length - f2.length;
+        return goods1.length - goods2.length;
 
       default:
         return SortType.NONE;
@@ -88,6 +87,7 @@ export class App extends React.PureComponent<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const goods = getReorderedGoods(goodsFromServer, this.state);
+    const isVisibleReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -121,7 +121,7 @@ export class App extends React.PureComponent<{}, State> {
           >
             Reverse
           </button>
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isVisibleReset && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -133,11 +133,9 @@ export class App extends React.PureComponent<{}, State> {
         </div>
 
         <ul>
-          <>
-            {goods.map(
-              good => <li data-cy="Good" key={good}>{good}</li>,
-            )}
-          </>
+          {goods.map(
+            good => <li data-cy="Good" key={good}>{good}</li>,
+          )}
         </ul>
       </div>
     );
