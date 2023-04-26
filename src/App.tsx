@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -40,6 +41,7 @@ export function getReorderedGoods(
       case SortType.LENGTH:
         return good1.length - good2.length;
 
+      case SortType.NONE:
       default:
         return 0;
     }
@@ -48,9 +50,6 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
@@ -100,9 +99,13 @@ export class App extends Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={sortType === SortType.ALPHABET
-              ? 'button is-info'
-              : 'button is-info is-light'}
+            className={classNames(
+              'button',
+              'is-info',
+              {
+                'is-light': sortType !== SortType.ALPHABET,
+              },
+            )}
             onClick={this.handleSortByAlphabet}
           >
             Sort alphabetically
@@ -142,13 +145,11 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(good => (
-              <li key={good} data-cy="Good">
-                {good}
-              </li>
-            ))}
-          </ul>
+          {visibleGoods.map(good => (
+            <li key={good} data-cy="Good">
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
