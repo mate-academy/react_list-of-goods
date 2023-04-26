@@ -80,17 +80,22 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  sortByAlphabet = () => {
+  handleSortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
-  sortByLength = () => {
+  handleSortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
   render() {
     const { isReversed, sortType } = this.state;
-    const goods = getReorderedGoods(goodsFromServer, { isReversed, sortType });
+
+    const goods = getReorderedGoods(goodsFromServer, {
+      isReversed,
+      sortType,
+    });
+
     const isResetButtonVisible = isReversed || sortType !== SortType.NONE;
 
     return (
@@ -103,7 +108,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               })
             }
-            onClick={this.sortByAlphabet}
+            onClick={this.handleSortByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -115,7 +120,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               })
             }
-            onClick={this.sortByLength}
+            onClick={this.handleSortByLength}
           >
             Sort by length
           </button>
@@ -144,13 +149,11 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {goods.map(good => (
-              <li data-cy="Good" key={good}>
-                {good}
-              </li>
-            ))}
-          </ul>
+          {goods.map(good => (
+            <li data-cy="Good" key={good}>
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
