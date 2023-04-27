@@ -60,6 +60,16 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  sort = (
+    type: SortType = this.state.sortType,
+    reversed: boolean = this.state.isReversed,
+  ) => {
+    this.setState({
+      isReversed: reversed,
+      sortType: type,
+    });
+  };
+
   render() {
     const goodsToRender = getReorderedGoods(goodsFromServer, this.state);
 
@@ -74,7 +84,7 @@ export class App extends Component<{}, State> {
             className={this.state.sortType === SortType.ALPHABET
               ? 'button is-info' : 'button is-info is-light'}
             onClick={() => {
-              this.setState({ sortType: SortType.ALPHABET, isReversed: false });
+              this.sort(SortType.ALPHABET, false);
             }}
           >
             Sort alphabetically
@@ -85,7 +95,7 @@ export class App extends Component<{}, State> {
             className={this.state.sortType === SortType.LENGTH
               ? 'button is-success' : 'button is-success is-light'}
             onClick={() => {
-              this.setState({ sortType: SortType.LENGTH, isReversed: false });
+              this.sort(SortType.LENGTH, false);
             }}
           >
             Sort by length
@@ -96,7 +106,7 @@ export class App extends Component<{}, State> {
             className={this.state.isReversed
               ? 'button is-warning' : 'button is-warning is-light'}
             onClick={() => {
-              this.setState((state) => ({ isReversed: !state.isReversed }));
+              this.sort(this.state.sortType, !this.state.isReversed);
             }}
           >
             Reverse
@@ -122,7 +132,7 @@ export class App extends Component<{}, State> {
               return (
                 <li
                   data-cy="Good"
-                  key={Math.random() + Math.random()}
+                  key={good}
                 >
                   {good}
                 </li>
