@@ -34,8 +34,15 @@ export function getReorderedGoods(
 
   if (sortType === SortType.ALPHABET) {
     visibleGoods.sort((a, b) => {
-    // eslint-disable-next-line
-    return a > b ? 1 : a < b ? -1 : 0;
+      if (a > b) {
+        return 1;
+      }
+
+      if (a < b) {
+        return -1;
+      }
+
+      return 0;
     });
   }
 
@@ -133,11 +140,9 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map((good, i) => {
-              const key = i;
-
+            {getReorderedGoods(goodsFromServer, this.state).map(good => {
               return (
-                <li data-cy="Good" key={key}>{good}</li>
+                <li data-cy="Good" key={Date.now() + Math.random()}>{good}</li>
               );
             })}
           </ul>
