@@ -38,12 +38,12 @@ export function getReorderedGoods(
     switch (sortType) {
       case SortType.ALPHABET:
         return good1.localeCompare(good2);
-      
+
       case SortType.LENGTH:
         return good1.length - good2.length;
 
       default:
-        return 0;  
+        return 0;
     }
   });
 
@@ -72,14 +72,14 @@ export class App extends React.Component<{}, State> {
   };
 
   sortByAlphabeth = () => {
-    this.setState({ sortType: SortType.ALPHABET});
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
@@ -101,21 +101,21 @@ export class App extends React.Component<{}, State> {
           >
             Sort alphabetically
           </button>
-  
+
           <button
             type="button"
             className={sortType === SortType.LENGTH
-            ? 'button is-success' : 'button is-success is-light'}
-          onClick={this.sortByLength}
+              ? 'button is-success' : 'button is-success is-light'}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
-  
+
           <button
             type="button"
             className={isReversed
               ? 'button is-warning' : 'button is-warning is-light'}
-            onClick={this.reverse}  
+            onClick={this.reverse}
           >
             Reverse
           </button>
@@ -125,13 +125,13 @@ export class App extends React.Component<{}, State> {
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={this.reset}
+                onClick={this.handleReset}
               >
                 Reset
               </button>
             )}
         </div>
-  
+
         <ul>
           <ul>
             {visibleGoods.map(good => (
@@ -141,5 +141,5 @@ export class App extends React.Component<{}, State> {
         </ul>
       </div>
     );
-  } 
-};
+  }
+}
