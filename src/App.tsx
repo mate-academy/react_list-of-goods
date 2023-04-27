@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -89,14 +90,16 @@ export class App extends React.Component<{}, State> {
   render() {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
     const { isReversed, sortType } = this.state;
+    const isVisibleReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={sortType === SortType.ALPHABET
-              ? 'button is-info' : 'button is-info is-light'}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.sortByAlphabeth}
           >
             Sort alphabetically
@@ -104,8 +107,9 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={sortType === SortType.LENGTH
-              ? 'button is-success' : 'button is-success is-light'}
+            className={cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -113,23 +117,23 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={isReversed
-              ? 'button is-warning' : 'button is-warning is-light'}
+            className={cn('button is-warning', {
+              'is-light': !isReversed,
+            })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {(isReversed === true || sortType !== SortType.NONE)
-            && (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.handleReset}
-              >
-                Reset
-              </button>
-            )}
+          {isVisibleReset && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.handleReset}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
