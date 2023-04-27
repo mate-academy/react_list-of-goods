@@ -33,17 +33,7 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((a, b) => {
-      if (a > b) {
-        return 1;
-      }
-
-      if (a < b) {
-        return -1;
-      }
-
-      return 0;
-    });
+    visibleGoods.sort((good1, good2) => good1.localeCompare(good2));
   }
 
   if (sortType === SortType.LENGTH) {
@@ -70,35 +60,21 @@ export class App extends Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  componentDidMount = () => {
-    const buttons = document.querySelector('.buttons');
-
-    buttons?.addEventListener('click', ({ target }) => {
-      if (target) {
-        const button = target as HTMLButtonElement;
-
-        if (buttons) {
-          Array.from(buttons.children).forEach(el => {
-            el.classList.add('is-light');
-          });
-        }
-
-        if (button.matches('.button')) {
-          button.classList.remove('is-light');
-        }
-      }
-    });
-  };
-
   render() {
+    const goodsToRender = getReorderedGoods(goodsFromServer, this.state);
+
     return (
       <div className="section content">
-        <div className="buttons">
+        <div
+          className="buttons"
+          role="directory"
+        >
           <button
             type="button"
-            className="button is-info is-light"
+            className={this.state.sortType === SortType.ALPHABET
+              ? 'button is-info' : 'button is-info is-light'}
             onClick={() => {
-              this.setState({ sortType: SortType.ALPHABET });
+              this.setState({ sortType: SortType.ALPHABET, isReversed: false });
             }}
           >
             Sort alphabetically
@@ -106,9 +82,10 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={this.state.sortType === SortType.LENGTH
+              ? 'button is-success' : 'button is-success is-light'}
             onClick={() => {
-              this.setState({ sortType: SortType.LENGTH });
+              this.setState({ sortType: SortType.LENGTH, isReversed: false });
             }}
           >
             Sort by length
@@ -116,7 +93,8 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={this.state.isReversed
+              ? 'button is-warning' : 'button is-warning is-light'}
             onClick={() => {
               this.setState((state) => ({ isReversed: !state.isReversed }));
             }}
@@ -140,9 +118,14 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map(good => {
+            {goodsToRender.map(good => {
               return (
-                <li data-cy="Good" key={Date.now() + Math.random()}>{good}</li>
+                <li
+                  data-cy="Good"
+                  key={Math.random() + Math.random()}
+                >
+                  {good}
+                </li>
               );
             })}
           </ul>
