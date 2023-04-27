@@ -27,24 +27,34 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-export function getReorderedGoods(
+function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
   const visibleGoods = [...goods];
 
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  visibleGoods.sort((firstGood, secondGood) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return firstGood.localeCompare(secondGood);
+
+      case SortType.LENGTH:
+        return firstGood.length - secondGood.length;
+
+      case SortType.NONE:
+      default:
+        return 0;
+    }
+  });
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-type State = {
-  isReversed: boolean,
-  sortType: SortType,
-};
-
-export class App extends Component<{}, State> {
+export class App extends Component<{}, ReorderOptions> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
@@ -73,33 +83,14 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
-
-    const shouldResetBeShown = sortType === SortType.ALPHABET
-      || sortType === SortType.LENGTH
-      || isReversed;
-    const isAlphabeticallySorted = sortType === SortType.ALPHABET;
-    const isSortedByLength = sortType === SortType.LENGTH;
-
-    goods.sort((firstGood, secondGood) => {
-      switch (sortType) {
-        case SortType.NONE:
-          return 0;
-
-        case SortType.ALPHABET:
-          return firstGood.localeCompare(secondGood);
-
-        case SortType.LENGTH:
-          return firstGood.length - secondGood.length;
-
-        default:
-          return 0;
-      }
+    const goods = getReorderedGoods(goodsFromServer, {
+      sortType,
+      isReversed,
     });
 
-    if (isReversed) {
-      goods.reverse();
-    }
+    const shouldResetBeShown = sortType !== SortType.NONE || isReversed;
+    const isAlphabeticallySorted = sortType === SortType.ALPHABET;
+    const isSortedByLength = sortType === SortType.LENGTH;
 
     return (
       <div className="section content">
