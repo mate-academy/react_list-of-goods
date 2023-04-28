@@ -72,6 +72,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const goodsToRender = getReorderedGoods(goodsFromServer, this.state);
+    const { sortType, isReversed } = this.state;
 
     return (
       <div className="section content">
@@ -81,7 +82,7 @@ export class App extends Component<{}, State> {
         >
           <button
             type="button"
-            className={this.state.sortType === SortType.ALPHABET
+            className={sortType === SortType.ALPHABET
               ? 'button is-info' : 'button is-info is-light'}
             onClick={() => {
               this.sort(SortType.ALPHABET, false);
@@ -92,7 +93,7 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={this.state.sortType === SortType.LENGTH
+            className={sortType === SortType.LENGTH
               ? 'button is-success' : 'button is-success is-light'}
             onClick={() => {
               this.sort(SortType.LENGTH, false);
@@ -103,16 +104,16 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={this.state.isReversed
+            className={isReversed
               ? 'button is-warning' : 'button is-warning is-light'}
             onClick={() => {
-              this.sort(this.state.sortType, !this.state.isReversed);
+              this.sort(sortType, !isReversed);
             }}
           >
             Reverse
           </button>
 
-          {(this.state.sortType !== SortType.NONE || this.state.isReversed)
+          {(sortType !== SortType.NONE || isReversed)
           && (
             <button
               type="button"
