@@ -22,14 +22,14 @@ export function getReorderedGoods(
   let visibleGoods = [...goods];
 
   switch (sortType) {
-    case SortType.NONE:
-      visibleGoods = [...goods];
+    case SortType.LENGTH:
+      visibleGoods.sort((g1, g2) => g1.length - g2.length);
       break;
     case SortType.ALPHABET:
       visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
       break;
     default:
-      visibleGoods.sort((g1, g2) => g1.length - g2.length);
+      visibleGoods = [...goods];
   }
 
   if (isReversed) {
