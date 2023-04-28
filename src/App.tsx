@@ -21,16 +21,15 @@ export function getReorderedGoods(
 ) {
   let visibleGoods = [...goods];
 
-  if (sortType === 0 && !isReversed) {
-    visibleGoods = [...goods];
-  }
-
-  if (sortType === 1) {
-    visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
-  }
-
-  if (sortType === 2) {
-    visibleGoods.sort((g1, g2) => g1.length - g2.length);
+  switch (sortType) {
+    case SortType.NONE:
+      visibleGoods = [...goods];
+      break;
+    case SortType.ALPHABET:
+      visibleGoods.sort((g1, g2) => g1.localeCompare(g2));
+      break;
+    default:
+      visibleGoods.sort((g1, g2) => g1.length - g2.length);
   }
 
   if (isReversed) {
@@ -60,10 +59,6 @@ class App extends React.Component<{}, State> {
   };
 
   resetSortType = () => {
-    const buttons = document.querySelectorAll('button');
-
-    buttons.forEach(button => button.classList.add('is-light'));
-
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
