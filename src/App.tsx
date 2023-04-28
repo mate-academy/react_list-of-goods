@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from "classnames";
 
 export const goodsFromServer = [
   'Dumplings',
@@ -86,15 +87,15 @@ export class App extends React.Component<{}, ReorderOptions> {
   render() {
     const { sortType, isReversed } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isResetActive = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={sortType === SortType.ALPHABET
-              ? 'button is-info'
-              : 'button is-info is-light'}
+            className={classNames('button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -102,9 +103,8 @@ export class App extends React.Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={sortType === SortType.LENGTH
-              ? 'button is-success'
-              : 'button is-success is-light'}
+            className={classNames('button is-success',
+              { 'is-light': sortType !== SortType.LENGTH })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -112,15 +112,14 @@ export class App extends React.Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={isReversed
-              ? 'button is-warning'
-              : 'button is-warning is-light'}
+            className={classNames('button is-warning',
+              { 'is-light': !isReversed })}
             onClick={this.reverseList}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {isResetActive && (
             <button
               type="button"
               className="button is-danger is-light"
