@@ -74,13 +74,13 @@ export class App extends Component<{}, State> {
     });
   };
 
-  reverse = () => {
+  handelReverse = () => {
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  reset = () => {
+  handelReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -96,8 +96,8 @@ export class App extends Component<{}, State> {
     const {
       sortByAlphabet,
       sortByLength,
-      reverse,
-      reset,
+      handelReverse,
+      handelReset,
     } = this;
 
     const products = getReorderedGoods(
@@ -133,7 +133,7 @@ export class App extends Component<{}, State> {
             className={cn('button is-warning', {
               'is-light': !isReversed,
             })}
-            onClick={reverse}
+            onClick={handelReverse}
           >
             Reverse
           </button>
@@ -142,7 +142,7 @@ export class App extends Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={reset}
+              onClick={handelReset}
             >
               Reset
             </button>
