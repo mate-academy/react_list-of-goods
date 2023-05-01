@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -81,7 +82,7 @@ export class App extends React.Component<{}, ReorderOptions> {
         break;
 
       default:
-        throw new Error();
+        throw new Error('Invalid action name');
     }
   }
 
@@ -114,9 +115,9 @@ export class App extends React.Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={isReversed
-              ? 'button is-warning'
-              : 'button is-warning is-light'}
+            className={cn('button', 'is-warning', {
+              'is-light': !isReversed,
+            })}
             onClick={() => this.getCorrectMethod('reverse')}
           >
             Reverse
