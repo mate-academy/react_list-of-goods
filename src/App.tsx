@@ -51,14 +51,16 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-export const App: React.FC = () => {
-  const [sortState, setSortState] = useState<State>({
-    sortType: SortType.NONE,
-    isReversed: false,
-  });
+const defaultSort: State = {
+  sortType: SortType.NONE,
+  isReversed: false,
+};
 
-  const onSortClick = (newSortType: keyof typeof SortType) => setSortState(
-    prev => ({ ...prev, sortType: SortType[newSortType] }),
+export const App: React.FC = () => {
+  const [sortState, setSortState] = useState<State>(defaultSort);
+
+  const onSortClick = (newSortType: SortType) => setSortState(
+    prev => ({ ...prev, sortType: newSortType }),
   );
 
   const onReversClick = () => setSortState(prev => (
@@ -70,7 +72,7 @@ export const App: React.FC = () => {
         <button
           type="button"
           className="button is-info is-light"
-          onClick={() => onSortClick('ALPHABET')}
+          onClick={() => onSortClick(SortType.ALPHABET)}
         >
           Sort alphabetically
         </button>
@@ -78,7 +80,7 @@ export const App: React.FC = () => {
         <button
           type="button"
           className="button is-success is-light"
-          onClick={() => onSortClick('LENGTH')}
+          onClick={() => onSortClick(SortType.LENGTH)}
         >
           Sort by length
         </button>
@@ -95,7 +97,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-danger is-light"
           onClick={
-            () => setSortState({ sortType: SortType.NONE, isReversed: false })
+            () => setSortState(defaultSort)
           }
         >
           Reset
