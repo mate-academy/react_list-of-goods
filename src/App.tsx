@@ -34,15 +34,15 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   switch (sortType) {
-    case 1:
+    case SortType.ALPHABET:
       visibleGoods.sort();
       break;
 
-    case 2:
+    case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
 
-    case 0:
+    case SortType.NONE:
     default:
       break;
   }
@@ -74,7 +74,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 1 },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={() => this.handleClick(SortType.ALPHABET)}
           >
@@ -85,7 +85,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             type="button"
             className={classNames(
               'button is-success',
-              { 'is-light': sortType !== 2 },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={() => this.handleClick(SortType.LENGTH)}
           >
@@ -105,7 +105,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             Reverse
           </button>
 
-          {(sortType !== 0 || isReversed) && (
+          {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
