@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -42,8 +43,6 @@ export function getReorderedGoods(
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
     default:
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      visibleGoods;
   }
 
   if (isReversed) {
@@ -64,7 +63,7 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  sortByAlphabetikal = () => {
+  sortByAlphabetical = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
@@ -94,15 +93,21 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${sortType !== SortType.ALPHABET && 'is-light'}`}
-            onClick={this.sortByAlphabetikal}
+            className={classNames(
+              'button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
+            onClick={this.sortByAlphabetical}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={`button is-success ${sortType !== SortType.LENGTH && 'is-light'}`}
+            className={classNames(
+              'button is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -110,7 +115,10 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-warning ${!isReversed && 'is-light'}`}
+            className={classNames(
+              'button is-warning',
+              { 'is-light': !isReversed },
+            )}
             onClick={this.reverse}
           >
             Reverse
