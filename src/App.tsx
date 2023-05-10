@@ -37,10 +37,10 @@ function getReorderedGoods(
 
   visibleGoods.sort((good1, good2) => {
     switch (sortType) {
-      case (1):
+      case (SortType.ALPHABET):
         return good1.localeCompare(good2);
 
-      case (2):
+      case (SortType.LENGTH):
         return good1.length - good2.length;
 
       default:
@@ -77,11 +77,11 @@ export class App extends React.Component<{}, State> {
   };
 
   sortAlpabet = () => {
-    this.setState({ sortType: 1 });
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortLength = () => {
-    this.setState({ sortType: 2 });
+    this.setState({ sortType: SortType.LENGTH });
   };
 
   sortReverse = () => {
@@ -105,7 +105,7 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button',
               'is-info',
-              { 'is-light': sortType !== 1 },
+              { 'is-light': sortType !== SortType.NONE },
             )}
           >
             Sort alphabetically
@@ -116,7 +116,7 @@ export class App extends React.Component<{}, State> {
             className={classNames(
               'button',
               'is-success',
-              { 'is-light': sortType !== 2 },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortLength}
           >
@@ -152,7 +152,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {goods.map(good => (<li data-cy="Good" key={null}>{good}</li>))}
+            {goods.map(good => (<li data-cy="Good" key={good}>{good}</li>))}
           </ul>
         </ul>
       </div>
