@@ -135,7 +135,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {sortType || isReversed ? (
+          {(sortType || isReversed) && (
             <button
               type="button"
               className={classNames(
@@ -147,12 +147,12 @@ export class App extends React.Component<{}, State> {
             >
               Reset
             </button>
-          ) : (<></>)}
+          )}
         </div>
 
         <ul>
           <ul>
-            {goods.map(good => (<li data-cy="Good">{good}</li>))}
+            {goods.map(good => (<li data-cy="Good" key={null}>{good}</li>))}
           </ul>
         </ul>
       </div>
