@@ -16,14 +16,14 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  NONE = 0,
-  ALPHABET = 1,
-  LENGTH = 2,
+  NONE,
+  ALPHABET,
+  LENGTH,
 }
 
 interface State {
   sortType: SortType,
-  isReversed: boolean | null,
+  isReversed: boolean,
 }
 
 export function getReorderedGoods(
