@@ -44,8 +44,12 @@ export function getReorderedGoods(
         return a.length - b.length;
       }
 
-      default: {
+      case SortType.NONE: {
         return 0;
+      }
+
+      default: {
+        throw new Error('wrong sorting');
       }
     }
   });
