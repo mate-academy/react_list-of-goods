@@ -30,7 +30,7 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  let visibleGoods = [...goods];
+  const visibleGoods = [...goods];
 
   switch (sortType) {
     case SortType.LENGTH:
@@ -40,7 +40,6 @@ export function getReorderedGoods(
       visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
     case SortType.NONE:
-      visibleGoods = [...goods];
       break;
     default: throw new Error('Invalid sort type');
   }
