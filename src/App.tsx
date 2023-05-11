@@ -94,7 +94,10 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const renderedGoods = getReorderedGoods(goodsFromServer, this.state);
+    const renderedGoods = getReorderedGoods(
+      goodsFromServer,
+      { isReversed, sortType },
+    );
     const isSorted = sortType !== SortType.NONE;
 
     return (
