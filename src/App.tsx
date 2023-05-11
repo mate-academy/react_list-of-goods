@@ -78,9 +78,7 @@ export class App extends React.Component<{}, State> {
   hadleClickReverse = () => {
     const { isReversed } = this.state;
 
-    if (!isReversed) {
-      this.setState({ isReversed: true });
-    }
+    this.setState({ isReversed: !isReversed });
   };
 
   hadleReset = () => {
