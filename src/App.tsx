@@ -31,7 +31,7 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  let visibleGoods = [...goods];
+  const visibleGoods = [...goods];
 
   switch (sortType) {
     case SortType.ALPHABET:
@@ -43,7 +43,6 @@ export function getReorderedGoods(
         .sort((firstGood, secondGood) => firstGood.length - secondGood.length);
       break;
     case SortType.NONE:
-      visibleGoods = [...goods];
       break;
     default:
       throw new Error('wrong sort type');
