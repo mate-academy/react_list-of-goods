@@ -35,7 +35,13 @@ export function getReorderedGoods(
   let visibleGoods = [...goods];
 
   if (isReversed === true) {
-    visibleGoods = visibleGoods.reverse();
+    return visibleGoods.reverse().map((good) => {
+      return (
+        <li data-cy="Good" key={good}>
+          {good}
+        </li>
+      );
+    });
   }
 
   switch (sortType) {
@@ -87,7 +93,7 @@ export class App extends React.Component<{}, ReorderOptions> {
           <button
             type="button"
             className="button is-info is-light"
-            onClick={() => (this.setState({ sortType: 1 }))}
+            onClick={() => (this.setState({ sortType: 1, isReversed: false }))}
           >
             Sort alphabetically
           </button>
@@ -95,7 +101,7 @@ export class App extends React.Component<{}, ReorderOptions> {
           <button
             type="button"
             className="button is-success is-light"
-            onClick={() => (this.setState({ sortType: 2 }))}
+            onClick={() => (this.setState({ sortType: 2, isReversed: false }))}
           >
             Sort by length
           </button>
@@ -104,7 +110,6 @@ export class App extends React.Component<{}, ReorderOptions> {
             type="button"
             className="button is-warning is-light"
             onClick={() => (this.setState({ isReversed: true }))}
-
           >
             Reverse
           </button>
@@ -112,7 +117,10 @@ export class App extends React.Component<{}, ReorderOptions> {
           <button
             type="button"
             className="button is-danger is-light"
-            onClick={() => (this.setState({ sortType: 3 }))}
+            onClick={() => (this.setState({
+              sortType: 3,
+              isReversed: false,
+            }))}
           >
             Reset
           </button>
