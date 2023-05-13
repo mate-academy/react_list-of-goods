@@ -19,6 +19,7 @@ enum SortType {
   NONE,
   ALPHABET,
   LENGTH,
+  RESET,
 }
 
 type ReorderOptions = {
@@ -34,25 +35,25 @@ export function getReorderedGoods(
   let visibleGoods = [...goods];
 
   if (isReversed === true) {
-    visibleGoods.reverse();
+    visibleGoods = visibleGoods.reverse();
   }
 
   switch (sortType) {
-    case 0:
-      visibleGoods = [...goods];
-      break;
-
     case 1:
-      visibleGoods = [...goods].filter(
+      visibleGoods = visibleGoods.sort(
         (a, b) => (a.localeCompare(b.toString())
         ),
       );
       break;
 
     case 2:
-      visibleGoods = [...goods].filter(
-        (a, b) => (a.length - b.toString().length),
+      visibleGoods = visibleGoods.sort(
+        (a, b) => (a.length - b.length),
       );
+      break;
+
+    case 3:
+      visibleGoods = [...goods];
       break;
 
     default:
@@ -65,7 +66,7 @@ export function getReorderedGoods(
   return (
     visibleGoods.map((good) => {
       return (
-        <li data-cy="Good">
+        <li data-cy="Good" key={good}>
           {good}
         </li>
       );
@@ -111,7 +112,7 @@ export class App extends React.Component<{}, ReorderOptions> {
           <button
             type="button"
             className="button is-danger is-light"
-            onClick={() => (this.setState({ sortType: 0 }))}
+            onClick={() => (this.setState({ sortType: 3 }))}
           >
             Reset
           </button>
