@@ -22,73 +22,76 @@ enum SortType {
 }
 
 type ReorderOptions = {
-  sortType: SortType,
+  copyArrayList: string[],
   isReversed: boolean,
+  sortType: SortType,
 };
 
 export class App extends React.Component<{}, ReorderOptions> {
   state: ReorderOptions = {
-    sortType: SortType.NONE,
+    copyArrayList: [...goodsFromServer],
     isReversed: false,
+    sortType: SortType.NONE,
   };
 
   getReorderedGoods(param: string) {
-    const { sortType, isReversed } = this.state;
-
-    let newSortType = sortType;
-    let newIsReversed = isReversed;
-
     if (param === 'alphabetical') {
-      newSortType = SortType.ALPHABET;
-      newIsReversed = false;
+      this.setState((prevState) => ({
+        copyArrayList: prevState.copyArrayList
+          .sort((a, b) => a.localeCompare(b)),
+        sortType: SortType.ALPHABET,
+      }));
     }
 
     if (param === 'length') {
-      newSortType = SortType.LENGTH;
-      newIsReversed = false;
+      this.setState((prevState) => ({
+        copyArrayList: prevState.copyArrayList
+          .sort((a, b) => a.length - b.length),
+        sortType: SortType.LENGTH,
+      }));
     }
 
     if (param === 'reverse') {
-      newIsReversed = !isReversed;
-      newSortType = SortType.LENGTH;
+      this.setState((prevState) => ({
+        copyArrayList: prevState.copyArrayList.reverse(),
+        isReversed: true,
+
+        /* sortType: SortType.NONE, */
+      }));
     }
 
     if (param === 'reset') {
-      newSortType = SortType.NONE;
-      newIsReversed = false;
+      this.setState({
+        copyArrayList: [...goodsFromServer],
+        isReversed: false,
+        sortType: SortType.NONE,
+      });
     }
-
-    this.setState({
-      sortType: newSortType,
-      isReversed: newIsReversed,
-    });
   }
 
   render() {
-    const { sortType, isReversed } = this.state;
-    let visibleGoods = [...goodsFromServer];
+    const { copyArrayList, isReversed, sortType } = this.state;
 
-    if (sortType === SortType.ALPHABET) {
-      visibleGoods = visibleGoods.sort((a, b) => a.localeCompare(b));
-    }
+    const AlpabetClassName
+    = (sortType === 1 && !isReversed) || (sortType === 1 && isReversed)
+      ? 'button is-info'
+      : 'button is-info is-light';
 
-    if (sortType === SortType.LENGTH) {
-      visibleGoods = visibleGoods.sort((a, b) => a.length - b.length);
-    }
+    const lengthClassName
+    = (sortType === 2 && !isReversed) || (sortType === 2 && isReversed)
+      ? 'button is-success'
+      : 'button is-success is-light';
 
-    if (isReversed) {
-      visibleGoods = visibleGoods.reverse();
-    }
-
-    const isSortedAlphabetically = sortType === SortType.ALPHABET;
-    const isSortedByLength = sortType === SortType.LENGTH;
+    const reverseClassName = isReversed
+      ? 'button is-warning'
+      : 'button is-warning is-light';
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info${isSortedAlphabetically ? '' : ' is-light'}`}
+            className={AlpabetClassName}
             onClick={() => this.getReorderedGoods('alphabetical')}
           >
             Sort alphabetically
@@ -96,7 +99,7 @@ export class App extends React.Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={`button is-success${isSortedByLength ? '' : ' is-light'}`}
+            className={lengthClassName}
             onClick={() => this.getReorderedGoods('length')}
           >
             Sort by length
@@ -104,16 +107,16 @@ export class App extends React.Component<{}, ReorderOptions> {
 
           <button
             type="button"
-            className={`button is-warning${isReversed ? '' : ' is-light'}`}
+            className={reverseClassName}
             onClick={() => this.getReorderedGoods('reverse')}
           >
             Reverse
           </button>
 
-          { sortType > 0 && (
+          {isReversed && (
             <button
               type="button"
-              className="button is-danger"
+              className="button is-danger is-light"
               onClick={() => this.getReorderedGoods('reset')}
             >
               Reset
@@ -122,8 +125,8 @@ export class App extends React.Component<{}, ReorderOptions> {
         </div>
 
         <ul>
-          {visibleGoods.map((listElem) => (
-            <li key={listElem}>{listElem}</li>
+          {copyArrayList.map((ListElem) => (
+            <li data-cy="Good" key={ListElem}>{ListElem}</li>
           ))}
         </ul>
       </div>
