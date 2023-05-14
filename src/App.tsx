@@ -26,70 +26,107 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
-export function getReorderedGoods(
-  goods: string[],
-  { sortType, isReversed }: ReorderOptions,
-) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
+export class App extends React.Component<{}, ReorderOptions> {
+  state: ReorderOptions = {
+    sortType: SortType.NONE,
+    isReversed: false,
+  };
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  getReorderedGoods(param: string) {
+    const { sortType, isReversed } = this.state;
 
-  return visibleGoods;
-}
+    let newSortType = sortType;
+    let newIsReversed = isReversed;
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+    if (param === 'alphabetical') {
+      newSortType = SortType.ALPHABET;
+      newIsReversed = false;
+    }
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+    if (param === 'length') {
+      newSortType = SortType.LENGTH;
+      newIsReversed = false;
+    }
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+    if (param === 'reverse') {
+      newIsReversed = !isReversed;
+      newSortType = SortType.LENGTH;
+    }
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+    if (param === 'reset') {
+      newSortType = SortType.NONE;
+      newIsReversed = false;
+    }
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+    this.setState({
+      sortType: newSortType,
+      isReversed: newIsReversed,
+    });
+  }
 
-      <ul>
+  render() {
+    const { sortType, isReversed } = this.state;
+    let visibleGoods = [...goodsFromServer];
+
+    if (sortType === SortType.ALPHABET) {
+      visibleGoods = visibleGoods.sort((a, b) => a.localeCompare(b));
+    }
+
+    if (sortType === SortType.LENGTH) {
+      visibleGoods = visibleGoods.sort((a, b) => a.length - b.length);
+    }
+
+    if (isReversed) {
+      visibleGoods = visibleGoods.reverse();
+    }
+
+    const isSortedAlphabetically = sortType === SortType.ALPHABET;
+    const isSortedByLength = sortType === SortType.LENGTH;
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={`button is-info${isSortedAlphabetically ? '' : ' is-light'}`}
+            onClick={() => this.getReorderedGoods('alphabetical')}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={`button is-success${isSortedByLength ? '' : ' is-light'}`}
+            onClick={() => this.getReorderedGoods('length')}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={`button is-warning${isReversed ? '' : ' is-light'}`}
+            onClick={() => this.getReorderedGoods('reverse')}
+          >
+            Reverse
+          </button>
+
+          { sortType > 0 && (
+            <button
+              type="button"
+              className="button is-danger"
+              onClick={() => this.getReorderedGoods('reset')}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          {visibleGoods.map((listElem) => (
+            <li key={listElem}>{listElem}</li>
+          ))}
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
