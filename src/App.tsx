@@ -1,9 +1,9 @@
 /* eslint-disable no-sequences */
-import { PureComponent } from 'react';
+import React from 'react';
 import 'bulma/css/bulma.css';
 import classNames from 'classnames';
 import './App.scss';
-import { GoodList } from './Components/GoodList';
+import { GoodList } from './Components/GoodList/GoodList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -59,7 +59,7 @@ type State = {
   hiddenReset: boolean,
 };
 
-export class App extends PureComponent<{}, State> {
+export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     isReversed: true,
     sortType: SortType.NONE,
