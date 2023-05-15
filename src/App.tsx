@@ -32,13 +32,13 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((f1, f2) => {
+  visibleGoods.sort((prev, next) => {
     switch (sortType) {
       case SortType.LENGTH:
-        return f1.length - f2.length;
+        return prev.length - next.length;
 
       case SortType.ALPHABET:
-        return f1.localeCompare(f2);
+        return prev.localeCompare(next);
 
       case SortType.NONE:
       default:
@@ -72,13 +72,13 @@ export class App extends React.Component<{}, State> {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reverseBy = () => {
+  reverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
     }));
   };
 
-  sortByReset = () => {
+  reset = () => {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
@@ -88,6 +88,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const goods = getReorderedGoods(goodsFromServer, this.state);
     const { isReversed, sortType } = this.state;
+    const tupeSort = sortType || null;
 
     return (
       <div className="section content">
@@ -113,7 +114,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           <button
-            onClick={this.reverseBy}
+            onClick={this.reverse}
             type="button"
             className={isReversed
               ? 'button is-warning'
@@ -121,11 +122,9 @@ export class App extends React.Component<{}, State> {
           >
             Reverse
           </button>
-          {(sortType === SortType.ALPHABET
-          || sortType === SortType.LENGTH
-          || isReversed) && (
+          {(tupeSort || isReversed) && (
             <button
-              onClick={this.sortByReset}
+              onClick={this.reset}
               type="button"
               className="button is-danger is-light"
             >
