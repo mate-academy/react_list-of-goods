@@ -74,11 +74,11 @@ export class App extends React.Component<{}, AppState> {
     this.setState({ sortType: SortType.LENGTH });
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState(state => ({ isReversed: !state.isReversed }));
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({ sortType: SortType.NONE, isReversed: false });
   };
 
@@ -87,8 +87,8 @@ export class App extends React.Component<{}, AppState> {
     const {
       sortAlphabetically,
       sortByLength,
-      reverse,
-      reset,
+      handleReverse,
+      handleReset,
     } = this;
 
     const reorderedFood = getReorderedGoods(goodsFromServer,
@@ -116,7 +116,7 @@ export class App extends React.Component<{}, AppState> {
           <button
             type="button"
             className={`button is-warning ${!isReversed && 'is-light'}`}
-            onClick={reverse}
+            onClick={handleReverse}
           >
             Reverse
           </button>
@@ -125,7 +125,7 @@ export class App extends React.Component<{}, AppState> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={reset}
+              onClick={handleReset}
             >
               Reset
             </button>
