@@ -22,74 +22,123 @@ enum SortType {
 }
 
 type ReorderOptions = {
-  sortType: SortType,
+  copyArrayList: string[],
   isReversed: boolean,
+  sortType: SortType,
 };
 
-// Use this function in the render method to prepare goods
-export function getReorderedGoods(
-  goods: string[],
-  { sortType, isReversed }: ReorderOptions,
-) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
+export class App extends React.Component<{}, ReorderOptions> {
+  state: ReorderOptions = {
+    copyArrayList: [...goodsFromServer],
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  getReorderedGoods(param: string) {
+    let sortedArray: string[];
 
-  return visibleGoods;
-}
+    switch (param) {
+      case 'alphabetical':
+        sortedArray = this.state.copyArrayList
+          .slice().sort((a, b) => (this.state.isReversed
+            ? b.localeCompare(a)
+            : a.localeCompare(b)));
+        this.setState({
+          copyArrayList: sortedArray,
+          sortType: SortType.ALPHABET,
+        });
+        break;
+      case 'length':
+        sortedArray = this.state.copyArrayList
+          .slice().sort((a, b) => (this.state.isReversed
+            ? b.length - a.length
+            : a.length - b.length));
+        this.setState({
+          copyArrayList: sortedArray,
+          sortType: SortType.LENGTH,
+        });
+        break;
+      case 'reverse':
+        sortedArray = this.state.copyArrayList.slice().reverse();
+        this.setState((prevState) => ({
+          copyArrayList: sortedArray,
+          isReversed: !prevState.isReversed,
+        }));
+        break;
+      case 'reset':
+        sortedArray = goodsFromServer.slice();
+        this.setState({
+          copyArrayList: sortedArray,
+          isReversed: false,
+          sortType: SortType.NONE,
+        });
+        break;
+      default:
+        sortedArray = this.state.copyArrayList.slice();
+    }
+  }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+  render() {
+    const { copyArrayList, isReversed, sortType } = this.state;
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+    const AlpabetClassName
+    = (sortType === 1 && !isReversed) || (sortType === 1 && isReversed)
+      ? 'button is-info'
+      : 'button is-info is-light';
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+    const lengthClassName
+    = (sortType === 2 && !isReversed) || (sortType === 2 && isReversed)
+      ? 'button is-success'
+      : 'button is-success is-light';
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+    const reverseClassName = isReversed
+      ? 'button is-warning'
+      : 'button is-warning is-light';
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={AlpabetClassName}
+            onClick={() => this.getReorderedGoods('alphabetical')}
+          >
+            Sort alphabetically
+          </button>
 
-      <ul>
+          <button
+            type="button"
+            className={lengthClassName}
+            onClick={() => this.getReorderedGoods('length')}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={reverseClassName}
+            onClick={() => this.getReorderedGoods('reverse')}
+          >
+            Reverse
+          </button>
+
+          {(isReversed || sortType !== SortType.NONE) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={() => this.getReorderedGoods('reset')}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          {copyArrayList.map((good) => (
+            <li data-cy="Good" key={good}>{good}</li>
+          ))}
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
