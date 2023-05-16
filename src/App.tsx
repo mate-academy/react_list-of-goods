@@ -44,14 +44,6 @@ export function getReorderedGoods(
       break;
   }
 
-  // if (sortType === SortType.ALPHABET) {
-  //   visibleGoods.sort();
-  // }
-
-  // if (sortType === SortType.LENGTH) {
-  //   visibleGoods.sort((good1, good2) => good1.length - good2.length);
-  // }
-
   if (isReversed) {
     visibleGoods.reverse();
   }
@@ -125,7 +117,7 @@ export class App extends React.Component<{}, ReorderOptions> {
 
         <ul>
           <ul>
-            {goods.map((good) => (<li data-cy="Good">{good}</li>))}
+            {goods.map((good) => (<li data-cy="Good" key={good}>{good}</li>))}
           </ul>
         </ul>
       </div>
