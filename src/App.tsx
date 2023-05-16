@@ -66,9 +66,9 @@ export class App extends React.Component<{}, State> {
   };
 
   reverseSort = () => {
-    this.setState({
-      isReversed: true,
-    });
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
   };
 
   resetSort = () => {
@@ -86,7 +86,11 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
+            className={
+              this.state.sortType === 1
+                ? 'button is-success'
+                : 'button is-success is-light'
+            }
             onClick={this.sortAlphabetically}
           >
             Sort alphabetically
@@ -94,14 +98,24 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={
+              this.state.sortType === 2
+                ? 'button is-success'
+                : 'button is-success is-light'
+            }
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className="button is-warning is-light"
+            className={
+              this.state.isReversed === true
+                ? 'button is-success'
+                : 'button is-success is-light'
+            }
+            onClick={this.reverseSort}
           >
             Reverse
           </button>
@@ -109,6 +123,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-danger is-light"
+            onClick={this.resetSort}
           >
             Reset
           </button>
