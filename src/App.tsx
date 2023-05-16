@@ -32,33 +32,24 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  switch (sortType) {
-    case SortType.ALPHABET: {
-      visibleGoods.sort((first, second) => {
-        return first.localeCompare(second);
-      });
-      break;
-    }
+  visibleGoods.sort((firstGood, secondGood) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return firstGood.localeCompare(secondGood);
 
-    case SortType.LENGTH: {
-      visibleGoods.sort((first, second) => {
-        return first.length - second.length;
-      });
-      break;
-    }
+      case SortType.LENGTH:
+        return firstGood.length - secondGood.length;
 
-    case SortType.NONE: {
-      break;
+      default:
+        return SortType.NONE;
     }
+  });
 
-    default: {
-      throw new Error('Invalid type');
-    }
+  if (isReversed) {
+    visibleGoods.reverse();
   }
 
-  return isReversed
-    ? visibleGoods.reverse()
-    : visibleGoods;
+  return visibleGoods;
 }
 
 type State = {
@@ -136,10 +127,9 @@ export class App extends React.Component<{}, State> {
           }
         </div>
         <ul>
-          { getReorderedGoods(goodsFromServer, { sortType, isReversed })
-            .map(good => (
-              <li data-cy="Good" key={good}>{good}</li>
-            ))}
+          {getReorderedGoods(goodsFromServer, { sortType, isReversed }).map(
+            good => <li data-cy="Good" key={good}>{good}</li>,
+          )}
         </ul>
       </div>
     );
