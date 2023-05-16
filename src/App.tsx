@@ -84,6 +84,15 @@ export class App extends React.Component<{}, AppState> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const {
+      sortAlphabetically,
+      sortByLength,
+      reverse,
+      reset,
+    } = this;
+
+    const reorderedFood = getReorderedGoods(goodsFromServer,
+      { sortType, isReversed });
 
     return (
       <div className="section content">
@@ -91,7 +100,7 @@ export class App extends React.Component<{}, AppState> {
           <button
             type="button"
             className={`button is-info ${sortType !== SortType.ALPHABET && 'is-light'}`}
-            onClick={this.sortAlphabetically}
+            onClick={sortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -99,7 +108,7 @@ export class App extends React.Component<{}, AppState> {
           <button
             type="button"
             className={`button is-success ${sortType !== SortType.LENGTH && 'is-light'}`}
-            onClick={this.sortByLength}
+            onClick={sortByLength}
           >
             Sort by length
           </button>
@@ -107,7 +116,7 @@ export class App extends React.Component<{}, AppState> {
           <button
             type="button"
             className={`button is-warning ${!isReversed && 'is-light'}`}
-            onClick={this.reverse}
+            onClick={reverse}
           >
             Reverse
           </button>
@@ -116,7 +125,7 @@ export class App extends React.Component<{}, AppState> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.reset}
+              onClick={reset}
             >
               Reset
             </button>
@@ -125,7 +134,7 @@ export class App extends React.Component<{}, AppState> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, { sortType, isReversed })
+            {reorderedFood
               .map(good => <li data-cy="Good" key={good}>{good}</li>)}
           </ul>
         </ul>
