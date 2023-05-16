@@ -68,7 +68,7 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handleButton(actionType: string) {
+  changeSortParameters(actionType: string) {
     if (actionType === 'reverse') {
       this.setState((state) => ({ isReversed: !state.isReversed }));
     }
@@ -97,7 +97,7 @@ export class App extends React.Component<{}, State> {
       <div className="section content">
         <div className="buttons">
           <button
-            onClick={() => (this.handleButton('sortAlphabet'))}
+            onClick={() => (this.changeSortParameters('sortAlphabet'))}
             type="button"
             className={`button is-info ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
           >
@@ -105,7 +105,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           <button
-            onClick={() => (this.handleButton('sortLength'))}
+            onClick={() => (this.changeSortParameters('sortLength'))}
             type="button"
             className={`button is-success ${sortType !== SortType.LENGTH ? 'is-light' : ''}`}
           >
@@ -113,7 +113,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           <button
-            onClick={() => (this.handleButton('reverse'))}
+            onClick={() => (this.changeSortParameters('reverse'))}
             type="button"
             className={`button is-warning ${!isReversed ? 'is-light' : ''}`}
           >
@@ -122,7 +122,7 @@ export class App extends React.Component<{}, State> {
 
           {(sortType !== SortType.NONE || isReversed) && (
             <button
-              onClick={() => (this.handleButton('reset'))}
+              onClick={() => (this.changeSortParameters('reset'))}
               type="button"
               className="button is-danger is-light"
             >
