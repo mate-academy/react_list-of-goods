@@ -35,37 +35,46 @@ export class App extends React.Component<{}, ReorderOptions> {
   };
 
   getReorderedGoods(param: string) {
-    if (param === 'alphabetical') {
-      this.setState((prevState) => ({
-        copyArrayList: prevState.copyArrayList
-          .sort((a, b) => a.localeCompare(b)),
-        sortType: SortType.ALPHABET,
-      }));
-    }
+    let sortedArray: string[];
 
-    if (param === 'length') {
-      this.setState((prevState) => ({
-        copyArrayList: prevState.copyArrayList
-          .sort((a, b) => a.length - b.length),
-        sortType: SortType.LENGTH,
-      }));
-    }
-
-    if (param === 'reverse') {
-      this.setState((prevState) => ({
-        copyArrayList: prevState.copyArrayList.reverse(),
-        isReversed: true,
-
-        /* sortType: SortType.NONE, */
-      }));
-    }
-
-    if (param === 'reset') {
-      this.setState({
-        copyArrayList: [...goodsFromServer],
-        isReversed: false,
-        sortType: SortType.NONE,
-      });
+    switch (param) {
+      case 'alphabetical':
+        sortedArray = this.state.copyArrayList
+          .slice().sort((a, b) => (this.state.isReversed
+            ? b.localeCompare(a)
+            : a.localeCompare(b)));
+        this.setState({
+          copyArrayList: sortedArray,
+          sortType: SortType.ALPHABET,
+        });
+        break;
+      case 'length':
+        sortedArray = this.state.copyArrayList
+          .slice().sort((a, b) => (this.state.isReversed
+            ? b.length - a.length
+            : a.length - b.length));
+        this.setState({
+          copyArrayList: sortedArray,
+          sortType: SortType.LENGTH,
+        });
+        break;
+      case 'reverse':
+        sortedArray = this.state.copyArrayList.slice().reverse();
+        this.setState((prevState) => ({
+          copyArrayList: sortedArray,
+          isReversed: !prevState.isReversed,
+        }));
+        break;
+      case 'reset':
+        sortedArray = goodsFromServer.slice();
+        this.setState({
+          copyArrayList: sortedArray,
+          isReversed: false,
+          sortType: SortType.NONE,
+        });
+        break;
+      default:
+        sortedArray = this.state.copyArrayList.slice();
     }
   }
 
@@ -113,7 +122,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             Reverse
           </button>
 
-          {isReversed && (
+          {(isReversed || sortType !== SortType.NONE) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -125,8 +134,8 @@ export class App extends React.Component<{}, ReorderOptions> {
         </div>
 
         <ul>
-          {copyArrayList.map((ListElem) => (
-            <li data-cy="Good" key={ListElem}>{ListElem}</li>
+          {copyArrayList.map((good) => (
+            <li data-cy="Good" key={good}>{good}</li>
           ))}
         </ul>
       </div>
