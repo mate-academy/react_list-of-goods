@@ -53,6 +53,31 @@ export class App extends React.Component<{}, State> {
     sortType: 0,
   };
 
+  sortAlphabetically = () => {
+    this.setState({
+      sortType: 1,
+    });
+  };
+
+  sortByLength = () => {
+    this.setState({
+      sortType: 2,
+    });
+  };
+
+  reverseSort = () => {
+    this.setState({
+      isReversed: true,
+    });
+  };
+
+  resetSort = () => {
+    this.setState({
+      isReversed: false,
+      sortType: 0,
+    });
+  };
+
   render(): React.ReactNode {
     const goods = getReorderedGoods(goodsFromServer, this.state);
 
@@ -62,6 +87,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-info is-light"
+            onClick={this.sortAlphabetically}
           >
             Sort alphabetically
           </button>
