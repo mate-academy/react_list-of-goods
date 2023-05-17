@@ -37,11 +37,13 @@ export function getReorderedGoods(
       visibleGoods.sort();
       break;
     case SortType.LENGTH:
-      visibleGoods.sort((good1, good2) => good1.length - good2.length);
+      visibleGoods
+        .sort((firstGood, secondGood) => firstGood.length - secondGood.length);
       break;
     case SortType.NONE:
-    default:
       break;
+    default:
+      throw new Error('wrong sort type');
   }
 
   if (isReversed) {
