@@ -32,28 +32,26 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  let sortedGoods;
-
   switch (sortType) {
-    case 1:
-      sortedGoods = [...visibleGoods].sort((a, b) => a.localeCompare(b));
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
-    case 2:
-      sortedGoods = [...visibleGoods].sort((a, b) => a.length - b.length);
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    case SortType.NONE:
       break;
     default:
-      sortedGoods = [...visibleGoods];
-      break;
   }
 
   if (isReversed) {
-    sortedGoods.reverse();
+    visibleGoods.reverse();
   }
 
   // eslint-disable-next-line no-console
   console.debug(sortType, isReversed);
 
-  return sortedGoods;
+  return visibleGoods;
 }
 
 type State = {
@@ -64,18 +62,18 @@ type State = {
 export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortAlphabetically = () => {
     this.setState({
-      sortType: 1,
+      sortType: SortType.ALPHABET,
     });
   };
 
   sortByLength = () => {
     this.setState({
-      sortType: 2,
+      sortType: SortType.LENGTH,
     });
   };
 
@@ -88,7 +86,7 @@ export class App extends React.Component<{}, State> {
   resetSort = () => {
     this.setState({
       isReversed: false,
-      sortType: 0,
+      sortType: SortType.NONE,
     });
   };
 
