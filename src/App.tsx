@@ -1,7 +1,7 @@
+import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import classNames from 'classnames';
-import { Component } from 'react';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -36,14 +36,18 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort(
-      (goodA, goodB) => goodA.localeCompare(goodB),
-    );
-  } else if (sortType === SortType.LENGTH) {
-    visibleGoods.sort(
-      (goodA, goodB) => goodA.length - goodB.length,
-    );
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods
+        .sort((firstGood, secondGood) => firstGood.localeCompare(secondGood));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort(
+        (firstGood, secondGood) => firstGood.length - secondGood.length,
+      );
+      break;
+    default:
+      break;
   }
 
   if (isReversed) {
@@ -59,7 +63,7 @@ type State = {
   sortType: SortType,
 };
 
-export class App extends Component<{}, State> {
+export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
@@ -92,7 +96,7 @@ export class App extends Component<{}, State> {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const list = getReorderedGoods(goodsFromServer, this.state);
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -146,7 +150,7 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {list.map(good => (
+            {visibleGoods.map(good => (
               <li
                 data-cy="Good"
                 key={good}
