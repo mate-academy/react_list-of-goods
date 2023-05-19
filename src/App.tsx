@@ -85,7 +85,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
 
-    const isMutated = this.state.isReversed
+    const wasListMutated = this.state.isReversed
       || this.state.sortType !== SortType.NONE;
 
     return (
@@ -116,7 +116,7 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            isMutated
+            wasListMutated
               && (
                 <button
                   type="button"
