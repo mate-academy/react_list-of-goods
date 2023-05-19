@@ -96,7 +96,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              this.state.sortType === 1
+              this.state.sortType === SortType.ALPHABET
                 ? 'button is-success'
                 : 'button is-success is-light'
             }
@@ -108,7 +108,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={
-              this.state.sortType === 2
+              this.state.sortType === SortType.LENGTH
                 ? 'button is-success'
                 : 'button is-success is-light'
             }
