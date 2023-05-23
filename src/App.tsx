@@ -91,13 +91,9 @@ export class App extends React.PureComponent<{}, State> {
   };
 
   render() {
-    const isAlphabet = this.state.sortType !== 'alphabet';
-    const isLength = this.state.sortType !== 'length';
-    let hideReset = true;
-
-    if (this.state.sortType !== 'none' || this.state.isReversed) {
-      hideReset = false;
-    }
+    const isAlphabet = this.state.sortType !== SortType.ALPHABET;
+    const isLength = this.state.sortType !== SortType.LENGTH;
+    const hideReset = this.state.sortType === 'none' && !this.state.isReversed;
 
     return (
       <div className="section content">
@@ -147,7 +143,7 @@ export class App extends React.PureComponent<{}, State> {
 
         <ul>
           {getReorderedGoods(goodsFromServer, this.state).map((good) => {
-            return <li data-cy="Good">{good}</li>;
+            return <li data-cy="Good" key={good}>{good}</li>;
           })}
         </ul>
       </div>
