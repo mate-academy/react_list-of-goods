@@ -151,13 +151,11 @@ export class App extends PureComponent<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map((good) => (
-              <li key={good} data-cy="Good">
-                {good}
-              </li>
-            ))}
-          </ul>
+          {visibleGoods.map((good) => (
+            <li key={good} data-cy="Good">
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
