@@ -123,7 +123,7 @@ export class App extends Component<{}, State> {
             onClick={this.sortRevers}
             type="button"
             className={classNames(
-              'button is-success',
+              'button is-warning',
               { 'is-light': !isReversed },
             )}
           >
