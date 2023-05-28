@@ -38,19 +38,19 @@ export function getReorderedGoods(
   }
 
   visibleGoods.sort((a: string, b: string) => {
-    if (sortType === 1 && isReversed) {
+    if (sortType === SortType.ALPHABET && isReversed) {
       return b.localeCompare(a);
     }
 
-    if (sortType === 2 && isReversed) {
+    if (sortType === SortType.LENGTH && isReversed) {
       return b.length - a.length;
     }
 
     switch (sortType) {
-      case 1:
+      case SortType.ALPHABET:
         return a.localeCompare(b);
 
-      case 2:
+      case SortType.LENGTH:
         return a.length - b.length;
 
       default:
@@ -69,15 +69,15 @@ type State = {
 export class App extends Component<{}, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortAlphabetically = () => (
-    this.setState({ sortType: 1 })
+    this.setState({ sortType: SortType.ALPHABET })
   );
 
   sortLenght = () => (
-    this.setState({ sortType: 2 })
+    this.setState({ sortType: SortType.LENGTH })
   );
 
   sortRevers = () => (
@@ -87,7 +87,7 @@ export class App extends Component<{}, State> {
   );
 
   sortReset = () => (
-    this.setState({ sortType: 0, isReversed: false })
+    this.setState({ sortType: SortType.NONE, isReversed: false })
   );
 
   render() {
@@ -102,7 +102,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-info',
-              { 'is-light': sortType !== 1 },
+              { 'is-light': sortType !== SortType.ALPHABET },
             )}
           >
             Sort alphabetically
@@ -113,7 +113,7 @@ export class App extends Component<{}, State> {
             type="button"
             className={classNames(
               'button is-success',
-              { 'is-light': sortType !== 2 },
+              { 'is-light': sortType !== SortType.LENGTH },
             )}
           >
             Sort by length
@@ -131,7 +131,7 @@ export class App extends Component<{}, State> {
           </button>
 
           {
-            (isReversed || sortType !== 0) && (
+            (isReversed || sortType !== SortType.NONE) && (
               <button
                 onClick={this.sortReset}
                 type="button"
