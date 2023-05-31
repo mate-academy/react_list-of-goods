@@ -21,32 +21,37 @@ enum SortType {
   LENGTH,
 }
 
+function getSortChoice(wordOne: string, wordTwo: string, SortType2: SortType) {
+  switch (+SortType2) {
+    case 0:
+      return 0;
+    case 1:
+      return wordOne.localeCompare(wordTwo);
+    case 2:
+      return wordOne.length - wordTwo.length;
+    default:
+      return 0;
+  }
+}
+
 type ReorderOptions = {
   sortType: SortType,
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((wordOne, wordTwo) => {
-    switch (sortType) {
-      case 0:
-        return 0;
-      case 1:
-        return wordOne.localeCompare(wordTwo);
-      case 2:
-        return wordOne.length - wordTwo.length;
-      default:
-        return 0;
-    }
-  });
-  // Sort and reverse goods if needed
+  visibleGoods.sort(
+    (
+      wordOne, wordTwo,
+    ) => getSortChoice(
+      wordOne, wordTwo, sortType,
+    ),
+  );
 
   if (isReversed === true) {
     visibleGoods.reverse();
@@ -55,7 +60,6 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
