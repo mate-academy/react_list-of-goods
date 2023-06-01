@@ -23,12 +23,11 @@ enum SortType {
 
 function getSortChoice(wordOne: string, wordTwo: string, SortType2: SortType) {
   switch (+SortType2) {
-    case 0:
-      return 0;
-    case 1:
+    case SortType.ALPHABET:
       return wordOne.localeCompare(wordTwo);
-    case 2:
+    case SortType.LENGTH:
       return wordOne.length - wordTwo.length;
+    case SortType.NONE:
     default:
       return 0;
   }
