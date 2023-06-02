@@ -26,15 +26,12 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   visibleGoods.sort((a, b) => {
     switch (sortType) {
       case SortType.ALPHABET: {
@@ -45,17 +42,11 @@ export function getReorderedGoods(
         return a.length - b.length;
       }
 
-      case SortType.NONE: {
-        return 0;
-      }
-
       default: {
-        throw new Error('Wrong sorting type!');
+        return SortType.NONE;
       }
     }
   });
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -64,33 +55,27 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-type State = {
-  isReversed: boolean,
-  sortType: SortType,
-};
-
-export class App extends React.Component<{}, State> {
+export class App extends React.Component<{}, ReorderOptions> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
   };
 
   sortByAlphabet = () => {
-    this.setState(({ sortType: SortType.ALPHABET }));
+    this.setState({ sortType: SortType.ALPHABET });
   };
 
   sortByLength = () => {
-    this.setState(({ sortType: SortType.LENGTH }));
+    this.setState({ sortType: SortType.LENGTH });
   };
 
-  reverse = () => {
+  handleReverse = () => {
     this.setState((prevState) => ({
       isReversed: !prevState.isReversed,
     }));
   };
 
-  reset = () => {
+  handleReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -127,7 +112,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={`button is-warning ${!isReversed && 'is-light'}`}
-            onClick={this.reverse}
+            onClick={this.handleReverse}
           >
             Reverse
           </button>
@@ -136,9 +121,9 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.reset}
+              onClick={this.handleReset}
             >
-              Reset
+              handleReset
             </button>
           )}
         </div>
