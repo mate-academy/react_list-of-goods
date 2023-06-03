@@ -46,7 +46,7 @@ export function getReorderedGoods(
       break;
 
     default:
-      return 0;
+      throw new Error(`Invalid sortType: ${sortType}`);
   }
 
   if (isReversed) {
@@ -67,15 +67,9 @@ export class App extends React.Component<{}, State> {
     isReversed: false,
   };
 
-  sortAlphabetically = () => {
+  sortData = (sort: SortType) => {
     this.setState({
-      sortType: SortType.ALPHABET,
-    });
-  };
-
-  sortByLength = () => {
-    this.setState({
-      sortType: SortType.LENGTH,
+      sortType: sort,
     });
   };
 
@@ -107,7 +101,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={this.sortAlphabetically}
+            onClick={() => this.sortData(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -120,7 +114,7 @@ export class App extends React.Component<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={this.sortByLength}
+            onClick={() => this.sortData(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -138,9 +132,8 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {
-            (isReversed || sortType !== SortType.NONE)
-              ? (
+          {(isReversed || sortType !== SortType.NONE)
+              && (
                 <button
                   type="button"
                   className="button is-danger is-light"
@@ -148,9 +141,7 @@ export class App extends React.Component<{}, State> {
                 >
                   Reset
                 </button>
-              )
-              : ''
-          }
+              )}
         </div>
 
         <ul>
