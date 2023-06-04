@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -67,7 +68,7 @@ type State = {
 export class App extends React.Component <{}, State> {
   state = {
     isReversed: false,
-    sortType: 0,
+    sortType: SortType.NONE,
   };
 
   sortByAlphabet = () => {
@@ -96,8 +97,10 @@ export class App extends React.Component <{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={sort === 1
-              ? 'button is-info' : 'button is-info is-light'}
+            className={classNames('button', {
+              'is-info is-light': sort !== SortType.ALPHABET,
+              'is-info': sort === SortType.ALPHABET,
+            })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -105,8 +108,10 @@ export class App extends React.Component <{}, State> {
 
           <button
             type="button"
-            className={sort === 2
-              ? 'button is-success' : 'button is-success is-light'}
+            className={classNames('button', {
+              'is-success is-light': sort !== SortType.LENGTH,
+              'is-success': sort === SortType.LENGTH,
+            })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -114,14 +119,17 @@ export class App extends React.Component <{}, State> {
 
           <button
             type="button"
-            className={this.state.isReversed === true
-              ? 'button is-warning' : 'button is-warning is-light'}
+            className={classNames('button', {
+              'is-warning is-light': this.state.isReversed !== true,
+              'is-warning': this.state.isReversed === true,
+            })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {this.state.sortType !== 0 || this.state.isReversed === true ? (
+          {(this.state.sortType !== SortType.NONE
+            || this.state.isReversed === true) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -129,7 +137,7 @@ export class App extends React.Component <{}, State> {
             >
               Reset
             </button>
-          ) : null}
+          )}
 
         </div>
 
