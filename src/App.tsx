@@ -64,17 +64,26 @@ export class App extends PureComponent<{}, State> {
     sortType: SortType.NONE,
   };
 
-  handleClickSortByAlphabet = () => (
-    this.setState({
-      sortType: SortType.ALPHABET,
-    })
-  );
+  onClickSort = (sortType: SortType) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        this.setState({
+          sortType: SortType.ALPHABET,
+        });
 
-  handleClickSortByLength = () => (
-    this.setState({
-      sortType: SortType.LENGTH,
-    })
-  );
+        break;
+
+      case SortType.LENGTH:
+        this.setState({
+          sortType: SortType.LENGTH,
+        });
+
+        break;
+
+      default:
+        break;
+    }
+  };
 
   handleClickReverse = () => (
     this.setState((state) => ({
@@ -91,6 +100,7 @@ export class App extends PureComponent<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
+    const isResetVisible = sortType !== SortType.NONE || isReversed;
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
@@ -106,7 +116,7 @@ export class App extends PureComponent<{}, State> {
                 'is-light': sortType !== SortType.ALPHABET,
               },
             )}
-            onClick={this.handleClickSortByAlphabet}
+            onClick={() => this.onClickSort(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
@@ -120,7 +130,7 @@ export class App extends PureComponent<{}, State> {
                 'is-light': sortType !== SortType.LENGTH,
               },
             )}
-            onClick={this.handleClickSortByLength}
+            onClick={() => this.onClickSort(SortType.LENGTH)}
           >
             Sort by length
           </button>
@@ -139,7 +149,7 @@ export class App extends PureComponent<{}, State> {
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {isResetVisible && (
             <button
               type="button"
               className="button is-danger is-light"
