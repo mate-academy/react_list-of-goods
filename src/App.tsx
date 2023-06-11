@@ -38,19 +38,19 @@ export function getReorderedGoods(
   }
 
   visibleGoods.sort((g1: string, g2: string) => {
-    if (sortType === SortType.ALPHABET && isReversed) {
-      return g2.localeCompare(g1);
-    }
-
-    if (sortType === SortType.LENGTH && isReversed) {
-      return g2.length - g1.length;
-    }
-
     switch (sortType) {
       case SortType.LENGTH:
+        if (isReversed) {
+          return g2.length - g1.length;
+        }
+
         return g1.length - g2.length;
 
       case SortType.ALPHABET:
+        if (isReversed) {
+          return g2.localeCompare(g1);
+        }
+
         return g1.localeCompare(g2);
 
       default:
