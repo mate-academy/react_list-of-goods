@@ -134,7 +134,9 @@ export class App extends React.Component<{}, ReorderOptions> {
             >
               Reset
             </button>
-          ) : null}
+          ) : (
+            null
+          )}
         </div>
 
         <ul>
