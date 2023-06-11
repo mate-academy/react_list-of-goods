@@ -52,7 +52,7 @@ export const App: React.FC = () => {
 
   const handleSortAlphabetically = () => {
     if (reorderOptions.sortType === SortType.ALPHABET) {
-      return; // Do nothing if already sorted alphabetically
+      return;
     }
 
     setReorderOptions({
@@ -63,7 +63,7 @@ export const App: React.FC = () => {
 
   const handleSortByLength = () => {
     if (reorderOptions.sortType === SortType.LENGTH) {
-      return; // Do nothing if already sorted by length
+      return;
     }
 
     setReorderOptions({
