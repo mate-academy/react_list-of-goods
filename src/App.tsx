@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -26,7 +27,6 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -42,7 +42,6 @@ export class App extends React.Component<{}, State> {
     goods: string[],
     { sortType, isReversed }: ReorderOptions,
   ) => {
-    // To avoid the original array mutation
     const visibleGoods = [...goods];
 
     visibleGoods.sort((a, b) => {
@@ -70,53 +69,62 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  alphabeticSort = () => {
+  sortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
-  lengthSort = () => {
+  sortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
   reset = () => {
-    this.setState({ sortType: SortType.NONE, isReversed: false });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
   render() {
+    const stateIsChanged = this.state.sortType !== SortType.NONE
+      || this.state.isReversed;
+
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${this.state.sortType !== SortType.ALPHABET
-              ? 'is-light'
-              : ''}`}
-            onClick={this.alphabeticSort}
+            className={classNames('button is-info',
+              {
+                'is-light': this.state.sortType !== SortType.ALPHABET,
+              })}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={`button is-success ${this.state.sortType !== SortType.LENGTH
-              ? 'is-light'
-              : ''}`}
-            onClick={this.lengthSort}
+            className={classNames('button is-success',
+              {
+                'is-light': this.state.sortType !== SortType.LENGTH,
+              })}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={`button is-warning ${!this.state.isReversed
-              ? 'is-light'
-              : ''}`}
+            className={classNames('button is-warning',
+              {
+                'is-light': !this.state.isReversed,
+              })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {(this.state.sortType !== SortType.NONE || this.state.isReversed) && (
+          {(stateIsChanged) && (
             <button
               type="button"
               className="button is-danger is-light"
