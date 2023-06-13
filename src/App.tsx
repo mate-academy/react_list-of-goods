@@ -33,17 +33,19 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  visibleGoods.sort((first, second) => {
-    switch (sortType) {
-      case SortType.ALPHABET:
-        return first.localeCompare(second);
+  if (sortType !== SortType.NONE) {
+    visibleGoods.sort((first, second) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return first.localeCompare(second);
 
-      case SortType.LENGTH:
-        return first.length - second.length;
-      default:
-        return 0;
-    }
-  });
+        case SortType.LENGTH:
+          return first.length - second.length;
+        default:
+          return 0;
+      }
+    });
+  }
 
   if (isReversed) {
     visibleGoods.reverse();
