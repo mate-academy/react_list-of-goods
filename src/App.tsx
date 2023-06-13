@@ -37,6 +37,7 @@ export function getReorderedGoods(
     switch (sortType) {
       case SortType.ALPHABET:
         return first.localeCompare(second);
+
       case SortType.LENGTH:
         return first.length - second.length;
       default:
@@ -87,6 +88,8 @@ export class App extends React.Component<{}, State> {
     const { isReversed, sortType } = this.state;
     const goodsList = getReorderedGoods(goodsFromServer,
       { isReversed, sortType });
+    const resetButton = isReversed || sortType === SortType.ALPHABET
+      || sortType === SortType.LENGTH;
 
     return (
       <div className="section content">
@@ -114,22 +117,23 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={classNames('button', 'is-warning', {
-              'is-light': !isReversed,
+              'is-light': !isReversed && sortType !== SortType.NONE,
             })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          <button
-            type="button"
-            className={classNames('button', 'is-danger', {
-              'is-light': !isReversed,
-            })}
-            onClick={this.reset}
-          >
-            Reset
-          </button>
+          {resetButton && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
+
         </div>
         <ul>
           {goodsList.map(good => (
