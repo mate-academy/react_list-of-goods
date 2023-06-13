@@ -30,10 +30,15 @@ export function getReorderedGoods(goods: string[],
   { sortType, isReversed }: ReorderOptions) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort();
-  } else if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => a.length - b.length);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort();
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    default:
+      break;
   }
 
   if (isReversed) {
@@ -48,6 +53,7 @@ export const App: React.FC = () => {
     sortType: SortType.NONE,
     isReversed: false,
   });
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const visibleGoods = getReorderedGoods(goodsFromServer, reorderOptions);
 
   const handleSortAlphabetically = () => {
@@ -59,6 +65,7 @@ export const App: React.FC = () => {
       sortType: SortType.ALPHABET,
       isReversed: false,
     });
+    setIsButtonClicked(true);
   };
 
   const handleSortByLength = () => {
@@ -70,6 +77,7 @@ export const App: React.FC = () => {
       sortType: SortType.LENGTH,
       isReversed: false,
     });
+    setIsButtonClicked(true);
   };
 
   const handleReverseOrder = () => {
@@ -77,6 +85,7 @@ export const App: React.FC = () => {
       sortType: reorderOptions.sortType,
       isReversed: !reorderOptions.isReversed,
     });
+    setIsButtonClicked(true);
   };
 
   const handleResetOrder = () => {
@@ -84,10 +93,10 @@ export const App: React.FC = () => {
       sortType: SortType.NONE,
       isReversed: false,
     });
+    setIsButtonClicked(false);
   };
 
-  const shouldShowResetButton = reorderOptions.sortType
-  !== SortType.NONE || reorderOptions.isReversed;
+  const shouldShowResetButton = isButtonClicked;
 
   return (
     <div className="section content">
@@ -114,7 +123,6 @@ export const App: React.FC = () => {
           type="button"
           className={`button is-warning ${reorderOptions.isReversed ? '' : 'is-light'}`}
           onClick={handleReverseOrder}
-          disabled={reorderOptions.sortType === SortType.NONE}
         >
           Reverse
         </button>
