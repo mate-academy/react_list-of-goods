@@ -39,6 +39,10 @@ export function getReorderedGoods(
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   return visibleGoods;
 }
 
@@ -55,6 +59,10 @@ export class App extends React.Component<{}, State> {
     sortType: SortType.NONE,
   };
 
+  reverseList = () => {
+    this.setState(state => ({ isReversed: !state.isReversed }));
+  };
+
   render() {
     const { isReversed, sortType } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
@@ -66,32 +74,47 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className="button is-info is-light"
-            onClick={() => this.forceUpdate()}
+            className={cn(
+              'button',
+              'is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className="button is-success is-light"
+            className={cn(
+              'button',
+              'is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className="button is-warning is-light"
+            onClick={this.reverseList}
+            className={cn(
+              'button',
+              'is-warning',
+              { 'is-light': !isReversed },
+            )}
           >
             Reverse
           </button>
 
-          <button
-            type="button"
-            className="button is-danger is-light"
-          >
-            Reset
-          </button>
+          {(isReversed || sortType !== SortType.NONE)
+          && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
