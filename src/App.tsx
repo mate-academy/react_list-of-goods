@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -42,54 +43,68 @@ export function getReorderedGoods(
 }
 
 // DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
 };
+
+// eslint-disable-next-line react/prefer-stateless-function
+export class App extends React.Component<{}, State> {
+  state = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
+
+  render() {
+    const { isReversed, sortType } = this.state;
+    const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
+
+    console.log(goods);
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className="button is-info is-light"
+            onClick={() => this.forceUpdate()}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className="button is-success is-light"
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className="button is-warning is-light"
+          >
+            Reverse
+          </button>
+
+          <button
+            type="button"
+            className="button is-danger is-light"
+          >
+            Reset
+          </button>
+        </div>
+
+        <ul>
+          <ul>
+            <li data-cy="Good">Dumplings</li>
+            <li data-cy="Good">Carrot</li>
+            <li data-cy="Good">Eggs</li>
+            <li data-cy="Good">Ice cream</li>
+            <li data-cy="Good">Apple</li>
+            <li data-cy="Good">...</li>
+          </ul>
+        </ul>
+      </div>
+    );
+  }
+}
