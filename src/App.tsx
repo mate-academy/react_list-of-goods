@@ -1,7 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import { GoodsList } from './Components/Goods';
+import { GoodsList } from './Components/GoodsList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -98,9 +99,12 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${sortType !== SortType.ALPHABET
-              ? 'is-light'
-              : ''}`}
+            className={classNames(
+              'button is-info',
+              {
+                'is-light': sortType !== SortType.ALPHABET,
+              },
+            )}
             onClick={this.handleClickSortByAlphabet}
           >
             Sort alphabetically
@@ -108,10 +112,12 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-success ${sortType !== SortType.LENGTH
-              ? 'is-light'
-              : ''
-            }`}
+            className={classNames(
+              'button is-success',
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              },
+            )}
             onClick={this.handleClickSortByLength}
           >
             Sort by length
@@ -119,10 +125,12 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-warning ${!isReversed
-              ? 'is-light'
-              : ''
-            }`}
+            className={classNames(
+              'button is-warning',
+              {
+                'is-light': !isReversed,
+              },
+            )}
             onClick={this.handleClickReverse}
           >
             Reverse
