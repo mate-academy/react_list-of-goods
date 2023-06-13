@@ -58,31 +58,23 @@ export function getReorderedGoods(
 type State = {
   isReversed: boolean,
   sortType: SortType,
-  isSortedAlfabetically: boolean,
-  isSortedByLength: boolean,
 };
 
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
-    isSortedAlfabetically: false,
-    isSortedByLength: false,
   };
 
   sortAlphabetically = () => {
     this.setState({
       sortType: SortType.ALPHABET,
-      isSortedAlfabetically: true,
-      isSortedByLength: false,
     });
   };
 
   sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
-      isSortedAlfabetically: false,
-      isSortedByLength: true,
     });
   };
 
@@ -96,16 +88,12 @@ export class App extends React.Component<{}, State> {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
-      isSortedAlfabetically: false,
-      isSortedByLength: false,
     });
   };
 
   render() {
     const {
       isReversed,
-      isSortedAlfabetically,
-      isSortedByLength,
       sortType,
     } = this.state;
 
@@ -114,7 +102,7 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${isSortedAlfabetically ? '' : 'is-light'}`}
+            className={`button is-info ${sortType === SortType.ALPHABET ? '' : 'is-light'}`}
             onClick={this.sortAlphabetically}
           >
             Sort alphabetically
@@ -122,7 +110,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={`button is-info ${isSortedByLength ? '' : 'is-light'}`}
+            className={`button is-info ${sortType === SortType.LENGTH ? '' : 'is-light'}`}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -137,7 +125,11 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            (isReversed || isSortedAlfabetically || isSortedByLength)
+            (
+              isReversed
+              || sortType === SortType.ALPHABET
+              || sortType === SortType.LENGTH
+            )
               ? (
                 <button
                   type="button"
