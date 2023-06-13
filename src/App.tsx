@@ -94,6 +94,8 @@ export const App: React.FC = () => {
   const classBtnWarning = classNames('button', 'is-warning',
     { 'is-light': !isReversed });
 
+  const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
+
   return (
     <div className="section content">
       <div className="buttons">
@@ -132,12 +134,11 @@ export const App: React.FC = () => {
       </div>
 
       <ul>
-        {getReorderedGoods(goodsFromServer, { sortType, isReversed })
-          .map(good => (
-            <li data-cy="Good" key={good}>
-              {good}
-            </li>
-          ))}
+        {goods.map(good => (
+          <li data-cy="Good" key={good}>
+            {good}
+          </li>
+        ))}
       </ul>
     </div>
   );
