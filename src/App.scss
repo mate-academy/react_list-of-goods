@@ -21,43 +21,54 @@ li {
     margin-right: 10px;
     padding: 10px 15px;
 
-    color: #087551;
     font-size: 18px;
     font-weight: 600;
     border: 0;
     border-radius: 20px;
     transition: background-color 0.5s;
-
+    
     &:first-child {
       margin-left: 30px;
     }
-
+    
     &--alphabet {
+      color: #fff;
+      background-color: #0ea5d7;
+      
       &:hover {
         color: #fff;
         background-color: #0ea5d7;
       }
     }
-
+    
     &--length {
+      color: #fff;
+      background-color: #0ed76f;
+      
       &:hover {
         color: #fff;
         background-color: #0ed76f;
       }
     }
-
+    
     &--reverse {
+      color: #fff;
+      background-color: #d7d40e;
+      
       &:hover {
         color: #fff;
         background-color: #d7d40e;
       }
     }
-
+    
     &--reset {
-      &:hover {
-        color: #fff;
-        background-color: #d7330e;
-      }
+      color: #fff;
+      background-color: #d7330e;
     }
   }
+}
+
+.generalButton {
+  color: #087551;
+  background-color: #fff;
 }

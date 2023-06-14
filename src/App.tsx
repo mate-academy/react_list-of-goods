@@ -19,7 +19,7 @@ export const goodsFromServer = [
 enum SortType {
   NONE,
   ALPHABET,
-  LENGTH = 'length',
+  LENGTH,
 }
 
 type ReorderOptions = {
@@ -76,7 +76,7 @@ export class App extends React.Component<{}, State> {
               'section__button',
               'section__button--alphabet',
               'is-info',
-              { 'is-light': sortType !== SortType.ALPHABET },
+              { 'is-light generalButton': sortType !== SortType.ALPHABET },
             )}
             onClick={() => {
               this.setState({ sortType: SortType.ALPHABET });
@@ -91,7 +91,7 @@ export class App extends React.Component<{}, State> {
               'section__button',
               'section__button--length',
               'is-success',
-              { 'is-light': sortType !== SortType.LENGTH },
+              { 'is-light generalButton': sortType !== SortType.LENGTH },
             )}
             onClick={() => {
               this.setState({ sortType: SortType.LENGTH });
@@ -106,7 +106,7 @@ export class App extends React.Component<{}, State> {
               'section__button',
               'section__button--reverse',
               'is-warning',
-              { 'is-light': !isReversed },
+              { 'is-light generalButton': !isReversed },
             )}
             onClick={() => {
               this.setState({ isReversed: !isReversed });
