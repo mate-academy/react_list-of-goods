@@ -1,95 +1,99 @@
 import React from 'react';
+import cn from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import { State } from './Type/State';
+import { getReorderedGoods } from './getReorderedGoods';
+import { SortType } from './Type/SortType';
+import { goodsFromServer } from './goodsFromServer';
 
-export const goodsFromServer = [
-  'Dumplings',
-  'Carrot',
-  'Eggs',
-  'Ice cream',
-  'Apple',
-  'Bread',
-  'Fish',
-  'Honey',
-  'Jam',
-  'Garlic',
-];
+export class App extends React.Component<{}, State> {
+  state: State = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
-}
+  reverse = () => {
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
+  };
 
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed: boolean,
-};
+  sortByAphabet = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
 
-// Use this function in the render method to prepare goods
-export function getReorderedGoods(
-  goods: string[],
-  { sortType, isReversed }: ReorderOptions,
-) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
+  };
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  resetList = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
+  };
 
-  return visibleGoods;
-}
+  render(): React.ReactNode {
+    const { isReversed, sortType } = this.state;
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+    const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            onClick={this.sortByAphabet}
+            className={cn('button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET })}
+          >
+            Sort alphabetically
+          </button>
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+          <button
+            type="button"
+            onClick={this.sortByLength}
+            className={cn('button is-success',
+              { 'is-light': sortType !== SortType.LENGTH })}
+          >
+            Sort by length
+          </button>
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+          <button
+            type="button"
+            onClick={this.reverse}
+            className={cn('button is-warning',
+              { 'is-light': !isReversed })}
+          >
+            Reverse
+          </button>
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+          {(isReversed
+          || sortType !== SortType.NONE)
+           && (
+             <button
+               type="button"
+               onClick={this.resetList}
+               className="button is-danger is-light"
+             >
+               Reset
+             </button>
+           )}
 
-      <ul>
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          {goods.map(good => (
+            <li
+              data-cy="Good"
+              key={good}
+            >
+              {good}
+            </li>
+          ))}
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
