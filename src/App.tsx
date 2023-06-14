@@ -97,6 +97,24 @@ export class App extends React.Component<{}, State> {
       sortType,
     } = this.state;
 
+    const isReset = (
+      isReversed
+      || sortType === SortType.ALPHABET
+      || sortType === SortType.LENGTH
+    );
+
+    const reorderedGoods = getReorderedGoods(
+      goodsFromServer, { sortType, isReversed },
+    )
+      .map(good => (
+        <li
+          data-cy="Good"
+          key={good}
+        >
+          {good}
+        </li>
+      ));
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -125,12 +143,8 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            (
-              isReversed
-              || sortType === SortType.ALPHABET
-              || sortType === SortType.LENGTH
-            )
-              ? (
+            (isReset)
+              && (
                 <button
                   type="button"
                   className="button is-danger is-light"
@@ -139,22 +153,13 @@ export class App extends React.Component<{}, State> {
                   Reset
                 </button>
               )
-              : ''
           }
 
         </div>
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, { sortType, isReversed })
-              .map(good => (
-                <li
-                  data-cy="Good"
-                  key={good}
-                >
-                  {good}
-                </li>
-              ))}
+            {reorderedGoods}
           </ul>
         </ul>
       </div>
