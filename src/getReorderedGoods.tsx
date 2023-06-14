@@ -10,7 +10,7 @@ export function getReorderedGoods(
   visibleGoods.sort((goodOne, goodTwo) => {
     switch (sortType) {
       case SortType.ALPHABET:
-        return goodOne[sortType].localeCompare(goodTwo[sortType]);
+        return goodOne.localeCompare(goodTwo);
 
       case SortType.LENGTH:
         return goodOne.length - goodTwo.length;
@@ -24,7 +24,8 @@ export function getReorderedGoods(
     visibleGoods.reverse();
   }
 
-  // console.log(sortType, isReversed);
+  // eslint-disable-next-line no-console
+  console.log(sortType, isReversed);
 
   return visibleGoods;
 }

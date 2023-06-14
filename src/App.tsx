@@ -19,7 +19,7 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  sortByAphabet = () => {
+  sortByAlphabet = () => {
     this.setState({ sortType: SortType.ALPHABET });
   };
 
@@ -44,7 +44,7 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            onClick={this.sortByAphabet}
+            onClick={this.sortByAlphabet}
             className={cn('button is-info',
               { 'is-light': sortType !== SortType.ALPHABET })}
           >
