@@ -24,9 +24,6 @@ enum SortType {
 type ReorderOptions = {
   sortType: SortType,
   isReversed: boolean,
-  lightAlpha: boolean,
-  lightLenght: boolean,
-  lightreset: boolean,
 };
 
 export function getReorderedGoods(
@@ -62,31 +59,23 @@ export class App extends React.Component <{}, ReorderOptions> {
   state:ReorderOptions = {
     sortType: SortType.NONE,
     isReversed: false,
-    lightAlpha: false,
-    lightLenght: false,
-    lightreset: false,
   };
 
-  sortAlpha = () => {
+  sortAlphabetically = () => {
     this.setState({
       sortType: SortType.ALPHABET,
-      lightAlpha: true,
-      lightLenght: false,
     });
   };
 
-  sortLenght = () => {
+  sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
-      lightLenght: true,
-      lightAlpha: false,
     });
   };
 
-  sortRevers = () => {
+  sortReverse = () => {
     this.setState(state => ({
       isReversed: !state.isReversed,
-      lightreset: !state.isReversed,
     }));
   };
 
@@ -94,18 +83,16 @@ export class App extends React.Component <{}, ReorderOptions> {
     this.setState({
       sortType: SortType.NONE,
       isReversed: false,
-      lightAlpha: false,
-      lightLenght: false,
-      lightreset: false,
     });
   };
 
   render() {
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
-    const showResetButton
-      = this.state.sortType !== SortType.NONE
-      || this.state.isReversed !== false;
+    const {
+      sortType,
+      isReversed,
+    } = this.state;
 
     return (
       <div className="section content">
@@ -113,8 +100,8 @@ export class App extends React.Component <{}, ReorderOptions> {
           <button
             type="button"
             className={`button is-info 
-            ${this.state.lightAlpha ? '' : 'is-light'}`}
-            onClick={this.sortAlpha}
+            ${sortType === SortType.ALPHABET ? '' : 'is-light'}`}
+            onClick={this.sortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -122,8 +109,8 @@ export class App extends React.Component <{}, ReorderOptions> {
           <button
             type="button"
             className={`button is-success  
-            ${this.state.lightLenght ? '' : 'is-light'}`}
-            onClick={this.sortLenght}
+            ${sortType === SortType.LENGTH ? '' : 'is-light'}`}
+            onClick={this.sortByLength}
 
           >
             Sort by length
@@ -132,13 +119,13 @@ export class App extends React.Component <{}, ReorderOptions> {
           <button
             type="button"
             className={`button is-warning 
-            ${this.state.lightreset ? '' : 'is-light'}`}
-            onClick={this.sortRevers}
+            ${isReversed ? '' : 'is-light'}`}
+            onClick={this.sortReverse}
           >
             Reverse
           </button>
 
-          {showResetButton
+          {sortType !== SortType.NONE || isReversed !== false
             ? (
               <button
                 type="button"
