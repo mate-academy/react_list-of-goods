@@ -97,7 +97,7 @@ export class App extends React.PureComponent<{}, State> {
 
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
-    const initialOrder = (!isReversed && (sortType === SortType.NONE));
+    const hasInitialOrder = (!isReversed && (sortType === SortType.NONE));
 
     return (
       <div className="section content">
@@ -126,7 +126,7 @@ export class App extends React.PureComponent<{}, State> {
             Reverse
           </button>
 
-          {!initialOrder && (
+          {!hasInitialOrder && (
             <button
               type="button"
               className="button is-danger is-light"
