@@ -75,7 +75,7 @@ export class App extends PureComponent<{}, ReorderOptions> {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const isDefaultOrder = isReversed || sortType !== SortType.NONE;
+    const shouldShowReset = isReversed || sortType !== SortType.NONE;
 
     const goods = getReorderedGoods(
       goodsFromServer,
@@ -89,7 +89,7 @@ export class App extends PureComponent<{}, ReorderOptions> {
             onClick={() => this.handleSortClick(SortType.ALPHABET)}
             type="button"
             className={cn('button is-info',
-              { 'is-light': sortType === SortType.ALPHABET })}
+              { 'is-light': sortType !== SortType.ALPHABET })}
           >
             Sort alphabetically
           </button>
@@ -98,7 +98,7 @@ export class App extends PureComponent<{}, ReorderOptions> {
             onClick={() => this.handleSortClick(SortType.LENGTH)}
             type="button"
             className={cn('button is-success',
-              { 'is-light': sortType === SortType.LENGTH })}
+              { 'is-light': sortType !== SortType.LENGTH })}
           >
             Sort by length
           </button>
@@ -107,12 +107,12 @@ export class App extends PureComponent<{}, ReorderOptions> {
             onClick={this.handleReverseClick}
             type="button"
             className={cn('button is-warning',
-              { 'is-light': isReversed })}
+              { 'is-light': !isReversed })}
           >
             Reverse
           </button>
 
-          {isDefaultOrder && (
+          {shouldShowReset && (
             <button
               onClick={this.handleResetClick}
               type="button"
@@ -125,7 +125,7 @@ export class App extends PureComponent<{}, ReorderOptions> {
 
         <ul>
           <ul>
-            {goods.map(good => (
+            {goods.map((good) => (
               <li key={good} data-cy="Good">
                 {good}
               </li>
