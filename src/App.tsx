@@ -61,13 +61,26 @@ export class App extends React.Component<{}, State> {
   };
 
   sortGoods = (value: SortType) => {
-    if (this.state.sortType === value) {
-      this.setState({ sortType: SortType.NONE });
+    const isSameType = this.state.sortType === value;
 
-      return;
-    }
+    this.setState({
+      sortType: isSameType
+        ? SortType.NONE
+        : value,
+    });
+  };
 
-    this.setState({ sortType: value });
+  reverse = () => {
+    this.setState((state) => (
+      { isReversed: !state.isReversed }
+    ));
+  };
+
+  reset = () => {
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
   };
 
   render() {
@@ -106,15 +119,7 @@ export class App extends React.Component<{}, State> {
               'is-warning': true,
               'is-light': !isReversed,
             }}
-            callback={() => {
-              if (this.state.isReversed) {
-                this.setState({ isReversed: false });
-
-                return;
-              }
-
-              this.setState({ isReversed: true });
-            }}
+            callback={this.reverse}
           >
             Reverse
           </Button>
@@ -125,12 +130,7 @@ export class App extends React.Component<{}, State> {
                 'is-danger': true,
                 'is-light': true,
               }}
-              callback={() => {
-                this.setState({
-                  isReversed: false,
-                  sortType: SortType.NONE,
-                });
-              }}
+              callback={this.reset}
             >
               Reset
             </Button>
