@@ -22,17 +22,10 @@ enum SortType {
   LENGTH,
 }
 
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed: boolean,
-};
-
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
+  { sortType, isReversed }: State,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   visibleGoods.sort((good1, good2): number => {
@@ -53,7 +46,6 @@ export function getReorderedGoods(
     visibleGoods.reverse();
   }
 
-  // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -88,12 +80,18 @@ export class App extends React.Component <{}, State> {
   };
 
   resetSort = () => {
-    this.setState({ isReversed: false, sortType: SortType.NONE });
+    this.setState({
+      isReversed: false,
+      sortType: SortType.NONE,
+    });
   };
 
   render() {
     const { sortType, isReversed } = this.state;
-    const sortedGoods = getReorderedGoods(goodsFromServer, this.state);
+    const sortedGoods = getReorderedGoods(
+      goodsFromServer,
+      this.state,
+    );
 
     return (
       <div className="section content">
@@ -145,12 +143,13 @@ export class App extends React.Component <{}, State> {
               </button>
             )
             : null}
-
         </div>
 
         <ul>
           {sortedGoods.map(good => (
-            <li data-cy="Good" key={good}>{good}</li>
+            <li data-cy="Good" key={good}>
+              {good}
+            </li>
           ))}
         </ul>
       </div>
