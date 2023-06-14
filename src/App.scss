@@ -1,3 +1,63 @@
 iframe {
   display: none;
 }
+
+body {
+  height: 100vh;
+  background-color: #087551;
+
+}
+
+li {
+  list-style: none;
+}
+
+.section {
+  font-size: 25px;
+  font-weight: 500;
+  color: #fff;
+
+  &__button {
+    margin-right: 10px;
+    padding: 10px 15px;
+
+    color: #087551;
+    font-size: 18px;
+    font-weight: 600;
+    border: 0;
+    border-radius: 20px;
+    transition: background-color 0.5s;
+
+    &:first-child {
+      margin-left: 30px;
+    }
+
+    &--alphabet {
+      &:hover {
+        color: #fff;
+        background-color: #0ea5d7;
+      }
+    }
+
+    &--length {
+      &:hover {
+        color: #fff;
+        background-color: #0ed76f;
+      }
+    }
+
+    &--reverse {
+      &:hover {
+        color: #fff;
+        background-color: #d7d40e;
+      }
+    }
+
+    &--reset {
+      &:hover {
+        color: #fff;
+        background-color: #d7330e;
+      }
+    }
+  }
+}
