@@ -32,59 +32,56 @@ type State = {
   sortType: SortType,
 };
 
+export function getReorderedGoods(
+  goods: string[],
+  { sortType, isReversed }: ReorderOptions,
+) {
+  const visibleGoods = [...goods];
+
+  if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((item1, item2) => item1.length - item2.length);
+  }
+
+  if (sortType === SortType.ALPHABET) {
+    visibleGoods.sort();
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
+}
+
+// eslint-disable-next-line react/prefer-stateless-function
 export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
   };
 
-  reverse = () => {
-    this.setState((state) => ({
-      isReversed: !state.isReversed,
-    }));
+  reverseList = () => {
+    this.setState(state => ({ isReversed: !state.isReversed }));
   };
 
-  sortBy = (sortTypeKey: SortType) => {
-    this.setState(() => ({
-      sortType: sortTypeKey,
-    }));
+  sortByLength = () => {
+    this.setState({ sortType: SortType.LENGTH });
   };
 
-  reset = () => {
-    this.setState(() => ({
+  sortByAlphabet = () => {
+    this.setState({ sortType: SortType.ALPHABET });
+  };
+
+  resetToDefault = () => {
+    this.setState({
       isReversed: false,
       sortType: SortType.NONE,
-    }));
+    });
   };
 
   render() {
-    const getReorderedGoods = (
-      goods: string[],
-      { sortType, isReversed }: ReorderOptions,
-    ) => {
-      const visibleGoods = [...goods];
-
-      visibleGoods.sort((firstItem, secondItem) => {
-        switch (sortType) {
-          case SortType.ALPHABET:
-            return firstItem.localeCompare(secondItem);
-
-          case SortType.LENGTH:
-            return firstItem.length - secondItem.length;
-
-          default:
-            return 0;
-        }
-      });
-
-      if (isReversed) {
-        visibleGoods.reverse();
-      }
-
-      return visibleGoods;
-    };
-
     const { isReversed, sortType } = this.state;
+    const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
     const isVisibleReset = isReversed || sortType !== SortType.NONE;
 
     return (
@@ -92,39 +89,46 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={cn('button is-info', {
-              'is-light': sortType !== SortType.ALPHABET,
-            })}
-            onClick={() => this.sortBy(SortType.ALPHABET)}
+            className={cn(
+              'button',
+              'is-info',
+              { 'is-light': sortType !== SortType.ALPHABET },
+            )}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={cn('button is-success', {
-              'is-light': sortType !== SortType.LENGTH,
-            })}
-            onClick={() => this.sortBy(SortType.LENGTH)}
+            className={cn(
+              'button',
+              'is-success',
+              { 'is-light': sortType !== SortType.LENGTH },
+            )}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={cn('button is-warning', {
-              'is-light': !isReversed,
-            })}
-            onClick={this.reverse}
+            className={cn(
+              'button',
+              'is-warning',
+              { 'is-light': !isReversed },
+            )}
+            onClick={this.reverseList}
           >
             Reverse
           </button>
 
-          {isVisibleReset && (
+          {(isVisibleReset)
+          && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.reset}
+              onClick={this.resetToDefault}
             >
               Reset
             </button>
@@ -132,14 +136,16 @@ export class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          {getReorderedGoods(
-            goodsFromServer,
-            { sortType, isReversed },
-          ).map((item) => (
-            <li data-cy="Good" key={item}>
-              {item}
-            </li>
-          ))}
+          <ul>
+            {goods.map(item => (
+              <li
+                key={item}
+                data-cy="Good"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
         </ul>
       </div>
     );
