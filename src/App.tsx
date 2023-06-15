@@ -26,7 +26,6 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
@@ -56,16 +55,10 @@ export function getReorderedGoods(
   if (isReversed) {
     visibleGoods.reverse();
   }
-  // To avoid the original array mutation
-
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   sortType: SortType,
   isReversed: boolean,
@@ -101,7 +94,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
-    const startOrder = sortType === SortType.NONE && isReversed === false;
+    const startOrder = sortType === SortType.NONE && !isReversed;
 
     return (
       <div className="section content">
@@ -148,18 +141,15 @@ export class App extends React.Component<{}, State> {
             </button>
           )}
         </div>
-
         <ul>
-          <ul>
-            {goods.map(good => (
-              <li
-                key={good}
-                data-cy="Good"
-              >
-                {good}
-              </li>
-            ))}
-          </ul>
+          {goods.map(good => (
+            <li
+              key={good}
+              data-cy="Good"
+            >
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
