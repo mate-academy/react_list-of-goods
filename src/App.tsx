@@ -83,7 +83,7 @@ export class App extends Component<{}, State> {
     });
   };
 
-  restore = () => {
+  reset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -92,10 +92,8 @@ export class App extends Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const visibleGoods = getReorderedGoods(
-      [...goodsFromServer],
-      { sortType, isReversed },
-    );
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+    const isShouldReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
@@ -125,19 +123,18 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={cn(
-              'button is-warning',
-              { 'is-light': !isReversed },
+              'button is-warning', { 'is-light': !isReversed },
             )}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {isShouldReset && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.restore}
+              onClick={this.reset}
             >
               Reset
             </button>
@@ -145,12 +142,11 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map((good) => (
-              <li data-cy="Good" key={good}>{good}</li>
-            ))}
-          </ul>
+          {visibleGoods.map((good) => (
+            <li data-cy="Good" key={good}>{good}</li>
+          ))}
         </ul>
+
       </div>
     );
   }
