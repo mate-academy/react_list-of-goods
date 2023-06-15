@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -32,25 +33,25 @@ export class App extends PureComponent<{}, ReorderOptions> {
     sortType: SortType.NONE,
   };
 
-  handleSortAlphabetically = () => {
+  sortAlphabetically = () => {
     this.setState({
       sortType: SortType.ALPHABET,
     });
   };
 
-  handleSortByLength = () => {
+  sortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
   };
 
-  handleReverse = () => {
+  reverse = () => {
     this.setState((prevState) => ({
       isReversed: !prevState.isReversed,
     }));
   };
 
-  handleReset = () => {
+  reset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -64,14 +65,13 @@ export class App extends PureComponent<{}, ReorderOptions> {
     switch (sortType) {
       case SortType.ALPHABET:
         visibleGoods.sort();
-
         break;
+
       case SortType.LENGTH:
         visibleGoods.sort((a, b) => a.length - b.length);
-
         break;
-      default:
 
+      default:
         break;
     }
 
@@ -84,7 +84,7 @@ export class App extends PureComponent<{}, ReorderOptions> {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const isResetBtnVisible = sortType !== SortType.NONE || isReversed;
+    const isResetButtonVisible = sortType !== SortType.NONE || isReversed;
     const visibleGoods = this.getReorderedGoods();
 
     return (
@@ -92,48 +92,51 @@ export class App extends PureComponent<{}, ReorderOptions> {
         <div className="buttons">
           <button
             type="button"
-            className={
-              `button is-info ${this.state.sortType === SortType.ALPHABET
-                ? ''
-                : 'is-light'
-              }`
-            }
-            onClick={this.handleSortAlphabetically}
+            className={cn(
+              'button',
+              'is-info',
+              {
+                'is-light': sortType !== SortType.ALPHABET,
+              },
+            )}
+            onClick={this.sortAlphabetically}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={
-              `button is-success ${this.state.sortType === SortType.LENGTH
-                ? ''
-                : 'is-light'
-              }`
-            }
-            onClick={this.handleSortByLength}
+            className={cn(
+              'button',
+              'is-success',
+              {
+                'is-light': sortType !== SortType.LENGTH,
+              },
+            )}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={
-              `button is-warning ${this.state.isReversed
-                ? ''
-                : 'is-light'
-              }`
-            }
-            onClick={this.handleReverse}
+            className={cn(
+              'button',
+              'is-warning',
+              {
+                'is-light': !isReversed,
+              },
+            )}
+            onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {isResetBtnVisible && (
+          {isResetButtonVisible && (
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.handleReset}
+              onClick={this.reset}
             >
               Reset
             </button>
