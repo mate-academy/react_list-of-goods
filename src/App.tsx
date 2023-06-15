@@ -77,7 +77,7 @@ export class App extends React.Component<{}, State> {
   render() {
     const { sortType, isReversed } = this.state;
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
-    const isResetActive = sortType !== SortType.NONE || isReversed !== false;
+    const isResetActive = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
