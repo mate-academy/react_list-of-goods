@@ -27,6 +27,11 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
+interface State {
+  isReversed: boolean,
+  sortType: SortType,
+};
+
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
@@ -53,8 +58,8 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-export class App extends React.Component {
-  state = {
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
     isReversed: false,
     sortType: SortType.NONE,
   };
@@ -72,11 +77,9 @@ export class App extends React.Component {
   };
 
   reverseGoods = () => {
-    this.setState(() => {
-      const { isReversed } = this.state;
-
-      return { isReversed: !isReversed };
-    });
+    this.setState(state => (
+      {isReversed: !state.isReversed}
+    ));
   };
 
   resetGoods = () => {
