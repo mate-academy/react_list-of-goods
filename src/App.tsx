@@ -86,10 +86,10 @@ export class App extends React.Component<{}, State> {
 
   render(): React.ReactNode {
     const { isReversed, sortType } = this.state;
-
     const reorderedGoods = getReorderedGoods(goodsFromServer, {
       sortType, isReversed,
     });
+    const isSorted = sortType !== SortType.NONE || isReversed === true;
 
     return (
       <div className="section content">
@@ -123,18 +123,17 @@ export class App extends React.Component<{}, State> {
           >
             Reverse
           </button>
-          {
-            (sortType !== SortType.NONE || isReversed === true)
-            && (
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.resetSorting}
-              >
-                Reset
-              </button>
-            )
-          }
+
+          { isSorted
+          && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.resetSorting}
+            >
+              Reset
+            </button>
+          )}
         </div>
 
         <ul>
