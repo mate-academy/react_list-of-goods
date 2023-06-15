@@ -41,9 +41,15 @@ export class App extends Component<{}, State> {
   };
 
   sortGoodsAlphabetic = () => {
-    this.setState(() => ({
+    this.setState({
       sortType: SortType.ALPHABET,
-    }));
+    });
+  };
+
+  sortGoodsByLength = () => {
+    this.setState({
+      sortType: SortType.LENGTH,
+    });
   };
 
   resetState = () => {
@@ -53,16 +59,10 @@ export class App extends Component<{}, State> {
     });
   };
 
-  sortGoodsByLength = () => {
-    this.setState(() => ({
-      sortType: SortType.LENGTH,
-    }));
-  };
-
   render() {
     const { isReversed, sortType } = this.state;
-
-    getReorderedGoods(goodsFromServer, this.state);
+    const resetButtonCondition = isReversed || sortType !== SortType.NONE;
+    const reorderedGoods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -102,7 +102,7 @@ export class App extends Component<{}, State> {
           >
             Reverse
           </button>
-          {(isReversed || sortType !== SortType.NONE) && (
+          {resetButtonCondition && (
             <button
               type="button"
               className="button is-danger"
@@ -115,7 +115,7 @@ export class App extends Component<{}, State> {
 
         <ul>
           <ul>
-            {getReorderedGoods(goodsFromServer, this.state).map(good => (
+            {reorderedGoods.map(good => (
               <li data-cy="Good">{good}</li>
             ))}
           </ul>
