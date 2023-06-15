@@ -67,7 +67,7 @@ export class App extends React.Component<{}, ReorderOptions> {
     sortType: SortType.NONE,
   };
 
-  clickOnSort = (sortType: SortType) => {
+  sortListOnClick = (sortType: SortType) => {
     switch (sortType) {
       case SortType.ALPHABET:
         this.setState({
@@ -95,13 +95,13 @@ export class App extends React.Component<{}, ReorderOptions> {
     }
   };
 
-  clickOnReverse = () => (
+  handleClickReverse = () => (
     this.setState((state) => ({
       isReversed: !state.isReversed,
     }))
   );
 
-  clickOnReset = () => {
+  handleClickReset = () => {
     this.setState({
       isReversed: false,
       sortType: SortType.NONE,
@@ -119,42 +119,30 @@ export class App extends React.Component<{}, ReorderOptions> {
         <div className="buttons">
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-info',
-              {
-                'is-light': sortType !== SortType.ALPHABET,
-              },
-            )}
-            onClick={() => this.clickOnSort(SortType.ALPHABET)}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
+            onClick={() => this.sortListOnClick(SortType.ALPHABET)}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-success',
-              {
-                'is-light': sortType !== SortType.LENGTH,
-              },
-            )}
-            onClick={() => this.clickOnSort(SortType.LENGTH)}
+            className={cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
+            onClick={() => this.sortListOnClick(SortType.LENGTH)}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-warning',
-              {
-                'is-light': !isReversed,
-              },
-            )}
-            onClick={this.clickOnReverse}
+            className={cn('button is-danger', {
+              'is-light': !isReversed,
+            })}
+            onClick={this.handleClickReverse}
           >
             Reverse
           </button>
@@ -163,7 +151,7 @@ export class App extends React.Component<{}, ReorderOptions> {
             <button
               type="button"
               className="button is-danger is-light"
-              onClick={this.clickOnReset}
+              onClick={this.handleClickReset}
             >
               Reset
             </button>
