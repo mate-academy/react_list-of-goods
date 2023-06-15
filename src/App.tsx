@@ -92,17 +92,16 @@ export class App extends React.Component <{}, State> {
       goodsFromServer,
       this.state,
     );
+    const isNotReset = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={classNames(
-              'button',
-              'is-info',
-              { 'is-light': sortType !== SortType.ALPHABET },
-            )}
+            className={classNames('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -111,11 +110,9 @@ export class App extends React.Component <{}, State> {
           <button
             type="button"
             onClick={this.sortByLength}
-            className={classNames(
-              'button',
-              'is-success',
-              { 'is-light': sortType !== SortType.LENGTH },
-            )}
+            className={classNames('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
           >
             Sort by length
           </button>
@@ -132,7 +129,7 @@ export class App extends React.Component <{}, State> {
             Reverse
           </button>
 
-          {sortType !== SortType.NONE || isReversed
+          {isNotReset
             ? (
               <button
                 onClick={this.resetSort}
