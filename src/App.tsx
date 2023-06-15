@@ -101,8 +101,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={cn(
-              'button is-info',
-              { 'is-light': sortType !== SortType.ALPHABET },
+              'button is-info', { 'is-light': sortType !== SortType.ALPHABET },
             )}
             onClick={this.sortByAlphabet}
           >
@@ -112,8 +111,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={cn(
-              'button is-success',
-              { 'is-light': sortType !== SortType.LENGTH },
+              'button is-success', { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortByLength}
           >
