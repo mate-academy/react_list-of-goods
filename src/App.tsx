@@ -38,13 +38,18 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((item1, item2) => item1.length - item2.length);
-  }
+  visibleGoods.sort((item1, item2) => {
+    switch (sortType) {
+      case SortType.ALPHABET:
+        return item1.localeCompare(item2);
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort();
-  }
+      case SortType.LENGTH:
+        return item1.length - item2.length;
+
+      default:
+        return 0;
+    }
+  });
 
   if (isReversed) {
     visibleGoods.reverse();
@@ -82,18 +87,16 @@ export class App extends React.Component<{}, State> {
   render() {
     const { isReversed, sortType } = this.state;
     const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
-    const isVisibleReset = isReversed || sortType !== SortType.NONE;
+    const isResetVisible = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-info',
-              { 'is-light': sortType !== SortType.ALPHABET },
-            )}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -101,11 +104,9 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-success',
-              { 'is-light': sortType !== SortType.LENGTH },
-            )}
+            className={cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -113,17 +114,15 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-warning',
-              { 'is-light': !isReversed },
-            )}
+            className={cn('button is-warning', {
+              'is-light': !isReversed,
+            })}
             onClick={this.reverseList}
           >
             Reverse
           </button>
 
-          {(isVisibleReset)
+          {isResetVisible
           && (
             <button
               type="button"
