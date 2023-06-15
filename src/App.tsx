@@ -1,4 +1,5 @@
 import React from 'react';
+import cn from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -96,39 +97,36 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={`button is-info ${sortType !== SortType.ALPHABET
-              ? 'is-light'
-              : ''}`}
             onClick={this.sortByAlphabet}
+            className={cn('button is-info',
+              { 'is-light': sortType !== SortType.ALPHABET })}
           >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={`button is-success ${sortType !== SortType.LENGTH
-              ? 'is-light'
-              : ''}`}
             onClick={this.sortByLength}
+            className={cn('button is-success',
+              { 'is-light': sortType !== SortType.LENGTH })}
           >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={`button is-warning ${!isReversed
-              ? 'is-light'
-              : ''}`}
             onClick={this.reverse}
+            className={cn('button is-warning',
+              { 'is-light': !isReversed })}
           >
             Reverse
           </button>
 
           {(sortType !== SortType.NONE || isReversed) && (
             <button
+              onClick={this.reset}
               type="button"
               className="button is-danger is-light"
-              onClick={this.reset}
             >
               Reset
             </button>
