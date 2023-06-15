@@ -126,7 +126,7 @@ export class App extends React.Component<{}, State> {
             Reverse
           </button>
 
-          {(isOrderChanged) && (
+          {isOrderChanged && (
             <button
               type="button"
               className="button is-danger is-light"
