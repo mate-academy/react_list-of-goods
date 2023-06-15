@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -27,15 +27,12 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   if (sortType === SortType.ALPHABET) {
     visibleGoods.sort((product1, product2) => (
       product1.localeCompare(product2)
@@ -55,7 +52,6 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -100,7 +96,7 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={classNames('button is-info', {
+            className={cn('button is-info', {
               'is-light': sortType !== SortType.ALPHABET,
             })}
             onClick={this.sortByAlphabet}
@@ -110,7 +106,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-success', {
+            className={cn('button is-success', {
               'is-light': sortType !== SortType.LENGTH,
             })}
             onClick={this.sortByLength}
@@ -120,7 +116,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={classNames('button is-warning', {
+            className={cn('button is-warning', {
               'is-light': isReversed !== true,
             })}
             onClick={this.reverse}
