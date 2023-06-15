@@ -63,11 +63,11 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  alphabetSort = () => {
+  sortAlphabetically = () => {
     return this.setState({ sortType: SortType.ALPHABET });
   };
 
-  lengthSort = () => {
+  sortByLength = () => {
     this.setState({ sortType: SortType.LENGTH });
   };
 
@@ -84,6 +84,9 @@ export class App extends React.Component<{}, State> {
       this.state,
     );
 
+    const resetCondition = this.state.sortType !== SortType.NONE
+    || this.state.isReversed === true;
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -92,7 +95,7 @@ export class App extends React.Component<{}, State> {
             className={classNames('button is-info', {
               'is-light': this.state.sortType !== SortType.ALPHABET,
             })}
-            onClick={this.alphabetSort}
+            onClick={this.sortAlphabetically}
           >
             Sort alphabetically
           </button>
@@ -102,7 +105,7 @@ export class App extends React.Component<{}, State> {
             className={classNames('button is-success', {
               'is-light': this.state.sortType !== SortType.LENGTH,
             })}
-            onClick={this.lengthSort}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
@@ -118,18 +121,15 @@ export class App extends React.Component<{}, State> {
           </button>
 
           {
-            this.state.sortType !== SortType.NONE
-            || this.state.isReversed === true
-              ? (
-                <button
-                  type="button"
-                  className="button is-danger is-light"
-                  onClick={this.reset}
-                >
-                  Reset
-                </button>
-              )
-              : true
+            resetCondition && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )
           }
         </div>
 
