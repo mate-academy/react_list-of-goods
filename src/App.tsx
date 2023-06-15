@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -33,12 +33,17 @@ export function getReorderedGoods(
 ) {
   const visibleGoods = [...goods];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort();
-  }
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort();
+      break;
 
-  if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => a.length - b.length);
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+
+    default:
+      break;
   }
 
   if (isReversed) {
@@ -97,12 +102,9 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={this.sortByAlphabet}
-            className={classNames(
-              'button is-info',
-              {
-                'is-light': sortType !== SortType.ALPHABET,
-              },
-            )}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
           >
             Sort alphabetically
           </button>
@@ -110,12 +112,9 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={this.sortByLength}
-            className={classNames(
-              'button is-success',
-              {
-                'is-light': sortType !== SortType.LENGTH,
-              },
-            )}
+            className={cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
           >
             Sort by length
           </button>
@@ -123,12 +122,9 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={this.reverse}
-            className={classNames(
-              'button is-warning',
-              {
-                'is-light': !isReversed,
-              },
-            )}
+            className={cn('button is-warning', {
+              'is-light': !isReversed,
+            })}
           >
             Reverse
           </button>
