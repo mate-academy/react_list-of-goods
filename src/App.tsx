@@ -72,15 +72,15 @@ export class App extends React.PureComponent<{}, State> {
       { ...prevState, isReversed: !prevState.isReversed }));
   };
 
-  buttonClickAbc = (): void => {
+  buttonClickByAlphabet = (): void => {
     this.setState(prevState => ({ ...prevState, sortType: SortType.ALPHABET }));
   };
 
-  buttonClickLength = (): void => {
+  buttonClickByLength = (): void => {
     this.setState(prevState => ({ ...prevState, sortType: SortType.LENGTH }));
   };
 
-  buttonClickReset = (): void => {
+  buttonClickResetGoodsList = (): void => {
     this.setState(prevState => (
       { ...prevState, isReversed: false, sortType: SortType.NONE }));
   };
@@ -96,7 +96,7 @@ export class App extends React.PureComponent<{}, State> {
             id="SortByAbc"
             className={`button is-info
               ${(this.state.sortType === SortType.ALPHABET ? '' : 'is-light')}`}
-            onClick={this.buttonClickAbc}
+            onClick={this.buttonClickByAlphabet}
           >
             Sort alphabetically
           </button>
@@ -106,7 +106,7 @@ export class App extends React.PureComponent<{}, State> {
             id="SortByLength"
             className={`button is-success
               ${(this.state.sortType === SortType.LENGTH ? '' : 'is-light')}`}
-            onClick={this.buttonClickLength}
+            onClick={this.buttonClickByLength}
           >
             Sort by length
           </button>
@@ -127,7 +127,7 @@ export class App extends React.PureComponent<{}, State> {
               type="button"
               id="reset"
               className="button is-danger is-light"
-              onClick={this.buttonClickReset}
+              onClick={this.buttonClickResetGoodsList}
             >
               Reset
             </button>
