@@ -60,7 +60,7 @@ type State = {
 };
 
 export class App extends React.PureComponent<{}, State> {
-  goods = [...goodsFromServer];
+  goods: string[] = [];
 
   state = {
     isReversed: false,
@@ -72,7 +72,7 @@ export class App extends React.PureComponent<{}, State> {
       { ...prevState, isReversed: !prevState.isReversed }));
   };
 
-  buttonClickByAlphabet = (): void => {
+  sortByAlphabet = (): void => {
     this.setState(prevState => ({ ...prevState, sortType: SortType.ALPHABET }));
   };
 
@@ -86,7 +86,7 @@ export class App extends React.PureComponent<{}, State> {
   };
 
   render() {
-    this.goods = getReorderedGoods(this.goods, this.state);
+    this.goods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -96,7 +96,7 @@ export class App extends React.PureComponent<{}, State> {
             id="SortByAbc"
             className={`button is-info
               ${(this.state.sortType === SortType.ALPHABET ? '' : 'is-light')}`}
-            onClick={this.buttonClickByAlphabet}
+            onClick={this.sortByAlphabet}
           >
             Sort alphabetically
           </button>
