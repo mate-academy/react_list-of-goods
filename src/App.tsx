@@ -27,12 +27,10 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   visibleGoods.sort((good1, good2) => {
@@ -92,14 +90,17 @@ export class App extends React.Component<{}, State> {
 
     const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
 
+    const shouldReset = sortType !== SortType.NONE || isReversed;
+
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
             onClick={this.sortByAlphabet}
-            className={cn('button is-info',
-              { 'is-light': sortType !== SortType.ALPHABET })}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
           >
             Sort alphabetically
           </button>
@@ -107,8 +108,9 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={this.sortByLength}
-            className={cn('button is-success',
-              { 'is-light': sortType !== SortType.LENGTH })}
+            className={cn('button is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
           >
             Sort by length
           </button>
@@ -116,13 +118,14 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={this.reverse}
-            className={cn('button is-warning',
-              { 'is-light': !isReversed })}
+            className={cn('button is-warning', {
+              'is-light': !isReversed,
+            })}
           >
             Reverse
           </button>
 
-          {(sortType !== SortType.NONE || isReversed) && (
+          {shouldReset && (
             <button
               onClick={this.reset}
               type="button"
