@@ -69,7 +69,7 @@ export class App extends React.PureComponent<{}, State> {
 
   buttonClickReverse = (): void => {
     this.setState(prevState => (
-      { ...prevState, isReversed: !prevState.isReversed }));
+      { isReversed: !prevState.isReversed }));
   };
 
   sortByAlphabet = (): void => {
@@ -81,8 +81,7 @@ export class App extends React.PureComponent<{}, State> {
   };
 
   buttonClickResetGoodsList = (): void => {
-    this.setState(prevState => (
-      { ...prevState, isReversed: false, sortType: SortType.NONE }));
+    this.setState({ isReversed: false, sortType: SortType.NONE });
   };
 
   render() {
