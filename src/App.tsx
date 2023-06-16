@@ -16,10 +16,42 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
+type ReorderOptions = {
+  sortType: SortType,
+  isReversed: boolean,
+};
+
 enum SortType {
   NONE,
   ALPHABET,
   LENGTH,
+}
+
+export function getReorderedGoods(
+  goods: string[],
+  { sortType, isReversed }: ReorderOptions,
+): string[] {
+  let visibleGoods = [...goods];
+
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+
+    default:
+      visibleGoods = [...goodsFromServer];
+      break;
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
+  return visibleGoods;
 }
 
 type State = {
@@ -27,7 +59,7 @@ type State = {
   sortType: number,
 };
 
-export class App extends React.Component<{}, State> {
+export class App extends React.PureComponent<{}, State> {
   goods = [...goodsFromServer];
 
   state = {
@@ -36,28 +68,26 @@ export class App extends React.Component<{}, State> {
   };
 
   buttonClickReverse = (): void => {
-    this.goods = this.goods.reverse();
     this.setState(prevState => (
       { ...prevState, isReversed: !prevState.isReversed }));
   };
 
   buttonClickAbc = (): void => {
-    this.goods = [...this.goods.sort((a, b) => a.localeCompare(b))];
     this.setState(prevState => ({ ...prevState, sortType: SortType.ALPHABET }));
   };
 
   buttonClickLength = (): void => {
-    this.goods = [...this.goods.sort((a, b) => a.length - b.length)];
     this.setState(prevState => ({ ...prevState, sortType: SortType.LENGTH }));
   };
 
   buttonClickReset = (): void => {
-    this.goods = [...goodsFromServer];
     this.setState(prevState => (
       { ...prevState, isReversed: false, sortType: SortType.NONE }));
   };
 
   render() {
+    this.goods = getReorderedGoods(this.goods, this.state);
+
     return (
       <div className="section content">
         <div className="buttons">
