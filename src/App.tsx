@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
@@ -31,7 +30,7 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ): string[] {
-  let visibleGoods = [...goods];
+  const visibleGoods = [...goods];
 
   switch (sortType) {
     case SortType.ALPHABET:
@@ -43,7 +42,6 @@ export function getReorderedGoods(
       break;
 
     default:
-      visibleGoods = [...goodsFromServer];
       break;
   }
 
@@ -60,14 +58,12 @@ type State = {
 };
 
 export class App extends React.PureComponent<{}, State> {
-  goods: string[] = [];
-
   state = {
     isReversed: false,
     sortType: 0,
   };
 
-  buttonClickReverse = (): void => {
+  goodsListReverse = (): void => {
     this.setState(prevState => (
       { isReversed: !prevState.isReversed }));
   };
@@ -76,16 +72,18 @@ export class App extends React.PureComponent<{}, State> {
     this.setState(prevState => ({ ...prevState, sortType: SortType.ALPHABET }));
   };
 
-  buttonClickByLength = (): void => {
+  sortByLength = (): void => {
     this.setState(prevState => ({ ...prevState, sortType: SortType.LENGTH }));
   };
 
-  buttonClickResetGoodsList = (): void => {
+  resetGoodsList = (): void => {
     this.setState({ isReversed: false, sortType: SortType.NONE });
   };
 
   render() {
-    this.goods = getReorderedGoods(goodsFromServer, this.state);
+    const { sortType } = this.state;
+
+    const goods = getReorderedGoods(goodsFromServer, this.state);
 
     return (
       <div className="section content">
@@ -94,7 +92,7 @@ export class App extends React.PureComponent<{}, State> {
             type="button"
             id="SortByAbc"
             className={`button is-info
-              ${(this.state.sortType === SortType.ALPHABET ? '' : 'is-light')}`}
+              ${(sortType === SortType.ALPHABET ? '' : 'is-light')}`}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -104,8 +102,8 @@ export class App extends React.PureComponent<{}, State> {
             type="button"
             id="SortByLength"
             className={`button is-success
-              ${(this.state.sortType === SortType.LENGTH ? '' : 'is-light')}`}
-            onClick={this.buttonClickByLength}
+              ${(sortType === SortType.LENGTH ? '' : 'is-light')}`}
+            onClick={this.sortByLength}
           >
             Sort by length
           </button>
@@ -113,20 +111,20 @@ export class App extends React.PureComponent<{}, State> {
           <button
             type="button"
             id="reverse"
-            onClick={this.buttonClickReverse}
+            onClick={this.goodsListReverse}
             className={`button is-warning
               ${(this.state.isReversed ? '' : 'is-light')}`}
           >
             Reverse
           </button>
 
-          {(this.state.isReversed || this.state.sortType !== SortType.NONE)
+          {(this.state.isReversed || sortType !== SortType.NONE)
           && (
             <button
               type="button"
               id="reset"
               className="button is-danger is-light"
-              onClick={this.buttonClickResetGoodsList}
+              onClick={this.resetGoodsList}
             >
               Reset
             </button>
@@ -135,7 +133,7 @@ export class App extends React.PureComponent<{}, State> {
 
         <ul>
           <ul>
-            {this.goods.map(productName => (
+            {goods.map(productName => (
               <li data-cy="Good" key={productName}>{productName}</li>
             ))}
           </ul>
