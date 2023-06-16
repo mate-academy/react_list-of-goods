@@ -44,9 +44,9 @@ export class App extends React.Component<{}, State> {
     }));
   };
 
-  sortBy = (sortTypeKey: SortType) => {
+  sortBy = (sortType: SortType) => {
     this.setState(() => ({
-      sortType: sortTypeKey,
+      sortType,
     }));
   };
 
