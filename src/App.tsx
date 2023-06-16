@@ -22,7 +22,12 @@ enum SortType {
   LENGTH,
 }
 
-export class App extends React.Component {
+type State = {
+  isReversed: boolean,
+  sortType: number,
+};
+
+export class App extends React.Component<{}, State> {
   goods = [...goodsFromServer];
 
   state = {
