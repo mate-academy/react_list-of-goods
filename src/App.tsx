@@ -27,7 +27,6 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
@@ -90,7 +89,13 @@ export class App extends React.Component<{}, State> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+
+    let visibleGoods = [...goodsFromServer];
+
+    if (sortType !== SortType.NONE) {
+      visibleGoods = getReorderedGoods(visibleGoods, this.state);
+    }
+
     const defaultOrder = isReversed === false && sortType === SortType.NONE;
 
     return (
