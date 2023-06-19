@@ -85,7 +85,7 @@ export class App extends React.Component<{}, State> {
     );
 
     const resetCondition = this.state.sortType !== SortType.NONE
-    || this.state.isReversed === true;
+    || this.state.isReversed;
 
     return (
       <div className="section content">
@@ -132,7 +132,6 @@ export class App extends React.Component<{}, State> {
             )
           }
         </div>
-
         <ul>
           {sortedList.map(product => (
             <li data-cy="Good" key={product}>
