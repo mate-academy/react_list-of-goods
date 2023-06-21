@@ -114,7 +114,7 @@ export class App extends Component<{}, State> {
           <button
             type="button"
             className={classNames(
-              'button is-info',
+              'button is-success',
               { 'is-light': sortType !== SortType.LENGTH },
             )}
             onClick={this.sortLength}
