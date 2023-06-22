@@ -78,11 +78,7 @@ export class App extends Component<{}, State> {
   };
 
   reverse = () => {
-    this.setState({ isReversed: true });
-
-    if (this.state.isReversed) {
-      this.setState({ isReversed: false });
-    }
+    this.setState(prev => ({ isReversed: !prev.isReversed }));
   };
 
   reset = () => {
