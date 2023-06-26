@@ -94,19 +94,16 @@ export class App extends Component<{}, State> {
     const { sortType, isReversed } = this.state;
 
     const goods = getReorderedGoods(goodsFromServer, this.state);
+    const canReset = isReversed || sortType !== SortType.NONE;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-info',
-              {
-                'is-light': sortType !== SortType.ALPHABET,
-              },
-            )}
+            className={cn('button is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.sortByAlphabet}
           >
             Sort alphabetically
@@ -128,19 +125,15 @@ export class App extends Component<{}, State> {
 
           <button
             type="button"
-            className={cn(
-              'button',
-              'is-warning',
-              {
-                'is-light': !isReversed,
-              },
-            )}
+            className={cn('button is-warning', {
+              'is-light': !isReversed,
+            })}
             onClick={this.reverse}
           >
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && (
+          {(canReset) && (
             <button
               type="button"
               className="button is-danger is-light"
