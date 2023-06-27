@@ -19,36 +19,24 @@ export const goodsFromServer = [
 const SORT_FEILD_ALPH = 'alph';
 const SORT_FEILD_LENGTH = 'length';
 
-function getPrepearedGoods(goods, toDo, direction) {
+function getPrepearedGoods(goods, sortType, isReversed) {
   const prepearedGoods = [...goods];
 
-  if (!toDo && direction) {
-    return prepearedGoods.reverse();
-  }
+  prepearedGoods.sort((good1, good2) => {
+    switch (sortType) {
+      case SORT_FEILD_LENGTH:
+        return good1.length - good2.length;
 
-  if (toDo) {
-    prepearedGoods.sort((good1, good2) => {
-      switch (toDo) {
-        case SORT_FEILD_LENGTH:
-          if (good1.length !== good2.length) {
-            return (direction)
-              ? good2.length - good1.length
-              : good1.length - good2.length;
-          }
+      case SORT_FEILD_ALPH:
+        return good1.localeCompare(good2);
 
-          return (direction)
-            ? good2.localeCompare(good1)
-            : good1.localeCompare(good2);
+      default:
+        return 0;
+    }
+  });
 
-        case SORT_FEILD_ALPH:
-          return (direction)
-            ? good2.localeCompare(good1)
-            : good1.localeCompare(good2);
-
-        default:
-          return 0;
-      }
-    });
+  if (isReversed) {
+    prepearedGoods.reverse();
   }
 
   return prepearedGoods;
@@ -58,6 +46,10 @@ export const App = () => {
   const [sortFeild, setSortFeild] = useState('');
   const [sortReverse, setSortReverse] = useState(false);
   const finalGoods = getPrepearedGoods(goodsFromServer, sortFeild, sortReverse);
+  const resetSort = () => {
+    setSortFeild('');
+    setSortReverse(false);
+  };
 
   return (
     <div className="section content">
@@ -108,10 +100,7 @@ export const App = () => {
           <button
             type="button"
             className="button is-danger is-light"
-            onClick={() => {
-              setSortFeild('');
-              setSortReverse(false);
-            }}
+            onClick={resetSort}
           >
             Reset
           </button>
