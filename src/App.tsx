@@ -31,7 +31,7 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  let visibleGoods = [...goods];
+  const visibleGoods = [...goods];
 
   if (sortType === SortType.ALPHABET) {
     visibleGoods.sort();
@@ -43,45 +43,41 @@ export function getReorderedGoods(
     visibleGoods.reverse();
   }
 
-  console.log(sortType, isReversed);
-
   return visibleGoods;
 }
-
 
 type State = {
   goods: string[]
   isReversed: boolean,
   sortType: SortType,
-}
-
+};
 
 export default class App extends React.Component<{}, State> {
   state: State = {
     goods: [...goodsFromServer],
     isReversed: false,
     sortType: SortType.NONE,
-  }
+  };
 
   sortAlphabetically = () => {
     this.setState((state) => ({
       sortType: SortType.ALPHABET,
       isReversed: false,
-    }))
+    }));
   };
 
   reset = () => {
     this.setState((state) => ({
       sortType: SortType.NONE,
       isReversed: false,
-    }))
+    }));
   };
 
   sortByLength = () => {
     this.setState((state) => ({
       sortType: SortType.LENGTH,
       isReversed: false,
-    }))
+    }));
   };
 
   reverseGoods = () => {
@@ -93,50 +89,50 @@ export default class App extends React.Component<{}, State> {
   render() {
     const { goods, isReversed, sortType } = this.state;
     const visibleGoods = getReorderedGoods(goods, { sortType, isReversed });
-    const isOriginalOrder = sortType === SortType.NONE && !isReversed;
+    const isHidden = sortType === SortType.NONE && !isReversed;
 
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className={`button is-info ${sortType === SortType.ALPHABET ? '' : 'is-light'}`}
-          onClick={this.sortAlphabetically}
-        >
-          Sort alphabetically
-        </button>
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={`button is-info ${sortType === SortType.ALPHABET ? '' : 'is-light'}`}
+            onClick={this.sortAlphabetically}
+          >
+            Sort alphabetically
+          </button>
 
-        <button
-          type="button"
-          className={`button is-success ${sortType === SortType.LENGTH ? '' : 'is-light'}`}
-          onClick={this.sortByLength}
-        >
-          Sort by length
-        </button>
+          <button
+            type="button"
+            className={`button is-success ${sortType === SortType.LENGTH ? '' : 'is-light'}`}
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
 
-        <button
-          type="button"
-          className={`button is-warning ${isReversed ? '' : 'is-light'}`}
-          onClick={this.reverseGoods}
-        >
-          Reverse
-        </button>
+          <button
+            type="button"
+            className={`button is-warning ${isReversed ? '' : 'is-light'}`}
+            onClick={this.reverseGoods}
+          >
+            Reverse
+          </button>
 
-        <button
-          type="button"
-          className={`button is-danger ${isOriginalOrder ? 'hide-reset' : 'is-light'}`}
-          onClick={this.reset}
-        >
-          Reset
-        </button>
+          <button
+            type="button"
+            className={`button is-danger ${isHidden ? 'hidden-reset-button' : 'is-light'}`}
+            onClick={this.reset}
+          >
+            Reset
+          </button>
+        </div>
+
+        <ul>
+          {visibleGoods.map((good: string, value: number) => (
+            <li key={value} data-cy="Good">{good}</li>
+          ))}
+        </ul>
       </div>
-
-      <ul>
-        {visibleGoods.map((good: string, index: number) => (
-          <li key={index} data-cy="Good">{good}</li>
-        ))}
-      </ul>
-    </div>
-  )
+    );
   }
-};
+}
