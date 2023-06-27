@@ -60,21 +60,21 @@ export default class App extends React.Component<{}, State> {
   };
 
   sortAlphabetically = () => {
-    this.setState((state) => ({
+    this.setState(() => ({
       sortType: SortType.ALPHABET,
       isReversed: false,
     }));
   };
 
   reset = () => {
-    this.setState((state) => ({
+    this.setState(() => ({
       sortType: SortType.NONE,
       isReversed: false,
     }));
   };
 
   sortByLength = () => {
-    this.setState((state) => ({
+    this.setState(() => ({
       sortType: SortType.LENGTH,
       isReversed: false,
     }));
@@ -129,6 +129,7 @@ export default class App extends React.Component<{}, State> {
 
         <ul>
           {visibleGoods.map((good: string, value: number) => (
+            // eslint-disable-next-line react/no-array-index-key
             <li key={value} data-cy="Good">{good}</li>
           ))}
         </ul>
