@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import 'bulma/css/bulma.css';
 import './App.scss';
 import { useState } from 'react';
@@ -58,47 +60,53 @@ export const App = () => {
   const [sortReverse, setSortReverse] = useState(false);
   const updateGoods = getNewSort(goodsFromServer, sortField, sortReverse);
 
+  const newSortField = (field) => {
+    setSortField(field);
+  };
+
+  const newSortReverse = () => {
+    setSortReverse(!sortReverse);
+  };
+
+  const buttonClasses = classNames('button', 'is-info', {
+    'is-light': sortField !== SORT_FIELD_ALPHABET,
+  });
+
+  const sortByLength = classNames('button', 'is-info', 'is-success', {
+    'is-light': sortField !== SORT_FIELD_LENGTH,
+  });
+
+  const reverseClasses = classNames('button', 'is-info', 'is-warning', {
+    'is-light': !sortReverse,
+  });
+
+  const resetClasses = classNames('button', 'is-danger', 'is-light', {
+    hidden: sortField === '' && !sortReverse,
+  });
+
   return (
     <div className="section content">
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${
-            sortField !== SORT_FIELD_ALPHABET
-              ? 'is-light'
-              : ''
-          }`}
-          onClick={() => {
-            setSortField(SORT_FIELD_ALPHABET);
-          }}
+          className={buttonClasses}
+          onClick={() => newSortField(SORT_FIELD_ALPHABET)}
         >
           Sort alphabetically
         </button>
 
         <button
           type="button"
-          className={`button is-info is-success ${
-            sortField !== SORT_FIELD_LENGTH
-              ? 'is-light'
-              : ''
-          }`}
-          onClick={() => {
-            setSortField(SORT_FIELD_LENGTH);
-          }}
+          className={sortByLength}
+          onClick={() => newSortField(SORT_FIELD_LENGTH)}
         >
           Sort by length
         </button>
 
         <button
           type="button"
-          className={`button is-info is-warning ${
-            sortReverse
-              ? ''
-              : 'is-light'
-          }`}
-          onClick={() => {
-            setSortReverse(!sortReverse);
-          }}
+          className={reverseClasses}
+          onClick={newSortReverse}
         >
           Reverse
         </button>
@@ -106,7 +114,7 @@ export const App = () => {
         {(sortField !== '' || sortReverse) && (
           <button
             type="button"
-            className="button is-danger is-light"
+            className={resetClasses}
             onClick={() => {
               setSortField('');
               setSortReverse(false);
