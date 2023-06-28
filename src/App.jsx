@@ -3,6 +3,7 @@ import './App.scss';
 import { useState } from 'react';
 import classNames from 'classnames';
 import { Goods } from './components/Goods';
+import { SORT_BY } from './constants';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -17,9 +18,6 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-const SORT_BY_LENGTH = 'length';
-const SORT_BY_ALPHABET = 'alphabetically';
-
 function getPreparedGoods(goods, sortType, isReverseD) {
   const preparedGoods = [...goodsFromServer];
 
@@ -30,12 +28,12 @@ function getPreparedGoods(goods, sortType, isReverseD) {
   if (sortType) {
     preparedGoods.sort((good1, good2) => {
       switch (sortType) {
-        case SORT_BY_ALPHABET:
+        case SORT_BY.ALPHABET:
           return isReverseD
             ? good2.localeCompare(good1)
             : good1.localeCompare(good2);
 
-        case SORT_BY_LENGTH:
+        case SORT_BY.LENGTH:
           return isReverseD
             ? good2.length - good1.length
             : good1.length - good2.length;
@@ -65,9 +63,9 @@ export const App = () => {
         <button
           type="button"
           className={classNames('button is-info',
-            sortField === SORT_BY_ALPHABET ? '' : 'is-light')
+            sortField === SORT_BY.ALPHABET ? '' : 'is-light')
           }
-          onClick={() => setSortField(SORT_BY_ALPHABET)}
+          onClick={() => setSortField(SORT_BY.ALPHABET)}
         >
           Sort alphabetically
         </button>
@@ -75,9 +73,9 @@ export const App = () => {
         <button
           type="button"
           className={classNames('button is-info',
-            sortField === SORT_BY_LENGTH ? '' : 'is-light')
+            sortField === SORT_BY.LENGTH ? '' : 'is-light')
           }
-          onClick={() => setSortField(SORT_BY_LENGTH)}
+          onClick={() => setSortField(SORT_BY.LENGTH)}
         >
           Sort by length
         </button>
