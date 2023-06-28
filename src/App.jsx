@@ -19,7 +19,7 @@ export const goodsFromServer = [
 ];
 
 function getPreparedGoods(goods, sortType, isReverseD) {
-  const preparedGoods = [...goodsFromServer];
+  const preparedGoods = [...goods];
 
   if (!sortType && isReverseD) {
     return preparedGoods.reverse();
@@ -93,7 +93,7 @@ export const App = () => {
           <button
             type="button"
             className="button is-danger is-light"
-            onClick={() => reset()}
+            onClick={reset}
           >
             Reset
           </button>
