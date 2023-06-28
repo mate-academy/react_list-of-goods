@@ -36,7 +36,6 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
   visibleGoods.sort((g1, g2) => {
@@ -89,6 +88,8 @@ export class App extends React.Component<{}, State> {
   };
 
   render() {
+    const goods = getReorderedGoods(goodsFromServer, this.state);
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -142,15 +143,14 @@ export class App extends React.Component<{}, State> {
         <ul>
           <ul>
             {
-              getReorderedGoods(goodsFromServer, this.state)
-                .map(good => (
-                  <li
-                    key={good}
-                    data-cy="Good"
-                  >
-                    {good}
-                  </li>
-                ))
+              goods.map(good => (
+                <li
+                  key={good}
+                  data-cy="Good"
+                >
+                  {good}
+                </li>
+              ))
             }
           </ul>
         </ul>
