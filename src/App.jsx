@@ -17,49 +17,6 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-// export const App = () => (
-//   <div className="section content">
-//     <div className="buttons">
-//       <button
-//         type="button"
-//         className="button is-info is-light"
-//       >
-//         Sort alphabetically
-//       </button>
-
-//       <button
-//         type="button"
-//         className="button is-success is-light"
-//       >
-//         Sort by length
-//       </button>
-
-//       <button
-//         type="button"
-//         className="button is-warning is-light"
-//       >
-//         Reverse
-//       </button>
-
-//       <button
-//         type="button"
-//         className="button is-danger is-light"
-//       >
-//         Reset
-//       </button>
-//     </div>
-
-//     <ul>
-//       <li data-cy="Good">Dumplings</li>
-//       <li data-cy="Good">Carrot</li>
-//       <li data-cy="Good">Eggs</li>
-//       <li data-cy="Good">Ice cream</li>
-//       <li data-cy="Good">Apple</li>
-//       <li data-cy="Good">...</li>
-//     </ul>
-//   </div>
-// );
-
 const SORT_FILD_ALPHABET = 'Sort alphabetically';
 const SORT_FILD_LENGTH = 'Sort by length';
 const REVERSE_FILD = 'Reverse';
