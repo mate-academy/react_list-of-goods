@@ -57,8 +57,7 @@ export const App = () => {
         <button
           type="button"
           className={cn(
-            'button',
-            'is-info',
+            'button is-info',
             { 'is-light': sortFeild !== SORT_FEILD_ALPH },
           )}
           onClick={() => {
@@ -71,8 +70,7 @@ export const App = () => {
         <button
           type="button"
           className={cn(
-            'button',
-            'is-success',
+            'button is-success',
             { 'is-light': sortFeild !== SORT_FEILD_LENGTH },
           )}
           onClick={() => {
@@ -85,8 +83,7 @@ export const App = () => {
         <button
           type="button"
           className={cn(
-            'button',
-            'is-warning',
+            'button is-warning',
             { 'is-light': !sortReverse },
           )}
           onClick={() => {
