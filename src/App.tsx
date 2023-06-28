@@ -34,9 +34,17 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort();
-  } else if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => a.length - b.length);
+    visibleGoods.sort((a, b) => (a.localeCompare(b)));
+  }
+
+  if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((a, b) => {
+      if (a.length - b.length === 0) {
+        return a.localeCompare(b);
+      }
+
+      return a.length - b.length;
+    });
   }
 
   if (isReversed) {
@@ -128,9 +136,9 @@ export default class App extends React.Component<{}, State> {
         </div>
 
         <ul>
-          {visibleGoods.map((good: string, value: number) => (
+          {visibleGoods.map((good: string) => (
             // eslint-disable-next-line react/no-array-index-key
-            <li key={value} data-cy="Good">{good}</li>
+            <li key={good} data-cy="Good">{good}</li>
           ))}
         </ul>
       </div>
