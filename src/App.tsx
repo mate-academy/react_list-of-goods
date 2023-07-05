@@ -105,7 +105,15 @@ export class App extends React.Component<{}, ReorderOptions> {
             Reverse
           </button>
 
-          {(isReversed || sortType !== SortType.NONE) && <button type="button" className="button is-danger is-light" onClick={this.reset}>Reset</button>}
+          {(isReversed || sortType !== SortType.NONE) && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
+          )}
 
         </div>
 
