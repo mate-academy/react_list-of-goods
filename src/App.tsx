@@ -27,7 +27,7 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-export class App extends React.PureComponent {
+export class App extends React.PureComponent<{}, ReorderOptions> {
   state = {
     isReversed: false,
     sortType: SortType.NONE as SortType,
@@ -39,13 +39,28 @@ export class App extends React.PureComponent {
   ) => {
     const visibleGoods = [...goods];
 
-    if (sortType === SortType.ALPHABET) {
-      visibleGoods.sort();
-    }
+    // if (sortType === SortType.ALPHABET) {
+    //   visibleGoods.sort();
+    // }
 
-    if (sortType === SortType.LENGTH) {
-      visibleGoods.sort((a, b) => a.length - b.length);
-    }
+    // if (sortType === SortType.LENGTH) {
+    //   visibleGoods.sort((a, b) => a.length - b.length);
+    // }
+
+    // if (isReversed) {
+    //   visibleGoods.reverse();
+    // }
+
+    visibleGoods.sort((a, b) => {
+      switch (sortType) {
+        case SortType.ALPHABET:
+          return a.localeCompare(b);
+        case SortType.LENGTH:
+          return a.length - b.length;
+        default:
+          return SortType.NONE;
+      }
+    });
 
     if (isReversed) {
       visibleGoods.reverse();
@@ -63,30 +78,35 @@ export class App extends React.PureComponent {
   };
 
   reverse = () => {
-    this.setState({ isReversed: !this.state.isReversed });
+    this.setState(state => ({
+      isReversed: !state.isReversed,
+    }));
   };
 
   reset = () => {
-    this.setState({ isReversed: false });
-    this.setState({ sortType: SortType.NONE });
+    this.setState({
+      sortType: SortType.NONE,
+      isReversed: false,
+    });
   };
 
   render() {
     const { isReversed, sortType } = this.state;
-    let visibleGoods = [...goodsFromServer];
+    // let visibleGoods = [...goodsFromServer];
+    const visibleGoods = this.getReorderedGoods(goodsFromServer, this.state);
 
-    if (sortType === SortType.ALPHABET) {
-      visibleGoods = this.getReorderedGoods(goodsFromServer,
-        { sortType: SortType.ALPHABET, isReversed });
-    } else if (sortType === SortType.LENGTH) {
-      visibleGoods = this.getReorderedGoods(goodsFromServer,
-        { sortType: SortType.LENGTH, isReversed });
-    }
+    // if (sortType === SortType.ALPHABET) {
+    //   visibleGoods = this.getReorderedGoods(goodsFromServer,
+    //     { sortType: SortType.ALPHABET, isReversed });
+    // } else if (sortType === SortType.LENGTH) {
+    //   visibleGoods = this.getReorderedGoods(goodsFromServer,
+    //     { sortType: SortType.LENGTH, isReversed });
+    // }
 
-    if (isReversed) {
-      visibleGoods = this.getReorderedGoods(goodsFromServer,
-        { sortType, isReversed: true });
-    }
+    // if (isReversed) {
+    //   visibleGoods = this.getReorderedGoods(goodsFromServer,
+    //     { sortType, isReversed: true });
+    // }
 
     return (
       <div className="section content">
@@ -122,25 +142,21 @@ export class App extends React.PureComponent {
           </button>
 
           {(isReversed || sortType !== SortType.NONE) && (
-            <>
-              <button
-                type="button"
-                className="button is-danger is-light"
-                onClick={this.reset}
-              >
-                Reset
-              </button>
-            </>
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.reset}
+            >
+              Reset
+            </button>
           )}
 
         </div>
 
         <ul>
-          <ul>
-            {visibleGoods.map(item => (
-              <li data-cy="Good" key={item}>{item}</li>
-            ))}
-          </ul>
+          {visibleGoods.map(item => (
+            <li data-cy="Good" key={item}>{item}</li>
+          ))}
         </ul>
       </div>
     );
