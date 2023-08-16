@@ -39,18 +39,6 @@ export class App extends React.PureComponent<{}, ReorderOptions> {
   ) => {
     const visibleGoods = [...goods];
 
-    // if (sortType === SortType.ALPHABET) {
-    //   visibleGoods.sort();
-    // }
-
-    // if (sortType === SortType.LENGTH) {
-    //   visibleGoods.sort((a, b) => a.length - b.length);
-    // }
-
-    // if (isReversed) {
-    //   visibleGoods.reverse();
-    // }
-
     visibleGoods.sort((a, b) => {
       switch (sortType) {
         case SortType.ALPHABET:
@@ -92,21 +80,7 @@ export class App extends React.PureComponent<{}, ReorderOptions> {
 
   render() {
     const { isReversed, sortType } = this.state;
-    // let visibleGoods = [...goodsFromServer];
     const visibleGoods = this.getReorderedGoods(goodsFromServer, this.state);
-
-    // if (sortType === SortType.ALPHABET) {
-    //   visibleGoods = this.getReorderedGoods(goodsFromServer,
-    //     { sortType: SortType.ALPHABET, isReversed });
-    // } else if (sortType === SortType.LENGTH) {
-    //   visibleGoods = this.getReorderedGoods(goodsFromServer,
-    //     { sortType: SortType.LENGTH, isReversed });
-    // }
-
-    // if (isReversed) {
-    //   visibleGoods = this.getReorderedGoods(goodsFromServer,
-    //     { sortType, isReversed: true });
-    // }
 
     return (
       <div className="section content">
