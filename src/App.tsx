@@ -1,5 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
+import classNames from 'classnames';
+
 import './App.scss';
 import { GoodsList } from './components/GoodsList';
 
@@ -68,13 +70,9 @@ export class App extends React.PureComponent {
     });
   };
 
-  reverse = () => {
-    const previousIsRevesved = this.state.isReversed;
-
-    this.setState({
-      isReversed: !previousIsRevesved,
-    });
-  };
+  reverse = () => this.setState((prevState: State) => ({
+    isReversed: !prevState.isReversed,
+  }));
 
   reset = () => {
     this.setState({
@@ -85,18 +83,15 @@ export class App extends React.PureComponent {
 
   render() {
     const { sortType, isReversed } = this.state;
-    const isLight = 'is-light';
-    const buttonBaseClasses = 'button is-';
-    const alphabeticalButtonClasses = `info ${sortType !== SortType.ALPHABET ? isLight : ''}`;
-    const lengthButtonClasses = `success ${sortType !== SortType.LENGTH ? isLight : ''}`;
-    const reverseButtonClasses = `warning ${isReversed ? '' : isLight}`;
 
     return (
       <div className="section content">
         <div className="buttons">
           <button
             type="button"
-            className={`${buttonBaseClasses}${alphabeticalButtonClasses}`}
+            className={classNames('button', 'is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
             onClick={this.sortAlphabetically}
           >
             Sort alphabetically
@@ -104,7 +99,9 @@ export class App extends React.PureComponent {
 
           <button
             type="button"
-            className={`${buttonBaseClasses}${lengthButtonClasses}`}
+            className={classNames('button', 'is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -112,7 +109,9 @@ export class App extends React.PureComponent {
 
           <button
             type="button"
-            className={`${buttonBaseClasses}${reverseButtonClasses}`}
+            className={classNames('button', 'is-warning', {
+              'is-light': !isReversed,
+            })}
             onClick={this.reverse}
           >
             Reverse
@@ -121,7 +120,7 @@ export class App extends React.PureComponent {
           {(sortType !== SortType.NONE || isReversed) && (
             <button
               type="button"
-              className={`${buttonBaseClasses}danger ${isLight}`}
+              className="button is-danger is-light"
               onClick={this.reset}
             >
               Reset

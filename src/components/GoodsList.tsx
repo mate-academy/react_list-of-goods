@@ -4,10 +4,8 @@ type GoddsListProps = {
   goods: string[]
 };
 
-export const GoodsList = ({ goods }: GoddsListProps) => {
-  return (
-    <ul>
-      {goods.map(good => <Good name={good} key={goods.indexOf(good)} />)}
-    </ul>
-  );
-};
+export const GoodsList = ({ goods }: GoddsListProps) => (
+  <ul>
+    {goods.map(good => <Good name={good} key={good} />)}
+  </ul>
+);
