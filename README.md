@@ -8,7 +8,7 @@ Implement the ability to reorder the goods with the given buttons.
     - remove `is-light` class from the button when this order is applied;
 1. `Sort by length` button should sort the goods by length.
     - remove `is-light` class from the button when this order is applied;
-1. `Reverse` button changes the current order to the opposite one. 
+1. `Reverse` button changes the current order to the opposite one.
     - it should work together with any sorting;
     - remove `is-light` class from the button when goods are reversed;
     - the second click should show goods in the direct order;
