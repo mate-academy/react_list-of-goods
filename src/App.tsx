@@ -30,26 +30,26 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  const visibleGoods = [...goods];
+  const sortedGoods = [...goods];
 
   switch (sortType) {
     case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => a.localeCompare(b));
+      sortedGoods.sort((a, b) => a.localeCompare(b));
       break;
     case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
+      sortedGoods.sort((a, b) => a.length - b.length);
       break;
     default:
   }
 
   if (isReversed) {
-    visibleGoods.reverse();
+    sortedGoods.reverse();
   }
 
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
-  return visibleGoods;
+  return sortedGoods;
 }
 
 type State = {
@@ -104,12 +104,11 @@ export class App extends React.PureComponent<{}, State> {
             type="button"
             className={`button ${this.state.isReversed ? 'is-warning' : 'is-light'}`}
             onClick={this.handleReverseClick}
-
           >
             Reverse
           </button>
 
-          { (this.state.sortType || this.state.isReversed) && (
+          {(this.state.sortType || this.state.isReversed) && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -121,14 +120,11 @@ export class App extends React.PureComponent<{}, State> {
         </div>
 
         <ul>
-
-          <ul>
-            {visibleGoods.map(good => {
-              return (
-                <li data-cy="Good" key={good}>{good}</li>
-              );
-            })}
-          </ul>
+          {visibleGoods.map(good => {
+            return (
+              <li data-cy="Good" key={good}>{good}</li>
+            );
+          })}
         </ul>
       </div>
     );
