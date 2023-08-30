@@ -52,11 +52,13 @@ type State = {
   sortType: SortType,
 };
 
+const INITIAL_STATE: State = {
+  isReversed: false,
+  sortType: SortType.NONE,
+};
+
 export class App extends React.PureComponent {
-  state: Readonly<State> = {
-    isReversed: false,
-    sortType: SortType.NONE,
-  };
+  state: Readonly<State> = INITIAL_STATE;
 
   sortAlphabetically = () => {
     this.setState({
@@ -75,10 +77,7 @@ export class App extends React.PureComponent {
   }));
 
   reset = () => {
-    this.setState({
-      isReversed: false,
-      sortType: SortType.NONE,
-    });
+    this.setState(INITIAL_STATE);
   };
 
   render() {
