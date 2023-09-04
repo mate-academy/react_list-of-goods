@@ -43,7 +43,7 @@ export function getReorderedGoods(
   }
 
   if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a,b) => a.length - b.length);
+    visibleGoods.sort((a, b) => a.length - b.length);
   }
 
   if (isReversed) {
@@ -120,7 +120,8 @@ export const App: React.FC = () => {
           Reverse
         </button>
 
-        {reorderOptions.sortType !== SortType.NONE && (
+        {((reorderOptions.sortType !== SortType.NONE)
+        || (reorderOptions.isReversed === true)) && (
           <button
             type="button"
             className="button is-danger"
@@ -133,12 +134,6 @@ export const App: React.FC = () => {
 
       <ul>
         <ul>
-          {/* <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li> */}
           {getReorderedGoods(goodsFromServer, reorderOptions)
             .map((li) => (
               <li data-cy="Good" key={li}>
