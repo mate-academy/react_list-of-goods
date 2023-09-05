@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import cn from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -34,20 +35,13 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   let visibleGoods = [...goods];
 
-  document.getElementById('alphabet-button')?.classList.add('is-light');
-  document.getElementById('reverse-button')?.classList.add('is-light');
-  document.getElementById('length-button')?.classList.add('is-light');
-
   if (sortType === SortType.ALPHABET) {
-    document.getElementById('alphabet-button')?.classList.remove('is-light');
     visibleGoods = [...visibleGoods].sort((a, b) => a.localeCompare(b));
   } else if (sortType === SortType.LENGTH) {
-    document.getElementById('length-button')?.classList.remove('is-light');
     visibleGoods = [...visibleGoods].sort((a, b) => a.length - b.length);
   }
 
   if (isReversed) {
-    document.getElementById('reverse-button')?.classList.remove('is-light');
     visibleGoods = [...visibleGoods].reverse();
   }
 
@@ -96,7 +90,9 @@ export class App extends Component<{}, State> {
           <button
             id="alphabet-button"
             type="button"
-            className="button is-info is-light"
+            className={cn('button', 'is-info', {
+              'is-light': this.state.sortType !== SortType.ALPHABET,
+            })}
             onClick={this.sortAlphabetically}
           >
             Sort alphabetically
@@ -105,7 +101,9 @@ export class App extends Component<{}, State> {
           <button
             id="length-button"
             type="button"
-            className="button is-success is-light"
+            className={cn('button', 'is-success', {
+              'is-light': this.state.sortType !== SortType.LENGTH,
+            })}
             onClick={this.sortByLength}
           >
             Sort by length
@@ -114,7 +112,9 @@ export class App extends Component<{}, State> {
           <button
             id="reverse-button"
             type="button"
-            className="button is-warning is-light"
+            className={cn('button', 'is-warning', {
+              'is-light': !this.state.isReversed,
+            })}
             onClick={this.reverseOrder}
           >
             Reverse
