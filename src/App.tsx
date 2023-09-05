@@ -64,20 +64,17 @@ export class App extends React.Component<{}, State> {
   ) => {
     const visibleGoods = [...goods];
 
-    if (this.state.sortType === SortType.ALPHABET) {
+    if (sortType === SortType.ALPHABET) {
       visibleGoods.sort((a, b) => a.localeCompare(b));
     }
 
-    if (this.state.sortType === SortType.LENGTH) {
+    if (sortType === SortType.LENGTH) {
       visibleGoods.sort((a, b) => a.length - b.length);
     }
 
-    if (this.state.isReversed) {
+    if (isReversed) {
       visibleGoods.reverse();
     }
-
-    // eslint-disable-next-line no-console
-    console.log(sortType, isReversed);
 
     return visibleGoods;
   };
