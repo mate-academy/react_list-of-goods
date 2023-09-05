@@ -33,16 +33,16 @@ export function getReorderedGoods(
   { sortType, isReversed }: ReorderOptions,
 ) {
   // To avoid the original array mutation
-  let visibleGoods = [...goods];
+  const visibleGoods = [...goods];
 
   if (sortType === SortType.ALPHABET) {
-    visibleGoods = [...visibleGoods].sort((a, b) => a.localeCompare(b));
+    visibleGoods.sort((a, b) => a.localeCompare(b));
   } else if (sortType === SortType.LENGTH) {
-    visibleGoods = [...visibleGoods].sort((a, b) => a.length - b.length);
+    visibleGoods.sort((a, b) => a.length - b.length);
   }
 
   if (isReversed) {
-    visibleGoods = [...visibleGoods].reverse();
+    visibleGoods.reverse();
   }
 
   // eslint-disable-next-line no-console
