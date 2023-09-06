@@ -31,34 +31,27 @@ type ReorderOptions = {
 export function getReorderedGoods(
   { sortType, isReversed }: ReorderOptions,
 ) {
-  let visibleGoods = [...goodsFromServer];
+  const visibleGoods = [...goodsFromServer];
 
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods = visibleGoods.sort((a, b) => a.localeCompare(b));
-  } else if (sortType === SortType.LENGTH) {
-    visibleGoods = visibleGoods.sort((a, b) => {
-      const lengthDiffrence = a.length - b.length;
+  visibleGoods.sort((a, b) => {
+    if (sortType === SortType.ALPHABET) {
+      return a.localeCompare(b);
+    }
 
-      if (lengthDiffrence === 0) {
-        return a.localeCompare(b);
-      }
+    if (sortType === SortType.LENGTH) {
+      return a.length - b.length;
+    }
 
-      return lengthDiffrence;
-    });
-  }
+    return 0;
+  });
 
   if (isReversed) {
-    visibleGoods = visibleGoods.reverse();
+    visibleGoods.reverse();
   }
-
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
