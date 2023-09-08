@@ -142,16 +142,14 @@ export class App extends React.Component<{}, State> {
         <ul>
           <ul>
             {getReorderedGoods(goodsFromServer, { sortType, isReversed }).map(
-              (good) => {
-                return (
-                  <li
-                    key={good}
-                    data-cy="Good"
-                  >
-                    {good}
-                  </li>
-                );
-              },
+              (good) => (
+                <li
+                  key={good}
+                  data-cy="Good"
+                >
+                  {good}
+                </li>
+              ),
             )}
           </ul>
         </ul>
