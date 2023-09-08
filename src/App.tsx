@@ -71,6 +71,7 @@ export class App extends React.Component {
 
   render() {
     const { sortType, isReversed }: ReorderOptions = this.state;
+    const isResetVisible = (sortType !== SortType.NONE || isReversed);
 
     return (
       <div className="section content">
@@ -104,7 +105,7 @@ export class App extends React.Component {
             Reverse
           </button>
 
-          {(sortType !== 0 || isReversed) && (
+          {isResetVisible && (
             <button
               type="button"
               className="button is-danger is-light"
@@ -122,7 +123,7 @@ export class App extends React.Component {
           <ul>
             {getReorderedGoods(goodsFromServer,
               { sortType, isReversed }).map(good => (
-            // eslint-disable-next-line @typescript-eslint/indent
+              // eslint-disable-next-line @typescript-eslint/indent
                 <li key={good} data-cy="Good">{good}</li>
             ))}
           </ul>
