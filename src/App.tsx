@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -45,98 +45,105 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-export const App: React.FC = () => {
-  const [state, setState] = useState({
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
+};
+
+export class App extends React.Component<{}, State> {
+  state: State = {
     isReversed: false,
     sortType: SortType.NONE,
-  });
+  };
 
-  const sort = (sortType: SortType) => () => {
-    setState({
-      ...state,
+  sort = (sortType: SortType) => () => {
+    this.setState({
       sortType,
     });
   };
 
-  const reverse = () => {
-    setState({
-      ...state,
-      isReversed: !state.isReversed,
-    });
+  reverse = () => {
+    this.setState(
+      (previousState) => ({
+        isReversed: !previousState.isReversed,
+      }),
+    );
   };
 
-  const reset = () => {
-    setState({
+  reset = () => {
+    this.setState({
       sortType: SortType.NONE,
       isReversed: false,
     });
   };
 
-  const { isReversed, sortType } = state;
+  render() {
+    const { isReversed, sortType } = this.state;
 
-  return (
-    <>
-      <div className="section content">
-        <div className="buttons">
-          <button
-            type="button"
-            className={
-              sortType === SortType.ALPHABET
-                ? 'button is-info'
-                : 'button is-info is-light'
-            }
-            onClick={sort(SortType.ALPHABET)}
-          >
-            Sort alphabetically
-          </button>
-
-          <button
-            type="button"
-            className={
-              sortType === SortType.LENGTH
-                ? 'button is-info'
-                : 'button is-info is-light'
-            }
-            onClick={sort(SortType.LENGTH)}
-          >
-            Sort by length
-          </button>
-
-          <button
-            type="button"
-            className={
-              isReversed === true
-                ? 'button is-info'
-                : 'button is-info is-light'
-            }
-            onClick={reverse}
-          >
-            Reverse
-          </button>
-
-          {(sortType !== SortType.NONE || isReversed) && (
+    return (
+      <>
+        <div className="section content">
+          <div className="buttons">
             <button
               type="button"
-              className="button is-danger is-light"
-              onClick={reset}
+              className={
+                sortType === SortType.ALPHABET
+                  ? 'button is-info'
+                  : 'button is-info is-light'
+              }
+              onClick={this.sort(SortType.ALPHABET)}
             >
-              Reset
+              Sort alphabetically
             </button>
-          )}
-        </div>
 
-        <ul>
+            <button
+              type="button"
+              className={
+                sortType === SortType.LENGTH
+                  ? 'button is-info'
+                  : 'button is-info is-light'
+              }
+              onClick={this.sort(SortType.LENGTH)}
+            >
+              Sort by length
+            </button>
+
+            <button
+              type="button"
+              className={
+                isReversed === true
+                  ? 'button is-info'
+                  : 'button is-info is-light'
+              }
+              onClick={this.reverse}
+            >
+              Reverse
+            </button>
+
+            {(sortType !== SortType.NONE || isReversed) && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={this.reset}
+              >
+                Reset
+              </button>
+            )}
+          </div>
+
           <ul>
-            {getReorderedGoods(goodsFromServer, state).map((good) => {
-              return (
-                <li key={good} data-cy="Good">
-                  {good}
-                </li>
-              );
-            })}
+            <ul>
+              {getReorderedGoods(goodsFromServer, this.state).map((good) => {
+                return (
+                  <li key={good} data-cy="Good">
+                    {good}
+                  </li>
+                );
+              })}
+            </ul>
           </ul>
-        </ul>
-      </div>
-    </>
-  );
-};
+        </div>
+      </>
+    );
+  }
+}
