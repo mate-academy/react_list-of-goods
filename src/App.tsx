@@ -32,27 +32,27 @@ export function getReorderedGoods(
   { sortType, isReversed }: ReorderOptions,
 ) {
   // To avoid the original array mutation
-  const visibleGoods = [...goods];
+  const sortedGoods = [...goods];
 
   switch (sortType) {
     case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => a.localeCompare(b));
+      sortedGoods.sort((a, b) => a.localeCompare(b));
       break;
     case SortType.LENGTH:
-      visibleGoods.sort((a, b) => a.length - b.length);
+      sortedGoods.sort((a, b) => a.length - b.length);
       break;
     default:
   }
 
   if (isReversed) {
-    visibleGoods.reverse();
+    sortedGoods.reverse();
   }
 
   // Sort and reverse goods if needed
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
-  return visibleGoods;
+  return sortedGoods;
 }
 
 // DON'T save goods to the state
@@ -123,12 +123,6 @@ export class App extends React.PureComponent<{}, State> {
           )}
         </div>
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
           {visibleGoods.map(good => {
             return (
               <li data-cy="Good" key={good}>{good}</li>
