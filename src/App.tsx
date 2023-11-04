@@ -117,8 +117,8 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={
               isReversed === true
-                ? 'button is-info'
-                : 'button is-info is-light'
+                ? 'button is-warning'
+                : 'button is-warning is-light'
             }
             onClick={this.reverseOrder}
           >
