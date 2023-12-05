@@ -129,11 +129,8 @@ export const App = () => {
 
       <ul>
         <ul>
-          {getReorderedGoods(goodsFromServer, state).map(good => {
-            return (
-              <li data-cy="Good" key={good}>{good}</li>
-            );
-          })}
+          {getReorderedGoods(goodsFromServer, state).map(good => (
+            <li data-cy="Good" key={good}>{good}</li>))}
         </ul>
       </ul>
     </div>
