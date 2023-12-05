@@ -2,11 +2,11 @@ import { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
-type ReorderOptions = {
-  sortType: SortType,
-  isReversed?: boolean,
-};
-
+enum SortType {
+  NONE,
+  ALPHABET,
+  LENGTH,
+}
 export const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -20,15 +20,10 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
-}
-
 export function getReorderedGoods(
   goods: string[],
-  { sortType, isReversed }: ReorderOptions,
+  sortType: SortType,
+  isReversed: boolean,
 ) {
   const visibleGoods = [...goods];
 
@@ -56,30 +51,20 @@ export function getReorderedGoods(
 }
 
 export const App = () => {
-  const [state, setState] = useState<ReorderOptions>({
-    sortType: SortType.NONE,
-    isReversed: false,
-  });
-
-  const { sortType, isReversed } = state;
+  const [sortType, setSortType] = useState<SortType>(SortType.NONE);
+  const [isReversed, setIsReversed] = useState<boolean>(false);
 
   const handleReset = () => {
-    setState({
-      sortType: SortType.NONE,
-      isReversed: false,
-    });
+    setSortType(SortType.NONE);
+    setIsReversed(false);
   };
 
   const handleReverse = () => {
-    setState(prevState => ({
-      ...prevState, isReversed: !prevState.isReversed,
-    }));
+    setIsReversed(prevState => !prevState);
   };
 
   const handleSort = (type: SortType) => () => {
-    setState(prevState => ({
-      ...prevState, sortType: type,
-    }));
+    setSortType(type);
   };
 
   return (
@@ -129,8 +114,8 @@ export const App = () => {
 
       <ul>
         <ul>
-          {getReorderedGoods(goodsFromServer, state).map(good => (
-            <li data-cy="Good" key={good}>{good}</li>))}
+          {getReorderedGoods(goodsFromServer, sortType, isReversed)
+            .map(good => (<li data-cy="Good" key={good}>{good}</li>))}
         </ul>
       </ul>
     </div>
