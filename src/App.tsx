@@ -27,17 +27,11 @@ type ReorderOptions = {
   isReversed: boolean,
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
-
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   visibleGoods.sort((good1, good2) => {
     if (sortType === SortType.ALPHABET) {
@@ -58,7 +52,6 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean,
   sortType: SortType,
@@ -99,7 +92,6 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            // className="button is-info is-light"
             className={cn('button is-info', {
               'is-light': this.state.sortType !== SortType.ALPHABET,
             })}
@@ -150,7 +142,3 @@ export class App extends React.Component<{}, State> {
     );
   }
 }
-
-// function sortAlphabetically(): React.MouseEventHandler<HTMLButtonElement> | undefined {
-//   throw new Error('Function not implemented.');
-// }
