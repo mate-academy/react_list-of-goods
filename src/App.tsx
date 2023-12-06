@@ -31,65 +31,104 @@ export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
+  let visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
+  if (sortType === 1 && isReversed === false) {
+    visibleGoods = visibleGoods.sort((a, b) => {
+      return a.localeCompare(b);
+    });
+  } else if (sortType === 2 && isReversed === false) {
+    visibleGoods = visibleGoods.sort((a, b) => {
+      return a.length - b.length;
+    });
+  } else if (sortType === 1 && isReversed === true) {
+    visibleGoods = visibleGoods.sort((a, b) => {
+      return b.localeCompare(a);
+    });
+  } else if (sortType === 2 && isReversed === true) {
+    visibleGoods = visibleGoods.sort((a, b) => {
+      return a.length - b.length;
+    }).reverse();
+  } else if (sortType === 0 && isReversed === true) {
+    visibleGoods = visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
-
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
-
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
-
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
-    </div>
-  );
+type State = {
+  isReversed: boolean,
+  sortType: SortType,
 };
+
+export class App extends React.Component {
+  state: State = {
+    isReversed: false,
+    sortType: 0,
+  }
+
+  render() {
+    const goods = getReorderedGoods(goodsFromServer, this.state);
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={this.state.sortType === 1
+              ? 'button is-info'
+              : 'button is-info is-light'}
+            onClick={() => this.setState({ sortType: 1 })}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={this.state.sortType === 2
+              ? 'button is-success'
+              : 'button is-success is-light'}
+            onClick={() => this.setState({ sortType: 2 })}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={this.state.isReversed === true
+              ? 'button is-warning'
+              : 'button is-warning is-light'}
+            onClick={() => (this.state.isReversed
+              ? this.setState({ isReversed: false })
+              : this.setState({ isReversed: true }))}
+          >
+            Reverse
+          </button>
+
+          {(this.state.sortType !== 0 || this.state.isReversed === true)
+        && (
+          <button
+            type="button"
+            className="button is-danger is-light"
+            onClick={() => this.setState({ sortType: 0, isReversed: false })}
+          >
+            Reset
+          </button>
+        )}
+        </div>
+
+        <ul>
+          {goods.map(good => {
+            return (
+              <li key={good} data-cy="Good">{good}</li>
+            );
+          })}
+        </ul>
+
+      </div>
+    );
+  }
+}
