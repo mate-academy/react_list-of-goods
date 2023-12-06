@@ -42,54 +42,113 @@ export function getReorderedGoods(
 }
 
 // DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className="button is-info is-light"
-        >
-          Sort alphabetically
-        </button>
+export class App extends React.Component {
+  state = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-        <button
-          type="button"
-          className="button is-success is-light"
-        >
-          Sort by length
-        </button>
+  handleSortClick = (sortType: SortType) => {
+    this.setState({ sortType });
+  }
 
-        <button
-          type="button"
-          className="button is-warning is-light"
-        >
-          Reverse
-        </button>
+  handleReverseClick = () => {
+    const { isReversed } = this.state;
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-        >
-          Reset
-        </button>
-      </div>
+    if (isReversed === true) {
+      this.setState({ isReversed: false });
+    } else {
+      this.setState({ isReversed: true });
+    }
+  }
 
-      <ul>
+  render() {
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={this.state.sortType === SortType.ALPHABET
+              ? 'button is-info' : 'button is-info is-light'}
+            onClick={() => this.handleSortClick(SortType.ALPHABET)}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={this.state.sortType === SortType.LENGTH
+              ? 'button is-success' : 'button is-success is-light'}
+            onClick={() => this.handleSortClick(SortType.LENGTH)}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={this.state.isReversed === true
+              ? 'button is-warning' : 'button is-warning is-light'}
+            onClick={() => this.handleReverseClick()}
+          >
+            Reverse
+          </button>
+
+          {!(this.state.sortType === SortType.NONE
+              && this.state.isReversed === false)
+            && (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={() => this
+                  .setState({ isReversed: false, sortType: SortType.NONE })}
+              >
+                Reset
+              </button>
+            )}
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          <ul>
+            {
+              [...goodsFromServer].sort((good1, good2) => {
+                if (this.state.sortType === SortType.ALPHABET
+                  && this.state.isReversed === false) {
+                  return good1.localeCompare(good2);
+                }
+
+                if (this.state.sortType === SortType.ALPHABET
+                  && this.state.isReversed === true) {
+                  return good2.localeCompare(good1);
+                }
+
+                if (this.state.sortType === SortType.LENGTH
+                  && this.state.isReversed === false) {
+                  return good1.length - good2.length
+                    + 0.1 * (good1.localeCompare(good2) > 0 ? 1 : -1);
+                }
+
+                if (this.state.sortType === SortType.LENGTH
+                  && this.state.isReversed === true) {
+                  return good2.length - good1.length
+                  + 0.1 * (good2.localeCompare(good1) > 0 ? 1 : -1);
+                }
+
+                if (this.state.sortType === SortType.NONE
+                  && this.state.isReversed === false) {
+                  return goodsFromServer.indexOf(good1)
+                  - goodsFromServer.indexOf(good2);
+                }
+
+                return goodsFromServer.indexOf(good2)
+                - goodsFromServer.indexOf(good1);
+              }).map((good) => (
+                <li data-cy="Good">{good}</li>
+              ))
+            }
+          </ul>
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
