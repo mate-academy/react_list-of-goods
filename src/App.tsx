@@ -46,7 +46,7 @@ export function getReorderedGoods(
   }
 
   if (isReversed) {
-    visibleGoods = visibleGoods.reverse();
+    visibleGoods.reverse();
   }
 
   // eslint-disable-next-line no-console
@@ -60,7 +60,7 @@ type State = {
   sortType: SortType,
 };
 
-export class App extends React.Component<null, State> {
+export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
@@ -80,6 +80,13 @@ export class App extends React.Component<null, State> {
     }));
   };
 
+  handleReset = () => {
+    this.setState({
+      sortType: SortType.NONE, 
+      isReversed: false,
+    })
+  };
+
   render() {
     const goods = getReorderedGoods(goodsFromServer, this.state);
 
@@ -88,9 +95,8 @@ export class App extends React.Component<null, State> {
         <div className="buttons">
           <button
             type="button"
-            className={this.state.sortType === SortType.ALPHABET
-              ? 'button is-info'
-              : 'button is-info is-light'}
+            className={`button is-info 
+              ${this.state.sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
             onClick={this.handleSortAlphabetically}
           >
             Sort alphabetically
@@ -98,9 +104,8 @@ export class App extends React.Component<null, State> {
 
           <button
             type="button"
-            className={this.state.sortType === SortType.LENGTH
-              ? 'button is-success'
-              : 'button is-success is-light'}
+            className={`button is-success 
+              ${this.state.sortType !== SortType.LENGTH ? 'is-light' : ''}`}
             onClick={this.handleSortByLength}
           >
             Sort by length
@@ -108,9 +113,8 @@ export class App extends React.Component<null, State> {
 
           <button
             type="button"
-            className={this.state.isReversed === true
-              ? 'button is-warning'
-              : 'button is-warning is-light'}
+            className={`button is-warning 
+            ${!this.state.isReversed ? 'is-light' : ''}`}
             onClick={this.handleReverse}
           >
             Reverse
