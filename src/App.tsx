@@ -82,9 +82,9 @@ export class App extends React.Component<{}, State> {
 
   handleReset = () => {
     this.setState({
-      sortType: SortType.NONE, 
+      sortType: SortType.NONE,
       isReversed: false,
-    })
+    });
   };
 
   render() {
