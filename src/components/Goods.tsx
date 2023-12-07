@@ -1,3 +1,5 @@
+import 'bulma/css/bulma.css';
+
 type Props = {
   goods: string[];
 };
