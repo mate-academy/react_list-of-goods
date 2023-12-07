@@ -63,7 +63,7 @@ state = {
   sortType: SortType.NONE,
 }
 
-Sortalphabetically = () => {
+sortAlphabetically = () => {
   this.setState({ sortType: SortType.ALPHABET });
 }
 
@@ -92,7 +92,7 @@ render() {
         <button
           type="button"
           className={`button is-info ${(sortType !== SortType.ALPHABET) && ('is-light')}`}
-          onClick={this.Sortalphabetically}
+          onClick={this.sortAlphabetically}
         >
           Sort alphabetically
         </button>
@@ -126,7 +126,7 @@ render() {
 
       <ul>
         <ul>
-          {goods.map(good => <li data-cy="Good">{good}</li>)}
+          {goods.map(good => <li data-cy="Good" key={good}>{good}</li>)}
         </ul>
       </ul>
     </div>
