@@ -103,8 +103,8 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={sortType === SortType.LENGTH
-              ? 'button is-info'
-              : 'button is-info is-light'}
+              ? 'button is-success'
+              : 'button is-success is-light'}
             onClick={this.handleSortLen}
           >
             Sort by length
@@ -113,8 +113,8 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className={isReversed
-              ? 'button is-info'
-              : 'button is-info is-light'}
+              ? 'button is-warning'
+              : 'button is-warning is-light'}
             onClick={this.handleReverse}
           >
             Reverse
