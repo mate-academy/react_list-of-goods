@@ -44,10 +44,6 @@ export function getReorderedGoods(
     visibleGoods = [...visibleGoods].reverse();
   }
 
-  if (sortType === SortType.NONE) {
-    visibleGoods = [...visibleGoods];
-  }
-
   return visibleGoods;
 }
 
