@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
+// Define ReorderOptions type
+type ReorderOptions = {
+  sort: SortType | null;
+  isReversed: boolean;
+};
+
 export const goodsFromServer = [
   'Dumplings',
   'Carrot',
@@ -18,50 +24,52 @@ export const goodsFromServer = [
 enum SortType {
   ALPHABET,
   LENGTH,
+  NONE,
 }
 
-type ReorderOptions = {
-  sort: SortType | null;
-  isReversed: boolean;
+const getReorderedGoods = (
+  goods: string[],
+  { sort, isReversed }: ReorderOptions,
+) => {
+  let goodsCopy = [...goods];
+
+  switch (sort) {
+    case SortType.ALPHABET:
+      goodsCopy = goodsCopy.sort((a, b) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      goodsCopy = goodsCopy.sort((a, b) => a.length - b.length);
+      break;
+    default:
+      break;
+  }
+
+  if (isReversed) {
+    goodsCopy.reverse();
+  }
+
+  return goodsCopy;
 };
 
 export const App: React.FC = () => {
-  const [updatedGoods, setUpdatedGoods] = useState<string[]>(goodsFromServer);
-  const [sortType, setSortType] = useState(null as SortType | null);
-  const [isReverse, setIsReversed] = useState(false);
+  const [sortType, setSortType] = useState<SortType | null>(null);
+  const [isReverse, setIsReversed] = useState<boolean>(false);
 
-  const getReorderedGoods = ({ sort, isReversed }: ReorderOptions) => {
-    let goodsCopy = [...goodsFromServer];
-
-    switch (sort) {
-      case SortType.ALPHABET:
-        goodsCopy = goodsCopy.sort((a, b) => a.localeCompare(b));
-        setSortType(SortType.ALPHABET);
-        break;
-      case SortType.LENGTH:
-        goodsCopy = goodsCopy.sort((a, b) => a.length - b.length);
-        setSortType(SortType.LENGTH);
-        break;
-      default:
-        break;
-    }
-
-    if (isReversed) {
-      goodsCopy.reverse();
-    }
-
-    setUpdatedGoods(goodsCopy);
+  const handleSortAlphabetically = () => {
+    setSortType(SortType.ALPHABET);
   };
 
-  const reverseGoods = () => {
+  const handleSortByLength = () => {
+    setSortType(SortType.LENGTH);
+  };
+
+  const handleReverse = () => {
     setIsReversed(!isReverse);
-    getReorderedGoods({ sort: sortType, isReversed: !isReverse });
   };
 
-  const resetGoods = () => {
+  const handleReset = () => {
     setSortType(null);
     setIsReversed(false);
-    setUpdatedGoods(goodsFromServer);
   };
 
   return (
@@ -72,11 +80,7 @@ export const App: React.FC = () => {
           className={sortType === SortType.ALPHABET
             ? 'button is-info'
             : 'button is-info is-light'}
-          onClick={
-            () => getReorderedGoods(
-              { sort: SortType.ALPHABET, isReversed: isReverse },
-            )
-          }
+          onClick={handleSortAlphabetically}
         >
           Sort alphabetically
         </button>
@@ -86,11 +90,7 @@ export const App: React.FC = () => {
           className={sortType === SortType.LENGTH
             ? 'button is-success'
             : 'button is-success is-light'}
-          onClick={
-            () => getReorderedGoods(
-              { sort: SortType.LENGTH, isReversed: isReverse },
-            )
-          }
+          onClick={handleSortByLength}
         >
           Sort by length
         </button>
@@ -100,27 +100,27 @@ export const App: React.FC = () => {
           className={isReverse
             ? 'button is-warning'
             : 'button is-warning is-light'}
-          onClick={reverseGoods}
+          onClick={handleReverse}
         >
           Reverse
         </button>
 
-        {
-          (isReverse || sortType !== null)
-        && (
+        {(isReverse || sortType !== null) && (
           <button
             type="button"
             className="button is-danger is-light"
-            onClick={resetGoods}
+            onClick={handleReset}
           >
             Reset
           </button>
-        )
-        }
+        )}
       </div>
 
       <ul>
-        {updatedGoods.map((good) => (
+        {getReorderedGoods(goodsFromServer, {
+          sort: sortType !== SortType.NONE ? sortType : null,
+          isReversed: isReverse || false,
+        }).map((good) => (
           <li key={good} data-cy="Good">
             {good}
           </li>
