@@ -71,15 +71,12 @@ export class App extends React.Component {
   handleReverseClick = () => {
     const { isReversed } = this.state;
 
-    if (isReversed === true) {
-      this.setState({ isReversed: false });
-    } else {
-      this.setState({ isReversed: true });
-    }
+    this.setState({ isReversed: !isReversed });
   }
 
   render() {
     const { sortType, isReversed } = this.state;
+    const goods = getReorderedGoods(goodsFromServer, { sortType, isReversed });
 
     return (
       <div className="section content">
@@ -128,10 +125,9 @@ export class App extends React.Component {
         <ul>
           <ul>
             {
-              getReorderedGoods(goodsFromServer, { sortType, isReversed })
-                .map((good) => (
-                  <li data-cy="Good">{good}</li>
-                ))
+              goods.map((good) => (
+                <li data-cy="Good">{good}</li>
+              ))
             }
           </ul>
         </ul>
