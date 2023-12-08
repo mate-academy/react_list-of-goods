@@ -100,7 +100,7 @@ export const App = () => {
     ? 'button is-warning' : 'button is-warning is-light';
   const lengthButtonClass
   = reorderOptions.sortType
-  === SortType.LENGTH ? 'button is-success' : 'button is-success is-light'
+  === SortType.LENGTH ? 'button is-success' : 'button is-success is-light';
 
   return (
     <div>
