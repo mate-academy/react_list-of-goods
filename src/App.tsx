@@ -43,6 +43,7 @@ export function getReorderedGoods(
       visibleGoods.sort((good1, good2) => good1.length - good2.length);
       break;
     default:
+      break;
   }
 
   // eslint-disable-next-line no-console
