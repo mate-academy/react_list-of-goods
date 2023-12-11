@@ -74,7 +74,7 @@ export class App extends React.Component {
     this.setState({ isReversed: !isReversed });
   }
 
-  handlerResetClick = () => {
+  handleResetClick = () => {
     this.setState({ isReversed: false, sortType: SortType.NONE });
   }
 
@@ -115,7 +115,7 @@ export class App extends React.Component {
               <button
                 type="button"
                 className="button is-danger is-light"
-                onClick={this.handlerResetClick}
+                onClick={this.handleResetClick}
               >
                 Reset
               </button>
