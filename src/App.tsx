@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -17,30 +17,36 @@ export const goodsFromServer = [
 
 type SortCallback = (a: string, b: string) => number;
 
-interface ButtonsColor {
-  alphabetically: boolean
-  length: boolean
-  reverse: boolean
+type SortType = 'length' | 'alphabetical' | '';
+
+interface State {
+  isReversed: boolean
+  sortType: SortType
+  goods: string[]
 }
 
-export const App: React.FC = () => {
-  const [goods, setGoods] = useState<string[]>(goodsFromServer);
+export class App extends React.Component<{}, State> {
+  state: Readonly<State> = {
+    isReversed: false,
+    sortType: '',
+    goods: goodsFromServer,
+  }
 
-  const [buttons, setButtons] = useState<ButtonsColor>({
-    alphabetically: false,
-    length: false,
-    reverse: false,
-  });
-
-  const sort = (array: string[], callback: SortCallback) => {
+  sort(array: string[], callback: SortCallback) {
     const sorted = array.sort(callback);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    buttons.reverse ? setGoods(sorted.reverse()) : setGoods(sorted);
-  };
+    this.state.isReversed
+      ? this.setState({
+        goods: sorted.reverse(),
+      })
+      : this.setState({
+        goods: sorted,
+      });
+  }
 
-  const sortAlphabetically = (): void => {
-    sort([...goods], (a: string, b: string) => {
+  sortAlphabetically() {
+    this.sort([...this.state.goods], (a: string, b: string) => {
       if (a < b) {
         return -1;
       }
@@ -52,21 +58,18 @@ export const App: React.FC = () => {
       return 0;
     });
 
-    const copyButtons = { ...buttons };
+    this.setState({
+      sortType: 'alphabetical',
+    });
+  }
 
-    copyButtons.alphabetically = true;
-    copyButtons.length = false;
-
-    setButtons(copyButtons);
-  };
-
-  const sortByLength = (): void => {
-    let copyGoods = [...goods];
+  sortByLength() {
+    let copyGoods = [...this.state.goods];
 
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    buttons.reverse ? copyGoods = copyGoods.reverse() : null;
+    this.state.isReversed ? copyGoods = copyGoods.reverse() : null;
 
-    sort(copyGoods, (a: string, b: string) => {
+    this.sort(copyGoods, (a: string, b: string) => {
       if (a.length < b.length) {
         return -1;
       }
@@ -78,93 +81,85 @@ export const App: React.FC = () => {
       return 0;
     });
 
-    const copyButtons = { ...buttons };
+    this.setState({
+      sortType: 'length',
+    });
+  }
 
-    copyButtons.length = true;
-    copyButtons.alphabetically = false;
-
-    setButtons(copyButtons);
-  };
-
-  const reverse = (): void => {
-    const copyGoods = [...goods];
+  reverse() {
+    const copyGoods = [...this.state.goods];
     const reversed = copyGoods.reverse();
 
-    setGoods(reversed);
+    this.setState(prevState => ({
+      isReversed: !prevState.isReversed,
+      goods: reversed,
+    }));
+  }
 
-    const copyButtonsColor = { ...buttons };
+  reset() {
+    this.setState({
+      sortType: '',
+      isReversed: false,
+      goods: goodsFromServer,
+    });
+  }
 
-    copyButtonsColor.reverse = !copyButtonsColor.reverse;
+  render() {
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={this.state.sortType === 'alphabetical'
+              ? 'button is-info'
+              : 'button is-info is-light'}
+            onClick={() => this.sortAlphabetically()}
+          >
+            Sort alphabetically
+          </button>
 
-    setButtons(copyButtonsColor);
-  };
+          <button
+            type="button"
+            className={this.state.sortType === 'length'
+              ? 'button is-success'
+              : 'button is-success is-light'}
+            onClick={() => this.sortByLength()}
+          >
+            Sort by length
+          </button>
 
-  const reset = (): void => {
-    setGoods(goodsFromServer);
+          <button
+            type="button"
+            className={this.state.isReversed
+              ? 'button is-warning'
+              : 'button is-warning is-light'}
+            onClick={() => this.reverse()}
+          >
+            Reverse
+          </button>
 
-    const copyButtonsColor = { ...buttons };
+          {this.state.sortType !== '' || this.state.isReversed
+            ? (
+              <button
+                type="button"
+                className="button is-danger is-light"
+                onClick={() => this.reset()}
+              >
+                Reset
+              </button>
+            )
+            : null}
 
-    copyButtonsColor.alphabetically = false;
-    copyButtonsColor.length = false;
-    copyButtonsColor.reverse = false;
+        </div>
 
-    setButtons(copyButtonsColor);
-  };
-
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button
-          type="button"
-          className={buttons.alphabetically
-            ? 'button is-info'
-            : 'button is-info is-light'}
-          onClick={sortAlphabetically}
-        >
-          Sort alphabetically
-        </button>
-
-        <button
-          type="button"
-          className={buttons.length
-            ? 'button is-success'
-            : 'button is-success is-light'}
-          onClick={sortByLength}
-        >
-          Sort by length
-        </button>
-
-        <button
-          type="button"
-          className={buttons.reverse
-            ? 'button is-warning'
-            : 'button is-warning is-light'}
-          onClick={reverse}
-        >
-          Reverse
-        </button>
-
-        {buttons.alphabetically || buttons.length || buttons.reverse
-          ? (
-            <button
-              type="button"
-              className="button is-danger is-light"
-              onClick={reset}
-            >
-              Reset
-            </button>
-          )
-          : null}
-
-      </div>
-
-      <ul>
         <ul>
-          {goods.map(item => (
-            <li data-cy="Good">{item}</li>
-          ))}
+          <ul>
+            {this.state.goods.map(item => (
+              <li data-cy="Good">{item}</li>
+            ))}
+          </ul>
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
