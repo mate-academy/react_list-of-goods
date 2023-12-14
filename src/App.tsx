@@ -15,96 +15,97 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-type SortCallback = (a: string, b: string) => number;
+enum SortType {
+  LENGTH = 'length',
+  ALPHABETICAL = 'alphabetical',
+  NONE = '',
+}
 
-type SortType = 'length' | 'alphabetical' | '';
+interface ReorderOptions {
+  sortType: SortType,
+  isReversed: boolean,
+}
+
+export function getReorderedGoods(goods: string[],
+  { sortType, isReversed }: ReorderOptions) {
+  // To avoid the original array mutation
+  const visibleGoods = [...goods];
+
+  switch (sortType) {
+    case SortType.ALPHABETICAL:
+      visibleGoods.sort((a: string, b: string) => {
+        if (a < b) {
+          return -1;
+        }
+
+        if (a > b) {
+          return 1;
+        }
+
+        return 0;
+      });
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((a: string, b: string) => {
+        if (a.length < b.length) {
+          return -1;
+        }
+
+        if (a.length > b.length) {
+          return 1;
+        }
+
+        return 0;
+      });
+      break;
+
+    default:
+      break;
+  }
+
+  return isReversed ? visibleGoods.reverse() : visibleGoods;
+}
 
 interface State {
   isReversed: boolean
   sortType: SortType
-  goods: string[]
 }
 
 export class App extends React.Component<{}, State> {
   state: Readonly<State> = {
     isReversed: false,
-    sortType: '',
-    goods: goodsFromServer,
-  }
-
-  sort(array: string[], callback: SortCallback) {
-    const sorted = array.sort(callback);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.state.isReversed
-      ? this.setState({
-        goods: sorted.reverse(),
-      })
-      : this.setState({
-        goods: sorted,
-      });
+    sortType: SortType.NONE,
   }
 
   sortAlphabetically() {
-    this.sort([...this.state.goods], (a: string, b: string) => {
-      if (a < b) {
-        return -1;
-      }
-
-      if (a > b) {
-        return 1;
-      }
-
-      return 0;
-    });
-
     this.setState({
-      sortType: 'alphabetical',
+      sortType: SortType.ALPHABETICAL,
     });
   }
 
   sortByLength() {
-    let copyGoods = [...this.state.goods];
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    this.state.isReversed ? copyGoods = copyGoods.reverse() : null;
-
-    this.sort(copyGoods, (a: string, b: string) => {
-      if (a.length < b.length) {
-        return -1;
-      }
-
-      if (a.length > b.length) {
-        return 1;
-      }
-
-      return 0;
-    });
-
     this.setState({
-      sortType: 'length',
+      sortType: SortType.LENGTH,
     });
   }
 
   reverse() {
-    const copyGoods = [...this.state.goods];
-    const reversed = copyGoods.reverse();
-
     this.setState(prevState => ({
       isReversed: !prevState.isReversed,
-      goods: reversed,
     }));
   }
 
   reset() {
     this.setState({
-      sortType: '',
+      sortType: SortType.NONE,
       isReversed: false,
-      goods: goodsFromServer,
     });
   }
 
   render() {
+    const visibleGoods = getReorderedGoods(goodsFromServer, this.state);
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -154,7 +155,7 @@ export class App extends React.Component<{}, State> {
 
         <ul>
           <ul>
-            {this.state.goods.map(item => (
+            {visibleGoods.map(item => (
               <li data-cy="Good">{item}</li>
             ))}
           </ul>
