@@ -33,31 +33,11 @@ export function getReorderedGoods(goods: string[],
 
   switch (sortType) {
     case SortType.ALPHABETICAL:
-      visibleGoods.sort((a: string, b: string) => {
-        if (a < b) {
-          return -1;
-        }
-
-        if (a > b) {
-          return 1;
-        }
-
-        return 0;
-      });
+      visibleGoods.sort();
       break;
 
     case SortType.LENGTH:
-      visibleGoods.sort((a: string, b: string) => {
-        if (a.length < b.length) {
-          return -1;
-        }
-
-        if (a.length > b.length) {
-          return 1;
-        }
-
-        return 0;
-      });
+      visibleGoods.sort((a: string, b: string) => a.length - b.length);
       break;
 
     default:
@@ -72,8 +52,8 @@ interface State {
   sortType: SortType
 }
 
-export class App extends React.Component<{}, State> {
-  state: Readonly<State> = {
+export class App extends React.Component<null, State> {
+  state = {
     isReversed: false,
     sortType: SortType.NONE,
   }
