@@ -52,7 +52,7 @@ interface State {
   sortType: SortType
 }
 
-export class App extends React.Component<null, State> {
+export class App extends React.Component<{}, State> {
   state = {
     isReversed: false,
     sortType: SortType.NONE,
