@@ -42,7 +42,7 @@ export function getReorderedGoods(
       return a.localeCompare(b);
     });
   } else if (sortType === SortType.NONE) {
-    visibleGoods = [...goodsFromServer];
+    visibleGoods = [...goods];
   }
 
   if (isReversed) {
@@ -67,16 +67,14 @@ export const App: React.FC = () => {
 
   const reset = () => setSortType(SortType.NONE);
 
-  // eslint-disable-next-line no-return-assign
   return (
     <div className="section content">
       <div className="buttons">
         <button
           type="button"
-          className={cn({
-            'button is-info': true,
+          className={`button is-info ${cn({
             'is-light': sortType !== SortType.ALPHABET,
-          })}
+          })}`}
           onClick={() => {
             sortByAplhabet();
             setIsResetButtonVisible(true);
@@ -87,10 +85,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={cn({
-            'button is-success': true,
+          className={`button is-success ${cn({
             'is-light': sortType !== SortType.LENGTH,
-          })}
+          })}`}
           onClick={() => {
             sortByLength();
             setIsResetButtonVisible(true);
@@ -101,10 +98,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={cn({
-            'button is-warning': true,
+          className={`button is-warning ${cn({
             'is-light': isReversed !== true,
-          })}
+          })}`}
           onClick={() => {
             setIsReversed(!isReversed);
             setIsResetButtonVisible(true);
@@ -113,17 +109,18 @@ export const App: React.FC = () => {
           Reverse
         </button>
 
-        <button
-          type="button"
-          className="button is-danger is-light"
-          onClick={() => {
-            reset();
-            setIsResetButtonVisible(false);
-          }}
-          style={{ display: isResetButtonVisible ? 'block' : 'none' }}
-        >
-          Reset
-        </button>
+        {isResetButtonVisible && (
+          <button
+            type="button"
+            className="button is-danger is-light"
+            onClick={() => {
+              reset();
+              setIsResetButtonVisible(false);
+            }}
+          >
+            Reset
+          </button>
+        )}
       </div>
 
       <ul>
