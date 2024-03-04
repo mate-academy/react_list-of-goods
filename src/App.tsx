@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 import cn from 'classnames';
@@ -19,7 +19,11 @@ export const goodsFromServer = [
 const SORT_FIELD_ALPH = 'Sort alphabetically';
 const SORT_FIELD_LENGTH = 'Sort by length';
 
-function getVisibleGoods(goods, sortField, reverseField) {
+function getVisibleGoods(
+  goods: string[],
+  sortField: string,
+  reverseField: boolean,
+) {
   const visibleGoods = [...goods];
 
   if (sortField) {
