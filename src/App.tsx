@@ -37,7 +37,7 @@ export function getReorderedGoods(
   // Sort and reverse goods if needed
   switch (sortType) {
     case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => (a < b ? 1 : -1));
+      visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
     case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
