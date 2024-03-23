@@ -37,11 +37,12 @@ export function getReorderedGoods(
   // Sort and reverse goods if needed
   switch (sortType) {
     case SortType.ALPHABET:
-      visibleGoods.sort((a, b) => a.localeCompare(b));
+      visibleGoods.sort((a, b) => (a > b ? 1 : -1));
       break;
     case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
+    default:
   }
 
   if (isReversed) {
@@ -90,7 +91,7 @@ export const App: React.FC = () => {
       <div className="buttons">
         <button
           type="button"
-          className={`button is info ${order.sortType === SortType.ALPHABET ? 'is-light' : ''}`}
+          className={`button is info ${order.sortType === SortType.ALPHABET ? '' : 'is-light'}`}
           onClick={alphabeticalOrder}
         >
           Sort alphabetically
@@ -98,7 +99,7 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is success ${order.sortType === SortType.LENGTH ? 'is-light' : ''}`}
+          className={`button is success ${order.sortType === SortType.LENGTH ? '' : 'is-light'}`}
           onClick={orderByLength}
         >
           Sort by length
@@ -106,7 +107,7 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is warning ${order.isReversed === true ? 'is-light' : ''} `}
+          className={`button is warning ${order.isReversed === true ? '' : 'is-light'} `}
           onClick={reverseOrder}
         >
           Reverse
