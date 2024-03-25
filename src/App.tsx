@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import { GoodList } from './components/GoodList/GoodList';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -35,8 +36,17 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -48,36 +58,67 @@ export function getReorderedGoods(
 // };
 
 export const App: React.FC = () => {
+  const deafultOptions = {
+    sortType: SortType.NONE,
+    isReversed: false,
+  };
+
+  const [reorderOptions, setReorderOptions] =
+    useState<ReorderOptions>(deafultOptions);
+
+  const createSortTypeHandler = (sortType: SortType) => () =>
+    setReorderOptions({ ...reorderOptions, sortType: sortType });
+
+  const toggleReversedHandler = () =>
+    setReorderOptions({
+      ...reorderOptions,
+      isReversed: !reorderOptions.isReversed,
+    });
+
+  const resetHandler = () => setReorderOptions(deafultOptions);
+
+  const { sortType, isReversed } = reorderOptions;
+  const isResetVisible = sortType !== SortType.NONE || isReversed;
+
   return (
     <div className="section content">
       <div className="buttons">
-        <button type="button" className="button is-info is-light">
+        <button
+          onClick={createSortTypeHandler(SortType.ALPHABET)}
+          type="button"
+          className={`button is-info ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
+        >
           Sort alphabetically
         </button>
 
-        <button type="button" className="button is-success is-light">
+        <button
+          onClick={createSortTypeHandler(SortType.LENGTH)}
+          type="button"
+          className={`button is-success ${sortType !== SortType.LENGTH ? 'is-light' : ''}`}
+        >
           Sort by length
         </button>
 
-        <button type="button" className="button is-warning is-light">
+        <button
+          onClick={toggleReversedHandler}
+          type="button"
+          className={`button is-warning ${!isReversed ? 'is-light' : ''}`}
+        >
           Reverse
         </button>
 
-        <button type="button" className="button is-danger is-light">
-          Reset
-        </button>
+        {isResetVisible && (
+          <button
+            onClick={resetHandler}
+            type="button"
+            className="button is-danger"
+          >
+            Reset
+          </button>
+        )}
       </div>
 
-      <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
-      </ul>
+      <GoodList goods={getReorderedGoods(goodsFromServer, reorderOptions)} />
     </div>
   );
 };
