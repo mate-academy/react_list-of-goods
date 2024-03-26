@@ -42,6 +42,8 @@ export function getReorderedGoods(
       break;
     case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    default:
   }
 
   if (isReversed) {
