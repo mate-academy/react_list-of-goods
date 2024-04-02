@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/Components/GoodsList.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1712060479446,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1712060485394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,5 +14,5 @@\n     return (  );\n   }\n }\n \n-export default GoodList;\n+export default GoodsList;\n"
+                },
+                {
+                    "date": 1712060501222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,11 @@\n+import React from 'react';\n+\n+\n+class GoodsList extends React.Component<GoodListProps, GoodListState> {\n+  state = { :  }\n+  render() {\n+    return (  );\n+  }\n+}\n+\n+export default GoodsList;\n"
+                },
+                {
+                    "date": 1712060520371,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,29 +1,11 @@\n import React from 'react';\n \n-\n+type Goo\n class GoodsList extends React.Component<GoodListProps, GoodListState> {\n   state = { :  }\n   render() {\n     return (  );\n   }\n }\n \n export default GoodsList;\n-import React from 'react';\n-\n-interface GoodListProps {\n-\n-}\n-\n-interface GoodListState {\n-\n-}\n-\n-class GoodLists extends React.Component<GoodListProps, GoodListState> {\n-  state = { :  }\n-  render() {\n-    return (  );\n-  }\n-}\n-\n-export default GoodsList;\n"
+                },
+                {
+                    "date": 1712060525643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n import React from 'react';\n \n-type Goo\n+type GoodsListProps = {\n+  \n+}\n class GoodsList extends React.Component<GoodListProps, GoodListState> {\n   state = { :  }\n   render() {\n     return (  );\n"
+                },
+                {
+                    "date": 1712060538602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n type GoodsListProps = {\n   goods: string\n }\n-class GoodsList extends React.Component<GoodListProps, GoodListState> {\n+class GoodsList extends React.Component<GoodsListProps> {\n   state = { :  }\n   render() {\n     return (  );\n   }\n"
+                },
+                {
+                    "date": 1712060548227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n type GoodsListProps = {\n   goods: string\n }\n class GoodsList extends React.Component<GoodsListProps> {\n-\n   render() {\n     return (  );\n   }\n }\n"
+                }
+            ],
+            "date": 1712060479446,
+            "name": "Commit-0",
+            "content": "import React from 'react';\n\ninterface GoodListProps {\n\n}\n\ninterface GoodListState {\n\n}\n\nclass GoodLists extends React.Component<GoodListProps, GoodListState> {\n  state = { :  }\n  render() {\n    return (  );\n  }\n}\n\nexport default GoodList;\n"
+        }
+    ]
+}

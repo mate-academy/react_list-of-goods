@@ -1,0 +1,78 @@
+{
+    "sourceFile": "src/Components/Good.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 15,
+            "patches": [
+                {
+                    "date": 1712060848860,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1712060856091,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,3 @@\n+import * as React from 'react';\n+\n+export const Good \n"
+                },
+                {
+                    "date": 1712060864153,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,3 @@\n import * as React from 'react';\n \n-export const Good \n-import * as React from 'react';\n+export const Good: React.FC<>\n"
+                },
+                {
+                    "date": 1712060870269,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n import * as React from 'react';\n \n-export const Good: React.FC<>\n+export const Good: React.FC<> = ()\n"
+                },
+                {
+                    "date": 1712060876502,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,5 @@\n import * as React from 'react';\n \n-export const Good: React.FC<> = ()\n+export const Good: React.FC<> = () => {\n+  return\n+}\n"
+                },
+                {
+                    "date": 1712060889984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n-import * as React from 'react';\n+interfac\n \n export const Good: React.FC<> = () => {\n-  return\n+  return (\n+\n+  )\n }\n"
+                },
+                {
+                    "date": 1712060897025,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n-interfac\n+type GoodProps = {\n+  \n+}\n \n export const Good: React.FC<> = () => {\n   return (\n \n"
+                },
+                {
+                    "date": 1712060904565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n type GoodProps = {\n-  \n+  good: string,\n }\n \n-export const Good: React.FC<> = () => {\n+export const Good: React.FC<GoodProps> = () => {\n   return (\n \n   )\n }\n"
+                },
+                {
+                    "date": 1712060909770,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,7 +3,7 @@\n }\n \n export const Good: React.FC<GoodProps> = () => {\n   return (\n-\n+    \n   )\n }\n"
+                },
+                {
+                    "date": 1712060919872,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,7 +3,7 @@\n }\n \n export const Good: React.FC<GoodProps> = () => {\n   return (\n-    \n+    <li data-cy=\"Good\">{good}</li>;\n   )\n }\n"
+                },
+                {
+                    "date": 1712060926538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n type GoodProps = {\n   good: string,\n }\n \n-export const Good: React.FC<GoodProps> = () => {\n+export const Good: React.FC<GoodProps> = ({ good }) => {\n   return (\n-    <li data-cy=\"Good\">{good}</li>;\n+    <li data-cy=\"Good\">{good}</li>\n   )\n }\n"
+                },
+                {
+                    "date": 1712061066850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n type GoodProps = {\n-  good: string,\n+  good: string;\n }\n \n export const Good: React.FC<GoodProps> = ({ good }) => {\n   return (\n"
+                },
+                {
+                    "date": 1712061072370,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n type GoodProps = {\n   good: string;\n-}\n+};\n \n export const Good: React.FC<GoodProps> = ({ good }) => {\n   return (\n     <li data-cy=\"Good\">{good}</li>\n"
+                },
+                {
+                    "date": 1712061078918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,6 +4,5 @@\n \n export const Good: React.FC<GoodProps> = ({ good }) => {\n   return (\n     <li data-cy=\"Good\">{good}</li>\n-  )\n }\n"
+                },
+                {
+                    "date": 1712061085353,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,7 +2,6 @@\n   good: string;\n };\n \n export const Good: React.FC<GoodProps> = ({ good }) => {\n-  return (\n-    <li data-cy=\"Good\">{good}</li>\n+  return <li data-cy=\"Good\">{good}</li>;\n }\n"
+                },
+                {
+                    "date": 1712061090553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,5 +3,5 @@\n };\n \n export const Good: React.FC<GoodProps> = ({ good }) => {\n   return <li data-cy=\"Good\">{good}</li>;\n-}\n+};\n"
+                }
+            ],
+            "date": 1712060848860,
+            "name": "Commit-0",
+            "content": "import * as React from 'react';\n"
+        }
+    ]
+}
