@@ -51,10 +51,25 @@ export function getReorderedGoods(
 type State = {
   goods: string[];
   originalGoods: string[];
+  newGoods: string[];
+  lengthGoods: string[];
+  reverseGoods: string[];
+  buttonClicked1: boolean;
+  buttonClicked2: boolean;
+  buttonClicked3: boolean;
 };
 
 export class App extends React.Component<{}, State> {
-  state = { goods: goodsFromServer, originalGoods: goodsFromServer.slice() };
+  state = {
+    goods: goodsFromServer,
+    originalGoods: goodsFromServer.slice(),
+    newGoods: [],
+    lengthGoods: [],
+    reverseGoods: [],
+    buttonClicked1: false,
+    buttonClicked2: false,
+    buttonClicked3: false,
+  };
 
   sortAlphabetical = () => {
     const newGoods = [...goodsFromServer];
@@ -62,7 +77,12 @@ export class App extends React.Component<{}, State> {
     newGoods.sort((g1: string, g2: string) => {
       return g1.localeCompare(g2);
     });
-    this.setState({ goods: newGoods });
+    this.setState({
+      goods: newGoods,
+      buttonClicked1: true,
+      buttonClicked2: false,
+      buttonClicked3: false,
+    });
   };
 
   sortLength = () => {
@@ -72,7 +92,12 @@ export class App extends React.Component<{}, State> {
       return a.length - b.length;
     });
 
-    this.setState({ goods: lengthGoods });
+    this.setState({
+      goods: lengthGoods,
+      buttonClicked2: true,
+      buttonClicked1: false,
+      buttonClicked3: false,
+    });
   };
 
   sortReverse = () => {
@@ -80,7 +105,12 @@ export class App extends React.Component<{}, State> {
 
     reverseGoods.reverse();
 
-    this.setState({ goods: reverseGoods });
+    this.setState({
+      goods: reverseGoods,
+      buttonClicked3: true,
+      buttonClicked1: false,
+      buttonClicked2: false,
+    });
   };
 
   sortCustom = (opts: ReorderOptions) => {
@@ -93,16 +123,34 @@ export class App extends React.Component<{}, State> {
     } else {
       const goodsReturned = getReorderedGoods(goodsFromServer, opts);
 
-      this.setState({ goods: goodsReturned });
+      this.setState({
+        goods: goodsReturned,
+        buttonClicked3: true,
+        buttonClicked2: false,
+        buttonClicked1: false,
+      });
     }
   };
 
   sortReset = () => {
-    this.setState({ goods: this.state.originalGoods });
+    this.setState({
+      goods: this.state.originalGoods,
+      buttonClicked1: false,
+      buttonClicked2: false,
+      buttonClicked3: false,
+    });
   };
 
   render() {
-    const { goods, originalGoods } = this.state;
+    // eslint-disable-next-line max-len
+    const {
+      goods,
+      originalGoods,
+      buttonClicked1,
+      buttonClicked2,
+      buttonClicked3,
+    } = this.state;
+
     const isOriginal = JSON.stringify(goods) === JSON.stringify(originalGoods);
 
     return (
@@ -112,7 +160,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={cn('button', {
               'is-info': true,
-              'is-light': isOriginal,
+              'is-light': !buttonClicked1,
             })}
             onClick={() => {
               const opts = { sortType: SortType.ALPHABET, isReversed: false };
@@ -127,7 +175,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={cn('button', {
               'is-success': true,
-              'is-light': isOriginal,
+              'is-light': !buttonClicked2,
             })}
             onClick={() => {
               const opts = { sortType: SortType.LENGTH, isReversed: false };
@@ -142,7 +190,7 @@ export class App extends React.Component<{}, State> {
             type="button"
             className={cn('button', {
               'is-warning': true,
-              'is-light': isOriginal,
+              'is-light': !buttonClicked3,
             })}
             onClick={() => {
               const opts = { sortType: SortType.NONE, isReversed: true };
@@ -150,7 +198,7 @@ export class App extends React.Component<{}, State> {
               this.sortCustom(opts);
             }}
           >
-            {isOriginal ? 'Reverse' : 'Reset'}
+            Reverse
           </button>
           {!isOriginal && (
             <button
