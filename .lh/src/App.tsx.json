@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/App.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1712059647023,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1712059657815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n   const visibleGoods = [...goods];\n \n   // Sort and reverse goods if needed\n \n-  \n+  switch ()\n   // eslint-disable-next-line no-console\n   console.log(sortType, isReversed);\n \n   return visibleGoods;\n"
+                },
+                {
+                    "date": 1712059663145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,11 @@\n   const visibleGoods = [...goods];\n \n   // Sort and reverse goods if needed\n \n-  switch (sortType)\n+  switch (sortType) {\n+    case: \n+  }\n   // eslint-disable-next-line no-console\n   console.log(sortType, isReversed);\n \n   return visibleGoods;\n"
+                },
+                {
+                    "date": 1712059688807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,10 +36,10 @@\n \n   // Sort and reverse goods if needed\n \n   switch (sortType) {\n-    case: sortType.ALPHABET:\n-      \n+    case sortType.ALPHABET:\n+\n   }\n   // eslint-disable-next-line no-console\n   console.log(sortType, isReversed);\n \n"
+                }
+            ],
+            "date": 1712059647023,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport 'bulma/css/bulma.css';\nimport './App.scss';\n\nexport const goodsFromServer = [\n  'Dumplings',\n  'Carrot',\n  'Eggs',\n  'Ice cream',\n  'Apple',\n  'Bread',\n  'Fish',\n  'Honey',\n  'Jam',\n  'Garlic',\n];\n\nenum SortType {\n  NONE,\n  ALPHABET,\n  LENGTH,\n}\n\ntype ReorderOptions = {\n  sortType: SortType;\n  isReversed: boolean;\n};\n\n// Use this function in the render method to prepare goods\nexport function getReorderedGoods(\n  goods: string[],\n  { sortType, isReversed }: ReorderOptions,\n) {\n  // To avoid the original array mutation\n  const visibleGoods = [...goods];\n\n  // Sort and reverse goods if needed\n\n  \n  // eslint-disable-next-line no-console\n  console.log(sortType, isReversed);\n\n  return visibleGoods;\n}\n\n// DON'T save goods to the state\n// type State = {\n//   isReversed: boolean,\n//   sortType: SortType,\n// };\n\nexport const App: React.FC = () => {\n  return (\n    <div className=\"section content\">\n      <div className=\"buttons\">\n        <button type=\"button\" className=\"button is-info is-light\">\n          Sort alphabetically\n        </button>\n\n        <button type=\"button\" className=\"button is-success is-light\">\n          Sort by length\n        </button>\n\n        <button type=\"button\" className=\"button is-warning is-light\">\n          Reverse\n        </button>\n\n        <button type=\"button\" className=\"button is-danger is-light\">\n          Reset\n        </button>\n      </div>\n\n      <ul>\n        <ul>\n          <li data-cy=\"Good\">Dumplings</li>\n          <li data-cy=\"Good\">Carrot</li>\n          <li data-cy=\"Good\">Eggs</li>\n          <li data-cy=\"Good\">Ice cream</li>\n          <li data-cy=\"Good\">Apple</li>\n          <li data-cy=\"Good\">...</li>\n        </ul>\n      </ul>\n    </div>\n  );\n};\n"
+        }
+    ]
+}

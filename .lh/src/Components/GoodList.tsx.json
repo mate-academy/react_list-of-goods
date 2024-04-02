@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/Components/GoodList.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1712060445449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1712060451405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,1 @@\n-cc\n+import * as React from 'react';\n"
+                },
+                {
+                    "date": 1712060457952,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,18 @@\n-import * as React from 'react';\n+import React from 'react';\n+\n+interface Props {\n+\n+}\n+\n+interface State {\n+\n+}\n+\n+class  extends React.Component<Props, State> {\n+  state = { :  }\n+  render() {\n+    return (  );\n+  }\n+}\n+\n+export default ;\n"
+                },
+                {
+                    "date": 1712060466228,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,18 @@\n import React from 'react';\n \n-interface Props {\n+interface GoodListProps {\n \n }\n \n-interface State {\n+interface GoodListState {\n \n }\n \n-class  extends React.Component<Props, State> {\n+class GoodList extends React.Component<GoodListProps, GoodListState> {\n   state = { :  }\n   render() {\n     return (  );\n   }\n }\n \n-export default ;\n+export default GoodList;\n"
+                }
+            ],
+            "date": 1712060445449,
+            "name": "Commit-0",
+            "content": "cc\n"
+        }
+    ]
+}
