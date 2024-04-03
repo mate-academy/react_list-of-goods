@@ -112,8 +112,8 @@ export const App: React.FC = () => {
       <ul>
         <ul>
           {getReorderedGoods(goodsFromServer, { sortType, isReversed }).map(
-            (good, i) => (
-              <li key={i} data-cy="Good">
+            good => (
+              <li key={good} data-cy="Good">
                 {good}
               </li>
             ),
