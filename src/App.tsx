@@ -81,7 +81,7 @@ export const App: React.FC = () => {
   };
 
   const reversed = () => {
-    setIsReversed(prevIsReversed => !prevIsReversed);
+    setIsReversed(true);
     setResetClicked(false);
   };
 
@@ -95,6 +95,8 @@ export const App: React.FC = () => {
     sortType,
     isReversed,
   });
+
+  // console.log(reorderedGoods);
 
   return (
     <div className="section content">
