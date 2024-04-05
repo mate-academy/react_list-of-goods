@@ -91,12 +91,7 @@ export class App extends React.Component {
       isReversed: isReversed,
     });
 
-    const displayResetButton = (
-      currentSortType: State['sortType'],
-      isCurrentlyReversed: State['isReversed'],
-    ) => {
-      return currentSortType !== SortType.NONE || isCurrentlyReversed;
-    };
+    const displayResetButton = sortType !== SortType.NONE || isReversed;
 
     return (
       <div className="section content">
@@ -125,7 +120,7 @@ export class App extends React.Component {
             Reverse
           </button>
 
-          {displayResetButton(sortType, isReversed) && (
+          {displayResetButton && (
             <button
               type="button"
               className="button is-danger is-light"
