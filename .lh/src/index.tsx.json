@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/index.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1712482453723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1712482545747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,4 +2,8 @@\n import { App } from './App';\n import React = require('react');\n \n createRoot(document.getElementById('root') as HTMLElement).render(<App />);\n+Import assignment cannot be used when targeting ECMAScript modules. Consider using 'import * as ns from \"mod\"', 'import {a} from \"mod\"', 'import d from \"mod\"', or another module format instead.\n+    1 | import { createRoot } from 'react-dom/client';\n+    2 | import { App } from './App';\n+  > 3 | import React = require('react');\n"
+                },
+                {
+                    "date": 1712482562546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n import { createRoot } from 'react-dom/client';\n import { App } from './App';\n-import React = require('react');\n+import React from 'react';\n \n createRoot(document.getElementById('root') as HTMLElement).render(<App />);\n"
+                }
+            ],
+            "date": 1712482453723,
+            "name": "Commit-0",
+            "content": "import { createRoot } from 'react-dom/client';\nimport { App } from './App';\nimport React = require('react');\n\ncreateRoot(document.getElementById('root') as HTMLElement).render(<App />);\n"
+        }
+    ]
+}
