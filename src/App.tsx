@@ -79,10 +79,10 @@ export const App: React.FC = () => {
     setReorderOptions(initialOptions);
   };
 
-  const visibleGoods = getReorderedGoods(goodsFromServer, reorderOptions);
+  const isResetVisible =
+    reorderOptions.sortType !== SortType.NONE || reorderOptions.isReversed;
 
-  const isGoodsInOriginalOrder =
-    JSON.stringify(reorderOptions) === JSON.stringify(initialOptions);
+  const visibleGoods = getReorderedGoods(goodsFromServer, reorderOptions);
 
   return (
     <div className="section content">
@@ -111,7 +111,7 @@ export const App: React.FC = () => {
           Reverse
         </button>
 
-        {isGoodsInOriginalOrder ? null : (
+        {isResetVisible &&(
           <button
             type="button"
             className="button is-danger"
@@ -123,8 +123,8 @@ export const App: React.FC = () => {
       </div>
 
       <ul>
-        {visibleGoods.map((good, index) => (
-          <li key={index} data-cy="Good">
+        {visibleGoods.map(good => (
+          <li key={good} data-cy="Good">
             {good}
           </li>
         ))}
