@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -62,13 +63,19 @@ export const App: React.FC = () => {
   const [isReversed, setReversed] = React.useState(false);
   const [sortType, setSortType] = React.useState(SortType.NONE);
 
+  const resetFunction = () => {
+    setSortType(SortType.NONE);
+    setReversed(false);
+  };
+
   return (
     <div className="section content">
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info 
-            ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
+          className={classNames('button', 'is-info', {
+            'is-light': sortType !== SortType.ALPHABET,
+          })}
           onClick={() => setSortType(SortType.ALPHABET)}
         >
           Sort alphabetically
@@ -76,8 +83,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is-info 
-            ${sortType !== SortType.LENGTH ? 'is-light' : ''}`}
+          className={classNames('button', 'is-info', {
+            'is-light': sortType !== SortType.LENGTH,
+          })}
           onClick={() => setSortType(SortType.LENGTH)}
         >
           Sort by length
@@ -85,8 +93,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is-warning 
-            ${!isReversed ? 'is-light' : ''}`}
+          className={classNames('button', 'is-warning', {
+            'is-light': !isReversed,
+          })}
           onClick={() => setReversed(reverse => !reverse)}
         >
           Reverse
@@ -95,11 +104,8 @@ export const App: React.FC = () => {
         {(isReversed || sortType !== SortType.NONE) && (
           <button
             type="button"
-            className="button is-danger is-light"
-            onClick={() => {
-              setSortType(SortType.NONE);
-              setReversed(false);
-            }}
+            className={classNames('button', 'is-danger', 'is-light')}
+            onClick={resetFunction}
           >
             Reset
           </button>
