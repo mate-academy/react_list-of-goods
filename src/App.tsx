@@ -43,16 +43,12 @@ export function getReorderedGoods(
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
     default:
-      // eslint-disable-next-line no-console
-      console.error('Unexpected sort type:', sortType);
+      return visibleGoods;
   }
 
   if (isReversed) {
     visibleGoods = visibleGoods.reverse();
   }
-
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
 
   return visibleGoods;
 }
@@ -74,10 +70,7 @@ const defaultState = {
 };
 
 export class App extends React.Component<{}, State> {
-  state: State = {
-    isReversed: false,
-    sortType: SortType.NONE,
-  };
+  state: State = defaultState;
 
   reverseOrder = () => {
     this.setState(state => {
@@ -97,10 +90,7 @@ export class App extends React.Component<{}, State> {
 
   sortReset = () => {
     this.setState(() => {
-      return {
-        isReversed: false,
-        sortType: SortType.NONE,
-      };
+      return defaultState;
     });
   };
 
