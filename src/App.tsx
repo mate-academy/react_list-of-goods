@@ -42,8 +42,6 @@ export function getReorderedGoods(
     case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
       break;
-    default:
-      return visibleGoods;
   }
 
   if (isReversed) {
@@ -64,7 +62,7 @@ type State = {
   sortType: SortType;
 };
 
-const defaultState = {
+const defaultState: State = {
   isReversed: false,
   sortType: SortType.NONE,
 };
