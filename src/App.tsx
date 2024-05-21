@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 
 export const goodsFromServer = [
   'Dumplings',
@@ -26,21 +27,20 @@ type ReorderOptions = {
   isReversed: boolean;
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   let visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   switch (sortType) {
     case SortType.ALPHABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
       break;
     case SortType.LENGTH:
       visibleGoods.sort((a, b) => a.length - b.length);
+      break;
+    default:
       break;
   }
 
@@ -50,12 +50,6 @@ export function getReorderedGoods(
 
   return visibleGoods;
 }
-
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
 
 type State = {
   isReversed: boolean;
@@ -79,17 +73,13 @@ export class App extends React.Component<{}, State> {
   };
 
   sortGoods = (sortType: SortType) => {
-    this.setState(() => {
-      return {
-        sortType: sortType,
-      };
+    this.setState({
+      sortType: sortType,
     });
   };
 
   sortReset = () => {
-    this.setState(() => {
-      return defaultState;
-    });
+    this.setState(defaultState);
   };
 
   stateChanged = () => {
@@ -113,7 +103,9 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={() => this.sortGoods(SortType.ALPHABET)}
-            className={`button is-info ${sortType === SortType.ALPHABET ? '' : 'is-light'}`}
+            className={classNames('button', 'is-info', {
+              'is-light': sortType !== SortType.ALPHABET,
+            })}
           >
             Sort alphabetically
           </button>
@@ -121,7 +113,9 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             onClick={() => this.sortGoods(SortType.LENGTH)}
-            className={`button is-success ${sortType === SortType.LENGTH ? '' : 'is-light'}`}
+            className={classNames('button', 'is-success', {
+              'is-light': sortType !== SortType.LENGTH,
+            })}
           >
             Sort by length
           </button>
