@@ -26,15 +26,12 @@ type ReorderOptions = {
   isReversed: boolean;
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
   switch (sortType) {
     case SortType.ALPHABET:
       visibleGoods.sort((a, b) => a.localeCompare(b));
@@ -52,7 +49,6 @@ export function getReorderedGoods(
   return visibleGoods;
 }
 
-// DON'T save goods to the state
 type State = {
   isReversed: boolean;
   sortType: SortType;
@@ -120,13 +116,11 @@ export const App: React.FC = () => {
 
       <ul>
         <ul>
-          {getReorderedGoods(goodsFromServer, sortOptions).map(goodie => {
-            return (
-              <li data-cy="Good" key={goodie}>
-                {goodie}
-              </li>
-            );
-          })}
+          {getReorderedGoods(goodsFromServer, sortOptions).map(goodie => (
+            <li data-cy="Good" key={goodie}>
+              {goodie}
+            </li>
+          ))}
         </ul>
       </ul>
     </div>
