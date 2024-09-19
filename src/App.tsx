@@ -36,10 +36,14 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
-  if (sortType === SortType.ALPHABET) {
-    visibleGoods.sort((a, b) => a.localeCompare(b));
-  } else if (sortType === SortType.LENGTH) {
-    visibleGoods.sort((a, b) => a.length - b.length);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a, b) => a.localeCompare(b));
+      break;
+
+    case SortType.LENGTH:
+      visibleGoods.sort((a, b) => a.length - b.length);
+      break;
   }
 
   if (isReversed) {
