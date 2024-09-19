@@ -35,6 +35,16 @@ export function getReorderedGoods(
   const visibleGoods = [...goods];
 
   // Sort and reverse goods if needed
+  if (sortType === SortType.ALPHABET) {
+    visibleGoods.sort((a, b) => a.localeCompare(b));
+  } else if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((a, b) => a.length - b.length);
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -61,19 +71,44 @@ export const App: React.FC = () => {
   return (
     <div className="section content">
       <div className="buttons">
-        <button type="button" className="button is-info is-light">
+        <button
+          type="button"
+          className="button is-info is-light"
+          onClick={() => {
+            setSortType(SortType.ALPHABET);
+          }}
+        >
           Sort alphabetically
         </button>
 
-        <button type="button" className="button is-success is-light">
+        <button
+          type="button"
+          className="button is-success is-light"
+          onClick={() => {
+            setSortType(SortType.LENGTH);
+          }}
+        >
           Sort by length
         </button>
 
-        <button type="button" className="button is-warning is-light">
+        <button
+          type="button"
+          className="button is-warning is-light"
+          onClick={() => {
+            setIsReversed(!isReversed);
+          }}
+        >
           Reverse
         </button>
 
-        <button type="button" className="button is-danger is-light">
+        <button
+          type="button"
+          className="button is-danger is-light"
+          onClick={() => {
+            setSortType(SortType.NONE);
+            setIsReversed(false);
+          }}
+        >
           Reset
         </button>
       </div>
