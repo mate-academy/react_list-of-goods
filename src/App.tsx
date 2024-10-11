@@ -26,58 +26,119 @@ type ReorderOptions = {
   isReversed: boolean;
 };
 
-// Use this function in the render method to prepare goods
 export function getReorderedGoods(
   goods: string[],
   { sortType, isReversed }: ReorderOptions,
 ) {
-  // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  switch (sortType) {
+    case SortType.ALPHABET:
+      visibleGoods.sort((a: string, b: string) => a.localeCompare(b));
+      break;
+    case SortType.LENGTH:
+      visibleGoods.sort((a: string, b: string) => a.length - b.length);
+      break;
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+export class App extends React.Component {
+  state: ReorderOptions = {
+    isReversed: false,
+    sortType: SortType.NONE,
+  };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button type="button" className="button is-info is-light">
-          Sort alphabetically
-        </button>
+  resetSorting = () => {
+    this.setState((state: ReorderOptions) => {
+      return {
+        ...state,
+        isReversed: false,
+        sortType: SortType.NONE,
+      };
+    });
+  };
 
-        <button type="button" className="button is-success is-light">
-          Sort by length
-        </button>
+  sortByMethod = (sortingType: SortType) => {
+    this.setState((state: ReorderOptions) => {
+      return {
+        ...state,
+        sortType: sortingType,
+      };
+    });
+  };
 
-        <button type="button" className="button is-warning is-light">
-          Reverse
-        </button>
+  reverseHanlder = () => {
+    this.setState((state: ReorderOptions) => {
+      return {
+        ...state,
+        isReversed: !state.isReversed,
+      };
+    });
+  };
 
-        <button type="button" className="button is-danger is-light">
-          Reset
-        </button>
-      </div>
+  render() {
+    const { sortType, isReversed } = this.state;
 
-      <ul>
+    const reorderedGoods = getReorderedGoods (goodsFromServer, {
+      sortType: sortType,
+      isReversed: isReversed,
+    });
+
+    const displayResetButton = sortType !== SortType.NONE || isReversed;
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={`button is-info${SortType.ALPHABET !== sortType ? ' is-light' : ''}`}
+            onClick={() => this.sortByMethod(SortType.ALPHABET)}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={`button is-success${SortType.LENGTH !== sortType ? ' is-light' : ''}`}
+            onClick={() => this.sortByMethod(SortType.LENGTH)}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={`button is-warning${isReversed === false ? ' is-light' : ''}`}
+            onClick={this.reverseHanlder}
+          >
+            Reverse
+          </button>
+
+          {displayResetButton && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.resetSorting}
+            >
+              Reset
+            </button>
+          )}
+
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          {reorderedGoods.map(good => (
+            <li key={good} data-cy="Good">
+              {good}
+            </li>
+          ))}
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
