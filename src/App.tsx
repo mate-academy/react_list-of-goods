@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -34,9 +34,17 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  if (sortType === SortType.ALPHABET) {
+    visibleGoods.sort((a, b) => a.localeCompare(b));
+  }
+
+  if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((a, b) => a.length - b.length);
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
 
   return visibleGoods;
 }
@@ -48,35 +56,78 @@ export function getReorderedGoods(
 // };
 
 export const App: React.FC = () => {
+  const [reorderOptions, setReorderOptions] = useState<ReorderOptions>({
+    sortType: SortType.NONE,
+    isReversed: false,
+  });
+
+  const visibleGoods = getReorderedGoods(goodsFromServer, reorderOptions);
+
   return (
     <div className="section content">
       <div className="buttons">
-        <button type="button" className="button is-info is-light">
+        <button
+          type="button"
+          className={`button is-info ${reorderOptions.sortType === SortType.ALPHABET ? '' : 'is-light'}`}
+          onClick={() => {
+            setReorderOptions(prev => ({
+              ...prev,
+              sortType: SortType.ALPHABET,
+            }));
+          }}
+        >
           Sort alphabetically
         </button>
 
-        <button type="button" className="button is-success is-light">
+        <button
+          type="button"
+          className={`button is-info ${reorderOptions.sortType === SortType.LENGTH ? '' : 'is-light'}`}
+          onClick={() => {
+            setReorderOptions(prev => ({
+              ...prev,
+              sortType: SortType.LENGTH,
+            }));
+          }}
+        >
           Sort by length
         </button>
 
-        <button type="button" className="button is-warning is-light">
+        <button
+          type="button"
+          className={`button is-warning ${reorderOptions.isReversed ? '' : 'is-light'}`}
+          onClick={() => {
+            setReorderOptions(prev => ({
+              ...prev,
+              isReversed: !prev.isReversed,
+            }));
+          }}
+        >
           Reverse
         </button>
 
-        <button type="button" className="button is-danger is-light">
-          Reset
-        </button>
+        {(reorderOptions.sortType !== SortType.NONE ||
+          reorderOptions.isReversed) && (
+          <button
+            type="button"
+            className="button is-danger"
+            onClick={() => {
+              setReorderOptions({
+                sortType: SortType.NONE,
+                isReversed: false,
+              });
+            }}
+          >
+            Reset
+          </button>
+        )}
       </div>
 
       <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
+        {visibleGoods.map(good => (
+          <li key={good} data-cy="Good">
+            {good}
+          </li>
+        ))}
       </ul>
     </div>
   );
