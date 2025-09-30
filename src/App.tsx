@@ -80,6 +80,12 @@ export class App extends Component<{}, State> {
   };
 
   render() {
+    const visibleGoods = getReorderedGoods(goodsFromServer, {
+      sortType: this.state.sortType,
+      isReversed: this.state.isReversed,
+    });
+    const isDifferent = visibleGoods.some((g, i) => g !== goodsFromServer[i]);
+
     return (
       <div className="section content">
         <div className="buttons">
@@ -119,7 +125,7 @@ export class App extends Component<{}, State> {
             Reverse
           </button>
 
-          {this.state.sortType > 0 || this.state.isReversed ? (
+          {isDifferent ? (
             <button
               type="button"
               className={'button is-danger is-light'}
@@ -131,16 +137,11 @@ export class App extends Component<{}, State> {
         </div>
 
         <ul>
-          <ul>
-            {getReorderedGoods(goodsFromServer, {
-              sortType: this.state.sortType,
-              isReversed: this.state.isReversed,
-            }).map(good => (
-              <li key={good} data-cy="Good">
-                {good}
-              </li>
-            ))}
-          </ul>
+          {visibleGoods.map(good => (
+            <li key={good} data-cy="Good">
+              {good}
+            </li>
+          ))}
         </ul>
       </div>
     );
