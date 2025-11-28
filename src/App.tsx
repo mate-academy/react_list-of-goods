@@ -15,69 +15,108 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-enum SortType {
-  NONE,
-  ALPHABET,
-  LENGTH,
-}
+type SortType = 'none' | 'alphabet' | 'length';
 
-type ReorderOptions = {
-  sortType: SortType;
+type State = {
   isReversed: boolean;
+  sortType: SortType;
 };
 
-// Use this function in the render method to prepare goods
-export function getReorderedGoods(
-  goods: string[],
-  { sortType, isReversed }: ReorderOptions,
-) {
-  // To avoid the original array mutation
-  const visibleGoods = [...goods];
+export class App extends React.Component<{}, State> {
+  state = {
+    isReversed: false,
+    sortType: 'none' as SortType,
+  };
 
-  // Sort and reverse goods if needed
-  // eslint-disable-next-line no-console
-  console.log(sortType, isReversed);
+  sortAlphabetically = () => {
+    this.setState({ sortType: 'alphabet' });
+  };
 
-  return visibleGoods;
-}
+  sortByLength = () => {
+    this.setState({ sortType: 'length' });
+  };
 
-// DON'T save goods to the state
-// type State = {
-//   isReversed: boolean,
-//   sortType: SortType,
-// };
+  sortReverse = () => {
+    this.setState(state => {
+      return {
+        isReversed: !state.isReversed,
+      };
+    });
+  };
 
-export const App: React.FC = () => {
-  return (
-    <div className="section content">
-      <div className="buttons">
-        <button type="button" className="button is-info is-light">
-          Sort alphabetically
-        </button>
+  sortReset = () => {
+    this.setState({ sortType: 'none', isReversed: false });
+  };
 
-        <button type="button" className="button is-success is-light">
-          Sort by length
-        </button>
+  render() {
+    let sortedGoods = [...goodsFromServer];
+    const { isReversed, sortType } = this.state;
 
-        <button type="button" className="button is-warning is-light">
-          Reverse
-        </button>
+    if (sortType === 'alphabet') {
+      sortedGoods = [...goodsFromServer].sort((a, b) => {
+        return a.localeCompare(b);
+      });
+    } else if (sortType === 'length') {
+      sortedGoods = [...goodsFromServer].sort((a, b) => {
+        return a.length - b.length;
+      });
+    }
 
-        <button type="button" className="button is-danger is-light">
-          Reset
-        </button>
-      </div>
+    if (isReversed) {
+      sortedGoods = [...sortedGoods].reverse();
+    }
 
-      <ul>
+    const isAlphabetActive = sortType === 'alphabet';
+    const isLengthActive = sortType === 'length';
+    const isReverseActive = isReversed;
+    const isNotInitialState = sortType !== 'none' || isReversed;
+
+    return (
+      <div className="section content">
+        <div className="buttons">
+          <button
+            type="button"
+            className={`button is-info ${isAlphabetActive ? '' : 'is-light'}`}
+            onClick={this.sortAlphabetically}
+          >
+            Sort alphabetically
+          </button>
+
+          <button
+            type="button"
+            className={`button is-success ${isLengthActive ? '' : 'is-light'}`}
+            onClick={this.sortByLength}
+          >
+            Sort by length
+          </button>
+
+          <button
+            type="button"
+            className={`button is-warning ${isReverseActive ? '' : 'is-light'}`}
+            onClick={this.sortReverse}
+          >
+            Reverse
+          </button>
+
+          {isNotInitialState && (
+            <button
+              type="button"
+              className="button is-danger is-light"
+              onClick={this.sortReset}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+
         <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
+          {sortedGoods.map(good => (
+            <li key={good} data-cy="Good">
+              {good}
+            </li>
+          ))}
         </ul>
-      </ul>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+}
