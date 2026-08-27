@@ -73,7 +73,7 @@ export const App: React.FC = () => {
     setIsReversed(false);
   };
 
-    return (
+  return (
     <div className="section content">
       <div className="buttons">
         <button
