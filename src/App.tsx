@@ -72,14 +72,14 @@ export const App: React.FC = () => {
   const handleSortAlphabetically = () => {
     setState({
       sortType: SortType.ALPHABET,
-      isReversed: false,
+      isReversed,
     });
   };
 
   const handleSortByLength = () => {
     setState({
       sortType: SortType.LENGTH,
-      isReversed: false,
+      isReversed,
     });
   };
 
@@ -124,9 +124,7 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is-warning ${
-            !isReversed ? 'is-light' : ''
-          }`}
+          className={`button is-warning ${!isReversed ? 'is-light' : ''}`}
           onClick={handleReverse}
         >
           Reverse
