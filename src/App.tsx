@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import './App.scss';
 
@@ -34,7 +34,16 @@ export function getReorderedGoods(
   // To avoid the original array mutation
   const visibleGoods = [...goods];
 
-  // Sort and reverse goods if needed
+  if (sortType === SortType.ALPHABET) {
+    visibleGoods.sort((item1, item2) => item1.localeCompare(item2));
+  } else if (sortType === SortType.LENGTH) {
+    visibleGoods.sort((item1, item2) => item1.length - item2.length);
+  }
+
+  if (isReversed) {
+    visibleGoods.reverse();
+  }
+
   // eslint-disable-next-line no-console
   console.log(sortType, isReversed);
 
@@ -48,36 +57,69 @@ export function getReorderedGoods(
 // };
 
 export const App: React.FC = () => {
+  const [sortType, setSortType] = useState<SortType>(SortType.NONE);
+  const [isReversed, setIsReversed] = useState<boolean>(false);
+
+  const visibleGoods = getReorderedGoods(goodsFromServer, {
+    sortType,
+    isReversed,
+  });
+
+  // eslint-disable-next-line no-console
+  console.log(visibleGoods);
+
+  const isNotDefault = sortType !== SortType.NONE || isReversed;
+
   return (
     <div className="section content">
       <div className="buttons">
-        <button type="button" className="button is-info is-light">
+        <button
+          type="button"
+          className={`button is-info ${sortType !== SortType.ALPHABET ? 'is-light' : ''}`}
+          onClick={() => setSortType(SortType.ALPHABET)}
+        >
           Sort alphabetically
         </button>
 
-        <button type="button" className="button is-success is-light">
+        <button
+          type="button"
+          className={`button is-success ${sortType !== SortType.LENGTH ? 'is-light' : ''}`}
+          onClick={() => setSortType(SortType.LENGTH)}
+        >
           Sort by length
         </button>
 
-        <button type="button" className="button is-warning is-light">
+        <button
+          type="button"
+          className={`button is-warning ${!isReversed ? 'is-light' : ''}`}
+          onClick={() => setIsReversed(!isReversed)}
+        >
           Reverse
         </button>
 
-        <button type="button" className="button is-danger is-light">
-          Reset
-        </button>
+        {isNotDefault && (
+          <button
+            type="button"
+            className="button is-danger is-light"
+            onClick={() => {
+              setSortType(SortType.NONE);
+              setIsReversed(false);
+            }}
+          >
+            Reset
+          </button>
+        )}
       </div>
 
       <ul>
-        <ul>
-          <li data-cy="Good">Dumplings</li>
-          <li data-cy="Good">Carrot</li>
-          <li data-cy="Good">Eggs</li>
-          <li data-cy="Good">Ice cream</li>
-          <li data-cy="Good">Apple</li>
-          <li data-cy="Good">...</li>
-        </ul>
+        {visibleGoods.map(good => (
+          <li key={good} data-cy="Good">
+            {good}
+          </li>
+        ))}
       </ul>
     </div>
   );
 };
+
+export default App;
