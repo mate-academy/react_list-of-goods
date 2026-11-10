@@ -75,7 +75,7 @@ export class App extends React.Component<{}, State> {
     });
   };
 
-  handleLength = () => {
+  handleSortByLength = () => {
     this.setState({
       sortType: SortType.LENGTH,
     });
@@ -115,7 +115,7 @@ export class App extends React.Component<{}, State> {
               'button is-success' +
               (this.state.sortType !== SortType.LENGTH ? ' is-light' : '')
             }
-            onClick={this.handleLength}
+            onClick={this.handleSortByLength}
           >
             Sort by length
           </button>
