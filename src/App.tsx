@@ -100,8 +100,8 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={'button is-info'(
-              this.state.sortType !== SortType.ALPHABET ? ' is-light' : '',
+            className={'button is-info' + (
+              this.state.sortType !== SortType.ALPHABET ? ' is-light' : ''
             )}
             onClick={this.handleSortAlphabet}
           >
@@ -110,9 +110,8 @@ export class App extends React.Component<{}, State> {
 
           <button
             type="button"
-            className={'button is-success'(
-              this.state.sortType !== SortType.LENGTH ? ' is-light' : '',
-            )}
+            className={'button is-success' + (
+              this.state.sortType !== SortType.LENGTH ? ' is-light' : '')}
             onClick={this.handleLength}
           >
             Sort by length
@@ -143,7 +142,6 @@ export class App extends React.Component<{}, State> {
           {getReorderedGoods(goodsFromServer, this.state).map((good, index) => {
             return (
               <li data-cy="Good" key={index}>
-                {' '}
                 {good}
               </li>
             );
