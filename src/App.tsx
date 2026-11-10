@@ -39,12 +39,11 @@ export function getReorderedGoods(
   if (sortType === SortType.ALPHABET) {
     visibleGoods.sort((a, b) => {
       return a.localeCompare(b);
-    })
-
+    });
   } else if (sortType === SortType.LENGTH) {
     visibleGoods.sort((a, b) => {
       return a.length - b.length;
-    })
+    });
   }
 
   if (isReversed) {
@@ -101,27 +100,31 @@ export class App extends React.Component<{}, State> {
         <div className="buttons">
           <button
             type="button"
-            className={ "button is-info"
-              (this.state.sortType !== SortType.ALPHABET ? ' is-light' : '')
-            }
-            onClick={this.handleSortAlphabet}>
+            className={'button is-info'(
+              this.state.sortType !== SortType.ALPHABET ? ' is-light' : '',
+            )}
+            onClick={this.handleSortAlphabet}
+          >
             Sort alphabetically
           </button>
 
           <button
             type="button"
-            className={"button is-success"
-              (this.state.sortType !== SortType.LENGTH ? ' is-light' : '')
-            }
-            onClick={this.handleLength}>
+            className={'button is-success'(
+              this.state.sortType !== SortType.LENGTH ? ' is-light' : '',
+            )}
+            onClick={this.handleLength}
+          >
             Sort by length
           </button>
 
           <button
             type="button"
-            className={"button is-warning"
-        + (this.state.isReversed ? '' : ' is-light')}
-            onClick={this.handleReverse}>
+            className={
+              'button is-warning' + (this.state.isReversed ? '' : ' is-light')
+            }
+            onClick={this.handleReverse}
+          >
             Reverse
           </button>
 
@@ -129,21 +132,24 @@ export class App extends React.Component<{}, State> {
             <button
               type="button"
               className="button is-danger"
-              onClick={this.handleReset}>
+              onClick={this.handleReset}
+            >
               Reset
-            </button>)}
+            </button>
+          )}
         </div>
 
         <ul>
           {getReorderedGoods(goodsFromServer, this.state).map((good, index) => {
-            return <li
-              data-cy="Good"
-              key = {index}
-            > {good}</li>;
-          })
-          }
+            return (
+              <li data-cy="Good" key={index}>
+                {' '}
+                {good}
+              </li>
+            );
+          })}
         </ul>
       </div>
-    )
-}
+    );
+  }
 }
